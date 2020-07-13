@@ -40,7 +40,7 @@ main {
 }
 
 main>div {
-    padding: 30px;
+    margin-bottom: 48px;
 }
 
 .hidden {
