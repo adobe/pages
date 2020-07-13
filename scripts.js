@@ -8,6 +8,23 @@ function loadJSModule(src) {
     module.setAttribute('src', src);
     document.head.appendChild(module);
   };
+
+/**
+ * Creates a tag with the given name and attributes.
+ * @param {string} name The tag name
+ * @param {object} attrs An object containing the attributes
+ * @returns The new tag
+ */
+function createTag(name, attrs) {
+    const el = document.createElement(name);
+    if (typeof attrs === 'object') {
+      for (let [key, value] of Object.entries(attrs)) {
+        el.setAttribute(key, value);
+      }
+    }
+    return el;
+  }
+  
   
 /**
  * Loads a CSS file.

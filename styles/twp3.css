@@ -2,12 +2,12 @@ main {
     text-align: center;
     opacity: 1;
     font-size: 24px;
+    color: black;
 }
 
 main h1 {
     font-size: 48px;
     font-weight: 900;
-    color: black;
 }
 
 main .steps {
@@ -65,3 +65,81 @@ main .card a:any-link {
     display: inline-block;
     font-size: 14px;
 }
+
+.step main .content {
+    background: #282828;
+    color: white;
+}
+
+.step main div.content a:any-link {
+    border-radius: 20px;
+    background-color: #1473e6;
+    padding: 7px 20px;
+    text-decoration: none;
+    color: currentColor;
+    font-weight: 800;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.step main .content .video {
+    max-width: 854px;
+    margin: auto;
+    line-height: 0;
+    background-size: cover;
+}
+
+.step main .content .video .button {
+    padding-top: 56.24%;
+    background-size: cover;
+    position: relative;
+}
+
+.step main .content .video .button svg {
+    background-color: #1473e6;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.step main .video-wrapper {
+    background-image: url(/static/twp3/step-bg.png);
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+    padding: 32px;
+    width: 375px;
+    margin: auto;
+}
+
+.step main .skills {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+}
+
+.step main .skill {
+    margin: 12px;
+    max-width: 180px;
+}
+
+.step main .skills img {
+    display: block;
+    margin: auto;
+    width: 64px;
+    height: 64px;
+}
+
+main svg {
+    fill: currentColor;
+}
+
+
+
