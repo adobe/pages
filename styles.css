@@ -1,0 +1,43 @@
+body {
+    font-family: "Adobe Clean";
+    margin: 0;
+    padding: 0;
+    color: #4a4a4a;
+}
+
+header div:first-of-type {
+    background-color: #1473e6;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 100;
+    padding: 8px
+}
+
+header div p {
+    margin: 0;
+}
+
+
+header div:nth-of-type(2) {
+    background-color:white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 100;
+}
+
+header img {
+    height: 1em;
+    width: 1em;
+}
+
+main {
+    padding: 0px;
+}
+
+main div {
+    padding: 30px;
+}
+
