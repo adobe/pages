@@ -60,7 +60,23 @@ main .card .img {
     height: 140px;
     background-size: cover;
     box-sizing: border-box;
+    position: relative;
 }
+
+main .card .img svg {
+    fill: white;
+    background-color: #1473e6;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
 
 main .card a:any-link {
     border: 2px solid currentColor;
@@ -73,12 +89,59 @@ main .card a:any-link {
     font-size: 14px;
 }
 
+.step main .content h1 {
+    position: relative;
+    border: 1px dashed lightgrey;
+    margin: 40px auto;
+    padding: 0 10px 10px 10px;
+    display: inline-block;
+}
+
+.step main .content h1>span {
+    border: 1px solid lightgrey;
+    background-color: #282828;
+    height: 8px;
+    width: 8px;
+    box-sizing: border-box;
+    padding: 0;
+    display: block;
+    position: absolute;
+    margin: auto;
+}
+
+.grab-0, .grab-1, .grab-2 {
+    top: -4px;
+}
+
+.grab-3, .grab-4 {
+    top: 0;
+    bottom: 0;
+}
+
+.grab-5, .grab-6, .grab-7 {
+    bottom: -4px;
+}
+
+.grab-0, .grab-3, .grab-5 {
+    left: -4px;
+}
+
+.grab-2, .grab-4, .grab-7 {
+    right: -4px;
+}
+
+.grab-1, .grab-6 {
+    left: 0;
+    right: 0;
+}
+
 .step main .content {
     background: #282828;
     color: white;
+    padding: 20px;
 }
 
-.step main div.content a:any-link {
+.step main .content a:any-link {
     border-radius: 20px;
     background-color: #1473e6;
     padding: 7px 20px;
@@ -167,7 +230,7 @@ main .card a:any-link {
     height: 5px;
     border: grey 2px solid;
     background-color: white;
-    margin-top: -10px;
+    margin-top: -11px;
 }
 
 .step main .progress-bar > div.active {
@@ -182,6 +245,9 @@ main .card a:any-link {
     margin: auto;
 }
 
+.step main .upnext h2, .step main .upnext p {
+    padding: 20px;
+}
 .step main .upnext .window {
     padding-top: 19px;
     padding-left: 1px;

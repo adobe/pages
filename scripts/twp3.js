@@ -12,8 +12,10 @@ async function insertSteps() {
         const steps=await fetchSteps();
         let html='';
         steps.forEach((step, i) => {
-            html+=`<div class="card">
-                <div class='img' style="background-image: url(${step.Thumbnail})"></div>
+            html+=`<div class="card" onclick="window.location='step?${i+1}'">
+                <div class='img' style="background-image: url(${step.Thumbnail})">
+                <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
+                </div>
                 <div class='text'>
                     <div><h4>${step.Title}</h4>
                     <p>${step.Title}</p>
@@ -56,12 +58,17 @@ async function decorateStep() {
 
     //fill content section
 
-    document.querySelector('main .content>h1').innerHTML=currentStep.Title;
+    const $h1=document.querySelector('main .content>h1');
+    $h1.innerHTML=currentStep.Title;
+    for (let i=0;i<8;i++) {
+        console.log(i);
+        $h1.appendChild(createTag('span', {class: 'grab-'+i}))
+    }
     document.title=currentStep.Title;
     document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
 
     $video.innerHTML=`<div class="video"><div id="placeholder" class="button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-normal"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
+        <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
         </div>
     <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
     <source src="${currentStep.Video}" type="video/mpeg4">
