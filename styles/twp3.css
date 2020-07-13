@@ -89,6 +89,10 @@ main .card a:any-link {
     background-size: cover;
 }
 
+.step main .content .video video {
+    max-width: 100%;
+}
+
 .step main .content .video .button {
     padding-top: 56.24%;
     background-size: cover;
