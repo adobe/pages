@@ -35,9 +35,11 @@ header img {
 
 main {
     padding: 0px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
-main div {
+main>div {
     padding: 30px;
 }
 
