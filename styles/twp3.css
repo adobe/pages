@@ -9,10 +9,11 @@ main img, main video {
     max-width: 100%;
 }
 
-
 main h1 {
     font-size: 36px;
     font-weight: 900;
+    max-width: 600px;
+    margin: auto;
 }
 
 main .steps {
