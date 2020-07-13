@@ -115,6 +115,8 @@ async function decorateStep() {
                 <h2>${nextStep.Title}</h2>
                 <p>${nextStep.Description}</p>
                 `;
+    } else {
+        $upnext.remove();
     }
     
     $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
