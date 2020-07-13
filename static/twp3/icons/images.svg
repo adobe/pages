@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="51" height="42.5" viewBox="0 0 51 42.5">
+  <g id="lp_editing5_icon1" transform="translate(0 -4.239)">
+    <rect id="Canvas" width="51" height="42" transform="translate(0 4.301)" fill="#282828" opacity="0"/>
+    <path id="Path_82827" data-name="Path 82827" d="M41.844,22.219A3.719,3.719,0,1,1,38.125,18.5a3.719,3.719,0,0,1,3.719,3.719Z" transform="translate(2.15 1.146)" fill="#282828"/>
+    <path id="Path_82828" data-name="Path 82828" d="M42.5,6.125A2.125,2.125,0,0,0,40.375,4H2.125A2.125,2.125,0,0,0,0,6.125v29.75A2.125,2.125,0,0,0,2.125,38H4.25V8.25H42.5Z" transform="translate(0 0.24)" fill="#282828"/>
+    <path id="Path_82829" data-name="Path 82829" d="M48.375,12H10.125A2.125,2.125,0,0,0,8,14.125v29.75A2.125,2.125,0,0,0,10.125,46h38.25A2.125,2.125,0,0,0,50.5,43.875V14.125A2.125,2.125,0,0,0,48.375,12ZM46.25,38.456l-6.614-6.614a2.51,2.51,0,0,0-3.549,0l-3.853,3.852-9.481-9.481a2.509,2.509,0,0,0-3.548,0L12.25,33.167V16.25h34Z" transform="translate(0.5 0.74)" fill="#282828"/>
+  </g>
+</svg>
