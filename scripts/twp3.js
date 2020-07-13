@@ -40,10 +40,12 @@ async function decorateStep() {
     classify('main>div:first-of-type', 'content');
     classify('main>div:nth-of-type(2)', 'learn');
     classify('main>div:nth-of-type(3)', 'progress');
+    classify('main>div:nth-of-type(4)', 'upnext');
 
     const $content=document.querySelector('.content');
     const $learn=document.querySelector('.learn');
     const $progress=document.querySelector('.progress');
+    const $upnext=document.querySelector('.upnext');
 
     const $video=createTag('div', {class: 'video-wrapper'});
     $content.appendChild($video);
@@ -51,6 +53,8 @@ async function decorateStep() {
     const stepIndex=(+window.location.search.substring(1))-1;
     const steps=await fetchSteps();
     const currentStep=steps[stepIndex];
+
+    //fill content section
 
     document.querySelector('main .content>h1').innerHTML=currentStep.Title;
     document.title=currentStep.Title;
@@ -64,6 +68,8 @@ async function decorateStep() {
     </video></div>`;
     $video.firstChild.style.backgroundImage=`url(${currentStep.Thumbnail})`;
     $video.firstChild.addEventListener('click', (e) => playVideo());
+
+    //fill learn section
 
     let skills=[]
     while (currentStep['Skill '+(skills.length+1)]) {
@@ -81,6 +87,37 @@ async function decorateStep() {
     })
     $skills.innerHTML=html;
     $learn.appendChild($skills);
+
+    //fill progress section
+
+    const splits=$progress.innerHTML.split("#");
+    $progress.innerHTML=splits[0]+(stepIndex+1)+splits[1]+(steps.length)+splits[2];
+
+    const $progressbar=createTag('div',{class: 'progress-bar'});
+    html='';
+    steps.forEach((step,i) => {
+        html+=`<div onclick="window.location.href='step?${i+1}'" class="${i==stepIndex?'active':'inactive'}"></div>`
+    })
+    $progressbar.innerHTML=html;
+    $progress.appendChild($progressbar);
+
+
+    // fill up next
+
+    var upnext=$upnext.innerHTML;
+
+    const nextStep=steps[stepIndex+1];
+    if (nextStep) {
+        $upnext.innerHTML=`<div class="window">
+                <img src="${nextStep.Thumbnail}">
+                </div>
+                ${upnext}
+                <h2>${nextStep.Title}</h2>
+                <p>${nextStep.Description}</p>
+                `;
+    }
+    
+    $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
 
 }
 

@@ -5,6 +5,11 @@ main {
     color: black;
 }
 
+main img, main video {
+    max-width: 100%;
+}
+
+
 main h1 {
     font-size: 48px;
     font-weight: 900;
@@ -89,10 +94,6 @@ main .card a:any-link {
     background-size: cover;
 }
 
-.step main .content .video video {
-    max-width: 100%;
-}
-
 .step main .content .video .button {
     padding-top: 56.24%;
     background-size: cover;
@@ -140,6 +141,57 @@ main .card a:any-link {
     width: 64px;
     height: 64px;
 }
+
+.step main .progress-bar {
+    margin-top: 30;
+    border-top: grey 2px solid;    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 600px;
+    margin: auto;
+}
+
+.step main .progress-bar > div {
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+    border: grey 2px solid;
+    background-color: white;
+    margin-top: -10px;
+}
+
+.step main .progress-bar > div.active {
+    background-color: #1473e6;
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+.step main .upnext {
+    max-width: 600px;
+    margin: auto;
+}
+
+.step main .upnext .window {
+    padding-top: 19px;
+    padding-left: 1px;
+    box-sizing: border-box;
+    background-image: url(/static/twp3/window.jpg);
+    background-size: cover;
+    margin: auto;
+    width: 360px;
+    height: 303px;
+}
+
+.step main .upnext .window img {
+    width: 343px;
+    height: 278px;
+    object-fit: cover;
+
+}
+
+
 
 main svg {
     fill: currentColor;
