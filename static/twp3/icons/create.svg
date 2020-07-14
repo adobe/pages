@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54">
+  <g id="lp_design6_icon1" transform="translate(-2 -1.634)">
+    <rect id="Canvas" width="54" height="54" transform="translate(2 1.634)" fill="#282828" opacity="0"/>
+    <path id="Path_82837" data-name="Path 82837" d="M51.689,22.63,41.8,12.74A2.527,2.527,0,0,0,40.012,12H14.527A2.527,2.527,0,0,0,12,14.527V49.9a2.527,2.527,0,0,0,2.527,2.527H49.9A2.527,2.527,0,0,0,52.429,49.9V24.417a2.527,2.527,0,0,0-.74-1.786ZM47.375,47.375H17.054V17.054H37.268v7.58A2.527,2.527,0,0,0,39.8,27.161h7.58Z" transform="translate(3.161 3.161)" fill="#282828"/>
+    <rect id="Rectangle_147695" data-name="Rectangle 147695" width="6" height="11" rx="1" transform="translate(14 1.634)" fill="#282828"/>
+    <rect id="Rectangle_147696" data-name="Rectangle 147696" width="11" height="5" rx="1" transform="translate(2 14.634)" fill="#282828"/>
+  </g>
+</svg>

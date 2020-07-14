@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="53" height="46" viewBox="0 0 53 46">
+  <g id="lp_design4_icon3" transform="translate(0 -5)">
+    <rect id="Canvas" width="53" height="46" transform="translate(0 5)" fill="#282828" opacity="0"/>
+    <rect id="Rectangle_147730" data-name="Rectangle 147730" width="36" height="17" rx="2" transform="translate(17 34)" fill="#282828"/>
+    <rect id="Rectangle_147731" data-name="Rectangle 147731" width="25" height="19" rx="2" transform="translate(19 5)" fill="#282828"/>
+    <path id="Path_82871" data-name="Path 82871" d="M2.417,13.208v3.625H1.208A1.208,1.208,0,0,0,0,18.042v2.417a1.208,1.208,0,0,0,1.208,1.208H2.417v9.667H1.208A1.208,1.208,0,0,0,0,32.542v2.417a1.208,1.208,0,0,0,1.208,1.208H2.417v3.625A1.208,1.208,0,0,0,3.625,41H6.042A1.208,1.208,0,0,0,7.25,39.792V36.167h6.042A1.208,1.208,0,0,0,14.5,34.958V32.542a1.208,1.208,0,0,0-1.208-1.208H7.25V21.667h6.042A1.208,1.208,0,0,0,14.5,20.458V18.042a1.208,1.208,0,0,0-1.208-1.208H7.25V13.208A1.208,1.208,0,0,0,6.042,12H3.625A1.208,1.208,0,0,0,2.417,13.208Z" transform="translate(0 2.5)" fill="#282828"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="42.899" height="42.9" viewBox="0 0 42.899 42.9">
+  <g id="lp_editing3_icon4" transform="translate(-4.55 -4.55)">
+    <rect id="Canvas" width="42" height="42" transform="translate(5 5)" fill="#282828" opacity="0"/>
+    <path id="Path_82857" data-name="Path 82857" d="M25.65,4.2A21.45,21.45,0,1,0,47.1,25.65,21.45,21.45,0,0,0,25.65,4.2Zm0,38.783A17.324,17.324,0,0,1,13.382,13.418L25.65,25.639V8.317h0a17.333,17.333,0,1,1,0,34.667Z" transform="translate(0.35 0.35)" fill="#282828"/>
+    <path id="Path_82858" data-name="Path 82858" d="M36.242,12.683,24,24.943H41.333a17.281,17.281,0,0,0-5.092-12.26Z" transform="translate(2 1.057)" fill="#282828" opacity="0.2"/>
+    <path id="Path_82859" data-name="Path 82859" d="M24,24,36.228,36.275A17.333,17.333,0,0,0,41.333,24Z" transform="translate(2 2)" fill="#282828" opacity="0.33"/>
+    <path id="Path_82860" data-name="Path 82860" d="M24,24V41.333a17.275,17.275,0,0,0,12.224-5.06Z" transform="translate(2 2)" fill="#282828" opacity="0.47"/>
+    <path id="Path_82861" data-name="Path 82861" d="M24.943,41.333V24L12.685,36.242A17.276,17.276,0,0,0,24.943,41.333Z" transform="translate(1.057 2)" fill="#282828" opacity="0.6"/>
+    <path id="Path_82862" data-name="Path 82862" d="M25.333,24H8a17.277,17.277,0,0,0,5.075,12.242Z" transform="translate(0.667 2)" fill="#282828" opacity="0.7"/>
+    <path id="Path_82863" data-name="Path 82863" d="M13.064,12.711A17.279,17.279,0,0,0,8,24.941H25.333Z" transform="translate(0.667 1.059)" fill="#282828" opacity="0.8"/>
+  </g>
+</svg>

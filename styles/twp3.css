@@ -29,6 +29,7 @@ main .card {
     width: 315px;
     margin: 15px;
     height: 460px;
+    cursor: pointer;
 }
 
 main .card .text {
@@ -176,6 +177,7 @@ main .card a:any-link {
     right: 0;
     top: 0;
     bottom: 0;
+    cursor: pointer;
 }
 
 .step main .video-wrapper {
@@ -231,6 +233,7 @@ main .card a:any-link {
     border: grey 2px solid;
     background-color: white;
     margin-top: -11px;
+    cursor: pointer;
 }
 
 .step main .progress-bar > div.active {
@@ -243,6 +246,7 @@ main .card a:any-link {
 .step main .upnext {
     max-width: 600px;
     margin: auto;
+    cursor: pointer;
 }
 
 .step main .upnext h2, .step main .upnext p {

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="44.299" height="39.518" viewBox="0 0 44.299 39.518">
+  <g id="lp_editing5_icon2" transform="translate(-4 -6.586)">
+    <rect id="Canvas" width="44" height="39" transform="translate(4 6.689)" fill="#282828" opacity="0"/>
+    <path id="Path_82890" data-name="Path 82890" d="M10.586,38.2h-2.2V36H4v4.391a2.2,2.2,0,0,0,2.2,2.2h4.391Z" transform="translate(0.391 3.517)" fill="#282828"/>
+    <rect id="Rectangle_147734" data-name="Rectangle 147734" width="5" height="6" transform="translate(4 17.689)" fill="#282828"/>
+    <rect id="Rectangle_147735" data-name="Rectangle 147735" width="5" height="6" transform="translate(4 28.689)" fill="#282828"/>
+    <path id="Path_82891" data-name="Path 82891" d="M8.391,10.391h2.2V6H6.2A2.2,2.2,0,0,0,4,8.2v4.391H8.391Z" transform="translate(0.391 0.586)" fill="#282828"/>
+    <rect id="Rectangle_147736" data-name="Rectangle 147736" width="9" height="4" transform="translate(15 41.689)" fill="#282828"/>
+    <rect id="Rectangle_147737" data-name="Rectangle 147737" width="8" height="4" transform="translate(29 41.689)" fill="#282828"/>
+    <rect id="Rectangle_147738" data-name="Rectangle 147738" width="4" height="6" transform="translate(44 28.689)" fill="#282828"/>
+    <rect id="Rectangle_147739" data-name="Rectangle 147739" width="4" height="6" transform="translate(44 17.689)" fill="#282828"/>
+    <path id="Path_82892" data-name="Path 82892" d="M42.391,6H38v4.391h2.2v2.2h4.391V8.2A2.2,2.2,0,0,0,42.391,6Z" transform="translate(3.712 0.586)" fill="#282828"/>
+    <path id="Path_82893" data-name="Path 82893" d="M40.2,38.2H38v4.391h4.391a2.2,2.2,0,0,0,2.2-2.2V36H40.2Z" transform="translate(3.712 3.517)" fill="#282828"/>
+    <rect id="Rectangle_147740" data-name="Rectangle 147740" width="9" height="4" transform="translate(15 6.689)" fill="#282828"/>
+    <rect id="Rectangle_147741" data-name="Rectangle 147741" width="8" height="4" transform="translate(29 6.689)" fill="#282828"/>
+  </g>
+</svg>
