@@ -55,12 +55,15 @@ function classify(qs, cls, parent) {
 
 const site=window.location.pathname.split('/')[1];
 const locale=window.location.pathname.split('/')[2];
+let family;
+if (site == 'twp3' || site == 'throughline') family='twp3'; 
+else family='default';
 
-window.land = { site, locale };
+window.pages = { site, locale, family };
 
 // Load page specific code
-if (window.land.site) {
-    loadCSS(`/styles/${window.land.site}.css`);
-    loadJSModule(`/scripts/${window.land.site}.js`);
+if (window.pages.family) {
+    loadCSS(`/styles/${window.pages.family}.css`);
+    loadJSModule(`/scripts/${window.pages.family}.js`);
 }
 

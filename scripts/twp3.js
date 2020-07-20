@@ -129,7 +129,7 @@ async function decorateStep() {
 
 }
 
-function decorateHome() {
+async function decorateHome() {
     document.body.classList.add('home');
     document.querySelectorAll('main p').forEach(($e) => {
         if ($e.innerHTML.toLowerCase().trim()=='&lt;steps&gt;') {
@@ -137,7 +137,7 @@ function decorateHome() {
             $e.parentNode.innerHTML='';
         }
     })
-    insertSteps();
+    await insertSteps();
 
 }
 
@@ -245,7 +245,7 @@ function decorateForm () {
     })
 }
 
-function decoratePage() {
+async function decoratePage() {
     let pageType;
     //find steps marker
     if (document.location.pathname.endsWith('/step')) {
@@ -254,17 +254,20 @@ function decoratePage() {
         pageType = 'home';
     }
 
-    window.land.pageType = pageType;
+    window.pages.pageType = pageType;
 
     decorateForm();
 
     if (pageType == 'home') {
-        decorateHome();
+        await decorateHome();
     }
 
     if (pageType == 'step') {
-        decorateStep();
+        await decorateStep();
     }
+
+    classify('main', 'appear');
+
 }
 
 if (document.readyState == 'loading') {

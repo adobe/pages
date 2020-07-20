@@ -1,0 +1,21 @@
+main {
+    text-align: center;
+}
+
+main>div:nth-child(2n) {
+    background-color: #eee;
+}
+
+
+main .par-wrapper {
+    max-width: 700px;
+    margin: auto;
+    padding: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+main .par-wrapper div {
+    max-width: 350px;
+}

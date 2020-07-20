@@ -39,6 +39,10 @@ main {
     transition: opacity 0.2s ease;
 }
 
+main.appear {
+    opacity: 1;
+}
+
 main>div {
     margin-bottom: 48px;
 }
