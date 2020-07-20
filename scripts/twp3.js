@@ -18,7 +18,7 @@ async function insertSteps() {
                 </div>
                 <div class='text'>
                     <div><h4>${step.Title}</h4>
-                    <p>${step.Title}</p>
+                    <p>${step.Description}</p>
                     </div>
                     <a href="step?${i+1}">${step.CTA}</a>
                 </div>
