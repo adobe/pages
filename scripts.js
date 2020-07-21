@@ -24,7 +24,30 @@ function createTag(name, attrs) {
     }
     return el;
   }
-  
+
+/**
+ * Fixes helix icon functionality until 
+ * https://github.com/adobe/helix-pipeline/issues/509
+ * is resolved.
+ */
+
+function fixIcons() {
+  document.querySelectorAll("use").forEach ((e) => {
+      var a=e.getAttribute("href");
+      var name=a.split("/")[2].split(".")[0];
+      e.setAttribute("href", `/icons.svg#${name}`);
+  });
+}
+
+/**
+ * Checks if <main> is ready to appear 
+ */
+
+function appearMain() {
+  if (window.pages.familyCssLoaded && window.pages.decorated) {
+    classify('main', 'appear');
+  }
+}
   
 /**
  * Loads a CSS file.
@@ -34,6 +57,10 @@ function loadCSS(href) {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', href);
+    link.onload = () => {
+      window.pages.familyCssLoaded=true;
+      appearMain();
+    }
     document.head.appendChild(link);
   };
   

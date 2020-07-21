@@ -43,8 +43,14 @@ main.appear {
     opacity: 1;
 }
 
-main>div {
-    margin-bottom: 48px;
+main svg.icon {
+    height: 2em;
+    width: 2em;
+    fill: currentColor;
+}
+
+main svg.icon.icon-behance {
+    width: 4em;
 }
 
 .hidden {
