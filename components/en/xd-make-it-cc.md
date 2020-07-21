@@ -6,7 +6,7 @@ class: banner banner-xd-make-it-cc
 
 :creative-cloud:
 
-## Make it
+## Make it. Creative Cloud.
 
 Adobe XD is part of Creative Cloud, which also includes Photoshop, Illustrator, and all our other amazing creative desktop apps. It’s everything you need to turn your brightest ideas into your best work and share it with the world.
 
