@@ -20,10 +20,17 @@ function smartWrap(qs) {
     });
 }
 
+function unwrapBanners() {
+    document.querySelectorAll(".banner").forEach(($banner) => {
+        $banner.classList.remove('default');
+        $banner.parentNode.parentNode.replaceChild($banner, $banner.parentNode)
+    })
+}
+
 async function decoratePage() {
     // temporary icon fix
     fixIcons();
-
+    unwrapBanners();
     smartWrap('main>div');
     window.pages.decorated = true;
     appearMain();
