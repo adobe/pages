@@ -47,6 +47,15 @@ main>div {
     margin-bottom: 48px;
 }
 
+main svg.icon {
+    height: 2em;
+    width: 2em;
+}
+
+main svg.icon.icon-behance {
+    width: 4em;
+}
+
 .hidden {
     display: none;
 }

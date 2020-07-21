@@ -246,6 +246,10 @@ function decorateForm () {
 }
 
 async function decoratePage() {
+    // temporary icon fix
+    fixIcons();
+
+
     let pageType;
     //find steps marker
     if (document.location.pathname.endsWith('/step')) {

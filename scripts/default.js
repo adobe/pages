@@ -21,6 +21,9 @@ function smartWrap(qs) {
 }
 
 async function decoratePage() {
+    // temporary icon fix
+    fixIcons();
+
     smartWrap('main>div');
     window.pages.decorated = true;
     appearMain();
