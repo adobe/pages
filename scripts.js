@@ -55,9 +55,9 @@ function classify(qs, cls, parent) {
 
 const site=window.location.pathname.split('/')[1];
 const locale=window.location.pathname.split('/')[2];
-let family;
+let family='default';
 if (site == 'twp3' || site == 'throughline') family='twp3'; 
-else family='default';
+if (site == 'cc-growth-playground') family=site;
 
 window.pages = { site, locale, family };
 
