@@ -19,3 +19,20 @@ main .par-wrapper {
 main .par-wrapper div {
     max-width: 350px;
 }
+
+main .banner {
+    background-color: #333;
+    color: white;
+}
+
+main .banner a:any-link{
+    color: #1473E6;
+    text-decoration: none;
+    font-weight: 900;
+}
+
+main .banner svg.icon-creative-cloud {
+    fill :#da1f26;
+    height: 4em;
+    width: 4em;
+}
