@@ -2,10 +2,12 @@ console.log('loaded')
 
 
 function createHeroElement() {
-  let hero = document.querySelectorAll('.default')[0];
-  let heroBackground = hero.querySelector('img').getAttribute('src');
-  let heroTitle = hero.querySelector('h1').innerText;
-  let heroCopy = hero.querySelectorAll('p')[1].innerText;
+  const hero = document.querySelector('.default');
+  const $img = hero.querySelector('img');
+  const heroBackground=$img?$img.getAttribute('src'):'';
+  const heroTitle = hero.querySelector('h1').innerHTML;
+  const $p = hero.querySelectorAll('p')[1];
+  const heroCopy=$p?$p.innerHTML:'';
   
   hero.innerHTML = `
     <div class="hero">
