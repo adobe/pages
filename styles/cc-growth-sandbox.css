@@ -1,4 +1,38 @@
 main {
   opacity: 1;
+}
+
+.inner {
+  max-width: 1440px;
+  width: 95%;
+  margin: auto;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero__inner {
+  padding: 8em 0em;
+  position: relative;
+  z-index: 4;
+  color: white;
   text-align: center;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-background:after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(000, 000, 000, 0.5 );
 }
