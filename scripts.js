@@ -57,7 +57,7 @@ const site=window.location.pathname.split('/')[1];
 const locale=window.location.pathname.split('/')[2];
 let family='default';
 if (site == 'twp3' || site == 'throughline') family='twp3'; 
-if (site == 'cc-growth-playground') family=site;
+if (site == 'cc-growth-sandbox') family=site;
 
 window.pages = { site, locale, family };
 
