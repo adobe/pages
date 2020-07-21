@@ -266,7 +266,8 @@ async function decoratePage() {
         await decorateStep();
     }
 
-    classify('main', 'appear');
+    window.pages.decorated = true;
+    appearMain();
 
 }
 

@@ -22,8 +22,8 @@ function smartWrap(qs) {
 
 async function decoratePage() {
     smartWrap('main>div');
-    classify('main', 'appear');
-
+    window.pages.decorated = true;
+    appearMain();
 }
 
 

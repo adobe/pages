@@ -24,7 +24,12 @@ function createTag(name, attrs) {
     }
     return el;
   }
-  
+
+function appearMain() {
+  if (window.pages.familyCssLoaded && window.pages.decorated) {
+    classify('main', 'appear');
+  }
+}
   
 /**
  * Loads a CSS file.
@@ -34,6 +39,10 @@ function loadCSS(href) {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', href);
+    link.onload = () => {
+      window.pages.familyCssLoaded=true;
+      appearMain();
+    }
     document.head.appendChild(link);
   };
   
