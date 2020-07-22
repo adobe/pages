@@ -6,7 +6,7 @@ Updates and helpful resources for our Adobe community during COVID-19. Learn mor
 
 ☰
 
-:adobe:
+:adobe-red:
 
 Sign In
 
