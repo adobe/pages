@@ -25,6 +25,25 @@ function createTag(name, attrs) {
     return el;
   }
 
+async function insertLocalResource(type) {
+  if (window.pages.family && window.pages.locale) {
+    const resp=await fetch(`/${type}s/${window.pages.family}/${window.pages.locale}/${type}.plain.html`);
+    if (resp.status == 200) {
+      const html=await resp.text();
+      document.querySelector(type).innerHTML=html;
+    }
+  }
+}
+
+function loadLocalHeader() {
+  insertLocalResource('header');
+}
+
+
+function loadLocalFooter() {
+  insertLocalResource('footer');
+}
+
 /**
  * Fixes helix icon functionality until 
  * https://github.com/adobe/helix-pipeline/issues/509
