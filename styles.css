@@ -56,3 +56,69 @@ main svg.icon.icon-behance {
 .hidden {
     display: none;
 }
+
+
+/* === Legal Footer Component === */
+.legal-footer, a {
+  text-align: center;
+  font-size: 12px;
+  color: rgb(153, 153, 153);
+}
+
+.legal-footer img {
+  max-width: 29px;
+}
+
+.legal-footer ul {
+  display: flex;
+  margin: 0; padding: 0;
+  list-style-type: none;
+  justify-content: center;
+}
+
+.legal-footer li {
+  padding: 0em 0.5em;
+}
+
+.legal-footer li:after {
+  content: '/';
+  position: relative;
+  padding-left: 1em;
+}
+
+.legal-footer li:last-of-type:after {
+  display: none;
+}
+
+.legal-footer a {
+  text-decoration: none;
+}
+
+.legal-footer a:hover {
+  color: black;
+}
+
+.legal-footer strong {
+  font-weight: 300;
+}
+
+@media(min-width: 768px) {
+  .legal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .legal-footer p:first-of-type {
+    width: 24px;
+    margin-right: 12px;
+  }
+
+  .legal-footer ul {
+    margin-left: 10px;
+  }
+
+
+}
+
+/* === End of Legal Footer Component === */
