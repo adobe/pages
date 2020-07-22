@@ -59,6 +59,10 @@ main svg.icon.icon-behance {
 
 
 /* === Legal Footer Component === */
+.legal-footer {
+  padding: 1em 0em 2.5em 0em;
+}
+
 .legal-footer, a {
   text-align: center;
   font-size: 12px;
@@ -107,6 +111,7 @@ main svg.icon.icon-behance {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1.5em 0em;
   }
 
   .legal-footer p:first-of-type {
@@ -122,3 +127,47 @@ main svg.icon.icon-behance {
 }
 
 /* === End of Legal Footer Component === */
+
+
+/* === TWP Nav Component === */
+.twp-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.twp-nav img {
+  max-width: 127px;
+  top: 3px;
+  position: relative;
+}
+
+.twp-nav ul {
+  margin: 0; padding: 0;
+  list-style-type: none;
+  display: none;
+  margin-left: 1em;
+}
+
+
+.twp-nav li:last-of-type {
+  margin-right: 0em;
+}
+
+.twp-nav a {
+  font-weight: 800;
+  padding: 2em 2.5em;
+  color: #000000;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.twp-nav a:hover {
+  background: #f2f2f2;
+}
+
+@media(min-width: 768px) { 
+  .twp-nav ul {
+    display: flex !important;
+  }
+}
