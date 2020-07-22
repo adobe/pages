@@ -1,27 +1,18 @@
-console.log('loaded')
-
-
-function createHeroElement() {
-  const hero = document.querySelector('.default');
-  const $img = hero.querySelector('img');
-  const heroBackground=$img?$img.getAttribute('src'):'';
-  const heroTitle = hero.querySelector('h1').innerHTML;
-  const $p = hero.querySelectorAll('p')[1];
-  const heroCopy=$p?$p.innerHTML:'';
+function createHeroElement() 
+  let hero = document.querySelectorAll('.title')[0];
+  let heroBackground = hero.querySelector('img').getAttribute('src');
+  let heroContent = hero.querySelector('.header');
   
   hero.innerHTML = `
     <div class="hero">
       <div class="inner hero__inner">
-        <div class="hero_content">
-          <h1>${heroTitle}</h1>
-          <p>${heroCopy}</p>
-        </div>
+        ${heroContent.innerHTML}
       </div>
-
       <div class="hero-background" style="background-image: url(${heroBackground});">
       </div>
     </div>
   ` 
 }
 
-createHeroElement();
+
+window.addEventListener('DOMContentLoaded', createHeroElement());
