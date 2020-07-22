@@ -29,6 +29,36 @@ async function insertSteps() {
     }
 }
 
+function addNavCarrot() {
+  if(document.querySelector('header img')) {
+    let carrot = document.createElement('span');
+    carrot.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    `;
+    document.querySelector('header img')
+    .closest('p')
+    .append(carrot);
+  }
+}
+
+
+function dropDownMenu() {
+  let $header = document.querySelector('header');
+
+  if(window.outerWidth >= 768) return;
+
+  if(!$header.classList.contains('nav-showing')) {
+    $header.querySelector('ul').style.display = 'flex';
+    $header.classList.add('nav-showing')
+  } else {
+    $header.querySelector('ul').style.display = 'none';
+    $header.classList.remove('nav-showing')
+  }
+}
+
+
+
+
 export function playVideo() {
     document.getElementById('placeholder').classList.add('hidden');
     const $video=document.getElementById('video');
@@ -251,6 +281,14 @@ async function decoratePage() {
     fixIcons();
 
     externalLinks('footer');
+
+    // nav style/dropdown
+    addNavCarrot();
+
+    if(document.querySelector('header img')) {
+      document.querySelector('header p').addEventListener('click', dropDownMenu)
+    }
+
     let pageType;
     //find steps marker
     if (document.location.pathname.endsWith('/step')) {
