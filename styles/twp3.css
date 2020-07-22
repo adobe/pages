@@ -344,6 +344,51 @@ main input[type=radio] {
 }
 
 
+
+/* === TWP Nav Component === */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  header img {
+    max-width: 127px;
+    top: 3px;
+    position: relative;
+  }
+  
+  header ul {
+    margin: 0; padding: 0;
+    list-style-type: none;
+    display: none;
+    margin-left: 1em;
+  }
+  
+  
+  header li:last-of-type {
+    margin-right: 0em;
+  }
+  
+  header a {
+    font-weight: 800;
+    padding: 2em 2.5em;
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
+  header a:hover {
+    background: #f2f2f2;
+  }
+  
+  @media(min-width: 768px) { 
+    header ul {
+      display: flex !important;
+    }
+  }
+  
+
 /* === Legal Footer Component === */
 footer {
     padding: 1em 0em 2.5em 0em;
