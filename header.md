@@ -6,7 +6,7 @@ Updates and helpful resources for our Adobe community during COVID-19. Learn mor
 
 ☰
 
-![Adobe](https://www.adobe.com/content/dam/cc/icons/Adobe_Corporate_Horizontal_Red_HEX.svg)
+:adobe:
 
 Sign In
 
