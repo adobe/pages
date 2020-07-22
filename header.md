@@ -11,3 +11,5 @@ Updates and helpful resources for our Adobe community during COVID-19. Learn mor
 Sign In
 
 ---
+
+<script>loadLocalHeader()</script>
