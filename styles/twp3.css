@@ -410,6 +410,7 @@ header a:hover {
 @media(min-width: 768px) { 
   header {
     flex-direction: row;
+    background: white !important;
   }
   
   header p:first-of-type {
