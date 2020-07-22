@@ -1,7 +1,6 @@
 <form id="npsForm">
 
 <div>Thanks for your&nbsp;feedback!</div>
-
 	<div>
 	    <div>
 	        <button id="npsScaleButton_0" class="npsScaleButton" disabled="">0</button>
@@ -17,15 +16,11 @@
 	        <button id="npsScaleButton_10" class="npsScaleButton" disabled="">10</button>
 	    </div>
 	</div>
-
 	<div>Please explain why you gave this rating.</div>
-
 	<textarea rows="3" id="surveyComment" maxlength="512"></textarea>
-
 	<div>
 	    <input type="checkbox" id="canAdobeContact" checked=""> Adobe may contact me about my feedback
 	 </div>
-
 	<input type="submit" value="Share Feedback" name="submitfeedback">
 
 </form>
