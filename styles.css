@@ -57,6 +57,11 @@ main svg.icon.icon-behance {
     display: none;
 }
 
+.selected {
+    background-color: #1473e6;
+    color: white;
+}
+
 
 /* === Legal Footer Component === */
 .legal-footer, a {

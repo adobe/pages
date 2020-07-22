@@ -1,6 +1,5 @@
+<div class="embed section-embed nps-form">
 <form id="npsForm">
-
-<div>Thanks for your&nbsp;feedback!</div>
 	<div>
 	    <div>
 	        <button id="npsScaleButton_0" class="npsScaleButton" disabled="">0</button>
@@ -22,15 +21,13 @@
 	    <input type="checkbox" id="canAdobeContact" checked=""> Adobe may contact me about my feedback
 	 </div>
 	<input type="submit" value="Share Feedback" name="submitfeedback">
-
 </form>
-
 <div id="successMessage" class="hidden">
 	<span>Thank you for submitting your feedback. <a href="https://adobe.com">Visit Adobe.com</a>
 </div>
-
 <div id="errorMessage" class="hidden">
 	<span>We encountered an error. Please refresh to try again, or <a href="https://adobe.com">visit Adobe.com</a></a>
+</div>
 </div>
 
 <script>
@@ -96,11 +93,6 @@ window.addEventListener('load', function(event) {
 		    if (response == 200 || response == 204) {
 		    	console.log('Score submitted succesfully');
 
-                // Hide the NPS survey form
-		    	document.querySelector('#npsForm').classList.add('hidden');
-
-		    	// Show the thank you message
-		    	document.querySelector('#successMessage').classList.remove('hidden');
 		    }
 
 		    // Handle error on score submission

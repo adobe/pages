@@ -36,3 +36,7 @@ main .banner svg.icon-creative-cloud {
     height: 4em;
     width: 4em;
 }
+
+main .embed {
+    padding: 48px;
+}
