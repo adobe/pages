@@ -95,6 +95,12 @@ window.addEventListener('load', function(event) {
 		    // Score submitted successfully
 		    if (response == 200 || response == 204) {
 		    	console.log('Score submitted succesfully');
+
+                // Hide the NPS survey form
+		    	document.querySelector('#npsForm').classList.add('hidden');
+
+		    	// Show the thank you message
+		    	document.querySelector('#successMessage').classList.remove('hidden');
 		    }
 
 		    // Handle error on score submission
