@@ -250,7 +250,7 @@ async function decoratePage() {
     // temporary icon fix
     fixIcons();
 
-
+    externalLinks('footer');
     let pageType;
     //find steps marker
     if (document.location.pathname.endsWith('/step')) {

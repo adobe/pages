@@ -35,6 +35,26 @@ async function insertLocalResource(type) {
   }
 }
 
+
+/* link out to external links */
+// called inside decoratePage() twp3.js
+function externalLinks($selector) {
+  let element = document.querySelector($selector);
+  let links = element.querySelectorAll('a');
+
+  if(links.length >= 1) {
+    links.forEach(function(link_item) {
+      let linkValue = link_item.getAttribute('href');
+
+      if(!linkValue.includes('pages.adobe')) {
+        link_item.setAttribute('target', '_BLANK')
+      } 
+    })
+  }
+}
+
+
+
 function loadLocalHeader() {
   insertLocalResource('header');
 }
@@ -106,6 +126,7 @@ if (site == 'twp3' || site == 'throughline') family='twp3';
 if (site == 'cc-growth-sandbox') family=site;
 
 window.pages = { site, locale, family };
+
 
 // Load page specific code
 if (window.pages.family) {
