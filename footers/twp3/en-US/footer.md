@@ -4,7 +4,7 @@ class: legal-footer
 
 ---
 
-![Adobe](https://www.adobe.com/content/dam/cc/icons/Adobe_Corporate_Horizontal_Red_HEX.svg)
+:adobe:
 
 Copyright © 2020 Adobe Systems Incorporated. All rights reserved.
 

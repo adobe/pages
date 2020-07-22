@@ -28,10 +28,10 @@ header div:nth-of-type(2) {
     font-weight: 100;
 }
 
-header img {
+/* header img {
     height: 1em;
     width: 1em;
-}
+} */
 
 main {
     padding: 0px;
@@ -63,91 +63,21 @@ main svg.icon.icon-behance {
 }
 
 
-/* === Legal Footer Component === */
-.legal-footer {
-  padding: 1em 0em 2.5em 0em;
-}
-
-.legal-footer, a {
-  text-align: center;
-  font-size: 12px;
-  color: rgb(153, 153, 153);
-}
-
-.legal-footer img {
-  max-width: 29px;
-}
-
-.legal-footer ul {
-  display: flex;
-  margin: 0; padding: 0;
-  list-style-type: none;
-  justify-content: center;
-}
-
-.legal-footer li {
-  padding: 0em 0.5em;
-}
-
-.legal-footer li:after {
-  content: '/';
-  position: relative;
-  padding-left: 1em;
-}
-
-.legal-footer li:last-of-type:after {
-  display: none;
-}
-
-.legal-footer a {
-  text-decoration: none;
-}
-
-.legal-footer a:hover {
-  color: black;
-}
-
-.legal-footer strong {
-  font-weight: 300;
-}
-
-@media(min-width: 768px) {
-  .legal-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1.5em 0em;
-  }
-
-  .legal-footer p:first-of-type {
-    width: 24px;
-    margin-right: 12px;
-  }
-
-  .legal-footer ul {
-    margin-left: 10px;
-  }
-
-
-}
-
-/* === End of Legal Footer Component === */
-
 
 /* === TWP Nav Component === */
-.twp-nav {
+header {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.twp-nav img {
+header img {
   max-width: 127px;
   top: 3px;
   position: relative;
 }
 
-.twp-nav ul {
+header ul {
   margin: 0; padding: 0;
   list-style-type: none;
   display: none;
@@ -155,11 +85,11 @@ main svg.icon.icon-behance {
 }
 
 
-.twp-nav li:last-of-type {
+header li:last-of-type {
   margin-right: 0em;
 }
 
-.twp-nav a {
+header a {
   font-weight: 800;
   padding: 2em 2.5em;
   color: #000000;
@@ -167,12 +97,12 @@ main svg.icon.icon-behance {
   text-decoration: none;
 }
 
-.twp-nav a:hover {
+header a:hover {
   background: #f2f2f2;
 }
 
 @media(min-width: 768px) { 
-  .twp-nav ul {
+  header ul {
     display: flex !important;
   }
 }
