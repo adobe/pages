@@ -15,4 +15,12 @@ function createHeroElement()
 }
 
 
-window.addEventListener('DOMContentLoaded', createHeroElement());
+
+
+if (document.readyState == 'loading') {
+  window.addEventListener('DOMContentLoaded', (event) => {
+    createHeroElement()
+  });
+} else {
+  createHeroElement()
+}
