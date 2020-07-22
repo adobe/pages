@@ -2,6 +2,13 @@ main {
   opacity: 1;
 }
 
+.default {
+  max-width: 1440px;
+  width: 90%;
+  margin: auto;
+}
+
+
 .inner {
   max-width: 1440px;
   width: 95%;

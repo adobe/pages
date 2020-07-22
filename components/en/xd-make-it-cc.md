@@ -1,6 +1,6 @@
 ---
 
-class: banner banner-xd-make-it-cc
+class: embed section-embed banner banner-xd-make-it-cc
 
 ---
 

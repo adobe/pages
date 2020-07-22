@@ -28,9 +28,13 @@ header div:nth-of-type(2) {
     font-weight: 100;
 }
 
-header img {
-    height: 1em;
-    width: 1em;
+header svg {
+    height: 2em;
+    width: 2em;
+}
+
+header svg.icon-adobe {
+  fill: #fa0f00; 
 }
 
 main {
@@ -55,4 +59,9 @@ main svg.icon.icon-behance {
 
 .hidden {
     display: none;
+}
+
+.selected {
+    background-color: #1473e6;
+    color: white;
 }

@@ -2,8 +2,9 @@
 
 
 async function fetchSteps() {
-    var resp=await fetch('steps.json');
-    return (await resp.json());
+    const resp=await fetch('steps.json');
+    const json=await resp.json();
+    return (Array.isArray(json) ? json : json.data);
 }
 
 async function insertSteps() {
