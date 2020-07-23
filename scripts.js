@@ -119,7 +119,7 @@ function classify(qs, cls, parent) {
     });
 }
 
-const pathSegments=window.location.pathname.split('/')
+const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
 const product=pathSegments[1];
 const locale=pathSegments[2];
 const project=pathSegments[3];
@@ -131,5 +131,8 @@ window.pages = { product, locale, project };
 if (window.pages.project) {
     loadCSS(`/styles/${window.pages.product}/${window.pages.project}.css`);
     loadJSModule(`/scripts/${window.pages.project}.js`);
+} else {
+  loadCSS(`/styles/default.css`);
+  loadJSModule(`/scripts/default.js`);
 }
 
