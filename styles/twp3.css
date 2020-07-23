@@ -198,16 +198,26 @@ main .card a:any-link:hover {
 
 }
 
+.step .learn {
+  padding-top: 2em;
+}
+
 .step main .skills {
   display: flex;
   flex-wrap: wrap;
   margin: auto;
   justify-content: center;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.step main .skills p {
+  padding-top: 0.5em;
 }
 
 .step main .skill {
   margin: 12px;
-  max-width: 180px;
+  max-width: 220px;
 }
 
 .step main .skills img {
@@ -215,6 +225,10 @@ main .card a:any-link:hover {
   margin: auto;
   width: 64px;
   height: 64px;
+}
+
+.step main .progress {
+  padding: 2em 0em 8em 0em;
 }
 
 .step main .progress>p:first-of-type {
@@ -251,30 +265,54 @@ main .card a:any-link:hover {
 }
 
 .step main .upnext {
+  background-color: #eee;;
+}
+
+.step main .upnext__inner {
   max-width: 600px;
+  padding-bottom: 2em;
+  width: 90%;
   margin: auto;
   cursor: pointer;
 }
 
-.step main .upnext h2, .step main .upnext p {
+.step main .upnext__inner h2, .step main .upnext__inner p {
   padding: 20px;
 }
+
+.step main .upnext__inner p:first-of-type {
+  padding: 0px 20px;
+  margin-top: -2em;
+}
+
+.step main .upnext__inner h2 {
+  font-weight: 900;
+  padding: 0 2em;
+}
+
+.step main .upnext__inner p:last-of-type {
+  padding: 0 2em;
+}
+
+
 .step main .upnext .window {
-  padding-top: 19px;
   padding-left: 1px;
   box-sizing: border-box;
   background-image: url(/static/twp3/window.jpg);
   background-size: cover;
   margin: auto;
-  width: 360px;
-  height: 303px;
+  padding-bottom: 84.1%;
+  overflow: hidden;
+  position: relative;
+  top: -4em;
 }
 
 .step main .upnext .window img {
-  width: 343px;
-  height: 278px;
   object-fit: cover;
-
+  position: absolute;
+  top: 3.5%; left: 2%;
+  width: 96%;
+  height: 94.5%;
 }
 
 
@@ -381,6 +419,7 @@ header p:first-of-type {
   justify-content: center;
   align-items: center;
   width: 100%;
+  cursor: pointer;
 }
 
 header svg {
@@ -433,6 +472,7 @@ header a:hover {
   
   header p:first-of-type {
     width: auto;
+    cursor: default;
   }
   
   header svg {

@@ -145,12 +145,15 @@ async function decorateStep() {
 
     const nextStep=steps[stepIndex+1];
     if (nextStep) {
-        $upnext.innerHTML=`<div class="window">
-                <img src="${nextStep.Thumbnail}">
-                </div>
-                ${upnext}
-                <h2>${nextStep.Title}</h2>
-                <p>${nextStep.Description}</p>
+        $upnext.innerHTML=` <div class="upnext__inner">
+                              <div class="window">
+                                <img src="${nextStep.Thumbnail}">
+                              </div>
+                              ${upnext}
+                              <h2>${nextStep.Title}</h2>
+                              <p>${nextStep.Description}</p>
+                            </div>
+        
                 `;
     } else {
         $upnext.remove();
