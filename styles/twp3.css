@@ -32,7 +32,8 @@ main .card {
 }
 
 main .card .text {
-  border: 1px solid #ccc;
+  border: 1px solid #DEDEDE;
+  border-radius: 5px;
   border-top: 0;
   padding: 24px;
   text-align: left;
@@ -47,6 +48,7 @@ main .card h4 {
 
 main .card p {
   font-size: 18px;
+  line-height: 26px;
   margin: 0;
   margin-top: 5px;
 }
@@ -87,6 +89,12 @@ main .card a:any-link {
   font-weight: 800;
   display: inline-block;
   font-size: 14px;
+  transition: background .3s ease;
+}
+
+main .card a:any-link:hover {
+  background-color: #C8C8C8;
+  border-color: #C8C8C8;
 }
 
 .step main .content h1 {
@@ -344,6 +352,16 @@ main input[type=radio] {
 }
 
 
+.default:last-of-type {
+  padding-top: 1em;
+}
+
+.default:last-of-type a {
+  color: #1473E6;
+  text-decoration: none;
+  font-size: 18px;
+}
+
 
 /* === TWP Nav Component === */
 header {
@@ -458,7 +476,7 @@ footer svg {
   display: inline-block;
 }
 
-footer p:first-of-type {
+footer div:first-of-type {
     margin-right: 10px;
 }
 
@@ -503,7 +521,7 @@ footer strong {
     padding: 1.5em 0em;
   }
 
-  footer p:first-of-type {
+  footer div:first-of-type {
     width: 24px;
     margin-right: 12px;
   }
