@@ -33,6 +33,8 @@ async function insertLocalResource(type) {
       document.querySelector(type).innerHTML=html;
     }
   }
+  // temporary icon fix
+  fixIcons();
 }
 
 
@@ -71,8 +73,10 @@ function loadLocalFooter() {
 function fixIcons() {
   document.querySelectorAll("use").forEach ((e) => {
       var a=e.getAttribute("href");
-      var name=a.split("/")[2].split(".")[0];
-      e.setAttribute("href", `/icons.svg#${name}`);
+      if (a.startsWith('/icons/')) {
+        var name=a.split("/")[2].split(".")[0];
+        e.setAttribute("href", `/icons.svg#${name}`);  
+      }
   });
 }
 
