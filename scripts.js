@@ -38,19 +38,17 @@ async function insertLocalResource(type) {
 
 /* link out to external links */
 // called inside decoratePage() twp3.js
-function externalLinks($selector) {
-  let element = document.querySelector($selector);
-  let links = element.querySelectorAll('a');
+function externalLinks(selector) {
+  const element = document.querySelector(selector);
+  const links = element.querySelectorAll('a');
 
-  if(links.length >= 1) {
-    links.forEach(function(link_item) {
-      let linkValue = link_item.getAttribute('href');
+  links.forEach((link_item) => {
+    const linkValue = link_item.getAttribute('href');
 
-      if(!linkValue.includes('pages.adobe')) {
-        link_item.setAttribute('target', '_BLANK')
-      } 
-    })
-  }
+    if(linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
+      link_item.setAttribute('target', '_blank')
+    } 
+  })
 }
 
 
@@ -120,17 +118,24 @@ function classify(qs, cls, parent) {
 }
 
 const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
-const product=pathSegments[0];
-const locale=pathSegments[1];
-const project=pathSegments[2];
 
-window.pages = { product, locale, project };
+window.pages={};
+
+if (pathSegments) {
+  const product=pathSegments[0];
+  const locale=pathSegments[1];
+  const project=pathSegments[2];
+  let family=project;
+  if (project.startsWith('twp') || project.startsWith('tl')) family=`twp3`;
+  
+  window.pages = { product, locale, project, family };  
+}
 
 
 // Load page specific code
 if (window.pages.project) {
     loadCSS(`/styles/${window.pages.product}/${window.pages.project}.css`);
-    loadJSModule(`/scripts/${window.pages.project}.js`);
+    loadJSModule(`/scripts/${window.pages.family}.js`);
 } else {
   loadCSS(`/styles/default.css`);
   loadJSModule(`/scripts/default.js`);
