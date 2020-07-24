@@ -20,17 +20,18 @@ function smartWrap(qs) {
     });
 }
 
-function unwrapEmbeds() {
-    document.querySelectorAll(".section-embed").forEach(($embed) => {
-        $embed.parentNode.classList.remove('default');
+function unwrapBanners() {
+    document.querySelectorAll(".banner").forEach(($banner) => {
+        $banner.classList.remove('default');
+        $banner.parentNode.parentNode.replaceChild($banner, $banner.parentNode)
     })
 }
 
 async function decoratePage() {
     // temporary icon fix
     fixIcons();
-    unwrapEmbeds();
-    smartWrap('main>div.default');
+    unwrapBanners();
+    smartWrap('main>div');
     window.pages.decorated = true;
     appearMain();
 }

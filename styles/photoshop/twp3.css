@@ -11,7 +11,8 @@ main {
   main h1 {
     font-size: 36px;
     font-weight: 900;
-    max-width: 600px;
+    max-width: 400px;
+    width: 95%;
     margin: auto;
     padding: 20px;
   }
@@ -444,6 +445,9 @@ main {
     margin-left: 1em;
   }
   
+  header li {
+      margin-left: 0.5em;
+  }
   
   header li:last-of-type {
     margin-right: 0em;
@@ -493,14 +497,14 @@ main {
     
     header a {
       font-weight: 800;
-      padding: 2em 2em;
+      padding: 2em 1em;
     }
   }
   
   
   /* === Legal Footer Component === */
   footer {
-    padding: 1em 0em 2.5em 0em;
+    padding: 2.5em 0em 4em 0em;
   }
   
   footer, a {
@@ -558,7 +562,7 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1.5em 0em;
+      padding: 4em 0em;
     }
   
     footer div:first-of-type {
