@@ -120,9 +120,9 @@ function classify(qs, cls, parent) {
 }
 
 const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
-const product=pathSegments[1];
-const locale=pathSegments[2];
-const project=pathSegments[3];
+const product=pathSegments[0];
+const locale=pathSegments[1];
+const project=pathSegments[2];
 
 window.pages = { product, locale, project };
 
