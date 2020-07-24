@@ -26,14 +26,34 @@ function createTag(name, attrs) {
   }
 
 async function insertLocalResource(type) {
-  if (window.pages.family && window.pages.locale) {
-    const resp=await fetch(`/${type}s/${window.pages.family}/${window.pages.locale}/${type}.plain.html`);
+  if (window.pages.product && window.pages.locale) {
+    const resp=await fetch(`/${type}s/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${type}.plain.html`);
     if (resp.status == 200) {
       const html=await resp.text();
       document.querySelector(type).innerHTML=html;
     }
   }
 }
+
+
+/* link out to external links */
+// called inside decoratePage() twp3.js
+function externalLinks($selector) {
+  let element = document.querySelector($selector);
+  let links = element.querySelectorAll('a');
+
+  if(links.length >= 1) {
+    links.forEach(function(link_item) {
+      let linkValue = link_item.getAttribute('href');
+
+      if(!linkValue.includes('pages.adobe')) {
+        link_item.setAttribute('target', '_BLANK')
+      } 
+    })
+  }
+}
+
+
 
 function loadLocalHeader() {
   insertLocalResource('header');
@@ -99,17 +119,20 @@ function classify(qs, cls, parent) {
     });
 }
 
-const site=window.location.pathname.split('/')[1];
-const locale=window.location.pathname.split('/')[2];
-let family='default';
-if (site == 'twp3' || site == 'throughline') family='twp3'; 
-if (site == 'cc-growth-sandbox') family=site;
+const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
+const product=pathSegments[1];
+const locale=pathSegments[2];
+const project=pathSegments[3];
 
-window.pages = { site, locale, family };
+window.pages = { product, locale, project };
+
 
 // Load page specific code
-if (window.pages.family) {
-    loadCSS(`/styles/${window.pages.family}.css`);
-    loadJSModule(`/scripts/${window.pages.family}.js`);
+if (window.pages.project) {
+    loadCSS(`/styles/${window.pages.product}/${window.pages.project}.css`);
+    loadJSModule(`/scripts/${window.pages.project}.js`);
+} else {
+  loadCSS(`/styles/default.css`);
+  loadJSModule(`/scripts/default.js`);
 }
 
