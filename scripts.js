@@ -98,6 +98,10 @@ function loadCSS(href) {
       window.pages.familyCssLoaded=true;
       appearMain();
     }
+    link.onerror = () => {
+      window.pages.familyCssLoaded=true;
+      appearMain();
+    }
     document.head.appendChild(link);
   };
   
