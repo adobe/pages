@@ -7,6 +7,18 @@ async function fetchSteps() {
     return (Array.isArray(json) ? json : json.data);
 }
 
+function getThumbnail(step) {
+    let thumbnail=step.Thumbnail;
+    if (!thumbnail) {
+        if (step.Video.startsWith('https://www.youtube.com')) {
+            const yturl=new URL(step.Video);
+            const vid=yturl.searchParams.get('v');    
+            thumbnail=`https://img.youtube.com/vi/${vid}/0.jpg`;
+        }
+    }
+    return (thumbnail);
+}
+
 async function insertSteps() {
     const $steps=document.querySelector('main div.steps');
     if ($steps) {
@@ -14,7 +26,7 @@ async function insertSteps() {
         let html='';
         steps.forEach((step, i) => {
             html+=`<div class="card" onclick="window.location='step?${i+1}'">
-                <div class='img' style="background-image: url(${step.Thumbnail})">
+                <div class='img' style="background-image: url(${getThumbnail(step)})">
                 <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
                 </div>
                 <div class='text'>
@@ -90,21 +102,34 @@ async function decorateStep() {
     //fill content section
 
     const $h1=document.querySelector('main .content>h1');
-    $h1.innerHTML=currentStep.Title;
+    let title=currentStep.Title;
+    if (currentStep.Heading) title=currentStep.Heading;
+    $h1.innerHTML=title;
     for (let i=0;i<8;i++) {
         $h1.appendChild(createTag('span', {class: 'grab-'+i}))
     }
     document.title=currentStep.Title;
-    document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
+    if (currentStep['Practice File']) {
+        document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
+    }
 
-    $video.innerHTML=`<div class="video"><div id="placeholder" class="button">
+    if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
+        $video.innerHTML=`<div class="video"><div id="placeholder" class="button">
         <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
         </div>
-    <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
-    <source src="${currentStep.Video}" type="video/mpeg4">
-    </video></div>`;
-    $video.firstChild.style.backgroundImage=`url(${currentStep.Thumbnail})`;
-    $video.firstChild.addEventListener('click', (e) => playVideo());
+        <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
+        <source src="${currentStep.Video}" type="video/mpeg4">
+        </video></div>`;
+        $video.firstChild.style.backgroundImage=`url(${currentStep.Thumbnail})`;
+        $video.firstChild.addEventListener('click', (e) => playVideo());
+    }
+
+    if (currentStep.Video.startsWith('https://www.youtube.com/')) {
+        const yturl=new URL(currentStep.Video);
+        const vid=yturl.searchParams.get('v');
+        $video.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+
+    }
 
     //fill learn section
 
@@ -147,7 +172,7 @@ async function decorateStep() {
     if (nextStep) {
         $upnext.innerHTML=` <div class="upnext__inner">
                               <div class="window">
-                                <img src="${nextStep.Thumbnail}">
+                                <img src="${getThumbnail(nextStep)}">
                               </div>
                               ${upnext}
                               <h2>${nextStep.Title}</h2>
@@ -280,8 +305,6 @@ function decorateForm () {
 }
 
 async function decoratePage() {
-    // temporary icon fix
-    fixIcons();
 
     externalLinks('footer');
 
