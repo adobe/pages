@@ -40,7 +40,7 @@ async function insertLocalResource(type) {
 // called inside decoratePage() twp3.js
 function externalLinks(selector) {
   const element = document.querySelector(selector);
-  const links = element.querySelectorAll('a');
+  const links = element.querySelectorAll('a[href]');
 
   links.forEach((link_item) => {
     const linkValue = link_item.getAttribute('href');
