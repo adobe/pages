@@ -287,6 +287,7 @@ async function decoratePage() {
 
     // nav style/dropdown
     addNavCarrot();
+    dropDownMenu();
 
     if(document.querySelector('header img')) {
       document.querySelector('header p').addEventListener('click', dropDownMenu)
