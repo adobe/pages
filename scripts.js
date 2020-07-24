@@ -2,6 +2,10 @@
  * Loads a JS module.
  * @param {string} src The path to the JS module
  */
+
+ document.title=document.title.split('<br>').join(' ');
+
+
 function loadJSModule(src) {
     const module = document.createElement('script');
     module.setAttribute('type', 'module');
