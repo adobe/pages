@@ -28,15 +28,8 @@ function unwrapBanners() {
 }
 
 async function decoratePage() {
-<<<<<<< Updated upstream
-    // temporary icon fix
-    fixIcons();
-    unwrapBanners();
-    smartWrap('main>div');
-=======
     unwrapEmbeds();
     smartWrap('main>div.default');
->>>>>>> Stashed changes
     window.pages.decorated = true;
     appearMain();
 }

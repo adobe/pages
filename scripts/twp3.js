@@ -306,6 +306,9 @@ function decorateForm () {
 
 async function decoratePage() {
 
+    await loadLocalFooter();
+    await loadLocalHeader();
+
     externalLinks('footer');
 
     // nav style/dropdown

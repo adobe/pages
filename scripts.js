@@ -55,13 +55,13 @@ function externalLinks(selector) {
 
 
 
-function loadLocalHeader() {
-  insertLocalResource('header');
+async function loadLocalHeader() {
+  await insertLocalResource('header');
 }
 
 
-function loadLocalFooter() {
-  insertLocalResource('footer');
+async function loadLocalFooter() {
+  await insertLocalResource('footer');
 }
 
 /**
