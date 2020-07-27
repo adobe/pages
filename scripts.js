@@ -38,9 +38,9 @@ async function insertLocalResource(type) {
     }
   }
 
-  console.log (type);
   // temporary icon fix
   fixIcons();
+  document.querySelector(type).classList.add('appear');
 }
 
 

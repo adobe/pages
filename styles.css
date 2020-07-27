@@ -18,6 +18,16 @@ header div p {
     margin: 0;
 }
 
+header {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+header.appear {
+    opacity: 1;
+}
+
+
 
 header div:nth-of-type(2) {
     background-color:white;
