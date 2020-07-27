@@ -135,6 +135,13 @@ main {
     background: #282828;
     color: white;
     padding: 20px;
+    padding-bottom: 14em;
+  }
+
+  @media(min-width: 900px) {
+    .step main .content {
+      margin-bottom: 5em;
+    }
   }
   
   .step main .content a:any-link {
@@ -178,6 +185,10 @@ main {
   .step main .video-wrapper {
     width: 310px;
     margin: auto;  
+    /* margin-top: 50px; */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .step .learn {
