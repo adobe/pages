@@ -20,16 +20,17 @@ function smartWrap(qs) {
     });
 }
 
-function unwrapBanners() {
-    document.querySelectorAll(".banner").forEach(($banner) => {
-        $banner.classList.remove('default');
-        $banner.parentNode.parentNode.replaceChild($banner, $banner.parentNode)
+function unwrapEmbeds() {
+    document.querySelectorAll(".section-embed").forEach(($embed) => {
+        $embed.parentNode.classList.remove('default');
     })
 }
 
 async function decoratePage() {
     unwrapEmbeds();
     smartWrap('main>div.default');
+    await loadLocalFooter();
+    await loadLocalHeader();
     window.pages.decorated = true;
     appearMain();
 }

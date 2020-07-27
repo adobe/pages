@@ -37,6 +37,8 @@ async function insertLocalResource(type) {
       document.querySelector(type).innerHTML=html;
     }
   }
+
+  console.log (type);
   // temporary icon fix
   fixIcons();
 }
@@ -138,7 +140,7 @@ if (pathSegments) {
   const locale=pathSegments[1];
   const project=pathSegments[2];
   let family=project;
-  if (project.startsWith('twp') || project.startsWith('tl')) family=`twp3`;
+  if (project && (project.startsWith('twp') || project.startsWith('tl'))) family=`twp3`;
   
   window.pages = { product, locale, project, family };  
 }
