@@ -12,7 +12,6 @@ main {
     font-size: 36px;
     font-weight: 900;
     max-width: 600px;
-    width: 95%;
     margin: auto;
     padding: 20px;
   }
@@ -28,7 +27,7 @@ main {
   main .card {
     width: 315px;
     margin: 15px;
-    height: 460px;
+    height: 495px;
     cursor: pointer;
   }
   
@@ -60,10 +59,11 @@ main {
   } 
   
   main .card .img {
-    height: 140px;
+    height: 177px;
     background-size: cover;
     box-sizing: border-box;
     position: relative;
+    background-position: center center;
   }
   
   main .card .img svg {
@@ -100,24 +100,11 @@ main {
   
   .step main .content h1 {
     position: relative;
-    border: 1px dashed lightgrey;
     margin: 40px auto;
     padding: 0 10px 10px 10px;
     display: inline-block;
   }
-  
-  .step main .content h1>span {
-    border: 1px solid lightgrey;
-    background-color: #282828;
-    height: 8px;
-    width: 8px;
-    box-sizing: border-box;
-    padding: 0;
-    display: block;
-    position: absolute;
-    margin: auto;
-  }
-  
+   
   .grab-0, .grab-1, .grab-2 {
     top: -4px;
   }
@@ -189,14 +176,8 @@ main {
   }
   
   .step main .video-wrapper {
-    background-image: url(/static/twp3/step-bg.png);
-    background-size: contain;
-    background-position: top center;
-    background-repeat: no-repeat;
-    padding: 26px;
     width: 310px;
-    margin: auto;
-  
+    margin: auto;  
   }
   
   .step .learn {
@@ -299,10 +280,9 @@ main {
   .step main .upnext .window {
     padding-left: 1px;
     box-sizing: border-box;
-    background-image: url(/static/twp3/window.jpg);
     background-size: cover;
     margin: auto;
-    padding-bottom: 84.1%;
+    padding-bottom: 56.25%;
     overflow: hidden;
     position: relative;
     top: -4em;
@@ -382,11 +362,7 @@ main {
     }
   
     .step main .video-wrapper {
-        width: 544px;
-        padding: 120px;
-        padding-left: 119px;
-        padding-top: 98px;
-        background-image: url(/static/twp3/step-desktop-bg.jpg);
+        width: 840px;
     }    
   }
   
@@ -402,20 +378,21 @@ main {
   }
   
   
-  /* === TWP Nav Component === */
   header {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     flex-direction: column;
+    background: black;
+    color: white;
   }
   
   header.nav-showing {
     background: #eee;
   }
   
-  header p:first-of-type {
+  header p:first-of-type a{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -423,12 +400,18 @@ main {
     cursor: pointer;
   }
   
-  header svg {
+  header svg.icon-downarrow {
     position: relative;
     top: 5px;
     max-width: 20px;
     margin-left: 4px;
     stroke: #000000;
+  }
+
+  header svg.icon-premiere {
+    top: .125em;
+    position: relative;  
+    padding-right: 10px
   }
   
   header img {
@@ -445,9 +428,6 @@ main {
     margin-left: 1em;
   }
   
-  header li {
-      margin-left: 0.5em;
-  }
   
   header li:last-of-type {
     margin-right: 0em;
@@ -459,19 +439,17 @@ main {
     font-weight: 800;
     display: inline-block;
     padding: 0.5em 0em;
-    color: #000000;
     font-size: 14px;
     text-decoration: none;
   }
   
   header a:hover {
-    background: #f2f2f2;
+    background: #333;
   }
   
   @media(min-width: 768px) { 
     header {
       flex-direction: row;
-      background: white !important;
     }
     
     header p:first-of-type {
@@ -479,7 +457,7 @@ main {
       cursor: default;
     }
     
-    header svg {
+    header svg.icon-downarrow {
       display: none;
     }
   
@@ -497,14 +475,14 @@ main {
     
     header a {
       font-weight: 800;
-      padding: 2em 1em;
+      padding: 2em 2em;
     }
   }
   
   
   /* === Legal Footer Component === */
   footer {
-    padding: 2.5em 0em 4em 0em;
+    padding: 1em 0em 2.5em 0em;
   }
   
   footer, a {
@@ -562,7 +540,7 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 4em 0em;
+      padding: 1.5em 0em;
     }
   
     footer div:first-of-type {
