@@ -58,7 +58,7 @@ function dropDownMenu() {
     console.log('here')
   let $header = document.querySelector('header');
 
-//   if(window.outerWidth >= 768) return;
+  if(window.outerWidth >= 768) return;
 
   if(!$header.classList.contains('nav-showing')) {
     $header.querySelector('ul').style.display = 'flex';
@@ -310,6 +310,7 @@ async function decoratePage() {
     await loadLocalFooter();
     await loadLocalHeader();
 
+    externalLinks('header');
     externalLinks('footer');
 
     // nav style/dropdown

@@ -477,6 +477,7 @@ main {
     header p:first-of-type {
       width: auto;
       cursor: default;
+      margin-top: 0.7em;
     }
     
     header svg {
