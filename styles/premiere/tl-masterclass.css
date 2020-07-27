@@ -441,6 +441,7 @@ main {
     padding: 0.5em 0em;
     font-size: 14px;
     text-decoration: none;
+    color: white;
   }
   
   header a:hover {
@@ -455,6 +456,15 @@ main {
     header p:first-of-type {
       width: auto;
       cursor: default;
+      margin: 0;
+    }
+
+    header p:first-of-type a {
+      padding: 0;
+    }
+
+    header p:first-of-type a:hover {
+      background: none;
     }
     
     header svg.icon-downarrow {
@@ -467,6 +477,10 @@ main {
       margin-left: 0em;
       flex-direction: row;
     }
+
+    header li {
+      margin-left: 20px;
+    }
     
     
     header li:last-of-type {
@@ -477,6 +491,14 @@ main {
       font-weight: 800;
       padding: 2em 2em;
     }
+  }
+
+  .default:first-of-type p:first-of-type {
+    margin-top: 0em;
+  }
+  
+  .default:first-of-type p:last-of-type {
+    padding-bottom: 1em;
   }
   
   
