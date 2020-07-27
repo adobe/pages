@@ -104,8 +104,11 @@ async function decorateStep() {
 
     const $h1=document.querySelector('main .content>h1');
     let title=currentStep.Title;
+    title=title.split(`\n`).join('<br>');
     if (currentStep.Heading) title=currentStep.Heading;
     $h1.innerHTML=title;
+    $h1.id='';
+
     for (let i=0;i<8;i++) {
         $h1.appendChild(createTag('span', {class: 'grab-'+i}))
     }
