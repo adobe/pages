@@ -55,9 +55,10 @@ function addNavCarrot() {
 
 
 function dropDownMenu() {
+    console.log('here')
   let $header = document.querySelector('header');
 
-  if(window.outerWidth >= 768) return;
+//   if(window.outerWidth >= 768) return;
 
   if(!$header.classList.contains('nav-showing')) {
     $header.querySelector('ul').style.display = 'flex';
@@ -313,7 +314,6 @@ async function decoratePage() {
 
     // nav style/dropdown
     addNavCarrot();
-    dropDownMenu();
 
     if(document.querySelector('header img')) {
       document.querySelector('header p').addEventListener('click', dropDownMenu)
