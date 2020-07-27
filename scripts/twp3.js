@@ -55,6 +55,7 @@ function addNavCarrot() {
 
 
 function dropDownMenu() {
+    console.log('here')
   let $header = document.querySelector('header');
 
   if(window.outerWidth >= 768) return;
@@ -309,11 +310,11 @@ async function decoratePage() {
     await loadLocalFooter();
     await loadLocalHeader();
 
+    externalLinks('header');
     externalLinks('footer');
 
     // nav style/dropdown
     addNavCarrot();
-    dropDownMenu();
 
     if(document.querySelector('header img')) {
       document.querySelector('header p').addEventListener('click', dropDownMenu)
