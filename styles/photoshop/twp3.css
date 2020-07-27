@@ -521,10 +521,6 @@ main {
     display: inline-block;
   }
   
-  footer div:first-of-type {
-      margin-right: 10px;
-  }
-  
   footer ul {
     display: flex;
     margin: 0; padding: 0;
@@ -566,7 +562,7 @@ main {
       padding: 4em 0em;
     }
   
-    footer div:first-of-type {
+    footer p:first-of-type {
       width: 24px;
       margin-right: 12px;
     }
