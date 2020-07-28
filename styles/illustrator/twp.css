@@ -1,3 +1,50 @@
 main {
     text-align: center;
 }
+
+main .header .roles {
+    display: flex;
+    margin: 0;
+    list-style: none;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+main .header .roles li svg {
+    display: block;
+    margin: auto;
+}
+
+main .header .roles li {
+    padding: 20px
+}
+
+main .video #placeholder {
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+main .video {
+    width: 300px;
+}
+
+main .video video {
+    width: 100%;
+}
+
+main .video-section {
+    display: flex;
+    justify-content: center;
+    background-color: #eee;
+    padding: 40px;
+}
+
+main .video-section .video-text {
+    text-align: left;
+    padding: 20px;
+}
+
+main .video-section .video-text a:any-link {
+    text-decoration: none;
+}
