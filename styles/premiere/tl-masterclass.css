@@ -135,6 +135,13 @@ main {
     background: #282828;
     color: white;
     padding: 20px;
+    padding-bottom: 14em;
+  }
+
+  @media(min-width: 900px) {
+    .step main .content {
+      margin-bottom: 5em;
+    }
   }
   
   .step main .content a:any-link {
@@ -178,6 +185,10 @@ main {
   .step main .video-wrapper {
     width: 310px;
     margin: auto;  
+    /* margin-top: 50px; */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .step .learn {
@@ -441,6 +452,7 @@ main {
     padding: 0.5em 0em;
     font-size: 14px;
     text-decoration: none;
+    color: white;
   }
   
   header a:hover {
@@ -455,6 +467,15 @@ main {
     header p:first-of-type {
       width: auto;
       cursor: default;
+      margin: 0;
+    }
+
+    header p:first-of-type a {
+      padding: 0;
+    }
+
+    header p:first-of-type a:hover {
+      background: none;
     }
     
     header svg.icon-downarrow {
@@ -467,6 +488,10 @@ main {
       margin-left: 0em;
       flex-direction: row;
     }
+
+    header li {
+      margin-left: 20px;
+    }
     
     
     header li:last-of-type {
@@ -477,6 +502,14 @@ main {
       font-weight: 800;
       padding: 2em 2em;
     }
+  }
+
+  .default:first-of-type p:first-of-type {
+    margin-top: 0em;
+  }
+  
+  .default:first-of-type p:last-of-type {
+    padding-bottom: 1em;
   }
   
   
@@ -496,10 +529,6 @@ main {
     width: 100%;
     fill: #fa0f00;
     display: inline-block;
-  }
-  
-  footer div:first-of-type {
-      margin-right: 10px;
   }
   
   footer ul {
@@ -543,7 +572,7 @@ main {
       padding: 1.5em 0em;
     }
   
-    footer div:first-of-type {
+    footer p:first-of-type {
       width: 24px;
       margin-right: 12px;
     }
