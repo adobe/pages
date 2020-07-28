@@ -60,7 +60,6 @@ function externalLinks(selector) {
 }
 
 
-
 async function loadLocalHeader() {
   await insertLocalResource('header');
 }
