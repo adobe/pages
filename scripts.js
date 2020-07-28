@@ -140,7 +140,8 @@ if (pathSegments) {
   const locale=pathSegments[1];
   const project=pathSegments[2];
   let family=project;
-  if (project && (project.startsWith('twp') || project.startsWith('tl'))) family=`twp3`;
+  if (project && (project.startsWith('twp3') || project.startsWith('tl'))) family=`twp3`;
+  if (project=='twp2' || project=='twp') family=`twp`;
   
   window.pages = { product, locale, project, family };  
 }
