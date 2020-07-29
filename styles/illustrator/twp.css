@@ -33,10 +33,13 @@ main .video video {
     width: 100%;
 }
 
+main .gray {
+    background-color: #eee;
+}
+
 main .video-section {
     display: flex;
     justify-content: center;
-    background-color: #eee;
     padding: 40px;
 }
 
@@ -47,4 +50,75 @@ main .video-section .video-text {
 
 main .video-section .video-text a:any-link {
     text-decoration: none;
+}
+
+main .steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+main .steps .card {
+    width: 350px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+main .steps .card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px;
+}
+
+main .steps .card-header ul {
+    display: inline-flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+main .steps .card-header li {
+    height: 1em;
+    width: 1em;
+    overflow: hidden;
+}
+
+main .steps .card-header li svg {
+    height: 1em;
+    width: 1em;
+}
+
+main .steps .card-img {
+    background-size: cover;
+}
+main .card .card-img svg {
+    fill: white;
+    background-color: #1473e6;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    margin: auto;
+  }
+
+
+main .steps .card-img {
+    width: 100%;
+    height: calc(350px/16*9);
+    box-sizing: border-box;
+    position: relative;
+}
+
+main .steps .card-text {
+    text-align: left;
+    padding: 20px;
+}
+
+main .steps .card-text h4 {
+    font-size: 1.5em;
 }
