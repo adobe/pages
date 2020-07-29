@@ -1,7 +1,22 @@
-# Running Helix locally
+# pages.adobe.com landing pages
 
-## Get/update NPM & Node
-First ensure that you have installed the latest version of NPM and the latest version of Node.  
+The pages project includes all the client-sided code (js/css) and configuration to run pages.adobe.com on [helix](https://github.com/adobe/helix-home)
+
+## Public access
+
+The public website is up and running on:
+
+https://pages.adobe.com/
+
+The "inner CDN" or helix origin is at:
+
+https://pages-adobe.hlx.page/
+
+
+## Develop with Helix locally
+
+### Get/update NPM & Node
+First ensure that you have a somewhat recent version of NPM and Node.  
 
 Check your NPM version:  
 `npm -v`  
@@ -20,14 +35,14 @@ If you need to update your existing version of Node, [use NVM](https://github.co
 If you don't have NVM, [install it with these instructions](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 
-## Install helix-cli
+### Install helix-cli
 Use your fresh NPM to install the Helix client.  
 `npm install -g @adobe/helix-cli`
 
-## Clone this repository
+### Clone this repository
 `git clone https://github.com/adobe/pages`
 
-## Start up the local server
+### Start up the local server
 Switch into the `/pages` directory of the repository:  
 `cd pages`  
 Run the command to start up Helix:  
