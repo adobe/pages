@@ -133,6 +133,7 @@ function unwrapEmbeds() {
 
 async function decoratePage() {
     unwrapEmbeds();
+    turnListSectionIntoCards();
     smartWrap('main>div.default');
     decorateForm();
     await loadLocalFooter();
@@ -141,7 +142,41 @@ async function decoratePage() {
     appearMain();
 }
 
+function formatCard($li) {
+    const $p=$li.firstElementChild;
+    let headhtml='';
+    let texthtml='';
+    Array.from($p.childNodes).forEach((node) => {
+      if (node.nodeName == 'A') {
+        const href=node.getAttribute('href');
+        if (href.startsWith('https://www.youtube.com/')) {
+          const yturl=new URL(href);
+          const vid=yturl.searchParams.get('v');
+          headhtml+=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+        } else {
+          texthtml+=`<a href=${node.getAttribute('href')}>${node.innerHTML}</a>`;
+        }          
+      }
+      if (node.nodeName == '#text') {
+        texthtml+=`<p>${node.textContent}</p>`
+      }
 
+    });
+    return (`<div class="card-image">${headhtml}</div><div class="card-text">${texthtml}</div>`);
+  };
+  
+  function turnListSectionIntoCards() {
+    document.querySelectorAll('main div.default>ul').forEach(($ul) => {
+      if ($ul == $ul.parentNode.firstElementChild) {
+        $ul.classList.remove('default');
+        $ul.classList.add('cards');
+        $ul.querySelectorAll('li').forEach(($li) => {
+          $li.innerHTML=formatCard($li);
+        })
+      }
+    })
+  }
+  
 
 if (document.readyState == 'loading') {
     window.addEventListener('DOMContentLoaded', (event) => {
