@@ -28,7 +28,7 @@ main {
   main .card {
     width: 315px;
     margin: 15px;
-    height: 460px;
+    /* height: 460px; */
     cursor: pointer;
   }
   
@@ -38,7 +38,7 @@ main {
     border-top: 0;
     padding: 24px;
     text-align: left;
-    height: 320px;
+    /* height: 320px; */
     box-sizing: border-box;
   }
   
@@ -51,11 +51,12 @@ main {
     font-size: 18px;
     line-height: 26px;
     margin: 0;
-    margin-top: 5px;
+    margin-top: 12px;
+    padding-bottom: 3em;
   }
   
   main .card .text>div {
-    height: 210px;
+    /* height: 210px; */
     box-sizing: border-box;
   } 
   
@@ -194,7 +195,7 @@ main {
     background-position: top center;
     background-repeat: no-repeat;
     padding: 26px;
-    width: 310px;
+    /* width: 310px; */
     margin: auto;
   
   }
@@ -321,6 +322,8 @@ main {
   main svg {
     fill: currentColor;
   }
+
+
   
   
   
@@ -341,6 +344,22 @@ main {
         padding-top: 98px;
         background-image: url(/static/twp3/step-desktop-bg.jpg);
     }    
+
+    main .card {
+      height: 460px;
+    }
+    
+    main .card .text {
+      height: 320px;
+    }
+    
+    main .card p {
+      padding-bottom: 0em;
+    }
+    
+    main .card .text>div {
+      height: 210px;
+    } 
   }
   
   
@@ -465,6 +484,11 @@ main {
     text-align: center;
     font-size: 12px;
     color: rgb(153, 153, 153);
+  }
+
+  footer p:first-of-type {
+    margin: 0;
+    display: inline-block;
   }
   
   footer svg {

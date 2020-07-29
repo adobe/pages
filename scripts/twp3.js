@@ -78,6 +78,7 @@ export function playVideo() {
     $video.classList.remove('hidden');
     $video.classList.remove('hidden');
     $video.play();
+    $video.setAttribute('controls', true)
 
 }
 
