@@ -64,8 +64,8 @@ async function insertSteps() {
 
                 html+=`<div class="card" onclick="window.location='step-${i}'">
                 <div class="card-header">
-                    <span class="card-duration">${duration}</span>
-                    <div class="card-greatfor">Great for<ul>${greatfor}</ul></div>
+                    <span class="card-duration">${duration} | Great for</span>
+                    <div class="card-greatfor"><ul>${greatfor}</ul></div>
                 </div>
                 <div class="card-img" style="background-image: url(${src})">
                 <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
@@ -106,6 +106,7 @@ async function decoratePage() {
     document.querySelectorAll('main p').forEach(($e) => {
         if ($e.innerHTML.toLowerCase().trim()=='&lt;steps&gt;') {
             $e.parentNode.classList.add('steps');
+            $e.parentNode.classList.remove('default');
             $e.parentNode.innerHTML='';
         }
     })
