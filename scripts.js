@@ -30,8 +30,17 @@ function createTag(name, attrs) {
   }
 
 async function insertLocalResource(type) {
+  let url='';
   if (window.pages.product && window.pages.locale) {
-    const resp=await fetch(`/${type}s/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${type}.plain.html`);
+    url=`/${type}s/${window.pages.product}/${window.pages.locale}/${type}.plain.html`
+  }
+
+  if (window.pages.product && window.pages.project) {
+    url=`/${type}s/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${type}.plain.html`
+  }
+
+  if (url) {
+    const resp=await fetch(url);
     if (resp.status == 200) {
       const html=await resp.text();
       document.querySelector(type).innerHTML=html;
@@ -150,6 +159,9 @@ if (pathSegments) {
 if (window.pages.project) {
     loadCSS(`/styles/${window.pages.product}/${window.pages.project}.css`);
     loadJSModule(`/scripts/${window.pages.family}.js`);
+} else if (window.pages.product) {
+  loadCSS(`/styles/${window.pages.product}/default.css`);
+  loadJSModule(`/scripts/default.js`);
 } else {
   loadCSS(`/styles/default.css`);
   loadJSModule(`/scripts/default.js`);
