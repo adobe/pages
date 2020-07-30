@@ -32,12 +32,12 @@ main ul.cards {
   grid-template-columns: 1fr;
   grid-gap: 50px;
   list-style: none;
-  max-width: 1100px;
+  max-width: 960px;
   width: 90%;
 }
 
 main .main-video {
-  max-width: 1100px;
+  max-width: 960px;
   width: 90%;
   margin: auto;
   border: 1px solid #ddd;
@@ -80,17 +80,6 @@ main .main-video a {
   main ul.cards {
     grid-template-columns:  1fr 1fr;
   }
-
-  main .main-video {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  main .main-video > div {
-    width: 48%;
-    text-align: left;
-  }
 }
 
 @media(min-width: 1000px) {
@@ -107,6 +96,10 @@ main ul.cards li .card-text{
   padding: 20px;
   font-size: 16px;
   text-align: left;
+}
+
+main .card-image > div {
+  background: #eee;
 }
 
 main ul.cards li .card-text p:first-of-type {
