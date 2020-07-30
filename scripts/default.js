@@ -132,11 +132,13 @@ function unwrapEmbeds() {
 }
 
 
-function setMainVideo() {
+function paramHelper() {
     if(!window.location.search) return;
     let param = window.location.search;
     let query_type = param.split('=')[0];
     
+    // Set Main Video
+    // make sure video indicator is being requested
     if(query_type == "?v" || query_type == "&v") {
         let video_index = param.split('=')[1] - 1;
         let parent_wrapper = document.querySelector('.cards').parentElement;
@@ -157,7 +159,7 @@ async function decoratePage() {
     await loadLocalHeader();
     window.pages.decorated = true;
     appearMain();
-    setMainVideo();
+    paramHelper();
 }
 
 function formatCard($li) {

@@ -44,6 +44,7 @@ main .main-video {
   margin-bottom: 3em;
 }
 
+
 main .main-video .card-text {
   padding: 1em 0em;
 }
@@ -75,9 +76,20 @@ main .main-video a {
   transition: background .13s ease-out,border-color .13s ease-out,color .13s ease-out,box-shadow .13s ease-out;
 }
 
-@media(min-width: 700px) {
+@media(min-width: 740px) {
   main ul.cards {
     grid-template-columns:  1fr 1fr;
+  }
+
+  main .main-video {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  main .main-video > div {
+    width: 48%;
+    text-align: left;
   }
 }
 
