@@ -134,13 +134,12 @@ function unwrapEmbeds() {
 
 function paramHelper() {
     if(!window.location.search) return;
-    let param = window.location.search;
-    let query_type = param.split('=')[0];
-    
+    let query_type = new URLSearchParams(window.location.search);
+
     // Set Main Video
     // make sure video indicator is being requested
-    if(query_type == "?v" || query_type == "&v") {
-        let video_index = param.split('=')[1] - 1;
+    if(query_type.get('v')) {
+        let video_index = query_type.get('v') - 1;
         let parent_wrapper = document.querySelector('.cards').parentElement;
         let mainVideo = document.createElement('div');
         mainVideo.setAttribute('class', 'main-video');
@@ -158,8 +157,8 @@ async function decoratePage() {
     await loadLocalFooter();
     await loadLocalHeader();
     window.pages.decorated = true;
-    appearMain();
     paramHelper();
+    appearMain();
 }
 
 function formatCard($li) {
