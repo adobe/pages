@@ -18,7 +18,8 @@
 	<div>Please explain why you gave this rating.</div>
 	<textarea rows="3" id="surveyComment" maxlength="512"></textarea>
 	<div>
-	    <input type="checkbox" id="canAdobeContact" checked=""> Adobe may contact me about my feedback
+	    <input type="checkbox" id="canAdobeContact" checked=""> 
+			<label for="canAdobeContact">Adobe may contact me about my feedback</label>
 	 </div>
 	<input type="submit" value="Share Feedback" name="submitfeedback">
 </form>

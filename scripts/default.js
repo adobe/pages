@@ -131,6 +131,25 @@ function unwrapEmbeds() {
     })
 }
 
+
+function paramHelper() {
+    if(!window.location.search) return;
+    let param = window.location.search;
+    let query_type = param.split('=')[0];
+    
+    // Set Main Video
+    // make sure video indicator is being requested
+    if(query_type == "?v" || query_type == "&v") {
+        let video_index = param.split('=')[1] - 1;
+        let parent_wrapper = document.querySelector('.cards').parentElement;
+        let mainVideo = document.createElement('div');
+        mainVideo.setAttribute('class', 'main-video');
+        mainVideo.innerHTML = document.querySelectorAll('.cards li')[video_index].innerHTML;
+        parent_wrapper.prepend(mainVideo);
+        // document.querySelectorAll('.cards li')[video_index].style.display = 'none'
+    } 
+}
+
 async function decoratePage() {
     unwrapEmbeds();
     turnListSectionIntoCards();
@@ -140,6 +159,7 @@ async function decoratePage() {
     await loadLocalHeader();
     window.pages.decorated = true;
     appearMain();
+    paramHelper();
 }
 
 function formatCard($li) {
