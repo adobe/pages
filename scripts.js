@@ -167,3 +167,7 @@ if (window.pages.project) {
   loadJSModule(`/scripts/default.js`);
 }
 
+if (window.pages.product) {
+  document.getElementById('favicon').href=`/icons/${window.pages.product}.svg`;
+}
+
