@@ -145,11 +145,12 @@ window.pages={};
 
 if (pathSegments) {
   const product=pathSegments[0];
-  const locale=pathSegments[1];
-  const project=pathSegments[2];
+  let locale=pathSegments[1];
+  let project=pathSegments[2];
   let family=project;
   if (project && (project.startsWith('twp3') || project.startsWith('tl'))) family=`twp3`;
   if (project=='twp2' || project=='twp') family=`twp`;
+  if (product=='internal') { family=`internal`; project=``; }
   
   window.pages = { product, locale, project, family };  
 }
