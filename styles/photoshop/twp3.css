@@ -16,6 +16,12 @@ main {
     margin: auto;
     padding: 20px;
   }
+
+  main .default:first-of-type p {
+    margin: 0;
+    font-size: 20px;
+    padding-bottom: 1.5em;
+  }
   
   main .steps {
     display: flex;

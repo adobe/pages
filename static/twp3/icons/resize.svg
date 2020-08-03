@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
-<image style="display:none;overflow:visible;" width="102" height="88" xlink:href="../../../../../Desktop/deb387d2-repositioning-2x_02u02u02u02g000006001.png"  transform="matrix(1.1921 0 0 1.1775 1.2879 10.5217)">
-</image>
-<polygon points="14.5,16.4 7.3,16.4 7.3,23.2 7.3,42.7 14.5,42.7 14.5,23.2 34.4,23.2 34.4,16.4 "/>
-<polygon points="7.7,102.1 7.7,109.3 14.4,109.3 34,109.3 34,102.1 14.4,102.1 14.4,82.3 7.7,82.3 "/>
-<polygon points="114.5,23.2 114.5,16 107.8,16 88.3,16 88.3,23.2 107.8,23.2 107.8,43.1 114.5,43.1 "/>
-<polygon points="107.7,108.9 114.9,108.9 114.9,102.2 114.9,82.7 107.7,82.7 107.7,102.2 87.9,102.2 87.9,108.9 "/>
-<rect x="27.2" y="37.3" width="67.3" height="51.4"/>
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 44.454">
+  <g id="lp_editing1_icon3" transform="translate(-3.011 -6.351)">
+    <rect id="Canvas" width="51" height="44" transform="translate(3.011 6.703)" fill="#282828" opacity="0"/>
+    <path id="Path_82803" data-name="Path 82803" d="M22.526,12.794v8.732H13.794A.794.794,0,0,0,13,22.32v1.588a.794.794,0,0,0,.794.794H25.7V12.794A.794.794,0,0,0,24.907,12H23.32A.794.794,0,0,0,22.526,12.794Z" transform="translate(28.279 26.104)" fill="#282828"/>
+    <path id="Path_82804" data-name="Path 82804" d="M4.175,21.526V12.794A.794.794,0,0,0,3.381,12H1.794A.794.794,0,0,0,1,12.794V24.7H12.907a.794.794,0,0,0,.794-.794V22.32a.794.794,0,0,0-.794-.794Z" transform="translate(2.175 26.104)" fill="#282828"/>
+    <path id="Path_82805" data-name="Path 82805" d="M13,2.794V4.381a.794.794,0,0,0,.794.794h8.732v8.732a.794.794,0,0,0,.794.794h1.588a.794.794,0,0,0,.794-.794V2H13.794A.794.794,0,0,0,13,2.794Z" transform="translate(28.279 4.351)" fill="#282828"/>
+    <path id="Path_82806" data-name="Path 82806" d="M4.175,5.175h8.732a.794.794,0,0,0,.794-.794V2.794A.794.794,0,0,0,12.907,2H1V13.907a.794.794,0,0,0,.794.794H3.381a.794.794,0,0,0,.794-.794Z" transform="translate(2.175 4.351)" fill="#282828"/>
+    <rect id="Rectangle_147667" data-name="Rectangle 147667" width="32" height="25" rx="0.25" transform="translate(12.011 16.703)" fill="#282828"/>
+  </g>
 </svg>
