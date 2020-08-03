@@ -36,6 +36,36 @@ main ul.cards {
   width: 90%;
 }
 
+main div.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+main div.cards .card {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  border: 1px solid #ddd;
+}
+
+main div.cards .card .text {
+  padding: 20px;
+
+}
+
+main div.cards .card .text a:any-link {
+  background-color: #1473e6;;
+  padding: 8px 30px 10px 30px;
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-block;
+}
+
 main .main-video {
   max-width: 960px;
   width: 90%;

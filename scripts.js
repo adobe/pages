@@ -100,6 +100,11 @@ function fixIcons() {
 
 function appearMain() {
   if (window.pages.familyCssLoaded && window.pages.decorated) {
+    const p=window.pages;
+    const pathSplits=window.location.pathname.split('/');
+    const pageName=pathSplits[pathSplits.length-1].split('.')[0];
+    const classes=[p.product, p.family, p.project, pageName];
+    classes.forEach(e => e?document.body.classList.add(e):false)
     classify('main', 'appear');
   }
 }
@@ -145,11 +150,12 @@ window.pages={};
 
 if (pathSegments) {
   const product=pathSegments[0];
-  const locale=pathSegments[1];
-  const project=pathSegments[2];
+  let locale=pathSegments[1];
+  let project=pathSegments[2];
   let family=project;
   if (project && (project.startsWith('twp3') || project.startsWith('tl'))) family=`twp3`;
   if (project=='twp2' || project=='twp') family=`twp`;
+  if (product=='internal') { family=`internal`; project=``; }
   
   window.pages = { product, locale, project, family };  
 }
@@ -165,5 +171,9 @@ if (window.pages.project) {
 } else {
   loadCSS(`/styles/default.css`);
   loadJSModule(`/scripts/default.js`);
+}
+
+if (window.pages.product) {
+  document.getElementById('favicon').href=`/icons/${window.pages.product}.svg`;
 }
 

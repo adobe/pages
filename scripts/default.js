@@ -134,13 +134,12 @@ function unwrapEmbeds() {
 
 function paramHelper() {
     if(!window.location.search) return;
-    let param = window.location.search;
-    let query_type = param.split('=')[0];
-    
+    let query_type = new URLSearchParams(window.location.search);
+
     // Set Main Video
     // make sure video indicator is being requested
-    if(query_type == "?v" || query_type == "&v") {
-        let video_index = param.split('=')[1] - 1;
+    if(query_type.get('v')) {
+        let video_index = query_type.get('v') - 1;
         let parent_wrapper = document.querySelector('.cards').parentElement;
         let mainVideo = document.createElement('div');
         mainVideo.setAttribute('class', 'main-video');
@@ -153,16 +152,17 @@ function paramHelper() {
 async function decoratePage() {
     unwrapEmbeds();
     turnListSectionIntoCards();
+    decorateTables();
     smartWrap('main>div.default');
     decorateForm();
     await loadLocalFooter();
     await loadLocalHeader();
     window.pages.decorated = true;
-    appearMain();
     paramHelper();
+    appearMain();
 }
 
-function formatCard($li) {
+function formatListCard($li) {
     const $p=$li.firstElementChild;
     let headhtml='';
     let texthtml='';
@@ -191,12 +191,56 @@ function formatCard($li) {
         $ul.classList.remove('default');
         $ul.classList.add('cards');
         $ul.querySelectorAll('li').forEach(($li) => {
-          $li.innerHTML=formatCard($li);
+          $li.innerHTML=formatListCard($li);
         })
       }
     })
   }
   
+
+  function toClassName(name) {
+    return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'))
+  }
+
+  function decorateTables() {
+    document.querySelectorAll('main div.default>table').forEach(($table) => {
+        const $cols=$table.querySelectorAll('thead tr th');
+        const cols=Array.from($cols).map((e) => toClassName(e.innerHTML));
+        const $rows=$table.querySelectorAll('tbody tr');
+        let $div={};
+
+        if (cols.length==1 && $rows.length==1) {
+            $div=createTag('div', {class:`${cols[0]}`});
+            $div.innerHTML=$rows[0].querySelector('td').innerHTML;
+        } else {
+            $div=turnTableSectionIntoCards($table, cols) 
+        }
+        $table.parentNode.replaceChild($div, $table);
+    });
+  }
+
+  function turnTableSectionIntoCards($table, cols) {
+    const $rows=$table.querySelectorAll('tbody tr');
+    const $cards=createTag('div', {class:`cards ${cols.join('-')}`})
+    $rows.forEach(($tr) => {
+        const $card=createTag('div', {class:'card'})
+        $tr.querySelectorAll('td').forEach(($td, i) => {
+            const $div=createTag('div', {class: cols[i]});
+            const $a=$td.querySelector('a[href]');
+            if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
+                const yturl=new URL($a.getAttribute('href'));
+                const vid=yturl.searchParams.get('v');
+                $div.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+            } else {
+                $div.innerHTML=$td.innerHTML;
+            }
+            $card.append($div);
+        });
+        $cards.append($card);
+    });
+    return ($cards);
+  }
+
 
 if (document.readyState == 'loading') {
     window.addEventListener('DOMContentLoaded', (event) => {
