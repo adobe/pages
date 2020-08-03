@@ -152,6 +152,7 @@ function paramHelper() {
 async function decoratePage() {
     unwrapEmbeds();
     turnListSectionIntoCards();
+    turnTableSectionIntoCards();
     smartWrap('main>div.default');
     decorateForm();
     await loadLocalFooter();
@@ -161,7 +162,7 @@ async function decoratePage() {
     appearMain();
 }
 
-function formatCard($li) {
+function formatListCard($li) {
     const $p=$li.firstElementChild;
     let headhtml='';
     let texthtml='';
@@ -190,12 +191,39 @@ function formatCard($li) {
         $ul.classList.remove('default');
         $ul.classList.add('cards');
         $ul.querySelectorAll('li').forEach(($li) => {
-          $li.innerHTML=formatCard($li);
+          $li.innerHTML=formatListCard($li);
         })
       }
     })
   }
   
+
+  function turnTableSectionIntoCards() {
+    document.querySelectorAll('main div.default>table').forEach(($table) => {
+        const $cols=$table.querySelectorAll('thead tr th');
+        const cols=Array.from($cols).map((e) => e.innerHTML);
+        const $rows=$table.querySelectorAll('tbody tr');
+        const $cards=createTag('div', {class:'cards'})
+        $rows.forEach(($tr) => {
+            const $card=createTag('div', {class:'card'})
+            $tr.querySelectorAll('td').forEach(($td, i) => {
+                const $div=createTag('div', {class: cols[i]});
+                const $a=$td.querySelector('a[href]');
+                if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
+                    const yturl=new URL($a.getAttribute('href'));
+                    const vid=yturl.searchParams.get('v');
+                    $div.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+                } else {
+                    $div.innerHTML=$td.innerHTML;
+                }
+                $card.append($div);
+            });
+            $cards.append($card);
+        });
+        $table.parentNode.replaceChild($cards, $table);
+    })
+  }
+
 
 if (document.readyState == 'loading') {
     window.addEventListener('DOMContentLoaded', (event) => {
