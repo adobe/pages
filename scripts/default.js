@@ -103,25 +103,11 @@ function decorateForm () {
 }
 
 
-function smartWrap(qs) {
-    document.querySelectorAll(qs).forEach(($e) => {
-        const divs=[];
-        let $div=document.createElement('div');
-        divs.push($div);
-        Array.from($e.children).forEach(($el, i) => {
-            if ($el.querySelector('img') && i) {
-                    $div=document.createElement('div');
-                    divs.push($div);
-            }
-            $div.appendChild($el);
-        })
-        const $wrapper=document.createElement('div');
-        $wrapper.classList.add('par-wrapper');
-        divs.forEach(($div) => {
-            $wrapper.appendChild($div);
-        });
-        $e.innerHTML='';
-        $e.appendChild($wrapper);
+function wrapSections() {
+    document.querySelectorAll('main>div').forEach(($div) => {
+        const $wrapper=createTag('div', { class: 'section-wrapper'});
+        $div.parentNode.appendChild($wrapper);
+        $wrapper.appendChild($div);
     });
 }
 
@@ -153,7 +139,7 @@ async function decoratePage() {
     unwrapEmbeds();
     turnListSectionIntoCards();
     decorateTables();
-    smartWrap('main>div.default');
+    wrapSections();
     decorateForm();
     await loadLocalFooter();
     await loadLocalHeader();
