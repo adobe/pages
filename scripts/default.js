@@ -183,7 +183,6 @@ function paramHelper() {
         mainVideo.setAttribute('class', 'main-video');
         mainVideo.innerHTML = document.querySelectorAll('.cards .card')[video_index].innerHTML;
         parent_wrapper.prepend(mainVideo);
-        // document.querySelectorAll('.cards li')[video_index].style.display = 'none'
     } 
 }
 
@@ -198,7 +197,7 @@ async function decoratePage() {
     window.pages.decorated = true;
     paramHelper();
     appearMain();
-    cardHeightEqualizer('.card .text');
+    cardHeightEqualizer('.learn-from-the-pros .card .text');
 }
 
 function formatListCard($li) {
