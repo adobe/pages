@@ -100,6 +100,11 @@ function fixIcons() {
 
 function appearMain() {
   if (window.pages.familyCssLoaded && window.pages.decorated) {
+    const p=window.pages;
+    const pathSplits=window.location.pathname.split('/');
+    const pageName=pathSplits[pathSplits.length-1].split('.')[0];
+    const classes=[p.product, p.family, p.project, pageName];
+    classes.forEach(e => e?document.body.classList.add(e):false)
     classify('main', 'appear');
   }
 }
