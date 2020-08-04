@@ -152,14 +152,40 @@
 		const backlog = await fetchBacklog();
 	    console.log("backlog is " + JSON.stringify(backlog))
 	    const events = [];
+	    function createDateFromSerial(serialNum){
+		    return serialNum * 86400000 - 2209132800000;
+		}
 	    $.each(backlog, function (key, value) {
+		    value.start = createDateFromSerial(value.start);
+		    console.log(value.start)
+		    value.end = createDateFromSerial(value.end);
+		    if (value.designers == "Cass") {
+			    value.background = "#905DA6";			    
+		    }
+		    else if (value.designers == "Brijhette") {
+			    value.background = "#30A5BF";  
+		    }
+		    else if (value.designers == "Kenny") {
+			    value.background = "#50BF6C";
+		    }
+		    else if (value.designers == "Nana") {
+			    value.background = "#999";
+		    }
+		    else if (value.designers == "Christine") {
+			    value.background = "#18717F";
+		    }
+		    else {
+			    value.background = "#fff"
+		    }
             events.push({
-                title: value.title,
-                start: '2020-08-10',
-                end: '2020-08-14',
+                title: value.designers + ": " + value.title,
+                start: value.start,
+                end: value.end,
                 testCharter: value.testCharter,
                 designers: value.designers,
-                PMs: value.PMs
+                PMs: value.PMs,
+                backgroundColor: value.background,
+                borderColor: value.background
             });
         });
         
@@ -168,9 +194,10 @@
 			headerToolbar: {
 		        left: 'prev,next today',
 		        center: 'title',
-		        right: 'dayGridMonth,dayGridWeek,dayGridDay'
+		        right: 'dayGridMonth,dayGridWeek'
 			},
 			hiddenDays: [ 0, 6 ],
+			displayEventTime: false,
 			initialDate: new Date().toDateInputValue(),
 			navLinks: true, // can click day/week names to navigate views
 			editable: true,
