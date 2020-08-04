@@ -64,6 +64,17 @@ main div.cards .card .text {
   padding: 3em 2em;
 }
 
+.learn-from-the-pros .main-video .text {
+  font-size: 18px;
+  padding: 2em 4em;
+}
+
+.learn-from-the-pros .main-video .text h5 {
+  font-size: 1.3em;
+  margin-top: 0em;
+  margin-bottom: 0.8em;
+}
+
 .learn-from-the-pros .cards .card {
   max-width: 90%;
   width: 90%;
