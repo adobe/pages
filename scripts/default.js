@@ -103,25 +103,11 @@ function decorateForm () {
 }
 
 
-function smartWrap(qs) {
-    document.querySelectorAll(qs).forEach(($e) => {
-        const divs=[];
-        let $div=document.createElement('div');
-        divs.push($div);
-        Array.from($e.children).forEach(($el, i) => {
-            if ($el.querySelector('img') && i) {
-                    $div=document.createElement('div');
-                    divs.push($div);
-            }
-            $div.appendChild($el);
-        })
-        const $wrapper=document.createElement('div');
-        $wrapper.classList.add('par-wrapper');
-        divs.forEach(($div) => {
-            $wrapper.appendChild($div);
-        });
-        $e.innerHTML='';
-        $e.appendChild($wrapper);
+function wrapSections() {
+    document.querySelectorAll('main>div').forEach(($div) => {
+        const $wrapper=createTag('div', { class: 'section-wrapper'});
+        $div.parentNode.appendChild($wrapper);
+        $wrapper.appendChild($div);
     });
 }
 
@@ -132,6 +118,58 @@ function unwrapEmbeds() {
 }
 
 
+let debounce = function(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
+
+function cardHeightEqualizer($el) {
+    let initialHeight = 0;
+    let element = document.querySelectorAll($el);
+
+    if(window.innerWidth >= 700 && element.length > 1) {
+        element.forEach(function(card_el) {
+            card_el.style.height = 'auto';
+        })
+    
+        element.forEach(function(card_text) {
+            if(initialHeight < card_text.offsetHeight) {
+                initialHeight = card_text.offsetHeight;
+            }
+        })
+        
+        element.forEach(function(card_el) {
+            card_el.style.height = initialHeight + 'px';
+        })
+    } else {
+        element.forEach(function(card_el) {
+            card_el.style.height = 'auto';
+        })
+    }
+}
+
+
+let runResizer = debounce(function() {
+    cardHeightEqualizer('.learn-from-the-pros .card .text');
+}, 250);
+
+
+
+window.addEventListener('resize', runResizer);
+
+
+
 function paramHelper() {
     if(!window.location.search) return;
     let query_type = new URLSearchParams(window.location.search);
@@ -140,12 +178,11 @@ function paramHelper() {
     // make sure video indicator is being requested
     if(query_type.get('v')) {
         let video_index = query_type.get('v') - 1;
-        let parent_wrapper = document.querySelector('.cards').parentElement;
+        let parent_wrapper = document.querySelector('.cards');
         let mainVideo = document.createElement('div');
         mainVideo.setAttribute('class', 'main-video');
-        mainVideo.innerHTML = document.querySelectorAll('.cards li')[video_index].innerHTML;
+        mainVideo.innerHTML = document.querySelectorAll('.cards .card')[video_index].innerHTML;
         parent_wrapper.prepend(mainVideo);
-        // document.querySelectorAll('.cards li')[video_index].style.display = 'none'
     } 
 }
 
@@ -153,13 +190,14 @@ async function decoratePage() {
     unwrapEmbeds();
     turnListSectionIntoCards();
     decorateTables();
-    smartWrap('main>div.default');
+    wrapSections();
     decorateForm();
     await loadLocalFooter();
     await loadLocalHeader();
     window.pages.decorated = true;
     paramHelper();
     appearMain();
+    cardHeightEqualizer('.learn-from-the-pros .card .text');
 }
 
 function formatListCard($li) {

@@ -33,7 +33,6 @@ main ul.cards {
   grid-gap: 50px;
   list-style: none;
   max-width: 960px;
-  width: 90%;
 }
 
 main div.cards {
@@ -43,18 +42,76 @@ main div.cards {
 }
 
 main div.cards .card {
-  max-width: 300px;
+  max-width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
-  margin: 20px;
   border: 1px solid #ddd;
 }
 
 main div.cards .card .text {
   padding: 20px;
-
 }
 
+
+.learn-from-the-pros .cards {
+  max-width: 960px;
+  margin: auto;
+}
+
+
+.learn-from-the-pros .cards .card .text {
+  padding: 3em 2em;
+}
+
+.learn-from-the-pros .main-video .text {
+  font-size: 18px;
+  padding: 2em 4em;
+}
+
+.learn-from-the-pros .main-video .text h5 {
+  font-size: 1.3em;
+  margin-top: 0em;
+  margin-bottom: 0.8em;
+}
+
+.learn-from-the-pros .cards .card {
+  max-width: 90%;
+  width: 90%;
+  margin: auto;
+  font-size: 17px;
+  margin-bottom: 2em;
+}
+
+.learn-from-the-pros .cards .card h5 { 
+  font-size: 1.2em;
+  margin: 0;
+  padding-bottom: 1em;
+}
+
+.learn-from-the-pros .cards .card h5 + {
+  color: green;
+}
+
+@media(min-width: 700px) {
+  .learn-from-the-pros .cards {
+    display: flex;
+  }
+
+  .learn-from-the-pros .cards .card {
+    width: 45%;
+  }
+}
+
+@media(min-width: 800px) {
+  .learn-from-the-pros .cards {
+    display: flex;
+  }
+
+  .learn-from-the-pros .cards .card {
+    width: 30%;
+  }
+}
 main div.cards .card .text a:any-link {
   background-color: #1473e6;;
   padding: 8px 30px 10px 30px;

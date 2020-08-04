@@ -1,128 +1,84 @@
-<style type="text/css">
-	body {
-		font-family: Adobe Clean, sans-serif;
-		padding: 0;
-		margin: 0;
-	}
-	* {
-		box-sizing: border-box;
-	}
-	h1 {
-		padding: 1.25em 0 0 1.25em;
-	}
-	form {
-		width: 33.33%;
-		padding: 0 2.5em;
-	}
-	form ul {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		padding: 0;
-	}
-	form ul li {
-		display: block;
-		list-style: none;
-		background: #fff;
-		border: 1px solid #eee;
-		border-radius: 4px;
-		cursor: pointer;
-		width: 14vw;
-		margin-bottom: 0.5vw;
-		text-align: center;
-		padding-top: 5vw;
-	}
-	form ul li:hover {
-		border-color: #ccc;
-		background: #fafafa;
-	}
-	form ul li div {
-		opacity: 0;
-		transition: 0.3s ease-in-out;
-	}
-	form ul li div input {
-		display: block;
-		width: 3.75em;
-		margin: 0 auto;
-		border: 1px solid #eee;
-	}
-	form ul li label {
-		padding: 1.25em;
-		display: block;
-	}
-	#timeline {
-		background: #fafafa;
-		width: 66.66%;
-		height: 100%;
-		position: fixed;
-		right: 0;
-		top: 0;
-	}
-</style>
-<h1>Growth Design Timeline Generator</h1>
+<link rel="stylesheet" type="text/css" href="/styles/internal/fullcalendar.main.min.css" />
+<link rel="stylesheet" type="text/css" href="/styles/internal/default.css" />
 <form>
+	<h2>Select your start date</h2>
+	<div>
+		<input type="date" value="" />
+	</div>
 	<h2>Select your test deliverables</h2>
 	<ul>
-		<li>
+		<li id="ccd-banner">
 			<div>
 				<input type="number" id="ccd-ccw-banner-qty" name="ccd-ccw-banner-qty" value="0" />
 			</div>
 			<label for="ccd-ccw-banner-qty">CCD/CCW Banner</label>
 		</li>
-		<li>
-			<div>
-				<input type="number" id="first-mile-banner-qty" name="first-mile-banner-qty" value="0" />
-			</div>
-			<label for="first-mile-banner-qty">First Mile Banner</label>
-		</li>
-		<li>
+		<li id="email">
 			<div>
 				<input type="number" id="email-qty" name="email-qty" value="0" />
 			</div>
 			<label for="email-qty">Email</label>
 		</li>
-		<li>
-			<div>
-				<input type="number" id="desktop-notification-qty" name="desktop-notification-qty" value="0" />
-			</div>
-			<label for="desktop-notification-qty">Desktop Notification</label>
-		</li>
-		<li>
-			<div>
-				<input type="number" id="paid-social-ad-qty" name="paid-social-ad-qty" value="0" />
-			</div>
-			<label for="paid-social-ad-qty">Paid Social Ad</label>
-		</li>
-		<li>
+		<li id="web-landing-page">
 			<div>
 				<input type="number" id="web-landing-page-qty" name="web-landing-page-qty" value="0" />
 			</div>
 			<label for="web-landing-page-qty">Web Landing Page</label>
 		</li>
-		<li>
+		<li id="in-app-home-banner">
+			<div>
+				<input type="number" id="first-mile-banner-qty" name="first-mile-banner-qty" value="0" />
+			</div>
+			<label for="first-mile-banner-qty">In-App Home Banner</label>
+		</li>
+		<li id="in-app-launchpad">
 			<div>
 				<input type="number" id="in-app-message-qty" name="in-app-message-qty" value="0" />
 			</div>
-			<label for="in-app-message-qty">In-App Message</label>
+			<label for="in-app-message-qty">In-App Launchpad Flow</label>
 		</li>
-		<li>
+		<li id="in-app-pancake">
+			<div>
+				<input type="number" id="in-app-message-qty" name="in-app-message-qty" value="0" />
+			</div>
+			<label for="in-app-message-qty">In-App Pancake</label>
+		</li>
+		<li id="dtn">
+			<div>
+				<input type="number" id="desktop-notification-qty" name="desktop-notification-qty" value="0" />
+			</div>
+			<label for="desktop-notification-qty">Desktop Notification</label>
+		</li>
+		<li id="paid-social">
+			<div>
+				<input type="number" id="paid-social-ad-qty" name="paid-social-ad-qty" value="0" />
+			</div>
+			<label for="paid-social-ad-qty">Paid Social Ad</label>
+		</li>
+		<li id="other">
 			<div>
 				<input type="number" id="other-qty" name="other-qty" value="0" />
 			</div>
 			<label for="other-qty">Other</label>
 		</li>
 	</ul>
-	<h2>Select a start date</h2>
-	<div>
-		<input type="date" />
-	</div>
-	<p><input type="submit" value="Generate Timeline" /></p>
+	<p><input type="submit" value="Next" /></p>
 </form>
 <div id="timeline">
+	<div id="calendar">
+	</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/scripts/fullcalendar.main.min.js"></script>
+<script src="/scripts/fullcalendar.locales-all.min.js"></script>
 <script type="text/javascript">
+	Date.prototype.toDateInputValue = (function() {
+	    var local = new Date(this);
+	    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+	    return local.toJSON().slice(0,10);
+	});
 	$( document ).ready(function() {
+		$("input[type='date']").val(new Date().toDateInputValue());
 		$("form ul").on("click", "li", function() {
 			var item = $(this).find("div input").attr("id");
 			console.log(item)
@@ -151,8 +107,116 @@
 				$(this).css("opacity", "0");				    
 			}
 		});
-		$("form").on("submit", function() {
-				
+		// { type of deliverable: number of days to first review, number of days to second review
+		var deliverableRules = [
+			{ "CCD/CCW Banner": [2, 2] },
+			{ "Email": [2, 2] },
+			{ "Web Landing Page": [2, 2] },
+			{ "In-App Home Banner": [2, 2] },
+			{ "In-App Launchpad Flow": [2, 2] },
+			{ "In-App Pancake": [1, 1] },
+			{ "Desktop Notification": [2, 2] },
+			{ "Paid Social Ad": [2, 2] },
+			{ "Other": [3, 3] }		
+		]
+		var designers = [
+			"Brijhette",
+			"Cass",
+			"Christine",
+			"Kenny",
+			"Nana"
+		]
+		var exceptions = [
+			{ "Brijhette": ["2020-08-10", "2020-08-14"]}
+		]
+		$("form").on("change", function() {
+			// count the numbers of each deliverable
+			// take date and map deliverables onto calendar
+			// collapse date and deliverables on form
+			// insert PMs and test charter fields on form
+			// query existing events to see what designers are occupied on this date range with events or exceptions
+			// show list of available designers on the date range
 		});
 	});
+</script>
+<script>
+	async function fetchBacklog() {
+	    const resp=await fetch('growth-design-backlog.json');
+	    const json=await resp.json();
+	    return (Array.isArray(json) ? json : json.data);
+	}
+	
+	const events = [];
+	
+	async function insertBacklog() {
+		const backlog = await fetchBacklog();
+	    console.log("backlog is " + JSON.stringify(backlog))
+	    const events = [];
+	    function createDateFromSerial(serialNum){
+		    return serialNum * 86400000 - 2209132800000;
+		}
+	    $.each(backlog, function (key, value) {
+		    value.start = createDateFromSerial(value.start);
+		    console.log(value.start)
+		    value.end = createDateFromSerial(value.end);
+		    if (value.designers == "Cass") {
+			    value.background = "#905DA6";			    
+		    }
+		    else if (value.designers == "Brijhette") {
+			    value.background = "#30A5BF";  
+		    }
+		    else if (value.designers == "Kenny") {
+			    value.background = "#50BF6C";
+		    }
+		    else if (value.designers == "Nana") {
+			    value.background = "#999";
+		    }
+		    else if (value.designers == "Christine") {
+			    value.background = "#18717F";
+		    }
+		    else {
+			    value.background = "#fff"
+		    }
+            events.push({
+                title: value.designers + ": " + value.title,
+                start: value.start,
+                end: value.end,
+                testCharter: value.testCharter,
+                designers: value.designers,
+                PMs: value.PMs,
+                backgroundColor: value.background,
+                borderColor: value.background
+            });
+        });
+        
+        const calendarEl = document.getElementById('calendar');
+	    const calendar = new FullCalendar.Calendar(calendarEl, {
+			headerToolbar: {
+		        left: 'prev,next today',
+		        center: 'title',
+		        right: 'dayGridMonth,dayGridWeek'
+			},
+			hiddenDays: [ 0, 6 ],
+			displayEventTime: false,
+			initialDate: new Date().toDateInputValue(),
+			navLinks: true, // can click day/week names to navigate views
+			editable: true,
+			dayMaxEvents: true, // allow "more" link when too many events
+			events: events,
+			eventDidMount: function(info) {
+			    console.log(info.event.extendedProps);
+			    // add pop-up showing PM, Designer, test charter link
+			}
+		});
+		calendar.render();
+	}
+		
+	if (document.readyState == 'loading') {
+		window.addEventListener('DOMContentLoaded', (event) => {
+			insertBacklog()
+		});
+		} else {
+		const backlog = fetchBacklog();
+	}
+
 </script>
