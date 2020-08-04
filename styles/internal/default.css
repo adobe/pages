@@ -46,39 +46,39 @@ form ul li {
 	padding-top: 5vw;
 }
 form ul li#ccd-banner {
-	background: inherit url('/static/internal/ccd-banner.jpg') top center no-repeat;
+	background: url('/static/internal/ccd-banner.jpg') top center no-repeat;
 	background-size: contain;
 }
 form ul li#email {
-	background: inherit url(/static/internal/email.jpg) top center no-repeat;
+	background: url(/static/internal/email.jpg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#web-landing-page {
-	background: inherit url(/static/internal/web-landing-page.jpg) top center no-repeat;
+	background: url(/static/internal/web-landing-page.jpg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#in-app-home-banner {
-	background: inherit url(/static/internal/in-app-home-banner.jpg) top center no-repeat;
+	background: url(/static/internal/in-app-home-banner.jpg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#in-app-launchpad {
-	background: inherit url(/static/internal/in-app-launchpad.jpg) top center no-repeat;
+	background: url(/static/internal/in-app-launchpad.jpg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#in-app-pancake {
-	background: inherit url(/static/internal/in-app-pancake.jpg) top center no-repeat;
+	background: url(/static/internal/in-app-pancake.jpg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#dtn {
-	background: inherit url(/static/internal/dtn.jpg) top center no-repeat;
+	background: url(/static/internal/dtn.jpg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#paid-social {
-	background: inherit url(/static/internal/paid-social.jpg) top center no-repeat;
+	background: url(/static/internal/paid-social.jpg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#other {
-	background: inherit url(/static/internal/other.jpg) top center no-repeat;
+	background: url(/static/internal/other.jpg) top center no-repeat;
 	background-size: contain;
 }
 form ul li:hover {
