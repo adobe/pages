@@ -33,7 +33,6 @@ main ul.cards {
   grid-gap: 50px;
   list-style: none;
   max-width: 960px;
-  width: 90%;
 }
 
 main div.cards {
@@ -43,18 +42,60 @@ main div.cards {
 }
 
 main div.cards .card {
-  max-width: 300px;
+  max-width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
-  margin: 20px;
   border: 1px solid #ddd;
 }
 
 main div.cards .card .text {
   padding: 20px;
-
 }
 
+
+.learn-from-the-pros .cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 40px;
+  max-width: 960px;
+  margin: auto;
+}
+
+
+@media(min-width: 800px) {
+  .learn-from-the-pros .cards {
+    grid-template-columns: 1fr 1fr;  
+  }
+}
+
+@media(min-width: 1000px) {
+  .learn-from-the-pros .cards {
+    grid-template-columns: 1fr 1fr 1fr;  
+  }
+}
+
+
+.learn-from-the-pros .cards .card .text {
+  padding: 3em 2em;
+}
+
+.learn-from-the-pros .cards .card {
+  max-width: 90%;
+  width: 90%;
+  margin: auto;
+  font-size: 17px;
+}
+
+.learn-from-the-pros .cards .card h5 { 
+  font-size: 1.2em;
+  margin: 0;
+  padding-bottom: 1em;
+}
+
+.learn-from-the-pros .cards .card h5 + {
+  color: green;
+}
 main div.cards .card .text a:any-link {
   background-color: #1473e6;;
   padding: 8px 30px 10px 30px;
