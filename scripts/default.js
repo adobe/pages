@@ -118,6 +118,58 @@ function unwrapEmbeds() {
 }
 
 
+let debounce = function(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
+
+function cardHeightEqualizer($el) {
+    let initialHeight = 0;
+    let element = document.querySelectorAll($el);
+
+    if(window.innerWidth >= 700 && element.length > 1) {
+        element.forEach(function(card_el) {
+            card_el.style.height = 'auto';
+        })
+    
+        element.forEach(function(card_text) {
+            if(initialHeight < card_text.offsetHeight) {
+                initialHeight = card_text.offsetHeight;
+            }
+        })
+        
+        element.forEach(function(card_el) {
+            card_el.style.height = initialHeight + 'px';
+        })
+    } else {
+        element.forEach(function(card_el) {
+            card_el.style.height = 'auto';
+        })
+    }
+}
+
+
+let runResizer = debounce(function() {
+    cardHeightEqualizer('.learn-from-the-pros .card .text');
+}, 250);
+
+
+
+window.addEventListener('resize', runResizer);
+
+
+
 function paramHelper() {
     if(!window.location.search) return;
     let query_type = new URLSearchParams(window.location.search);
@@ -146,6 +198,7 @@ async function decoratePage() {
     window.pages.decorated = true;
     paramHelper();
     appearMain();
+    cardHeightEqualizer('.card .text');
 }
 
 function formatListCard($li) {
