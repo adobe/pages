@@ -1,3 +1,168 @@
-main {
+body {
+	font-family: Adobe Clean, sans-serif;
+	padding: 0;
+	margin: 0;
+}
+* {
+	box-sizing: border-box;
+}
+header {
+	display: none !important;
+}
+h1 {
+	padding: 1.25em 0 0 1.25em;
+	margin: 0;
+}
+h2 {
+	font-size: 1.25em;
+	line-height: 1.25em;
+	color: #666;
+	margin-top: 1.25em;
+}
+form {
+	width: 33.33%;
+	padding: 0 2.5em;
+}
+form > div input {
+	font-family: Adobe Clean, sans-serif;
+	border: 1px solid #ddd;
+}
+form ul {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0;
+}
+form ul li {
+	display: block;
+	list-style: none;
+	background: #fff;
+	border: 1px solid #eee;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 9vw;
+	margin-bottom: 0.5vw;
+	text-align: center;
+	padding-top: 5vw;
+}
+form ul li#ccd-banner {
+	background: inherit url('/static/internal/ccd-banner.jpg') top center no-repeat;
+	background-size: contain;
+}
+form ul li#email {
+	background: inherit url(/static/internal/email.jpg) top center no-repeat;
+	background-size: contain;
+}
+form ul li#web-landing-page {
+	background: inherit url(/static/internal/web-landing-page.jpg) top center no-repeat;
+	background-size: contain;
+}
+form ul li#in-app-home-banner {
+	background: inherit url(/static/internal/in-app-home-banner.jpg) top center no-repeat;
+	background-size: contain;
+}
+form ul li#in-app-launchpad {
+	background: inherit url(/static/internal/in-app-launchpad.jpg) top center no-repeat;
+	background-size: contain;
+}
+form ul li#in-app-pancake {
+	background: inherit url(/static/internal/in-app-pancake.jpg) top center no-repeat;
+	background-size: contain;
+}
+form ul li#dtn {
+	background: inherit url(/static/internal/dtn.jpg) top center no-repeat;
+	background-size: contain;
+}
+form ul li#paid-social {
+	background: inherit url(/static/internal/paid-social.jpg) top center no-repeat;
+	background-size: contain;
+}
+form ul li#other {
+	background: inherit url(/static/internal/other.jpg) top center no-repeat;
+	background-size: contain;
+}
+form ul li:hover {
+	border-color: #ccc;
+	background-color: #fafafa;
+}
+form ul li div {
+	padding: 0.3125em 0.3125em 0 0.3125em;
+	display: inline-block;
+	border-radius: 2px;
+	background: #fff;
+	opacity: 0;
+	transition: 0.3s ease-in-out;
+}
+form ul li div input {
+	display: block;
+	width: 3.75em;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+}
+form ul li label {
+	padding: 1.25em;
+	display: block;
+	font-size: 0.85em;
+}
+#timeline {
+	background: #fafafa;
+	width: 66.66%;
+	height: 100%;
+	position: fixed;
+	right: 0;
+	top: 0;
+	padding: 2.5em;
+}
+#calendar {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+input[type=submit] {
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    -webkit-align-self: center;
+    align-self: center;
+    justify-self: center;
     text-align: center;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #1473e6;
+    border-color: #1473e6;
+    color: #fff;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 16px;
+    min-height: 32px;
+    height: auto;
+    min-width: 72px;
+    padding: 4px 14px;
+    padding-bottom: 4.5px;
+    padding-top: 3.5px;
+    font-size: 14px;
+    font-weight: 700;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    box-sizing: border-box;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    overflow: visible;
+    margin: 0;
+    border-style: solid;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-appearance: button;
+    vertical-align: top;
+    transition: background .13s ease-out,border-color .13s ease-out,color .13s ease-out,box-shadow .13s ease-out;
+    text-decoration: none;
+    line-height: 1.3;
+    cursor: pointer;
+    font-family: Adobe Clean, sans-serif;
 }
