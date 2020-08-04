@@ -178,12 +178,11 @@ function paramHelper() {
     // make sure video indicator is being requested
     if(query_type.get('v')) {
         let video_index = query_type.get('v') - 1;
-        let parent_wrapper = document.querySelector('.cards').parentElement;
+        let parent_wrapper = document.querySelector('.cards');
         let mainVideo = document.createElement('div');
         mainVideo.setAttribute('class', 'main-video');
-        mainVideo.innerHTML = document.querySelectorAll('.cards li')[video_index].innerHTML;
+        mainVideo.innerHTML = document.querySelectorAll('.cards .card')[video_index].innerHTML;
         parent_wrapper.prepend(mainVideo);
-        // document.querySelectorAll('.cards li')[video_index].style.display = 'none'
     } 
 }
 
@@ -198,7 +197,7 @@ async function decoratePage() {
     window.pages.decorated = true;
     paramHelper();
     appearMain();
-    cardHeightEqualizer('.card .text');
+    cardHeightEqualizer('.learn-from-the-pros .card .text');
 }
 
 function formatListCard($li) {
