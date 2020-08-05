@@ -43,7 +43,8 @@ async function insertLocalResource(type) {
     const resp=await fetch(url);
     if (resp.status == 200) {
       const html=await resp.text();
-      document.querySelector(type).innerHTML=html;
+      const inner = `<div> ${html} </div>`;
+      document.querySelector(type).innerHTML= inner;
     }
   }
 

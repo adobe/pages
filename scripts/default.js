@@ -103,13 +103,16 @@ function decorateForm () {
 }
 
 
-function wrapSections() {
-    document.querySelectorAll('main>div').forEach(($div) => {
+function wrapSections(element) {
+    document.querySelectorAll(element).forEach(($div) => {
         const $wrapper=createTag('div', { class: 'section-wrapper'});
         $div.parentNode.appendChild($wrapper);
         $wrapper.appendChild($div);
     });
 }
+
+
+
 
 function unwrapEmbeds() {
     document.querySelectorAll(".section-embed").forEach(($embed) => {
@@ -134,6 +137,7 @@ let debounce = function(func, wait, immediate) {
 };
 
 
+// set fixed height to cards to create a uniform UI
 function cardHeightEqualizer($el) {
     let initialHeight = 0;
     let element = document.querySelectorAll($el);
@@ -160,15 +164,28 @@ function cardHeightEqualizer($el) {
 }
 
 
+function styleBackgrounds() {
+    let backgrounds = document.querySelectorAll('.background');
+
+    if(!backgrounds.length) return;
+    
+    backgrounds.forEach(function(background) {
+        if(!background.childNodes[0]) return;
+        if(background.childNodes[0].nodeName === "IMG") {
+            let src = background.childNodes[0].getAttribute('src')
+            background.style.backgroundImage = `url(${src})`;
+            background.innerHTML = ``;
+        }
+        
+    })
+}
+
+
 let runResizer = debounce(function() {
     cardHeightEqualizer('.learn-from-the-pros .card .text');
 }, 250);
 
-
-
 window.addEventListener('resize', runResizer);
-
-
 
 function paramHelper() {
     if(!window.location.search) return;
@@ -190,13 +207,16 @@ async function decoratePage() {
     unwrapEmbeds();
     turnListSectionIntoCards();
     decorateTables();
-    wrapSections();
+    wrapSections('main>div');
     decorateForm();
     await loadLocalFooter();
     await loadLocalHeader();
+    wrapSections('header>div');
+    wrapSections('footer>div');
     window.pages.decorated = true;
     paramHelper();
     appearMain();
+    styleBackgrounds();
     cardHeightEqualizer('.learn-from-the-pros .card .text');
 }
 

@@ -16,6 +16,11 @@ main h1 {
   padding: 20px;
 }
 
+header div:first-of-type {
+  background: transparent;
+}
+
+
 main .default:first-of-type h1 {
   padding-top: 2em;
 }
@@ -288,6 +293,19 @@ header {
       margin: 0;
     }
 
+    header .section-wrapper {
+      max-width: 1050px;
+      margin: auto;
+      width: 90%;
+    }
+
+    header .section-wrapper > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+    }
+
     header p:first-of-type a {
       padding: 0;
     }
@@ -319,6 +337,7 @@ header {
     header a {
       font-weight: 800;
       padding: 2em 2em;
+      display: inline-block;
     }
   }
 
