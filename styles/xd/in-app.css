@@ -213,16 +213,22 @@ main .section-wrapper:first-of-type .default a {
 .two-column-parent--background .card {
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
 }
 
 .two-column-parent--background .card > div:first-of-type {
-  width: 48%;
+  /* width: 48%; */
+  width: 80%;
   text-align: left;
   position: relative;
   z-index: 4;
   font-weight: 100;
   line-height: 1.7;
+}
+
+.two-column-parent {
+  margin-bottom: 3em;
 }
 
 .two-column-parent--background .card > div:first-of-type h3 {
@@ -280,4 +286,19 @@ main .section-wrapper:first-of-type .default a {
 
 .xd main .section-wrapper:last-of-type {
   background: #1E1E1E;
+}
+
+@media(min-width: 768px) {
+
+  .two-column-parent--background .card {
+    flex-direction: row;
+  }
+  
+  .two-column-parent--background .card > div:first-of-type {
+    width: 48%;
+  }
+
+  .two-column-parent {
+    margin-bottom: 0em;
+  }
 }

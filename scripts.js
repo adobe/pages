@@ -166,6 +166,7 @@ if (pathSegments) {
   window.pages = { product, locale, project, family };  
 }
 
+console.log(window.pages.product)
 
 // Load page specific code
 if (window.pages.project) {
