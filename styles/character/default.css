@@ -116,10 +116,12 @@ header>div {
       bottom: 8px;
   }
 
-  header p:first-of-type svg {
+  header p:first-of-type .icon {
     position: relative;
     top: 9px;
     padding-right: 5px;
+    height: 32px;
+    width: 32px;
   }
 
   header p:last-of-type a:any-link {
@@ -154,7 +156,7 @@ header>div {
     stroke: #000000;
   }
 
-  header svg.icon-premiere {
+  header .icon-character {
     top: .125em;
     position: relative;  
     padding-right: 10px

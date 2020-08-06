@@ -90,7 +90,13 @@ function fixIcons() {
       var a=e.getAttribute("href");
       if (a.startsWith('/icons/')) {
         var name=a.split("/")[2].split(".")[0];
-        e.setAttribute("href", `/icons.svg#${name}`);  
+        if (name.startsWith('i-')) {
+          e.setAttribute("href", `/icons.svg#${name.substr(2)}`);  
+          e.parentNode.setAttribute("class", `icon icon-${name.substr(2)}`);  
+        } else {
+          const $img=createTag('img', { class: `icon icon-${name}`, src: a});
+          e.parentNode.parentNode.replaceChild($img, e.parentNode);
+        }
       }
   });
 }

@@ -234,8 +234,10 @@ header p:first-of-type a{
     font-weight: 800;
   }
   
-header p:first-of-type a svg {
+header p:first-of-type a .icon {
     padding-right: 5px; 
+    height: 40px;
+    width: 40px;
 }
 
 header>div:first-of-type {

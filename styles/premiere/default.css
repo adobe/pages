@@ -242,10 +242,12 @@ header {
     stroke: #000000;
   }
 
-  header svg.icon-premiere {
+  header .icon-premiere {
     top: .125em;
     position: relative;  
-    padding-right: 10px
+    padding-right: 10px;
+    width: 40px;
+    height: 40px;
   }
   
   header img {

@@ -33,12 +33,6 @@ main .banner a:any-link{
     font-weight: 900;
 }
 
-main .banner svg.icon-creative-cloud {
-    fill :#da1f26;
-    height: 4em;
-    width: 4em;
-}
-
 main .embed {
     padding: 48px;
 }
