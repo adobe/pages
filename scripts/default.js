@@ -1,7 +1,7 @@
 // simple form submission
 async function submitSheetForm($form, sheetid, thankyou) {
     const formsink='https://script.google.com/macros/s/AKfycbxWFwI-qExw0Tg_LJvdisSYODFw35m3L8M5HdumPOufmArmRIEh/exec'
-    var searchParams = new URLSearchParams(`?sheet-id=${sheetid}`);
+    let searchParams = new URLSearchParams(`?sheet-id=${sheetid}`);
     if ($form.reportValidity()) {
         $form.querySelectorAll(".form-field").forEach(($f) => {
             if ($f.getAttribute('type') == 'radio') {
@@ -122,14 +122,14 @@ function unwrapEmbeds() {
 
 
 let debounce = function(func, wait, immediate) {
-	var timeout;
+	let timeout;
 	return function() {
-		var context = this, args = arguments;
-		var later = function() {
+		let context = this, args = arguments;
+		let later = function() {
 			timeout = null;
 			if (!immediate) func.apply(context, args);
 		};
-		var callNow = immediate && !timeout;
+		let callNow = immediate && !timeout;
 		clearTimeout(timeout);
 		timeout = setTimeout(later, wait);
 		if (callNow) func.apply(context, args);
@@ -348,4 +348,3 @@ if (document.readyState == 'loading') {
 } else {
     decoratePage();
 }
-

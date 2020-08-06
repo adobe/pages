@@ -26,10 +26,10 @@
 </svg>
 
 
-- [Features](https://www.adobe.com/privacy.html)
-- [What's New](https://www.adobe.com/legal/terms.html)
-- [Learn & Support](https://www.adobe.com/legal/terms.html)
-- [System Requirements](https://www.adobe.com/legal/terms.html)
-- [Compare Plans](https://www.adobe.com/legal/terms.html)
-- [More Products](https://www.adobe.com/legal/terms.html)
-- [Get XD for free](https://www.adobe.com/legal/terms.html)
+- [Features](https://www.adobe.com/products/xd/details.html)
+- [What's New](https://www.adobe.com/products/xd/features.html)
+- [Learn & Support](https://helpx.adobe.com/support/xd.html)
+- [System Requirements](https://helpx.adobe.com/xd/system-requirements.html)
+- [Compare Plans](https://www.adobe.com/products/xd/compare-plans.html)
+- [More Products](https://www.adobe.com/creativecloud/catalog/desktop.html)
+- [Get XD for free](https://creativecloud.adobe.com/apps/download/xd)

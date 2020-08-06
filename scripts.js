@@ -163,7 +163,6 @@ if (pathSegments) {
   if (project && (project.startsWith('twp3') || project.startsWith('tl'))) family=`twp3`;
   if (project=='twp2' || project=='twp') family=`twp`;
   if (product=='internal') { family=`internal`; project=``; }
-  
   window.pages = { product, locale, project, family };  
 }
 
