@@ -14,6 +14,7 @@ header .nav-logo {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  padding: 0.8em 0em;
 
 }
 
@@ -28,6 +29,7 @@ header .carrot svg{
   margin-left: 10px;
   position: relative;
   top: 2px;
+  stroke-width: 2px;
 }
 
  header p {
@@ -79,6 +81,9 @@ header .carrot svg{
     height: auto;
 }
 
+.banner-xd-make-it-cc {
+  padding: 48px 0px !important;
+}
 .banner-xd-make-it-cc img {
   max-width: 70px;
 }
