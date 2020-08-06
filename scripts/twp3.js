@@ -207,7 +207,6 @@ async function decorateHome() {
 
 async function decoratePage() {
 
-    await loadLocalFooter();
     await loadLocalHeader();
 
     externalLinks('header');
