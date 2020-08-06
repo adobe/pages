@@ -93,7 +93,7 @@ main .card .puppet-description p:last-of-type a:any-link{
 } 
 
 
-header {
+header>div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,6 +102,11 @@ header {
     background: #29041E;
     color: white;
   }
+
+  header>div:first-of-type {
+    background-color: black;
+  } 
+  
 
   header p:first-of-type {
       position: relative;
