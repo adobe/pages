@@ -245,7 +245,6 @@ async function decoratePage() {
     decorateTables();
     wrapSections('main>div');
     decorateForm();
-    await loadLocalFooter();
     await loadLocalHeader();
     wrapSections('header>div');
     wrapSections('footer>div');
