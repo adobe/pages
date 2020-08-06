@@ -187,6 +187,42 @@ let runResizer = debounce(function() {
 
 window.addEventListener('resize', runResizer);
 
+
+
+function addNavCarrot() {
+    let $svg = document.querySelector('header svg');
+
+    if($svg) {
+        let $svgParent = document.createElement('div');
+        $svgParent.classList.add('nav-logo')
+        
+        $svgParent.innerHTML = `
+            ${$svg.outerHTML}
+            <span class="carrot">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+        `
+        document.querySelector('header > .section-wrapper > div > svg').remove();
+        document.querySelector('header > .section-wrapper > div').prepend($svgParent)
+    }
+  }
+  
+  
+  function dropDownMenu() {
+    let $header = document.querySelector('header');
+  
+    if(window.outerWidth >= 768) return;
+  
+    if(!$header.classList.contains('nav-showing')) {
+      $header.querySelector('ul').style.display = 'flex';
+      $header.classList.add('nav-showing')
+    } else {
+      $header.querySelector('ul').style.display = 'none';
+      $header.classList.remove('nav-showing')
+    }
+  }
+  
+
 function paramHelper() {
     if(!window.location.search) return;
     let query_type = new URLSearchParams(window.location.search);
@@ -216,6 +252,12 @@ async function decoratePage() {
     window.pages.decorated = true;
     paramHelper();
     appearMain();
+    // nav style/dropdown
+    addNavCarrot();
+
+    if(document.querySelector('.nav-logo')) {
+      document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
+    }
     styleBackgrounds();
     cardHeightEqualizer('.learn-from-the-pros .card .text');
 }

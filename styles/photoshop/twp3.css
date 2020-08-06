@@ -382,6 +382,9 @@ main {
   
   /* === TWP Nav Component === */
   header {
+    padding-top: 1em;
+  }
+  header > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -398,6 +401,7 @@ main {
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-top: 0em;
     cursor: pointer;
   }
   
@@ -425,6 +429,7 @@ main {
   
   header li {
       margin-left: 0.5em;
+      margin-top: 1.5em;
   }
   
   header li:last-of-type {
@@ -446,8 +451,13 @@ main {
     background: #f2f2f2;
   }
   
-  @media(min-width: 768px) { 
-    header {
+  @media(min-width: 768px) {
+
+    header.nav-showing {
+      background: #fff;
+    }
+
+    header > div {
       flex-direction: row;
       background: white !important;
     }
@@ -455,7 +465,7 @@ main {
     header p:first-of-type {
       width: auto;
       cursor: default;
-      margin-top: 0.7em;
+      margin-top: 0em;
     }
     
     header svg {
@@ -466,9 +476,14 @@ main {
     header ul {
       display: flex !important;
       margin-left: 0em;
+      position: relative;
+      top: 0.2em;
       flex-direction: row;
     }
     
+    header li {
+      margin-top: 0em;
+    }
     
     header li:last-of-type {
       margin-bottom: 0em;

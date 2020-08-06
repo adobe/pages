@@ -9,9 +9,25 @@
   background: #2E001F;
 }
 
+header .nav-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+}
+
  header svg {
   width: 100% !important;
   height: 100%;
+}
+
+header .carrot svg{
+  stroke: white;
+  max-width: 30px;
+  margin-left: 10px;
+  position: relative;
+  top: 2px;
 }
 
  header p {
@@ -24,7 +40,7 @@
  header .section-wrapper > div {
   max-width: 1200px;
   margin: auto;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
 }
@@ -33,11 +49,13 @@
  header ul {
   list-style-type: none;
   margin: 0; padding: 0;
-  display: flex;
+  display: none;
+  flex-direction: column;
+  padding-bottom: 1em;
 }
 
  header li {
-  margin-left: 2em;
+  margin-bottom: 1em;
 }
 
  header a {
@@ -60,6 +78,61 @@
     width: 100px !important;
     height: auto;
 }
+
+@media(min-width: 768px) {
+
+  header .section-wrapper > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  header ul {
+    flex-direction: row;
+    padding-bottom: 0em;
+    display: flex !important;
+  }
+
+  header li {
+    margin-left: 0.2em;
+    margin-bottom: 0em;
+  }
+
+  header a {
+    font-size: 13px;
+  }
+
+  header .carrot {
+    display: none;
+  }
+}
+
+@media(min-width: 1000px) {
+  header .section-wrapper > div {
+    flex-direction: row;
+  }
+
+  header li {
+    margin-left: 0.8em;
+  }
+
+  header a {
+    font-size: 14px;
+  }
+}
+
+
+@media(min-width: 1100px) {
+
+  header li {
+    margin-left: 1em;
+  }
+
+  header a {
+    font-size: 15px;
+  }
+}
+
 
 main .default {
   max-width: 960px;

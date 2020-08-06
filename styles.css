@@ -6,8 +6,8 @@ body {
 }
 
 header div:first-of-type {
-    background-color: #1473e6;
-    color: white;
+    /* background-color: #1473e6;
+    color: white; */
     text-align: center;
     font-size: 12px;
     font-weight: 100;
