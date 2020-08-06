@@ -293,6 +293,14 @@ main .section-wrapper:first-of-type .default a {
   background: #1E1E1E;
 }
 
+#uh-oh-we-couldnt-find-what-youre-looking-for {
+  display: none;
+}
+
+.intro- .card img {
+  width: 100%;
+}
+
 @media(min-width: 768px) {
 
   .two-column-parent--background .card {
@@ -305,5 +313,19 @@ main .section-wrapper:first-of-type .default a {
 
   .two-column-parent {
     margin-bottom: 0em;
+  }
+
+  .intro- .card {
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+  }
+
+  .intro- .card > div:first-of-type {
+    width: 52%;
+  }
+
+  .intro- .card > div:last-of-type {
+    width: 45%;
   }
 }
