@@ -433,8 +433,8 @@ if (document.readyState == 'loading') {
             //alert(urilink);
             window.protocolCheck(urilink,
                  function () {
-                   // user doesn't have XD installed. Execute below for fallback. 
-                   //  $("#lp-pom-text-1987").find("span").html("Uh oh, looks like we were unable to locate XD")
+                   let intro = document.querySelectorAll('.intro');
+                   intro.querySelector('h1').innerText = "Uh oh, looks like we were unable to locate XD";
                
                  }
              );
