@@ -388,36 +388,13 @@ if (document.readyState == 'loading') {
   window.onload = function(){
   
       // $("#mailToLink").attr("href", "mailto:?subject=Remember%20To%20Download%20XD%20File%20Reminder&body="+window.location+"\nXD Team");
-      let getUrlParameter = function getUrlParameter(sParam) {
-      let sPageURL = decodeURIComponent(window.location.search.substring(1)),
-          sURLletiables = sPageURL.split('&'),
-          sParameterName,
-          i;
-        for (i = 0; i < sURLletiables.length; i++) {
-            sParameterName = sURLletiables[i].split('=');
-  
-            if (sParameterName[0] === sParam) {
-                return sParameterName[1] === undefined ? true : sParameterName[1];
-            }
-        }
-      };
+
+      let param_type = new URLSearchParams(window.location.search);
       
-      let uiKitId = getUrlParameter('name') ? getUrlParameter('name') : '';
-      let imageSrc = getUrlParameter('img') ? getUrlParameter('img') : '';
-      let kitName = getUrlParameter('kitname') ? getUrlParameter('kitname') : '';
-      
-      
-      // checker to see if we have a ui kit to fetch
-      let flagCheck = uiKitId ? true : false;
-  
-  
-      // forced redirect if no param is included
-      let urlCheck = window.location.search.length >=1 ? "truee" : "falsee";
-    
-      
-      // execute deeplink if "name" param is available
-      let urlParams = window.location.search.substring(1).split("=");
-      if (flagCheck && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+      if(window.location.href.includes('file') && param_type.get('name')) {
+          let uiKitId = param_type.get('name');
+            console.log('cloud doc init')
+          if (uiKitId && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
        {   
           window.protocolCheck("adbxd://app?action=openCloudDoc&cloudURL="+uiKitId+"&extn=xd",
               function () {
@@ -428,91 +405,40 @@ if (document.readyState == 'loading') {
           
           event.preventDefault ? event.preventDefault() : event.returnValue = false; 
        }
-      
-     
-    };
+      }   
 
-    window.onload = function(){
-      // $("#mailToLink").attr("href", "mailto:?subject=Remember%20To%20Download%20XD%20Plugin%20Reminder&body="+window.location+"\nXD Team");
-      var getUrlParameter = function getUrlParameter(sParam) {
-        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-            sURLVariables = sPageURL.split('&'),
-            sParameterName,
-            i;
-          for (i = 0; i < sURLVariables.length; i++) {
-              sParameterName = sURLVariables[i].split('=');
-  
-              if (sParameterName[0] === sParam) {
-                  return sParameterName[1] === undefined ? true : sParameterName[1];
-              }
+      if(window.location.href.includes('plugin') && param_type.get('name') || param_type.get('pluginId') || param_type.get('versionUuid')) {
+
+        console.log('init plugin logic')
+        let oldPluginId = param_type.get('name');
+        let newPluginId = param_type.get('pluginId');
+        let versionUuid = param_type.get('versionUuid');
+        let urilink = '';
+
+        if(oldPluginId) {
+            urilink =  "adbxd://app?action=openPluginManager&id="+oldPluginId;
           }
-      };
-      var oldPluginId = getUrlParameter('name') ? getUrlParameter('name') : '';
-      var newPluginId = getUrlParameter('pluginId') ? getUrlParameter('pluginId') : '';
-      var versionUuid = getUrlParameter('versionUuid') ? getUrlParameter('versionUuid') : '';
-    var urilink= "";
-    var loc=window.location+'';
-    //console.log("loc="+loc);
-    
-    if(oldPluginId) {
-      //console.log("oldPluginId="+oldPluginId);
-      urilink =  "adbxd://app?action=openPluginManager&id="+oldPluginId;
-    }
-    else if(newPluginId) {
-      //console.log("newPluginId="+newPluginId);
-      var trunc= loc.split("pluginId=")[1];
-      urilink = "adbxd://app?action=openPluginMarketplace&route=/pluginDetails/"+trunc
-    }
-    else if(versionUuid) {
-      //console.log("versionUuid="+versionUuid);
-      var trunc = loc.split('versionUuid=')[1];
-      urilink = "adbxd://app?action=openPluginMarketplace&route=/pluginDetails/"+trunc
-    }
-    //console.log("urilink="+urilink);
-  
-      
-      // checker to see if we have a plugin to fetch
-      var flagCheck = (oldPluginId || newPluginId || versionUuid) ? true : false;
-      
-      // if(!flagCheck) {
-      //   $("#fallbackHeader").text("Uh-oh we couldn't find what you're looking for")
-      // } 
-      
-      // // showcase image param for testing
-      // var $modifiedParentEl = $('#lp-pom-box-1988')
-     
-      // // return messages based on events
-      // var successHeadline = "Learn more about your new <span style='color: #1473E5;'>Plugin</span>";
-      // var successDownloadOption = "Didn't Open? Let's try another way. <a href='#0' class=''>Download Now</a>";
-      
-      // var failHeadline = "Uh-oh Looks like we couldn't locate XD, Need to install it? <a href=''>Install Now</a>";
-      // var failDownloadMessage = "Have XD but aren't sure why it didn't open? Learn how to launch it below";
-      
-  
-    // forced redirect if no param is included
-      var urlCheck = window.location.search.length >=1 ? "truee" : "falsee";
-      //console.log(urlCheck);
-   
-      
-      // Has download params (this expects everything is working properly)
-      // if(flagCheck) {
-      //    $(".interested_swap").html(successHeadline);
-      //    $('.inject_install_kit').html(successDownloadOption);
-      // }
-      
-      var urlParams = window.location.search.substring(1).split("=");
-      if (flagCheck && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-       {   
-         //alert(urilink);
-         window.protocolCheck(urilink,
-              function () {
-                // user doesn't have XD installed. Execute below for fallback. 
-                //  $("#lp-pom-text-1987").find("span").html("Uh oh, looks like we were unable to locate XD")
-            
-              }
-          );
-          event.preventDefault ? event.preventDefault() : event.returnValue = false;
-       }
-      
-     
+          else if(newPluginId) {
+            let trunc= loc.split("pluginId=")[1];
+            urilink = "adbxd://app?action=openPluginMarketplace&route=/pluginDetails/"+trunc
+          }
+          else if(versionUuid) {
+            let trunc = loc.split('versionUuid=')[1];
+            urilink = "adbxd://app?action=openPluginMarketplace&route=/pluginDetails/"+trunc
+          }
+
+          if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+          {   
+            //alert(urilink);
+            window.protocolCheck(urilink,
+                 function () {
+                   // user doesn't have XD installed. Execute below for fallback. 
+                   //  $("#lp-pom-text-1987").find("span").html("Uh oh, looks like we were unable to locate XD")
+               
+                 }
+             );
+             event.preventDefault ? event.preventDefault() : event.returnValue = false;
+          }
+      }
+
     };
