@@ -210,7 +210,7 @@ main .default a {
     margin: 20px 30px;
 }
 
-header {
+header>div {
     display: flex;
     align-items: top;
     justify-content: center;
@@ -234,6 +234,13 @@ header p:first-of-type a{
     font-weight: 800;
   }
   
-header p:first-of-type a svg {
+header p:first-of-type a .icon {
     padding-right: 5px; 
+    height: 40px;
+    width: 40px;
 }
+
+header>div:first-of-type {
+    background-color: unset;
+  } 
+  

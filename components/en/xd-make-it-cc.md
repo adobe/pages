@@ -4,7 +4,7 @@ class: embed section-embed banner banner-xd-make-it-cc
 
 ---
 
-:creative-cloud:
+:creativecloud:
 
 ## Make it. Creative Cloud.
 

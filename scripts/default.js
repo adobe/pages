@@ -1,7 +1,7 @@
 // simple form submission
 async function submitSheetForm($form, sheetid, thankyou) {
     const formsink='https://script.google.com/macros/s/AKfycbxWFwI-qExw0Tg_LJvdisSYODFw35m3L8M5HdumPOufmArmRIEh/exec'
-    var searchParams = new URLSearchParams(`?sheet-id=${sheetid}`);
+    let searchParams = new URLSearchParams(`?sheet-id=${sheetid}`);
     if ($form.reportValidity()) {
         $form.querySelectorAll(".form-field").forEach(($f) => {
             if ($f.getAttribute('type') == 'radio') {
@@ -103,13 +103,16 @@ function decorateForm () {
 }
 
 
-function wrapSections() {
-    document.querySelectorAll('main>div').forEach(($div) => {
+function wrapSections(element) {
+    document.querySelectorAll(element).forEach(($div) => {
         const $wrapper=createTag('div', { class: 'section-wrapper'});
         $div.parentNode.appendChild($wrapper);
         $wrapper.appendChild($div);
     });
 }
+
+
+
 
 function unwrapEmbeds() {
     document.querySelectorAll(".section-embed").forEach(($embed) => {
@@ -119,14 +122,14 @@ function unwrapEmbeds() {
 
 
 let debounce = function(func, wait, immediate) {
-	var timeout;
+	let timeout;
 	return function() {
-		var context = this, args = arguments;
-		var later = function() {
+		let context = this, args = arguments;
+		let later = function() {
 			timeout = null;
 			if (!immediate) func.apply(context, args);
 		};
-		var callNow = immediate && !timeout;
+		let callNow = immediate && !timeout;
 		clearTimeout(timeout);
 		timeout = setTimeout(later, wait);
 		if (callNow) func.apply(context, args);
@@ -134,6 +137,7 @@ let debounce = function(func, wait, immediate) {
 };
 
 
+// set fixed height to cards to create a uniform UI
 function cardHeightEqualizer($el) {
     let initialHeight = 0;
     let element = document.querySelectorAll($el);
@@ -160,15 +164,64 @@ function cardHeightEqualizer($el) {
 }
 
 
+function styleBackgrounds() {
+    let backgrounds = document.querySelectorAll('.background');
+
+    if(!backgrounds.length) return;
+    
+    backgrounds.forEach(function(background) {
+        if(!background.childNodes[0]) return;
+        if(background.childNodes[0].nodeName === "IMG") {
+            let src = background.childNodes[0].getAttribute('src')
+            background.style.backgroundImage = `url(${src})`;
+            background.innerHTML = ``;
+        }
+        
+    })
+}
+
+
 let runResizer = debounce(function() {
     cardHeightEqualizer('.learn-from-the-pros .card .text');
 }, 250);
 
-
-
 window.addEventListener('resize', runResizer);
 
 
+
+function addNavCarrot() {
+    let $svg = document.querySelector('header svg');
+
+    if($svg) {
+        let $svgParent = document.createElement('div');
+        $svgParent.classList.add('nav-logo')
+        
+        $svgParent.innerHTML = `
+            ${$svg.outerHTML}
+            <span class="carrot">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+        `
+        document.querySelector('header > .section-wrapper > div > svg').remove();
+        document.querySelector('header > .section-wrapper > div').prepend($svgParent)
+    }
+  }
+  
+  
+  function dropDownMenu() {
+    let $header = document.querySelector('header');
+  
+    if(window.outerWidth >= 768) return;
+  
+    if(!$header.classList.contains('nav-showing')) {
+      $header.querySelector('ul').style.display = 'flex';
+      $header.classList.add('nav-showing')
+    } else {
+      $header.querySelector('ul').style.display = 'none';
+      $header.classList.remove('nav-showing')
+    }
+  }
+  
 
 function paramHelper() {
     if(!window.location.search) return;
@@ -190,13 +243,21 @@ async function decoratePage() {
     unwrapEmbeds();
     turnListSectionIntoCards();
     decorateTables();
-    wrapSections();
+    wrapSections('main>div');
     decorateForm();
-    await loadLocalFooter();
     await loadLocalHeader();
+    wrapSections('header>div');
+    wrapSections('footer>div');
     window.pages.decorated = true;
     paramHelper();
     appearMain();
+    // nav style/dropdown
+    addNavCarrot();
+
+    if(document.querySelector('.nav-logo')) {
+      document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
+    }
+    styleBackgrounds();
     cardHeightEqualizer('.learn-from-the-pros .card .text');
 }
 
@@ -287,4 +348,3 @@ if (document.readyState == 'loading') {
 } else {
     decoratePage();
 }
-

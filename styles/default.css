@@ -23,7 +23,7 @@ main .par-wrapper div {
 }
 
 main .banner {
-    background-color: #333;
+    background-color: #1E1E1E;
     color: white;
 }
 
@@ -31,12 +31,6 @@ main .banner a:any-link{
     color: #1473E6;
     text-decoration: none;
     font-weight: 900;
-}
-
-main .banner svg.icon-creative-cloud {
-    fill :#da1f26;
-    height: 4em;
-    width: 4em;
 }
 
 main .embed {

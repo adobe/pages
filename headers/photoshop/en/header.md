@@ -1,1 +1,1 @@
-:photoshop-icon:
+:photoshop:

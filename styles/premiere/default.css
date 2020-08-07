@@ -16,6 +16,11 @@ main h1 {
   padding: 20px;
 }
 
+header div:first-of-type {
+  background: transparent;
+}
+
+
 main .default:first-of-type h1 {
   padding-top: 2em;
 }
@@ -32,7 +37,7 @@ main ul.cards {
   grid-template-columns: 1fr;
   grid-gap: 50px;
   list-style: none;
-  max-width: 960px;
+  max-width: 1100px;
 }
 
 main div.cards {
@@ -51,17 +56,18 @@ main div.cards .card {
 
 main div.cards .card .text {
   padding: 20px;
+  line-height: 1.7;
 }
 
 
 .learn-from-the-pros .cards {
-  max-width: 960px;
+  max-width: 1100px;
   margin: auto;
 }
 
 
 .learn-from-the-pros .cards .card .text {
-  padding: 3em 2em;
+  padding: 2em 1.4em;
 }
 
 .learn-from-the-pros .main-video .text {
@@ -236,10 +242,12 @@ header {
     stroke: #000000;
   }
 
-  header svg.icon-premiere {
+  header .icon-premiere {
     top: .125em;
     position: relative;  
-    padding-right: 10px
+    padding-right: 10px;
+    width: 40px;
+    height: 40px;
   }
   
   header img {
@@ -287,6 +295,19 @@ header {
       margin: 0;
     }
 
+    header .section-wrapper {
+      max-width: 1050px;
+      margin: auto;
+      width: 90%;
+    }
+
+    header .section-wrapper > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+    }
+
     header p:first-of-type a {
       padding: 0;
     }
@@ -318,78 +339,7 @@ header {
     header a {
       font-weight: 800;
       padding: 2em 2em;
+      display: inline-block;
     }
   }
-
-  /* === Legal Footer Component === */
-  footer {
-    padding: 1em 0em 2.5em 0em;
-  }
   
-  footer, a {
-    text-align: center;
-    font-size: 12px;
-    color: rgb(153, 153, 153);
-  }
-  
-  footer svg {
-    max-width: 29px;
-    width: 100%;
-    fill: #fa0f00;
-    display: inline-block;
-  }
-  
-  footer ul {
-    display: flex;
-    margin: 0; padding: 0;
-    list-style-type: none;
-    justify-content: center;
-  }
-  
-  footer li {
-    padding: 0em 0.5em;
-  }
-  
-  footer li:after {
-    content: '/';
-    position: relative;
-    padding-left: 1em;
-  }
-  
-  footer li:last-of-type:after {
-    display: none;
-  }
-  
-  footer a {
-    text-decoration: none;
-  }
-  
-  footer a:hover {
-    color: black;
-  }
-  
-  footer strong {
-    font-weight: 300;
-  }
-  
-  @media(min-width: 768px) {
-    footer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1.5em 0em;
-    }
-  
-    footer p:first-of-type {
-      width: 24px;
-      margin-right: 12px;
-    }
-  
-    footer ul {
-      margin-left: 10px;
-    }
-  
-  
-  }
-    
-    /* === End of Legal Footer Component === */

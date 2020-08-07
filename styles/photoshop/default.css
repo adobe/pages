@@ -1,15 +1,20 @@
 @import url("../default.css");
 
-header {
+header>div {
   display: flex;
   justify-content: center;
   padding-top: 2em;
 }
+
+header>div:first-of-type {
+  background-color: unset;
+} 
+
 header p:first-of-type {
   margin: 0;
 }
 
-header svg {
+header .icon {
   width: 50px;
   height: 50px;
 }

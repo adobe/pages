@@ -92,7 +92,6 @@ async function insertSteps() {
 
 async function decoratePage() {
 
-    await loadLocalFooter();
     await loadLocalHeader();
 
     // heading

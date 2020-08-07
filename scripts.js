@@ -43,7 +43,8 @@ async function insertLocalResource(type) {
     const resp=await fetch(url);
     if (resp.status == 200) {
       const html=await resp.text();
-      document.querySelector(type).innerHTML=html;
+      const inner = `<div> ${html} </div>`;
+      document.querySelector(type).innerHTML= inner;
     }
   }
 
@@ -89,7 +90,13 @@ function fixIcons() {
       var a=e.getAttribute("href");
       if (a.startsWith('/icons/')) {
         var name=a.split("/")[2].split(".")[0];
-        e.setAttribute("href", `/icons.svg#${name}`);  
+        if (name.startsWith('i-')) {
+          e.setAttribute("href", `/icons.svg#${name.substr(2)}`);  
+          e.parentNode.setAttribute("class", `icon icon-${name.substr(2)}`);  
+        } else {
+          const $img=createTag('img', { class: `icon icon-${name}`, src: a});
+          e.parentNode.parentNode.replaceChild($img, e.parentNode);
+        }
       }
   });
 }
@@ -156,10 +163,8 @@ if (pathSegments) {
   if (project && (project.startsWith('twp3') || project.startsWith('tl'))) family=`twp3`;
   if (project=='twp2' || project=='twp') family=`twp`;
   if (product=='internal') { family=`internal`; project=``; }
-  
   window.pages = { product, locale, project, family };  
 }
-
 
 // Load page specific code
 if (window.pages.project) {
