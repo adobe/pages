@@ -413,6 +413,7 @@ if (document.readyState == 'loading') {
         let oldPluginId = param_type.get('name');
         let newPluginId = param_type.get('pluginId');
         let versionUuid = param_type.get('versionUuid');
+        let loc = window.location+'';
         let urilink = '';
 
         if(oldPluginId) {
