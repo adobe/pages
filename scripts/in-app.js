@@ -433,9 +433,8 @@ if (document.readyState == 'loading') {
             //alert(urilink);
             window.protocolCheck(urilink,
                  function () {
-                   let intro = document.querySelectorAll('.intro');
+                   let intro = document.querySelector('.intro');
                    intro.querySelector('h1').innerText = "Uh oh, looks like we were unable to locate XD";
-               
                  }
              );
              event.preventDefault ? event.preventDefault() : event.returnValue = false;
