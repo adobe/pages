@@ -381,3 +381,139 @@ main svg {
   font-size: 18px;
 }
 
+
+
+
+
+.more-cards-container {
+  background: #333;
+  color: white;
+  padding-bottom: 2em;
+}
+
+.more-cards-container h2 {
+  padding-bottom: 1em;
+}
+
+.more-cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.more-cards__item {
+  /* width: 48%; */
+  margin-bottom: 2em;
+}
+
+.more-cards__item img {
+  width: 100%;
+}
+
+.more-cards__item a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* flex-direction: row; */
+  text-align: left;
+  color: white !important;
+  text-decoration: none;
+  line-height: 1.6;
+  font-size: 17px !important;
+  font-weight: 300;
+}
+
+.more-cards__item h3 {
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-bottom: 0.2em;
+}
+
+.more-cards__item a span {
+  /* width: 48%; */
+  width: 100%;
+}
+
+.more-cards__item:nth-child(5) {
+  display: none;
+}
+
+.more-cards-container > p:first-of-type {
+  font-weight: 700 !important;
+}
+
+.more-cards-container > p:last-of-type a {
+  text-decoration: underline;
+  font-weight: 800;
+  font-size: 21px !important;
+}
+
+
+@media(min-width: 650px) {
+  
+  .more-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .more-cards__item {
+    width: 48%;
+    margin-bottom: 2em;
+  }
+  
+  
+  .more-cards__item a {
+    display: flex;
+    flex-direction: column;
+    /* flex-direction: row; */
+  }
+  
+  .more-cards__item h3 {
+    margin-top: 1em;
+    margin-bottom: 0em;
+    padding-bottom: 0.2em;
+  }
+  
+  .more-cards__item a span {
+    /* width: 48%; */
+    width: 100%;
+  }
+
+}
+
+
+@media(min-width: 1100px) {
+  
+  .more-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .more-cards__item {
+    width: 48%;
+    margin-bottom: 2em;
+  }
+  
+  
+  .more-cards__item a {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .more-cards__item h3 {
+    margin-top: 0em;
+    margin-bottom: 0em;
+    padding-bottom: 0.2em;
+  }
+  
+  .more-cards__item a span {
+    width: 48%;
+  }
+
+}

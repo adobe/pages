@@ -48,13 +48,6 @@ async function insertSteps() {
 }
 
 
-/* 
-==================================================
-  things to do for createAdditionalSteps.
-    1. Randomize only 4 cards to get pulled in.
-    2. Style cards.
-==================================================
-*/
 async function createAdditionalSteps() {
     let hasAdditionalCards = window.location.pathname.includes('thr-') && window.location.pathname.includes('step');
 
@@ -72,11 +65,12 @@ async function createAdditionalSteps() {
                 cards += `
                 <div class="more-cards__item">
                     <a href="${url}">
-                        <span>
+                        <span class="more-cards__img">
                             <img src="${steps[i].Thumbnail}">
                         </span>
 
-                        <span>
+                        <span class="more-cards__details">
+                            <h3>${steps[i].Title}</h3>
                             ${steps[i].Description}
                         </span>
 
@@ -89,7 +83,11 @@ async function createAdditionalSteps() {
 
         createSection.innerHTML = cards;
 
-        document.querySelector('.default:last-of-type h2').insertAdjacentHTML('afterend', createSection.outerHTML);
+        document.querySelector('.default:last-of-type')
+        .classList.add('more-cards-container')
+
+        document.querySelector('.default:last-of-type h2')
+        .insertAdjacentHTML('afterend', createSection.outerHTML);
     }
 }
 
