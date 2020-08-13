@@ -34,5 +34,5 @@
   </g>
 </svg>
 
-- [All design videos](https://www.adobe.com/privacy.html)
-- [All editing videos](https://www.adobe.com/legal/terms.html)
+- [All layout tutorials](https://www.adobe.com/privacy.html)
+- [All illustration tutorials](https://www.adobe.com/legal/terms.html)

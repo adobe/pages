@@ -168,7 +168,7 @@ async function decorateStep() {
     let title=currentStep.Title;
     if (currentStep.Heading) title=currentStep.Heading;
     title=title.split(`\n`).join('<br>');
-    $h1.innerHTML=title + '.';
+    $h1.innerHTML=title;
     $h1.id='';
 
     for (let i=0;i<8;i++) {
