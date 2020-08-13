@@ -48,49 +48,6 @@ async function insertSteps() {
 }
 
 
-async function createAdditionalSteps() {
-    let hasAdditionalCards = window.location.pathname.includes('thr-') && window.location.pathname.includes('step');
-
-    if(hasAdditionalCards) {
-        const steps = await fetchSteps();
-        let currentIndex = window.location.search.split("?")[1];
-        let createSection = document.createElement('div');
-        createSection.setAttribute('class','more-cards');
-        let cards = '';
-
-        for(let i = 0; i < steps.length; i++) {
-            let url = window.location.href.split('?')[0] + '?' + (i + 1);
-
-            if(i != currentIndex - 1) {
-                cards += `
-                <div class="more-cards__item">
-                    <a href="${url}">
-                        <span class="more-cards__img">
-                            <img src="${steps[i].Thumbnail}">
-                        </span>
-
-                        <span class="more-cards__details">
-                            <h3>${steps[i].Title}</h3>
-                            ${steps[i].Description}
-                        </span>
-
-                    </a>
-                </div>
-                `
-            }
-
-        }
-
-        createSection.innerHTML = cards;
-
-        document.querySelector('.default:last-of-type')
-        .classList.add('more-cards-container')
-
-        document.querySelector('.default:last-of-type h2')
-        .insertAdjacentHTML('afterend', createSection.outerHTML);
-    }
-}
-
 
 
 function addNavCarrot() {
@@ -300,9 +257,6 @@ async function decoratePage() {
 
     window.pages.decorated = true;
     appearMain();
-
-    createAdditionalSteps()
-
 }
 
 if (document.readyState == 'loading') {

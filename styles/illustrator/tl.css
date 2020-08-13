@@ -393,14 +393,18 @@ main svg {
 
 
 
-
-.more-cards-container {
+.additional-cards {
   background: #333;
   color: white;
   padding-bottom: 2em;
 }
 
-.more-cards-container h2 {
+.more-cards-container {
+  color: white;
+  padding-bottom: 0.5em;
+}
+
+.additional-cards h2 {
   padding-bottom: 1em;
 }
 
