@@ -178,7 +178,7 @@ main .card a:any-link:hover {
 }
 
 .step main .content .video .button {
-  padding-top: 56.24%;
+  padding-top: 59%;
   background-size: cover;
   position: relative;
 }
@@ -347,10 +347,10 @@ main svg {
 
   .step main .video-wrapper {
       width: 544px;
-      padding: 120px;
-      padding-left: 119px;
-      padding-top: 98px;
-      background-image: url(/static/twp3/step-desktop-bg.jpg);
+      padding: 115px;
+      padding-left: 115px;
+      padding-top: 88px;
+      background-image: url(/static/twp3/step-desktop-bg-ai.jpg);
   }    
 
   main .card {

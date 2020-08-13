@@ -7,6 +7,12 @@ async function fetchSteps() {
     return (Array.isArray(json) ? json : json.data);
 }
 
+
+
+
+
+
+
 function getThumbnail(step) {
     let thumbnail=step.Thumbnail;
     if (!thumbnail) {
@@ -40,6 +46,54 @@ async function insertSteps() {
         $steps.innerHTML=html;
     }
 }
+
+
+/* 
+==================================================
+  things to do for createAdditionalSteps.
+    1. Randomize only 4 cards to get pulled in.
+    2. Style cards.
+==================================================
+*/
+async function createAdditionalSteps() {
+    let hasAdditionalCards = window.location.pathname.includes('thr-') && window.location.pathname.includes('step');
+
+    if(hasAdditionalCards) {
+        const steps = await fetchSteps();
+        let currentIndex = window.location.search.split("?")[1];
+        let createSection = document.createElement('div');
+        createSection.setAttribute('class','more-cards');
+        let cards = '';
+
+        for(let i = 0; i < steps.length; i++) {
+            let url = window.location.href.split('?')[0] + '?' + (i + 1);
+
+            if(i != currentIndex - 1) {
+                cards += `
+                <div class="more-cards__item">
+                    <a href="${url}">
+                        <span>
+                            <img src="${steps[i].Thumbnail}">
+                        </span>
+
+                        <span>
+                            ${steps[i].Description}
+                        </span>
+
+                    </a>
+                </div>
+                `
+            }
+
+        }
+
+        createSection.innerHTML = cards;
+
+        document.querySelector('.default:last-of-type h2').insertAdjacentHTML('afterend', createSection.outerHTML);
+    }
+}
+
+
 
 function addNavCarrot() {
   if(document.querySelector('header svg')) {
@@ -248,6 +302,8 @@ async function decoratePage() {
 
     window.pages.decorated = true;
     appearMain();
+
+    createAdditionalSteps()
 
 }
 
