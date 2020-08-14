@@ -192,7 +192,7 @@ window.addEventListener('resize', runResizer);
 function addNavCarrot() {
     let $svg = document.querySelector('header svg');
 
-    if($svg.length > 0) {
+    if($svg) {
         let $svgParent = document.createElement('div');
         $svgParent.classList.add('nav-logo')
         
