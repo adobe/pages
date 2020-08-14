@@ -127,4 +127,10 @@
 	<path d="M35.9,31.33a4.14,4.14,0,1,1-4.14-4.14,4.14,4.14,0,0,1,4.14,4.14" transform="translate(-5.49 -2.73)"/>
 </symbol>
 
+<symbol id="play" viewBox="0 0 24 24">
+    <path d="M8 5v14l11-7z"></path> <path d="M0 0h24v24H0z" fill="none">
+    </path>    
+</symbol>
+
+
 </svg>
