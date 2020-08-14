@@ -6,26 +6,80 @@ body {
 * {
 	box-sizing: border-box;
 }
-header {
+body > header,
+body > footer {
 	display: none !important;
 }
 h1 {
 	padding: 1.25em 0 0 1.25em;
 	margin: 0;
+	color: #111;
 }
 h2 {
 	font-size: 1.25em;
 	line-height: 1.25em;
-	color: #666;
-	margin-top: 1.25em;
+	margin: 1.25em 0 0;
+	color: #111;
 }
-form {
+p {
+	font-size: 0.85em;
+	line-height: 1.25em;
+	color: #666;
+	font-weight: 300;
+}
+h2 + p {
+	margin-top: 0;
+}
+#request-form {
 	width: 33.33%;
 	padding: 0 2.5em;
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 5em;
 }
+form {
+	position: relative;
+	padding: 0;
+}
+#form-section-1,
+#form-section-2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#form-section-2 {
+	display: none;
+}
+main textarea {
+	border: 1px solid #ddd;
+	font-size: 1em;
+}
+
+::-webkit-input-placeholder { /* Chrome */
+  color: #999;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #999;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #999;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: #999;
+  opacity: 1;
+}
+::placeholder {
+	 color: #999;
+
+}
+
 form > div input {
 	font-family: Adobe Clean, sans-serif;
 	border: 1px solid #ddd;
+	font-size: 100%;
 }
 form ul {
 	display: flex;
@@ -99,10 +153,18 @@ form ul li div input {
 	margin: 0 auto;
 	border: 1px solid #ddd;
 }
+main input[type=text] {
+	border: 1px solid #ddd;
+	border-radius: 0.3125em;
+}
 form ul li label {
 	padding: 1.25em;
 	display: block;
 	font-size: 0.85em;
+}
+form ol {
+	padding: 0;
+	list-style: none;
 }
 #timeline {
 	background: #fafafa;
@@ -118,6 +180,7 @@ form ul li label {
 	height: 100%;
 	position: relative;
 }
+input[type=button],
 input[type=submit] {
     -ms-flex-item-align: center;
     -ms-grid-row-align: center;
@@ -165,4 +228,60 @@ input[type=submit] {
     line-height: 1.3;
     cursor: pointer;
     font-family: Adobe Clean, sans-serif;
+}
+
+#modal {
+	background: rgba(0,0,0,0.75);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+#modal-content {
+	width: 45em;
+	height: 50%;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 25%;
+	margin: 0 0 0 -22.5em;
+	padding: 2.5em;
+	border-radius: 0.3125em;
+}
+
+#modal-content h2 {
+	font-size: 2.5em;
+	font-weight: bold;
+	color: #111;
+	margin: 0 0 0.625em 0;
+}
+
+#modal-content label,
+#modal-content input {
+	font-size: 100%;
+	font-size: 1.25em;
+	margin: 1.25em auto 0 auto;
+}
+
+#modal-content p {
+	font-size: 1em;
+	line-height: 1.25em;
+	color: #777;
+	max-width: 30em;
+	margin: 0.625em 0 0 0;
+}
+
+#modal-content input[type=text] {
+	max-width: 20em;
+}
+
+#modal-content input[type=submit] {
+	-ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    -webkit-align-self: center;
+    align-self: center;
+    justify-self: center;
 }

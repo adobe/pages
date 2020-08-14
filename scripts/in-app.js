@@ -413,6 +413,7 @@ if (document.readyState == 'loading') {
         let oldPluginId = param_type.get('name');
         let newPluginId = param_type.get('pluginId');
         let versionUuid = param_type.get('versionUuid');
+        let loc = window.location+'';
         let urilink = '';
 
         if(oldPluginId) {
@@ -432,9 +433,8 @@ if (document.readyState == 'loading') {
             //alert(urilink);
             window.protocolCheck(urilink,
                  function () {
-                   // user doesn't have XD installed. Execute below for fallback. 
-                   //  $("#lp-pom-text-1987").find("span").html("Uh oh, looks like we were unable to locate XD")
-               
+                   let intro = document.querySelector('.intro');
+                   intro.querySelector('h1').innerText = "Uh oh, looks like we were unable to locate XD";
                  }
              );
              event.preventDefault ? event.preventDefault() : event.returnValue = false;

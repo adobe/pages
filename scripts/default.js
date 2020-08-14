@@ -182,7 +182,7 @@ function styleBackgrounds() {
 
 
 let runResizer = debounce(function() {
-    cardHeightEqualizer('.learn-from-the-pros .card .text');
+    cardHeightEqualizer('.premiere .card .text');
 }, 250);
 
 window.addEventListener('resize', runResizer);
@@ -258,7 +258,7 @@ async function decoratePage() {
       document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
     }
     styleBackgrounds();
-    cardHeightEqualizer('.learn-from-the-pros .card .text');
+    cardHeightEqualizer('.premiere .card .text');
 }
 
 function formatListCard($li) {

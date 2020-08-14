@@ -293,12 +293,21 @@ main .section-wrapper:first-of-type .default a {
   background: #1E1E1E;
 }
 
-#uh-oh-we-couldnt-find-what-youre-looking-for {
+#all-set-xd-should-show-you-the-plugin-youre-looking-for {
   display: none;
 }
 
 .intro- .card img {
   width: 100%;
+}
+
+.intro h1 {
+  font-size: 32px;
+  max-width: 400px;
+}
+
+.intro a {
+  padding: 0em 0em !important;
 }
 
 @media(min-width: 768px) {
