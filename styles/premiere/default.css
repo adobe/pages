@@ -211,6 +211,28 @@ main ul.cards li .card-text a:any-link {
   display: inline-block;
 }
 
+main .card .video-thumb {
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%
+}
+
+main .card .video-thumb svg {
+  fill: white;
+  background-color: #1473e6;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
 
 header {
     display: flex;

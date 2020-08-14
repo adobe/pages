@@ -329,7 +329,10 @@ function formatListCard($li) {
             if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
                 const yturl=new URL($a.getAttribute('href'));
                 const vid=yturl.searchParams.get('v');
-                $div.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+                $div.innerHTML=`<div class="video-thumb" style="background-image:url(https://img.youtube.com/vi/${vid}/0.jpg)"><svg xmlns="http://www.w3.org/2000/svg"><use href="/icons.svg#play"></use></svg></div>`;
+                $div.addEventListener('click', (evt) => {
+                    $div.innerHTML=$div.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+                })
             } else {
                 $div.innerHTML=$td.innerHTML;
             }
