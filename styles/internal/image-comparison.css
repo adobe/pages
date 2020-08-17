@@ -1,0 +1,110 @@
+.before-after-card {
+  text-align: center;
+}
+
+.image-comparison .section-wrapper {
+  text-align: center;
+}
+
+.image-parent {
+  max-width: 800px;
+  margin: auto;
+  margin-top: 4em;
+  position: relative;
+}
+.image-parent__item {
+  padding-bottom: 56.25%;
+  background: #eee;
+}
+
+.indicator {
+  position: absolute;
+  top: -5%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 110%;
+  z-index: 5;
+}
+.indicator.active {
+  left: auto;
+}
+.indicator__bar {
+  background: #4C8AF5;
+  height: 100%;
+  width: 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+.indicator__bubble {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background: #4C8AF5;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  transition: all 200ms ease;
+}
+
+.image-parent__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.masked__img {
+  width: 800px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  background-size: cover;
+  background-position: center;
+}
+
+.indicator__arrows {
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.indicator__arrows svg {
+  width: 100%;
+}
+
+.slider-enabled {
+  cursor: 'grabbing';
+}
+.slider-enabled .indicator__bubble {
+  width: 50px;
+  height: 50px;
+}
+
+.lightroom {
+  position: absolute;
+  width: 40px;
+  right: 30px;
+  bottom: 30px;
+  z-index: 10;
+}
+.lightroom img {
+  width: 100%;
+}

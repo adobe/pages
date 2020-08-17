@@ -1,0 +1,90 @@
+<div class="image-parent">
+  <div class="image-parent__item">
+    
+    <div class="mask">
+      <div class="masked__img"></div>
+    </div>
+    
+      <div class="indicator">
+        <div class="indicator__bar">
+          <div class="indicator__bubble">
+            <div class="indicator__arrows">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 6">
+                <g id="Group_1" data-name="Group 1" transform="translate(-11.5 -19.5)">
+                  <path id="Polygon_2" data-name="Polygon 2" d="M3,0,6,4H0Z" transform="translate(24.5 19.5) rotate(90)" fill="#fff"/>
+                  <path id="Polygon_3" data-name="Polygon 3" d="M3,0,6,4H0Z" transform="translate(11.5 25.5) rotate(-90)" fill="#fff"/>
+                </g>
+              </svg>                
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <div class="image image-parent__img"></div>
+
+    <div class="lightroom">
+      <img src="http://landing.adobe.com/dam/global/images/lightroom-cc.mnemonic.240x234.png" alt="">
+    </div>
+  </div>
+</div>
+
+
+<script>
+  const imageParent = document.querySelector('.image-parent');
+  const indicator = document.querySelector('.indicator');
+  const mask = document.querySelector('.mask');
+  const imageMask = document.querySelector('.masked__img');
+  imageParent.parentElement.classList.add('image-comparison-element');
+  let imageComparisonParent = document.querySelector('.image-comparison-element');
+  let images = [];
+
+
+  const setImages = () => {
+    imageComparisonParent.querySelectorAll('p').forEach(function(item, index) {
+      if(item.childNodes[0].nodeName === "IMG" && index <= 1) {
+        images.push(item.childNodes[0].getAttribute('src'))
+        item.remove();
+      }
+    })
+
+    document.querySelector('.masked__img').style.backgroundImage = 'url('+ images[0] +')'
+    document.querySelector('.image-parent__img').style.backgroundImage = 'url('+ images[1] +')'
+  }
+
+  window.addEventListener('load', setImages)
+  
+  const initSize = () => {
+    let parentWidth = imageParent.offsetWidth;
+    imageMask.style.width = parentWidth + 'px'
+  }
+
+  const runDragger = (event, flag) => {
+    if(flag) {
+      imageParent.addEventListener('mousemove', function(e) {
+        if(flag) {
+          let x = e.clientX  - imageParent.offsetLeft;
+
+          if(x <= imageParent.offsetWidth && x >= 0) {
+            mask.style.width = x + 'px'
+            indicator.classList.add('active');
+            document.getElementsByTagName('body')[0].classList.add('slider-enabled');
+            indicator.querySelector('.indicator__bar').style.left = 'auto';
+            indicator.querySelector('.indicator__bar').style.transform = 'translatex('+ x +'px)';
+          } 
+
+          imageParent.addEventListener('mouseup', function() {
+            flag = false;
+            document.getElementsByTagName('body')[0].classList.remove('slider-enabled')
+          })
+        }
+      })
+    } else {
+      flag = false;
+    }
+  }
+
+  imageParent.addEventListener('mousedown', event => runDragger(event, true))
+
+  window.addEventListener('load', initSize);
+  window.addEventListener('resize', initSize)
+</script>
