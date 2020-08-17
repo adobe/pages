@@ -68,7 +68,12 @@ async function insertSteps() {
                     <div class="card-greatfor"><ul>${greatfor}</ul></div>
                 </div>
                 <div class="card-img" style="background-image: url(${src})">
-                <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+                </g>
+                </svg>
                 </div>
                 <div class="card-text">
                     <div><h4>${title}</h4>
