@@ -1,3 +1,5 @@
+@import 'icon-cheat-sheet.css';
+@import 'image-comparison.css';
 body {
 	font-family: Adobe Clean, sans-serif;
 	padding: 0;
@@ -285,3 +287,4 @@ input[type=submit] {
     align-self: center;
     justify-self: center;
 }
+

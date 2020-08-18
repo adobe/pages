@@ -230,9 +230,14 @@ function paramHelper() {
     // Set Main Video
     // make sure video indicator is being requested
     if(query_type.get('v')) {
-        let video_index = query_type.get('v') - 1;
+        let video_index;
         let parent_wrapper = document.querySelector('.cards');
         let mainVideo = document.createElement('div');
+        if(query_type.get('v') === 'last') {
+            video_index = parent_wrapper.querySelectorAll('.card').length - 1
+        } else {
+            video_index = query_type.get('v') - 1;
+        }
         mainVideo.setAttribute('class', 'main-video');
         mainVideo.innerHTML = document.querySelectorAll('.cards .card')[video_index].innerHTML;
         parent_wrapper.prepend(mainVideo);
@@ -329,7 +334,16 @@ function formatListCard($li) {
             if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
                 const yturl=new URL($a.getAttribute('href'));
                 const vid=yturl.searchParams.get('v');
-                $div.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+                $div.innerHTML=`<div class="video-thumb" style="background-image:url(https://img.youtube.com/vi/${vid}/0.jpg)"><svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+                </g>
+                </svg>
+                </div>`;
+                $div.addEventListener('click', (evt) => {
+                    $div.innerHTML=$div.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+                })
             } else {
                 $div.innerHTML=$td.innerHTML;
             }

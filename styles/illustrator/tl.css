@@ -45,7 +45,6 @@ main .steps {
 main .card {
   width: 315px;
   margin: 15px;
-  /* height: 460px; */
   cursor: pointer;
 }
 
@@ -55,7 +54,6 @@ main .card .text {
   border-top: 0;
   padding: 24px;
   text-align: left;
-  /* height: 320px; */
   box-sizing: border-box;
 }
 
@@ -73,7 +71,6 @@ main .card p {
 }
 
 main .card .text>div {
-  /* height: 210px; */
   box-sizing: border-box;
 } 
 
@@ -212,7 +209,6 @@ main .card a:any-link:hover {
   background-position: top center;
   background-repeat: no-repeat;
   padding: 26px;
-  /* width: 310px; */
   margin: auto;
 
 }
@@ -341,10 +337,6 @@ main svg {
 }
 
 
-
-
-
-
 @media (min-width:900px) {
   main h1 {
       font-size: 48px;
@@ -431,7 +423,6 @@ main svg {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* flex-direction: row; */
   text-align: left;
   color: white !important;
   text-decoration: none;
@@ -447,7 +438,6 @@ main svg {
 }
 
 .more-cards__item a span {
-  /* width: 48%; */
   width: 100%;
 }
 
@@ -483,7 +473,6 @@ main svg {
   .more-cards__item a {
     display: flex;
     flex-direction: column;
-    /* flex-direction: row; */
   }
   
   .more-cards__item h3 {
@@ -493,7 +482,6 @@ main svg {
   }
   
   .more-cards__item a span {
-    /* width: 48%; */
     width: 100%;
   }
 

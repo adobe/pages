@@ -79,6 +79,29 @@ main .default:first-of-type .card p:empty {
   display: none !important;
 }
 
+.premiere .main-video .video-thumb {
+  padding-bottom: 56.25%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+
+.premiere .main-video svg {
+  position: absolute;
+  z-index: 5;
+  fill: white;
+  background-color: #1473e6;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
 
 
 .premiere .main-video .text h5 {
@@ -222,6 +245,28 @@ main ul.cards li .card-text a:any-link {
   font-weight: 700;
   font-size: 14px;
   display: inline-block;
+}
+
+main .card .video-thumb {
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%
+}
+
+main .card .video-thumb svg {
+  fill: white;
+  background-color: #1473e6;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 

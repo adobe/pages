@@ -43,7 +43,7 @@ function styleBackgrounds() {
 function addNavCarrot() {
   let $svg = document.querySelector('header svg');
 
-  if($svg) {
+  if($svg.length) {
       let $svgParent = document.createElement('div');
       $svgParent.classList.add('nav-logo')
       
