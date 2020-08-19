@@ -33,7 +33,7 @@ header .icon {
 }
 
 #npsForm div:first-of-type button {
-  margin-right: 1px;
+  margin-right: 5px;
 }
 
 #npsForm div:first-of-type button:last-of-type {
@@ -119,6 +119,18 @@ header .icon {
   .button-group button {
     margin-bottom: 1em;
   }
+
+  #npsForm div:first-of-type button {
+    height: 40px;
+    background: #ddd;
+    border: none;
+  }
+
+  .npsScaleButton.selected {
+    background-color: #0d66d0 !important;
+  }
+
+
 
   .npsScaleButton {
     -webkit-appearance: none;
