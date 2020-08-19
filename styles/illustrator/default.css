@@ -28,7 +28,7 @@ header.nav-showing {
 header .carrot svg {
   stroke: black;
   position: relative;
-  top: 6px;
+  top: 0px;
   margin-left: 8px;
 }
 
@@ -43,10 +43,10 @@ header p:first-of-type {
   cursor: pointer;
 }
 
-header .product-icon svg {
+header .icon {
   position: relative;
-  top: 5px;
-  width: 140px;
+  top: 2px;
+  width: 40px;
   margin-left: 4px;
 }
 

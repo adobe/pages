@@ -32,11 +32,11 @@ function createTag(name, attrs) {
 async function insertLocalResource(type) {
   let url='';
   if (window.pages.product && window.pages.locale) {
-    url=`/${type}s/${window.pages.product}/${window.pages.locale}/${type}.plain.html`
+    url=`/${window.pages.product}/${window.pages.locale}/${type}.plain.html`
   }
 
   if (window.pages.product && window.pages.project) {
-    url=`/${type}s/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${type}.plain.html`
+    url=`/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${type}.plain.html`
   }
 
   if (url) {
