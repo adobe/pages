@@ -39,7 +39,7 @@ header .carrot svg{
   height: 30px;
 }
 
- header .section-wrapper > div {
+ header .section-wrapper  {
   max-width: 1200px;
   margin: auto;
   /* display: flex; */
@@ -129,7 +129,7 @@ header .carrot svg{
     padding: 1em 0em;
   }
 
-  header .section-wrapper > div {
+  header .section-wrapper  {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -156,7 +156,7 @@ header .carrot svg{
 }
 
 @media(min-width: 1000px) {
-  header .section-wrapper > div {
+  header .section-wrapper  {
     flex-direction: row;
   }
 
