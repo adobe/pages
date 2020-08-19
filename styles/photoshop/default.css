@@ -1,10 +1,12 @@
 @import url("../default.css");
 
+
 header>div {
   display: flex;
   justify-content: center;
-  padding-top: 2em;
+  padding-top:2em;
 }
+
 
 header>div:first-of-type {
   background-color: unset;
@@ -12,11 +14,13 @@ header>div:first-of-type {
 
 header p:first-of-type {
   margin: 0;
+  padding-top: 2em;
 }
 
+
 header .icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 
 #npsForm div:first-of-type {
@@ -29,7 +33,7 @@ header .icon {
 }
 
 #npsForm div:first-of-type button {
-  margin-right: 10px;
+  margin-right: 1px;
 }
 
 #npsForm div:first-of-type button:last-of-type {
@@ -41,8 +45,18 @@ header .icon {
 }
 
 #npsForm textarea {
+  width: calc(100% - 20px);
   max-width: 700px;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  padding: 10px;
+  min-height: 100px;
   margin-bottom: 1em;
+}
+
+#npsForm textarea:focus {
+  outline-color: #1473e6;
 }
 
 #npsForm input[type="submit"] {
@@ -66,8 +80,47 @@ header .icon {
   transition: background .13s ease-out,border-color .13s ease-out,color .13s ease-out,box-shadow .13s ease-out;
 }
 
+#canAdobeContact {
+  border: 1px solid #aaa;
+  background-color: transparent;
+  border-radius: 0px;
+  background-color: none;
+  box-shadow: none;
+  outline: none;
+}
+
+#canAdobeContact:checked {
+  color: #000;
+  background-color: #000;
+}
+
+.button-group {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+}
+
+
+
 #npsForm input[type="submit"]:hover {
   background-color: #0d66d0;
   border-color: #0d66d0;
   color: #fff;
+}
+
+@media(max-width: 600px) {
+  .feedback h1 {
+    font-size: 25px;
+  }
+
+
+  .button-group button {
+    margin-bottom: 1em;
+  }
+
+  .npsScaleButton {
+    -webkit-appearance: none;
+  }
 }
