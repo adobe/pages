@@ -34,5 +34,5 @@ main .banner a:any-link{
 }
 
 main .embed {
-    padding: 48px;
+    padding: 48px 24px;
 }

@@ -1,7 +1,7 @@
 <div class="embed section-embed nps-form">
 <form id="npsForm">
 	<div>
-	    <div>
+	    <div class="button-group">
 	        <button id="npsScaleButton_0" class="npsScaleButton" disabled="">0</button>
 	        <button id="npsScaleButton_1" class="npsScaleButton" disabled="">1</button>	    
 	        <button id="npsScaleButton_2" class="npsScaleButton" disabled="">2</button>	    
