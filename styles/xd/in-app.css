@@ -9,6 +9,10 @@
   background: #2E001F;
 }
 
+header > .section-wrapper div:last-of-type p {
+  display: none;
+}
+
 header .nav-logo {
   display: flex;
   justify-content: center;
