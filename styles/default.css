@@ -2,9 +2,6 @@ main {
     text-align: center;
 }
 
-header > .section-wrapper div:last-of-type p {
-    display: none;
-}
 
 main>div:nth-child(2n) {
     background-color: #eee;
