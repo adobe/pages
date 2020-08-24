@@ -52,7 +52,7 @@ main .card .text {
   border: 1px solid #DEDEDE;
   border-radius: 5px;
   border-top: 0;
-  padding: 24px;
+  padding: 24px 32px;
   text-align: left;
   box-sizing: border-box;
 }
@@ -116,8 +116,8 @@ main .card a:any-link:hover {
 .step main .content h1 {
   position: relative;
   border: 1px dashed lightgrey;
-  margin: 40px auto;
-  padding: 0 10px 10px 10px;
+  margin: 40px auto 0.4em auto;
+  padding: 0 10px 0px 10px;
   display: inline-block;
 }
 
@@ -166,14 +166,14 @@ main .card a:any-link:hover {
 }
 
 .step main .content a:any-link {
-  border-radius: 20px;
+  border-radius: 50px;
   background-color: #1473e6;
-  padding: 7px 20px;
+  padding: 14px 40px;
   text-decoration: none;
   color: currentColor;
   font-weight: 800;
   display: inline-block;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .step main .content .video {
@@ -222,12 +222,16 @@ main .card a:any-link:hover {
   flex-wrap: wrap;
   margin: auto;
   justify-content: center;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 400;
 }
 
 .step main .skills p {
-  padding-top: 0.5em;
+  padding-top: 0.8em;
+  max-width: 75%;
+  margin: auto;
+  font-size: 18px;
+  line-height: 24px;
 }
 
 .step main .skill {
@@ -307,6 +311,8 @@ main .card a:any-link:hover {
 
 .step main .upnext__inner p:last-of-type {
   padding: 0 2em;
+  font-size: 20px;
+  line-height: 1.6;
 }
 
 
@@ -497,7 +503,7 @@ main svg {
   }
   
   .more-cards__item {
-    width: 48%;
+    width: 47%;
     margin-bottom: 2em;
   }
   
