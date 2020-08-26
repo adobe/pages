@@ -230,20 +230,12 @@ function paramHelper() {
     // Set Main Video
     // make sure video indicator is being requested
     if(query_type.get('v')) {
-        let video_index;
-        let parent_wrapper = document.querySelector('.cards');
-        let mainVideo = document.createElement('div');
-        if(query_type.get('v') === 'last') {
-            video_index = parent_wrapper.querySelectorAll('.card').length - 1
-        } else {
-            video_index = query_type.get('v') - 1;
-        }
-        mainVideo.setAttribute('class', 'main-video');
-        mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
-        mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
-        document.querySelectorAll('.cards .card')[video_index].remove();
-        parent_wrapper.prepend(mainVideo);
-    } 
+        const v=query_type.get('v');
+        const $cards=document.querySelectorAll('.cards .card');
+        const $heroCard=$cards[v=='last'?$cards.length-1:+v-1];
+        $heroCard.className='main-video';
+        $heroCard.parentNode.prepend($heroCard);
+    }
 }
 
 async function decoratePage() {
