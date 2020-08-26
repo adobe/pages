@@ -240,6 +240,7 @@ function paramHelper() {
         }
         mainVideo.setAttribute('class', 'main-video');
         mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
+        mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
         document.querySelectorAll('.cards .card')[video_index].remove();
         parent_wrapper.prepend(mainVideo);
     } 
