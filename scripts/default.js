@@ -239,7 +239,9 @@ function paramHelper() {
             video_index = query_type.get('v') - 1;
         }
         mainVideo.setAttribute('class', 'main-video');
-        mainVideo.innerHTML = document.querySelectorAll('.cards .card')[video_index].innerHTML;
+        mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
+        mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
+        document.querySelectorAll('.cards .card')[video_index].remove();
         parent_wrapper.prepend(mainVideo);
     } 
 }
