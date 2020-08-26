@@ -239,7 +239,7 @@ function paramHelper() {
             video_index = query_type.get('v') - 1;
         }
         mainVideo.setAttribute('class', 'main-video');
-        mainVideo.innerHTML = document.querySelectorAll('.cards .card')[video_index].innerHTML;
+        mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
         parent_wrapper.prepend(mainVideo);
     } 
 }
