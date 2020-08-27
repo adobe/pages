@@ -381,127 +381,135 @@ main {
   
   
   /* === TWP Nav Component === */
-header>div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  flex-direction: column;
-}
-
-header .nav-logo {
-  cursor: pointer;
-  padding: 1em 0em;
-}
-
-header>div:first-of-type {
-  background-color: unset;
-} 
-
-header.nav-showing {
-  background: #eee;
-}
-
-header .carrot svg {
-  stroke: black;
-  position: relative;
-  top: 6px;
-  margin-left: 8px;
-}
-
-
-
-header p:first-of-type {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 0em;
-  cursor: pointer;
-}
-
-header .product-icon svg {
-  position: relative;
-  top: 5px;
-  width: 140px;
-  margin-left: 4px;
-}
-
-header ul {
-  margin: 0; padding: 0;
-  list-style-type: none;
-  display: none;
-  flex-direction: column;
-  margin-left: 1em;
-}
-
-header li {
-    margin-left: 0.5em;
-    margin-top: 1.5em;
-}
-
-header li:last-of-type {
-  margin-right: 0em;
-  margin-bottom: 2em;
-}
-
-header a {
-  width: 100%;
-  font-weight: 800;
-  display: inline-block;
-  padding: 0.5em 0em;
-  color: #000000;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-header a:hover {
-  background: #f2f2f2;
-}
-
-@media(min-width: 768px) {
-
-  header.nav-showing {
-    background: #fff;
-  }
-
-  header > div {
-    flex-direction: row;
-    background: white !important;
+  header>div:first-of-type {
+    color: none;
   }
   
+  
+  /* === TWP Nav Component === */
+  header>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  header .nav-logo {
+    cursor: pointer;
+    padding: 1em 0em;
+  }
+  
+  header>div:first-of-type {
+    background-color: unset;
+  } 
+  
+  header.nav-showing {
+    background: #eee;
+  }
+  
+  header .carrot svg {
+    stroke: black;
+    position: relative;
+    top: 0px;
+    margin-left: 8px;
+  }
+  
+  
+  
   header p:first-of-type {
-    width: auto;
-    cursor: default;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     margin-top: 0em;
+    cursor: pointer;
+  }
+  
+  header .icon {
+    position: relative;
+    top: 2px;
+    width: 40px;
+    margin-left: 4px;
   }
   
   header ul {
-    display: flex !important;
-    margin-left: 0em;
-    position: relative;
-    top: 0.2em;
-    flex-direction: row;
+    margin: 0; padding: 0;
+    list-style-type: none;
+    display: none;
+    flex-direction: column;
+    margin-left: 1em;
   }
   
   header li {
-    margin-top: 0em;
+      margin-left: 0.5em;
+      margin-top: 1.5em;
   }
   
   header li:last-of-type {
-    margin-bottom: 0em;
-  }
-
-  header .carrot {
-    display: none;
+    margin-right: 0em;
+    margin-bottom: 2em;
   }
   
   header a {
+    width: 100%;
     font-weight: 800;
-    padding: 2em 1em;
+    display: inline-block;
+    padding: 0.5em 0em;
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
   }
-}
-
+  
+  header a:hover {
+    background: #f2f2f2;
+  }
+  
+  @media(min-width: 768px) {
+  
+    header.nav-showing {
+      background: #fff;
+    }
+  
+    header > div {
+      flex-direction: row;
+      background: white !important;
+    }
+    
+    header p:first-of-type {
+      width: auto;
+      cursor: default;
+      margin-top: 0em;
+    }
+    
+    header ul {
+      display: flex !important;
+      margin-left: 0em;
+      position: relative;
+      top: 0.2em;
+      flex-direction: row;
+    }
+    
+    header li {
+      margin-top: 0em;
+    }
+    
+    header li:last-of-type {
+      margin-bottom: 0em;
+    }
+    
+    header .carrot {
+      display: none;
+    }
+    
+    header a {
+      font-weight: 800;
+      padding: 2em 1em;
+    }
+  }
+  
+  
+  
 
   
   
