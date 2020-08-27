@@ -181,28 +181,29 @@ function styleBackgrounds() {
 }
 
 
-let runResizer = debounce(function() {
-    cardHeightEqualizer('.premiere .card .text');
-}, 250);
 
-window.addEventListener('resize', runResizer);
+
+window.addEventListener('resize', debounce(function() {
+    // run resize events 
+    cardHeightEqualizer('.premiere .card .text');
+}, 250));
 
 
 
 
   
 function dropDownMenu() {
-let $header = document.querySelector('header');
+    let $header = document.querySelector('header');
 
-if(window.outerWidth >= 768) return;
+    if(window.outerWidth >= 768) return;
 
-if(!$header.classList.contains('nav-showing')) {
-    $header.querySelector('ul').style.display = 'flex';
-    $header.classList.add('nav-showing')
-} else {
-    $header.querySelector('ul').style.display = 'none';
-    $header.classList.remove('nav-showing')
-}
+    if(!$header.classList.contains('nav-showing')) {
+        $header.querySelector('ul').style.display = 'flex';
+        $header.classList.add('nav-showing')
+    } else {
+        $header.querySelector('ul').style.display = 'none';
+        $header.classList.remove('nav-showing')
+    }
 }
   
 
