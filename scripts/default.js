@@ -189,38 +189,21 @@ window.addEventListener('resize', runResizer);
 
 
 
-function addNavCarrot() {
-    let $svg = document.querySelector('header svg');
 
-    if($svg) {
-        let $svgParent = document.createElement('div');
-        $svgParent.classList.add('nav-logo')
-        
-        $svgParent.innerHTML = `
-            ${$svg.outerHTML}
-            <span class="carrot">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </span>
-        `
-        document.querySelector('header > .section-wrapper > div > svg').remove();
-        document.querySelector('header > .section-wrapper > div').prepend($svgParent)
-    }
-  }
   
-  
-  function dropDownMenu() {
-    let $header = document.querySelector('header');
-  
-    if(window.outerWidth >= 768) return;
-  
-    if(!$header.classList.contains('nav-showing')) {
-      $header.querySelector('ul').style.display = 'flex';
-      $header.classList.add('nav-showing')
-    } else {
-      $header.querySelector('ul').style.display = 'none';
-      $header.classList.remove('nav-showing')
-    }
-  }
+function dropDownMenu() {
+let $header = document.querySelector('header');
+
+if(window.outerWidth >= 768) return;
+
+if(!$header.classList.contains('nav-showing')) {
+    $header.querySelector('ul').style.display = 'flex';
+    $header.classList.add('nav-showing')
+} else {
+    $header.querySelector('ul').style.display = 'none';
+    $header.classList.remove('nav-showing')
+}
+}
   
 
 function paramHelper() {
@@ -230,20 +213,12 @@ function paramHelper() {
     // Set Main Video
     // make sure video indicator is being requested
     if(query_type.get('v')) {
-        let video_index;
-        let parent_wrapper = document.querySelector('.cards');
-        let mainVideo = document.createElement('div');
-        if(query_type.get('v') === 'last') {
-            video_index = parent_wrapper.querySelectorAll('.card').length - 1
-        } else {
-            video_index = query_type.get('v') - 1;
-        }
-        mainVideo.setAttribute('class', 'main-video');
-        mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
-        mainVideo.appendChild(document.querySelectorAll('.cards .card')[video_index].querySelector('div'));
-        document.querySelectorAll('.cards .card')[video_index].remove();
-        parent_wrapper.prepend(mainVideo);
-    } 
+        const v=query_type.get('v');
+        const $cards=document.querySelectorAll('.cards .card');
+        const $heroCard=$cards[v=='last'?$cards.length-1:+v-1];
+        $heroCard.className='main-video';
+        $heroCard.parentNode.prepend($heroCard);
+    }
 }
 
 async function decoratePage() {
@@ -258,8 +233,7 @@ async function decoratePage() {
     window.pages.decorated = true;
     paramHelper();
     appearMain();
-    // nav style/dropdown
-    addNavCarrot();
+    
 
     if(document.querySelector('.nav-logo')) {
       document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
