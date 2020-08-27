@@ -247,6 +247,21 @@ main ul.cards li .card-text a:any-link {
   display: inline-block;
 }
 
+main .card .video .video-frame, main .main-video .video-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  height: 0;
+}
+main .card .video iframe, main .main-video iframe{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
 main .card .video-thumb {
   background-position: center center;
   background-size: cover;

@@ -311,6 +311,10 @@ function formatListCard($li) {
             if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
                 const yturl=new URL($a.getAttribute('href'));
                 const vid=yturl.searchParams.get('v');
+                if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+                    document.body.appendChild(createTag('script', {src: "https://www.youtube.com/iframe_api"}))
+                }
+
                 $div.innerHTML=`<div class="video-thumb" style="background-image:url(https://img.youtube.com/vi/${vid}/0.jpg)"><svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
                 <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
                     <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
@@ -319,7 +323,18 @@ function formatListCard($li) {
                 </svg>
                 </div>`;
                 $div.addEventListener('click', (evt) => {
-                    $div.innerHTML=$div.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+                    if (YT) {
+                        const rid='id-'+(''+Math.random()).split('.')[1];
+                        $div.innerHTML=$div.innerHTML=`<div class="video-frame"><div id="${rid}"></div></div>`;
+                        const player = new YT.Player(rid, {
+                            height: '390',
+                            width: '640',
+                            videoId: vid,
+                            events: {
+                              'onReady': (evt) => {evt.target.playVideo()},
+                            }
+                        });
+                    }
                 })
             } else {
                 $div.innerHTML=$td.innerHTML;
