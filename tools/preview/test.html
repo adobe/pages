@@ -1,0 +1,62 @@
+<html>
+    <head><title>Preview Testing</title>
+        <style>
+            body {
+                font-family: Helvetica, sans-serif;
+                background-color: #ddd;
+                display: flex;
+                justify-items: center;
+                align-content: center;
+            }
+
+            a:any-link {
+                text-decoration: none;
+                border-radius: 10px;
+                background-color: #222;
+                color: white;
+                padding: 5px 20px;
+                display: inline-block;
+            }
+
+            input {
+                width: 350px;
+                font-family: Helvetica, sans-serif;
+                padding: 5px 20px;
+            }
+
+            div {
+                max-width: 800px;
+                margin: auto;
+                text-align: center;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>Preview Tester</h1>
+            <p>
+                <input type="text" id="test_location" value="">
+            </p>
+            <p>
+                <a id="bookmarklet" href="">Preview</a>
+                <script>
+                  const p=new URLSearchParams(window.location.search);
+                  document.getElementById('test_location').value = p.get('url');
+                  const config = JSON.stringify({
+                    project: 'pages.adobe.com',
+                    innerHost: window.location.host,
+                    outerHost: 'pages.adobe.com',
+                  });
+                  const href = [
+                    'javascript:(()=>{',
+                    `window.hlxPreviewBookmarklet=${config}';`,
+                    'document.body.appendChild(document.createElement("script")).src="https://www.project-helix.io/bookmarklets/preview.js";',
+                    '})();',
+                    ].join('');
+                  document.getElementById('bookmarklet').setAttribute('href', href);
+                </script>
+                </p>
+        </div>
+    </body>
+</html>
