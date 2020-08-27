@@ -110,7 +110,7 @@ async function decorateStep() {
     const $video=createTag('div', {class: 'video-wrapper'});
     $content.appendChild($video);
 
-    const stepIndex=(+window.location.search.substring(1))-1;
+    const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
     const steps=await fetchSteps();
     const currentStep=steps[stepIndex];
 
