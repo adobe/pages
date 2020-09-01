@@ -40,6 +40,7 @@ async function insertLocalResource(type) {
   }
 
   if (url) {
+    window.pages.dependencies.push(url);
     const resp=await fetch(url);
     if (resp.status == 200) {
       const html=await resp.text();
@@ -165,6 +166,8 @@ if (pathSegments) {
   if (product=='internal') { family=`internal`; project=``; }
   window.pages = { product, locale, project, family };  
 }
+
+window.pages.dependencies=[];
 
 // Load page specific code
 if (window.pages.project) {
