@@ -43,7 +43,9 @@ async function insertSteps() {
         let done=false;
         let html='';
         do {
-            const resp=await fetch (`step-${i}.plain.html`);
+            const url=`step-${i}.plain.html`;
+            window.pages.dependencies.push(url);
+            const resp=await fetch (url);
             if (resp.status == 200) {
                 const text=await resp.text();
                 const $html=createTag('div');
