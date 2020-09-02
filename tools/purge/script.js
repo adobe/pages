@@ -65,7 +65,7 @@ async function purge() {
     console.log(`purging for path: ${path}`)
     await sendPurge(path);
 
-    if (window.pages.dependencies) {
+    if (window.pages && window.pages.dependencies) {
         const deps=window.pages.dependencies;
         for (let i=0;i<deps.length;i++) {
             const dep=deps[i];
