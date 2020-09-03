@@ -1,0 +1,62 @@
+<style>
+    .countdown {
+        padding: 10% 0;
+    }
+    .countdown>p {
+        display: none;
+    }
+
+    .counter {
+        display: block;
+    }
+
+    #countdown {
+        display: block;
+        font-size: 7em;
+        background-color: #1473e6;
+        border-radius: 20px;
+        width: 200px;
+        height: 200px;
+        color: white;
+        margin: auto;
+        padding-top: 20px;
+        box-sizing: border-box;
+        animation: flip 0.5s linear both;
+    }
+
+@keyframes flip {
+  0% {
+            transform: scale(1) rotateY(0);
+  }
+  50% {
+            transform: scale(2.5) rotateY(90deg);
+  }
+  100% {
+            transform: scale(1) rotateY(180deg);
+  }
+}
+</style>
+<div class="counter">
+    <span id="countdown">5</span>
+</div>
+<script>
+    function countdown() {
+        const $countdown=document.getElementById("countdown");
+        const $clone=$countdown.cloneNode(true);
+        $clone.innerHTML=""+(+$countdown.innerHTML.trim())-1;
+        $countdown.parentNode.replaceChild($clone, $countdown);
+        if ($clone.innerHTML=="0") {
+            const $links=document.querySelectorAll('div.countdown a[href]');
+            const href=$links[Math.floor(Math.random()*$links.length)].getAttribute('href');
+            window.location.href=href;
+
+        } else {
+            setTimeout(countdown, 1000);
+
+        }
+
+    }
+
+countdown();
+document.querySelector('main>div:last-of-type').classList.add('countdown');
+</script>
