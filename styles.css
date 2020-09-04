@@ -189,3 +189,7 @@ footer p:after {
     padding-left: 1em;
     padding-right: 1em;
   }
+
+.privacy {
+  margin-left: 10px;
+}
