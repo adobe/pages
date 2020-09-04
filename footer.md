@@ -8,3 +8,7 @@ Copyright © 2020 Adobe. All rights reserved.
 - [:i-adchoices: AdChoices](https://www.adobe.com/privacy/opt-out.html#interest-based-ads)
 
 ---
+<div class="privacy" style="display: block;">
+  <a href="#" class="openPrivacyModal">Update your preferences</a>
+  <div id="feds-footer"></div>
+</div>

@@ -233,7 +233,6 @@ async function decoratePage() {
     window.pages.decorated = true;
     paramHelper();
     appearMain();
-    addNavCarrot();
 
     if(document.querySelector('.nav-logo')) {
       document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
