@@ -5,6 +5,11 @@
   margin-bottom: 60px;
 }
 
+.home .appear .default:first-of-type {
+  max-width: 650px;
+  margin: auto;
+}
+
 main > .default:first-of-type h1 {
   font-size: 38px;
   max-width: 650px;
