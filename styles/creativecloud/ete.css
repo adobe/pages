@@ -1,0 +1,109 @@
+@import url('./default.css');
+
+
+.home header {
+  margin-bottom: 60px;
+}
+
+main > .default:first-of-type h1 {
+  font-size: 38px;
+  max-width: 650px;
+  width: 95%;
+  margin: auto;
+}
+
+main > .default:first-of-type br {
+  display: none;
+  max-width: 650px;
+  width: 95%;
+}
+
+main > .default:first-of-type p {
+  max-width: 650px;
+  margin: auto;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #505050;
+}
+
+main .steps {
+  display: block;
+}
+
+.category-steps {
+  /* display: flex; */
+}
+
+.category-steps .card {
+  margin: auto;
+  margin-bottom: 1em;
+}
+
+.category-steps .card:last-of-type {
+  margin-bottom: 0px;
+}
+
+.category-steps .card h4 {
+  max-width: 200px;
+}
+
+.category-steps a {
+  color: #505050 !important;
+}
+
+.icons {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.icons__item {
+  max-width: 28px;
+  width: 100%;
+}
+
+.icons__item:nth-child(2) {
+  margin: 0px 8px;
+  width: auto !important;
+  max-width: auto !important;
+}
+.section-title {
+  padding-bottom: 15px;
+}
+
+
+
+.steps .category-steps:nth-of-type(2) {
+  margin-bottom: 4em;
+}
+
+@media(min-width: 750px) {
+  main > .default:first-of-type h1 {
+    font-size: 48px;
+  }
+
+
+  main > .default:first-of-type p {
+    font-size: 22px;
+  }
+
+  .home main > .default:first-of-type br {
+    display: block;
+  }
+  
+  
+  .category-steps {
+    display: flex;
+  }
+
+  .category-steps .card {
+    margin-bottom: 0;
+    width: 240px
+  }
+}
+
+@media(min-width: 980px) {
+
+  .category-steps .card {
+    width: 315px;
+  }
+}
