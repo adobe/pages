@@ -4,7 +4,7 @@ async function purge() {
     if ($test) loc=$test.value;
 
     const url=new URL(loc);
-    let path=url.pathname;
+    let path=url.pathname+url.search;
 
     $spinnerWrap=document.createElement('div');
     $spinnerWrap.innerHTML=(`<style>
