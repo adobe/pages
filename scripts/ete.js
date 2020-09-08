@@ -17,6 +17,18 @@ function getThumbnail(step) {
   return (thumbnail);
 }
 
+
+function wrapSections(element) {
+  document.querySelectorAll(element).forEach(($div) => {
+      const $wrapper=createTag('div', { class: 'section-wrapper'});
+      $div.parentNode.appendChild($wrapper);
+      $wrapper.appendChild($div);
+  });
+}
+
+
+
+
 async function insertSteps() {
   const $steps=document.querySelector('main div.steps');
   const $sectionTitles = document.querySelector("main div:nth-child(2)");
@@ -25,7 +37,6 @@ async function insertSteps() {
   if ($steps) {
       let count = -1;
       const steps=await fetchSteps();
-      console.log(steps)
       steps.forEach((step, i) => {
         if(i  % 3 === 0) {
           count++;      
@@ -144,8 +155,8 @@ async function decorateStep() {
   let title=currentStep.Title;
   if (currentStep.Heading) title=currentStep.Heading;
   title=title.split(`\n`).join('<br>');
+  title = title.split("&nbsp;").join('<br>')
   $h1.innerHTML=title;
-  $h1.id='';
 
   for (let i=0;i<8;i++) {
       $h1.appendChild(createTag('span', {class: 'grab-'+i}))
@@ -253,7 +264,7 @@ async function decoratePage() {
 
   externalLinks('header');
   externalLinks('footer');
-
+  
   // nav style/dropdown
   addNavCarrot();
 
@@ -280,6 +291,7 @@ async function decoratePage() {
   }
 
   window.pages.decorated = true;
+  wrapSections('.home > main > div')
   appearMain();
 }
 

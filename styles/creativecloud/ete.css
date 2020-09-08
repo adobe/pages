@@ -5,29 +5,34 @@
   margin-bottom: 60px;
 }
 
-.home .appear .default:first-of-type {
+.home .appear .section-wrapper:first-of-type {
   max-width: 650px;
   margin: auto;
 }
 
-main > .default:first-of-type h1 {
+.step .appear .section-wrapper:first-of-type {
+  max-width: 650px;
+  margin: auto;
+}
+
+main > .section-wrapper:first-of-type h1 {
   font-size: 38px;
   max-width: 650px;
   width: 95%;
   margin: auto;
 }
 
-main > .default:first-of-type {
+main > .section-wrapper:first-of-type {
   text-align: center;
 }
 
-main > .default:first-of-type br {
+main > .section-wrapper:first-of-type br {
   display: none;
   max-width: 650px;
   width: 95%;
 }
 
-main > .default:first-of-type p {
+main > .section-wrapper:first-of-type p {
   max-width: 650px;
   margin: auto;
   font-size: 18px;
@@ -39,13 +44,29 @@ main .steps {
   display: block;
 }
 
+.section-wrapper {
+  /* max-width: 650px; */
+  margin: auto;
+}
+
+.section-wrapper .default.steps {
+  width: 100%;
+  max-width: 840px;
+}
+
 .category-steps {
   /* display: flex; */
+  width: 100%;
 }
 
 .category-steps .card {
   margin: auto;
   margin-bottom: 1em;
+}
+
+.category-steps .card p {
+  font-size: 18px !important;
+  padding-top: 0.5em;
 }
 
 .category-steps .card:last-of-type {
@@ -86,16 +107,16 @@ main .steps {
 }
 
 @media(min-width: 750px) {
-  main > .default:first-of-type h1 {
+  main > .section-wrapper:first-of-type h1 {
     font-size: 48px;
   }
 
 
-  main > .default:first-of-type p {
+  main > .section-wrapper:first-of-type p {
     font-size: 22px;
   }
 
-  .home main > .default:first-of-type br {
+  .home main > .section-wrapper:first-of-type br {
     display: block;
   }
   
@@ -108,11 +129,15 @@ main .steps {
     margin-bottom: 0;
     width: 240px
   }
+
+  main > .section-wrapper:first-of-type p {
+    font-size: 18px;
+  }
 }
 
 @media(min-width: 980px) {
 
   .category-steps .card {
-    width: 315px;
+    width: 250px;
   }
 }
