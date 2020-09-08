@@ -19,11 +19,19 @@ function getThumbnail(step) {
 
 async function insertSteps() {
   const $steps=document.querySelector('main div.steps');
+  const $sectionTitles = document.querySelector("main div:nth-child(2)");
+  let addToCategory = '';
+
   if ($steps) {
+      let count = -1;
       const steps=await fetchSteps();
-      let html='';
+      console.log(steps)
       steps.forEach((step, i) => {
-          html+=`<div class="card" onclick="window.location='step?${i+1}'">
+        if(i  % 3 === 0) {
+          count++;      
+          addToCategory += `<div class="section-title">${$sectionTitles.querySelectorAll('h3')[count].outerHTML}</div><div class="category-steps">`
+        }
+        addToCategory+=`<div class="card" onclick="window.location='step?${i+1}'">
               <div class='img' style="background-image: url(${getThumbnail(step)})">
               <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
               <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
@@ -33,14 +41,29 @@ async function insertSteps() {
               </svg>
               </div>
               <div class='text'>
-                  <div><h4>${step.Title}</h4>
-                  <p>${step.Description}</p>
+                  <div>
+                    <div class="icons">
+                      <div class="icons__item">
+                        <img src="/icons/${step.Product_icon_1.toLowerCase()}.svg">
+                      </div>
+                      <div class="icons__item">+</div>
+                      <div class="icons__item">
+                        <img src="/icons/${step.Product_icon_2.toLowerCase()}.svg">
+                      </div>
+                    </div>
+                    <h4>${step.Title}</h4>
+                    <p>${step.Description}</p>
                   </div>
                   <a href="step?${i+1}">${step.CTA}</a>
               </div>
           </div>`
+          if(i  === 2 || i === 5) {
+            addToCategory += '</div>'
+          }
       })
-      $steps.innerHTML=html;
+      // let markup = `${addToCategory}`
+      $sectionTitles.innerHTML = '';
+      $steps.innerHTML = addToCategory;
   }
 }
 
@@ -70,17 +93,17 @@ if(document.querySelector('header img')) {
 
 
 function dropDownMenu() {
-let $header = document.querySelector('header');
+  let $header = document.querySelector('header');
 
-if(window.outerWidth >= 768) return;
+  if(window.outerWidth >= 768) return;
 
-if(!$header.classList.contains('nav-showing')) {
-  $header.querySelector('ul').style.display = 'flex';
-  $header.classList.add('nav-showing')
-} else {
-  $header.querySelector('ul').style.display = 'none';
-  $header.classList.remove('nav-showing')
-}
+  if(!$header.classList.contains('nav-showing')) {
+    $header.querySelector('ul').style.display = 'flex';
+    $header.classList.add('nav-showing')
+  } else {
+    $header.querySelector('ul').style.display = 'none';
+    $header.classList.remove('nav-showing')
+  }
 }
 
 

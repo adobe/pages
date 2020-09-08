@@ -1,139 +1,109 @@
-header>div:first-of-type {
-  color: none;
+@import url('./default.css');
+
+
+.home header {
+  margin-bottom: 60px;
 }
 
-header {
-  border-bottom: 1px solid #EAEAEA;
+main > .default:first-of-type h1 {
+  font-size: 38px;
+  max-width: 650px;
+  width: 95%;
+  margin: auto;
 }
 
-
-/* === TWP Nav Component === */
-header>div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  flex-direction: column;
-}
-
-header .nav-logo {
-  cursor: pointer;
-  padding: 1em 0em;
-}
-
-header>div:first-of-type {
-  background-color: unset;
-} 
-
-header.nav-showing {
-  background: #eee;
-}
-
-header .carrot svg {
-  stroke: black;
-  position: relative;
-  top: 0px;
-  margin-left: 8px;
-}
-
-
-.creativecloud.ete header  li:first-of-type a {
-  border-bottom: 2px solid black;
-}
-
-
-header p:first-of-type {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 0em;
-  cursor: pointer;
-}
-
-header .icon {
-  position: relative;
-  top: 2px;
-  width: 40px;
-  margin-left: 4px;
-}
-
-header ul {
-  margin: 0; padding: 0;
-  list-style-type: none;
+main > .default:first-of-type br {
   display: none;
-  flex-direction: column;
-  margin-left: 1em;
+  max-width: 650px;
+  width: 95%;
 }
 
-header li {
-    margin-left: 0.5em;
-    margin-top: 1.5em;
+main > .default:first-of-type p {
+  max-width: 650px;
+  margin: auto;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #505050;
 }
 
-header li:last-of-type {
-  margin-right: 0em;
-  margin-bottom: 2em;
+main .steps {
+  display: block;
 }
 
-header a {
+.category-steps {
+  /* display: flex; */
+}
+
+.category-steps .card {
+  margin: auto;
+  margin-bottom: 1em;
+}
+
+.category-steps .card:last-of-type {
+  margin-bottom: 0px;
+}
+
+.category-steps .card h4 {
+  max-width: 200px;
+}
+
+.category-steps a {
+  color: #505050 !important;
+}
+
+.icons {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.icons__item {
+  max-width: 28px;
   width: 100%;
-  font-weight: 800;
-  display: inline-block;
-  padding: 0.5em 0em;
-  color: #000000;
-  font-size: 14px;
-  text-decoration: none;
+}
+
+.icons__item:nth-child(2) {
+  margin: 0px 8px;
+  width: auto !important;
+  max-width: auto !important;
+}
+.section-title {
+  padding-bottom: 15px;
 }
 
 
 
-@media(min-width: 768px) {
+.steps .category-steps:nth-of-type(2) {
+  margin-bottom: 4em;
+}
 
-  header.nav-showing {
-    background: #fff;
+@media(min-width: 750px) {
+  main > .default:first-of-type h1 {
+    font-size: 48px;
   }
 
 
-  header > div {
-    flex-direction: row;
-    background: white !important;
+  main > .default:first-of-type p {
+    font-size: 22px;
+  }
+
+  .home main > .default:first-of-type br {
+    display: block;
   }
   
-  header p:first-of-type {
-    width: auto;
-    cursor: default;
-    margin-top: 0em;
-  }
   
-  header ul {
-    display: flex !important;
-    margin-left: 0em;
-    position: relative;
-    top: 0em;
-    flex-direction: row;
+  .category-steps {
+    display: flex;
   }
-  
-  header li {
-    margin-top: 0em;
-    margin: 0px 60px;
-  }
-  
-  header li:last-of-type {
-    margin-bottom: 0em;
-    margin-left: 0px;
-  }
-  
-  header .carrot {
-    display: none;
-  }
-  
-  header a {
-    display: inline-block;
-    font-weight: 800;
-    padding: 0.6em 0em;
-    margin: 0px 0px;
+
+  .category-steps .card {
+    margin-bottom: 0;
+    width: 240px
   }
 }
 
+@media(min-width: 980px) {
 
+  .category-steps .card {
+    width: 315px;
+  }
+}
