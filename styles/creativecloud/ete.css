@@ -12,6 +12,10 @@ main > .default:first-of-type h1 {
   margin: auto;
 }
 
+main > .default:first-of-type {
+  text-align: center;
+}
+
 main > .default:first-of-type br {
   display: none;
   max-width: 650px;
