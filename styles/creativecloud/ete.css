@@ -135,9 +135,82 @@ main .steps {
   }
 }
 
+.learn {
+  text-align: left;
+}
+
+.skills {
+  display: inline-block !important;
+  margin: 0 !important
+}
+
+.step main .skill {
+  display: flex;
+  width: auto;
+  max-width: 100% !important;
+  align-items: center;
+}
+
+.step main .skills p {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.learn {
+  max-width: 905px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.about-bio {
+  max-width: 236px;
+}
+
+.about-bio img {
+  max-width: 96px;
+}
+
+.about-bio h4 {
+  margin: 0;
+  font-size: 18px;
+  margin-top: 18px;
+}
+
+.about-bio p {
+  margin: 0.5em 0em;
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: 15px;
+  margin-bottom: 1em;
+}
+
+.follow-link {
+  display: flex;
+  text-decoration: none;
+  align-items: center;
+}
+
+.follow-link p {
+  margin: 0;
+  margin-left: 8px !important;
+  font-size: 16px;
+  color: #505050;
+}
+
 @media(min-width: 980px) {
 
   .category-steps .card {
     width: 250px;
   }
+
+  .learn {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+
 }
