@@ -25,13 +25,14 @@ async function submitSheetForm($form, sheetid, thankyou) {
 function getFieldHTML(name, type, options, attributes) {
     let html=`<label for="${name}">${name} ${attributes.mandatory?'*':''}</label><br>`;
     const r=attributes.mandatory?'required':'';
+    const ph=attributes.placeholder?` placeholder="${attributes.placeholder}"`:'';
 
     if (type=='text') {
-        html+=`<input class="form-field" type="text" id="${name}" name="${name}" ${r}><br>`;
+        html+=`<input class="form-field" type="text" id="${name}" name="${name}" ${r} ${ph}><br>`;
     }
 
     if (type=='textarea') {
-        html+=`<textarea class="form-field" id="${name}" name="${name}" rows=${attributes.rows} ${r}>`;
+        html+=`<textarea class="form-field" id="${name}" name="${name}" rows=${attributes.rows} ${r} ${ph}>`;
     }
 
     if (type=='radio') {
@@ -66,6 +67,8 @@ function decorateForm () {
 
         $div.querySelectorAll(':scope > p').forEach(($f) => {
             const $anchor=$f.querySelector('a');
+            const $placeholder=$f.querySelector('em');
+
             if (!$anchor) {
                 const formfield=$f.firstChild.textContent;
                 let attributes={};
@@ -92,6 +95,10 @@ function decorateForm () {
                     } else {
                         type=descriptor;
                     }
+                }
+
+                if ($placeholder) {
+                    attributes.placeholder=$placeholder.textContent;
                 }
     
                 $f.innerHTML=getFieldHTML(name, type, options, attributes);    

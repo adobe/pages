@@ -134,13 +134,10 @@ async function decorateStep() {
   document.body.classList.add('step');
   classify('main>div:first-of-type', 'content');
   classify('main>div:nth-of-type(2)', 'learn');
-  classify('main>div:nth-of-type(3)', 'progress');
-  classify('main>div:nth-of-type(4)', 'upnext');
 
   const $content=document.querySelector('.content');
   const $learn=document.querySelector('.learn');
   const $progress=document.querySelector('.progress');
-  const $upnext=document.querySelector('.upnext');
 
   const $video=createTag('div', {class: 'video-wrapper'});
   $content.appendChild($video);
@@ -158,9 +155,7 @@ async function decorateStep() {
   title = title.split("&nbsp;").join('<br>')
   $h1.innerHTML=title;
 
-  for (let i=0;i<8;i++) {
-      $h1.appendChild(createTag('span', {class: 'grab-'+i}))
-  }
+
   document.title=currentStep.Title;
   if (currentStep['Practice File']) {
       document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
@@ -205,45 +200,15 @@ async function decorateStep() {
       html+=`<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
           <p>${skill.title}</p></div>`;
   })
+
+  let $skillsTitle = document.querySelector('.learn h2');
   $skills.innerHTML=html;
   $learn.appendChild($skills);
 
-  //fill progress section
-
-  const splits=$progress.innerHTML.split("#");
-  $progress.innerHTML=splits[0]+(stepIndex+1)+splits[1]+(steps.length)+splits[2];
-
-  const $progressbar=createTag('div',{class: 'progress-bar'});
-  html='';
-  steps.forEach((step,i) => {
-      html+=`<div onclick="window.location.href='step?${i+1}'" class="${i==stepIndex?'active':'inactive'}"></div>`
-  })
-  $progressbar.innerHTML=html;
-  $progress.appendChild($progressbar);
+  $skills.prepend($skillsTitle)
 
 
   // fill up next
-
-  var upnext=$upnext.innerHTML;
-
-  const nextStep=steps[stepIndex+1];
-  if (nextStep) {
-      $upnext.innerHTML=` <div class="upnext__inner">
-                            <div class="window">
-                              <img src="${getThumbnail(nextStep)}">
-                            </div>
-                            ${upnext}
-                            <h2>${nextStep.Title}</h2>
-                            <p>${nextStep.Description}</p>
-                          </div>
-      
-              `;
-  } else {
-      $upnext.remove();
-  }
-  
-  $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
-
 }
 
 async function decorateHome() {
@@ -259,7 +224,7 @@ async function decorateHome() {
 }
 
 async function decoratePage() {
-
+  decorateTables();
   await loadLocalHeader();
 
   externalLinks('header');
@@ -292,6 +257,7 @@ async function decoratePage() {
 
   window.pages.decorated = true;
   wrapSections('.home > main > div')
+  await cleanUpBio();
   appearMain();
 }
 
@@ -303,4 +269,47 @@ if (document.readyState == 'loading') {
   decoratePage();
 }
 
+function toClassName(name) {
+  return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'))
+}
 
+function decorateTables() {
+  document.querySelectorAll('main div.default>table').forEach(($table) => {
+      const $cols=$table.querySelectorAll('thead tr th');
+      const cols=Array.from($cols).map((e) => toClassName(e.innerHTML));
+      const $rows=$table.querySelectorAll('tbody tr');
+      let $div={};
+
+      if (cols.length==1 && $rows.length==1) {
+          $div=createTag('div', {class:`${cols[0]}`});
+          $div.innerHTML=$rows[0].querySelector('td').innerHTML;
+      } else {
+          $div=turnTableSectionIntoCards($table, cols) 
+      }
+      $table.parentNode.replaceChild($div, $table);
+  });
+}
+
+function cleanUpBio() {
+  if(!document.querySelector('.about-bio')) return;
+  let $bio = document.querySelector('.about-bio');
+  const bio = {
+    $avatar : $bio.querySelectorAll('img')[0].getAttribute('src'),
+    $name : $bio.querySelector('h2').innerText,
+    $bioSummary : $bio.querySelector('h4').innerText,
+    $behanceLogo : $bio.querySelectorAll('img')[1].getAttribute('src'),
+    $link : $bio.querySelector('a:last-of-type').getAttribute('href')
+  }
+
+   $bio.innerHTML = `
+      <div>
+        <img src="${bio.$avatar}" alt="image of ${bio.$name}"/>
+        <h4>${bio.$name}</h4>
+        <p class="bio">${bio.$bioSummary}</p>
+        <a class="follow-link" href="${bio.$link}">
+          <img src="${bio.$behanceLogo}" alt="behance logo">
+          <p>Follow Me</p>
+        </a>
+      </div>
+  `
+}
