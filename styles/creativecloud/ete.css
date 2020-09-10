@@ -91,11 +91,10 @@ main .steps {
   width: 100%;
 }
 
-.icons__item:nth-child(2) {
-  margin: 0px 8px;
-  width: auto !important;
-  max-width: auto !important;
+.icons__item:first-of-type {
+  margin-right: 10px;
 }
+
 .section-title {
   padding-bottom: 15px;
 }
@@ -166,7 +165,7 @@ main .steps {
 }
 
 .learn {
-  max-width: 905px;
+  max-width: 1180px;
   width: 70%;
   margin: auto;
   display: flex;
@@ -184,6 +183,10 @@ main .steps {
   max-width: 236px;
   width: 80%;
   /* margin: auto; */
+}
+
+.home .about-bio__inner {
+  align-items: center;
 }
 
 .about-bio img {
@@ -205,6 +208,12 @@ main .steps {
   margin-bottom: 1em;
 }
 
+.home .bio-section {
+  background: #F1F1F1;
+  padding: 3em 0em;
+  margin-top: 3em;
+}
+
 .bio {
   display: none;
 }
@@ -219,6 +228,7 @@ main .steps {
 .follow-link p {
   margin: 0;
   margin-left: 8px !important;
+  padding-bottom: 0em !important;
   font-size: 16px;
   color: #1473E6;
 }
@@ -232,6 +242,61 @@ main .steps {
 .section-title--ete-more {
   font-size: 36px;
   margin-top: 0em;
+}
+
+.must-haves__inner {
+  text-align: left;
+  max-width: 1180px;
+  width: 70%;
+  margin: auto;
+  padding-top: 2em;
+  border-top: 1px solid #dddd;
+}
+
+.must-haves__title {
+  padding-bottom: 32px;
+}
+
+.files-ete {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 4em;
+}
+
+.file-ete--item {
+  display: flex;
+  width: 308px;
+  margin-bottom: 48px;
+}
+
+.file_image-ete {
+  max-width: 80px;
+  margin-right: 24px;
+}
+
+.file_image-ete img {
+  width: 100%;
+}
+
+.file-ete--item h4 {
+  margin: 0;
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+
+.file-ete--item a {
+  font-size: 14px;
+  background: #1473E6;
+  color: white;
+  display: inline-block;
+  padding: 0.7em 1.3em;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+.file-ete--item a:hover {
+  background: #0d66d0;
 }
 
 .more-content--ete-inner {
@@ -283,6 +348,19 @@ main .steps {
   width: 100%;
 }
 
+.see-all-tutorials--ete {
+  padding-top: 60px;
+}
+
+.see-all-tutorials--ete a {
+  color: white;
+  border: 4px solid white;
+  padding: 0.8em 2em;
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 30px;
+  text-decoration: none;
+}
 
 @media(min-width: 650px) {
   .learn {
@@ -311,7 +389,30 @@ main .steps {
     text-decoration: none;
     max-width: 400px;
   }
+
+  .home .about-bio__inner {
+    align-items: flex-start;
+  }
   
+  
+}
+
+.home .about-bio {
+  margin: auto;
+  max-width: 472px;
+}
+
+.home .about-bio__inner {
+  display: flex;
+  text-align: left;
+}
+
+.home .bio-content {
+  margin-left: 32px;
+}
+
+.home .bio-content h4 {
+  margin-top: 0em;
 }
 
 @media(min-width: 980px) {

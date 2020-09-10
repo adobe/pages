@@ -57,7 +57,6 @@ async function insertSteps() {
                       <div class="icons__item">
                         <img src="/icons/${step.Product_icon_1.toLowerCase()}.svg">
                       </div>
-                      <div class="icons__item">+</div>
                       <div class="icons__item">
                         <img src="/icons/${step.Product_icon_2.toLowerCase()}.svg">
                       </div>
@@ -293,6 +292,10 @@ function decorateTables() {
 function cleanUpBio() {
   if(!document.querySelector('.about-bio')) return;
   let $bio = document.querySelector('.about-bio');
+  
+  if(document.getElementsByTagName('body')[0].classList.contains('home')) {
+    $bio.closest('.section-wrapper').classList.add('bio-section')
+  }
   const bio = {
     $avatar : $bio.querySelectorAll('img')[0].getAttribute('src'),
     $name : $bio.querySelector('h2').innerText,
@@ -302,14 +305,18 @@ function cleanUpBio() {
   }
 
    $bio.innerHTML = `
-      <div>
-        <img src="${bio.$avatar}" alt="image of ${bio.$name}"/>
-        <h4>${bio.$name}</h4>
-        <p class="bio">${bio.$bioSummary}</p>
-        <a class="follow-link" href="${bio.$link}">
-          <img src="${bio.$behanceLogo}" alt="behance logo">
-          <p>Follow Me</p>
-        </a>
+      <div class="about-bio__inner">
+        <div class="bio-image">
+          <img src="${bio.$avatar}" alt="image of ${bio.$name}"/>
+        </div>
+        <div class="bio-content">
+          <h4>${bio.$name}</h4>
+          <p class="bio">${bio.$bioSummary}</p>
+          <a class="follow-link" href="${bio.$link}">
+            <img src="${bio.$behanceLogo}" alt="behance logo">
+            <p>Follow Me</p>
+          </a>
+        </div>
       </div>
   `
 }
