@@ -1,0 +1,34 @@
+<div>
+  hello
+</div>
+
+
+<script>
+  async function fetchSteps() {
+    window.pages.dependencies.push('steps.json');
+    const resp=await fetch('steps.json');
+    const json=await resp.json();
+    return (Array.isArray(json) ? json : json.data);
+  }
+
+  async function filterSteps() {
+    const steps = await fetchSteps();
+    const currentIndex = window.location.search.split("?")[1].split("&")[0];
+    let indexy = currentIndex - 1;
+    console.log(steps[indexy])
+    const currentTag = steps[indexy].Tag
+    const data =  steps.splice(steps.indexOf(steps[indexy], 1));
+    let filteredData = [];
+
+    steps.find((item) => {
+      if(item.Tag === currentTag) {
+        filteredData.push(item);
+      }
+    });
+
+    console.log(filteredData , '<-- other two')
+  }
+
+  filterSteps();
+
+</script>
