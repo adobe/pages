@@ -151,23 +151,34 @@ main .steps {
   align-items: center;
 }
 
+.step main .skills img {
+  width: 40px;
+}
+
 .step main .skills p {
   max-width: 100% !important;
   width: 100% !important;
-  margin: 0 !important;
+  margin: 0 ;
+  margin-left: 20px;
 }
 
 .learn {
   max-width: 905px;
-  width: 90%;
+  width: 70%;
   margin: auto;
   display: flex;
   flex-direction: column;
 }
 
+.skills h2 {
+  margin-top: 0em;
+  font-size: 27px;
+}
 
 .about-bio {
   max-width: 236px;
+  width: 80%;
+  /* margin: auto; */
 }
 
 .about-bio img {
@@ -178,6 +189,7 @@ main .steps {
   margin: 0;
   font-size: 18px;
   margin-top: 18px;
+  margin-bottom: 18px;
 }
 
 .about-bio p {
@@ -188,18 +200,35 @@ main .steps {
   margin-bottom: 1em;
 }
 
+.bio {
+  display: none;
+}
+
 .follow-link {
   display: flex;
   text-decoration: none;
   align-items: center;
-  color: #1473E6;
 }
+
 
 .follow-link p {
   margin: 0;
   margin-left: 8px !important;
   font-size: 16px;
-  color: #505050;
+  color: #1473E6;
+}
+
+
+@media(min-width: 650px) {
+  .learn {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .bio {
+    display: block;
+  }
+  
 }
 
 @media(min-width: 980px) {
@@ -207,11 +236,4 @@ main .steps {
   .category-steps .card {
     width: 250px;
   }
-
-  .learn {
-    flex-direction: row-reverse;
-    justify-content: space-between;
-  }
-
-
 }
