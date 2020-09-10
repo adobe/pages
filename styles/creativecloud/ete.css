@@ -192,6 +192,7 @@ main .steps {
   display: flex;
   text-decoration: none;
   align-items: center;
+  color: #1473E6;
 }
 
 .follow-link p {
