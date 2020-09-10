@@ -1,5 +1,8 @@
-<div>
-  hello
+<div class="more-content--ete">
+  <h3 class="section-title--ete-more">Let's keep creating.</h3>
+  <div class="more-content--ete-inner">
+    <!-- mark up -->
+  </div>
 </div>
 
 
@@ -14,20 +17,31 @@
   async function filterSteps() {
     const steps = await fetchSteps();
     const currentIndex = window.location.search.split("?")[1].split("&")[0];
-    let indexy = currentIndex - 1;
-    console.log(steps[indexy])
-    const currentTag = steps[indexy].Tag
-    const data =  steps.splice(steps.indexOf(steps[indexy], 1));
+    let index = currentIndex - 1;
+    let step_item = '';
+
+    const currentTag = steps[index].Tag
     let filteredData = [];
-
-    steps.find((item) => {
-      if(item.Tag === currentTag) {
-        filteredData.push(item);
+    for(let i = 0; i < steps.length; i++) {
+      if(i != index && steps[i].Tag === steps[index].Tag) {
+         let {Title, Description, Thumbnail} = steps[i];
+         let url = window.location.href.split('?')[0] + '?' + (i + 1);
+         step_item += `
+          <a class="more-content--ete-item" href="${url}">
+            <div class="more-content--ete-image">
+              <img src="${Thumbnail}">  
+            </div>
+            <div class="more-content--ete-details">
+              <h4>${Title.split('&nbsp;').join('')}</h4>
+              <p>${Description}</p>
+            </div>
+          </a>
+        `
       }
-    });
-
-    console.log(filteredData , '<-- other two')
+    }
+    document.querySelector('.more-content--ete-inner').innerHTML = step_item;
   }
+
 
   filterSteps();
 

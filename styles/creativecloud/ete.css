@@ -101,6 +101,9 @@ main .steps {
 }
 
 
+.step main .content h1 {
+  border: none;
+}
 
 .steps .category-steps:nth-of-type(2) {
   margin-bottom: 4em;
@@ -167,6 +170,8 @@ main .steps {
   width: 70%;
   margin: auto;
   display: flex;
+  padding: 6em 0em 4em 0em;
+  padding-top: 4em !important;
   flex-direction: column;
 }
 
@@ -218,6 +223,66 @@ main .steps {
   color: #1473E6;
 }
 
+.more-content--ete {
+  background-color: #282828;
+  color: white;
+  padding: 4em 0em;
+}
+
+.section-title--ete-more {
+  font-size: 36px;
+  margin-top: 0em;
+}
+
+.more-content--ete-inner {
+  /* display: flex; */
+  width: 90%;
+  max-width: 1180px;
+  margin: auto;
+  padding-top: 2em;
+  justify-content: space-between;
+}
+
+.more-content--ete-item {
+  display: inline-block;
+  /* width: 45%; */
+  /* display: flex; */
+  text-align: left;
+  justify-content: space-between;
+  color: white;
+  text-decoration: none;
+  max-width: 400px;
+}
+
+.more-content--ete-item:first-of-type {
+  margin-bottom: 2em;
+}
+
+.more-content--ete-item h4 {
+  font-size: 22px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  margin-top: 0.4em;
+}
+
+.more-content--ete-item p {
+  font-size: 18px;
+}
+
+.more-content--ete-item img {
+  width: 100%;
+}
+
+.more-content--ete-image {
+  /* width: 58%; */
+  width: 100%;
+}
+
+.more-content--ete-details {
+  /* width: 38%; */
+  width: 100%;
+}
+
 
 @media(min-width: 650px) {
   .learn {
@@ -228,6 +293,24 @@ main .steps {
   .bio {
     display: block;
   }
+
+  .more-content--ete-inner {
+    display: flex;
+    margin: auto;
+    padding-top: 2em;
+    justify-content: space-between;
+  }
+
+  .more-content--ete-item {
+    display: inline-block;
+    width: 45%;
+    /* display: flex; */
+    text-align: left;
+    justify-content: space-between;
+    color: white;
+    text-decoration: none;
+    max-width: 400px;
+  }
   
 }
 
@@ -235,5 +318,23 @@ main .steps {
 
   .category-steps .card {
     width: 250px;
+  }
+
+  .more-content--ete-item {
+    display: flex;
+    width: 45%;
+    text-align: left;
+    justify-content: space-between;
+    color: white;
+    text-decoration: none;
+    max-width: 100%;
+  }
+
+  .more-content--ete-image {
+    width: 58%;
+  }
+  
+  .more-content--ete-details {
+    width: 38%;
   }
 }
