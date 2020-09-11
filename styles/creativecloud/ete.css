@@ -5,6 +5,16 @@
   margin-bottom: 60px;
 }
 
+.content h1,
+.content p {
+  color: white;
+}
+
+.step main .content h1 {
+  margin: 0px auto 0.4em auto;
+  padding-top: 20px;
+}
+
 .home .appear .section-wrapper:first-of-type {
   max-width: 650px;
   margin: auto;

@@ -55,10 +55,10 @@ async function insertSteps() {
                   <div>
                     <div class="icons">
                       <div class="icons__item">
-                        <img src="/icons/${step.Product_icon_1.toLowerCase()}.svg">
+                        <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
                       </div>
                       <div class="icons__item">
-                        <img src="/icons/${step.Product_icon_2.toLowerCase()}.svg">
+                        <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
                       </div>
                     </div>
                     <h4>${step.Title}</h4>
