@@ -169,8 +169,8 @@ main .steps {
   width: 70%;
   margin: auto;
   display: flex;
-  padding: 6em 0em 4em 0em;
-  padding-top: 4em !important;
+  padding: 6em 0em 2em 0em;
+  padding-top: 2em !important;
   flex-direction: column;
 }
 
@@ -183,6 +183,10 @@ main .steps {
   max-width: 236px;
   width: 80%;
   /* margin: auto; */
+}
+
+.step .about-bio {
+  margin-bottom: 2em;
 }
 
 .home .about-bio__inner {
@@ -247,7 +251,7 @@ main .steps {
 .must-haves__inner {
   text-align: left;
   max-width: 1180px;
-  width: 70%;
+  width: 90%;
   margin: auto;
   padding-top: 2em;
   border-top: 1px solid #dddd;
@@ -266,12 +270,13 @@ main .steps {
 
 .file-ete--item {
   display: flex;
-  width: 308px;
+  /* width: 50%; */
+  width: 100%;
   margin-bottom: 48px;
 }
 
 .file_image-ete {
-  max-width: 80px;
+  width: 80px;
   margin-right: 24px;
 }
 
@@ -362,7 +367,15 @@ main .steps {
   text-decoration: none;
 }
 
+
+@media(min-width: 560px) {
+  .file-ete--item {
+    width: 50%;
+  }
+  
+}
 @media(min-width: 650px) {
+
   .learn {
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -382,7 +395,6 @@ main .steps {
   .more-content--ete-item {
     display: inline-block;
     width: 45%;
-    /* display: flex; */
     text-align: left;
     justify-content: space-between;
     color: white;
@@ -392,6 +404,10 @@ main .steps {
 
   .home .about-bio__inner {
     align-items: flex-start;
+  }
+
+  .must-haves__inner {
+    width: 70%;
   }
   
   
@@ -438,4 +454,15 @@ main .steps {
   .more-content--ete-details {
     width: 38%;
   }
+
+  .file-ete--item {
+    width: 31%;
+  }
+}
+
+
+@media(min-width: 1000px) {
+  /* .file-ete--item {
+    width: 25%;
+  } */
 }
