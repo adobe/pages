@@ -55,6 +55,19 @@ main {
   transition: opacity 0.2s ease;
 }
 
+main h1,
+main h1 + p {
+	text-align: center;
+}
+
+main h1 {
+	color: #323232;
+}
+
+main h1 + p {
+	color: #747474;
+}
+
 .section-wrapper .default {
   max-width: 1400px;
   width: 95%;
@@ -85,51 +98,57 @@ main svg.icon.icon-behance {
 }
 
 main div.form {
-    background-color: lightgrey;
+    background-color: #fafafa;
     padding: 20px;
     margin: auto;
-    font-size: 18px;
-  }
+    font-size: 16px;
+}
   
-  main div.form p {
+main div.form p {
     margin: 30px 0;
-  }
+}
   
-  main div.form a:any-link {
+main div.form a:any-link {
     border-radius: 20px;
     background-color: #1473e6;
-    padding: 7px 20px;
+    padding: 0px 20px;
     text-decoration: none;
     color: white;
     font-weight: 800;
     display: inline-block;
-    font-size: 20px;
+    font-size: 16px;
+    line-height: 40px;
     margin: auto;
-    display: block;
+    display: inline-block;
     text-align: center;
     cursor: pointer;
-  }
+    min-width: 180px;
+}
   
   
-  main div.form form {
+main div.form form {
     max-width: 600px;
     margin: auto;
     text-align: left;
-  }
+}
+
+main div.form label {
+	color: #6E6E6E;
+}
   
-  main input[type=text], main textarea {
+main input[type=text], main textarea {
     width: 100%;
     padding: 5px;
     border-radius: 5px;
-    border: 0;
+    border: 1px solid #CACACA;
     margin: 5px 0;
     font-size: 24px;
     font-family: "Adobe Clean";
-  }
+}
   
-  main input[type=radio] {
+main input[type=radio] {
     margin: 5px 0;
-  }
+}
   
   
 footer {
@@ -137,25 +156,25 @@ footer {
     font-size: 11px;
     padding: 2em;
     text-align: center;
-  }
+}
 
 footer a:any-link {
     color: #4B4B4B;
     text-decoration: none;
-  }
+}
   
 footer svg {
     fill: currentColor;
     height: 1em;
     width: 1em;
-  }
+}
   
 footer ul {
     display: inline-flex;
     margin: 0; 
     padding: 0;
     list-style-type: none;
-  }
+}
   
   
 footer li:after {
