@@ -55,10 +55,10 @@ async function insertSteps() {
                   <div>
                     <div class="icons">
                       <div class="icons__item">
-                        <img src="/icons/${step.Product_icon_1.toLowerCase()}.svg">
+                        <img src="icons/${step.Product_icon_1.toLowerCase()}.svg">
                       </div>
                       <div class="icons__item">
-                        <img src="/icons/${step.Product_icon_2.toLowerCase()}.svg">
+                        <img src="icons/${step.Product_icon_2.toLowerCase()}.svg">
                       </div>
                     </div>
                     <h4>${step.Title}</h4>
@@ -147,12 +147,21 @@ async function decorateStep() {
 
   //fill content section
 
-  const $h1=document.querySelector('main .content>h1');
+  const $h1=document.querySelector('main .content > h1');
   let title=currentStep.Title;
   if (currentStep.Heading) title=currentStep.Heading;
-  title=title.split(`\n`).join('<br>');
+  // title=title.split(`\n`).join('<br>');
   title = title.split("&nbsp;").join('<br>')
-  $h1.innerHTML=title;
+  $h1.innerHTML= `${title}`;
+
+  let iconParent = document.createElement('div');
+  iconParent.setAttribute('class', 'icons_parent');
+  iconParent.innerHTML =   `
+  <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
+  <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`
+
+
+  document.querySelector('main .content').prepend(iconParent)
 
 
   document.title=currentStep.Title;
