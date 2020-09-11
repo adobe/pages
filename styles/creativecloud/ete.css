@@ -5,6 +5,11 @@
   margin-bottom: 60px;
 }
 
+.step h1,
+.step p {
+  color: white;
+}
+
 .step main .content h1 {
   margin: 0px auto 0.4em auto;
   padding-top: 20px;
