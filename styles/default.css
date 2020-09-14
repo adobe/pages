@@ -3,10 +3,6 @@ main {
 }
 
 
-main>div:nth-child(2n) {
-    background-color: #eee;
-}
-
 
 main .par-wrapper {
     max-width: 700px;
@@ -37,3 +33,4 @@ main .banner a:any-link{
 main .embed {
     padding: 48px 24px;
 }
+

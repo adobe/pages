@@ -79,6 +79,7 @@ async function loadLocalFooter() {
   await insertLocalResource('footer');
 }
 
+
 /**
  * Checks if <main> is ready to appear 
  */

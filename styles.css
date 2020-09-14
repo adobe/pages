@@ -5,14 +5,6 @@ body {
     color: #4a4a4a;
 }
 
-header>div:first-of-type {
-    background-color: #1473e6;
-    color: white;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 100;
-    padding: 8px 0px;
-}
 
 header div p {
     margin: 0;
@@ -212,3 +204,171 @@ footer p:after {
 .privacy {
   margin-left: 10px;
 }
+
+
+  
+  
+  /* === Default Nav Component === */
+  .default-nav>div:first-of-type {
+    color: none;
+  }
+  .default-nav > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .default-nav .nav-logo {
+    cursor: pointer;
+    margin-right: 24px;
+    padding: 1em 0em;
+    display: flex;
+    align-items: center;
+  }
+  
+  .default-nav .product-icon {
+      display: flex;
+      align-items: center;
+  }
+
+  .default-nav .product-icon p {
+      margin: 0;
+      margin-left: 8px;
+      font-weight: 800;
+  }
+  .default-nav>div:first-of-type {
+    background-color: unset;
+  } 
+  
+  .default-nav.nav-showing {
+    background: #eee;
+  }
+
+  .default-nav.nav-showing a {
+      color: black !important;
+  }
+  
+  .default-nav .carrot svg {
+    stroke: black;
+    position: relative;
+    top: 3px;
+    margin-left: 8px;
+  }
+  
+  
+  
+  .default-nav p:first-of-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0em;
+    cursor: pointer;
+  }
+  
+  .default-nav .icon {
+    position: relative;
+    top: 2px;
+    width: 40px;
+    margin-left: 4px;
+  }
+  
+  .default-nav ul {
+    margin: 0; padding: 0;
+    list-style-type: none;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    /* margin-left: 1em; */
+  }
+  
+  .default-nav li {
+      margin-left: 0em;
+      margin-top: 1.5em;
+  }
+  
+  .default-nav li:last-of-type {
+    margin-right: 0em;
+    margin-bottom: 2em;
+  }
+  
+  .default-nav a {
+    width: 100%;
+    font-weight: 800;
+    display: inline-block;
+    color: #000000;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
+  .default-nav a:hover {
+    border-bottom: 1px solid #444;
+  }
+
+  .default-nav p:empty {
+      display: none !important;
+  }
+
+  .premiere .default-nav a {
+      color: white;
+  }
+
+  .premiere .carrot svg {
+      stroke: white;
+  }
+
+  .premiere .default-nav.nav-showing .carrot svg {
+      stroke: black;
+  }
+  
+  @media(min-width: 768px) {
+  
+    .default-nav.nav-showing {
+      background: #fff;
+    }
+    .premiere .default-nav.nav-showing {
+        background: black !important;
+    }
+
+    .premiere .default-nav.nav-showing a {
+        color: white !important;
+    }
+  
+    .default-nav > div {
+      flex-direction: row;
+    }
+    
+    .default-nav p:first-of-type {
+      width: auto;
+      cursor: default;
+      margin-top: 0em;
+    }
+    
+    .default-nav ul {
+      display: flex !important;
+      margin-left: 0em;
+      flex-direction: row;
+      text-align: left;
+    }
+    
+    .default-nav li {
+      margin-top: 0em;
+      margin-right: 2em;
+    }
+    
+    .default-nav li:last-of-type {
+      margin-bottom: 0em;
+      margin-right: 0em;
+    }
+    
+    .default-nav .carrot {
+      display: none;
+    }
+    
+    .default-nav a {
+      font-weight: 800;
+    }
+  }
+  

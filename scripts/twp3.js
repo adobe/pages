@@ -17,6 +17,39 @@ function getThumbnail(step) {
     return (thumbnail);
 }
 
+
+function addNavCarrot() {
+    if(document.querySelector('header img')) {
+        let svg = document.querySelector('header img');
+        let svgWithCarrot = document.createElement('div');
+        svgWithCarrot.classList.add('nav-logo');
+
+        svgWithCarrot.innerHTML = `
+        <span class="product-icon">
+            ${svg.outerHTML}
+        </span>
+
+        <span class="carrot">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+        `;
+        svg.remove();
+        document.querySelector('header div')
+        .prepend(svgWithCarrot);
+        document.querySelector('header').classList.add('default-nav')
+
+    
+
+        if(document.querySelector('header .section-wrapper').children[1].firstElementChild.nodeName === "P") {
+            let productName = document.querySelector('header .section-wrapper').children[1].querySelector('p')
+            document.querySelector('.product-icon').appendChild(productName)            
+        }
+
+    }
+}
+
+
+
 async function insertSteps() {
     const $steps=document.querySelector('main div.steps');
     if ($steps) {
@@ -44,29 +77,6 @@ async function insertSteps() {
     }
 }
 
-
-
-
-function addNavCarrot() {
-  if(document.querySelector('header img')) {
-    let svg = document.querySelector('header img');
-    let svgWithCarrot = document.createElement('div');
-    svgWithCarrot.classList.add('nav-logo');
-
-    svgWithCarrot.innerHTML = `
-      <span class="product-icon">
-        ${svg.outerHTML}
-      </span>
-
-      <span class="carrot">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </span>
-    `;
-    svg.remove();
-    document.querySelector('header div')
-    .prepend(svgWithCarrot);
-  }
-}
 
 
 function dropDownMenu() {
@@ -212,6 +222,16 @@ async function decorateStep() {
 
 }
 
+function wrapSections(element) {
+    document.querySelectorAll(element).forEach(($div) => {
+        const $wrapper=createTag('div', { class: 'section-wrapper'});
+        $div.parentNode.appendChild($wrapper);
+        $wrapper.appendChild($div);
+    });
+}
+
+
+
 async function decorateHome() {
     document.body.classList.add('home');
     document.querySelectorAll('main p').forEach(($e) => {
@@ -230,7 +250,7 @@ async function decoratePage() {
 
     externalLinks('header');
     externalLinks('footer');
-
+    wrapSections('header>div');
     // nav style/dropdown
     addNavCarrot();
 

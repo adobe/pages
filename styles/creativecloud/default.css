@@ -1,5 +1,4 @@
-@import url("default.css");
-@import url("../illustrator/tl.css");
+@import url("../default.css");
 
 header>div:first-of-type {
   color: none;
