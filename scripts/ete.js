@@ -52,18 +52,20 @@ async function insertSteps() {
               </svg>
               </div>
               <div class='text'>
-                  <div>
-                    <div class="icons">
-                      <div class="icons__item">
-                        <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
-                      </div>
-                      <div class="icons__item">
-                        <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
-                      </div>
+                  
+                  <div class="icons">
+                    <div class="icons__item">
+                      <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
                     </div>
+                    <div class="icons__item">
+                      <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
+                    </div>
+                  </div>
+                  <div class="card-content"> 
                     <h4>${step.Title}</h4>
                     <p>${step.Description}</p>
                   </div>
+                  
                   <a href="step?${i+1}">${step.CTA}</a>
               </div>
           </div>`
@@ -115,6 +117,8 @@ function dropDownMenu() {
     $header.classList.remove('nav-showing')
   }
 }
+
+
 
 
 
@@ -222,12 +226,63 @@ async function decorateHome() {
 
 }
 
+let debounce = function(func, wait, immediate) {
+	let timeout;
+	return function() {
+		let context = this, args = arguments;
+		let later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		let callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
+
+// set fixed height to cards to create a uniform UI
+function cardHeightEqualizer($el) {
+  let initialHeight = 0;
+  let element = document.querySelectorAll($el);
+
+  if(window.innerWidth >= 700 && element.length > 1) {
+      element.forEach(function(card_el) {
+          card_el.style.height = 'auto';
+      })
+  
+      element.forEach(function(card_text) {
+          if(initialHeight < card_text.offsetHeight) {
+              initialHeight = card_text.offsetHeight;
+          }
+      })
+      
+      element.forEach(function(card_el) {
+          card_el.style.height = initialHeight + 'px';
+      })
+  } else {
+      element.forEach(function(card_el) {
+          card_el.style.height = 'auto';
+      })
+  }
+}
+
+
+
+window.addEventListener('resize', debounce(function() {
+  // run resize events 
+  cardHeightEqualizer('.card-content');
+}, 250));
+
+
 async function decoratePage() {
   decorateTables();
   await loadLocalHeader();
 
   externalLinks('header');
   externalLinks('footer');
+
   
   // nav style/dropdown
   addNavCarrot();
@@ -258,6 +313,8 @@ async function decoratePage() {
   wrapSections('.home > main > div')
   await cleanUpBio();
   appearMain();
+
+  cardHeightEqualizer('.card-content')
 }
 
 if (document.readyState == 'loading') {

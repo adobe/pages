@@ -5,6 +5,10 @@
   margin-bottom: 60px;
 }
 
+main .card .text>div {
+  height: auto !important;
+}
+
 .content h1,
 .content p {
   color: white;
