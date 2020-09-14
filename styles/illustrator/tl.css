@@ -121,6 +121,12 @@ main .card a:any-link:hover {
   display: inline-block;
 }
 
+
+.step main .content h1,
+.step main .content p {
+  color: white;
+}
+
 .step main .content h1>span {
   border: 1px solid lightgrey;
   background-color: #282828;

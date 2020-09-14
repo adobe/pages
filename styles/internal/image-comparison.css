@@ -108,3 +108,18 @@
 .lightroom img {
   width: 100%;
 }
+
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #222;
+    color: #ffffff !important;
+  }
+
+  .image-comparison h1,
+  .image-comparison h2, 
+  .image-comparison p   {
+    color: #fff !important;
+  }
+
+}

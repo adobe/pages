@@ -1,7 +1,21 @@
+<div class="must-haves">
+  <div class="must-haves__inner">
+    <h3 class="must-haves__title">Tutorials must-haves</h3>
+    <div class="files-ete">
+      <!-- Files here -->
+    </div>
+  </div>
+</div>
+
+
 <div class="more-content--ete">
   <h3 class="section-title--ete-more">Let's keep creating.</h3>
   <div class="more-content--ete-inner">
     <!-- mark up -->
+  </div>
+
+  <div class="see-all-tutorials--ete">
+    <a href="">Sea all tutorials</a>
   </div>
 </div>
 
@@ -43,6 +57,58 @@
   }
 
 
-  filterSteps();
+  async function setUpFiles() {
+    const steps = await fetchSteps();
+    const currentIndex = window.location.search.split("?")[1].split("&")[0];
+    let index = currentIndex - 1;
+    const currentData = steps[index];
+    let file = '';
+    const allFiles = [
+      {
+        fileType: currentData.Practice_File_Title,
+        fileDownload: currentData.Practice_File_File
+      },
+      {
+        fileType: currentData.File_Title_One,
+        fileDownload: currentData.File_Title_Url_One
+      },
+      {
+        fileType: currentData.File_Title_Two,
+        fileDownload: currentData.File_Title_Url_Two
+      },
+      {
+        fileType: currentData.File_Title_Three,
+        fileDownload: currentData.File_Title_Url_Three
+      }
+    ]
 
+    console.log(allFiles)
+
+    
+    for(let i = 0; i < allFiles.length; i++) {
+      let buttonText = i < 1 ? "Download" : "Open"
+      if(allFiles[i].fileType.length > 0) {
+        let svg = allFiles[i].fileType.toLowerCase().split(' ').join('');
+        file += `
+          <div class="file-ete--item">
+            <div class="file_image-ete">
+              <img src="/icons/${svg}.svg">
+            </div>
+            <div class="file_name-ete">
+              <h4>${allFiles[i].fileType}</h4>
+              <div class="download--ete">
+                <a href="${allFiles[i].fileDownload}">${buttonText}</a>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    }
+
+    document.querySelector('.files-ete').innerHTML = file;
+
+  }
+
+  filterSteps();
+  setUpFiles();
 </script>
