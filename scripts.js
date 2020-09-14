@@ -80,6 +80,7 @@ async function loadLocalFooter() {
   await insertLocalResource('footer');
 }
 
+
 /**
  * Fixes helix icon functionality until 
  * https://github.com/adobe/helix-pipeline/issues/509

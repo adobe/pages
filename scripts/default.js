@@ -198,19 +198,52 @@ window.addEventListener('resize', debounce(function() {
 
 
   
-function dropDownMenu() {
-    let $header = document.querySelector('header');
 
-    if(window.outerWidth >= 768) return;
+function addNavCarrot() {
+    if(document.querySelector('header img')) {
+        let svg = document.querySelector('header img');
+        let svgWithCarrot = document.createElement('div');
+        svgWithCarrot.classList.add('nav-logo');
 
-    if(!$header.classList.contains('nav-showing')) {
-        $header.querySelector('ul').style.display = 'flex';
-        $header.classList.add('nav-showing')
-    } else {
-        $header.querySelector('ul').style.display = 'none';
-        $header.classList.remove('nav-showing')
+        svgWithCarrot.innerHTML = `
+        <span class="product-icon">
+            ${svg.outerHTML}
+        </span>
+
+        <span class="carrot">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </span>
+        `;
+        svg.remove();
+        document.querySelector('header div')
+        .prepend(svgWithCarrot);
+        document.querySelector('header').classList.add('default-nav')
+
+    
+
+        if(document.querySelector('header .section-wrapper').children[1].firstElementChild.nodeName === "P") {
+            let productName = document.querySelector('header .section-wrapper').children[1].querySelector('p')
+            document.querySelector('.product-icon').appendChild(productName)            
+        }
+
     }
 }
+
+
+function dropDownMenu() {
+let $header = document.querySelector('header');
+
+if(window.outerWidth >= 768) return;
+
+if(!$header.classList.contains('nav-showing')) {
+    $header.querySelector('ul').style.display = 'flex';
+    $header.classList.add('nav-showing')
+} else {
+    $header.querySelector('ul').style.display = 'none';
+    $header.classList.remove('nav-showing')
+}
+}
+  
   
 
 function paramHelper() {
@@ -240,6 +273,7 @@ async function decoratePage() {
     window.pages.decorated = true;
     paramHelper();
     appearMain();
+    addNavCarrot();
 
     if(document.querySelector('.nav-logo')) {
       document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)

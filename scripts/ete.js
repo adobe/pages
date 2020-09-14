@@ -52,7 +52,6 @@ async function insertSteps() {
               </svg>
               </div>
               <div class='text'>
-                  
                   <div class="icons">
                     <div class="icons__item">
                       <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
@@ -65,7 +64,6 @@ async function insertSteps() {
                     <h4>${step.Title}</h4>
                     <p>${step.Description}</p>
                   </div>
-                  
                   <a href="step?${i+1}">${step.CTA}</a>
               </div>
           </div>`
@@ -81,27 +79,36 @@ async function insertSteps() {
 
 
 
-
 function addNavCarrot() {
-if(document.querySelector('header img')) {
-  let svg = document.querySelector('header img');
-  let svgWithCarrot = document.createElement('div');
-  svgWithCarrot.classList.add('nav-logo');
+  if(document.querySelector('header img')) {
+      let svg = document.querySelector('header img');
+      let svgWithCarrot = document.createElement('div');
+      svgWithCarrot.classList.add('nav-logo');
 
-  svgWithCarrot.innerHTML = `
-    <span class="product-icon">
-      ${svg.outerHTML}
-    </span>
+      svgWithCarrot.innerHTML = `
+      <span class="product-icon">
+          ${svg.outerHTML}
+      </span>
 
-    <span class="carrot">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-    </span>
-  `;
-  svg.remove();
-  document.querySelector('header div')
-  .prepend(svgWithCarrot);
+      <span class="carrot">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </span>
+      `;
+      svg.remove();
+      document.querySelector('header div')
+      .prepend(svgWithCarrot);
+      document.querySelector('header').classList.add('default-nav')
+
+  
+
+      if(document.querySelector('header .section-wrapper').children[1].firstElementChild.nodeName === "P") {
+          let productName = document.querySelector('header .section-wrapper').children[1].querySelector('p')
+          document.querySelector('.product-icon').appendChild(productName)            
+      }
+
+  }
 }
-}
+
 
 
 function dropDownMenu() {
@@ -151,12 +158,21 @@ async function decorateStep() {
 
   //fill content section
 
-  const $h1=document.querySelector('main .content>h1');
+  const $h1=document.querySelector('main .content > h1');
   let title=currentStep.Title;
   if (currentStep.Heading) title=currentStep.Heading;
-  title=title.split(`\n`).join('<br>');
+  // title=title.split(`\n`).join('<br>');
   title = title.split("&nbsp;").join('<br>')
-  $h1.innerHTML=title;
+  $h1.innerHTML= `${title}`;
+
+  let iconParent = document.createElement('div');
+  iconParent.setAttribute('class', 'icons_parent');
+  iconParent.innerHTML =   `
+  <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
+  <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`
+
+
+  document.querySelector('main .content').prepend(iconParent)
 
 
   document.title=currentStep.Title;
@@ -279,7 +295,7 @@ window.addEventListener('resize', debounce(function() {
 async function decoratePage() {
   decorateTables();
   await loadLocalHeader();
-
+  wrapSections('header>div');
   externalLinks('header');
   externalLinks('footer');
 

@@ -1,12 +1,9 @@
 @import url('./default.css');
+@import url('../illustrator/tl.css');
 
 
 .home header {
   margin-bottom: 60px;
-}
-
-main .card .text>div {
-  height: auto !important;
 }
 
 .content h1,
@@ -18,6 +15,12 @@ main .card .text>div {
   margin: 0px auto 0.4em auto;
   padding-top: 20px;
 }
+
+main .card .text,
+main .card .text>div {
+  height: auto !important;
+}
+
 
 .home .appear .section-wrapper:first-of-type {
   max-width: 650px;
@@ -157,7 +160,9 @@ main .steps {
 
 .skills {
   display: inline-block !important;
-  margin: 0 !important
+  /* margin: 0 !important; */
+  width: 70%;
+  margin: auto;
 }
 
 .step main .skill {
@@ -179,8 +184,8 @@ main .steps {
 }
 
 .learn {
-  max-width: 1180px;
-  width: 70%;
+  /* max-width: 1180px;
+  width: 70%; */
   margin: auto;
   display: flex;
   padding: 6em 0em 2em 0em;
@@ -193,10 +198,17 @@ main .steps {
   font-size: 27px;
 }
 
-.about-bio {
-  max-width: 236px;
-  width: 80%;
+.step .about-bio {
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 2em;
   /* margin: auto; */
+}
+
+.step .about-bio__inner {
+  max-width: 236px;
+  width: 70%;
+  margin: auto;
 }
 
 .step .about-bio {
@@ -273,6 +285,7 @@ main .steps {
 
 .must-haves__title {
   padding-bottom: 32px;
+  text-align: center;
 }
 
 .files-ete {
@@ -283,15 +296,18 @@ main .steps {
 }
 
 .file-ete--item {
-  display: flex;
-  /* width: 50%; */
-  width: 100%;
+  /* display: flex; */
+  width: 50%;
+  /* width: 100%; */
   margin-bottom: 48px;
+  text-align: center;
 }
 
 .file_image-ete {
   width: 80px;
-  margin-right: 24px;
+
+  /* margin-right: 24px; */
+  margin: auto;
 }
 
 .file_image-ete img {
@@ -381,11 +397,60 @@ main .steps {
   text-decoration: none;
 }
 
+.icons_parent {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.icons_parent__item {
+  width: 64px;
+}
+
+.icons_parent__item img {
+  width: 100%;
+}
+
+.icons_parent__item:last-of-type {
+  margin-left: 20px;
+}
+
+.skills h2 {
+  text-align: center;
+}
+
+.about-bio__inner {
+  display:  flex;
+}
+
+.bio-image {
+  margin-right: 20px;
+}
+
 
 @media(min-width: 560px) {
-  .file-ete--item {
-    width: 50%;
+
+  .skills h2 {
+    text-align: left;
   }
+
+  .must-haves__title {
+    text-align: left;
+  }
+  
+  .file-ete--item {
+    display: flex;
+    width: 50%;
+    text-align: left;
+  }
+
+  .file_image-ete {
+    width: 80px;
+    margin: 0;
+    margin-right: 24px;
+  }
+
+  
   
 }
 @media(min-width: 650px) {
@@ -393,10 +458,31 @@ main .steps {
   .learn {
     flex-direction: row-reverse;
     justify-content: space-between;
+    max-width: 1180px;
+    width: 70%;
   }
 
   .bio {
     display: block;
+  }
+
+  .about-bio__inner {
+    display:  inline-block;
+  }
+  
+  .bio-image {
+    margin-right: 0px;
+  }
+  
+
+  .step .about-bio {
+    border-bottom: 0;
+    max-width: 236px;
+  }
+
+  .step .about-bio__inner {
+    margin: 0;
+    width: auto;
   }
 
   .more-content--ete-inner {
@@ -422,6 +508,10 @@ main .steps {
 
   .must-haves__inner {
     width: 70%;
+  }
+
+  .skills {
+    width:
   }
   
   
