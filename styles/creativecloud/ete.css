@@ -68,11 +68,10 @@ main .steps {
 
 .section-wrapper .default.steps {
   width: 100%;
-  max-width: 840px;
+  max-width: 930px;
 }
 
 .category-steps {
-  /* display: flex; */
   width: 100%;
 }
 
@@ -160,7 +159,6 @@ main .steps {
 
 .skills {
   display: inline-block !important;
-  /* margin: 0 !important; */
   width: 70%;
   margin: auto;
 }
@@ -184,8 +182,6 @@ main .steps {
 }
 
 .learn {
-  /* max-width: 1180px;
-  width: 70%; */
   margin: auto;
   display: flex;
   padding: 6em 0em 2em 0em;
@@ -202,7 +198,6 @@ main .steps {
   width: 100%;
   border-bottom: 1px solid #ddd;
   padding-bottom: 2em;
-  /* margin: auto; */
 }
 
 .step .about-bio__inner {
@@ -296,17 +291,13 @@ main .steps {
 }
 
 .file-ete--item {
-  /* display: flex; */
   width: 50%;
-  /* width: 100%; */
   margin-bottom: 48px;
   text-align: center;
 }
 
 .file_image-ete {
   width: 80px;
-
-  /* margin-right: 24px; */
   margin: auto;
 }
 
@@ -335,7 +326,6 @@ main .steps {
 }
 
 .more-content--ete-inner {
-  /* display: flex; */
   width: 90%;
   max-width: 1180px;
   margin: auto;
@@ -345,8 +335,6 @@ main .steps {
 
 .more-content--ete-item {
   display: inline-block;
-  /* width: 45%; */
-  /* display: flex; */
   text-align: left;
   justify-content: space-between;
   color: white;
@@ -509,11 +497,6 @@ main .steps {
   .must-haves__inner {
     width: 70%;
   }
-
-  .skills {
-    width:
-  }
-  
   
 }
 
@@ -538,7 +521,7 @@ main .steps {
 @media(min-width: 980px) {
 
   .category-steps .card {
-    width: 250px;
+    width: 290px;
   }
 
   .more-content--ete-item {
