@@ -279,6 +279,13 @@ main .steps {
 }
 
 .must-haves__title {
+  /* padding-bottom: 32px; */
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.must-haves__copy {
+  font-size: 18px;
   padding-bottom: 32px;
   text-align: center;
 }
@@ -422,7 +429,8 @@ main .steps {
     text-align: left;
   }
 
-  .must-haves__title {
+  .must-haves__title,
+  .must-haves__copy {
     text-align: left;
   }
   
@@ -453,6 +461,11 @@ main .steps {
   .bio {
     display: block;
   }
+
+  .skills {
+    width: 100%;
+  }
+
 
   .about-bio__inner {
     display:  inline-block;
