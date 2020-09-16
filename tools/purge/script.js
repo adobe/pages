@@ -72,7 +72,7 @@ async function purge() {
     }
 
     if (path.endsWith('/index')) {
-        path=path.slice(0, -6);
+        path=path.slice(0, -5);
         console.log(`purging for path: ${path}`)
         await sendPurge(path);    
     }
