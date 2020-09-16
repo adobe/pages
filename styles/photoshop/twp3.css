@@ -156,6 +156,12 @@ main {
     color: white;
     padding: 20px;
   }
+
+  .step .content h1,
+  .step .content p {
+    color: white;
+  }
+  
   
   .step main .content a:any-link {
     border-radius: 20px;
@@ -379,6 +385,5 @@ main {
     font-size: 18px;
   }
   
-
   
   

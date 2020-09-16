@@ -136,3 +136,7 @@ header .icon {
     -webkit-appearance: none;
   }
 }
+
+.step .content h1 {
+  color: white;
+}
