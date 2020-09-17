@@ -220,7 +220,7 @@ async function decorateStep() {
   let html='';
 
   skills.forEach((skill) => {
-      html+=`<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
+      html+=`<div class="skill"><img src="/static/you-will-learn/${skill.icon}.svg">
           <p>${skill.title}</p></div>`;
   })
 
@@ -388,8 +388,8 @@ function cleanUpBio() {
         </div>
         <div class="bio-content">
           <h4>${bio.$name}</h4>
-          <a class="follow-link" href="${bio.$link}">
-            <img src="${bio.$behanceLogo}" alt="behance logo">
+          <a class="follow-link" href="${bio.$link}" target="_blank">
+            <img src="${bio.$behanceLogo}" alt="Follow ${bio.$name} on Behance">
             <p>Follow Me</p>
           </a>
           <p class="bio">${bio.$bioSummary}</p>

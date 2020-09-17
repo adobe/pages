@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <g id="Magic" transform="translate(-186 -1344)">
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-1" width="48" height="42" transform="translate(186 1344)"/>
+    <g id="Smock_MagicWand_18_N" transform="translate(192.662 1348.277)">
+      <rect id="Canvas" class="cls-2" width="33.82" height="33.815" transform="translate(0.337 -0.277)"/>
+      <rect id="Rectangle_151116" data-name="Rectangle 151116" class="cls-3" width="27.694" height="3.678" rx="0.5" transform="translate(0.157 29.296) rotate(-45)"/>
+      <path id="Path_104060" data-name="Path 104060" class="cls-3" d="M17.717,6.78l.072,1.982a1.615,1.615,0,0,0,.828,1.352l1.731.969-1.982.072a1.615,1.615,0,0,0-1.352.828l-.971,1.731-.072-1.982a1.615,1.615,0,0,0-.828-1.352L13.412,9.41l1.982-.072a1.617,1.617,0,0,0,1.352-.828Z" transform="translate(12.059 6.075)"/>
+      <path id="Path_104061" data-name="Path 104061" class="cls-3" d="M17.589.05l.1,2.749a2.241,2.241,0,0,0,1.145,1.874l2.4,1.343-2.749.1a2.238,2.238,0,0,0-1.875,1.145l-1.344,2.4-.1-2.749a2.244,2.244,0,0,0-1.145-1.875l-2.4-1.344,2.749-.1a2.243,2.243,0,0,0,1.875-1.145Z" transform="translate(10.556 0.03)"/>
+      <path id="Path_104062" data-name="Path 104062" class="cls-3" d="M9.858.84l.128,3.541a2.885,2.885,0,0,0,1.471,2.414l3.09,1.732-3.541.128a2.886,2.886,0,0,0-2.415,1.471L6.863,13.22,6.731,9.679A2.886,2.886,0,0,0,5.26,7.265L2.17,5.533l3.541-.128A2.888,2.888,0,0,0,8.125,3.934Z" transform="translate(1.806 0.693)"/>
+    </g>
+  </g>
+</svg>
