@@ -4,7 +4,7 @@ async function purge() {
     if ($test) loc=$test.value;
 
     const url=new URL(loc);
-    let path=url.pathname+url.search;
+    let path=url.pathname;
 
     $spinnerWrap=document.createElement('div');
     $spinnerWrap.innerHTML=(`<style>
@@ -64,6 +64,18 @@ async function purge() {
 
     console.log(`purging for path: ${path}`)
     await sendPurge(path);
+
+    if (path.endsWith('.html')) {
+        path=path.slice(0, -5);
+        console.log(`purging for path: ${path}`)
+        await sendPurge(path);    
+    }
+
+    if (path.endsWith('/index')) {
+        path=path.slice(0, -5);
+        console.log(`purging for path: ${path}`)
+        await sendPurge(path);    
+    }
 
     if (window.pages && window.pages.dependencies) {
         const deps=window.pages.dependencies;

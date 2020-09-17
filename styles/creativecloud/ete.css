@@ -9,6 +9,13 @@
 .content h1,
 .content p {
   color: white;
+  max-width: 600px;
+  margin: auto !important;
+  text-align: center;
+}
+
+.content p {
+  padding-top: 0.5em;
 }
 
 .step main .content h1 {
@@ -124,6 +131,10 @@ main .steps {
   margin-bottom: 4em;
 }
 
+.step main .skills p {
+  padding-top: 0;
+}
+
 @media(min-width: 750px) {
   main > .section-wrapper:first-of-type h1 {
     font-size: 48px;
@@ -138,7 +149,6 @@ main .steps {
     display: block;
   }
   
-  
   .category-steps {
     display: flex;
   }
@@ -150,6 +160,17 @@ main .steps {
 
   main > .section-wrapper:first-of-type p {
     font-size: 18px;
+  }
+}
+
+.step main .content .video {
+  top: -1em;
+  position: relative;
+}
+
+@media(max-width: 899px) {
+  .video-wrapper {
+    background: none !important;
   }
 }
 
@@ -198,6 +219,11 @@ main .steps {
   width: 100%;
   border-bottom: 1px solid #ddd;
   padding-bottom: 2em;
+  color: #505050;
+}
+
+.step main .skills  {
+  color: #505050;
 }
 
 .step .about-bio__inner {
@@ -222,7 +248,8 @@ main .steps {
   margin: 0;
   font-size: 18px;
   margin-top: 18px;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
+  color: #323232;
 }
 
 .about-bio p {
@@ -231,6 +258,10 @@ main .steps {
   line-height: 1.5;
   font-size: 15px;
   margin-bottom: 1em;
+}
+
+.must-haves__inner {
+  color: #505050;
 }
 
 .home .bio-section {
@@ -246,6 +277,7 @@ main .steps {
 .follow-link {
   display: flex;
   text-decoration: none;
+  padding-bottom: 8px;
   align-items: center;
 }
 
@@ -293,7 +325,6 @@ main .steps {
 .files-ete {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   padding-bottom: 4em;
 }
 

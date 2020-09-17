@@ -16,7 +16,7 @@
   </div>
 
   <div class="see-all-tutorials--ete">
-    <a href="">Sea all tutorials</a>
+    <a href="https://pages.adobe.com/creativecloud/en/ete/how-adobe-apps-work-together/">Sea all tutorials</a>
   </div>
 </div>
 
@@ -80,6 +80,10 @@
       {
         fileType: currentData.File_Title_Three,
         fileDownload: currentData.File_Title_Url_Three
+      },
+      {
+        fileType: currentData.File_Title_Four,
+        fileDownload: currentData.File_Title_Url_Four
       }
     ]
 
@@ -88,7 +92,7 @@
     
     for(let i = 0; i < allFiles.length; i++) {
       let buttonText = i < 1 ? "Download" : "Open"
-      if(allFiles[i].fileType.length > 0) {
+      if(allFiles[i].fileType.length > 2) {
         let svg = allFiles[i].fileType.toLowerCase().split(' ').join('');
         file += `
           <div class="file-ete--item">
@@ -98,7 +102,7 @@
             <div class="file_name-ete">
               <h4>${allFiles[i].fileType}</h4>
               <div class="download--ete">
-                <a href="${allFiles[i].fileDownload}">${buttonText}</a>
+                <a href="${allFiles[i].fileDownload}" target="_blank">${buttonText}</a>
               </div>
             </div>
           </div>
