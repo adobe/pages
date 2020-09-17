@@ -237,6 +237,7 @@ footer p:after {
       margin: 0;
       margin-left: 8px;
       font-weight: 800;
+      font-size: 18px;
   }
   .default-nav>div:first-of-type {
     background-color: unset;
@@ -247,7 +248,7 @@ footer p:after {
   }
 
   .default-nav.nav-showing a {
-      color: black !important;
+      color: black;
   }
   
   .default-nav .carrot svg {
@@ -285,26 +286,31 @@ footer p:after {
   }
   
   .default-nav li {
-      margin-left: 0em;
-      margin-top: 1.5em;
+    margin-left: 0em;
+    margin-top: 1.5em;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .default-nav li:hover {
+    background: #F5F5F5;
+    transition: background .2s ease;
   }
   
   .default-nav li:last-of-type {
     margin-right: 0em;
     margin-bottom: 2em;
+    text-align: center;
   }
   
   .default-nav a {
     width: 100%;
-    font-weight: 800;
+    font-weight: 600;
     display: inline-block;
     color: #000000;
     font-size: 14px;
     text-decoration: none;
-  }
-  
-  .default-nav a:hover {
-    border-bottom: 1px solid #444;
+    
   }
 
   .default-nav p:empty {
@@ -367,8 +373,5 @@ footer p:after {
       display: none;
     }
     
-    .default-nav a {
-      font-weight: 800;
-    }
   }
   
