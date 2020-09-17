@@ -80,6 +80,10 @@
       {
         fileType: currentData.File_Title_Three,
         fileDownload: currentData.File_Title_Url_Three
+      },
+      {
+        fileType: currentData.File_Title_Four,
+        fileDownload: currentData.File_Title_Url_Four
       }
     ]
 
@@ -88,7 +92,7 @@
     
     for(let i = 0; i < allFiles.length; i++) {
       let buttonText = i < 1 ? "Download" : "Open"
-      if(allFiles[i].fileType.length > 0) {
+      if(allFiles[i].fileType.length > 2) {
         let svg = allFiles[i].fileType.toLowerCase().split(' ').join('');
         file += `
           <div class="file-ete--item">

@@ -152,9 +152,13 @@ async function decorateStep() {
   const $video=createTag('div', {class: 'video-wrapper'});
   $content.appendChild($video);
 
+
   const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
   const steps=await fetchSteps();
   const currentStep=steps[stepIndex];
+
+
+  $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`
 
   //fill content section
 
@@ -173,7 +177,7 @@ async function decorateStep() {
 
 
   document.querySelector('main .content').prepend(iconParent)
-
+  document.querySelector('.content p').innerHTML = currentStep.Single_page_description
 
   document.title=currentStep.Title;
   if (currentStep['Practice File']) {
@@ -384,11 +388,11 @@ function cleanUpBio() {
         </div>
         <div class="bio-content">
           <h4>${bio.$name}</h4>
-          <p class="bio">${bio.$bioSummary}</p>
           <a class="follow-link" href="${bio.$link}">
             <img src="${bio.$behanceLogo}" alt="behance logo">
             <p>Follow Me</p>
           </a>
+          <p class="bio">${bio.$bioSummary}</p>
         </div>
       </div>
   `
