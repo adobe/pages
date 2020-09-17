@@ -165,13 +165,18 @@ if (pathSegments) {
   if (project && (project.startsWith('twp3') || project.startsWith('tl'))) family=`twp3`;
   if (project=='twp2' || project=='twp') family=`twp`;
   if (product=='internal') { family=`internal`; project=``; }
+  if (project && project.startsWith('max')) family=`max`;
   window.pages = { product, locale, project, family };  
 }
 
 window.pages.dependencies=[];
 
 // Load page specific code
-if (window.pages.project) {
+if (window.pages.project && window.pages.project.startsWith('max')) {
+    loadCSS(`/styles/${window.pages.product}/max.css`);
+    loadJSModule(`/scripts/${window.pages.family}.js`);	
+}
+else if (window.pages.project) {
     loadCSS(`/styles/${window.pages.product}/${window.pages.project}.css`);
     loadJSModule(`/scripts/${window.pages.family}.js`);
 } else if (window.pages.product) {

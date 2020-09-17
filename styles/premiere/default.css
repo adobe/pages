@@ -30,6 +30,10 @@ main .default:first-of-type p {
   margin-top: 0;
 }
 
+main .default.form:first-of-type p {
+	padding-bottom: 0;
+} 
+
 main ul.cards {
   margin: 0 auto;
   padding: 0;
