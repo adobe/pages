@@ -260,6 +260,10 @@ footer p:after {
     width: 100%;
     flex-direction: column;
   }
+
+  .premiere .default-nav {
+    background: black;
+  }
   
   .default-nav .nav-logo {
     cursor: pointer;
@@ -336,6 +340,19 @@ footer p:after {
     background: #F5F5F5;
     transition: background .2s ease;
   }
+
+  .premiere .default-nav li:hover {
+    background: #444;
+    text-align: left;
+  }
+
+  .premiere .default-nav.nav-showing {
+    background: black;
+  }
+
+  .premiere .default-nav.nav-showing .carrot svg {
+    stroke: white;
+  }
   
   .default-nav li:last-of-type {
     margin-right: 0em;
@@ -365,9 +382,7 @@ footer p:after {
       stroke: white;
   }
 
-  .premiere .default-nav.nav-showing .carrot svg {
-      stroke: black;
-  }
+  
   
   @media(min-width: 768px) {
 
