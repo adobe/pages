@@ -5,7 +5,7 @@ Copyright © 2020 Adobe. All rights reserved.
 - [Privacy](https://www.adobe.com/privacy.html)
 - [Terms of Use](https://www.adobe.com/legal/terms.html) 
 - [Do not sell my personal information](https://www.adobe.com/privacy/ca-rights.html)
-- [:i-adchoices: AdChoices](https://www.adobe.com/privacy/opt-out.html#interest-based-ads)
+- [:#adchoices: AdChoices](https://www.adobe.com/privacy/opt-out.html#interest-based-ads)
 
 ---
 <div class="privacy" style="display: block;">
