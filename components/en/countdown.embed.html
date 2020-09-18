@@ -1,62 +1,84 @@
 <style>
-    .countdown {
-        padding: 10% 0;
+
+    .flexy {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: auto;
     }
-    .countdown>p {
+
+    body {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: auto;
+        line-height: 1.15;
+        background-color: rgb(245, 245, 245);
+        width: 100vw;
+        height: 100vh;
+        align-items: center;
+        font-family: 'adobe-clean',Tahoma,Helvetica,Arial,sans-serif;
+    }
+
+    header, footer, main div>p, main h1  {
         display: none;
     }
 
-    .counter {
-        display: block;
+    #container {
+        min-width: 336px;
+        color: #444;
     }
 
-    #countdown {
-        display: block;
-        font-size: 7em;
-        background-color: #1473e6;
-        border-radius: 20px;
-        width: 200px;
-        height: 200px;
-        color: white;
-        margin: auto;
-        padding-top: 20px;
-        box-sizing: border-box;
-        animation: flip 0.5s linear both;
+    #icon {
+        width: 180px;
+        height: 120px;
+        min-width: 180px;
+        min-height: 120px;
+        margin-bottom: 24px;
+        fill: #333;
+
     }
 
-@keyframes flip {
-  0% {
-            transform: scale(1) rotateY(0);
-  }
-  50% {
-            transform: scale(2.5) rotateY(90deg);
-  }
-  100% {
-            transform: scale(1) rotateY(180deg);
-  }
-}
+    #heading {
+        color: #333;
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 6px;
+    }
+
+    #description {
+        color: #8e8e8e;
+        font-size: 14px;
+        text-align: center;
+        line-height: 2em;
+    }
+
+
 </style>
-<div class="counter">
-    <span id="countdown">5</span>
+<div id="container" class="flexy">
+    <svg id="icon" class="flexy"xmlns="http://www.w3.org/2000/svg" class="icon icon-notfound"><use href="/icons.svg#not-found"></use></svg>
+    <div id="heading" class="flexy">welcome to pages.adobe.com</div>
+    <div id="description" class="flexy">we will redirect you to one of our favorite landing pages<br></div>
 </div>
+
 <script>
     function countdown() {
-        const $countdown=document.getElementById("countdown");
-        const $clone=$countdown.cloneNode(true);
-        $clone.innerHTML=""+(+$countdown.innerHTML.trim())-1;
-        $countdown.parentNode.replaceChild($clone, $countdown);
-        if ($clone.innerHTML=="0") {
-            const $links=document.querySelectorAll('div.countdown a[href]');
+        const emojis=["💯","💥","👌","👏","👾","👽","🤖","🦾","🕺"];
+        const fun=emojis[Math.floor(Math.random()*emojis.length)];
+        const $description=document.getElementById('description');
+        $description.innerHTML=$description.innerHTML+fun;
+        console.log($description.textContent);
+        if ($description.innerHTML.split('<br>')[1].length>20) {
+            const $links=$countdown.querySelectorAll('a[href]');
             const href=$links[Math.floor(Math.random()*$links.length)].getAttribute('href');
             window.location.href=href;
-
         } else {
-            setTimeout(countdown, 1000);
+            setTimeout(countdown, 300);
 
         }
 
     }
 
 countdown();
-document.getElementById('countdown').closest('.default').classList.add('countdown');
+const $countdown=document.currentScript.parentNode;
 </script>

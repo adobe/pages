@@ -5,6 +5,14 @@ body {
     color: #4a4a4a;
 }
 
+/* set everything to box-sizing: border-box for form pages */
+body.form {
+  box-sizing: border-box;
+}
+body.form *, body.form *:before, body.form *:after {
+  box-sizing: inherit;
+}
+
 
 header div p {
     margin: 0;
@@ -48,7 +56,7 @@ main {
 }
 
 main h1,
-main h1 + p {
+main .default > p {
 	text-align: center;
 }
 
@@ -56,8 +64,20 @@ main h1 {
 	color: #323232;
 }
 
+body.form main p {
+	font-size: 16px;
+    line-height: 24px;
+}
+
+body.form main .default > p,
 main h1 + p {
-	color: #747474;
+	color: #747474;	
+}
+
+body.form main .default > p {
+	text-align: center;
+	margin: 0 auto 24px;
+	max-width: 600px;
 }
 
 .section-wrapper .default {
@@ -89,11 +109,13 @@ main svg.icon.icon-behance {
     color: white;
 }
 
-main div.form {
+main .section-wrapper div.form {
     background-color: #fafafa;
     padding: 20px;
     margin: auto;
-    font-size: 16px;
+    width: 100%;
+    max-width: none;
+    margin: 50px 0;
 }
   
 main div.form p {
@@ -127,15 +149,34 @@ main div.form form {
 main div.form label {
 	color: #6E6E6E;
 }
+
+main input,
+main textarea,
+main select {
+    font-family: "Adobe Clean", "adobe-clean", sans-serif;
+    font-size: 16px;
+    line-height: 24px;	
+}
   
 main input[type=text], main textarea {
     width: 100%;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 4px;
     border: 1px solid #CACACA;
     margin: 5px 0;
-    font-size: 24px;
-    font-family: "Adobe Clean";
+    color: #4B4B4B;
+}
+
+main input[type=text]::placeholder, main textarea::placeholder {
+	color: #8E8E8E;
+}
+
+main input[type=text]:hover::placeholder, main textarea:hover::placeholder {
+	color: #2C2C2C;
+}
+
+main input[type=text]:hover, main textarea:hover {
+	border-color: rgb(179,179,179);
 }
   
 main input[type=radio] {
@@ -219,10 +260,13 @@ footer p:after {
     width: 100%;
     flex-direction: column;
   }
+
+  .premiere .default-nav {
+    background: black;
+  }
   
   .default-nav .nav-logo {
     cursor: pointer;
-    margin-right: 42px;
     padding: 1em 0em;
     display: flex;
     align-items: center;
@@ -237,6 +281,7 @@ footer p:after {
       margin: 0;
       margin-left: 8px;
       font-weight: 800;
+      font-size: 18px;
   }
   .default-nav>div:first-of-type {
     background-color: unset;
@@ -247,7 +292,7 @@ footer p:after {
   }
 
   .default-nav.nav-showing a {
-      color: black !important;
+      color: black;
   }
   
   .default-nav .carrot svg {
@@ -264,7 +309,7 @@ footer p:after {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 0em;
+    margin-top: 1px;
     cursor: pointer;
   }
   
@@ -285,26 +330,44 @@ footer p:after {
   }
   
   .default-nav li {
-      margin-left: 0em;
-      margin-top: 1.5em;
+    margin-left: 0em;
+    margin-top: 1.5em;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .default-nav li:hover {
+    background: #F5F5F5;
+    transition: background .2s ease;
+  }
+
+  .premiere .default-nav li:hover {
+    background: #444;
+    text-align: left;
+  }
+
+  .premiere .default-nav.nav-showing {
+    background: black;
+  }
+
+  .premiere .default-nav.nav-showing .carrot svg {
+    stroke: white;
   }
   
   .default-nav li:last-of-type {
     margin-right: 0em;
     margin-bottom: 2em;
+    text-align: center;
   }
   
   .default-nav a {
     width: 100%;
-    font-weight: 800;
+    font-weight: 600;
     display: inline-block;
     color: #000000;
     font-size: 14px;
     text-decoration: none;
-  }
-  
-  .default-nav a:hover {
-    border-bottom: 1px solid #444;
+    text-align: center;
   }
 
   .default-nav p:empty {
@@ -319,12 +382,13 @@ footer p:after {
       stroke: white;
   }
 
-  .premiere .default-nav.nav-showing .carrot svg {
-      stroke: black;
-  }
+  
   
   @media(min-width: 768px) {
-  
+
+	.default-nav .nav-logo {
+    	margin-right: 42px;
+    }  
     .default-nav.nav-showing {
       background: #fff;
     }
@@ -344,6 +408,7 @@ footer p:after {
       width: auto;
       cursor: default;
       margin-top: 0em;
+      font-size: 14px;
     }
     
     .default-nav ul {
@@ -367,8 +432,5 @@ footer p:after {
       display: none;
     }
     
-    .default-nav a {
-      font-weight: 800;
-    }
   }
   
