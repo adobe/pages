@@ -93,7 +93,6 @@ async function insertSteps() {
         } while (!done);
 
         $steps.innerHTML=html;
-        fixIcons();
     }
 }
 

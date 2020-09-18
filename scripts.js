@@ -50,7 +50,6 @@ async function insertLocalResource(type) {
   }
 
   // temporary icon fix
-  fixIcons();
   document.querySelector(type).classList.add('appear');
 }
 
@@ -80,28 +79,6 @@ async function loadLocalFooter() {
   await insertLocalResource('footer');
 }
 
-
-/**
- * Fixes helix icon functionality until 
- * https://github.com/adobe/helix-pipeline/issues/509
- * is resolved.
- */
-
-function fixIcons() {
-  document.querySelectorAll("use").forEach ((e) => {
-      var a=e.getAttribute("href");
-      if (a.startsWith('/icons/')) {
-        var name=a.split("/")[2].split(".")[0];
-        if (name.startsWith('i-')) {
-          e.setAttribute("href", `/icons.svg#${name.substr(2)}`);  
-          e.parentNode.setAttribute("class", `icon icon-${name.substr(2)}`);  
-        } else {
-          const $img=createTag('img', { class: `icon icon-${name}`, src: a});
-          e.parentNode.parentNode.replaceChild($img, e.parentNode);
-        }
-      }
-  });
-}
 
 /**
  * Checks if <main> is ready to appear 
