@@ -6,6 +6,12 @@
   margin-bottom: 60px;
 }
 
+.step main .content a:any-link {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 12px 34px;
+}
+
 .content h1,
 .content p {
   color: white;
@@ -30,20 +36,21 @@ main .card .text>div {
 
 
 .home .appear .section-wrapper:first-of-type {
-  max-width: 650px;
+  max-width: 700px;
   margin: auto;
 }
 
 .step .appear .section-wrapper:first-of-type {
-  max-width: 650px;
+  max-width: 700px;
   margin: auto;
 }
 
 main > .section-wrapper:first-of-type h1 {
   font-size: 38px;
-  max-width: 650px;
+  max-width: 670px;
   width: 95%;
   margin: auto;
+  font-weight: 800;
 }
 
 main > .section-wrapper:first-of-type {
@@ -52,15 +59,16 @@ main > .section-wrapper:first-of-type {
 
 main > .section-wrapper:first-of-type br {
   display: none;
-  max-width: 650px;
+  max-width: 750px;
   width: 95%;
 }
 
 main > .section-wrapper:first-of-type p {
-  max-width: 650px;
+  max-width: 750px;
   margin: auto;
-  font-size: 18px;
-  line-height: 1.4;
+  font-size: 22px !important;
+  line-height: 1.6;
+  padding-top: 0.5em;
   color: #505050;
 }
 
@@ -122,6 +130,11 @@ main .steps {
   padding-bottom: 15px;
 }
 
+.section-title h3 {
+  font-weight: 600;
+  color: #323232;
+}
+
 
 .step main .content h1 {
   border: none;
@@ -133,6 +146,15 @@ main .steps {
 
 .step main .skills p {
   padding-top: 0;
+}
+
+.category-steps .card h4 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+main .card a:any-link {
+  padding: 6px 18px;
 }
 
 @media(min-width: 750px) {
@@ -163,15 +185,29 @@ main .steps {
   }
 }
 
+.step .learn {
+  padding-top: 3em !important;
+}
+
 .step main .content .video {
   top: -1em;
   position: relative;
+}
+
+.step main .skill  {
+  margin: 0px 12px 0px 0px;
+}
+
+.skills h2 {
+  margin-bottom: 42px;
 }
 
 @media(max-width: 899px) {
   .video-wrapper {
     background: none !important;
   }
+  
+  
 }
 
 .learn {
@@ -212,7 +248,7 @@ main .steps {
 
 .skills h2 {
   margin-top: 0em;
-  font-size: 27px;
+  font-size: 28px;
 }
 
 .step .about-bio {
@@ -230,6 +266,7 @@ main .steps {
   max-width: 236px;
   width: 70%;
   margin: auto;
+  color: #505050;
 }
 
 .step .about-bio {
@@ -238,7 +275,10 @@ main .steps {
 
 .home .about-bio__inner {
   align-items: center;
+  color: #505050;
 }
+
+
 
 .about-bio img {
   max-width: 96px;
@@ -248,7 +288,7 @@ main .steps {
   margin: 0;
   font-size: 18px;
   margin-top: 18px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: #323232;
 }
 
@@ -256,8 +296,12 @@ main .steps {
   margin: 0.5em 0em;
   font-weight: 400;
   line-height: 1.5;
-  font-size: 15px;
+  font-size: 16px !important;
   margin-bottom: 1em;
+}
+
+.home .bio {
+  padding-top: 0.6em;
 }
 
 .must-haves__inner {
@@ -268,6 +312,7 @@ main .steps {
   background: #F1F1F1;
   padding: 3em 0em;
   margin-top: 3em;
+  margin-bottom: 1em;
 }
 
 .bio {
@@ -318,6 +363,7 @@ main .steps {
 
 .must-haves__copy {
   font-size: 18px;
+  margin-top: 12px;
   padding-bottom: 32px;
   text-align: center;
 }
@@ -393,6 +439,7 @@ main .steps {
 
 .more-content--ete-item p {
   font-size: 18px;
+  line-height: 1.4;
 }
 
 .more-content--ete-item img {
@@ -546,7 +593,7 @@ main .steps {
 
 .home .about-bio {
   margin: auto;
-  max-width: 472px;
+  max-width: 372px;
 }
 
 .home .about-bio__inner {
