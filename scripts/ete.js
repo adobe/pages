@@ -44,12 +44,23 @@ async function insertSteps() {
         }
         addToCategory+=`<div class="card" onclick="window.location='step?${i+1}'">
               <div class='img' style="background-image: url(${getThumbnail(step)})">
-              <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-              <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                  <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                  <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-              </g>
-              </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #fff;
+                      }
+
+                      .cls-2 {
+                        fill: #1473e6;
+                      }
+                    </style>
+                  </defs>
+                  <g id="gallery_design_playbutton_mobile" transform="translate(-441 -643)">
+                    <rect id="Rectangle_147685" data-name="Rectangle 147685" class="cls-1" width="27" height="36" transform="translate(457.545 652)"/>
+                    <path id="Ellipse_1" data-name="Ellipse 1" class="cls-2" d="M27.5,55A27.507,27.507,0,0,1,16.8,2.161,27.507,27.507,0,0,1,38.2,52.839,27.328,27.328,0,0,1,27.5,55ZM20.479,14.043l-.586,26.915L42.713,27.5,20.479,14.043Z" transform="translate(441 643)"/>
+                  </g>
+                </svg>
               </div>
               <div class='text'>
                   <div class="icons">
@@ -80,8 +91,8 @@ async function insertSteps() {
 
 
 function addNavCarrot() {
-  if(document.querySelector('header img')) {
-      let svg = document.querySelector('header img');
+  if(document.querySelector('header svg')) {
+      let svg = document.querySelector('header svg');
       let svgWithCarrot = document.createElement('div');
       svgWithCarrot.classList.add('nav-logo');
 
@@ -186,12 +197,24 @@ async function decorateStep() {
 
   if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
       $video.innerHTML=`<div class="video"><div id="placeholder" class="button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-              <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                  <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                  <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-              </g>
-              </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+        <defs>
+          <style>
+            .cls-1 {
+              fill: #fff;
+            }
+
+            .cls-2 {
+              fill: #1473e6;
+            }
+          </style>
+        </defs>
+        <g id="gallery_design_playbutton_mobile" transform="translate(-441 -643)">
+          <rect id="Rectangle_147685" data-name="Rectangle 147685" class="cls-1" width="27" height="36" transform="translate(457.545 652)"/>
+          <path id="Ellipse_1" data-name="Ellipse 1" class="cls-2" d="M27.5,55A27.507,27.507,0,0,1,16.8,2.161,27.507,27.507,0,0,1,38.2,52.839,27.328,27.328,0,0,1,27.5,55ZM20.479,14.043l-.586,26.915L42.713,27.5,20.479,14.043Z" transform="translate(441 643)"/>
+        </g>
+      </svg>
+
       </div>
       <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
       <source src="${currentStep.Video}" type="video/mpeg4">

@@ -19,8 +19,8 @@ function getThumbnail(step) {
 
 
 function addNavCarrot() {
-    if(document.querySelector('header img')) {
-        let svg = document.querySelector('header img');
+    if(document.querySelector('header svg') || document.querySelector('header img')) {
+        let svg = document.querySelector('header svg') || document.querySelector('header img');
         let svgWithCarrot = document.createElement('div');
         svgWithCarrot.classList.add('nav-logo');
 
