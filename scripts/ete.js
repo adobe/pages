@@ -91,8 +91,9 @@ async function insertSteps() {
 
 
 function addNavCarrot() {
-  if(document.querySelector('header svg')) {
-      let svg = document.querySelector('header svg');
+  if(document.querySelector('header img')) {
+      console.log('svg is available')
+      let svg = document.querySelector('header img');
       let svgWithCarrot = document.createElement('div');
       svgWithCarrot.classList.add('nav-logo');
 
