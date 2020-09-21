@@ -1,7 +1,3 @@
-# EXPERIMENTAL BRANCH
-
-**Note, this is an experimental branch by the helix team. please ignore**
-
 # pages.adobe.com landing pages
 
 The pages project includes all the client-sided code (js/css) and configuration to run pages.adobe.com on [helix](https://github.com/adobe/helix-home)
