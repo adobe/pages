@@ -1,16 +1,19 @@
 @import url("../default.css");
 
-header>div:first-of-type {
+header > div:first-of-type {
   color: none;
 }
 
 header {
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .wg-form-container {
-  max-width: 1000px;
+  padding-top: 1em;
+  padding-bottom: 2em;
+  max-width: 900px;
   margin: auto;
+  text-align: left;
 }
 
 .input-el,
@@ -19,11 +22,15 @@ header {
   margin-bottom: 1em;
 }
 
+.input-el input[type="text"],
+.input-el input[type="email"],
+.text-el textarea {
+  width: calc(100% - 10px);
+}
 
 .radio-options-parent {
   display: flex;
-  justify-content: center;
-  padding: 1em 0em;
+  padding: 0.3em 0em 1em 0em;
 }
 
 .radio-option {
@@ -32,4 +39,32 @@ header {
 
 .radio-option:last-of-type {
   margin-right: 0em;
+}
+
+.submit-el {
+  text-align: center;
+}
+
+.submit-el button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 16px;
+  -webkit-appearance: none;
+  border: 2px solid #1473e6;
+  background: #1473e6;
+  color: white;
+  padding: 4px 14px;
+  min-width: 72px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.submit-el button:hover {
+  background: #0d66d0;
+  border-color: #0d66d0;
+}
+
+.has-wg-form main .section-wrapper:first-of-type {
+  padding: 2em 0em;
 }
