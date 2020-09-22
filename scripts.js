@@ -143,6 +143,7 @@ if (pathSegments) {
   if (project=='twp2' || project=='twp') family=`twp`;
   if (product=='internal') { family=`internal`; project=``; }
   if (project && project.startsWith('max')) family=`max`;
+  if (project && project.startsWith('learn')) family=`step-by-step`;
   window.pages = { product, locale, project, family };  
 }
 
@@ -151,6 +152,10 @@ window.pages.dependencies=[];
 // Load page specific code
 if (window.pages.project && window.pages.project.startsWith('max')) {
     loadCSS(`/styles/${window.pages.product}/max.css`);
+    loadJSModule(`/scripts/${window.pages.family}.js`);	
+}
+else if (window.pages.project && window.pages.project.startsWith('learn')) {
+    loadCSS(`/styles/${window.pages.product}/step-by-step.css`);
     loadJSModule(`/scripts/${window.pages.family}.js`);	
 }
 else if (window.pages.project) {
