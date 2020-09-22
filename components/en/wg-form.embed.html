@@ -85,20 +85,18 @@ function setupForm() {
       }
     });
 
-    const values=[];
+    const values=[{name: 'timestamp', value: new Date().toISOString().replace(/[TZ]/g,' ').split('.')[0].trim()}];
   
     $form.addEventListener('submit', async (evt) => {
       evt.preventDefault();
       if ($form.reportValidity()) {
         $form.querySelectorAll('input, textarea').forEach(($f) => {
             if (($f.getAttribute('type') != 'radio') || $f.checked) {
-              console.log($f);
               values.push({name: $f.name, value: $f.value});
             }
         })
 
         const body={sheet, data: values};
-        console.log(JSON.stringify(body, null, 2));
         const resp=await fetch(formsink, {
           method: 'POST',
           headers: {
@@ -106,9 +104,7 @@ function setupForm() {
           },
           body: JSON.stringify(body) // body data type must match "Content-Type" header
         });
-        const text=await resp.text();
-        console.log(text);
-        
+        const text=await resp.text();        
         window.location=thankyou;
       }
 
