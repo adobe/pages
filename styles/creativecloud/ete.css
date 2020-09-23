@@ -1,9 +1,8 @@
-@import url('./default.css');
-@import url('../illustrator/tl.css');
-
+@import url("./default.css");
+@import url("../illustrator/tl.css");
 
 .home header {
-  margin-bottom: 60px;
+  margin-bottom: 0px;
 }
 
 .step main .content a:any-link {
@@ -12,14 +11,16 @@
   padding: 12px 34px;
 }
 
-
-
 .content h1,
 .content p {
   color: white;
   max-width: 600px;
   margin: auto !important;
   text-align: center;
+}
+
+.section-title {
+  font-size: 22px;
 }
 
 main .content p {
@@ -35,14 +36,19 @@ main .content p {
 }
 
 main .card .text,
-main .card .text>div {
+main .card .text > div {
   height: auto !important;
 }
 
-
-.home .appear .section-wrapper:first-of-type {
-  max-width: 700px;
+.home .appear .section-wrapper .default {
+  max-width: 900px;
+  width: 80%;
   margin: auto;
+}
+
+.home .default-nav li:first-of-type a {
+  border-bottom: 1px solid #444;
+  padding-bottom: 4px;
 }
 
 .step .appear .section-wrapper:first-of-type {
@@ -51,7 +57,8 @@ main .card .text>div {
 }
 
 main > .section-wrapper:first-of-type h1 {
-  font-size: 38px;
+  /* font-size: 38px; */
+  font-size: 34px;
   max-width: 670px;
   width: 95%;
   margin: auto;
@@ -71,18 +78,26 @@ main > .section-wrapper:first-of-type br {
 main > .section-wrapper:first-of-type p {
   max-width: 750px;
   margin: auto;
-  font-size: 22px !important;
+  font-size: 19px !important;
   line-height: 1.6;
   padding-top: 0.5em;
   color: #505050;
+}
+
+main .card .img {
+  height: auto;
+  padding-bottom: 56.25%;
 }
 
 main .steps {
   display: block;
 }
 
+main .card {
+  width: 100%;
+}
+
 .section-wrapper {
-  /* max-width: 650px; */
   margin: auto;
 }
 
@@ -140,7 +155,6 @@ main .steps {
   color: #323232;
 }
 
-
 .step main .content h1 {
   border: none;
 }
@@ -162,32 +176,8 @@ main .card a:any-link {
   padding: 6px 18px;
 }
 
-@media(min-width: 750px) {
-  main > .section-wrapper:first-of-type h1 {
-    font-size: 48px;
-  }
-
-
-  main > .section-wrapper:first-of-type p {
-    font-size: 22px;
-  }
-
-  .home main > .section-wrapper:first-of-type br {
-    display: block;
-  }
-  
-  .category-steps {
-    display: flex;
-  }
-
-  .category-steps .card {
-    margin-bottom: 0;
-    width: 240px
-  }
-
-  main > .section-wrapper:first-of-type p {
-    font-size: 18px;
-  }
+.step main .content h1 {
+  font-weight: 800;
 }
 
 .step .learn {
@@ -199,7 +189,7 @@ main .card a:any-link {
   position: relative;
 }
 
-.step main .skill  {
+.step main .skill {
   margin: 0px 12px 0px 0px;
 }
 
@@ -207,12 +197,35 @@ main .card a:any-link {
   margin-bottom: 42px;
 }
 
-@media(max-width: 899px) {
+
+.more-content--ete-image {
+  position: relative;
+}
+
+.icon-set {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 5;
+  display: flex;
+}
+
+.icon-set__item {
+  width: 24px;
+}
+
+.icon-set__item:first-of-type {
+  margin-right: 5px;
+}
+
+.icon-set__item img {
+  width: 100%;
+}
+
+@media (max-width: 899px) {
   .video-wrapper {
     background: none !important;
   }
-  
-  
 }
 
 .learn {
@@ -239,7 +252,7 @@ main .card a:any-link {
 .step main .skills p {
   max-width: 100% !important;
   width: 100% !important;
-  margin: 0 ;
+  margin: 0;
   margin-left: 20px;
 }
 
@@ -263,7 +276,7 @@ main .card a:any-link {
   color: #505050;
 }
 
-.step main .skills  {
+.step main .skills {
   color: #505050;
 }
 
@@ -286,8 +299,6 @@ main .card a:any-link {
   align-items: center;
   color: #505050;
 }
-
-
 
 .about-bio img {
   max-width: 96px;
@@ -318,13 +329,13 @@ main .card a:any-link {
 }
 
 .home .bio-section {
-  background: #F1F1F1;
+  background: #f1f1f1;
   padding: 3em 0em;
   margin-top: 3em;
   margin-bottom: 1em;
 }
 
-.bio {
+.step .bio {
   display: none;
 }
 
@@ -335,13 +346,12 @@ main .card a:any-link {
   align-items: center;
 }
 
-
 .follow-link p {
   margin: 0;
   margin-left: 8px !important;
   padding-bottom: 0em !important;
   font-size: 16px;
-  color: #1473E6;
+  color: #1473e6;
 }
 
 .more-content--ete {
@@ -381,7 +391,7 @@ main .card a:any-link {
 .files-ete {
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 4em;
+  padding-bottom: 2em;
 }
 
 .file-ete--item {
@@ -407,14 +417,14 @@ main .card a:any-link {
 
 .file-ete--item a {
   font-size: 14px;
-  background: #1473E6;
+  background: #1473e6;
   color: white;
   display: inline-block;
   padding: 0.7em 1.3em;
   border-radius: 30px;
   text-decoration: none;
   font-weight: 800;
-  padding: 6px 18px;
+  padding: 6px 15px 8px 15px;
 }
 
 .file-ete--item a:hover {
@@ -481,7 +491,7 @@ main .card a:any-link {
   font-weight: 800;
   display: inline-block;
   font-size: 14px;
-  transition: background .3s ease;
+  transition: background 0.3s ease;
 }
 
 .icons_parent {
@@ -491,7 +501,8 @@ main .card a:any-link {
 }
 
 .icons_parent__item {
-  width: 64px;
+  /* width: 64px; */
+  width: 48px;
 }
 
 .icons_parent__item img {
@@ -499,7 +510,8 @@ main .card a:any-link {
 }
 
 .icons_parent__item:last-of-type {
-  margin-left: 20px;
+  /* margin-left: 20px; */
+  margin-left: 10px;
 }
 
 .skills h2 {
@@ -507,16 +519,14 @@ main .card a:any-link {
 }
 
 .about-bio__inner {
-  display:  flex;
+  display: flex;
 }
 
 .bio-image {
   margin-right: 20px;
 }
 
-
-@media(min-width: 560px) {
-
+@media (min-width: 560px) {
   .skills h2 {
     text-align: left;
   }
@@ -525,7 +535,7 @@ main .card a:any-link {
   .must-haves__copy {
     text-align: left;
   }
-  
+
   .file-ete--item {
     display: flex;
     width: 50%;
@@ -537,17 +547,17 @@ main .card a:any-link {
     margin: 0;
     margin-right: 24px;
   }
-
-  
-  
 }
-@media(min-width: 650px) {
-
+@media (min-width: 650px) {
   .learn {
     flex-direction: row-reverse;
     justify-content: space-between;
     max-width: 1180px;
-    width: 70%;
+    width: 90%;
+  }
+
+  .must-haves__inner {
+    width: 90%;
   }
 
   .bio {
@@ -555,18 +565,18 @@ main .card a:any-link {
   }
 
   .skills {
-    width: 100%;
+    width: 50%;
+    justify-content: flex-start !important;
+    margin: 0 !important;
   }
-
 
   .about-bio__inner {
-    display:  inline-block;
+    display: inline-block;
   }
-  
+
   .bio-image {
     margin-right: 0px;
   }
-  
 
   .step .about-bio {
     border-bottom: 0;
@@ -598,11 +608,6 @@ main .card a:any-link {
   .home .about-bio__inner {
     align-items: flex-start;
   }
-
-  .must-haves__inner {
-    width: 70%;
-  }
-  
 }
 
 .home .about-bio {
@@ -623,29 +628,67 @@ main .card a:any-link {
   margin-top: 0em;
 }
 
-@media(min-width: 980px) {
+@media (min-width: 750px) {
+  main > .section-wrapper:first-of-type h1 {
+    font-size: 48px;
+  }
+
+  .step .bio {
+    display: block;
+  }
+
+  .icons_parent__item {
+    width: 64px;
+    /* width: 48px; */
+  }
+
+  .icons_parent__item img {
+    width: 100%;
+  }
+
+  .icons_parent__item:last-of-type {
+    margin-left: 20px;
+    /* margin-left: 10px; */
+  }
+
+  main > .section-wrapper:first-of-type p {
+    font-size: 22px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .home main > .section-wrapper:first-of-type br {
+    display: block;
+  }
+
+  .category-steps {
+    display: flex;
+    justify-content: space-between;
+  }
 
   .category-steps .card {
-    width: 290px;
+    margin-bottom: 0;
+    width: 30%;
   }
 
-  .more-content--ete-item {
-    display: flex;
-    width: 45%;
-    text-align: left;
-    justify-content: space-between;
-    color: white;
-    text-decoration: none;
-    max-width: 100%;
+  main > .section-wrapper:first-of-type p {
+    font-size: 18px;
   }
 
-  .more-content--ete-image {
-    width: 58%;
+  main .card .text {
+    /* padding: 24px 32px; */
+    padding: 14px 22px;
   }
-  
-  .more-content--ete-details {
-    width: 38%;
+}
+
+@media (min-width: 980px) {
+  main .card .text {
+    padding: 24px 32px;
+    /* padding: 14px 22px; */
   }
+
 
   .file-ete--item {
     width: 31%;
@@ -659,39 +702,55 @@ main .card a:any-link {
   .step main .content .video {
     top: -1.3em;
   }
-
 }
 
-
-
-
-@media(min-width: 1080px) {
+@media (min-width: 1080px) {
   .step main .video-wrapper {
     max-width: 720px;
     width: 100%;
   }
 
   .step main .content .video {
-    top: -1.3em;
+    top: -1em;
   }
-
-
-
+  
+  .more-content--ete-item {
+      display: flex;
+      width: 45%;
+      text-align: left;
+      justify-content: space-between;
+      color: white;
+      text-decoration: none;
+      max-width: 100%;
+    }
+  
+    .more-content--ete-image {
+      width: 58%;
+    }
+  
+    .more-content--ete-details {
+      width: 38%;
+    }
 }
 
-
-
-
-@media(min-width: 1240px) {
+@media (min-width: 1240px) {
   .step main .video-wrapper {
     max-width: 920px;
     width: 100%;
   }
 
-  
-
   .step main .content .video {
-    top: -0.6em;
+    top: -0.65em;
   }
 
+  .learn {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    max-width: 1180px;
+    width: 70%;
+  }
+
+  .must-haves__inner {
+    width: 70%;
+  }
 }
