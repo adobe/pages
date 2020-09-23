@@ -92,7 +92,7 @@ async function insertSteps() {
 
 function addNavCarrot() {
   if (document.querySelector("header img")) {
-    console.log("svg is available");
+    console.log('nav initiated')
     let svg = document.querySelector("header img");
     let svgWithCarrot = document.createElement("div");
     svgWithCarrot.classList.add("nav-logo");
@@ -183,10 +183,13 @@ async function decorateStep() {
     currentStep.Single_page_description;
 
   document.title = currentStep.Title;
-  if (currentStep["Practice File"]) {
+  if (currentStep["Practice File"].length > 3) {
+    console.log(currentStep["Practice File"].length)
     document
       .querySelector("main .content>p>a")
       .setAttribute("href", currentStep["Practice File"]);
+  } else {
+    document.querySelector("main .content>p>a").remove();
   }
 
   if (currentStep.Video.startsWith("https://images-tv.adobe.com")) {
@@ -310,9 +313,7 @@ function cardHeightEqualizer($el) {
   }
 }
 
-window.addEventListener(
-  "resize",
-  debounce(function () {
+window.addEventListener("resize", debounce(function () {
     // run resize events
     cardHeightEqualizer(".card-content");
   }, 250)
