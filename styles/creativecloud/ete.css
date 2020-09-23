@@ -232,6 +232,11 @@ main .card a:any-link {
   text-align: left;
 }
 
+.skill a {
+  color: #1473E6;
+  text-decoration: none;
+}
+
 .skills {
   display: inline-block !important;
   width: 90%;

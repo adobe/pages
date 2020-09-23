@@ -226,18 +226,26 @@ async function decorateStep() {
   //fill learn section
 
   let skills = [];
+
   while (currentStep["Skill " + (skills.length + 1)]) {
     skills.push({
       title: currentStep["Skill " + (skills.length + 1)],
       icon: currentStep["Skill " + (skills.length + 1) + " Icon"],
+      linkText: currentStep["Skill_" + (skills.length + 1) + "_link_text"],
+      linkHref: currentStep["Skill_" + (skills.length + 1) + "_link"]
     });
   }
   const $skills = createTag("div", { class: "skills" });
   let html = "";
 
   skills.forEach((skill) => {
-    html += `<div class="skill"><img src="/static/you-will-learn/${skill.icon}.svg">
-          <p>${skill.title}</p></div>`;
+    
+    html += `
+    <div class="skill">
+      <img src="/static/you-will-learn/${skill.icon}.svg">
+      <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
+
+    </div>`;
   });
 
   let $skillsTitle = document.querySelector(".learn h2");

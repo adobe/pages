@@ -39,7 +39,6 @@
     let filteredData = [];
     for(let i = 0; i < steps.length; i++) {
       if(i != index && steps[i].Tag === steps[index].Tag) {
-        console.log(steps[i])
          let {Title, Description, Thumbnail, Product_icon_1, Product_icon_2} = steps[i];
          let url = window.location.href.split('?')[0] + '?' + (i + 1);
          step_item += `
