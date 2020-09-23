@@ -1,0 +1,9 @@
+.premiere .default-nav a {
+	color: #2c2c2c;
+	border: 0;
+}
+
+.premiere .default-nav a:hover {
+	color: #1473e6;
+	border: 0;
+}

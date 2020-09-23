@@ -70,8 +70,13 @@
         console.log($description.textContent);
         if ($description.innerHTML.split('<br>')[1].length>20) {
             const $links=$countdown.querySelectorAll('a[href]');
-            const href=$links[Math.floor(Math.random()*$links.length)].getAttribute('href');
-            window.location.href=href;
+            const url=new URL($links[Math.floor(Math.random()*$links.length)].href);
+            const href=url.pathname+url.search;
+            if (window.location.hostname == 'localhost') {
+                $description.innerHTML=`<a href='${href}'>take me to a landing page</a>`;
+            } else {
+                window.location.href=href;
+            }
         } else {
             setTimeout(countdown, 300);
 

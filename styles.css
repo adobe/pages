@@ -315,7 +315,7 @@ footer p:after {
   
   .default-nav .icon {
     position: relative;
-    top: 2px;
+    /* top: 2px; */
     width: 40px;
     margin-left: 4px;
   }

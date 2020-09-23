@@ -121,6 +121,13 @@ function wrapSections(element) {
 
 
 
+function unwrapEmbeds() {
+    document.querySelectorAll(".section-embed").forEach(($embed) => {
+        $embed.parentNode.classList.remove('default');
+    })
+}
+
+
 let debounce = function(func, wait, immediate) {
 	let timeout;
 	return function() {
@@ -255,6 +262,7 @@ function paramHelper() {
 }
 
 async function decoratePage() {
+    unwrapEmbeds();
     turnListSectionIntoCards();
     decorateTables();
     wrapSections('main>div');
@@ -298,8 +306,9 @@ function formatListCard($li) {
   };
   
   function turnListSectionIntoCards() {
-    document.querySelectorAll('main div>ul').forEach(($ul) => {
+    document.querySelectorAll('main div.default>ul').forEach(($ul) => {
       if ($ul == $ul.parentNode.firstElementChild) {
+        $ul.classList.remove('default');
         $ul.classList.add('cards');
         $ul.querySelectorAll('li').forEach(($li) => {
           $li.innerHTML=formatListCard($li);
@@ -314,7 +323,7 @@ function formatListCard($li) {
   }
 
   function decorateTables() {
-    document.querySelectorAll('main div>table').forEach(($table) => {
+    document.querySelectorAll('main div.default>table').forEach(($table) => {
         const $cols=$table.querySelectorAll('thead tr th');
         const cols=Array.from($cols).map((e) => toClassName(e.innerHTML));
         const $rows=$table.querySelectorAll('tbody tr');

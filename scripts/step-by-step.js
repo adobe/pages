@@ -8,11 +8,7 @@ async function fetchSteps() {
 function getThumbnail(step) {
     let thumbnail=step.Thumbnail;
     if (!thumbnail) {
-        if (step.Video.startsWith('https://www.youtube.com')) {
-            const yturl=new URL(step.Video);
-            const vid=yturl.searchParams.get('v');    
-            thumbnail=`https://img.youtube.com/vi/${vid}/0.jpg`;
-        }
+		thumbnail=`https://images-tv.adobe.com/avp/vr/536052e8-270f-49cd-a193-9eff1b9c9cb3/f770c63f-af98-43a1-be0b-005dedfca145/a92ecbe3_960x540.jpg`;
     }
     return (thumbnail);
 }
@@ -164,25 +160,6 @@ async function decorateStep() {
         $video.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
 
     }
-
-    //fill learn section
-
-    let skills=[]
-    while (currentStep['Skill '+(skills.length+1)]) {
-        skills.push({
-            title: currentStep['Skill '+(skills.length+1)], 
-            icon: currentStep['Skill '+(skills.length+1)+' Icon']
-        });
-    }
-    const $skills=createTag('div',{class: 'skills'});
-    let html='';
-
-    skills.forEach((skill) => {
-        html+=`<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
-            <p>${skill.title}</p></div>`;
-    })
-    $skills.innerHTML=html;
-    $learn.appendChild($skills);
 
     //fill progress section
 

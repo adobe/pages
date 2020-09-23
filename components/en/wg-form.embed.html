@@ -1,51 +1,60 @@
 <div class="wg-form-container">
-  <form action="" id="wg-form">
+  <form id="wg-form">
     <div class="input-el">
-      <label for="name">
-        First and Last Name
-      </label>
-      <input type="text" id="name">
+      <label for="name"> First and Last Name </label>
+      <input type="text" name="name" />
     </div>
     <div class="input-el">
-      <label for="email">
-        Email Address
-      </label>
-      <input type="text" id="email">
+      <label for="email"> Email Address </label>
+      <input type="text" name="email" />
     </div>
     <div class="text-el">
       <label for="what-did-you-hope-to-accomplish">
         What did you hope to accomplish with the product(s) in the trail period?
       </label>
-      <textarea name="" id="what-did-you-hope-to-accomplish" cols="30" rows="10"></textarea>
+      <textarea
+        name="what-did-you-hope-to-accomplish"
+        cols="30"
+        rows="5"
+      ></textarea>
     </div>
     <div class="radio-el">
-      <label>Rate your trial experience on a scale of 1-5 (1=very bad and 5=very good). *</label>
-      <div class="radio-option">
-        <input type="radio" id="one" name="rating-trail" value="1">
-        <label for="one">1 - very bad</label>
-      </div>
-      <div class="radio-option">
-        <input type="radio" id="two" name="rating-trail" value="2">
-        <label for="two">2 - bad</label>
-      </div>
-      <div class="radio-option">
-        <input type="radio" id="three" name="rating-trail" value="3">
-        <label for="three">3 - neutral</label>
-      </div>
-      <div class="radio-option">
-        <input type="radio" id="four" name="rating-trail" value="4">
-        <label for="four">4 - good</label>
-      </div>
-      <div class="radio-option">
-        <input type="radio" id="five" name="rating-trail" value="5">
-        <label for="five">5 - very good</label>
+      <span
+        >Rate your trial experience on a scale of 1-5 (1=very bad and 5=very
+        good). *
+      </span>
+      <div class="radio-options-parent">
+        <div class="radio-option">
+          <input type="radio" id="one" name="rating-trail" value="1" required/>
+          <label for="one">1 - very bad</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="two" name="rating-trail" value="2" required/>
+          <label for="two">2 - bad</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="three" name="rating-trail" value="3" required/>
+          <label for="three">3 - neutral</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="four" name="rating-trail" value="4" required/>
+          <label for="four">4 - good</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="five" name="rating-trail" value="5" required/>
+          <label for="five">5 - very good</label>
+        </div>
       </div>
     </div>
     <div class="text-el">
-      <label for="what-did-you-hope-to-accomplish">
+      <label for="Why-did-you-choose-the-above-rating">
         Why did you choose the above rating?
       </label>
-      <textarea name="" id="Why-did-you-choose-the-above-rating?" cols="30" rows="10"></textarea>
+      <textarea
+        name="Why-did-you-choose-the-above-rating"
+        cols="30"
+        rows="5"
+      ></textarea>
     </div>
 
     <div class="submit-el">
@@ -55,16 +64,55 @@
 </div>
 
 <script>
-  const wgForm = document.querySelector('.wg-form-container');
-  const formElement = document.querySelector('#wg-form');
 
-  function setFormAction() {
-    const formParent = wgForm.parentElement;
-    formParent.querySelectorAll('a')[0].parentElement.remove();
-    const actionUrl = formParent.querySelectorAll('a')[0].getAttribute('href');
-    formElement.setAttribute('action', actionUrl)
+
+function setupForm() {
+    const $formContainer = document.querySelector('.wg-form-container');
+    const $form = document.getElementById('wg-form');
+    const formsink = 'https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE'
+    
+    let sheet, thankyou;
+    $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
+      
+      if ($a.textContent.toLowerCase()=='sheet') {
+        sheet=$a.href;
+        $a.parentElement.remove();
+      }
+
+      if ($a.textContent.toLowerCase()=='thank you') {
+        thankyou=$a.href;
+        $a.parentElement.remove();
+      }
+    });
+
+    const values=[{name: 'timestamp', value: new Date().toISOString().replace(/[TZ]/g,' ').split('.')[0].trim()}];
+  
+    $form.addEventListener('submit', async (evt) => {
+      evt.preventDefault();
+      if ($form.reportValidity()) {
+        $form.querySelectorAll('input, textarea').forEach(($f) => {
+            if (($f.getAttribute('type') != 'radio') || $f.checked) {
+              values.push({name: $f.name, value: $f.value});
+            }
+        })
+
+        const body={sheet, data: values};
+        const resp=await fetch(formsink, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body) // body data type must match "Content-Type" header
+        });
+        const text=await resp.text();        
+        window.location=thankyou;
+      }
+
+      return false;
+    })
   }
 
-  setFormAction();
+  document.getElementsByTagName("body")[0].classList.add("has-wg-form");
 
+  setupForm();
 </script>
