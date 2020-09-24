@@ -181,7 +181,7 @@ main .card a:any-link {
 }
 
 .step .learn {
-  padding-top: 3em !important;
+  padding-top: 1.5em !important;
 }
 
 .step main .content .video {
@@ -222,6 +222,8 @@ main .card a:any-link {
   width: 100%;
 }
 
+
+
 @media (max-width: 899px) {
   .video-wrapper {
     background: none !important;
@@ -232,23 +234,6 @@ main .card a:any-link {
   text-align: left;
 }
 
-.skill a {
-  color: #1473E6;
-  text-decoration: none;
-}
-
-.skills {
-  display: inline-block !important;
-  width: 90%;
-  margin: auto;
-}
-
-.step main .skill {
-  display: flex;
-  width: auto;
-  max-width: 100% !important;
-  align-items: center;
-}
 
 .step main .skills img {
   width: 40px;
@@ -273,11 +258,28 @@ main .card a:any-link {
   margin-top: 0em;
   font-size: 28px;
 }
+.skill a {
+  color: #1473E6;
+  text-decoration: none;
+}
+
+.skills {
+  display: inline-block !important;
+  width: 80%;
+  margin: auto;
+}
+
+.step main .skill {
+  display: flex;
+  width: auto;
+  max-width: 100% !important;
+  align-items: center;
+}
 
 .step .about-bio {
   width: 100%;
   border-bottom: 1px solid #ddd;
-  padding-bottom: 2em;
+  padding-bottom: 1.2em;
   color: #505050;
 }
 
@@ -293,7 +295,7 @@ main .card a:any-link {
 }
 
 .step .about-bio {
-  margin-bottom: 2em;
+  margin-bottom: 3.22em;
 }
 
 .step main .skills p {
@@ -306,13 +308,13 @@ main .card a:any-link {
 }
 
 .about-bio img {
-  max-width: 96px;
+  max-width: 72px;
 }
 
 .about-bio h4 {
   margin: 0;
-  font-size: 18px;
-  margin-top: 18px;
+  font-size: 19px;
+  margin-top: 8px;
   margin-bottom: 8px;
   color: #323232;
 }
@@ -321,7 +323,7 @@ main .card a:any-link {
   margin: 0.5em 0em;
   font-weight: 400;
   line-height: 1.5;
-  font-size: 16px !important;
+  font-size: 19px !important;
   margin-bottom: 1em;
 }
 
@@ -437,7 +439,7 @@ main .card a:any-link {
 }
 
 .more-content--ete-inner {
-  width: 90%;
+  width: 82%;
   max-width: 1180px;
   margin: auto;
   padding-top: 2em;
@@ -502,7 +504,7 @@ main .card a:any-link {
 .icons_parent {
   display: flex;
   justify-content: center;
-  padding-top: 40px;
+  padding-top: 51px;
 }
 
 .icons_parent__item {
@@ -521,6 +523,7 @@ main .card a:any-link {
 
 .skills h2 {
   text-align: center;
+  font-size: 1.17em;
 }
 
 .about-bio__inner {
@@ -569,11 +572,21 @@ main .card a:any-link {
     display: block;
   }
 
+  .step .learn {
+    padding-top: 3em !important;
+  }
+
   .skills {
     width: 50%;
     justify-content: flex-start !important;
     margin: 0 !important;
   }
+
+  .skills h2 {
+    text-align: left;
+    font-size: 1.4em;
+  }
+
 
   .about-bio__inner {
     display: inline-block;
@@ -586,6 +599,9 @@ main .card a:any-link {
   .step .about-bio {
     border-bottom: 0;
     max-width: 236px;
+  }
+  .about-bio p {
+    font-size: 16px !important;
   }
 
   .step .about-bio__inner {
@@ -685,10 +701,6 @@ main .card a:any-link {
     width: 30%;
   }
 
-  main .card .text {
-    /* padding: 24px 32px; */
-    padding: 14px 22px;
-  }
 }
 
 @media (min-width: 980px) {
@@ -761,4 +773,43 @@ main .card a:any-link {
   .must-haves__inner {
     width: 70%;
   }
+}
+
+
+@media(max-width: 600px) {
+  .step main .content {
+    width: 100%;
+    /* padding: 20px; */
+    padding: 0;
+  }
+  
+  main h1 {
+    padding: 20px 0px;
+  }
+  
+  .step main .content h1 {
+    font-size: 34px;
+    font-weight: 800;
+  }
+  
+  .step main .content p {
+    font-size: 17px !important;
+  }
+  
+  .step main .content .video,
+  .step main .content h1,
+  .step main .content p {
+    width: 80%;
+  }
+  
+  .step main .content .video .button svg {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .step main .video-wrapper {
+    /* padding: 26px; */
+    padding: 26px 0px;
+  }
+  
 }

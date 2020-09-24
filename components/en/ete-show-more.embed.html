@@ -102,6 +102,15 @@
       let buttonText = i < 1 ? "Download" : "Open"
       if(allFiles[i].fileType.length > 2) {
         let svg = allFiles[i].fileType.toLowerCase().split(' ').join('');
+
+        if(svg === "premierepro") {
+          svg = "premiere"
+        }
+
+        if(svg === "adobefonts") {
+          svg = "fonts"
+        }
+        
         file += `
           <div class="file-ete--item">
             <div class="file_image-ete">
