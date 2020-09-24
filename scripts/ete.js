@@ -317,13 +317,15 @@ window.addEventListener("resize", debounce(function () {
   }, 250)
 );
 
+
+
 async function decoratePage() {
   decorateTables();
   await loadLocalHeader();
   wrapSections("header>div");
   externalLinks("header");
   externalLinks("footer");
-
+  
   // nav style/dropdown
   addNavCarrot();
 
@@ -353,7 +355,7 @@ async function decoratePage() {
   wrapSections(".home > main > div");
   await cleanUpBio();
   appearMain();
-
+  externalLinks("main .section-wrapper:last-of-type")
   cardHeightEqualizer(".card-content");
 }
 
