@@ -183,13 +183,11 @@ async function decorateStep() {
     currentStep.Single_page_description;
 
   document.title = currentStep.Title;
-  if (currentStep["Practice File"].length > 3) {
+  if (currentStep["Practice File"]) {
     console.log(currentStep["Practice File"].length)
     document
       .querySelector("main .content>p>a")
       .setAttribute("href", currentStep["Practice File"]);
-  } else {
-    document.querySelector("main .content>p>a").remove();
   }
 
   if (currentStep.Video.startsWith("https://images-tv.adobe.com")) {
