@@ -187,7 +187,9 @@ async function decorateStep() {
     console.log(currentStep["Practice File"].length)
     document
       .querySelector("main .content>p>a")
-      .setAttribute("href", currentStep["Practice File"]);
+      .setAttribute("href", currentStep["Practice File"])
+    document
+    .querySelector("main .content>p>a").classList.add('video-trigger-btn');
   }
 
   if (currentStep.Video.startsWith("https://images-tv.adobe.com")) {
@@ -223,6 +225,19 @@ async function decorateStep() {
     const vid = yturl.searchParams.get("v");
     $video.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
   }
+
+
+  function scrollPage(event) {
+    event.preventDefault();
+    console.log('clicked')
+    let videooffSet = document.querySelector('.video').offsetTop - 50;
+    console.log(videooffSet)
+    window.scroll({ top : videooffSet, behavior: 'smooth'})
+    document.querySelector('.button').click();
+  }
+
+
+  document.querySelector('.video-trigger-btn').addEventListener('click', scrollPage)
 
   //fill learn section
 
