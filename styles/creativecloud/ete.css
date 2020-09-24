@@ -78,7 +78,7 @@ main > .section-wrapper:first-of-type br {
 main > .section-wrapper:first-of-type p {
   max-width: 750px;
   margin: auto;
-  font-size: 19px !important;
+  font-size: 17px;
   line-height: 1.6;
   padding-top: 0.5em;
   color: #505050;
@@ -116,7 +116,7 @@ main .card {
 }
 
 .category-steps .card p {
-  font-size: 18px !important;
+  font-size: 19px !important;
   padding-top: 0.5em;
 }
 
@@ -638,6 +638,8 @@ main .card a:any-link {
     font-size: 48px;
   }
 
+
+
   .step .bio {
     display: block;
   }
@@ -660,6 +662,11 @@ main .card a:any-link {
     font-size: 22px;
   }
 
+  .category-steps .card p {
+    font-size: 18px !important;
+  }
+  
+
   .section-title {
     font-size: 28px;
   }
@@ -676,10 +683,6 @@ main .card a:any-link {
   .category-steps .card {
     margin-bottom: 0;
     width: 30%;
-  }
-
-  main > .section-wrapper:first-of-type p {
-    font-size: 18px;
   }
 
   main .card .text {
