@@ -13,6 +13,7 @@ function loadJSModule(src) {
     document.head.appendChild(module);
   };
 
+
 /**
  * Creates a tag with the given name and attributes.
  * @param {string} name The tag name
@@ -75,11 +76,6 @@ async function loadLocalHeader() {
 }
 
 
-async function loadLocalFooter() {
-  await insertLocalResource('footer');
-}
-
-
 /**
  * Checks if <main> is ready to appear 
  */
@@ -130,46 +126,93 @@ function classify(qs, cls, parent) {
     });
 }
 
+async function loadPagesCSS(pages) {
+  const exp=`${pages.product?'product':''}${pages.project?'+project':''}`;
+  
+  let url='';
+  let resp;
+
+  switch (exp) {
+    
+    case 'product+project': 
+      url=`/styles/${pages.product}/${pages.project}.css`;
+      resp=await fetch (url);
+      if (resp.ok) break; 
+
+    case 'product': 
+      url=`/styles/${pages.product}/default.css`;
+      resp=await fetch (url);
+      if (resp.ok) break; 
+    
+    default:
+      url=`/styles/default.css`;
+      resp=await fetch (url);
+      if (resp.ok) break;
+      url='';
+
+  }
+
+  if (url) loadCSS(url);
+}
+
+async function loadPagesJSModule(pages, aliases) {
+  
+  let url='';
+  let resp;
+
+  
+  switch (pages.project?true:false) {
+    
+    case true: 
+      let mappedProject=pages.project;
+      for (let name in aliases) {
+          const map=aliases[name];
+          const from=[].concat(map);
+          from.forEach(e => {
+            if (pages.project.startsWith(e)) mappedProject=name;
+          })
+        }
+
+      url=`/scripts/${mappedProject}.js`;
+      resp=await fetch (url);
+      if (resp.ok) break; 
+
+    default:
+      url=`/scripts/default.js`;
+      resp=await fetch (url);
+      if (resp.ok) break;
+      url='';
+      
+  }
+  if (url) loadJSModule(url);
+}
+
+
 const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
 
 window.pages={};
 
 if (pathSegments) {
   const product=pathSegments[0];
-  let locale=pathSegments[1];
-  let project=pathSegments[2];
-  let family=project;
-  if (project && (project.startsWith('twp3') || project.startsWith('tl'))) family=`twp3`;
-  if (project=='twp2' || project=='twp') family=`twp`;
-  if (product=='internal') { family=`internal`; project=``; }
-  if (project && project.startsWith('max')) family=`max`;
-  if (project && project.startsWith('learn')) family=`step-by-step`;
-  window.pages = { product, locale, project, family };  
+  const locale=pathSegments[1];
+  const project=pathSegments[2];
+  window.pages = { product, locale, project };
 }
 
 window.pages.dependencies=[];
 
-// Load page specific code
-if (window.pages.project && window.pages.project.startsWith('max')) {
-    loadCSS(`/styles/${window.pages.product}/max.css`);
-    loadJSModule(`/scripts/${window.pages.family}.js`);	
-}
-else if (window.pages.project && window.pages.project.startsWith('learn')) {
-    loadCSS(`/styles/${window.pages.product}/step-by-step.css`);
-    loadJSModule(`/scripts/${window.pages.family}.js`);	
-}
-else if (window.pages.project) {
-    loadCSS(`/styles/${window.pages.product}/${window.pages.project}.css`);
-    loadJSModule(`/scripts/${window.pages.family}.js`);
-} else if (window.pages.product) {
-  loadCSS(`/styles/${window.pages.product}/default.css`);
-  loadJSModule(`/scripts/default.js`);
-} else {
-  loadCSS(`/styles/default.css`);
-  loadJSModule(`/scripts/default.js`);
-}
+const legacyAliasMap={ 
+  max: 'max',
+  twp3: ['twp3', 'tl'],
+  'step-by-step': 'learn',
+  twp: 'twp2'
+};
+
+loadPagesCSS(window.pages);
+loadPagesJSModule(window.pages, legacyAliasMap);	
 
 if (window.pages.product) {
   document.getElementById('favicon').href=`/icons/${window.pages.product}.svg`;
 }
+
 
