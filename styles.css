@@ -250,10 +250,10 @@ footer p:after {
   
   
   /* === Default Nav Component === */
-  .default-nav>div:first-of-type {
+  header>div:first-of-type {
     color: none;
   }
-  .default-nav > div {
+  header > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -261,41 +261,43 @@ footer p:after {
     flex-direction: column;
   }
 
-  .premiere .default-nav {
+  .premiere header {
     background: black;
   }
   
-  .default-nav .nav-logo {
+  header .nav-logo {
     cursor: pointer;
     padding: 1em 0em;
     display: flex;
     align-items: center;
   }
   
-  .default-nav .product-icon {
+  header .product-icon {
       display: flex;
       align-items: center;
   }
 
-  .default-nav .product-icon p {
-      margin: 0;
-      margin-left: 8px;
-      font-weight: 800;
-      font-size: 18px;
+  header .product-icon p {
+    margin: 0;
+    margin-left: 8px;
+    font-weight: 800;
+    font-size: 18px;
+    color: black;
   }
-  .default-nav>div:first-of-type {
+  
+  header>div:first-of-type {
     background-color: unset;
   } 
   
-  .default-nav.nav-showing {
+  header.nav-showing {
     background: #eee;
   }
 
-  .default-nav.nav-showing a {
+  header.nav-showing a {
       color: black;
   }
   
-  .default-nav .carrot svg {
+  header .carrot svg {
     stroke: black;
     position: relative;
     top: 3px;
@@ -304,7 +306,7 @@ footer p:after {
   
   
   
-  .default-nav p:first-of-type {
+  header p:first-of-type {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -313,14 +315,14 @@ footer p:after {
     cursor: pointer;
   }
   
-  .default-nav .icon {
+  header .icon {
     position: relative;
     /* top: 2px; */
     width: 40px;
     margin-left: 4px;
   }
   
-  .default-nav ul {
+  header ul {
     margin: 0; padding: 0;
     list-style-type: none;
     display: none;
@@ -329,38 +331,38 @@ footer p:after {
     /* margin-left: 1em; */
   }
   
-  .default-nav li {
+  header li {
     margin-left: 0em;
     margin-top: 1.5em;
     padding: 20px 16px;
     text-align: center;
   }
 
-  .default-nav li:hover {
+  header li:hover {
     background: #F5F5F5;
     transition: background .2s ease;
   }
 
-  .premiere .default-nav li:hover {
+  .premiere header li:hover {
     background: #444;
     text-align: left;
   }
 
-  .premiere .default-nav.nav-showing {
+  .premiere header.nav-showing {
     background: black;
   }
 
-  .premiere .default-nav.nav-showing .carrot svg {
+  .premiere header.nav-showing .carrot svg {
     stroke: white;
   }
   
-  .default-nav li:last-of-type {
+  header li:last-of-type {
     margin-right: 0em;
     margin-bottom: 2em;
     text-align: center;
   }
   
-  .default-nav a {
+  header a {
     width: 100%;
     font-weight: 600;
     display: inline-block;
@@ -370,11 +372,11 @@ footer p:after {
     text-align: center;
   }
 
-  .default-nav p:empty {
+  header p:empty {
       display: none !important;
   }
 
-  .premiere .default-nav a {
+  .premiere header a {
       color: white;
   }
 
@@ -386,49 +388,49 @@ footer p:after {
   
   @media(min-width: 768px) {
 
-	.default-nav .nav-logo {
+	header .nav-logo {
     	margin-right: 42px;
     }  
-    .default-nav.nav-showing {
+    header.nav-showing {
       background: #fff;
     }
-    .premiere .default-nav.nav-showing {
+    .premiere header.nav-showing {
         background: black !important;
     }
 
-    .premiere .default-nav.nav-showing a {
+    .premiere header.nav-showing a {
         color: white !important;
     }
   
-    .default-nav > div {
+    header > div {
       flex-direction: row;
     }
     
-    .default-nav p:first-of-type {
+    header p:first-of-type {
       width: auto;
       cursor: default;
       margin-top: 0em;
       font-size: 14px;
     }
     
-    .default-nav ul {
+    header ul {
       display: flex !important;
       margin-left: 0em;
       flex-direction: row;
       text-align: left;
     }
     
-    .default-nav li {
+    header li {
       margin-top: 0em;
       margin-right: 2em;
     }
     
-    .default-nav li:last-of-type {
+    header li:last-of-type {
       margin-bottom: 0em;
       margin-right: 0em;
     }
     
-    .default-nav .carrot {
+    header .carrot {
       display: none;
     }
     

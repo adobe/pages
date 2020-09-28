@@ -90,7 +90,7 @@ async function insertSteps() {
   }
 }
 
-function addNavCarrot() {
+function decorateNav() {
   if (document.querySelector("header img")) {
     console.log('nav initiated')
     let svg = document.querySelector("header img");
@@ -342,7 +342,7 @@ async function decoratePage() {
   externalLinks("footer");
   
   // nav style/dropdown
-  addNavCarrot();
+  decorateNav();
 
   if (document.querySelector(".nav-logo")) {
     document.querySelector(".nav-logo").addEventListener("click", dropDownMenu);
