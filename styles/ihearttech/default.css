@@ -2,7 +2,7 @@
 
 main {
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
     color: black;
   }
   
@@ -26,7 +26,7 @@ main {
   .default a {
     color: #1473E6;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
   }
   
   header div:first-of-type {
@@ -83,8 +83,24 @@ main {
   
   
   .ihearttech .cards .card .card-text {
-    padding: 2em 1.4em;
+    padding: 5em 1.4em;
   }
+
+@media (min-width: 900px) {
+    main .card .card-text>div {
+        height: 210px;
+    }
+
+    .ihearttech .cards .card .card-text {
+        padding: 5em 1.4em;
+        height: 320px;
+    }
+
+    main .card {
+        height: 460px;
+    }
+
+}
   
   .ihearttech .main-video .card-text {
     font-size: 18px;
@@ -94,12 +110,16 @@ main {
   main .card .card-image img{
     max-height: 230px;
   }
+
+  main .card .card-image {
+      height: 140px;
+  }
   
   .ihearttech .cards .card {
     max-width: 90%;
     width: 90%;
     margin: auto;
-    font-size: 17px;
+    font-size: 16px;
     margin-bottom: 2em;
   }
   
@@ -145,7 +165,7 @@ main {
     text-decoration: none;
     border-radius: 20px;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
     display: inline-block;
     margin-top: 2em !important;
   }
