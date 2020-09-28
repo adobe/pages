@@ -278,11 +278,13 @@ footer p:after {
   }
 
   .default-nav .product-icon p {
-      margin: 0;
-      margin-left: 8px;
-      font-weight: 800;
-      font-size: 18px;
+    margin: 0;
+    margin-left: 8px;
+    font-weight: 800;
+    font-size: 18px;
+    color: black;
   }
+  
   .default-nav>div:first-of-type {
     background-color: unset;
   } 
