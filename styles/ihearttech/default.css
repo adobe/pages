@@ -264,4 +264,65 @@ main {
     top: 0;
     bottom: 0;
   }
+
+  .section-wrapper .default {
+    max-width: none !important;
+    width: 100% !important;
+    margin: auto; 
+  }
+
+  .section-wrapper .default .card-light-blue {
+    background-color: #44a0d4;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  main .section-wrapper .default .card-light-blue h1,
+  main .section-wrapper .default .card-dark-blue h1,
+  main .section-wrapper .default .card-red h1,
+  main .section-wrapper .default .card-dark h1{
+      color: #fff;
+  }
+
+  main .section-wrapper .default .card-light-blue a {
+      color: #fff;
+  }
+
+  .section-wrapper .default .card-dark-blue {
+    background-color: #205188;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  .section-wrapper .default .card-yellow {
+    background-color: #205188;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  .section-wrapper .default .card-red {
+    background-color: #d85a58;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  .section-wrapper .default .card-dark {
+    background-color: #282828;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
   
