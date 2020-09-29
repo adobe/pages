@@ -34,38 +34,38 @@ a:hover,
 }
 
 main .section-wrapper {
-	padding: 60px 0;
+	padding: 40px;
 }
 
 main .section-wrapper:nth-child(even) {
 	background: #f5f5f5;
-	padding: 60px 0;
 }
 
-h1 {
-	font-size: 48px;
-	line-height: 60px;
+main h1 {
+	font-size: 30px;
+	line-height: 36px;
 	margin-bottom: 20px;
+	text-align: left;
 }
 
-h2 {
-	text-align: center;
-	font-size: 36px;
-	line-height: 45px;
+main h2 {
+	text-align: left;
+	font-size: 27px;
+	line-height: 30px;
 	margin: 0 0 45px 0;
 }
 
-.default > p {
+main .default > p {
 	max-width: 928px;
 	margin: 0 auto 20px auto;
 	color: #707070;
-	text-align: center;
-	font-size: 20px;
-	line-height: 25px;
+	text-align: left;
+	font-size: 16px;
+	line-height: 20px;
 }
 
 .section-wrapper:last-child .default > h2 {
-	margin: 20px;
+	margin: 0 0 20px 0;
 }
 
 .default > p > a:only-child,
@@ -90,23 +90,40 @@ h2 {
 }
 
 
+/* white nav */
+
+.default-nav>div:first-of-type {
+	background: #fff;
+}
+
+.premiere .default-nav a {
+	color: #2c2c2c;
+}
+
+.premiere .default-nav li:hover {
+    background: #F5F5F5;
+}
+
+.premiere .carrot svg {
+	stroke: #2c2c2c;
+	height: 1.25em;
+    width: 1.25em;
+    margin: 0 0 0 1em;
+}
+
+
 
 /* cards */
 
-main .cards {
-  display: flex;
-  flex-wrap: nowrap;
-  margin: auto;
-  justify-content: center;
-  max-width: 1416px;
-}
-
 main .card {
-  width: 338px;
-  margin: 0 8px;
-  background: #fff;
-  border-radius: 4px;
-  border: 1px solid #EAEAEA;
+  	width: 100%;
+  	margin: 0 0 40px 0;
+  	background: #fff;
+  	border-radius: 4px;
+  	border: 1px solid #EAEAEA;
+	color: #707070;
+	font-size: 16px;
+	line-height: 20px;
 }
 
 main .card img {
@@ -120,18 +137,68 @@ main .card div:last-child {
 }
 
 main .card h3 {
-  	font-size: 26px;
-  	line-height: 32px;
+  	font-size: 20px;
+  	line-height: 25px;
   	margin: 0 0 10px 0;
   	color: #2C2C2C;
 }
 
-main .card {
-	color: #707070;
-	font-size: 22px;
-	line-height: 28px;
-}
 
+
+
+
+/* desktop specific styles */
+
+@media only screen and (min-width: 769px) {
+	
+	main h1 {
+		font-size: 48px;
+		line-height: 60px;
+		text-align: center;
+		margin-top: 0;
+	}
+	
+	main h2 {
+		text-align: center;
+		font-size: 36px;
+		line-height: 45px;
+	}
+	
+	main .default > p {
+		max-width: 928px;
+		text-align: center;
+		font-size: 20px;
+		line-height: 25px;
+	}
+	
+	main .cards {
+	  display: flex;
+	  flex-wrap: nowrap;
+	  margin: auto;
+	  justify-content: center;
+	  max-width: 1416px;
+	}
+	
+	main .section-wrapper {
+		padding: 60px 0;
+	}
+	
+	main .card {
+		width: 338px;
+		margin: 0 8px;
+		font-size: 22px;
+		line-height: 28px;
+	}
+
+	main .card h3 {
+  		font-size: 26px;
+  		line-height: 32px;
+  	}
+  	
+  	main .default > p:last-child {
+	  	margin-bottom: 0;
+  	}
+}
 
 
 
