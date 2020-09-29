@@ -436,3 +436,61 @@ footer p:after {
     
   }
   
+
+  /* CTA STYLES */
+  .button {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 16px;
+    min-height: 32px;
+    height: auto;
+    min-width: 72px;
+    padding: 4px 14px;
+    padding-bottom: 4.5px;
+    padding-top: 3.5px;
+    font-size: 14px;
+    font-weight: 700;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    box-sizing: border-box;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: visible;
+    margin: 0;
+    border-style: solid;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-appearance: button;
+    vertical-align: top;
+    transition: background .13s ease-out, border-color .13s ease-out,color .13s ease-out,box-shadow .13s ease-out;
+    text-decoration: none;
+    line-height: 1.3;
+    cursor: pointer;
+  }
+
+  .button.main {
+    background-color: #1473e6;
+    border-color: #1473e6;
+    color: #fff;
+  }
+
+  .button.main:hover {
+    background-color: #0d66d0;
+    border-color: #0d66d0;
+    color: #fff;
+  }
+
+  .button.secondary {
+    background-color: transparent;
+    border-color: #505050;
+    color: #505050;
+  }
+
+  .button.secondary:hover {
+    background-color: #505050;
+    border-color: #505050;
+    color: #fff;
+  }

@@ -68,3 +68,17 @@ header {
 .has-wg-form main .section-wrapper:first-of-type {
   padding: 2em 0em;
 }
+
+
+.hfield {
+  position: relative;
+  overflow: hidden;
+}
+
+.hfield input {
+  height: 0px;
+  width: 0px;
+  opacity: 0;
+  position: absolute;
+  transform: translateX;
+}
