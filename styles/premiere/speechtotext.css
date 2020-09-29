@@ -1,17 +1,147 @@
-body.has-beta-form .section-wrapper + .section-wrapper {
-	background: #FAFAFA;
-	margin: 60px 0;
+body {
+	text-rendering: optimizeLegibility; 
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
 }
 
-body.has-beta-form h1 {
-	margin-top: 60px;
+*,
+button,
+input,
+textarea,
+select {
+	box-sizing: border-box;
 }
+
+a {
+	
+}
+
+a:hover {
+	
+}
+
+a,
+a:hover,
+.default > p > a:only-child,
+.section-wrapper > p > a:only-child,
+#beta-form input[type=submit]:hover,
+.default > p > a:only-child:hover,
+.section-wrapper > p > a:only-child:hover {
+	-webkit-transition: all 0.3s cubic-bezier(0, 0, 0.40, 1); 
+    -moz-transition: all 0.3s cubic-bezier(0, 0, 0.40, 1); 
+    -o-transition: all 0.3s cubic-bezier(0, 0, 0.40, 1); 
+    transition: all 0.3s cubic-bezier(0, 0, 0.40, 1);
+}
+
+main .section-wrapper {
+	padding: 60px 0;
+}
+
+main .section-wrapper:nth-child(even) {
+	background: #f5f5f5;
+	padding: 60px 0;
+}
+
+h1 {
+	font-size: 48px;
+	line-height: 60px;
+	margin-bottom: 20px;
+}
+
+h2 {
+	text-align: center;
+	font-size: 36px;
+	line-height: 45px;
+	margin: 0 0 45px 0;
+}
+
+.default > p {
+	max-width: 928px;
+	margin: 0 auto 20px auto;
+	color: #707070;
+	text-align: center;
+	font-size: 20px;
+	line-height: 25px;
+}
+
+.section-wrapper:last-child .default > h2 {
+	margin: 20px;
+}
+
+.default > p > a:only-child,
+.section-wrapper > p > a:only-child {
+	display: inline-block;
+	color: #fff;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: #1473E6;
+	border: none;
+	padding: 0 20px;
+	text-decoration: none;
+	margin-top: 20px;
+}
+
+#beta-form input[type=submit]:hover,
+.default > p > a:only-child:hover,
+.section-wrapper > p > a:only-child:hover {
+	background: #0D66D0;
+}
+
+
+
+/* cards */
+
+main .cards {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: auto;
+  justify-content: center;
+  max-width: 1416px;
+}
+
+main .card {
+  width: 338px;
+  margin: 0 8px;
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #EAEAEA;
+}
+
+main .card img {
+	display: block;
+	width: 100%;
+}
+
+main .card div:last-child {
+	border-top: 1px solid #EAEAEA;
+	padding: 40px;
+}
+
+main .card h3 {
+  	font-size: 26px;
+  	line-height: 32px;
+  	margin: 0 0 10px 0;
+  	color: #2C2C2C;
+}
+
+main .card {
+	color: #707070;
+	font-size: 22px;
+	line-height: 28px;
+}
+
+
+
+
+
+/* form styles, will not impact anything globally */
 
 #beta-form {
 	max-width: 450px;
 	margin: 0 auto;
 	text-align: left;
-	padding: 60px 0;
 }
 
 #beta-form .input-el,
@@ -29,7 +159,6 @@ body.has-beta-form h1 {
 
 #beta-form input[type=radio],
 #beta-form input[type=checkbox] {
-	box-sizing: border-box;
 	border: 2px solid #8E8E8E;
     appearance: none;
     width: 16px;
@@ -86,12 +215,12 @@ body.has-beta-form h1 {
 	color: #4B4B4B;
 }
 
-.radio-header {
+#beta-form .radio-header {
 	margin-top: 20px;
 	font-weight: bold;
 }
 
-input[type=submit] {
+#beta-form input[type=submit] {
 	font-family: "Adobe Clean", adobe-clean, sans-serif;
 	color: #fff;
 	font-weight: bold;
@@ -104,7 +233,7 @@ input[type=submit] {
 	margin-top: 40px;
 }
 
-.legal-text {
+#beta-form .legal-text {
 	margin-top: 40px;
 	color: #6E6E6E;
 }
