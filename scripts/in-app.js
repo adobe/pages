@@ -1,8 +1,11 @@
-function wrapSections(element) {
+function wrapSections(element, appendClass) {
   document.querySelectorAll(element).forEach(($div) => {
       const $wrapper=createTag('div', { class: 'section-wrapper'});
       $div.parentNode.appendChild($wrapper);
       $wrapper.appendChild($div);
+      if (appendClass) {
+        $div.classList.add(appendClass);
+    }
   });
 }
 
@@ -94,7 +97,7 @@ function paramHelper() {
 
 async function decoratePage() {
   decorateTables();
-  wrapSections('main>div');
+  wrapSections('main>div', 'default');
   await loadLocalHeader();
   wrapSections('header>div');
   wrapSections('footer>div');

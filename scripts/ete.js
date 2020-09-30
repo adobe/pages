@@ -17,11 +17,14 @@ function getThumbnail(step) {
   return thumbnail;
 }
 
-function wrapSections(element) {
+function wrapSections(element, appendClass) {
   document.querySelectorAll(element).forEach(($div) => {
     const $wrapper = createTag("div", { class: "section-wrapper" });
     $div.parentNode.appendChild($wrapper);
     $wrapper.appendChild($div);
+    if (appendClass) {
+      $div.classList.add(appendClass);
+  }
   });
 }
 
@@ -367,7 +370,7 @@ async function decoratePage() {
   }
 
   window.pages.decorated = true;
-  wrapSections(".home > main > div");
+  wrapSections(".home > main > div", "default");
   await cleanUpBio();
   appearMain();
   externalLinks("main .section-wrapper:last-of-type")

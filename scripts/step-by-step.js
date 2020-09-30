@@ -199,11 +199,14 @@ async function decorateStep() {
 
 }
 
-function wrapSections(element) {
+function wrapSections(element, appendClass) {
     document.querySelectorAll(element).forEach(($div) => {
         const $wrapper=createTag('div', { class: 'section-wrapper'});
         $div.parentNode.appendChild($wrapper);
         $wrapper.appendChild($div);
+        if (appendClass) {
+            $div.classList.add(appendClass);
+        }
     });
 }
 

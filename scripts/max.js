@@ -110,11 +110,14 @@ function decorateForm () {
 }
 
 
-function wrapSections(element) {
+function wrapSections(element, appendClass) {
     document.querySelectorAll(element).forEach(($div) => {
         const $wrapper=createTag('div', { class: 'section-wrapper'});
         $div.parentNode.appendChild($wrapper);
         $wrapper.appendChild($div);
+        if (appendClass) {
+            $div.classList.add(appendClass);
+        }
     });
 }
 
@@ -265,7 +268,7 @@ async function decoratePage() {
     unwrapEmbeds();
     turnListSectionIntoCards();
     decorateTables();
-    wrapSections('main>div');
+    wrapSections('main>div', 'default');
     decorateForm();
     await loadLocalHeader();
     wrapSections('header>div');
