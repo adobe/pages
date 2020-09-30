@@ -97,6 +97,7 @@ async function insertSteps() {
 }
 
 async function decoratePage() {
+    addDefaultClass('main>div');
 
     await loadLocalHeader();
 

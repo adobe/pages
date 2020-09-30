@@ -278,6 +278,7 @@ function paramHelper() {
 }
 
 async function decoratePage() {
+    addDefaultClass('main>div');
     turnListSectionIntoCards();
     decorateTables();
     wrapSections('main>div');

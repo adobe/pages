@@ -262,6 +262,7 @@ function paramHelper() {
 }
 
 async function decoratePage() {
+    addDefaultClass('main>div');
     unwrapEmbeds();
     turnListSectionIntoCards();
     decorateTables();

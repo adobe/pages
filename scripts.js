@@ -6,7 +6,11 @@
  document.title=document.title.split('<br>').join(' ');
 
 
-
+function addDefaultClass(element) {
+  document.querySelectorAll(element).forEach(($div) => {
+      $div.classList.add('default');
+  });
+}
 
 function loadJSModule(src) {
     const module = document.createElement('script');

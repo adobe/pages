@@ -93,6 +93,7 @@ function paramHelper() {
 }
 
 async function decoratePage() {
+  addDefaultClass('main>div');
   decorateTables();
   wrapSections('main>div');
   await loadLocalHeader();

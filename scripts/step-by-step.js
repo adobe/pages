@@ -222,6 +222,7 @@ async function decorateHome() {
 }
 
 async function decoratePage() {
+    addDefaultClass('main>div');
 
     await loadLocalHeader();
 
