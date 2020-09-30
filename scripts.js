@@ -6,6 +6,8 @@
  document.title=document.title.split('<br>').join(' ');
 
 
+
+
 function loadJSModule(src) {
     const module = document.createElement('script');
     module.setAttribute('type', 'module');
@@ -209,7 +211,8 @@ const legacyAliasMap={
 };
 
 loadPagesCSS(window.pages);
-loadPagesJSModule(window.pages, legacyAliasMap);	
+loadPagesJSModule(window.pages, legacyAliasMap);
+
 
 if (window.pages.product) {
   document.getElementById('favicon').href=`/icons/${window.pages.product}.svg`;

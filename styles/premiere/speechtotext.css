@@ -12,12 +12,19 @@ select {
 	box-sizing: border-box;
 }
 
-a {
-	
+em {
+	font-style: italic;
+}
+
+a,
+a:visited {
+	color: #1473E6;
+	text-decoration: none;
 }
 
 a:hover {
-	
+	color: #0D66D0;
+	text-decoration: underline;
 }
 
 a,
@@ -91,6 +98,10 @@ main .default > p {
 
 
 /* white nav */
+
+header .icon {
+	width: 25px;
+}
 
 .default-nav>div:first-of-type {
 	background: #fff;
@@ -198,6 +209,10 @@ main .card h3 {
   	main .default > p:last-child {
 	  	margin-bottom: 0;
   	}
+  	
+  	header p:first-of-type {
+	  	margin-left: 12px;
+  	}
 }
 
 
@@ -206,7 +221,7 @@ main .card h3 {
 /* form styles, will not impact anything globally */
 
 #beta-form {
-	max-width: 450px;
+	max-width: 692px;
 	margin: 0 auto;
 	text-align: left;
 }
@@ -232,7 +247,7 @@ main .card h3 {
     height: 16px;
     display: block;
     flex: none;
-    margin: 4px 0 0 0;
+    margin: 3px 0 0 0;
 }
 
 #beta-form input[type=checkbox] {
@@ -303,4 +318,16 @@ main .card h3 {
 #beta-form .legal-text {
 	margin-top: 40px;
 	color: #6E6E6E;
+}
+
+#beta-form .hidden-default {
+	display: none;
+}
+
+#beta-form .hidden-default.revealed {
+	display: block;
+}
+
+#beta-form .emailerror {
+	color: #c9252d;
 }

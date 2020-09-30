@@ -21,6 +21,29 @@ async function submitSheetForm($form, sheetid, thankyou) {
     }
 }
 
+
+function createButtonCta(element) {
+    if(!document.querySelectorAll(element).length > 0) return;
+    let button = document.querySelectorAll(element);
+    button.forEach(function($link) {
+        if($link.innerText.includes('cta main')) {
+            $link.classList.add('button') 
+            $link.classList.add('main') 
+            $link.innerText = $link.innerText.split('[')[0]
+        }
+
+        if($link.innerText.includes('cta secondary')) {
+            $link.classList.add('button') 
+            $link.classList.add('secondary') 
+            $link.innerText = $link.innerText.split('[')[0]
+        }
+        
+    })
+}
+  
+
+
+
 // html output for form fields
 function getFieldHTML(name, type, options, attributes) {
     let html=`<label for="${name}">${name} ${attributes.mandatory?'*':''}</label><br>`;
@@ -266,7 +289,7 @@ async function decoratePage() {
     paramHelper();
     appearMain();
     addNavCarrot();
-
+    createButtonCta('main a')
     if(document.querySelector('.nav-logo')) {
       document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
     }
