@@ -375,6 +375,7 @@ async function decoratePage() {
   window.pages.decorated = true;
   wrapSections(".home > main > div");
   addDefaultClass('main>.section-wrapper>div');
+  addDefaultClass('.step>main>div');
   await cleanUpBio();
   appearMain();
   externalLinks("main .section-wrapper:last-of-type")
