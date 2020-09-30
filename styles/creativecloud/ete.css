@@ -472,12 +472,10 @@ main .card a:any-link {
 }
 
 .more-content--ete-image {
-  /* width: 58%; */
   width: 100%;
 }
 
 .more-content--ete-details {
-  /* width: 38%; */
   width: 100%;
 }
 
@@ -714,7 +712,6 @@ main .card a:any-link {
     padding: 24px 32px;
   }
 
-
   .file-ete--item {
     width: 31%;
   }
@@ -784,7 +781,6 @@ main .card a:any-link {
 @media(max-width: 600px) {
   .step main .content {
     width: 100%;
-    /* padding: 20px; */
     padding: 0;
   }
   
@@ -813,7 +809,6 @@ main .card a:any-link {
   }
   
   .step main .video-wrapper {
-    /* padding: 26px; */
     padding: 26px 0px;
   }
   
