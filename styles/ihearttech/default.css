@@ -285,7 +285,7 @@ main {
   main .section-wrapper .default .card-light-blue h1,
   main .section-wrapper .default .card-dark-blue h1,
   main .section-wrapper .default .card-red h1,
-  main .section-wrapper .default .card-dark h1
+  main .section-wrapper .default .card-dark h1,
   main .section-wrapper .default .card-yellow h1 {
       color: #fff;
   }
