@@ -133,14 +133,17 @@ function decorateForm () {
 }
 
 
-function wrapSections(element, appendClass) {
+function wrapSections(element) {
     document.querySelectorAll(element).forEach(($div) => {
         const $wrapper=createTag('div', { class: 'section-wrapper'});
         $div.parentNode.appendChild($wrapper);
         $wrapper.appendChild($div);
-        if (appendClass) {
-            $div.classList.add(appendClass);
-        }
+    });
+}
+
+function addDefaultClass(element) {
+    document.querySelectorAll(element).forEach(($div) => {
+        $div.classList.add('default');
     });
 }
 
@@ -283,7 +286,8 @@ function paramHelper() {
 async function decoratePage() {
     turnListSectionIntoCards();
     decorateTables();
-    wrapSections('main>div', 'default');
+    wrapSections('main>div');
+    addDefaultClass('main>div');
     decorateForm();
     await loadLocalHeader();
     wrapSections('header>div');
