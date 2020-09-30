@@ -1,20 +1,23 @@
 <div class="beta-form-container">
   <form id="beta-form">
 	  
+    
+    <div class="input-el">
+      <label for="name"> First and Last Name</label>
+      <input type="text" name="name" required/>
+    </div>
+    
     <div class="input-el">
 		<label for="email">Your Adobe ID Email Address</label>
-		<input type="text" name="email" />
+		<input type="text" name="email" class="emails" id="email" required/>
+		<span class="emailerror hidden-default">Email fields must match.</span>
     </div>
     
 	<div class="input-el">
 		<label for="email2">Confirm your Adobe ID Email Address</label>
-		<input type="text" name="email2" />
+		<input type="text" name="email2" class="emails" id="email2" required/>
+		<span class="emailerror hidden-default">Email fields must match.</span>
     </div>
-    
-    <!--<div class="input-el">
-      <label for="name"> First and Last Name </label>
-      <input type="text" name="name" />
-    </div>-->
     
     <div class="radio-el">
 		<span>What’s your current Creative Cloud (CC) membership (purchased for yourself or your company)?</span>
@@ -199,67 +202,67 @@
     </div>
     
     
-    <div class="radio-el">
+    <div id="work-purposes" class="radio-el hidden-default">
       	<span>Please indicate which one type of video content you primarily create for work purposes.
 		</span>
 		<div class="radio-options-parent">
 			<div class="radio-header">Media & Entertainment Content</div>
 	        <div class="radio-option">
-	          <input type="radio" id="everydaye" name="worktype" value="Every day" required/>
-	          <label for="everydaye">Documentaries (films, series)</label>
+	          <input type="radio" id="documentaries" name="worktype" value="Documentaries" required/>
+	          <label for="documentaries">Documentaries (films, series)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="afewtimeswke" name="worktype" value="A few times a week" required/>
-	          <label for="afewtimeswke">Live programming (live-audience programs, talk shows, live-event broadcast or specials)</label>
+	          <input type="radio" id="liveprogramming" name="worktype" value="Live programming" required/>
+	          <label for="liveprogramming">Live programming (live-audience programs, talk shows, live-event broadcast or specials)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="oncewke" name="worktype" value="Once a week" required/>
-	          <label for="oncewke">Fictional films or shows (films, series)</label>
+	          <input type="radio" id="fiction" name="worktype" value="Fictional films or shows" required/>
+	          <label for="fiction">Fictional films or shows (films, series)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="twothreewkse" name="worktype" value="Once every 2-3 weeks" required/>
-	          <label for="twothreewkse">Short films</label>
+	          <input type="radio" id="shortfilms" name="worktype" value="Short films" required/>
+	          <label for="shortfilms">Short films</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="monthlye" name="worktype" value="Once a month" required/>
-	          <label for="monthlye">Commercials, promos or trailers</label>
+	          <input type="radio" id="promos" name="worktype" value="Commercials, promos or trailers" required/>
+	          <label for="promos">Commercials, promos or trailers</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="lesse" name="worktype" value="Less than once a month/never" required/>
-	          <label for="lesse">Music videos</label>
+	          <input type="radio" id="musicvideos" name="worktype" value="Music videos" required/>
+	          <label for="musicvideos">Music videos</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="everydaye" name="worktype" value="Every day" required/>
-	          <label for="everydaye">Reality shows</label>
+	          <input type="radio" id="realityshows" name="worktype" value="Reality shows" required/>
+	          <label for="realityshows">Reality shows</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="afewtimeswke" name="worktype" value="A few times a week" required/>
-	          <label for="afewtimeswke">News & Sports reporting</label>
+	          <input type="radio" id="reporting" name="worktype" value="News & sports reporting" required/>
+	          <label for="reporting">News & sports reporting</label>
 	        </div>
 	        <div class="radio-header">Business & Client Content</div>
 	        <div class="radio-option">
-	          <input type="radio" id="oncewke" name="worktype" value="Once a week" required/>
-	          <label for="oncewke">Internal communications videos</label>
+	          <input type="radio" id="internalcomms" name="worktype" value="Internal communications" required/>
+	          <label for="internalcomms">Internal communications videos</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="twothreewkse" name="worktype" value="Once every 2-3 weeks" required/>
-	          <label for="twothreewkse">Human Resources videos (hiring, training, etc.)</label>
+	          <input type="radio" id="hr" name="worktype" value="Human Resources videos" required/>
+	          <label for="hr">Human Resources videos (hiring, training, etc.)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="monthlye" name="worktype" value="Once a month" required/>
-	          <label for="monthlye">Event videos (recaps, behind-the-scenes, live stream, etc.)</label>
+	          <input type="radio" id="eventvideos" name="worktype" value="Event videos" required/>
+	          <label for="eventvideos">Event videos (recaps, behind-the-scenes, live stream, etc.)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="lesse" name="worktype" value="Less than once a month/never" required/>
-	          <label for="lesse">Product marketing videos (how-to, demos, unboxing, promos, etc.)</label>
+	          <input type="radio" id="marketing" name="worktype" value="Product marketing videos" required/>
+	          <label for="marketing">Product marketing videos (how-to, demos, unboxing, promos, etc.)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="monthlye" name="worktype" value="Once a month" required/>
-	          <label for="monthlye">Sales pitch videos</label>
+	          <input type="radio" id="sales" name="worktype" value="Sales pitch videos" required/>
+	          <label for="sales">Sales pitch videos</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="lesse" name="worktype" value="Less than once a month/never" required/>
-	          <label for="lesse">Social media-specific videos (branded vlogs, IG Stories, etc.)</label>
+	          <input type="radio" id="socialspecific" name="worktype" value="Social media-specific videos" required/>
+	          <label for="socialspecific">Social media-specific videos (branded vlogs, IG Stories, etc.)</label>
 	        </div>
     	</div>
     </div>
@@ -268,6 +271,7 @@
     <div class="radio-el">
       	<span>Where is the video content that you create shared?
       	</span>
+      	<span><em>Select all that apply.</em></span>
       	<div class="radio-options-parent">
 	        <div class="radio-option">
 	          <input type="checkbox" id="filmfestivals" name="whereshared" value="Film festival(s)"/>
@@ -278,11 +282,11 @@
 	          <label for="movietheater">Movie theater</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="checkbox" id="socialvideo" name="whereshared" value="Social video sharing sites"/>
+	          <input type="checkbox" id="socialvideo" name="whereshared" value="Social video sharing sites" class="socialtrigger"/>
 	          <label for="socialvideo">Social video sharing sites (YouTube, Vimeo, TikTok, etc.)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="checkbox" id="socialnetworking" name="whereshared" value="Social networking sites"/>
+	          <input type="checkbox" id="socialnetworking" name="whereshared" value="Social networking sites" class="socialtrigger"/>
 	          <label for="socialnetworking">Social networking sites (Facebook, Instagram, etc.)</label>
 	        </div>
 	        <div class="radio-option">
@@ -333,10 +337,10 @@
     </div>
     
     
-    <div class="radio-el">
+    <div id="social-reason" class="radio-el hidden-default">
       	<span>You mentioned that you create videos for social media. Please select the reason(s) you create videos for social media.
 	  	</span>
-      	<span>Select all that apply.</span>
+      	<span><em>Select all that apply.</em></span>
       	<div class="radio-options-parent">
 	        <div class="radio-option">
 	          <input type="checkbox" id="socialfollowers" name="socialreason" value="To share with my followers" required/>
@@ -365,60 +369,60 @@
 		<span>Which of the following best describes your employment status?</span>
 		<div class="radio-options-parent">
 	        <div class="radio-option">
-	          <input type="radio" id="everydaye" name="frequencyedit" value="Every day" required/>
-	          <label for="everydaye">Employed (in a company, agency, or other organization)</label>
+	          <input type="radio" id="employed" name="employmentstatus" value="Employed" required/>
+	          <label for="employed">Employed (in a company, agency, or other organization)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="afewtimeswke" name="frequencyedit" value="A few times a week" required/>
-	          <label for="afewtimeswke">Self-employed (including freelancer / consultant)</label>
+	          <input type="radio" id="selfemployed" name="employmentstatus" value="Self-employed" required/>
+	          <label for="selfemployed">Self-employed (including freelancer / consultant)</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="oncewke" name="frequencyedit" value="Once a week" required/>
-	          <label for="oncewke">Homemaker</label>
+	          <input type="radio" id="homemaker" name="employmentstatus" value="Homemaker" required/>
+	          <label for="homemaker">Homemaker</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="twothreewkse" name="frequencyedit" value="Once every 2-3 weeks" required/>
-	          <label for="twothreewkse">Retired</label>
+	          <input type="radio" id="retired" name="employmentstatus" value="Retired" required/>
+	          <label for="retired">Retired</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="monthlye" name="frequencyedit" value="Once a month" required/>
-	          <label for="monthlye">Not currently employed</label>
+	          <input type="radio" id="unemployed" name="employmentstatus" value="Not currently employed" required/>
+	          <label for="unemployed">Not currently employed</label>
 	        </div>
     	</div>
     </div>
     
     
-    <div class="radio-el">
+    <div id="profession" class="radio-el hidden-default">
 		<span>Does any of the following describe your profession?</span>
 		<span>If you do multiple creative job functions, please select the one you primarily do.</span>
 		<div class="radio-options-parent">
 	        <div class="radio-option">
-	          <input type="radio" id="everydaye" name="profession" value="Every day" required/>
-	          <label for="everydaye">Visual or graphic designer</label>
+	          <input type="radio" id="visualgraphic" name="profession" value="Visual or graphic designer" required/>
+	          <label for="visualgraphic">Visual or graphic designer</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="afewtimeswke" name="profession" value="A few times a week" required/>
-	          <label for="afewtimeswke">Illustrator</label>
+	          <input type="radio" id="illustrator" name="profession" value="Illustrator" required/>
+	          <label for="illustrator">Illustrator</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="oncewke" name="profession" value="Once a week" required/>
-	          <label for="oncewke">Print designer/publisher</label>
+	          <input type="radio" id="print" name="profession" value="Print designer/publisher" required/>
+	          <label for="print">Print designer/publisher</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="twothreewkse" name="profession" value="Once every 2-3 weeks" required/>
-	          <label for="twothreewkse">Photographer</label>
+	          <input type="radio" id="photographer" name="profession" value="Photographer" required/>
+	          <label for="photographer">Photographer</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="monthlye" name="profession" value="Once a month" required/>
-	          <label for="monthlye">Video/audio professional</label>
+	          <input type="radio" id="videoaudio" name="profession" value="Video/audio professional" required/>
+	          <label for="videoaudio">Video/audio professional</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="lesse" name="profession" value="Less than once a month/never" required/>
-	          <label for="lesse">Animator/motion graphic designer</label>
+	          <input type="radio" id="animationmotion" name="profession" value="Animator/motion graphic designer" required/>
+	          <label for="animationmotion">Animator/motion graphic designer</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="oncewke" name="profession" value="Once a week" required/>
-	          <label for="oncewke">Web designer (web designer, game designer, interactive designer)</label>
+	          <input type="radio" id="webdesigner" name="profession" value="Web designer" required/>
+	          <label for="webdesigner">Web designer (web designer, game designer, interactive designer)</label>
 	        </div>
 	        <div class="radio-option">
 	          <input type="radio" id="professionux" name="profession" value="UX designer" required/>
@@ -484,6 +488,73 @@ function setupForm() {
     const formsink = 'https://prod-91.westus.logic.azure.com/workflows/424eb31bb1484cf993d281a33a165a48/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=KXCLrcMxyzkrqOKQaPd7Iv5cbi8UjZbovGI9D5uMc6s'
 
     
+    var purposerad = document.forms[0].purpose;
+    for (var i = 0; i < purposerad.length; i++) {
+	    purposerad[i].addEventListener('change', function() {
+			var element = document.getElementById("work-purposes");
+		    if (this.value == 'For work purposes') {
+				element.classList.add("revealed");
+		    }
+			else {
+				element.classList.remove("revealed");
+				var purposes = document.getElementsByName("worktype");
+				for(var i=0;i<purposes.length;i++)
+					purposes[i].checked = false;
+			}
+	    });
+	}
+	
+	
+	var sharedcheckboxes = document.getElementsByClassName("socialtrigger");
+	for (var i = 0; i < sharedcheckboxes.length; i++) {
+	    sharedcheckboxes[i].addEventListener('change', function() {
+			var socelement = document.getElementById("social-reason");
+		    if (document.querySelector('.socialtrigger:checked') !== null) {
+				socelement.classList.add("revealed");
+		    }
+			else {
+				socelement.classList.remove("revealed");
+				var reasons = document.getElementsByName("socialreason");
+				for(var i=0;i<reasons.length;i++)
+					reasons[i].checked = false;
+			}
+	    });
+	}
+	
+	var employmentrad = document.forms[0].employmentstatus;
+    for (var i = 0; i < employmentrad.length; i++) {
+	    employmentrad[i].addEventListener('change', function() {
+			var element = document.getElementById("profession");
+		    if (this.value == 'Employed' | this.value == 'Self-employed') {
+				element.classList.add("revealed");
+		    }
+			else {
+				element.classList.remove("revealed");
+				var purposes = document.getElementsByName("profession");
+				for(var i=0;i<purposes.length;i++)
+					purposes[i].checked = false;
+			}
+	    });
+	}
+	
+	var emails = document.getElementsByClassName("emails");
+	for (var i = 0; i < emails.length; i++) {
+		emails[i].addEventListener('change', function() {
+			var elements = document.getElementsByClassName("emailerror");
+		    if (document.getElementById("email").value !== document.getElementById("email2").value) {
+			    for (var i = 0; i < elements.length; i++) {
+					elements[i].classList.add("revealed");
+				}
+		    }
+			else {
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].classList.remove("revealed");
+				}
+			}
+	    });
+	}
+
+	
     
     let sheet, thankyou;
     $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
@@ -504,6 +575,7 @@ function setupForm() {
     $form.addEventListener('submit', async (evt) => {
       evt.preventDefault();
       if ($form.reportValidity()) {
+	    $form.querySelectorAll('').
         $form.querySelectorAll('input, textarea').forEach(($f) => {
             if (($f.getAttribute('type') != 'radio') || $f.checked) {
               values.push({name: $f.name, value: $f.value});
