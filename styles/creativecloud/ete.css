@@ -35,11 +35,6 @@ main .content p {
   padding-bottom: 20px;
 }
 
-main .card .text,
-main .card .text > div {
-  height: auto !important;
-}
-
 .home .appear .section-wrapper .default {
   max-width: 900px;
   width: 80%;
@@ -229,6 +224,7 @@ main .card a:any-link {
     background: none !important;
   }
 }
+
 
 .learn {
   text-align: left;
@@ -703,10 +699,19 @@ main .card a:any-link {
 
 }
 
+@media(min-width: 900px) {
+  main .card .text>div {
+    height: auto !important;
+  }
+
+  main .card .text {
+    height: auto !important;
+  }
+}
+
 @media (min-width: 980px) {
   main .card .text {
     padding: 24px 32px;
-    /* padding: 14px 22px; */
   }
 
 
