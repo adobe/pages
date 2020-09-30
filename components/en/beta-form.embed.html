@@ -1,24 +1,23 @@
 <div class="beta-form-container">
   <form id="beta-form">
-	  
-    
+
     <div class="input-el">
       <label for="name"> First and Last Name</label>
-      <input type="text" name="name" required/>
+      <input type="text" id="name" name="name" required/>
     </div>
-    
+
     <div class="input-el">
 		<label for="email">Your Adobe ID Email Address</label>
-		<input type="text" name="email" class="emails" id="email" required/>
+		<input type="email" name="email" class="emails" id="email" required/>
 		<span class="emailerror hidden-default">Email fields must match.</span>
     </div>
-    
+
 	<div class="input-el">
 		<label for="email2">Confirm your Adobe ID Email Address</label>
-		<input type="text" name="email2" class="emails" id="email2" required/>
+		<input type="email" name="email2" class="emails" id="email2" required/>
 		<span class="emailerror hidden-default">Email fields must match.</span>
     </div>
-    
+
     <div class="radio-el">
 		<span>What’s your current Creative Cloud (CC) membership (purchased for yourself or your company)?</span>
 		<div class="radio-options-parent">
@@ -56,7 +55,7 @@
 	        </div>
  		</div>
     </div>
-    
+
     <div class="radio-el">
 		<span>Have you paid for transcription service in the past?</span>
 		<div class="radio-options-parent">
@@ -70,7 +69,7 @@
 	        </div>
     	</div>
     </div>
-    
+
     <div class="radio-el">
 		<span>How often do you create transcription and/or add captions to your video?</span>
 		<div class="radio-options-parent">
@@ -87,7 +86,7 @@
 	          <label for="oncewkt">Once a week</label>
 	        </div>
 	        <div class="radio-option">
-	          <input type="radio" id="twothreewkst" name="frequencytranscription" value="Once every 2-3 weeks" required/>
+	          <input type="radio" id="twothreewks" name="frequencytranscription" value="Once every 2-3 weeks" required/>
 	          <label for="twothreewks">Once every 2-3 weeks</label>
 	        </div>
 	        <div class="radio-option">
@@ -100,7 +99,7 @@
 	        </div>
     	</div>
     </div>
-    
+
 	<div class="radio-el">
 		<span>How often do you create or edit video?</span>
 		<div class="radio-options-parent">
@@ -130,7 +129,7 @@
 	        </div>
     	</div>
 	</div>
-    
+
     <div class="radio-el">
       <span
         >Which of the following best describes your experience with creating and/or editing video?
@@ -162,7 +161,7 @@
 	        </div>
     	</div>
     </div>
-    
+
     <div class="radio-el">
       <span>Are you willing to provide feedback to Premiere Pro regarding S2T?
       </span>
@@ -177,7 +176,7 @@
 	        </div>
     	</div>
     </div>
-    
+
     <div class="radio-el">
       <span>For what purpose do you edit videos?
       </span>
@@ -200,8 +199,8 @@
 	        </div>
     	</div>
     </div>
-    
-    
+
+
     <div id="work-purposes" class="radio-el hidden-default">
       	<span>Please indicate which one type of video content you primarily create for work purposes.
 		</span>
@@ -267,7 +266,7 @@
     	</div>
     </div>
 
-    
+
     <div class="radio-el">
       	<span>Where is the video content that you create shared?
       	</span>
@@ -335,8 +334,8 @@
 	        </div>
     	</div>
     </div>
-    
-    
+
+
     <div id="social-reason" class="radio-el hidden-default">
       	<span>You mentioned that you create videos for social media. Please select the reason(s) you create videos for social media.
 	  	</span>
@@ -364,7 +363,7 @@
 	        </div>
 	    </div>
     </div>
-    
+
     <div class="radio-el">
 		<span>Which of the following best describes your employment status?</span>
 		<div class="radio-options-parent">
@@ -390,8 +389,8 @@
 	        </div>
     	</div>
     </div>
-    
-    
+
+
     <div id="profession" class="radio-el hidden-default">
 		<span>Does any of the following describe your profession?</span>
 		<span>If you do multiple creative job functions, please select the one you primarily do.</span>
@@ -438,8 +437,8 @@
 	        </div>
     	</div>
     </div>
-    
-    
+
+
     <div class="radio-el">
       <span>How did you hear about the Speech-to-text early access program?
       </span>
@@ -465,10 +464,10 @@
           <label for="hearpremiere">Adobe Premiere Pro Insiders</label>
         </div>
     </div>
-    
+
 
 	<p class="legal-text">The Adobe family of companies may keep me informed with personalized emails about Adobe Premiere Pro Speech to Text. See our <a href="https://www.adobe.com/privacy.html">Privacy Policy</a> for more details or to opt-out at any time.</p>
-    
+
     <div class="submit-el">
       <input type="submit" value="Apply for early access"/>
     </div>
@@ -483,28 +482,29 @@ function setupForm() {
     const $form = document.getElementById('beta-form');
 
     // old form
-    // const formsink = 'https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE'
+    const formsink = 'https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE'
+    // const formsink = 'https://prod-91.westus.logic.azure.com/workflows/424eb31bb1484cf993d281a33a165a48/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=KXCLrcMxyzkrqOKQaPd7Iv5cbi8UjZbovGI9D5uMc6s'
 
-    const formsink = 'https://prod-91.westus.logic.azure.com/workflows/424eb31bb1484cf993d281a33a165a48/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=KXCLrcMxyzkrqOKQaPd7Iv5cbi8UjZbovGI9D5uMc6s'
-
-    
     var purposerad = document.forms[0].purpose;
-    for (var i = 0; i < purposerad.length; i++) {
-	    purposerad[i].addEventListener('change', function() {
+	for (var i = 0; i < purposerad.length; i++) {
+		purposerad[i].addEventListener('change', function () {
 			var element = document.getElementById("work-purposes");
-		    if (this.value == 'For work purposes') {
+			var purposes = document.getElementsByName("worktype");
+			if (this.value === 'For work purposes') {
 				element.classList.add("revealed");
-		    }
-			else {
+				for (var i = 0; i < purposes.length; i++) {
+					purposes[i].required = true;
+				}
+			} else {
 				element.classList.remove("revealed");
-				var purposes = document.getElementsByName("worktype");
-				for(var i=0;i<purposes.length;i++)
+				for (var i = 0; i < purposes.length; i++) {
 					purposes[i].checked = false;
+					purposes[i].required = false;
+				}
 			}
-	    });
+		});
 	}
-	
-	
+
 	var sharedcheckboxes = document.getElementsByClassName("socialtrigger");
 	for (var i = 0; i < sharedcheckboxes.length; i++) {
 	    sharedcheckboxes[i].addEventListener('change', function() {
@@ -520,33 +520,45 @@ function setupForm() {
 			}
 	    });
 	}
-	
+
 	var employmentrad = document.forms[0].employmentstatus;
     for (var i = 0; i < employmentrad.length; i++) {
 	    employmentrad[i].addEventListener('change', function() {
 			var element = document.getElementById("profession");
-		    if (this.value == 'Employed' | this.value == 'Self-employed') {
+			var purposes = document.getElementsByName("profession");
+		    if (this.value === 'Employed' | this.value === 'Self-employed') {
 				element.classList.add("revealed");
+				for(var i=0;i<purposes.length;i++) {
+					purposes[i].required = true;
+				}
 		    }
 			else {
 				element.classList.remove("revealed");
-				var purposes = document.getElementsByName("profession");
-				for(var i=0;i<purposes.length;i++)
+				for(var i=0;i<purposes.length;i++) {
 					purposes[i].checked = false;
+					purposes[i].required = false;
+				}
 			}
 	    });
 	}
-	
+
+
 	var emails = document.getElementsByClassName("emails");
 	for (var i = 0; i < emails.length; i++) {
 		emails[i].addEventListener('change', function() {
+			const email1 = document.getElementById("email");
+			const email2 = document.getElementById("email2");
 			var elements = document.getElementsByClassName("emailerror");
-		    if (document.getElementById("email").value !== document.getElementById("email2").value) {
+		    if (email1.value !== email2.value) {
+		    	// this tells the form to fail validation
+		    	email1.setCustomValidity('Email fields must match.')
 			    for (var i = 0; i < elements.length; i++) {
 					elements[i].classList.add("revealed");
 				}
 		    }
 			else {
+				email1.setCustomValidity('');
+				email2.setCustomValidity('');
 				for (var i = 0; i < elements.length; i++) {
 					elements[i].classList.remove("revealed");
 				}
@@ -554,48 +566,74 @@ function setupForm() {
 	    });
 	}
 
-	
-    
     let sheet, thankyou;
     $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
-      
-      if ($a.textContent.toLowerCase()=='sheet') {
+
+      if ($a.textContent.toLowerCase() === 'sheet') {
         sheet=$a.href;
         $a.parentElement.remove();
       }
 
-      if ($a.textContent.toLowerCase()=='thank you') {
+      if ($a.textContent.toLowerCase() === 'thank you') {
         thankyou=$a.href;
         $a.parentElement.remove();
       }
     });
 
-    const values=[{name: 'timestamp', value: new Date().toISOString().replace(/[TZ]/g,' ').split('.')[0].trim()}];
-  
-    $form.addEventListener('submit', async (evt) => {
-      evt.preventDefault();
-      if ($form.reportValidity()) {
-        $form.querySelectorAll('input, textarea').forEach(($f) => {
-            if (($f.getAttribute('type') != 'radio') || $f.checked) {
-              values.push({name: $f.name, value: $f.value});
-            }
-        })
+	// we validate the form ourselves. otherwise it would already validate on submit and we cannot
+	// run the custom logic for the checkboxes.
+    $form.setAttribute('novalidate', true);
 
-        const body={sheet, data: values};
-        const resp=await fetch(formsink, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body) // body data type must match "Content-Type" header
-        });
-        const text=await resp.text();        
-        window.location=thankyou;
-      }
+	$form.addEventListener('submit', async (evt) => {
+		evt.preventDefault();
 
-      return false;
-    })
-  }
+		// ensure that at least one sharing checkbox is selected
+		document.getElementById('filmfestivals').setCustomValidity('');
+		if (!$form.querySelector('input[name=whereshared]:checked')) {
+			document.getElementById('filmfestivals').setCustomValidity('Please select at least one checkbox.');
+		}
+
+		// ensure that at least one socialtrigger checkbox is selected
+		document.getElementById('socialfollowers').setCustomValidity('');
+		if ($form.querySelector('.socialtrigger:checked') && !$form.querySelector('input[name=socialreason]:checked')) {
+			document.getElementById('socialfollowers').setCustomValidity('Please select at least one checkbox.');
+		}
+
+		if ($form.reportValidity()) {
+			const values = [{
+				name: 'timestamp',
+				value: new Date().toISOString().replace(/[TZ]/g, ' ').split('.')[0].trim(),
+			}];
+			$form.querySelectorAll('input, textarea').forEach(($f) => {
+				if (!$f.name || $f.name === 'email2') {
+					// skip email2
+					return;
+				}
+				const type = $f.getAttribute('type');
+				if ((type !== 'radio' && type !== 'checkbox') || $f.checked) {
+					const existing = values.find((v) => v.name === $f.name);
+					if (existing) {
+						existing.value += `, ${$f.value}`;
+					} else {
+						values.push({ name: $f.name, value: $f.value });
+					}
+				}
+			})
+
+			const body = { sheet, data: values };
+			const resp = await fetch(formsink, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(body), // body data type must match "Content-Type" header
+			});
+			const text = await resp.text();
+			window.location=thankyou;
+		}
+		return false;
+	})
+}
 
   document.getElementsByTagName("body")[0].classList.add("has-beta-form");
 
