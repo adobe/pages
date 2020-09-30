@@ -16,13 +16,13 @@ em {
 	font-style: italic;
 }
 
-a,
-a:visited {
+main a,
+main a:visited {
 	color: #1473E6;
 	text-decoration: none;
 }
 
-a:hover {
+main a:hover {
 	color: #0D66D0;
 	text-decoration: underline;
 }
@@ -122,7 +122,14 @@ header .icon {
     margin: 0 0 0 1em;
 }
 
+header li {
+	padding: 0;
+}
 
+header li a {
+	display: block;
+	padding: 20px 16px;
+}
 
 /* cards */
 
