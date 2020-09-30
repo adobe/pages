@@ -335,6 +335,7 @@ window.addEventListener("resize", debounce(function () {
 
 
 async function decoratePage() {
+  addDefaultClass('main>div');
   decorateTables();
   await loadLocalHeader();
   wrapSections("header>div");
