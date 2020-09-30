@@ -575,7 +575,6 @@ function setupForm() {
     $form.addEventListener('submit', async (evt) => {
       evt.preventDefault();
       if ($form.reportValidity()) {
-	    $form.querySelectorAll('').
         $form.querySelectorAll('input, textarea').forEach(($f) => {
             if (($f.getAttribute('type') != 'radio') || $f.checked) {
               values.push({name: $f.name, value: $f.value});
