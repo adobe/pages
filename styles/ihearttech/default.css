@@ -34,6 +34,10 @@ main {
     background: transparent;
   }
   
+  body.form main .default > p, 
+  main h1 + p {
+    color: #747474 !important;
+}
   
   main .default:first-of-type h1 {
     padding-top: 2em;
@@ -285,7 +289,7 @@ main {
   main .section-wrapper .default .card-light-blue h1,
   main .section-wrapper .default .card-dark-blue h1,
   main .section-wrapper .default .card-red h1,
-  main .section-wrapper .default .card-dark h1
+  main .section-wrapper .default .card-dark h1,
   main .section-wrapper .default .card-yellow h1 {
       color: #fff;
   }
