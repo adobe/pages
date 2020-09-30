@@ -8,6 +8,7 @@ main {
   
   main img, main video {
     max-width: 100%;
+    vertical-align: middle;
   }
 
   main ul {
@@ -40,6 +41,7 @@ main {
   
   main .default:first-of-type p {
     margin-top: 0;
+    margin-bottom: 0;;
   }
   
   main .default.form:first-of-type p {
@@ -283,12 +285,15 @@ main {
   main .section-wrapper .default .card-light-blue h1,
   main .section-wrapper .default .card-dark-blue h1,
   main .section-wrapper .default .card-red h1,
-  main .section-wrapper .default .card-dark h1{
+  main .section-wrapper .default .card-dark h1
+  main .section-wrapper .default .card-yellow h1 {
       color: #fff;
   }
 
-  main .section-wrapper .default .card-light-blue a {
+  main .section-wrapper .default .card-light-blue a,
+  main .section-wrapper .default .card-yellow a {
       color: #fff;
+      text-decoration: underline;
   }
 
   .section-wrapper .default .card-dark-blue {
@@ -301,7 +306,8 @@ main {
   }
 
   .section-wrapper .default .card-yellow {
-    background-color: #205188;
+    background-color: #ffd184;
+    color: #fff;
     padding-bottom: 4em;
     padding-left: 4em;
     padding-right: 4em;
@@ -320,6 +326,13 @@ main {
   .section-wrapper .default .card-dark {
     background-color: #282828;
     color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  .section-wrapper .default .card-light {
     padding-bottom: 4em;
     padding-left: 4em;
     padding-right: 4em;
