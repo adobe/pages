@@ -8,6 +8,7 @@ main {
   
   main img, main video {
     max-width: 100%;
+    vertical-align: middle;
   }
 
   main ul {
