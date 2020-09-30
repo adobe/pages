@@ -287,7 +287,7 @@ async function decoratePage() {
     turnListSectionIntoCards();
     decorateTables();
     wrapSections('main>div');
-    addDefaultClass('main>div');
+    addDefaultClass('main>.section-wrapper>div');
     decorateForm();
     await loadLocalHeader();
     wrapSections('header>div');

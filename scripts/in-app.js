@@ -101,7 +101,7 @@ function paramHelper() {
 async function decoratePage() {
   decorateTables();
   wrapSections('main>div');
-  addDefaultClass('main>div');
+  addDefaultClass('main>.section-wrapper>div');
   await loadLocalHeader();
   wrapSections('header>div');
   wrapSections('footer>div');
