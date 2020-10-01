@@ -36,7 +36,7 @@ main {
   
   body.form main .default > p, 
   main h1 + p {
-    color: #747474 !important;
+    color: inherit !important;
 }
   
   main .default:first-of-type h1 {
