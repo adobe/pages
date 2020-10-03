@@ -100,7 +100,7 @@ main .default > p {
 /* white nav */
 
 header .icon {
-	width: 25px;
+	width: 40px;
 }
 
 .default-nav>div:first-of-type {
@@ -124,6 +124,10 @@ header .icon {
 
 header li {
 	padding: 0;
+}
+
+header p:only-of-type a {
+	font-size: 16px;
 }
 
 header li a {
@@ -236,6 +240,10 @@ main .card h3 {
 #name-email-form .input-el,
 #name-email-form .radio-el {
 	margin-bottom: 40px;
+}
+
+#name-email-form label span {
+	display: block;
 }
 
 #name-email-form label,
