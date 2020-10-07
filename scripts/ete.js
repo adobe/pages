@@ -187,7 +187,6 @@ async function decorateStep() {
 
   document.title = currentStep.Title;
   if (currentStep["Practice File"]) {
-    console.log(currentStep["Practice File"].length)
     document
       .querySelector("main .content>p>a")
       .setAttribute("href", currentStep["Practice File"])
@@ -232,9 +231,7 @@ async function decorateStep() {
 
   function scrollPage(event) {
     event.preventDefault();
-    console.log('clicked')
     let videooffSet = document.querySelector('.video').offsetTop - 50;
-    console.log(videooffSet)
     window.scroll({ top : videooffSet, behavior: 'smooth'})
     document.querySelector('.button').click();
   }
@@ -367,32 +364,8 @@ async function decoratePage() {
 
   if (pageType == "step") {
     await decorateStep();
-    // "<meta property="og:image" content="http://euro-travel-example.com/thumbnail.jpg">
-    // <meta name="twitter:image" content=" http://euro-travel-example.com/thumbnail.jpg">"
-
-    let image = document.querySelector('.video-wrapper').getAttribute('data-bg');
-    let url = window.location.origin + image;
-    let metaTags = [
-      { attr_one: "property", attr_one_value: `og:image`, attr_two: `${url}` },
-      { attr_one: "name", attr_one_value: `twitter:image`, attr_two: `${url}` },
-    ]
-    let metaGroup = '';
-    let head = document.getElementsByTagName('head')
-
-    metaTags.forEach(function(meta) {
-      let metaTag = document.createElement('meta');
-      metaTag.setAttribute(meta.attr_one, meta.attr_one_value)
-      metaTag.setAttribute('content', meta.attr_two)
-      
-      document.getElementsByTagName('head')[0].appendChild(metaTag);
-
-      
-    })
     document.title = document.title.split('&nbsp;').join(' ')
     document.title = document.title.split('<br>').join(' ')
-    console.log('v2')
-
-
   }
 
   window.pages.decorated = true;
