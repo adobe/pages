@@ -1,3 +1,5 @@
+
+
 async function fetchSteps() {
   window.pages.dependencies.push("steps.json");
   const resp = await fetch("steps.json");
@@ -162,6 +164,7 @@ async function decorateStep() {
   const currentStep = steps[stepIndex];
 
   $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`;
+  $video.setAttribute('data-bg', `/static/ete/hero-posters/${currentStep.Thumbnail}`)
 
   //fill content section
 
@@ -341,7 +344,6 @@ async function decoratePage() {
   wrapSections("header>div");
   externalLinks("header");
   externalLinks("footer");
-  
   // nav style/dropdown
   decorateNav();
 
@@ -365,6 +367,31 @@ async function decoratePage() {
 
   if (pageType == "step") {
     await decorateStep();
+    // "<meta property="og:image" content="http://euro-travel-example.com/thumbnail.jpg">
+    // <meta name="twitter:image" content=" http://euro-travel-example.com/thumbnail.jpg">"
+
+    let image = document.querySelector('.video-wrapper').getAttribute('data-bg');
+    let url = window.location.origin + image;
+    let metaTags = [
+      { attr_one: "property", attr_one_value: `og:image`, attr_two: `${url}` },
+      { attr_one: "name", attr_one_value: `twitter:image`, attr_two: `${url}` },
+    ]
+    let metaGroup = '';
+    let head = document.getElementsByTagName('head')
+
+    metaTags.forEach(function(meta) {
+      let metaTag = document.createElement('meta');
+      metaTag.setAttribute(meta.attr_one, meta.attr_one_value)
+      metaTag.setAttribute('content', meta.attr_two)
+      
+      document.getElementsByTagName('head')[0].appendChild(metaTag);
+
+      
+    })
+    document.title = document.title.split('&nbsp;').join(' ')
+    document.title = document.title.split('<br>').join(' ')
+
+
   }
 
   window.pages.decorated = true;
