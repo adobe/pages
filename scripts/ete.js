@@ -390,6 +390,7 @@ async function decoratePage() {
     })
     document.title = document.title.split('&nbsp;').join(' ')
     document.title = document.title.split('<br>').join(' ')
+    console.log('v2')
 
 
   }
