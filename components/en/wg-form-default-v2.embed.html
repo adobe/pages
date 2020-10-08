@@ -1,0 +1,74 @@
+<div class="wg-form-container">
+  <form id="wg-form">
+
+  </form>
+</div>
+<script>
+
+async function formData() {
+  window.pages.dependencies.push('kenny-form-test.json');
+  const resp=await fetch('kenny-form.json');
+  const json=await resp.json();
+  return (Array.isArray(json) ? json : json.data);
+}
+
+async function getSteps() {
+  let radioOptionMarkup = '';
+  let formFields = await formData();
+  let formInputs = Object.keys(formFields[0])
+  let formLables = Object.values(formFields[0])
+  let formInputTypes = ["email", "text", "radio", "select", "textarea"]
+  let markUp = '';
+  
+  for(let i = 0; i < formInputs.length; i++) {
+    let index = i;
+    let radio_label = formLables[index].indexOf(' ') >= 0 ? formLables[index].split(' ').join('-') : formLables[index];
+
+    if(formInputs[i].includes("radio")) {
+      let radioOptions = formInputs[i].split('[')[1].split(']')[0].split(', ');
+      for(let j = 0; j < radioOptions.length; j++) {
+        let options =  radioOptions[j]
+        let values = options.indexOf(' ') >= 0 ? options.split(' ').join('-') : options
+        radioOptionMarkup += `
+        
+          <div class="radio-option">
+            <input type="radio" id="${values}" name="${radio_label.toLowerCase()}" value="${values}" required/>
+            <label for="${values.toLowerCase()}">${radioOptions[j]}</label>
+          </div>
+        
+        `
+      }
+
+      let radio_el = `
+        <div class="radio-el">
+          <span
+            >${formLables[i]}*
+          </span>
+          <div class="radio-options-parent">
+            ${radioOptionMarkup}
+          </div>
+        </div>
+      `
+      markUp += radio_el
+    }
+
+    if(formInputTypes.includes(formInputs[i])) {
+
+      if(formInputs[i] === "text" || formInputs[i] === "email") {
+        let inputType = formInputs[i].indexOf(' ') >= 0 ? formInputs[i].split(' ').join('-') : formInputs[i];
+        
+        let input = `
+        <div class="input-el">
+          <label for="${inputType}"> ${formLables[index]} </label>
+          <input type="${inputType}" name="${inputType}" />
+        </div>`
+      
+        markUp += input
+      }
+    } 
+  }
+  document.querySelector('#wg-form').innerHTML = markUp;
+}
+
+getSteps();
+</script>
