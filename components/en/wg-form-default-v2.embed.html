@@ -50,17 +50,19 @@
     }
 
     output.map(function (item) {
-      let labels_cleanup =
-        item.label.indexOf(" ") >= 0
-          ? item.label.split(" ").join("-")
-          : item.label;
+      let labels_cleanup = item.label.indexOf(" ") >= 0 ? item.label.split(" ").join("-") : item.label;
+      let is_required = labels_cleanup.includes('*') ? 'required' : '';
+
+      labels_cleanup = labels_cleanup.indexOf('-*') >= 0 ? labels_cleanup.split('-*')[0] : labels_cleanup;
+
 
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
+        
         formField += `
       <div class="input-el">
         <label for="${labels_cleanup.toLowerCase()}">${item.label}</label>
-        <input type="${item.type}" name="${labels_cleanup.toLowerCase()}" />
+        <input type="${item.type}" name="${labels_cleanup.toLowerCase()}" ${is_required}/>
       </div>
       `;
       }
@@ -90,6 +92,31 @@
         </div>
       </div>`;
       }
+
+
+
+      // TEXTAREA
+      if(item.type === "textarea") {
+        
+        let cleanUpLabel = item.label.indexOf(' ') >= 0 ? item.label.split(' ').join('-').toLowerCase() : item.label.toLowerCase();
+        let is_required = labels_cleanup.includes('*') ? 'required' : '';
+        cleanUpLabel = cleanUpLabel.indexOf("*") >= 0 ? cleanUpLabel.split('*')[0] : cleanUpLabel;
+        
+
+        formField += `
+          <div class="text-el">
+            <label for="${cleanUpLabel}">
+              ${item.label}
+            </label>
+            <textarea
+              name="${cleanUpLabel}"
+              cols="30"
+              rows="5"
+            ${is_required}></textarea>
+          </div>
+        `
+      }
+      
     });
 
     formField += `
