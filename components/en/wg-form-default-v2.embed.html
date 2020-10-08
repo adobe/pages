@@ -1,74 +1,145 @@
 <div class="wg-form-container">
-  <form id="wg-form">
-
-  </form>
+  <form id="wg-form"><h4 style="text-align: center;">Loading...</h4></form>
 </div>
 <script>
+  const formsink =
+    "https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE";
+  const $formContainer = document.querySelector(".wg-form-container");
+  const $form = document.getElementById("wg-form");
+  let sheet, thankyou;
 
-async function formData() {
-  window.pages.dependencies.push('kenny-form-test.json');
-  const resp=await fetch('kenny-form.json');
-  const json=await resp.json();
-  return (Array.isArray(json) ? json : json.data);
-}
+  async function formData() {
+    const formType = document.querySelectorAll("main p");
+    let formToUse = "";
+    formType.forEach(function (text) {
+      if (text.textContent.includes("[form-type=")) {
+        formToUse = text.textContent.split("=")[1].split("]")[0];
+        text.remove();
+      }
+    });
 
-async function getSteps() {
-  let radioOptionMarkup = '';
-  let formFields = await formData();
-  let formInputs = Object.keys(formFields[0])
-  let formLables = Object.values(formFields[0])
-  let formInputTypes = ["email", "text", "radio", "select", "textarea"]
-  let markUp = '';
-  
-  for(let i = 0; i < formInputs.length; i++) {
-    let index = i;
-    let radio_label = formLables[index].indexOf(' ') >= 0 ? formLables[index].split(' ').join('-') : formLables[index];
-
-    if(formInputs[i].includes("radio")) {
-      let radioOptions = formInputs[i].split('[')[1].split(']')[0].split(', ');
-      for(let j = 0; j < radioOptions.length; j++) {
-        let options =  radioOptions[j]
-        let values = options.indexOf(' ') >= 0 ? options.split(' ').join('-') : options
-        radioOptionMarkup += `
-        
-          <div class="radio-option">
-            <input type="radio" id="${values}" name="${radio_label.toLowerCase()}" value="${values}" required/>
-            <label for="${values.toLowerCase()}">${radioOptions[j]}</label>
-          </div>
-        
-        `
+    $formContainer.parentElement.querySelectorAll("a").forEach(($a) => {
+      if ($a.textContent.toLowerCase() == "sheet") {
+        sheet = $a.href;
+        $a.parentElement.remove();
       }
 
-      let radio_el = `
-        <div class="radio-el">
-          <span
-            >${formLables[i]}*
-          </span>
-          <div class="radio-options-parent">
-            ${radioOptionMarkup}
-          </div>
-        </div>
-      `
-      markUp += radio_el
+      if ($a.textContent.toLowerCase() == "thank you") {
+        thankyou = $a.href;
+        $a.parentElement.remove();
+      }
+    });
+
+    // window.pages.dependencies.push('kenny-form-test.json');
+    const resp = await fetch(`${formToUse}.json`);
+    const json = await resp.json();
+    return Array.isArray(json) ? json : json.data;
+  }
+
+  async function createForm() {
+    let formField = "";
+    let formFields = await formData();
+    var output = Object.entries(formFields[0]).map(([index, type]) => ({
+      index,
+      type,
+    }));
+
+    // adding labels
+    for (let i = 0; i < output.length; i++) {
+      output[i].label = formFields[1][i + 1];
     }
 
-    if(formInputTypes.includes(formInputs[i])) {
+    output.map(function (item) {
+      let labels_cleanup =
+        item.label.indexOf(" ") >= 0
+          ? item.label.split(" ").join("-")
+          : item.label;
 
-      if(formInputs[i] === "text" || formInputs[i] === "email") {
-        let inputType = formInputs[i].indexOf(' ') >= 0 ? formInputs[i].split(' ').join('-') : formInputs[i];
-        
-        let input = `
-        <div class="input-el">
-          <label for="${inputType}"> ${formLables[index]} </label>
-          <input type="${inputType}" name="${inputType}" />
-        </div>`
-      
-        markUp += input
+      // INPUT TEXT || EMAIL
+      if (item.type === "text" || item.type === "email") {
+        formField += `
+      <div class="input-el">
+        <label for="${labels_cleanup.toLowerCase()}">${item.label}</label>
+        <input type="${item.type}" name="${labels_cleanup.toLowerCase()}" />
+      </div>
+      `;
       }
-    } 
-  }
-  document.querySelector('#wg-form').innerHTML = markUp;
-}
 
-getSteps();
+      // RADIO INPUTS
+      if (item.type.includes("radio")) {
+        let optionsAll = item.type.split("[")[1].split("]")[0].split(", ");
+        let radioOption = "";
+
+        optionsAll.forEach(function (option) {
+          let optionCleanUp =
+            option.indexOf(" ") >= 0 ? option.split(" ").join("-") : option;
+          radioOption += `
+          <div class="radio-option">
+            <input type="radio" id="${optionCleanUp.toLowerCase()}" name="${labels_cleanup.toLowerCase()}" value="${optionCleanUp.toLowerCase()}" required/>
+            <label for="${optionCleanUp.toLowerCase()}">${option}</label>
+          </div>
+        `;
+        });
+        formField += `
+      <div class="radio-el">
+        <span
+          >${item.label} *
+        </span>
+        <div class="radio-options-parent">
+          ${radioOption}
+        </div>
+      </div>`;
+      }
+    });
+
+    formField += `
+    <div class="submit-el">
+      <button type="submit">Submit</button>
+    </div>`;
+    document.getElementById("wg-form").innerHTML = formField;
+  }
+
+  function setupForm() {
+    const values = [
+      {
+        name: "timestamp",
+        value: new Date()
+          .toISOString()
+          .replace(/[TZ]/g, " ")
+          .split(".")[0]
+          .trim(),
+      },
+    ];
+
+    $form.addEventListener("submit", async (evt) => {
+      evt.preventDefault();
+      if ($form.reportValidity()) {
+        $form.querySelectorAll("input, textarea").forEach(($f) => {
+          if ($f.getAttribute("type") != "radio" || $f.checked) {
+            values.push({ name: $f.name, value: $f.value });
+          }
+        });
+
+        const body = { sheet, data: values };
+        const resp = await fetch(formsink, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body), // body data type must match "Content-Type" header
+        });
+        const text = await resp.text();
+        window.location = thankyou;
+      }
+
+      return false;
+    });
+  }
+
+  async function instructor() {
+    await createForm();
+    await setupForm();
+  }
+
+  instructor();
 </script>
