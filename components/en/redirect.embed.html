@@ -1,0 +1,9 @@
+<script>
+  document.getElementsByTagName("body")[0].style.opacity = 0;
+  let windowOrigin = window.location.origin;
+  let pathName = window.location.pathname.split('step-')
+  let redirectUrl = `${windowOrigin}${pathName[0]}step?${pathName[1]}`
+
+
+  window.location.replace(redirectUrl);
+</script>
