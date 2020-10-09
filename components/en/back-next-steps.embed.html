@@ -1,0 +1,47 @@
+<footer>
+	<nav>
+			<a class="button" id="back-step" href="./index.html">
+				Back
+			</a>
+			<a class="button action" id="next-step" href="./step-02.html">
+				Next
+			</a>
+	</nav>
+</footer>
+
+
+<script>
+async function fetchSteps() {
+    const resp=await fetch('steps.json');
+    const json=await resp.json();
+    return (Array.isArray(json) ? json : json.data);
+}
+
+async function setData() {
+  const steps = await fetchSteps();
+  const currentIndex = parseInt(window.location.search.split("?")[1]);
+  var nextLink = document.querySelector('#next-step'); 
+  var backLink = document.querySelector('#back-step');
+  var nextURL = 'step?' + (currentIndex + 1);
+  var backURL = 'step?' + (currentIndex - 1);
+  console.log("steps length is " + steps.length)
+  console.log("currentindex is " + currentIndex)
+  
+  if (currentIndex != 1 && currentIndex != (steps.length+1)) {
+      backLink.setAttribute('href', backURL);
+      nextLink.setAttribute('href', nextURL);	  
+  }
+  else if (currentIndex == 1) {
+	  backLink.remove();
+      nextLink.setAttribute('href', nextURL);	  
+  }
+  else if (currentIndex == (steps.length+1)) {
+	  backLink.setAttribute('href', './index.html');
+	  backLink.innerText('Restart Tutorial');
+      nextLink.setAttribute('href', 'https://creativecloud.adobe.com/apps/download/lightroom-classic');	  
+      nextLink.innerText('Launch Lightroom Classic');
+  }
+}
+
+setData();
+</script>
