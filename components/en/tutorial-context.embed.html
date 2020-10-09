@@ -1,0 +1,28 @@
+<header>
+	<nav>
+			<h3>Tutorial: <span id="tutorial-name"></span></h3>
+
+			<a class="text-link" id="see-all-steps" href="./index.html">
+				See all steps ›
+			</a>
+	</nav>
+</header>
+
+
+
+<script>
+async function fetchSteps() {
+    const resp=await fetch('steps.json');
+    const json=await resp.json();
+    return (Array.isArray(json) ? json : json.data);
+}
+
+async function setData() {
+  const steps = await fetchSteps();
+  const $tutTitle = document.getElementById('tutorial-name');
+  $tutTitle.innerHTML = steps[0].Title;
+  
+}
+
+setData();
+</script>

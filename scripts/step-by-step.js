@@ -54,18 +54,13 @@ async function insertSteps() {
         steps.forEach((step, i) => {
             html+=`<div class="card" onclick="window.location='step?${i+1}'">
                 <div class='img' style="background-image: url(${getThumbnail(step)})">
-                <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                </g>
-                </svg>
+
                 </div>
                 <div class='text'>
-                    <div><h4>${step.Title}</h4>
-                    <p>${step.Description}</p>
+                    <div>
+                    	<h4>${step.Title}</h4>
+						<p>${step.Description}</p>
                     </div>
-                    <a href="step?${i+1}">${step.CTA}</a>
                 </div>
             </div>`
         })
@@ -91,31 +86,37 @@ function dropDownMenu() {
 
 
 
-
-export function playVideo() {
-    document.getElementById('placeholder').classList.add('hidden');
-    const $video=document.getElementById('video');
-    $video.classList.remove('hidden');
-    $video.classList.remove('hidden');
-    $video.play();
-    $video.setAttribute('controls', true)
-
-}
-
 async function decorateStep() {
     document.body.classList.add('step');
-    classify('main>div:first-of-type', 'content');
-    classify('main>div:nth-of-type(2)', 'learn');
-    classify('main>div:nth-of-type(3)', 'progress');
-    classify('main>div:nth-of-type(4)', 'upnext');
+    classify('main>div:first-of-type', 'context');
+    classify('main>div:nth-of-type(2)', 'text');
+    classify('main>div:nth-of-type(3)', 'tut-nav');
 
-    const $content=document.querySelector('.content');
-    const $learn=document.querySelector('.learn');
-    const $progress=document.querySelector('.progress');
-    const $upnext=document.querySelector('.upnext');
+    const $context=document.querySelector('.context');
+    const $text=document.querySelector('.text');
+    const $tutnav=document.querySelector('.tut-nav');
+    const $main = document.querySelector('main');
+    const $container = document.createElement('div');
+    $container.setAttribute('class', 'container');
+    
+    $text.appendChild($tutnav);
+    $main.appendChild($container);
+    
+    const $image = document.createElement('div');
+    $container.appendChild($image);
+    $image.setAttribute('class', 'image');
+    
+    //$main.setAttribute('class', 'appear');
+    const $content = document.createElement('div');
+    $container.appendChild($content);
+    $content.setAttribute('class', 'content');
+    $content.appendChild($context);
+    $content.appendChild($text);
+    
+    //const $upnext=document.querySelector('a[');
 
-    const $video=createTag('div', {class: 'video-wrapper'});
-    $content.appendChild($video);
+    //const $video=createTag('div', {class: 'video-wrapper'});
+    //$content.appendChild($video);
 
     const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
     const steps=await fetchSteps();
@@ -123,18 +124,26 @@ async function decorateStep() {
 
     //fill content section
 
-    const $h1=document.querySelector('main .content>h1');
+    const $h1=document.querySelector('main .text>h1');
+    const $desc=document.querySelector('main .text>p');
     let title=currentStep.Title;
+    let description=currentStep.Description;
+    let image=currentStep.thumbnail;
     if (currentStep.Heading) title=currentStep.Heading;
-    title=title.split(`\n`).join('<br>');
+    //title=title.split(`\n`).join('<br>');
     $h1.innerHTML=title;
     $h1.id='';
+    $desc.innerHTML=description;
+    console.log(currentStep.Image)
+    const $img = document.createElement('img');
+    $image.appendChild($img);
+    $img.setAttribute('src', currentStep.Image)
 
-    for (let i=0;i<8;i++) {
-        $h1.appendChild(createTag('span', {class: 'grab-'+i}))
-    }
     document.title=currentStep.Title;
-    if (currentStep['Practice File']) {
+    
+    
+    
+    /*if (currentStep['Practice File']) {
         document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
     }
 
@@ -167,7 +176,7 @@ async function decorateStep() {
     $progress.innerHTML=splits[0]+(stepIndex+1)+splits[1]+(steps.length)+splits[2];
 
     const $progressbar=createTag('div',{class: 'progress-bar'});
-    html='';
+    var html='';
     steps.forEach((step,i) => {
         html+=`<div onclick="window.location.href='step?${i+1}'" class="${i==stepIndex?'active':'inactive'}"></div>`
     })
@@ -196,7 +205,7 @@ async function decorateStep() {
     }
     
     $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
-
+	*/
 }
 
 function wrapSections(element) {
