@@ -1,9 +1,9 @@
 <footer>
 	<nav>
-			<a class="button" id="back-step" href="./index.html">
+			<a class="button" id="back-step" href="./step?1">
 				Back
 			</a>
-			<a class="button action" id="next-step" href="./step-02.html">
+			<a class="button action" id="next-step" href="./step?3">
 				Next
 			</a>
 	</nav>
@@ -24,10 +24,10 @@ async function setData() {
   var backLink = document.querySelector('#back-step');
   var nextURL = 'step?' + (currentIndex + 1);
   var backURL = 'step?' + (currentIndex - 1);
-  console.log("steps length is " + steps.length)
-  console.log("currentindex is " + currentIndex)
+  //console.log("steps length is " + steps.length)
+  //console.log("currentindex is " + currentIndex)
   
-  if (currentIndex != 1 && currentIndex != (steps.length+1)) {
+  if (currentIndex != 1 && currentIndex != steps.length) {
       backLink.setAttribute('href', backURL);
       nextLink.setAttribute('href', nextURL);	  
   }
@@ -35,11 +35,11 @@ async function setData() {
 	  backLink.remove();
       nextLink.setAttribute('href', nextURL);	  
   }
-  else if (currentIndex == (steps.length+1)) {
-	  backLink.setAttribute('href', './index.html');
-	  backLink.innerText('Restart Tutorial');
+  else if (currentIndex == steps.length) {
+	  backLink.setAttribute('href', './step?1');
+	  backLink.innerHTML = 'Restart Tutorial';
       nextLink.setAttribute('href', 'https://creativecloud.adobe.com/apps/download/lightroom-classic');	  
-      nextLink.innerText('Launch Lightroom Classic');
+      nextLink.innerHTML = 'Launch Lightroom Classic';
   }
 }
 
