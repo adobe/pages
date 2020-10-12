@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Trigger
         id: trigger
-        uses: adobe-rnd/github-purge-cache-action
+        uses: adobe-rnd/github-purge-cache-action@master
         with:
           helix-url: https://pages.adobe.com/
           repo-token: ${{ secrets.GITHUB_TOKEN }}
