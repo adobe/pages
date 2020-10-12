@@ -33,86 +33,107 @@
     // window.pages.dependencies.push('kenny-form-test.json');
     const resp = await fetch(`${formToUse}.json`);
     const json = await resp.json();
-    return Array.isArray(json) ? json : json.data;
+    console.log(json)
+    return json
   }
+
+
+  /**
+   * @param {string} label
+   * label = string of form input
+  */
+  function inputSettings(label) {
+    let visibleLabel = label;
+    label = label.indexOf(' ') >= 0 ? label.split(' ').join('-').toLowerCase() : label.toLowerCase();
+    label = label.indexOf("*") >= 0 ? label.split('*')[0] : label;
+    let settings = {
+      label: visibleLabel,
+      label_clean: label,
+      required: visibleLabel.indexOf("*") >= 0 ? "required" : '',
+    }
+    return settings;
+  }
+
+
 
   async function createForm() {
     let formField = "";
-    let formFields = await formData();
-    var output = Object.entries(formFields[0]).map(([index, type]) => ({
-      index,
-      type,
-    }));
-
-    // adding labels
-    for (let i = 0; i < output.length; i++) {
-      output[i].label = formFields[1][i + 1];
-    }
+    let output = await formData();
+  
 
     output.map(function (item) {
-      let labels_cleanup = item.label.indexOf(" ") >= 0 ? item.label.split(" ").join("-") : item.label;
-      let is_required = labels_cleanup.includes('*') ? 'required' : '';
-
-      labels_cleanup = labels_cleanup.indexOf('-*') >= 0 ? labels_cleanup.split('-*')[0] : labels_cleanup;
-
+      let setup = inputSettings(item.label)        
+      
 
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
-        
         formField += `
       <div class="input-el">
-        <label for="${labels_cleanup.toLowerCase()}">${item.label}</label>
-        <input type="${item.type}" name="${labels_cleanup.toLowerCase()}" ${is_required}/>
+        <label for="${setup.label_clean}">${setup.label}</label>
+        <input type="${item.type}" name="${setup.label_clean}" ${setup.required}/>
       </div>
       `;
       }
 
       // RADIO INPUTS
       if (item.type.includes("radio")) {
-        let optionsAll = item.type.split("[")[1].split("]")[0].split(", ");
+        let optionsAll = item.options.split(", ");
         let radioOption = "";
 
         optionsAll.forEach(function (option) {
-          let optionCleanUp =
-            option.indexOf(" ") >= 0 ? option.split(" ").join("-") : option;
+          let optionCleanUp =  option.indexOf(" ") >= 0 ? option.split(" ").join("-") : option;
           radioOption += `
           <div class="radio-option">
-            <input type="radio" id="${optionCleanUp.toLowerCase()}" name="${labels_cleanup.toLowerCase()}" value="${optionCleanUp.toLowerCase()}" required/>
-            <label for="${optionCleanUp.toLowerCase()}">${option}</label>
+            <input type="radio" id="${setup.label_clean}-${optionCleanUp.toLowerCase()}" name="${setup.label_clean}" value="${optionCleanUp.toLowerCase()}" required/>
+            <label for="${setup.label_clean}-${optionCleanUp.toLowerCase()}">${option}</label>
           </div>
         `;
         });
         formField += `
-      <div class="radio-el">
-        <span
-          >${item.label} *
-        </span>
-        <div class="radio-options-parent">
-          ${radioOption}
-        </div>
-      </div>`;
+          <div class="radio-el">
+            <span>${item.label}</span>
+            <div class="radio-options-parent">
+              ${radioOption}
+            </div>
+          </div>
+        `;
       }
 
-
+      // CHECKBOXES
+      if(item.type === "checkbox") {
+        let checkbox_options = item.options.split(',')
+        let options = "";
+        checkbox_options.forEach(function(option) {
+          let cleanOptionName = option.indexOf(' ') >= 0 ? option.split(' ').join('-').toLowerCase() : option.toLowerCase();
+          options += `
+            <div class="radio-option">
+              <input type="checkbox" 
+                id="${setup.label_clean}-${cleanOptionName.toLowerCase()}" 
+                name="${setup.label_clean}" 
+              />
+              <label for="${setup.label_clean}-${cleanOptionName.toLowerCase()}">${option}</label>
+            </div>
+          
+          `
+        })
+        formField += `
+          <div class="input-el">
+            <span style="display: inline-block; padding-bottom: 8px;">${item.label}</span>
+            ${options}
+          </div>
+        `
+      }
 
       // TEXTAREA
       if(item.type === "textarea") {
-        
-        let cleanUpLabel = item.label.indexOf(' ') >= 0 ? item.label.split(' ').join('-').toLowerCase() : item.label.toLowerCase();
-        let is_required = labels_cleanup.includes('*') ? 'required' : '';
-        cleanUpLabel = cleanUpLabel.indexOf("*") >= 0 ? cleanUpLabel.split('*')[0] : cleanUpLabel;
-        
-
         formField += `
           <div class="text-el">
-            <label for="${cleanUpLabel}">
-              ${item.label}
-            </label>
+            <label for="${setup.label_clean}">${item.label}</label>
             <textarea
-              name="${cleanUpLabel}"
+              name="${setup.label_clean}"
               cols="30"
               rows="5"
-            ${is_required}></textarea>
+              ${setup.required}></textarea>
           </div>
         `
       }
