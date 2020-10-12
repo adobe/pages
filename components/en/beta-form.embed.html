@@ -1,498 +1,493 @@
+<meta charset='utf-8'>
+<form id="beta-form" accept-charset="utf-8">
 <div class="beta-form-container">
-  <form id="beta-form">
+	<div class="input-el">
+		<label for="name"> First and Last Name</label>
+		<input type="text" id="name" name="name" required/>
+	</div>
 
-    <div class="input-el">
-      <label for="name"> First and Last Name</label>
-      <input type="text" id="name" name="name" required/>
-    </div>
-
-    <div class="input-el">
+	<div class="input-el">
 		<label for="email">Your Adobe ID Email Address</label>
 		<input type="email" name="email" class="emails" id="email" required/>
 		<span class="emailerror hidden-default">Email fields must match.</span>
-    </div>
+	</div>
 
 	<div class="input-el">
 		<label for="email2">Confirm your Adobe ID Email Address</label>
 		<input type="email" name="email2" class="emails" id="email2" required/>
 		<span class="emailerror hidden-default">Email fields must match.</span>
-    </div>
+	</div>
 
-    <div class="radio-el">
+	<div class="radio-el">
 		<span>What’s your current Creative Cloud (CC) membership (purchased for yourself or your company)?</span>
 		<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="cci" name="plan" value="Creative Cloud for Individuals" required/>
-	          <label for="cci">Creative Cloud for Individuals</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="ccallapps" name="plan" value="All Apps" required/>
-	          <label for="ccallapps">All Apps (Complete) (includes all creative desktop and mobile apps)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="ccpp" name="plan" value="Photography Plan" required/>
-	          <label for="ccpp">Photography Plan (a subscription to Photoshop & Lightroom or Lightroom Plan with 1 TB)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="ccsingleapp" name="plan" value="Single App for Individuals" required/>
-	          <label for="ccsingleapp">Single App for Individuals (a subscription to one creative desktop app such as Premiere Pro, After Effects, Illustrator, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="ccteams" name="plan" value="Creative Cloud for Business (Teams)" required/>
-	          <label for="ccteams">Creative Cloud for Business (Teams) (either All Apps or Single App which includes a license management console and 24/7 tech support)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="ccenterprise" name="plan" value="Creative Cloud for Enterprise" required/>
-	          <label for="ccenterprise">Creative Cloud for Enterprise (for large organizations, & departments requiring enterprise grade capabilities)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="idontknow" name="plan" value="Do not know which version I have" required/>
-	          <label for="idontknow">Do not know which version I have</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="noplan" name="plan" value="No, I do not currently have a Creative Cloud paid membership" required/>
-	          <label for="noplan">No, I do not currently have a Creative Cloud paid membership</label>
-	        </div>
- 		</div>
-    </div>
+			<div class="radio-option">
+				<input type="radio" id="cci" name="plan" value="Creative Cloud for Individuals" required/>
+				<label for="cci">Creative Cloud for Individuals</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="ccallapps" name="plan" value="All Apps" required/>
+				<label for="ccallapps">All Apps (Complete) (includes all creative desktop and mobile apps)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="ccpp" name="plan" value="Photography Plan" required/>
+				<label for="ccpp">Photography Plan (a subscription to Photoshop & Lightroom or Lightroom Plan with 1 TB)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="ccsingleapp" name="plan" value="Single App for Individuals" required/>
+				<label for="ccsingleapp">Single App for Individuals (a subscription to one creative desktop app such as Premiere Pro, After Effects, Illustrator, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="ccteams" name="plan" value="Creative Cloud for Business (Teams)" required/>
+				<label for="ccteams">Creative Cloud for Business (Teams) (either All Apps or Single App which includes a license management console and 24/7 tech support)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="ccenterprise" name="plan" value="Creative Cloud for Enterprise" required/>
+				<label for="ccenterprise">Creative Cloud for Enterprise (for large organizations, & departments requiring enterprise grade capabilities)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="idontknow" name="plan" value="Do not know which version I have" required/>
+				<label for="idontknow">Do not know which version I have</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="noplan" name="plan" value="No, I do not currently have a Creative Cloud paid membership" required/>
+				<label for="noplan">No, I do not currently have a Creative Cloud paid membership</label>
+			</div>
+		</div>
+	</div>
 
-    <div class="radio-el">
+	<div class="radio-el">
 		<span>Have you paid for transcription service in the past?</span>
 		<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="transcriptionyes" name="transcriptionpast" value="Yes" required/>
-	          <label for="transcriptionyes">Yes</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="transcriptionno" name="transcriptionpast" value="No" required/>
-	          <label for="transcriptionno">No</label>
-	        </div>
-    	</div>
-    </div>
+			<div class="radio-option">
+				<input type="radio" id="transcriptionyes" name="transcriptionpast" value="Yes" required/>
+				<label for="transcriptionyes">Yes</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="transcriptionno" name="transcriptionpast" value="No" required/>
+				<label for="transcriptionno">No</label>
+			</div>
+		</div>
+	</div>
 
-    <div class="radio-el">
+	<div class="radio-el">
 		<span>How often do you create transcription and/or add captions to your video?</span>
 		<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="everydayt" name="frequencytranscription" value="Every day" required/>
-	          <label for="everydayt">Every day</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="afewtimeswkt" name="frequencytranscription" value="A few times a week" required/>
-	          <label for="afewtimeswkt">A few times a week</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="oncewkt" name="frequencytranscription" value="Once a week" required/>
-	          <label for="oncewkt">Once a week</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="twothreewks" name="frequencytranscription" value="Once every 2-3 weeks" required/>
-	          <label for="twothreewks">Once every 2-3 weeks</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="monthlyt" name="frequencytranscription" value="Once a month" required/>
-	          <label for="monthlyt">Once a month</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="lesst" name="frequencytranscription" value="Less than once a month/never" required/>
-	          <label for="lesst">Less than once a month/never</label>
-	        </div>
-    	</div>
-    </div>
+			<div class="radio-option">
+				<input type="radio" id="everydayt" name="frequencytranscription" value="Every day" required/>
+				<label for="everydayt">Every day</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="afewtimeswkt" name="frequencytranscription" value="A few times a week" required/>
+				<label for="afewtimeswkt">A few times a week</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="oncewkt" name="frequencytranscription" value="Once a week" required/>
+				<label for="oncewkt">Once a week</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="twothreewks" name="frequencytranscription" value="Once every 2-3 weeks" required/>
+				<label for="twothreewks">Once every 2-3 weeks</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="monthlyt" name="frequencytranscription" value="Once a month" required/>
+				<label for="monthlyt">Once a month</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="lesst" name="frequencytranscription" value="Less than once a month/never" required/>
+				<label for="lesst">Less than once a month/never</label>
+			</div>
+		</div>
+	</div>
 
 	<div class="radio-el">
 		<span>How often do you create or edit video?</span>
 		<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="everydaye" name="frequencyedit" value="Every day" required/>
-	          <label for="everydaye">Every day</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="afewtimeswke" name="frequencyedit" value="A few times a week" required/>
-	          <label for="afewtimeswke">A few times a week</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="oncewke" name="frequencyedit" value="Once a week" required/>
-	          <label for="oncewke">Once a week</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="twothreewkse" name="frequencyedit" value="Once every 2-3 weeks" required/>
-	          <label for="twothreewkse">Once every 2-3 weeks</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="monthlye" name="frequencyedit" value="Once a month" required/>
-	          <label for="monthlye">Once a month</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="lesse" name="frequencyedit" value="Less than once a month/never" required/>
-	          <label for="lesse">Less than once a month/never</label>
-	        </div>
-    	</div>
+			<div class="radio-option">
+				<input type="radio" id="everydaye" name="frequencyedit" value="Every day" required/>
+				<label for="everydaye">Every day</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="afewtimeswke" name="frequencyedit" value="A few times a week" required/>
+				<label for="afewtimeswke">A few times a week</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="oncewke" name="frequencyedit" value="Once a week" required/>
+				<label for="oncewke">Once a week</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="twothreewkse" name="frequencyedit" value="Once every 2-3 weeks" required/>
+				<label for="twothreewkse">Once every 2-3 weeks</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="monthlye" name="frequencyedit" value="Once a month" required/>
+				<label for="monthlye">Once a month</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="lesse" name="frequencyedit" value="Less than once a month/never" required/>
+				<label for="lesse">Less than once a month/never</label>
+			</div>
+		</div>
 	</div>
 
-    <div class="radio-el">
+	<div class="radio-el">
       <span
-        >Which of the following best describes your experience with creating and/or editing video?
+	  >Which of the following best describes your experience with creating and/or editing video?
       </span>
-      	<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="noexperience" name="experience" value="I have no experience" required/>
-	          <label for="noexperience">I have no experience at all</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="noediting" name="experience" value="I shoot but don't edit" required/>
-	          <label for="noediting">I shoot (or capture) video, but I don’t do any video editing</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="basicskills" name="experience" value="I have some basic skills" required/>
-	          <label for="basicskills">I have some basic skills and do simple things like trim the beginning and end points of a clip</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="proficient" name="experience" value="I’m proficient" required/>
-	          <label for="proficient">I’m proficient – I do things like combine multiple clips or photos together, add titles, transitions, or filters</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="advanced" name="experience" value="I’m advanced" required/>
-	          <label for="advanced">I’m advanced – in addition to combining multiple clips, I do things like re-time clips and use keyframes, and may work with audio, motion graphics, color, and titles as well</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="expert" name="experience" value="I’m an expert" required/>
-	          <label for="expert">I’m an expert – I go deep technically and am the person others turn to when they have a question about video editing</label>
-	        </div>
-    	</div>
-    </div>
+		<div class="radio-options-parent">
+			<div class="radio-option">
+				<input type="radio" id="noexperience" name="experience" value="I have no experience" required/>
+				<label for="noexperience">I have no experience at all</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="noediting" name="experience" value="I shoot but don't edit" required/>
+				<label for="noediting">I shoot (or capture) video, but I don’t do any video editing</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="basicskills" name="experience" value="I have some basic skills" required/>
+				<label for="basicskills">I have some basic skills and do simple things like trim the beginning and end points of a clip</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="proficient" name="experience" value="I’m proficient" required/>
+				<label for="proficient">I’m proficient – I do things like combine multiple clips or photos together, add titles, transitions, or filters</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="advanced" name="experience" value="I’m advanced" required/>
+				<label for="advanced">I’m advanced – in addition to combining multiple clips, I do things like re-time clips and use keyframes, and may work with audio, motion graphics, color, and titles as well</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="expert" name="experience" value="I’m an expert" required/>
+				<label for="expert">I’m an expert – I go deep technically and am the person others turn to when they have a question about video editing</label>
+			</div>
+		</div>
+	</div>
 
-    <div class="radio-el">
+	<div class="radio-el">
       <span>Are you willing to provide feedback to Premiere Pro regarding S2T?
       </span>
-      	<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="feedbackyes" name="feedback" value="Yes" required/>
-	          <label for="feedbackyes">Yes</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="feedbackno" name="feedback" value="No" required/>
-	          <label for="feedbackno">No</label>
-	        </div>
-    	</div>
-    </div>
+		<div class="radio-options-parent">
+			<div class="radio-option">
+				<input type="radio" id="feedbackyes" name="feedback" value="Yes" required/>
+				<label for="feedbackyes">Yes</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="feedbackno" name="feedback" value="No" required/>
+				<label for="feedbackno">No</label>
+			</div>
+		</div>
+	</div>
 
-    <div class="radio-el">
+	<div class="radio-el">
       <span>For what purpose do you edit videos?
       </span>
-      	<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="work" name="purpose" value="For work purposes" required/>
-	          <label for="work">For work purposes</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="hobby" name="purpose" value="For personal or hobby purposes" required/>
-	          <label for="hobby">For personal or hobby purposes</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="schoolwork" name="purpose" value="For my schoolwork as a student" required/>
-	          <label for="schoolwork">For my schoolwork as a student</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="volunteer" name="purpose" value="For volunteer work purposes" required/>
-	          <label for="volunteer">For volunteer work purposes</label>
-	        </div>
-    	</div>
-    </div>
+		<div class="radio-options-parent">
+			<div class="radio-option">
+				<input type="radio" id="work" name="purpose" value="For work purposes" required/>
+				<label for="work">For work purposes</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="hobby" name="purpose" value="For personal or hobby purposes" required/>
+				<label for="hobby">For personal or hobby purposes</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="schoolwork" name="purpose" value="For my schoolwork as a student" required/>
+				<label for="schoolwork">For my schoolwork as a student</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="volunteer" name="purpose" value="For volunteer work purposes" required/>
+				<label for="volunteer">For volunteer work purposes</label>
+			</div>
+		</div>
+	</div>
 
 
-    <div id="work-purposes" class="radio-el hidden-default">
+	<div id="work-purposes" class="radio-el hidden-default">
       	<span>Please indicate which one type of video content you primarily create for work purposes.
 		</span>
 		<div class="radio-options-parent">
 			<div class="radio-header">Media & Entertainment Content</div>
-	        <div class="radio-option">
-	          <input type="radio" id="documentaries" name="worktype" value="Documentaries"/>
-	          <label for="documentaries">Documentaries (films, series)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="liveprogramming" name="worktype" value="Live programming"/>
-	          <label for="liveprogramming">Live programming (live-audience programs, talk shows, live-event broadcast or specials)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="fiction" name="worktype" value="Fictional films or shows"/>
-	          <label for="fiction">Fictional films or shows (films, series)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="shortfilms" name="worktype" value="Short films"/>
-	          <label for="shortfilms">Short films</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="promos" name="worktype" value="Commercials, promos or trailers"/>
-	          <label for="promos">Commercials, promos or trailers</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="musicvideos" name="worktype" value="Music videos"/>
-	          <label for="musicvideos">Music videos</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="realityshows" name="worktype" value="Reality shows"/>
-	          <label for="realityshows">Reality shows</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="reporting" name="worktype" value="News & sports reporting"/>
-	          <label for="reporting">News & sports reporting</label>
-	        </div>
-	        <div class="radio-header">Business & Client Content</div>
-	        <div class="radio-option">
-	          <input type="radio" id="internalcomms" name="worktype" value="Internal communications"/>
-	          <label for="internalcomms">Internal communications videos</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="hr" name="worktype" value="Human Resources videos"/>
-	          <label for="hr">Human Resources videos (hiring, training, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="eventvideos" name="worktype" value="Event videos"/>
-	          <label for="eventvideos">Event videos (recaps, behind-the-scenes, live stream, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="marketing" name="worktype" value="Product marketing videos"/>
-	          <label for="marketing">Product marketing videos (how-to, demos, unboxing, promos, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="sales" name="worktype" value="Sales pitch videos"/>
-	          <label for="sales">Sales pitch videos</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="socialspecific" name="worktype" value="Social media-specific videos"/>
-	          <label for="socialspecific">Social media-specific videos (branded vlogs, IG Stories, etc.)</label>
-	        </div>
-    	</div>
-    </div>
+			<div class="radio-option">
+				<input type="radio" id="documentaries" name="worktype" value="Documentaries"/>
+				<label for="documentaries">Documentaries (films, series)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="liveprogramming" name="worktype" value="Live programming"/>
+				<label for="liveprogramming">Live programming (live-audience programs, talk shows, live-event broadcast or specials)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="fiction" name="worktype" value="Fictional films or shows"/>
+				<label for="fiction">Fictional films or shows (films, series)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="shortfilms" name="worktype" value="Short films"/>
+				<label for="shortfilms">Short films</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="promos" name="worktype" value="Commercials, promos or trailers"/>
+				<label for="promos">Commercials, promos or trailers</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="musicvideos" name="worktype" value="Music videos"/>
+				<label for="musicvideos">Music videos</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="realityshows" name="worktype" value="Reality shows"/>
+				<label for="realityshows">Reality shows</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="reporting" name="worktype" value="News & sports reporting"/>
+				<label for="reporting">News & sports reporting</label>
+			</div>
+			<div class="radio-header">Business & Client Content</div>
+			<div class="radio-option">
+				<input type="radio" id="internalcomms" name="worktype" value="Internal communications"/>
+				<label for="internalcomms">Internal communications videos</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="hr" name="worktype" value="Human Resources videos"/>
+				<label for="hr">Human Resources videos (hiring, training, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="eventvideos" name="worktype" value="Event videos"/>
+				<label for="eventvideos">Event videos (recaps, behind-the-scenes, live stream, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="marketing" name="worktype" value="Product marketing videos"/>
+				<label for="marketing">Product marketing videos (how-to, demos, unboxing, promos, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="sales" name="worktype" value="Sales pitch videos"/>
+				<label for="sales">Sales pitch videos</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="socialspecific" name="worktype" value="Social media-specific videos"/>
+				<label for="socialspecific">Social media-specific videos (branded vlogs, IG Stories, etc.)</label>
+			</div>
+		</div>
+	</div>
 
 
-    <div class="radio-el">
+	<div class="radio-el">
       	<span>Where is the video content that you create shared?
       	</span>
-      	<span><em>Select all that apply.</em></span>
-      	<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="checkbox" id="filmfestivals" name="whereshared" value="Film festival(s)"/>
-	          <label for="filmfestivals">Film festival(s)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="movietheater" name="whereshared" value="Movie theater"/>
-	          <label for="movietheater">Movie theater</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="socialvideo" name="whereshared" value="Social video sharing sites" class="socialtrigger"/>
-	          <label for="socialvideo">Social video sharing sites (YouTube, Vimeo, TikTok, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="socialnetworking" name="whereshared" value="Social networking sites" class="socialtrigger"/>
-	          <label for="socialnetworking">Social networking sites (Facebook, Instagram, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="broadcasttv" name="whereshared" value="Broadcast TV"/>
-	          <label for="broadcasttv">Broadcast TV</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="streaming" name="whereshared" value="Streaming entertainment platforms"/>
-	          <label for="streaming">Streaming entertainment platforms (Netflix, Hulu, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="livestreaming" name="whereshared" value="Film festival(s)"/>
-	          <label for="livestreaming">Live streaming sites (Twitch, Ustream, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="publicwebsite" name="whereshared" value="Public website"/>
-	          <label for="publicwebsite">Public website</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="intranet" name="whereshared" value="Intranet"/>
-	          <label for="intranet">Intranet</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="paideducation" name="whereshared" value="Paid educational platforms"/>
-	          <label for="paideducation">Paid educational platforms</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="atwork" name="whereshared" value="At work"/>
-	          <label for="atwork">In-person or remote at work (company meeting, work presentation, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="atschool" name="whereshared" value="At school"/>
-	          <label for="atschool">In-person or remote at school (class project, presentation, etc.)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="privately" name="whereshared" value="Privately with friends/family"/>
-	          <label for="privately">Privately with friends/family</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="other" name="whereshared" value="Other"/>
-	          <label for="other">Other (specify)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="notshared" name="whereshared" value="The videos are not shared"/>
-	          <label for="notshared">The videos are not shared</label>
-	        </div>
-    	</div>
-    </div>
+		<span><em>Select all that apply.</em></span>
+		<div class="radio-options-parent">
+			<div class="radio-option">
+				<input type="checkbox" id="filmfestivals" name="whereshared" value="Film festival(s)"/>
+				<label for="filmfestivals">Film festival(s)</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="movietheater" name="whereshared" value="Movie theater"/>
+				<label for="movietheater">Movie theater</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="socialvideo" name="whereshared" value="Social video sharing sites" class="socialtrigger"/>
+				<label for="socialvideo">Social video sharing sites (YouTube, Vimeo, TikTok, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="socialnetworking" name="whereshared" value="Social networking sites" class="socialtrigger"/>
+				<label for="socialnetworking">Social networking sites (Facebook, Instagram, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="broadcasttv" name="whereshared" value="Broadcast TV"/>
+				<label for="broadcasttv">Broadcast TV</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="streaming" name="whereshared" value="Streaming entertainment platforms"/>
+				<label for="streaming">Streaming entertainment platforms (Netflix, Hulu, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="livestreaming" name="whereshared" value="Film festival(s)"/>
+				<label for="livestreaming">Live streaming sites (Twitch, Ustream, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="publicwebsite" name="whereshared" value="Public website"/>
+				<label for="publicwebsite">Public website</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="intranet" name="whereshared" value="Intranet"/>
+				<label for="intranet">Intranet</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="paideducation" name="whereshared" value="Paid educational platforms"/>
+				<label for="paideducation">Paid educational platforms</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="atwork" name="whereshared" value="At work"/>
+				<label for="atwork">In-person or remote at work (company meeting, work presentation, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="atschool" name="whereshared" value="At school"/>
+				<label for="atschool">In-person or remote at school (class project, presentation, etc.)</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="privately" name="whereshared" value="Privately with friends/family"/>
+				<label for="privately">Privately with friends/family</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="other" name="whereshared" value="Other"/>
+				<label for="other">Other (specify)</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="notshared" name="whereshared" value="The videos are not shared"/>
+				<label for="notshared">The videos are not shared</label>
+			</div>
+		</div>
+	</div>
 
 
-    <div id="social-reason" class="radio-el hidden-default">
+	<div id="social-reason" class="radio-el hidden-default">
       	<span>You mentioned that you create videos for social media. Please select the reason(s) you create videos for social media.
 	  	</span>
-      	<span><em>Select all that apply.</em></span>
-      	<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="checkbox" id="socialfollowers" name="socialreason" value="To share with my followers"/>
-	          <label for="socialfollowers">To share with my followers/community on my public-facing channel</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="socialfriends" name="socialreason" value="Friends/family"/>
-	          <label for="socialfriends">To share with friends/family</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="socialotherindividual" name="socialreason" value="For another individual"/>
-	          <label for="socialotherindividual">For another individual who has a public-facing channel</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="socialwork" name="socialreason" value="For a company, organization, or client"/>
-	          <label for="socialwork">For the company or organization at which I’m employed or for a client</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="checkbox" id="socialnone" name="socialreason" value="None of the above"/>
-	          <label for="socialnone">None of the above</label>
-	        </div>
-	    </div>
-    </div>
+		<span><em>Select all that apply.</em></span>
+		<div class="radio-options-parent">
+			<div class="radio-option">
+				<input type="checkbox" id="socialfollowers" name="socialreason" value="To share with my followers"/>
+				<label for="socialfollowers">To share with my followers/community on my public-facing channel</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="socialfriends" name="socialreason" value="Friends/family"/>
+				<label for="socialfriends">To share with friends/family</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="socialotherindividual" name="socialreason" value="For another individual"/>
+				<label for="socialotherindividual">For another individual who has a public-facing channel</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="socialwork" name="socialreason" value="For a company, organization, or client"/>
+				<label for="socialwork">For the company or organization at which I’m employed or for a client</label>
+			</div>
+			<div class="radio-option">
+				<input type="checkbox" id="socialnone" name="socialreason" value="None of the above"/>
+				<label for="socialnone">None of the above</label>
+			</div>
+		</div>
+	</div>
 
-    <div class="radio-el">
+	<div class="radio-el">
 		<span>Which of the following best describes your employment status?</span>
 		<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="employed" name="employmentstatus" value="Employed" required/>
-	          <label for="employed">Employed (in a company, agency, or other organization)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="selfemployed" name="employmentstatus" value="Self-employed" required/>
-	          <label for="selfemployed">Self-employed (including freelancer / consultant)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="homemaker" name="employmentstatus" value="Homemaker" required/>
-	          <label for="homemaker">Homemaker</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="retired" name="employmentstatus" value="Retired" required/>
-	          <label for="retired">Retired</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="unemployed" name="employmentstatus" value="Not currently employed" required/>
-	          <label for="unemployed">Not currently employed</label>
-	        </div>
-    	</div>
-    </div>
+			<div class="radio-option">
+				<input type="radio" id="employed" name="employmentstatus" value="Employed" required/>
+				<label for="employed">Employed (in a company, agency, or other organization)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="selfemployed" name="employmentstatus" value="Self-employed" required/>
+				<label for="selfemployed">Self-employed (including freelancer / consultant)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="homemaker" name="employmentstatus" value="Homemaker" required/>
+				<label for="homemaker">Homemaker</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="retired" name="employmentstatus" value="Retired" required/>
+				<label for="retired">Retired</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="unemployed" name="employmentstatus" value="Not currently employed" required/>
+				<label for="unemployed">Not currently employed</label>
+			</div>
+		</div>
+	</div>
 
 
-    <div id="profession" class="radio-el hidden-default">
+	<div id="profession" class="radio-el hidden-default">
 		<span>Does any of the following describe your profession?</span>
 		<span>If you do multiple creative job functions, please select the one you primarily do.</span>
 		<div class="radio-options-parent">
-	        <div class="radio-option">
-	          <input type="radio" id="visualgraphic" name="profession" value="Visual or graphic designer"/>
-	          <label for="visualgraphic">Visual or graphic designer</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="illustrator" name="profession" value="Illustrator"/>
-	          <label for="illustrator">Illustrator</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="print" name="profession" value="Print designer/publisher"/>
-	          <label for="print">Print designer/publisher</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="photographer" name="profession" value="Photographer"/>
-	          <label for="photographer">Photographer</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="videoaudio" name="profession" value="Video/audio professional"/>
-	          <label for="videoaudio">Video/audio professional</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="animationmotion" name="profession" value="Animator/motion graphic designer"/>
-	          <label for="animationmotion">Animator/motion graphic designer</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="webdesigner" name="profession" value="Web designer"/>
-	          <label for="webdesigner">Web designer (web designer, game designer, interactive designer)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="professionux" name="profession" value="UX designer"/>
-	          <label for="professionux">UX designer</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="professionsoftware" name="profession" value="Software developer"/>
-	          <label for="professionsoftware">Software developer (apps, mobile, games, web apps, server)</label>
-	        </div>
-	        <div class="radio-option">
-	          <input type="radio" id="professionno" name="profession" value="No, none of these"/>
-	          <label for="professionno">No, none of these</label>
-	        </div>
-    	</div>
-    </div>
+			<div class="radio-option">
+				<input type="radio" id="visualgraphic" name="profession" value="Visual or graphic designer"/>
+				<label for="visualgraphic">Visual or graphic designer</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="illustrator" name="profession" value="Illustrator"/>
+				<label for="illustrator">Illustrator</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="print" name="profession" value="Print designer/publisher"/>
+				<label for="print">Print designer/publisher</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="photographer" name="profession" value="Photographer"/>
+				<label for="photographer">Photographer</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="videoaudio" name="profession" value="Video/audio professional"/>
+				<label for="videoaudio">Video/audio professional</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="animationmotion" name="profession" value="Animator/motion graphic designer"/>
+				<label for="animationmotion">Animator/motion graphic designer</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="webdesigner" name="profession" value="Web designer"/>
+				<label for="webdesigner">Web designer (web designer, game designer, interactive designer)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="professionux" name="profession" value="UX designer"/>
+				<label for="professionux">UX designer</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="professionsoftware" name="profession" value="Software developer"/>
+				<label for="professionsoftware">Software developer (apps, mobile, games, web apps, server)</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="professionno" name="profession" value="No, none of these"/>
+				<label for="professionno">No, none of these</label>
+			</div>
+		</div>
+	</div>
 
 
-    <div class="radio-el">
+	<div class="radio-el">
       <span>How did you hear about the Speech-to-text early access program?
       </span>
-      <div class="radio-options-parent">
-        <div class="radio-option">
-          <input type="radio" id="hearmax" name="howdidyouhear" value="Adobe MAX" required/>
-          <label for="hearmax">Adobe MAX</label>
-        </div>
-        <div class="radio-option">
-          <input type="radio" id="hearyoutube" name="howdidyouhear" value="YouTube" required/>
-          <label for="hearyoutube">YouTube</label>
-        </div>
-        <div class="radio-option">
-          <input type="radio" id="hearfacebook" name="howdidyouhear" value="Facebook" required/>
-          <label for="hearfacebook">Facebook</label>
-        </div>
-        <div class="radio-option">
-          <input type="radio" id="hearblog" name="howdidyouhear" value="Blog posts" required/>
-          <label for="hearblog">Blog posts</label>
-        </div>
-        <div class="radio-option">
-          <input type="radio" id="hearpremiere" name="howdidyouhear" value="Adobe Premiere Pro Insiders" required/>
-          <label for="hearpremiere">Adobe Premiere Pro Insiders</label>
-        </div>
-    </div>
-
+		<div class="radio-options-parent">
+			<div class="radio-option">
+				<input type="radio" id="hearmax" name="howdidyouhear" value="Adobe MAX" required/>
+				<label for="hearmax">Adobe MAX</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="hearyoutube" name="howdidyouhear" value="YouTube" required/>
+				<label for="hearyoutube">YouTube</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="hearfacebook" name="howdidyouhear" value="Facebook" required/>
+				<label for="hearfacebook">Facebook</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="hearblog" name="howdidyouhear" value="Blog posts" required/>
+				<label for="hearblog">Blog posts</label>
+			</div>
+			<div class="radio-option">
+				<input type="radio" id="hearpremiere" name="howdidyouhear" value="Adobe Premiere Pro Insiders" required/>
+				<label for="hearpremiere">Adobe Premiere Pro Insiders</label>
+			</div>
+		</div>
+	</div>
 
 	<p class="legal-text">The Adobe family of companies may keep me informed with personalized emails about Adobe Premiere Pro Speech to Text. See our <a href="https://www.adobe.com/privacy.html">Privacy Policy</a> for more details or to opt-out at any time.</p>
 
-    <div class="submit-el">
-      <input type="submit" value="Apply for early access"/>
-    </div>
-  </form>
+	<div class="submit-el">
+		<input type="submit" value="Apply for early access"/>
+	</div>
 </div>
+</form>
 
 <script>
 
-
 function setupForm() {
-    const $formContainer = document.querySelector('.beta-form-container');
-    const $form = document.getElementById('beta-form');
+	const $formContainer = document.querySelector('.beta-form-container');
+	const $form = document.getElementById('beta-form');
 
-    // old form
-    const formsink = 'https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE'
-    // const formsink = 'https://prod-91.westus.logic.azure.com/workflows/424eb31bb1484cf993d281a33a165a48/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=KXCLrcMxyzkrqOKQaPd7Iv5cbi8UjZbovGI9D5uMc6s'
-
-    var purposerad = document.forms[0].purpose;
-	for (var i = 0; i < purposerad.length; i++) {
+	let purposerad = $form.purpose;
+	for (let i = 0; i < purposerad.length; i++) {
 		purposerad[i].addEventListener('change', function () {
-			var element = document.getElementById("work-purposes");
-			var purposes = document.getElementsByName("worktype");
+			let element = document.getElementById("work-purposes");
+			let purposes = document.getElementsByName("worktype");
 			if (this.value === 'For work purposes') {
 				element.classList.add("revealed");
-				for (var i = 0; i < purposes.length; i++) {
+				for (let i = 0; i < purposes.length; i++) {
 					purposes[i].required = true;
 				}
 			} else {
@@ -505,88 +500,131 @@ function setupForm() {
 		});
 	}
 
-	var sharedcheckboxes = document.getElementsByClassName("socialtrigger");
-	for (var i = 0; i < sharedcheckboxes.length; i++) {
-	    sharedcheckboxes[i].addEventListener('change', function() {
-			var socelement = document.getElementById("social-reason");
-		    if (document.querySelector('.socialtrigger:checked') !== null) {
+	let sharedcheckboxes = document.getElementsByClassName("socialtrigger");
+	for (let i = 0; i < sharedcheckboxes.length; i++) {
+		sharedcheckboxes[i].addEventListener('change', function () {
+			let socelement = document.getElementById("social-reason");
+			if (document.querySelector('.socialtrigger:checked') !== null) {
 				socelement.classList.add("revealed");
-		    }
-			else {
+			} else {
 				socelement.classList.remove("revealed");
-				var reasons = document.getElementsByName("socialreason");
-				for(var i=0;i<reasons.length;i++)
+				let reasons = document.getElementsByName("socialreason");
+				for (let i = 0; i < reasons.length; i++)
 					reasons[i].checked = false;
 			}
-	    });
+		});
 	}
 
-	var employmentrad = document.forms[0].employmentstatus;
-    for (var i = 0; i < employmentrad.length; i++) {
-	    employmentrad[i].addEventListener('change', function() {
-			var element = document.getElementById("profession");
-			var purposes = document.getElementsByName("profession");
-		    if (this.value === 'Employed' | this.value === 'Self-employed') {
+	let employmentrad = $form.employmentstatus;
+	for (let i = 0; i < employmentrad.length; i++) {
+		employmentrad[i].addEventListener('change', function () {
+			let element = document.getElementById("profession");
+			let purposes = document.getElementsByName("profession");
+			if (this.value === 'Employed' | this.value === 'Self-employed') {
 				element.classList.add("revealed");
-				for(var i=0;i<purposes.length;i++) {
+				for (let i = 0; i < purposes.length; i++) {
 					purposes[i].required = true;
 				}
-		    }
-			else {
+			} else {
 				element.classList.remove("revealed");
-				for(var i=0;i<purposes.length;i++) {
+				for (let i = 0; i < purposes.length; i++) {
 					purposes[i].checked = false;
 					purposes[i].required = false;
 				}
 			}
-	    });
+		});
 	}
 
 
-	var emails = document.getElementsByClassName("emails");
-	for (var i = 0; i < emails.length; i++) {
-		emails[i].addEventListener('change', function() {
+	let emails = document.getElementsByClassName("emails");
+	for (let i = 0; i < emails.length; i++) {
+		emails[i].addEventListener('change', function () {
 			const email1 = document.getElementById("email");
 			const email2 = document.getElementById("email2");
-			var elements = document.getElementsByClassName("emailerror");
-		    if (email1.value !== email2.value) {
-		    	// this tells the form to fail validation
-		    	email1.setCustomValidity('Email fields must match.')
-			    for (var i = 0; i < elements.length; i++) {
+			let elements = document.getElementsByClassName("emailerror");
+			if (email1.value !== email2.value) {
+				// this tells the form to fail validation
+				email1.setCustomValidity('Email fields must match.')
+				for (let i = 0; i < elements.length; i++) {
 					elements[i].classList.add("revealed");
 				}
-		    }
-			else {
+			} else {
 				email1.setCustomValidity('');
 				email2.setCustomValidity('');
-				for (var i = 0; i < elements.length; i++) {
+				for (let i = 0; i < elements.length; i++) {
 					elements[i].classList.remove("revealed");
 				}
 			}
-	    });
+		});
 	}
 
-    let sheet, thankyou;
-    $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
+	let sheet, thankyou;
+	$formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
 
-      if ($a.textContent.toLowerCase() === 'sheet') {
-        sheet=$a.href;
-        $a.parentElement.remove();
-      }
+		if ($a.textContent.toLowerCase() === 'sheet') {
+			sheet = $a.href;
+			$a.parentElement.remove();
+		}
 
-      if ($a.textContent.toLowerCase() === 'thank you') {
-        thankyou=$a.href;
-        $a.parentElement.remove();
-      }
-    });
+		if ($a.textContent.toLowerCase() === 'thank you') {
+			thankyou = $a.href;
+			$a.parentElement.remove();
+		}
+	});
+	// test sheet override
+	sheet = 'https://adobe.sharepoint.com/:x:/r/sites/cg-helix/Shared%20Documents/automation-tests/load-test.xlsx?d=w9912931d3caf4258b0eefc4eaaa44f33&csf=1&web=1&e=nSOGnD';
+
+	const postURL = 'https://ccgrowth.servicebus.windows.net/load-test/messages';
+	const testURL = 'https://adobeioruntime.net/api/v1/web/helix-clients/ccgrowth/forms-handler@v1';
 
 	// we validate the form ourselves. otherwise it would already validate on submit and we cannot
 	// run the custom logic for the checkboxes.
-    $form.setAttribute('novalidate', true);
+	$form.setAttribute('novalidate', true);
 
-	$form.addEventListener('submit', async (evt) => {
-		evt.preventDefault();
+	function sleep(ms) {
+		return new Promise((resolve) => {
+			setTimeout(resolve, ms);
+		})
+	}
 
+	function randomString(min, max) {
+		let len = Math.round(Math.random() * (max-min) + min);
+		let s = '';
+		while (len-- > 0) {
+			s += String.fromCharCode(Math.random()*26 + 97);
+		}
+		return s;
+	}
+
+	function randomize() {
+		const $form = document.getElementById('beta-form');
+		const email = `${randomString(4, 10)}@${randomString(4, 5)}.com`;
+		const radios = {};
+		$form.querySelectorAll('input, textarea').forEach(($f) => {
+			if (!$f.name) {
+				return;
+			}
+			if ($f.name === 'email' || $f.name === 'email2') {
+				$f.value = email;
+			}
+			const type = $f.getAttribute('type');
+			if (type === 'text') {
+				$f.value = `${randomString(3, 10)} ${randomString(3, 10)}`;
+			}
+			if (type === 'radio') {
+				if (!radios[$f.name]) {
+					radios[$f.name] = true;
+					const $els = $form.querySelectorAll(`input[name=${$f.name}]`);
+					$els[Math.floor(Math.random() * $els.length)].checked = true;
+				}
+			}
+			if (type === 'checkbox') {
+				$f.checked = Math.random() > 0.5;
+			}
+		})
+	}
+
+	function validateCheckboxes() {
 		// ensure that at least one sharing checkbox is selected
 		document.getElementById('filmfestivals').setCustomValidity('');
 		if (!$form.querySelector('input[name=whereshared]:checked')) {
@@ -598,44 +636,90 @@ function setupForm() {
 		if ($form.querySelector('.socialtrigger:checked') && !$form.querySelector('input[name=socialreason]:checked')) {
 			document.getElementById('socialfollowers').setCustomValidity('Please select at least one checkbox.');
 		}
+	}
 
-		if ($form.reportValidity()) {
-			const values = [{
-				name: 'timestamp',
-				value: new Date().toISOString().replace(/[TZ]/g, ' ').split('.')[0].trim(),
-			}];
-			$form.querySelectorAll('input, textarea').forEach(($f) => {
-				if (!$f.name || $f.name === 'email2') {
-					// skip email2
-					return;
-				}
-				const type = $f.getAttribute('type');
-				if ((type !== 'radio' && type !== 'checkbox') || $f.checked) {
-					const existing = values.find((v) => v.name === $f.name);
-					if (existing) {
-						existing.value += `, ${$f.value}`;
-					} else {
-						values.push({ name: $f.name, value: $f.value });
-					}
-				}
-			})
-
-			const body = { sheet, data: values };
-			const resp = await fetch(formsink, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(body), // body data type must match "Content-Type" header
-			});
-			const text = await resp.text();
-			window.location=thankyou;
+	$form.addEventListener('submit', async (evt) => {
+		evt.preventDefault();
+		if (await submit()) {
+			window.location = thankyou;
 		}
-		return false;
-	})
+	});
+
+	async function submit(uri = postURL, counter) {
+		validateCheckboxes();
+		if (!$form.reportValidity()) {
+			return false;
+		}
+		const values = [{
+			name: 'timestamp',
+			value: new Date().toISOString().replace(/[TZ]/g, ' ').split('.')[0].trim(),
+		}];
+		if (counter !== undefined) {
+			values.push({
+				name: 'counter',
+				value: counter,
+			})
+		}
+		$form.querySelectorAll('input, textarea').forEach(($f) => {
+			if (!$f.name || $f.name === 'email2') {
+				// skip email2
+				return;
+			}
+			const type = $f.getAttribute('type');
+			if ((type !== 'radio' && type !== 'checkbox') || $f.checked) {
+				const existing = values.find((v) => v.name === $f.name);
+				if (existing) {
+					existing.value += `, ${$f.value}`;
+				} else {
+					values.push({ name: $f.name, value: $f.value });
+				}
+			}
+		})
+
+		const body = { sheet, data: values };
+		console.log('invoking', uri);
+		const resp = await fetch(uri, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'SharedAccessSignature sr=https%3A%2F%2Fccgrowth.servicebus.windows.net%2Fload-test%2Fmessages&sig=rQtBCdIYcZT58gDr%2FCBvdKNYgp1ZowedQUpqSPRZsb8%3D&se=1633182012&skn=send',
+			},
+			body: JSON.stringify(body), // body data type must match "Content-Type" header
+		});
+		const text = await resp.text();
+		console.log(values[0].value, `${counter}`, resp.status, text);
+		return resp.status;
+	}
+
+	async function loadtest() {
+		const NUM_POSTS = 10;
+		const OFFSET = 0;
+		for (let i = 1; i <= NUM_POSTS; i++) {
+			randomize();
+			const status = await submit(postURL, i + OFFSET);
+			if (status === 429) {
+				console.log('sleeping for 5 seconds');
+				await sleep(5000);
+				i--;
+			}
+		}
+	}
+
+	async function setup() {
+		await submit(testURL, 0);
+	}
+
+	return {
+		loadtest,
+		randomize,
+		setup,
+	}
 }
 
-  document.getElementsByTagName("body")[0].classList.add("has-beta-form");
-
-  setupForm();
+	document.getElementsByTagName("body")[0].classList.add("has-beta-form");
+	const { loadtest, randomize, setup } = setupForm();
 </script>
+<br>
+<button onClick="randomize()">Randomize</button>
+<button onClick="loadtest()">Load Test</button>
+<button onClick="setup()">Setup / Test</button>
