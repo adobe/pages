@@ -1,0 +1,13 @@
+on: push
+
+jobs:
+  ci_trigger:
+    runs-on: ubuntu-latest
+    name: Clear helix pages cache
+    steps:
+      - name: Trigger
+        id: trigger
+        uses: adobe-rnd/github-purge-cache-action
+        with:
+          helix-url: https://pages.adobe.com/
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
