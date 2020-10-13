@@ -59,8 +59,10 @@
   async function createForm() {
     let formField = "";
     let output = await formData();
+    
+    window.location.hostname === "localhost" ? output = output : output = output.data;
   
-    console.log('here v2', output.data)
+    console.log('here v3', output)
     output.map(function (item) {
       let setup = inputSettings(item.label)        
       
