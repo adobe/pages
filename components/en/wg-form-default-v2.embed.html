@@ -30,7 +30,6 @@
       }
     });
 
-    // window.pages.dependencies.push('kenny-form-test.json');
     const resp = await fetch(`${formToUse}.json`);
     const json = await resp.json();
     console.log(json , 'updated')
@@ -46,7 +45,8 @@
   function inputSettings(label) {
     let visibleLabel = label;
     label = label.indexOf(' ') >= 0 ? label.split(' ').join('-').toLowerCase() : label.toLowerCase();
-    label = label.indexOf("*") >= 0 ? label.split('*')[0] : label;
+    label = label.indexOf("-*") >= 0 ? label.split('*')[0] : label;
+    label = label.indexOf('-(') >= 0 ? label.split('(')[0] : label;
     let settings = {
       label: visibleLabel,
       label_clean: label,
@@ -150,16 +150,7 @@
   }
 
   function setupForm() {
-    const values = [
-      {
-        name: "timestamp",
-        value: new Date()
-          .toISOString()
-          .replace(/[TZ]/g, " ")
-          .split(".")[0]
-          .trim(),
-      },
-    ];
+    const values=[{name: 'timestamp', value: new Date().toISOString().replace(/[TZ]/g,' ').split('.')[0].trim()}];
 
     $form.addEventListener("submit", async (evt) => {
       evt.preventDefault();
@@ -179,6 +170,7 @@
           body: JSON.stringify(body), // body data type must match "Content-Type" header
         });
         const text = await resp.text();
+        
         window.location = thankyou;
       }
 
