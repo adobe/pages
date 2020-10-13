@@ -33,7 +33,8 @@
     // window.pages.dependencies.push('kenny-form-test.json');
     const resp = await fetch(`${formToUse}.json`);
     const json = await resp.json();
-    console.log(json)
+    console.log(json , 'updated')
+    window.pages.dependencies.push(`${formToUse}.json`);
     return json
   }
 
@@ -62,11 +63,10 @@
     
     window.location.hostname === "localhost" ? output = output : output = output.data;
   
-    console.log('here v3', output)
+    
     output.map(function (item) {
       let setup = inputSettings(item.label)        
       
-
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
         formField += `
