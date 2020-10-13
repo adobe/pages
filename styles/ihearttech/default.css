@@ -175,6 +175,18 @@ main {
     display: inline-block;
     margin-top: 2em !important;
   }
+
+  main div.video-text .card .text a:any-link {
+    background-color: #1473e6;;
+    padding: 8px 30px 10px 30px;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 2em !important;
+  }
    
   main .card-image .card-text {
     padding: 1em 0em;
