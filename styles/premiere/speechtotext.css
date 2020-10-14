@@ -131,6 +131,14 @@ header li a {
 	padding: 20px 16px;
 }
 
+/* video */
+
+.embed-adobe-tv {
+	width: 100%;
+	max-width: 640px;
+	margin: 40px auto 0 auto;
+}
+
 /* cards */
 
 main .card {
@@ -139,6 +147,7 @@ main .card {
   	background: #fff;
   	border-radius: 4px;
   	border: 1px solid #EAEAEA;
+  	overflow: hidden;
 	color: #707070;
 	font-size: 16px;
 	line-height: 20px;
