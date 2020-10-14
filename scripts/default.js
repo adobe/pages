@@ -26,18 +26,12 @@ function createButtonCta(element) {
     if(!document.querySelectorAll(element).length > 0) return;
     let button = document.querySelectorAll(element);
     button.forEach(function($link) {
-        if($link.innerText.includes('cta main')) {
-            $link.classList.add('button') 
-            $link.classList.add('main') 
+        if($link.innerText.includes('[cta')) {
+            let cta_strings = $link.innerText.split('[')[1].split(']')[0]
+            console.log(cta_strings)
+            $link.setAttribute('class', 'button '+cta_strings)
             $link.innerText = $link.innerText.split('[')[0]
         }
-
-        if($link.innerText.includes('cta secondary')) {
-            $link.classList.add('button') 
-            $link.classList.add('secondary') 
-            $link.innerText = $link.innerText.split('[')[0]
-        }
-        
     })
 }
   
@@ -278,6 +272,7 @@ function paramHelper() {
 }
 
 async function decoratePage() {
+    addDefaultClass('main>div');
     turnListSectionIntoCards();
     decorateTables();
     wrapSections('main>div');

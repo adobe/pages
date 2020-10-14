@@ -1,0 +1,115 @@
+<div class="name-email-form-container">
+  <form id="name-email-form">
+    <div class="input-el">
+      <label for="firstname">First name </label>
+      <input type="text" name="firstname" />
+    </div>
+    <div class="input-el">
+      <label for="lastname">Last name </label>
+      <input type="text" name="lastname" />
+    </div>
+    <div class="input-el">
+      <label for="email">Email address
+      <span><em>Existing Adobe users: please enter the email you use to login to Adobe.</em></span></label>
+      
+      <input type="text" name="email" id="email" class="emails" />
+		<span class="emailerror hidden-default">Email fields must match.</span>
+    </div>
+    <div class="input-el">
+      <label for="email2">Confirm email address </label>
+      <input type="text" name="email2" id="email2" class="emails" />
+		<span class="emailerror hidden-default">Email fields must match.</span>
+    </div>
+    <p class="legal-text">The Adobe family of companies may keep me informed with personalized emails about Adobe InDesign Online Copy Editing. See our <a href="https://www.adobe.com/privacy.html">Privacy Policy</a> for more details or to opt-out at any time.</p>
+
+    <div class="submit-el">
+      <input type="submit" value="Apply for early access"/>
+    </div>
+  </form>
+</div>
+
+<script>
+
+
+function setupForm() {
+    const $formContainer = document.querySelector('.name-email-form-container');
+    const $form = document.getElementById('name-email-form');
+
+    // old form
+     const formsink = 'https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE'
+
+    //const formsink = 'https://prod-04.westus.logic.azure.com/workflows/208eda8502f5440b8c1ed29b8b1f52ae/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=OWEAdTTTpKL41to8EIElBqapHj5Chk6eapOjFZFz1YA'
+
+    
+    var emails = document.getElementsByClassName("emails");
+	for (var i = 0; i < emails.length; i++) {
+		emails[i].addEventListener('change', function() {
+			const email1 = document.getElementById("email");
+			const email2 = document.getElementById("email2");
+			var elements = document.getElementsByClassName("emailerror");
+		    if (email1.value !== email2.value) {
+		    	// this tells the form to fail validation
+		    	email1.setCustomValidity('Email fields must match.')
+			    for (var i = 0; i < elements.length; i++) {
+					elements[i].classList.add("revealed");
+				}
+		    }
+			else {
+				email1.setCustomValidity('');
+				email2.setCustomValidity('');
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].classList.remove("revealed");
+				}
+			}
+	    });
+	}
+	
+    let sheet, thankyou;
+    $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
+      
+      if ($a.textContent.toLowerCase()=='sheet') {
+        sheet=$a.href;
+        $a.parentElement.remove();
+      }
+
+      if ($a.textContent.toLowerCase()=='thank you') {
+        thankyou=$a.href;
+        $a.parentElement.remove();
+      }
+    });
+
+    const values=[{name: 'timestamp', value: new Date().toISOString().replace(/[TZ]/g,' ').split('.')[0].trim()}];
+  
+    $form.addEventListener('submit', async (evt) => {
+      evt.preventDefault();
+      if ($form.reportValidity()) {
+        $form.querySelectorAll('input, textarea').forEach(($f) => {
+	        if (!$f.name || $f.name === 'email2') {
+					// skip email2
+					return;
+			}
+            if (($f.getAttribute('type') != 'radio') || $f.checked) {
+              values.push({name: $f.name, value: $f.value});
+            }
+        })
+
+        const body={sheet, data: values};
+        const resp=await fetch(formsink, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body) // body data type must match "Content-Type" header
+        });
+        const text=await resp.text();        
+        window.location=thankyou;
+      }
+
+      return false;
+    })
+  }
+
+  document.getElementsByTagName("body")[0].classList.add("has-name-email-form");
+
+  setupForm();
+</script>

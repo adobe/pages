@@ -28,6 +28,16 @@ header.appear {
 }
 
 
+/* quick video button fix - needs to be fixed properly */
+.video #placeholder.button {
+  border: 0;
+}
+
+.video #placeholder.button.hidden {
+  display:none;
+}
+
+
 
 header>div:nth-of-type(2)>div {
     background-color:white;
@@ -158,7 +168,9 @@ main select {
     line-height: 24px;	
 }
   
-main input[type=text], main textarea {
+main input[type=text],
+main textarea,
+main input[type=email] {
     width: 100%;
     padding: 5px;
     border-radius: 4px;

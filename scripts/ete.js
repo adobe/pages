@@ -1,3 +1,5 @@
+
+
 async function fetchSteps() {
   window.pages.dependencies.push("steps.json");
   const resp = await fetch("steps.json");
@@ -162,6 +164,7 @@ async function decorateStep() {
   const currentStep = steps[stepIndex];
 
   $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`;
+  $video.setAttribute('data-bg', `/static/ete/hero-posters/${currentStep.Thumbnail}`)
 
   //fill content section
 
@@ -184,7 +187,6 @@ async function decorateStep() {
 
   document.title = currentStep.Title;
   if (currentStep["Practice File"]) {
-    console.log(currentStep["Practice File"].length)
     document
       .querySelector("main .content>p>a")
       .setAttribute("href", currentStep["Practice File"])
@@ -229,9 +231,7 @@ async function decorateStep() {
 
   function scrollPage(event) {
     event.preventDefault();
-    console.log('clicked')
     let videooffSet = document.querySelector('.video').offsetTop - 50;
-    console.log(videooffSet)
     window.scroll({ top : videooffSet, behavior: 'smooth'})
     document.querySelector('.button').click();
   }
@@ -335,12 +335,12 @@ window.addEventListener("resize", debounce(function () {
 
 
 async function decoratePage() {
+  addDefaultClass('main>div');
   decorateTables();
   await loadLocalHeader();
   wrapSections("header>div");
   externalLinks("header");
   externalLinks("footer");
-  
   // nav style/dropdown
   decorateNav();
 
@@ -364,6 +364,8 @@ async function decoratePage() {
 
   if (pageType == "step") {
     await decorateStep();
+    document.title = document.title.split('&nbsp;').join(' ')
+    document.title = document.title.split('<br>').join(' ')
   }
 
   window.pages.decorated = true;
