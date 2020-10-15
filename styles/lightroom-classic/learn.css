@@ -160,6 +160,10 @@ main a.button:hover {
 	padding: 20px 16px;
 }
 
+header .product-icon p {
+	font-size: 14px;
+}
+
 /* cards */
 
 main .card {
@@ -203,6 +207,10 @@ main .card h3 a:hover {
 
 /* misc layout */
 
+.section-wrapper .default {
+	width: 100%;
+}
+
 body.home h1,
 body.home main .default > p {
 	text-align: center;
@@ -217,7 +225,6 @@ body.index .steps {
 }*/
 
 body.step main {
-	padding: 40px 52px 0px 52px;
 	margin: 0 auto;
 }
 
@@ -241,16 +248,41 @@ body.step main {
     box-sizing: border-box;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
-    padding-right: 8px;
-    padding-left: 8px;
     position: relative;
+}
+
+body.step {
+	background: #f6f5f7 url(/static/lightroom-classic/progress-circle.gif) center center no-repeat;
+	background-size: contain;
+	/*transition: 0.3s ease-out background;*/
+}
+
+body.step.loaded {
+	background: none;
+	transition: 0.3s ease-out background;
+}
+
+.image img:last-child,
+.image img:only-child {
+	display: block;
+}
+
+.image img:first-child {
+	display: none;
+}
+
+.content {
+	padding: 0 40px;
+}
+
+.image img {
+	display: block;
+	width: 100%;
 }
 
 .content header {
 	opacity: 1;
-	border-bottom: 1px solid #eaeaea;
-    padding-bottom: 30px;
-    margin-bottom: 30px;
+    margin-top: 40px;
 }
 
 .content header a,
@@ -262,8 +294,13 @@ body.step main {
     width: auto;
 }
 
-.content header a {
-    float: right;
+.content .text {
+	padding-bottom: 60px;
+}
+
+.content .text p {
+	font-size: 16px;
+	line-height: 20px;
 }
 
 .content footer {
@@ -271,11 +308,7 @@ body.step main {
     position: absolute;
     bottom: 0;
     left: 0;
-}
-
-.content footer nav {
-	border-top: 1px solid #e1e1e1;
-    padding-top: 30px;
+    padding: 0 40px;
 }
 
 .content footer nav a.button:first-child {
@@ -293,10 +326,19 @@ body.step main {
 
 @media only screen and (min-width: 769px) {
 	
+	body.step main {
+		padding: 40px 52px 0px 52px;
+	}
+	
 	main h1 {
 		font-size: 48px;
 		line-height: 60px;
 		margin-top: 0;
+	}
+	
+	main .text h1 {
+		font-size: 36px;
+		line-height: 48px;
 	}
 	
 	main h2 {
@@ -351,32 +393,87 @@ body.step main {
   	
   	header p:first-of-type {
 	  	margin-left: 12px;
-  	}	
+  	}
+  	
+}
+
+@media only screen and (min-width: 1025px) {
+  	
+  	.content header {
+	    margin: 0 0 20px 0;
+	}	
+	
+
+  	.content > div:first-child {
+	  	padding-bottom: 0px;
+  	}
+  	
+  	.image,
+  	.content {
+    	padding-right: 8px;
+		padding-left: 8px;
+  	}
   	
   	.image {
 	  	flex-basis: 58.33333333%;
 	  	max-width: 58.33333333%;
 	}
-  	
+	
+	.content .text {
+		padding-bottom: 0px;
+	}
+		
   	.content {
 	    -ms-flex-preferred-size: 41.66666667%;
 	    flex-basis: 41.66666667%;
 	    max-width: 41.66666667%;
+	    
   	}
+  	
+  	.content footer {
+	  	padding: 0 8px;
+  	}
+  	
+  	.content footer nav {
+		border-top: 1px solid #e1e1e1;
+	    padding-top: 30px;
+	}
 
 }
 
 
 @media only screen and (min-width: 1280px) {
+	  	
+  	.content header {
+		border-bottom: 1px solid #eaeaea;
+	    padding-bottom: 30px;
+	    margin-bottom: 30px;
+	}	
+	
 	.container {
 		margin-right: -16px;
 		margin-left: -16px;
 	}
+	
   	.image,
   	.content {
 	  	padding-right: 16px;
 	  	padding-left: 16px;
   	}
+  	
+  	.content footer {
+	  	padding: 0 16px;
+  	}
+  	
+	.content .text p {
+		font-size: 20px;
+		line-height: 25px;
+	}
+	
+	.content header a {
+    	float: right;
+	}
+	  
 }
 
 @media screen and (min-width: 1580px) {
