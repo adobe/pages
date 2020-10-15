@@ -46,6 +46,8 @@
                 $div.innerHTML=$td.innerHTML;
             }
             $card.append($div);
+            const $click= "window.location='" + $a.getAttribute('href') + "'";
+            $card.setAttribute("onClick", $click);
         });
         $cards.append($card);
     });

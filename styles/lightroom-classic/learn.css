@@ -175,6 +175,7 @@ main .card {
 	font-size: 16px;
 	line-height: 20px;
 	cursor: pointer;
+	overflow: hidden;
 }
 
 main .card,
@@ -202,6 +203,10 @@ main .card h3,
 main .card h3 a,
 main .card h3 a:hover {
   	color: #2C2C2C;	
+}
+
+main .card a:hover {
+	text-decoration: none;
 }
 
 
