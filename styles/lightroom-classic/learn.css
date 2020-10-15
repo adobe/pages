@@ -204,6 +204,10 @@ main .card h3 a:hover {
   	color: #2C2C2C;	
 }
 
+main .card a:hover {
+	text-decoration: none;
+}
+
 
 /* misc layout */
 
