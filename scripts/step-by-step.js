@@ -167,6 +167,9 @@ async function decorateStep() {
     const $image = document.createElement('div');
     $container.appendChild($image);
     $image.setAttribute('class', 'image');
+    const $placeholder = document.createElement('img');
+    $image.appendChild($placeholder);
+    $placeholder.setAttribute('src', '/static/lightroom-classic/gif-placeholder.png');    
     
     //$main.setAttribute('class', 'appear');
     const $content = document.createElement('div');
@@ -199,75 +202,10 @@ async function decorateStep() {
     console.log(currentStep.Image)
     const $img = document.createElement('img');
     $image.appendChild($img);
-    $img.setAttribute('src', currentStep.Image)
+    $img.setAttribute('src', currentStep.Image);
 
     document.title=currentStep.Title;
     
-    
-    
-    /*if (currentStep['Practice File']) {
-        document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
-    }
-
-    if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
-        $video.innerHTML=`<div class="video"><div id="placeholder" class="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                </g>
-                </svg>
-        </div>
-        <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
-        <source src="${currentStep.Video}" type="video/mpeg4">
-        </video></div>`;
-        $video.firstChild.style.backgroundImage=`url(${currentStep.Thumbnail})`;
-        $video.firstChild.addEventListener('click', (e) => playVideo());
-    }
-
-    if (currentStep.Video.startsWith('https://www.youtube.com/')) {
-        const yturl=new URL(currentStep.Video);
-        const vid=yturl.searchParams.get('v');
-        $video.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
-
-    }
-
-    //fill progress section
-
-    const splits=$progress.innerHTML.split("#");
-    $progress.innerHTML=splits[0]+(stepIndex+1)+splits[1]+(steps.length)+splits[2];
-
-    const $progressbar=createTag('div',{class: 'progress-bar'});
-    var html='';
-    steps.forEach((step,i) => {
-        html+=`<div onclick="window.location.href='step?${i+1}'" class="${i==stepIndex?'active':'inactive'}"></div>`
-    })
-    $progressbar.innerHTML=html;
-    $progress.appendChild($progressbar);
-
-
-    // fill up next
-
-    var upnext=$upnext.innerHTML;
-
-    const nextStep=steps[stepIndex+1];
-    if (nextStep) {
-        $upnext.innerHTML=` <div class="upnext__inner">
-                              <div class="window">
-                                <img src="${getThumbnail(nextStep)}">
-                              </div>
-                              ${upnext}
-                              <h2>${nextStep.Title}</h2>
-                              <p>${nextStep.Description}</p>
-                            </div>
-        
-                `;
-    } else {
-        $upnext.remove();
-    }
-    
-    $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
-	*/
 }
 
 function wrapSections(element) {
@@ -328,6 +266,7 @@ async function decoratePage() {
     }
 
     window.pages.decorated = true;
+    document.body.classList.add('loaded');
     appearMain();
 }
 

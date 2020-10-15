@@ -251,6 +251,26 @@ body.step main {
     position: relative;
 }
 
+body.step {
+	background: #f6f5f7 url(/static/lightroom-classic/progress-circle.gif) center center no-repeat;
+	background-size: contain;
+	/*transition: 0.3s ease-out background;*/
+}
+
+body.step.loaded {
+	background: none;
+	transition: 0.3s ease-out background;
+}
+
+.image img:last-child,
+.image img:only-child {
+	display: block;
+}
+
+.image img:first-child {
+	display: none;
+}
+
 .content {
 	padding: 0 40px;
 }
