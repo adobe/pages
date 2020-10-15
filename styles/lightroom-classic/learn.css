@@ -175,6 +175,7 @@ main .card {
 	font-size: 16px;
 	line-height: 20px;
 	cursor: pointer;
+	overflow: hidden;
 }
 
 main .card,
