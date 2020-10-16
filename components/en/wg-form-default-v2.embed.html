@@ -111,7 +111,8 @@
             <div class="radio-option">
               <input type="checkbox" 
                 id="${setup.label_clean}-${cleanOptionName.toLowerCase()}" 
-                name="${setup.label_clean}" 
+                name="${setup.label_clean}"
+                value="${setup.label_clean}-${cleanOptionName.toLowerCase()}"
               />
               <label for="${setup.label_clean}-${cleanOptionName.toLowerCase()}">${option}</label>
             </div>
@@ -157,10 +158,9 @@
       if ($form.reportValidity()) {
         $form.querySelectorAll("input, textarea").forEach(($f) => {
           if ($f.getAttribute("type") != "radio" || $f.checked) {
-            values.push({ name: $f.name, value: $f.value });
-          }
+            values.push({ name: $f.name, value: $f.value });              
+          } 
         });
-
         const body = { sheet, data: values };
         const resp = await fetch(formsink, {
           method: "POST",
@@ -170,7 +170,6 @@
           body: JSON.stringify(body), // body data type must match "Content-Type" header
         });
         const text = await resp.text();
-        
         window.location = thankyou;
       }
 
