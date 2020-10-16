@@ -107,7 +107,7 @@ window.setupForm = ({
   $form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     if (await submit()) {
-      // window.location = thankyou;
+      window.location = thankyou;
     }
   });
 
