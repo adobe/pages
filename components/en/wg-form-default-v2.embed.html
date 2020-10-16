@@ -1,15 +1,12 @@
-<script src="/components/en/forms.js"></script>
 <div class="wg-form-container form-container">
   <form id="wg-form"><h4 style="text-align: center;">Loading...</h4></form>
 </div>
 
-
-
-
+<script src="/components/en/forms.js"></script>
 <script>
   const $formContainer = document.querySelector(".wg-form-container");
   const $form = document.getElementById("wg-form");
-  // let sheet, thankyou;
+  
 
   async function formData() {
     const formType = document.querySelectorAll("main p");
@@ -139,13 +136,12 @@
     document.getElementById("wg-form").innerHTML = formField;
   }
 
-
+  setupForm({
+      formId: 'wg-form'
+    })
 
   async function instructor() {
     await createForm();
-    await setupForm({
-      formId: 'wg-form'
-    })
   }
 
   instructor();
