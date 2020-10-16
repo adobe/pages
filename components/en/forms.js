@@ -158,7 +158,7 @@ window.setupForm = ({
       body: JSON.stringify(body),
     });
     const text = await resp.text();
-    console.log(values[0].value, `${counter}`, resp.status, text);
+    console.log(values[0].value, `${counter}`, resp.status, text,  body);
     return resp.status;
   }
 

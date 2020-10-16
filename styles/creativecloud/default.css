@@ -82,3 +82,46 @@ header {
   position: absolute;
   transform: translateX;
 }
+
+.wg-form-loader {
+  width: 150px;
+  height: 8px;
+  margin: auto;
+  border-radius: 65px;
+  border: 1px solid #eee;
+  position: relative;
+  overflow: hidden;
+}
+
+.wg-form-loader__indicator {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+  background: #1473e6;
+  /* transition: all 400ms ease; */ 
+  animation: loader 3200ms infinite;
+  /* animation-direction: alternate; */
+}
+
+
+@keyframes loader {
+    0% {
+      transform: translateX(100%)
+      
+    }
+    
+    25% {
+      transform: translate(-100%)
+    }
+    
+    50% {
+      transform: translateX(0%)
+    }
+    
+    100% {
+      transform: translateX(100%)
+    }
+    
+}
