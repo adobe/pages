@@ -220,14 +220,16 @@ body.home h1,
 body.home main .default > p {
 	text-align: center;
 }
-/*
-body.index h1 {
-	margin: 0 0 20px 0;
+
+main .card.index-steps .img {
+    width: 100%%;
+    min-height: 180px;
+    background-size: cover;
 }
 
-body.index .steps {
-	padding-top: 40px;
-}*/
+main .card.index-steps .text {
+	width: 100%;
+}
 
 body.step main {
 	margin: 0 auto;
@@ -385,6 +387,18 @@ body.step.loaded {
 	
 	main .card.index-steps {
 		max-width: 928px;
+		display: flex;
+		min-height: 240px;
+	}
+	
+	main .card.index-steps .img {
+	    width: 33%;
+	    height: 100%;
+	    background-size: cover;
+	}
+	
+	main .card.index-steps .text {
+		width: 66%;
 	}
 
 	main .card h3 {

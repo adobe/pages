@@ -63,7 +63,7 @@ async function fetchSteps() {
 }
 
 function getThumbnail(step) {
-    let thumbnail=step.Thumbnail;
+    let thumbnail=step.Image + '?format=pjpeg';
     if (!thumbnail) {
 		thumbnail=`https://images-tv.adobe.com/avp/vr/536052e8-270f-49cd-a193-9eff1b9c9cb3/f770c63f-af98-43a1-be0b-005dedfca145/a92ecbe3_960x540.jpg`;
     }
@@ -117,7 +117,7 @@ async function insertSteps() {
 		    else {
 			    var stepnumber = number;
 	            html+=`<div class="card index-steps" onclick="window.location='step?${i+1}'">
-	                <div class='img' style="background-image: url(${getThumbnail(step)})">
+	                <div class='img' style="background-image: url(${getThumbnail(step)}); background-size: cover;">
 	
 	                </div>
 	                <div class='text'>
