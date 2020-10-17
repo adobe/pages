@@ -110,23 +110,26 @@ async function insertSteps() {
         let html='';
         steps.forEach((step, i) => {
 	        console.log(i)
-	        var number = parseInt(i);
-	        if (number == (steps.length-1) || number == 0) {
-		        // do nothing
+	        var number = parseInt(i) + 1;
+	        if (number == steps.length) {
+		        var stepPrefix = number + '. Wrapping up: ';
+		    }
+		    else if (number == 1) {
+			    var stepPrefix = number + '. Intro: ';
 		    }
 		    else {
-			    var stepnumber = number;
-	            html+=`<div class="card index-steps" onclick="window.location='step?${i+1}'">
+	            var stepPrefix = number + '. ';
+	        }
+	        html+=`<div class="card index-steps" onclick="window.location='step?${i+1}'">
 	                <div class='img' style="background-image: url(${getThumbnail(step)}); background-size: cover;">
 	
 	                </div>
 	                <div class='text'>
 	                    <div>
-	                    	<h3>${stepnumber}. ${step.Title}</h3>
+	                    	<h3>${stepPrefix}${step.Title}</h3>
 	                    </div>
 	                </div>
 	            </div>`
-	        }
         })
         $steps.innerHTML=html;
     }
@@ -163,7 +166,6 @@ async function decorateStep() {
     const $container = document.createElement('div');
     $container.setAttribute('class', 'container');
     
-    $text.appendChild($tutnav);
     $main.appendChild($container);
     
     const $image = document.createElement('div');
@@ -192,16 +194,50 @@ async function decorateStep() {
     //fill content section
 
     const $h1=document.querySelector('main .text h1');
+    
     const $desc=document.querySelector('main .text p');
+    $desc.remove();
+    
+    const $descHolder = document.createElement('div');
+    const $textContent=document.querySelector('main .text div');
+    $textContent.appendChild($descHolder);
+
+    $text.appendChild($tutnav);
+    
     let title=currentStep.Title;
-    let description=currentStep.Description;
+    
+    let description=currentStep.Description.toString();
+    if (description.indexOf('•') > 0) {
+	    if (description.indexOf('minutes') > 0) {
+		    var end = parseInt(description.indexOf('minutes')) + 7;
+		    var metadata = '<h3>' + description.slice(0, end) + '</h3>';
+			var trimmedDesc = description.slice(end);
+	    }
+	    else if (description.indexOf('minute') > 0) {
+		    var end = parseInt(description.indexOf('minute')) + 6;
+		    var metadata = '<h3>' + description.slice(0, end) + '</h3>';
+			var trimmedDesc = description.slice(end);
+	    }
+	    else {
+		    var metadata = '';
+		    var trimmedDesc = description;
+	    }
+    }
+    else {
+	    var metadata = '';
+		var trimmedDesc = description;
+    }
+    
     let image=currentStep.thumbnail;
     if (currentStep.Heading) title=currentStep.Heading;
     //title=title.split(`\n`).join('<br>');
     $h1.innerHTML=title;
     $h1.id='';
-    $desc.innerHTML=description;
-    console.log(currentStep.Image)
+    
+    var descContent =  metadata + trimmedDesc.split(/[\.?!;]/).filter(sentence => sentence).map(sentence => `<p>${sentence}.</p>`).join('');
+	$descHolder.innerHTML = descContent;
+    
+    //console.log(currentStep.Image)
     const $img = document.createElement('img');
     $image.appendChild($img);
     $img.setAttribute('src', currentStep.Image);

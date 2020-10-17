@@ -35,11 +35,19 @@ async function setData() {
 	  backLink.remove();
       nextLink.setAttribute('href', nextURL);	  
   }
-  else if (currentIndex == steps.length) {
-	  backLink.setAttribute('href', './step?1');
-	  backLink.innerHTML = 'Restart Tutorial';
+  else if (currentIndex == steps.length && window.location.toString().indexOf('get-started') < 1) {
+	  backLink.setAttribute('href', backURL);
+	  backLink.innerHTML = 'Back';
       nextLink.setAttribute('href', 'https://creativecloud.adobe.com/apps/download/lightroom-classic');	  
       nextLink.innerHTML = 'Launch Lightroom Classic';
+  }
+  else if (currentIndex == steps.length && window.location.toString().indexOf('get-started') > 0) {
+	  var advURL = window.location.toString().replace('get-started', 'dive-deep')
+	  var advURL = advURL.replace(currentIndex, '1');
+	  backLink.setAttribute('href', advURL);
+	  backLink.innerHTML = 'Start intermediate tutorial';
+      nextLink.setAttribute('href', 'https://creativecloud.adobe.com/apps/download/lightroom-classic');	  
+      nextLink.innerHTML = 'Launch Lightroom Classic';	  
   }
 }
 
