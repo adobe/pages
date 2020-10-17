@@ -234,6 +234,7 @@ async function decorateStep() {
     $h1.innerHTML=title;
     $h1.id='';
     
+    var trimmedDesc = trimmedDesc.trim();
     var descContent =  metadata + trimmedDesc.split(/[\.?!;]/).filter(sentence => sentence).map(sentence => `<p>${sentence}.</p>`).join('');
 	$descHolder.innerHTML = descContent;
     
