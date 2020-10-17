@@ -80,7 +80,6 @@ body.home .section-wrapper:last-child .default > h2 {
 }
 
 a.button.action,
-.default > p > a:only-child,
 body.home .section-wrapper > p > a:only-child {
 	display: inline-block;
 	color: #fff;
@@ -97,7 +96,6 @@ body.home .section-wrapper > p > a:only-child {
 }
 
 a.button.action:hover,
-.default > p > a:only-child:hover,
 body.home .section-wrapper > p > a:only-child:hover {
 	background: #0D66D0;
 }
@@ -292,7 +290,20 @@ body.step.loaded {
     margin-top: 40px;
 }
 
-.content header a,
+.content header nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.content header p:first-of-type {
+	display: block;
+	width: auto;
+	margin-bottom: 0;
+}
+
+.content header p,
+.content header p a,
 .content header h3 {
 	font-size: 14px;
     margin: 0;
@@ -303,6 +314,12 @@ body.step.loaded {
 
 .content .text {
 	padding-bottom: 60px;
+}
+
+.content .text h1 + div h3 {
+	font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 30px;	
 }
 
 .content .text p {
@@ -327,6 +344,10 @@ body.step.loaded {
 	float: right;
 }
 
+.content .text p {
+	font-family: "Adobe Clean Serif", adobe-clean-serif, sans-serif;
+}
+
 
 
 /* desktop specific styles */
@@ -337,15 +358,10 @@ body.step.loaded {
 		padding: 40px 52px 0px 52px;
 	}
 	
-	main h1 {
+	body.home main h1 {
 		font-size: 48px;
 		line-height: 60px;
 		margin-top: 0;
-	}
-	
-	main .text h1 {
-		font-size: 36px;
-		line-height: 48px;
 	}
 	
 	main h2 {
@@ -367,7 +383,7 @@ body.step.loaded {
 	}
 	
 	body.home main .section-wrapper {
-		padding: 60px 0;
+		padding: 60px 40px;
 	}
 	
 	main .cards {
@@ -408,10 +424,6 @@ body.step.loaded {
   	
   	main .default > p:last-child {
 	  	margin-bottom: 0;
-  	}
-  	
-  	header p:first-of-type {
-	  	margin-left: 12px;
   	}
   	
 }
@@ -462,6 +474,11 @@ body.step.loaded {
 
 
 @media only screen and (min-width: 1280px) {
+	
+	main .text h1 {
+		font-size: 36px;
+		line-height: 48px;
+	}
 	  	
   	.content header {
 		border-bottom: 1px solid #eaeaea;

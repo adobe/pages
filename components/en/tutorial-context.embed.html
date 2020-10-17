@@ -2,9 +2,12 @@
 	<nav>
 			<h3>Tutorial: <span id="tutorial-name"></span></h3>
 
-			<a class="text-link" id="see-all-steps" href="./index.html">
+			<p>
+				Step&nbsp;<span id="current-step"></span>&nbsp;of&nbsp;<span id="total-steps"></span>&nbsp;•&nbsp;
+				<a class="text-link" id="see-all-steps" href="./index.html">
 				See all steps ›
-			</a>
+				</a>
+			</p>
 	</nav>
 </header>
 
@@ -19,9 +22,16 @@ async function fetchSteps() {
 
 async function setData() {
   const steps = await fetchSteps();
+  const currentIndex = parseInt(window.location.search.split("?")[1]);
+
   const $tutTitle = document.getElementById('tutorial-name');
   $tutTitle.innerHTML = steps[0].Title;
   
+  const $currentStep = document.getElementById('current-step');
+  $currentStep.innerHTML = currentIndex;
+  
+  const $totalSteps = document.getElementById('total-steps');
+  $totalSteps.innerHTML = steps.length;
 }
 
 setData();
