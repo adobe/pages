@@ -131,7 +131,7 @@ window.setupForm = ({
         value: counter,
       })
     }
-    $form.querySelectorAll('input, textarea').forEach(($f) => {
+    $form.querySelectorAll('input, textarea, select').forEach(($f) => {
       if (!$f.name || $f.name === 'email2') {
         // skip email2
         return;
