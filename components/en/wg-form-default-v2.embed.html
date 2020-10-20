@@ -17,8 +17,8 @@
     const formType = document.querySelectorAll("main p");
     let formToUse = "";
     formType.forEach(function (text) {
-      if (text.textContent.includes("[form-type=")) {
-        formToUse = text.textContent.split("=")[1].split("]")[0];
+      if (text.textContent.includes("<Form:") || text.textContent.includes("<form:")) {
+        formToUse = text.textContent.split(":")[1].split(">")[0].trim();
         text.remove();
       }
     });
