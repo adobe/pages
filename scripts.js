@@ -82,12 +82,16 @@ async function loadLocalHeader() {
   const $inlineHeader=document.querySelector('main div.header-block');
   if ($inlineHeader) {
     const $header=document.querySelector('header');
-    $inlineHeader.childNodes.forEach((e) => {
-      if (e.nodeName == '#text') {
+    $inlineHeader.childNodes.forEach((e, i) => {
+      if (e.nodeName == '#text' && !i) {
         const $p=createTag('p');
         const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.nodeValue}`
         $p.innerHTML=inner;
         e.parentNode.replaceChild($p,e);
+      }
+      if (e.nodeName == 'P' && !i) {
+        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`
+        e.innerHTML=inner;
       }
     });
     $header.innerHTML=`<div>${$inlineHeader.innerHTML}</div>`;
