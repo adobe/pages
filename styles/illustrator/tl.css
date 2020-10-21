@@ -116,8 +116,8 @@ main .card a:any-link:hover {
 .step main .content h1 {
   position: relative;
   border: 1px dashed lightgrey;
-  margin: 40px auto 0.4em auto;
-  padding: 0 10px 0px 10px;
+  margin: 50px auto 0.4em auto;
+  padding: 0px 10px 0px 10px;
   display: inline-block;
 }
 
@@ -328,7 +328,8 @@ main .card a:any-link:hover {
   background-image: url(/static/twp3/window.jpg);
   background-size: cover;
   margin: auto;
-  padding-bottom: 84.1%;
+  width: 360px;
+  height: 305px;
   overflow: hidden;
   position: relative;
   top: -4em;
@@ -338,7 +339,7 @@ main .card a:any-link:hover {
   object-fit: cover;
   position: absolute;
   top: 3.5%; left: 2%;
-  width: 96%;
+  width: 97%;
   height: 94.5%;
 }
 
