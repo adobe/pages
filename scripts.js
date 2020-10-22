@@ -220,6 +220,17 @@ async function loadPagesJSModule(pages, aliases) {
   if (url) loadJSModule(url);
 }
 
+function externalizeImageSources($div) {
+  $div.querySelectorAll('img').forEach(($img) => {
+    const src=$img.src;
+    if (src.startsWith('https://hlx.blob.core.windows.net/external/')) {
+      const url=new URL(src);
+      const id=url.pathname.split('/')[2];
+      const ext=url.hash.split('.')[1];
+      $img.src=`/hlx_${id}.${ext}`;
+    }
+  })
+}
 function decorateTables() {
   document.querySelectorAll('main div>table').forEach(($table) => {
       const $cols=$table.querySelectorAll('thead tr th');
@@ -230,6 +241,7 @@ function decorateTables() {
       if (cols.length==1 && $rows.length==1) {
           $div=createTag('div', {class:`${cols[0]}`});
           $div.innerHTML=$rows[0].querySelector('td').innerHTML;
+          externalizeImageSources($div);
       } else {
           $div=turnTableSectionIntoCards($table, cols) 
       }
