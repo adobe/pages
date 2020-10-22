@@ -56,6 +56,7 @@
   
     
     output.map(function (item) {
+      console.log(item)
       let setup = inputSettings(item.label)        
       
       // INPUT TEXT || EMAIL
@@ -114,6 +115,27 @@
           <div class="input-el">
             <span style="display: inline-block; padding-bottom: 8px;">${item.label}</span>
             ${options}
+          </div>
+        `
+      }
+
+
+      // SELECT 
+      if(item.type === "select") {
+        let select_options = item.options.split(',')
+        let options = "";
+        select_options.forEach(function(option) {
+          let cleanOptionName = option.indexOf(' ') >= 0 ? option.split(' ').join('-').toLowerCase() : option.toLowerCase();
+          options += `
+            <option>${option}</option>
+          `
+        })
+        formField += `
+          <div>
+            <label style="display: inline-block; padding-bottom: 8px;" for="${setup.label_clean}">${item.label}</label>
+            <select name="${setup.label_clean}" id="${setup.label_clean}">
+              ${options}
+            </select>
           </div>
         `
       }
