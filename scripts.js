@@ -298,7 +298,7 @@ window.pages.dependencies=[];
 
 const legacyAliasMap={ 
   max: 'max',
-  twp3: ['twp3', 'tl', 'Ai-Sa'],
+  twp3: ['twp3', 'tl', 'ai-sa'],
   'step-by-step': 'learn',
   twp: 'twp2'
 };
