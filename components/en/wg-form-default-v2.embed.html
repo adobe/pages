@@ -58,21 +58,23 @@
 
   async function createForm() {
     let formField = "";
+    let formSubmitPresent = false;
     let output = await formData();
     
     window.location.hostname === "localhost" ? output = output : output = output.data;
   
     
-    output.map(function (item) {
+    output.forEach((item) => {
       console.log(item)
-      let setup = inputSettings(item.label)        
+      const setup = inputSettings(item.label);
+      const name=item.name?item.name:setup.label_clean;        
       
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
         formField += `
       <div class="input-el">
-        <label for="${setup.label_clean}">${setup.label}</label>
-        <input type="${item.type}" name="${setup.label_clean}" ${setup.required}/>
+        <label for="${name}">${setup.label}</label>
+        <input type="${item.type}" name="${name}" ${setup.required}/>
       </div>
       `;
       }
@@ -83,11 +85,14 @@
         let radioOption = "";
 
         optionsAll.forEach(function (option) {
-          let optionCleanUp =  option.indexOf(" ") >= 0 ? option.split(" ").join("-") : option;
+          const cleanOptionName = toClassName(option);
+          const id=name+'-'+cleanedOptionName;
+          const value=option.replace('"','');
+
           radioOption += `
           <div class="radio-option">
-            <input type="radio" id="${setup.label_clean}-${optionCleanUp.toLowerCase()}" name="${setup.label_clean}" value="${optionCleanUp.toLowerCase()}" required/>
-            <label for="${setup.label_clean}-${optionCleanUp.toLowerCase()}">${option}</label>
+            <input type="radio" id="${id}" name="${name}" value="${value}" required/>
+            <label for="${id}">${option}</label>
           </div>
         `;
         });
@@ -106,22 +111,25 @@
         let checkbox_options = csvOrLinesToArray(item.options);
         let options = "";
         checkbox_options.forEach(function(option) {
-          let cleanOptionName = option.indexOf(' ') >= 0 ? option.split(' ').join('-').toLowerCase() : option.toLowerCase();
+          const cleanOptionName = toClassName(option);
+          const id=name+'-'+cleanedOptionName;
+          const value=option.replace('"','');
+
           options += `
             <div class="radio-option">
               <input type="checkbox" 
-                id="${setup.label_clean}-${cleanOptionName.toLowerCase()}" 
-                name="${setup.label_clean}"
-                value="${setup.label_clean}-${cleanOptionName.toLowerCase()}"
+                id="${name}-${id}" 
+                name="${name}"
+                value="${value}";
               />
-              <label for="${setup.label_clean}-${cleanOptionName.toLowerCase()}">${option}</label>
+              <label for="$${id}">${option}</label>
             </div>
           
           `
         })
         formField += `
           <div class="input-el">
-            <span style="display: inline-block; padding-bottom: 8px;">${item.label}</span>
+            <span>${item.label}</span>
             ${options}
           </div>
         `
@@ -133,15 +141,14 @@
         let select_options = csvOrLinesToArray(item.options);
         let options = "";
         select_options.forEach(function(option) {
-          let cleanOptionName = option.indexOf(' ') >= 0 ? option.split(' ').join('-').toLowerCase() : option.toLowerCase();
           options += `
             <option>${option}</option>
           `
         })
         formField += `
           <div class="select-el">
-            <label style="display: inline-block; padding-bottom: 8px;" for="${setup.label_clean}">${item.label}</label>
-            <select name="${setup.label_clean}" id="${setup.label_clean}">
+            <label style="display: inline-block; padding-bottom: 8px;" for="${name}">${item.label}</label>
+            <select name="${name}" id="${name}">
               ${options}
             </select>
           </div>
@@ -152,22 +159,34 @@
       if(item.type === "textarea") {
         formField += `
           <div class="text-el">
-            <label for="${setup.label_clean}">${item.label}</label>
+            <label for="${name}">${item.label}</label>
             <textarea
-              name="${setup.label_clean}"
+              name="${name}"
               cols="30"
               rows="5"
               ${setup.required}></textarea>
           </div>
         `
       }
-      
+
+      // Submit Button
+      if(item.type === "submit") {
+        formField += `
+          <div class="submit-el">
+            <button type="submit">${item.label}</button>
+          </div>
+        `;
+        formSubmitPresent=true;
+      }
+
     });
 
-    formField += `
-    <div class="submit-el">
-      <button type="submit">Submit</button>
-    </div>`;
+    if (!formSubmitPresent) {
+        formField += `
+      <div class="submit-el">
+        <button type="submit">Submit</button>
+      </div>`;
+    }
     document.getElementById("wg-form").innerHTML = formField;
   }
 
