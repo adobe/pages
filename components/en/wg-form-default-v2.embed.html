@@ -86,7 +86,7 @@
 
         optionsAll.forEach(function (option) {
           const cleanOptionName = toClassName(option);
-          const id=name+'-'+cleanedOptionName;
+          const id=name+'-'+cleanOptionName;
           const value=option.replace('"','');
 
           radioOption += `
@@ -112,7 +112,7 @@
         let options = "";
         checkbox_options.forEach(function(option) {
           const cleanOptionName = toClassName(option);
-          const id=name+'-'+cleanedOptionName;
+          const id=name+'-'+cleanOptionName;
           const value=option.replace('"','');
 
           options += `
