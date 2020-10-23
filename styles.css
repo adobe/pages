@@ -240,7 +240,8 @@ main div.form-container input[type=radio]:checked {
 
 main div.form-container .radio-option {
 	display: flex;
-	margin: 10px 0;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 main div.form-container .radio-option label {
