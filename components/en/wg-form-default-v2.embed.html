@@ -46,6 +46,14 @@
     return settings;
   }
 
+  function csvOrLinesToArray(input) {
+    if (input.includes('\n')) {
+      return input.split('\n').map(o => o.trim());
+    } else {
+      return input.split(',').map(o => o.trim());
+    } 
+  }
+
 
 
   async function createForm() {
@@ -71,7 +79,7 @@
 
       // RADIO INPUTS
       if (item.type.includes("radio")) {
-        let optionsAll = item.options.split(", ");
+        let optionsAll = csvOrLinesToArray(item.options);
         let radioOption = "";
 
         optionsAll.forEach(function (option) {
@@ -95,7 +103,7 @@
 
       // CHECKBOXES
       if(item.type === "checkbox") {
-        let checkbox_options = item.options.split(',')
+        let checkbox_options = csvOrLinesToArray(item.options);
         let options = "";
         checkbox_options.forEach(function(option) {
           let cleanOptionName = option.indexOf(' ') >= 0 ? option.split(' ').join('-').toLowerCase() : option.toLowerCase();
@@ -122,7 +130,7 @@
 
       // SELECT 
       if(item.type === "select") {
-        let select_options = item.options.split(',')
+        let select_options = csvOrLinesToArray(item.options);
         let options = "";
         select_options.forEach(function(option) {
           let cleanOptionName = option.indexOf(' ') >= 0 ? option.split(' ').join('-').toLowerCase() : option.toLowerCase();
