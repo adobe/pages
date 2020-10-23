@@ -160,6 +160,115 @@ main div.form label {
 	color: #6E6E6E;
 }
 
+main div.form-container {
+  max-width: 692px;
+  margin: auto;
+}
+
+main div.form-container .input-el, 
+main div.form-container .select-el,
+main div.form-container .radio-el {
+  margin-bottom: 40px;
+}
+
+main div.form-container label,
+main div.form-container .radio-el > span,
+main div.form-container .input-el > span {
+	display: block;
+	color: #6E6E6E;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+main div.form-container select {
+	border: 1px solid #8E8E8E;
+	border-radius: 4px;
+    -webkit-appearance: none;
+    display: block;
+    flex: none;
+	margin: 3px 0 0 0;
+	padding: 5px 15px;
+}
+
+main div.form-container input[type=radio],
+main div.form-container input[type=checkbox] {
+	border: 2px solid #8E8E8E;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    display: block;
+    flex: none;
+	margin: 3px 0 0 0;
+}
+
+main div.form-container input[type=checkbox] {
+	border-radius: 2px;
+	position: relative;
+}
+
+main div.form-container input[type=radio] {
+    border-radius: 100%;
+}
+
+main div.form-container input[type=checkbox]:focus,
+main div.form-container input[type=radio]:focus {
+	outline: none;
+}
+
+main div.form-container input[type=checkbox]:checked {
+	outline: none;
+	border-color: transparent;
+	background: #1473E6;
+}
+
+main div.form-container input[type=checkbox]:checked:before {
+	content: " ";
+	background: url(/icons/checkbox.svg) center center no-repeat;
+	background-size: 12px 12px;
+	top: -2px;
+    left: -2px;
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: relative;
+}
+
+main div.form-container input[type=radio]:checked {
+	outline: none;
+	border: 5px solid #1473E6;
+}
+
+main div.form-container .radio-option {
+	display: flex;
+	margin: 10px 0;
+}
+
+main div.form-container .radio-option label {
+	margin-left: 12px;
+	color: #4B4B4B;
+}
+
+main div.form-container .radio-header {
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+main div.form-container button[type=submit] {
+  margin: auto;
+	font-family: "Adobe Clean", adobe-clean, sans-serif;
+	color: #fff;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: #1473E6;
+	border: none;
+	padding: 0 20px;
+  margin-top: 40px;
+  display: block;
+}
+
+
 main input,
 main textarea,
 main select {
