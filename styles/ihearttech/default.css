@@ -1,0 +1,357 @@
+@import url("../default.css");
+
+main {
+    text-align: center;
+    font-size: 16px;
+    color: black;
+  }
+  
+  main img, main video {
+    max-width: 100%;
+    vertical-align: middle;
+  }
+
+  main ul {
+    display: block;
+	list-style: none;
+  }
+  
+  main h1 {
+    font-size: 36px;
+    font-weight: 900;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  .default a {
+    color: #1473E6;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  header div:first-of-type {
+    background: transparent;
+  }
+  
+  body.form main .default > p, 
+  main h1 + p {
+    color: inherit !important;
+}
+  
+  main .default:first-of-type h1 {
+    padding-top: 2em;
+  }
+  
+  main .default:first-of-type p {
+    margin-top: 0;
+    margin-bottom: 0;;
+  }
+  
+  main .default.form:first-of-type p {
+      padding-bottom: 0;
+  } 
+  
+  main ul.cards {
+    margin: 0 auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 50px;
+    list-style: none;
+    max-width: 1100px;
+  }
+  
+  main div.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  main div.cards .card {
+    max-width: 100%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+  }
+  
+  main div.cards .card .card-text {
+    padding: 20px;
+    line-height: 1.7;
+  }
+  
+  
+  .ihearttech .cards {
+    max-width: 1100px;
+    margin: auto;
+  }
+  
+  
+  .ihearttech .cards .card .card-text {
+    padding: 5em 1.4em;
+  }
+
+@media (min-width: 900px) {
+    main .card .card-text>div {
+        height: 210px;
+    }
+
+    .ihearttech .cards .card .card-text {
+        padding: 5em 1.4em;
+        height: 320px;
+    }
+
+    main .card {
+        height: 460px;
+    }
+
+}
+  
+  .ihearttech .main-video .card-text {
+    font-size: 18px;
+    padding: 2em 4em;
+  }
+
+  main .card .card-image img{
+    max-height: 230px;
+  }
+
+  main .card .card-image {
+      height: 140px;
+  }
+  
+  .ihearttech .cards .card {
+    max-width: 90%;
+    width: 90%;
+    margin: auto;
+    font-size: 16px;
+    margin-bottom: 2em;
+  }
+  
+  .ihearttech .cards .card h4 { 
+    font-size: 1.2em;
+    margin: 0;
+    padding-bottom: 1em;
+  }
+  
+  .ihearttech .cards .card h4 + {
+    color: green;
+  }
+  
+  .card a {
+    display:  block;
+    margin-top: 1em;
+  }
+  
+  @media(min-width: 700px) {
+    .ihearttech .cards {
+      display: flex;
+    }
+  
+    .ihearttech .cards .card {
+      width: 45%;
+    }
+  }
+  
+  @media(min-width: 800px) {
+    .ihearttech .cards {
+      display: flex;
+    }
+  
+    .ihearttech .cards .card {
+      width: 30%;
+    }
+  }
+
+  main div.cards .card .card-text a:any-link {
+    background-color: #1473e6;;
+    padding: 8px 30px 10px 30px;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 2em !important;
+  }
+
+  main div.video-text .card .text a:any-link {
+    background-color: #1473e6;;
+    padding: 8px 30px 10px 30px;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    display: inline-block;
+    margin-top: 2em !important;
+  }
+   
+  main .card-image .card-text {
+    padding: 1em 0em;
+  }
+  
+  main .main-video p:first-of-type {
+    font-weight: 800;
+    font-size: 22px;
+    margin: 0;
+  }
+  
+  main .main-video a {
+    top: 14px;
+    position: relative;
+    text-decoration: none;
+    -webkit-appearance: none;
+    outline: none;
+    background: #1473e6;
+    border-color: #1473e6;
+    color: white;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 16px;
+    min-height: 32px;
+    height: auto;
+    min-width: 72px;
+    padding: 4px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background .13s ease-out,border-color .13s ease-out,color .13s ease-out,box-shadow .13s ease-out;
+  }
+  
+  @media(min-width: 740px) {
+    main ul.cards {
+      grid-template-columns:  1fr 1fr;
+    }
+  }
+  
+  @media(min-width: 1000px) {
+    main ul.cards {
+      grid-template-columns:  1fr 1fr 1fr;
+    }
+  }
+  
+  main ul.cards li {
+      border: 1px solid #ddd;
+  }
+  
+  main ul.cards li .card-text{
+    padding: 20px;
+    font-size: 16px;
+    text-align: left;
+  }
+  
+  main .card-image > div {
+    background: #eee;
+  }
+  
+  main ul.cards li .card-text p:first-of-type {
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  main ul.cards li .card-text a:any-link {
+    background-color: #1473e6;;
+    padding: 8px 30px 10px 30px;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-block;
+  }
+  
+  main .card .video-thumb {
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%
+  }
+  
+  main .card .video-thumb svg {
+    fill: white;
+    background-color: #1473e6;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .section-wrapper .default {
+    max-width: none !important;
+    width: 100% !important;
+    margin: auto; 
+  }
+
+  .section-wrapper .default .card-light-blue {
+    background-color: #44a0d4;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  main .section-wrapper .default .card-light-blue h1,
+  main .section-wrapper .default .card-dark-blue h1,
+  main .section-wrapper .default .card-red h1,
+  main .section-wrapper .default .card-dark h1,
+  main .section-wrapper .default .card-yellow h1 {
+      color: #fff;
+  }
+
+  main .section-wrapper .default .card-light-blue a,
+  main .section-wrapper .default .card-yellow a {
+      color: #fff;
+      text-decoration: underline;
+  }
+
+  .section-wrapper .default .card-dark-blue {
+    background-color: #205188;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  .section-wrapper .default .card-yellow {
+    background-color: #ffd184;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  .section-wrapper .default .card-red {
+    background-color: #d85a58;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  .section-wrapper .default .card-dark {
+    background-color: #282828;
+    color: #fff;
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+
+  .section-wrapper .default .card-light {
+    padding-bottom: 4em;
+    padding-left: 4em;
+    padding-right: 4em;
+    font-size: 18px;
+  }
+  

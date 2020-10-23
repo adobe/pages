@@ -255,6 +255,16 @@ main .card h3 {
 	line-height: 20px;
 }
 
+#beta-form select {
+	border: 1px solid #8E8E8E;
+	border-radius: 4px;
+    -webkit-appearance: none;
+    display: block;
+    flex: none;
+	margin: 3px 0 0 0;
+	padding: 5px 15px;
+}
+
 #beta-form input[type=radio],
 #beta-form input[type=checkbox] {
 	border: 2px solid #8E8E8E;
@@ -263,7 +273,7 @@ main .card h3 {
     height: 16px;
     display: block;
     flex: none;
-    margin: 3px 0 0 0;
+	margin: 3px 0 0 0;
 }
 
 #beta-form input[type=checkbox] {

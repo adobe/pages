@@ -88,8 +88,6 @@ async function purge() {
 
     const outerURL=`https://pages.adobe.com${path}`;
 
-    const resp=await fetch(outerURL, {cache: 'reload', mode: 'no-cors'});
-
     console.log(`redirecting ${outerURL}`);
     window.location.href=outerURL;            
 }
@@ -100,6 +98,11 @@ async function sendPurge(path) {
     });
     const json=await resp.json();
     console.log(JSON.stringify(json));
+
+    const outerURL=`https://pages.adobe.com${path}`;
+    await fetch(outerURL, {cache: 'reload', mode: 'no-cors'});
+    console.log(`busted browser cache for: ${outerURL}`);
+
     return(json);
 }
 
