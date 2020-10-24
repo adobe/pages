@@ -20,25 +20,41 @@ window.setupForm = ({
   const $form = document.getElementById(formId);
 
   let emails = document.getElementsByClassName("emails");
-  for (let i = 0; i < emails.length; i++) {
-    emails[i].addEventListener('change', function () {
-      const email1 = document.getElementById("email");
-      const email2 = document.getElementById("email2");
-      let elements = document.getElementsByClassName("emailerror");
-      if (email1.value !== email2.value) {
-        // this tells the form to fail validation
-        email1.setCustomValidity('Email fields must match.')
-        for (let i = 0; i < elements.length; i++) {
-          elements[i].classList.add("revealed");
+  console.log(emails.length);
+  if (emails.length) {
+    // legacy email checker
+    for (let i = 0; i < emails.length; i++) {
+      emails[i].addEventListener('change', function () {
+        const email1 = document.getElementById("email");
+        const email2 = document.getElementById("email2");
+        let elements = document.getElementsByClassName("emailerror");
+        if (email1.value !== email2.value) {
+          // this tells the form to fail validation
+          email1.setCustomValidity('Email fields must match.')
+          for (let i = 0; i < elements.length; i++) {
+            elements[i].classList.add("revealed");
+          }
+        } else {
+          email1.setCustomValidity('');
+          email2.setCustomValidity('');
+          for (let i = 0; i < elements.length; i++) {
+            elements[i].classList.remove("revealed");
+          }
         }
-      } else {
-        email1.setCustomValidity('');
-        email2.setCustomValidity('');
-        for (let i = 0; i < elements.length; i++) {
-          elements[i].classList.remove("revealed");
-        }
-      }
-    });
+      });
+    }  
+  } else {
+    const $emails=Array.from($form.querySelectorAll('input[name=email]'));
+    $emails.forEach(($e) => {
+        $e.addEventListener('change', evt => {
+          const match=$emails.every($e => $emails[0].value == $e.value);
+          const validity=match?'':'Email fields must match.';
+          $emails.forEach($e => {
+            $e.setCustomValidity(validity);
+            if (validity) $e.reportValidity();
+          });
+        })
+      })
   }
 
   let sheet, thankyou;

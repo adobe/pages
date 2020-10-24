@@ -190,12 +190,12 @@
     document.getElementById("wg-form").innerHTML = formField;
   }
 
-  setupForm({
+  async function instructor() {
+    await createForm();
+    setupForm({
       formId: 'wg-form'
     })
 
-  async function instructor() {
-    await createForm();
   }
 
   instructor();
