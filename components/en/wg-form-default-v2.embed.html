@@ -67,14 +67,15 @@
     output.forEach((item) => {
       console.log(item)
       const setup = inputSettings(item.label);
-      const name=item.name?item.name:setup.label_clean;        
+      const name=item.name?item.name:setup.label_clean; 
+      const required=item.required?item.required:setup.required;       
       
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
         formField += `
       <div class="input-el">
         <label for="${name}">${setup.label}</label>
-        <input type="${item.type}" name="${name}" ${setup.required}/>
+        <input type="${item.type}" name="${name}" ${required}/>
       </div>
       `;
       }
@@ -91,7 +92,7 @@
 
           radioOption += `
           <div class="radio-option">
-            <input type="radio" id="${id}" name="${name}" value="${value}" required/>
+            <input type="radio" id="${id}" name="${name}" value="${value}" ${required}/>
             <label for="${id}">${option}</label>
           </div>
         `;
@@ -147,7 +148,7 @@
         })
         formField += `
           <div class="select-el">
-            <label style="display: inline-block; padding-bottom: 8px;" for="${name}">${item.label}</label>
+            <label for="${name}">${item.label}</label>
             <select name="${name}" id="${name}">
               ${options}
             </select>
@@ -164,7 +165,7 @@
               name="${name}"
               cols="30"
               rows="5"
-              ${setup.required}></textarea>
+              ${required}></textarea>
           </div>
         `
       }
