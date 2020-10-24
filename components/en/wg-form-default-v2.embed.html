@@ -56,7 +56,7 @@
 
 
 
-  async function createForm() {
+  async function createForm(formId) {
     let formField = "";
     let formSubmitPresent = false;
     let output = await formData();
@@ -65,7 +65,6 @@
   
     
     output.forEach((item) => {
-      console.log(item)
       const setup = inputSettings(item.label);
       const name=item.name?item.name:setup.label_clean; 
       const required=item.required?item.required:setup.required;       
@@ -188,13 +187,46 @@
         <button type="submit">Submit</button>
       </div>`;
     }
-    document.getElementById("wg-form").innerHTML = formField;
+    const $form=document.getElementById(formId)
+    $form.innerHTML = formField;
+
+    //show_if
+    const showIfTypes=['select','input[type=radio]','input[type=checkbox]'];
+    const qs=showIfTypes.map(t => `#${formId} ${t}`).join(',');
+    const $inputs=Array.from(document.querySelectorAll(qs));
+    $inputs.forEach($input => {
+      $input.addEventListener('change', evt => {
+        hideConditionals($inputs, output, $form);
+      })
+    })
+    hideConditionals($inputs, output, $form);
+  }
+
+function hideConditionals($inputs, formDefinition, $form) {
+    const values=$inputs.map($i => {
+      if (($i.type=='checkbox' || $i.type=='radio')  && !$i.checked) return null;
+      return $i.value;
+    })
+    formDefinition.forEach(item => {
+      if (item.show_if) {
+        const showIfValues=csvOrLinesToArray(item.show_if);
+        let match=false;
+        showIfValues.forEach(val => {
+          if (values.includes(val)) match=true;
+        })
+      const qs='.radio-el, .select-el, .input-el';
+      const $div=$form.querySelector(`[name="${item.name}"]`).closest(qs);
+      if (match) $div.classList.remove('hidden');
+      else $div.classList.add('hidden');
+      }
+    })
   }
 
   async function instructor() {
-    await createForm();
+    const formId='wg-form'
+    await createForm(formId);
     setupForm({
-      formId: 'wg-form'
+      formId
     })
 
   }
