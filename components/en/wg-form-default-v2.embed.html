@@ -118,17 +118,17 @@
           options += `
             <div class="radio-option">
               <input type="checkbox" 
-                id="${name}-${id}" 
+                id="${id}" 
                 name="${name}"
                 value="${value}";
               />
-              <label for="$${id}">${option}</label>
+              <label for="${id}">${option}</label>
             </div>
           
           `
         })
         formField += `
-          <div class="input-el">
+          <div class="input-el checkboxes ${required}">
             <span>${item.label}</span>
             ${options}
           </div>
@@ -222,11 +222,35 @@ function hideConditionals($inputs, formDefinition, $form) {
     })
   }
 
+  function customValidate() {
+    const qs='.radio-el.hidden, .select-el.hidden, .input-el.hidden';
+    const $hiddenEls=$form.querySelectorAll(qs);
+    $hiddenEls.forEach($div => {
+      $div.querySelectorAll('[required]').forEach($r => {
+        console.log($r);
+        $r.removeAttribute('required')
+      });
+    })
+
+    const $requiredCheckboxes=$form.querySelectorAll('.checkboxes.required');
+    $requiredCheckboxes.forEach($div => {
+      console.log($div);
+      console.log (`hidden:${$div.classList.contains('hidden')} checked:${$div.querySelector('input:checked')}`);
+      if (!$div.classList.contains('hidden') && !$div.querySelector('input:checked')) {
+        // needs to be filled in
+        $div.querySelector('input[type=checkbox]').setCustomValidity('Please select at least one checkbox.');
+      } else {
+        $div.querySelector('input[type=checkbox]').setCustomValidity('');
+      }
+    })
+
+  }
+
   async function instructor() {
     const formId='wg-form'
     await createForm(formId);
     setupForm({
-      formId
+      formId, preValidation: customValidate
     })
 
   }

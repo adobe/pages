@@ -152,11 +152,15 @@ window.setupForm = ({
         // skip email2
         return;
       }
+
       const type = $f.getAttribute('type');
       if ((type !== 'radio' && type !== 'checkbox') || $f.checked) {
         const existing = values.find((v) => v.name === $f.name);
         if (existing) {
-          existing.value += `, ${$f.value}`;
+          // add if not email confirmation
+          if ($f.name != 'email') {
+            existing.value += `, ${$f.value}`;
+          } 
         } else {
           values.push({ name: $f.name, value: $f.value });
         }
@@ -165,6 +169,7 @@ window.setupForm = ({
 
     const body = { sheet, data: values };
     console.log('invoking', uri);
+
     const resp = await fetch(uri, {
       method: 'POST',
       headers: {
@@ -174,6 +179,7 @@ window.setupForm = ({
       body: JSON.stringify(body),
     });
     const text = await resp.text();
+
     console.log(values[0].value, `${counter}`, resp.status, text,  body);
     return resp.status;
   }
