@@ -1,0 +1,134 @@
+<div class="form-container">
+  <form action="">
+    <div class="slide-form-container">
+      <div class="slide-form-item active">
+        <div class="input-el">
+          <label for="">How do you prefer to get started using a Creative Cloud app or build your skills? Select all that apply. </label>
+          <input class="field" type="text">
+        </div>
+      </div>
+  
+      <div class="slide-form-item">
+        <div class="input-el">
+          <label for="">How do you prefer to get started using a Creative Cloud app or build your skills? Select all that apply. </label>
+          <input class="field" type="text">
+        </div>
+        <div class="input-el">
+          <label for="">How do you prefer to get started using a Creative Cloud app or build your skills? Select all that apply. </label>
+          <input class="field" type="text">
+        </div>
+      </div>
+  
+      <div class="slide-form-item">
+        <div class="input-el">
+          <label for="">How do you prefer to get started using a Creative Cloud app or build your skills? Select all that apply. </label>
+          <input class="field" type="text">
+        </div>
+      </div>
+  
+      <div class="slide-form-item">
+        <div class="input-el">
+          <label for="">How do you prefer to get started using a Creative Cloud app or build your skills? Select all that apply. </label>
+          <input class="field" type="text">
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel__item">
+        <div class="form-sliders-btns">
+          <button class="slide-btn prev" type="button">Back</button>
+          <button class="slide-btn next" type="button">Next</button>
+          <button type="submit" class="submit">Submit</button>
+        </div>
+      </div>
+      <div class="panel__item">
+        <div class="indicator-crumb">
+          <span class="indicator-current">0</span>
+          <span>of</span>
+          <span class="indicator-total">0</span> answered
+        </div>
+        <div class="progress-indicator">
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+<script>
+  let formContainer = document.querySelector('.slide-form-container');
+  let slideBtns = document.querySelectorAll('.slide-btn');
+  let slideItems = document.querySelectorAll('.slide-form-item');
+  let currentSlide = 0;
+
+  // Set Indicator Counter
+  function setIndicator(current, total) {
+    document.querySelector('.indicator-current').innerHTML = 0;
+    document.querySelector('.indicator-total').innerHTML = total;
+  }
+
+  setIndicator(currentSlide, slideItems.length);
+
+  // animate form height 
+  function setFormContainHeight() {
+    //
+    slideItems.forEach(function(slide) {
+      if(slide.classList.contains('active')) {
+        formContainer.style.height = slide.offsetHeight + 'px'
+      }
+    })
+  }
+
+  setFormContainHeight();
+
+
+  // Set Sliders 
+  function setSlider(count = 0) {
+    slideItems.forEach(function(slide, index) {
+      slide.classList.remove('active')
+      slide.style.transform = `translateX(${index - count}00%)`
+    })
+
+    slideItems[count].classList.add('active')
+  }
+
+  setSlider();
+
+  // Handler to slide through forms
+  function formSlider(event) {
+    let btn = event.currentTarget;
+    if(btn.classList.contains('prev')) {
+      if(currentSlide >= 1) {
+        currentSlide = currentSlide - 1;
+      }
+      
+      // Previous
+      
+    } else {
+      if(currentSlide < slideItems.length - 1) {
+        currentSlide = currentSlide + 1;
+      }
+      // Next 
+      
+    }
+
+    setSlider(currentSlide)
+    setFormContainHeight();
+    let counter = 0;
+    document.querySelectorAll('.field').forEach((field) => {
+      if(field.value) {
+        counter++;
+      }
+      document.querySelector('.indicator-current').innerHTML = counter;
+    })
+
+  }
+
+
+  slideBtns.forEach(function(btn) {
+    btn.addEventListener('click', formSlider)
+  })
+</script>
