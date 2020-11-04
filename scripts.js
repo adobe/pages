@@ -220,6 +220,19 @@ async function loadPagesJSModule(pages, aliases) {
   if (url) loadJSModule(url);
 }
 
+function loadTemplate() {
+  decorateTables();
+  let template='default'
+  $template=document.querySelector('.template');
+  
+  if ($template) {
+    template=toClassName($template.textContent)
+  }
+
+  loadJSModule(`/templates/${template}/scripts.js`);
+  loadCSS(`/templates/${template}/styles.css`);
+}
+
 function externalizeImageSources($div) {
   $div.querySelectorAll('img').forEach(($img) => {
     const src=$img.src;
@@ -280,35 +293,19 @@ function turnTableSectionIntoCards($table, cols) {
   return ($cards);
 }
 
-
-
-
-const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
-
 window.pages={};
-
-if (pathSegments) {
-  const product=pathSegments[0];
-  const locale=pathSegments[1];
-  const project=pathSegments[2];
-  window.pages = { product, locale, project };
-}
-
 window.pages.dependencies=[];
-
-const legacyAliasMap={ 
-  max: 'max',
-  twp3: ['twp3', 'tl', 'ai-sa'],
-  'step-by-step': 'learn',
-  twp: 'twp2'
-};
-
-loadPagesCSS(window.pages);
-loadPagesJSModule(window.pages, legacyAliasMap);
-
 
 if (window.pages.product) {
   document.getElementById('favicon').href=`/icons/${window.pages.product}.svg`;
+}
+
+if (document.readyState == 'loading') {
+  window.addEventListener('DOMContentLoaded', (event) => {
+      loadTemplate();
+  });
+} else {
+  loadTemplate();
 }
 
 
