@@ -159,78 +159,19 @@ function classify(qs, cls, parent) {
     });
 }
 
-async function loadPagesCSS(pages) {
-  const exp=`${pages.product?'product':''}${pages.project?'+project':''}`;
-  
-  let url='';
-  let resp;
-
-  switch (exp) {
-    
-    case 'product+project': 
-      url=`/styles/${pages.product}/${pages.project}.css`;
-      resp=await fetch (url);
-      if (resp.ok) break; 
-
-    case 'product': 
-      url=`/styles/${pages.product}/default.css`;
-      resp=await fetch (url);
-      if (resp.ok) break; 
-    
-    default:
-      url=`/styles/default.css`;
-      resp=await fetch (url);
-      if (resp.ok) break;
-      url='';
-
-  }
-
-  if (url) loadCSS(url);
-}
-
-async function loadPagesJSModule(pages, aliases) {
-  
-  let url='';
-  let resp;
-
-  
-  switch (pages.project?true:false) {
-    
-    case true: 
-      let mappedProject=pages.project;
-      for (let name in aliases) {
-          const map=aliases[name];
-          const from=[].concat(map);
-          from.forEach(e => {
-            if (pages.project.startsWith(e)) mappedProject=name;
-          })
-        }
-
-      url=`/scripts/${mappedProject}.js`;
-      resp=await fetch (url);
-      if (resp.ok) break; 
-
-    default:
-      url=`/scripts/default.js`;
-      resp=await fetch (url);
-      if (resp.ok) break;
-      url='';
-      
-  }
-  if (url) loadJSModule(url);
-}
-
 function loadTemplate() {
   decorateTables();
   let template='default'
   $template=document.querySelector('.template');
   
   if ($template) {
-    template=toClassName($template.textContent)
+    template=toClassName($template.textContent);
+    $template.remove();
   }
 
-  loadJSModule(`/templates/${template}/scripts.js`);
-  loadCSS(`/templates/${template}/styles.css`);
+  loadJSModule(`/templates/${template}/${template}.js`);
+  loadCSS(`/templates/${template}/${template}.css`);
+
 }
 
 function externalizeImageSources($div) {
@@ -244,6 +185,7 @@ function externalizeImageSources($div) {
     }
   })
 }
+
 function decorateTables() {
   document.querySelectorAll('main div>table').forEach(($table) => {
       const $cols=$table.querySelectorAll('thead tr th');
