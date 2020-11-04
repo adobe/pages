@@ -1,0 +1,171 @@
+<div class="form-container">
+  <form action="">
+    <div class="slide-form-container">
+      <div class="slide-form-item active">
+        <div class="question">
+          <h1>We’d love your thoughts.</h1>
+          <p>Please tell us about your experience with Creative Cloud Teams subscription. We’d love to hear any feedback you would like to share.</p>
+          <hr>
+          <p class="field-title">How easy was it for you to start using your Creative Cloud Teams apps?</p>
+          <div class="radio-option">
+            <input class="field" type="radio" id="option-one" name="ease-of-use" value="extremely-easy"/>
+            <label for="option-one">Extremely Easy</label>
+          </div>
+          <div class="radio-option">
+            <input class="field" type="radio" id="option-two" name="ease-of-use" value="easy"/>
+            <label for="option-two">Easy</label>
+          </div>
+        </div>
+      </div>
+  
+      <div class="slide-form-item">
+        <div class="question">
+          <div class="radio-option">
+            <input class="field" type="checkbox" id="filmfestivals" name="whereshared" value="Film festival(s)"/>
+            <label for="filmfestivals">Film festival(s)</label>
+          </div>
+          <div class="radio-option">
+            <input class="field" type="checkbox" id="movietheater" name="whereshared" value="Movie theater"/>
+            <label for="movietheater">Movie theater</label>
+          </div>
+          <div class="radio-option">
+            <input class="field" type="checkbox" id="filmfestivals" name="whereshared" value="Film festival(s)"/>
+            <label for="filmfestivals">Film festival(s)</label>
+          </div>
+          <div class="radio-option">
+            <input class="field" type="checkbox" id="movietheater" name="whereshared" value="Movie theater"/>
+            <label for="movietheater">Movie theater</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel">
+      <div class="panel__item">
+        <div class="form-sliders-btns">
+          <button class="slide-btn prev" type="button">Back</button>
+          <button class="slide-btn next" type="button">Next</button>
+          <button type="submit" class="submit" style="display: none;">Submit</button>
+        </div>
+      </div>
+      <div class="panel__item">
+        <div class="indicator-crumb">
+          <span class="indicator-current">0</span>
+          <span>of</span>
+          <span class="indicator-total">0</span> answered
+        </div>
+        <div class="progress-indicator">
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+<script>
+  let formContainer = document.querySelector('.slide-form-container');
+  let slideBtns = document.querySelectorAll('.slide-btn');
+  let slideItems = document.querySelectorAll('.slide-form-item');
+  let progressIndicator = document.querySelector('.progress-indicator span')
+  let totalAnswers = document.querySelectorAll('.field');
+  let currentSlide = 0;
+  let collectNames = [];
+  let totalQuestions = [];
+
+
+  function getTotalQuestions() {
+    totalAnswers.forEach(function(field) {
+      if(!totalQuestions.includes(field.getAttribute('name'))) {
+        totalQuestions.push(field.getAttribute('name'))
+      }
+    })
+  }
+
+  getTotalQuestions();
+
+
+  function valueStore(event) {
+    let currentSelector = event.currentTarget;
+    if(!collectNames.includes(currentSelector.getAttribute('name'))) {
+      collectNames.push(currentSelector.getAttribute('name'))
+    }
+  }
+
+
+
+  
+  totalAnswers.forEach(function(input) {
+    input.addEventListener('change', valueStore)
+  })
+
+
+  // Set Indicator Counter
+  function setIndicator(current = 0, total) {
+    document.querySelector('.indicator-current').innerHTML = 0;
+    document.querySelector('.indicator-total').innerHTML = total;
+  }
+
+  
+  // animate form height 
+  function setFormContainHeight() {
+
+    slideItems.forEach(function(slide) {
+      if(slide.classList.contains('active')) {
+        formContainer.style.height = slide.offsetHeight + 'px'
+      }
+    })
+  }
+
+
+  // Set Sliders 
+  function setSlider(count = 0) {
+    slideItems.forEach(function(slide, index) {
+      slide.classList.remove('active')
+      slide.style.transform = `translateX(${index - count}00%)`
+    })
+    slideItems[count].classList.add('active')
+  }
+
+
+  // Handler to slide through forms
+  function formSlider(event) {
+    let btn = event.currentTarget;
+    if(btn.classList.contains('prev')) {
+      if(currentSlide >= 1) {
+        currentSlide = currentSlide - 1;
+      }
+    } else {
+      if(currentSlide < slideItems.length - 1) {
+        currentSlide = currentSlide + 1;
+      }
+    }
+    progressBarUpdater();
+    setSlider(currentSlide)
+    setFormContainHeight();
+  }
+
+
+  // Update progress counter and progress bar
+  function progressBarUpdater() {
+    let counter = 0;
+    document.querySelector('.indicator-current').innerHTML = collectNames.length;
+    let percentageCompleted = `${collectNames.length * 100}` / totalQuestions.length +'%';
+    console.log(percentageCompleted)
+    progressIndicator.style.transform = `translateX(${ percentageCompleted })`
+  }
+
+
+
+  setSlider();
+  window.addEventListener('load', () => setFormContainHeight())
+  setIndicator(currentSlide, totalQuestions.length);
+  slideBtns.forEach(function(btn) {
+    btn.addEventListener('click', formSlider)
+  })
+
+
+  
+</script>

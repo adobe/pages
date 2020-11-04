@@ -370,7 +370,7 @@ async function decoratePage() {
 
   window.pages.decorated = true;
   wrapSections(".home > main > div");
-  await cleanUpBio();
+  cleanUpBio();
   appearMain();
   externalLinks("main .section-wrapper:last-of-type")
   cardHeightEqualizer(".card-content");
@@ -386,23 +386,6 @@ if (document.readyState == "loading") {
 
 function toClassName(name) {
   return name.toLowerCase().replace(/[^0-9a-z]/gi, "-");
-}
-
-function decorateTables() {
-  document.querySelectorAll("main div.default>table").forEach(($table) => {
-    const $cols = $table.querySelectorAll("thead tr th");
-    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
-    const $rows = $table.querySelectorAll("tbody tr");
-    let $div = {};
-
-    if (cols.length == 1 && $rows.length == 1) {
-      $div = createTag("div", { class: `${cols[0]}` });
-      $div.innerHTML = $rows[0].querySelector("td").innerHTML;
-    } else {
-      $div = turnTableSectionIntoCards($table, cols);
-    }
-    $table.parentNode.replaceChild($div, $table);
-  });
 }
 
 function cleanUpBio() {
