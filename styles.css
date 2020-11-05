@@ -27,6 +27,10 @@ header.appear {
     opacity: 1;
 }
 
+main div.template {
+  display: none;
+}
+
 
 /* quick video button fix - needs to be fixed properly */
 .video #placeholder.button {
