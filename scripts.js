@@ -235,7 +235,17 @@ function turnTableSectionIntoCards($table, cols) {
   return ($cards);
 }
 
+const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
+
 window.pages={};
+
+if (pathSegments) {
+  const product=pathSegments[0];
+  const locale=pathSegments[1];
+  const project=pathSegments[2];
+  window.pages = { product, locale, project };
+}
+
 window.pages.dependencies=[];
 
 if (window.pages.product) {
