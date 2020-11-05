@@ -93,7 +93,7 @@ async function purge() {
 }
 
 async function sendPurge(path) {
-    const resp=await fetch(`https://adobeioruntime.net/api/v1/web/helix/helix-services/purge@v1?host=pages--adobe.hlx.page&xfh=pages.adobe.com&path=${encodeURIComponent(path)}`, {
+    const resp=await fetch(`https://adobeioruntime.net/api/v1/web/helix/helix-services/purge@v1?host=pages--adobe.hlx.page&xfh=pages.adobe.com%2Cpages--adobe.hlx.live&path=${encodeURIComponent(path)}`, {
         method: 'POST'
     });
     const json=await resp.json();
