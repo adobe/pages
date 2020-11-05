@@ -35,8 +35,6 @@ function getTotalQuestions(data) {
     }
   }
   progressBarUpdater()
-
-  console.log(totalQuestions)
 }
 
 // Collects all input values

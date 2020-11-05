@@ -61,6 +61,7 @@
     let formSubmitPresent = false;
     let output = await formData();
     window.location.hostname === "localhost" ? output = output : output = output.data;
+    
   
     let checkIfSlider = () => {
       output.find(pageBreak => {
@@ -70,28 +71,42 @@
         }
       })
     }
-
     checkIfSlider();
     
+    
 
+    function setInitialSliderHeader() {
+      let header = '';
+      if(hasPageBreak) {
+        header = document.querySelector('main .default:first-of-type').innerHTML
+      }
+
+      return header;
+    }
     
     
     output.forEach((item, index) => {
       const setup = inputSettings(item.label);
       const name=item.name?item.name:setup.label_clean; 
-      const required=item.required?item.required:setup.required;   
+      const required=item.required?item.required:setup.required;  
+      let description = hasPageBreak && item.description.length > 0 ? `<span class="description-title">${item.description}</span>` : '';
+      
+      
       
       if(index == 0 && hasPageBreak) {
         formField += `
         <div class="slide-form-container">
-            <div class="slide-form-item active">`
+            <div class="slide-form-item active">
+              ${setInitialSliderHeader()}
+              <hr>
+              `
       }
       
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
         formField += `
       <div class="input-el question">
-        <label for="${name}">${setup.label}</label>
+        <label class="label-title" for="${name}">${setup.label}</label>
         <input type="${item.type}" name="${name}" ${required}/>
       </div>
       `;
@@ -106,6 +121,7 @@
           const cleanOptionName = toClassName(option);
           const id=name+'-'+cleanOptionName;
           const value=option.replace('"','');
+          
 
           radioOption += `
           <div class="radio-option">
@@ -116,7 +132,8 @@
         });
         formField += `
           <div class="radio-el question">
-            <span>${item.label}</span>
+            <span class="label-title">${item.label}</span>
+            ${description}
             <div class="radio-options-parent">
               ${radioOption}
             </div>
@@ -147,7 +164,8 @@
         })
         formField += `
           <div class="input-el checkboxes ${required} question">
-            <span>${item.label}</span>
+            <span class="label-title">${item.label}</span>
+            ${description}
             ${options}
           </div>
         `
@@ -165,7 +183,8 @@
         })
         formField += `
           <div class="select-el question">
-            <label for="${name}">${item.label}</label>
+            <label class="label-title" for="${name}">${item.label}</label>
+            ${description}
             <select name="${name}" id="${name}">
               ${options}
             </select>
@@ -177,7 +196,8 @@
       if(item.type === "textarea") {
         formField += `
           <div class="text-el question">
-            <label for="${name}">${item.label}</label>
+            <label class="label-title" for="${name}">${item.label}</label>
+            ${description}
             <textarea
               name="${name}"
               cols="30"
@@ -303,7 +323,7 @@ function hideConditionals($inputs, formDefinition, $form) {
     const formId='wg-form'
     await createForm(formId);
     if(hasPageBreak) {
-      var tag = document.createElement("script");
+      let tag = document.createElement("script");
       tag.src = "/components/en/slide-form.js";
       document.getElementsByTagName("body")[0].appendChild(tag);
     }

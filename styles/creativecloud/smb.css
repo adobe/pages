@@ -73,25 +73,36 @@ main.appear .default:first-of-type {
   line-height: 1;
 }
 
-.form-container p:not(.field-title) {
-  font-size: 22px;
-  line-height: 1.6;
-  font-weight: 300;
-}
 
 .form-container hr {
   margin: 38px 0px 60px 0px;
   border: 1px solid #EAEAEA;
 }
 
-.field-title {
+.slide-form-item p:first-of-type {
   font-size: 22px;
+  color: #505050;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.label-title {
+  font-size: 22px !important;
   margin: 0;
   padding-bottom: 8px;
   font-weight: 700;
-  color: #323232;
+  line-height: 1.4 !important;
+  color: #323232 !important;
 }
 
+.description-title {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #747474;
+  font-weight: 300;
+  margin-bottom: 24px;
+  display: block;
+}
 
 .slide-btn {
   font-size: 14px;
