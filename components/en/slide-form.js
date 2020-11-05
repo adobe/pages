@@ -35,6 +35,8 @@ function getTotalQuestions(data) {
     }
   }
   progressBarUpdater()
+
+  console.log(totalQuestions)
 }
 
 // Collects all input values
@@ -49,7 +51,7 @@ function valueStore(event) {
       console.log('here')
       allValues.push(currentSelector.getAttribute('name'))
     } else {
-      allValues.splice(collectNames.indexOf(valuePosition), 1)
+      allValues.splice(allValues.indexOf(currentSelector.getAttribute('name')), 1)
       console.log('unchecked')
     }
   }
