@@ -96,7 +96,7 @@ function progressBarUpdater() {
   progressIndicator.style.transform = `translateX(${ percentageCompleted })`
 }
 
-// Add value for "other" check
+// Add input value for "other" check
 function addOtherCheckboxValue(event) {
   let closestCheckBox = event.target.closest('.has-other').querySelector('input[type="checkbox"]');
 	closestCheckBox.setAttribute('value', event.currentTarget.value)
