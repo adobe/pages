@@ -9,6 +9,19 @@ let allValues = [];
 let collectNames = [];
 let totalQuestions = [];
 
+let checkIfDomReady = setInterval(function() {
+  if(document.querySelector('.slide-form-container')) {
+    formContainer = document.querySelector('.slide-form-container');
+    slideBtns = document.querySelectorAll('.slide-btn');
+    slideItems = document.querySelectorAll('.slide-form-item');
+    progressIndicator = document.querySelector('.progress-indicator span')
+    totalAnswers = document.querySelectorAll('.question input');
+    otherOptionInput = document.querySelectorAll('.other-option-input');
+    setFormContainHeight()
+    clearInterval(checkIfDomReady)
+  }
+}, 500)
+
   
 // Store the values into array to manage progress 
 
@@ -28,7 +41,8 @@ function getTotalQuestions(data) {
 // goes through getTotalQuestions() to remove duplicates
 function valueStore(event) {
   let currentSelector = event.currentTarget;
-    let valuePosition = allValues.indexOf(currentSelector.getAttribute('name'));
+  let valuePosition = allValues.indexOf(currentSelector.getAttribute('name'));
+  console.log('working')
 
   if(currentSelector.getAttribute('type') == "checkbox") {
     if(currentSelector.checked == true) {
@@ -104,10 +118,6 @@ function addOtherCheckboxValue(event) {
 
 setSlider();
 
-window.addEventListener('load', function() {
-  setFormContainHeight()
-})
-
 setIndicator(currentSlide, totalAnswers.length);
 slideBtns.forEach(function(btn) {
   btn.addEventListener('click', formSlider)
@@ -117,8 +127,9 @@ otherOptionInput.forEach(function(input) {
   input.addEventListener('keyup', addOtherCheckboxValue)
 });
 
-totalAnswers.forEach(function(input) {
+document.querySelectorAll('.question input').forEach(function(input) {
   if(input.getAttribute('type') === "checkbox" || input.getAttribute('type') == "radio") {
+    console.log('hello')
     input.addEventListener('change', valueStore)
   }
 })
