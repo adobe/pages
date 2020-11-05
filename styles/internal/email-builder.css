@@ -1,0 +1,19 @@
+body {
+  background: #E4E4E4;
+}
+main {
+  opacity: 1;
+}
+
+.preview-copy {
+  display: flex;
+  justify-content: space-between;
+}
+
+.preview-column {
+  width: 45%;
+}
+
+.preview-copy textarea {
+  height: 100vh;
+}
