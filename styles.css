@@ -123,6 +123,89 @@ main svg.icon.icon-behance {
     color: white;
 }
 
+.has-wg-form .submit-el button,
+button[type=submit],
+input[type=submit] {
+	font-family: "Adobe Clean", adobe-clean, sans-serif;
+	color: #fff;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: #1473E6;
+	border: none;
+	padding: 0 20px;
+	margin-top: 40px;
+	font-size: 16px;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+form label {
+	color: #6E6E6E;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+form label + textarea {
+	margin: 
+}
+
+/* nps form specifically */
+
+body.feedback main .embed {
+	padding: 0;
+}
+
+body.feedback main .section-wrapper div.form.nps-form {
+	box-sizing: border-box;
+	margin: 0;
+	width: 100%;
+	padding: 40px;
+}
+
+body.feedback .section-wrapper .default {
+	max-width: none;
+	width: 100%;
+} 
+
+body.feedback .npsScaleButton {
+	box-sizing: border-box;
+	width: 23px;
+	height: 23px;
+	font-size: 10px;
+	text-align: center;
+	padding: 0;
+	border: 2px solid #eaeaea;
+	border-radius: 100%;
+}
+
+body.feedback .npsScaleButton.selected {
+	border-color: transparent;
+}
+
+body.feedback .button-group {
+	margin: 5px 0 40px 0;
+}
+
+@media screen and (min-width: 600px) {
+	body.feedback .npsScaleButton {
+		width: 40px;
+		height: 40px;
+		font-size: 21px;
+	}
+}
+
+
+/* all forms with class .form */
+
+main div.form button,
+main div.form input,
+main div.form select,
+main div.form textarea {
+	font-family: "Adobe Clean", adobe-clean, sans-serif;
+}
+
 main .section-wrapper div.form {
     background-color: #fafafa;
     padding: 20px;

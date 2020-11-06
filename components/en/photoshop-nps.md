@@ -1,6 +1,7 @@
-<div class="embed section-embed nps-form">
+<div class="form embed section-embed nps-form">
 <form id="npsForm">
 	<div>
+		<label>You selected:</label>
 	    <div class="button-group">
 	        <button id="npsScaleButton_0" class="npsScaleButton" disabled="">0</button>
 	        <button id="npsScaleButton_1" class="npsScaleButton" disabled="">1</button>	    
@@ -15,7 +16,7 @@
 	        <button id="npsScaleButton_10" class="npsScaleButton" disabled="">10</button>
 	    </div>
 	</div>
-	<div>Please explain why you gave this rating.</div>
+	<label for="surveyComment">Please explain why you gave this rating.</label>
 	<textarea rows="3" id="surveyComment" maxlength="512"></textarea>
 	<div>
 	    <input type="checkbox" id="canAdobeContact" checked=""> 
@@ -24,10 +25,12 @@
 	<input type="submit" value="Share Feedback" name="submitfeedback">
 </form>
 <div id="successMessage" class="hidden">
-	<span>Thank you for submitting your feedback. <a href="https://adobe.com">Visit Adobe.com</a>
+	<p>Thank you for submitting your feedback.</p>
+	<p><a href="https://adobe.com">Visit Adobe.com</a></p>
 </div>
 <div id="errorMessage" class="hidden">
-	<span>We encountered an error. Please refresh to try again, or <a href="https://adobe.com">visit Adobe.com</a></a>
+	<p>We encountered an error. Please refresh to try again, or:</p>
+	<p><a href="https://adobe.com">Visit Adobe.com</a></p>
 </div>
 </div>
 
