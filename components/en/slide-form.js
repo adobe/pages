@@ -23,8 +23,9 @@ let checkIfDomReady = setInterval(function() {
   }
 }, 500)
 
-  
+// ----------------------------------------------  
 // Store the values into array to manage progress 
+// ----------------------------------------------
 
 // Get total questions removes duplicated checkbox values
 // for progress tracking purposes.
@@ -97,13 +98,113 @@ function setFormContainHeight() {
   })
 }
 
+function pageHasBeenCompleted() {
+
+}
+
 // Set Sliders 
 function setSlider(count = 0) {
+  document.querySelector('.slide-btn.next').classList.remove('completed');
   slideItems.forEach(function(slide, index) {
     slide.classList.remove('active')
     slide.style.transform = `translateX(${index - count}00%)`
   })
   slideItems[count].classList.add('active')
+
+  let currentActiveRequired = slideItems[count].querySelectorAll('.required');
+  let values = [];
+
+  // get all required input count
+  let required_counter = 0;
+  currentActiveRequired.forEach(function () { required_counter++ });
+
+  currentActiveRequired.forEach(function(ele, i) {
+    ele.querySelectorAll('input, textarea').forEach(function(fields, index) {
+      if(fields.getAttribute('type') == 'checkbox' || fields.getAttribute('type') == 'radio') {
+        
+        if(fields.checked == true) {
+          values.push(fields.getAttribute('name'))
+        }
+
+        if(values.length >= required_counter) {
+          document.querySelector('.slide-btn.next').classList.add('completed');
+          
+        } else {
+          document.querySelector('.slide-btn.next').classList.remove('completed');
+        }
+
+      }
+
+      if(fields.nodeName == "TEXTAREA" || fields.getAttribute('type') == "text" || fields.getAttribute('type') == "email") {
+        
+        if(!fields.classList.contains('other-input')){
+          if(fields.value.length > 1) {
+            values.push(fields.getAttribute('name'))
+          } 
+  
+          if(values.length >= required_counter) {
+            document.querySelector('.slide-btn.next').classList.add('completed');
+          } else {
+            document.querySelector('.slide-btn.next').classList.remove('completed');
+          }
+        }
+      
+      }
+    })
+  })
+
+
+  currentActiveRequired.forEach(function(el, i) {
+    el.querySelectorAll('input, textarea').forEach(function(field, index) {
+      if(field.getAttribute('type') == 'checkbox' || field.getAttribute('type') == 'radio') {
+        console.log('values,,' , values)
+        field.addEventListener('change', function(event) {
+          
+          if(event.currentTarget.checked === true) {
+            if(!values.includes(event.currentTarget.getAttribute('name'))) {
+              values.push(event.currentTarget.getAttribute('name')) 
+            }
+          } else {
+            values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
+          }
+          if(values.length >= required_counter) {
+            document.querySelector('.slide-btn.next').classList.add('completed');
+          } else {
+            document.querySelector('.slide-btn.next').classList.remove('completed');
+          }
+
+          console.log(values, 'all')
+        })
+      }
+
+      if(field.nodeName == "TEXTAREA" || field.getAttribute('type') == "text" || field.getAttribute('type') == "email") {
+        if(!field.classList.contains('other-input')) {
+          field.addEventListener('keyup', function(event) {
+            console.log(event.currentTarget.value.length)
+            if(event.currentTarget.value.length > 1) {
+              if(!values.includes(event.currentTarget.getAttribute('name'))) {
+                values.push(event.currentTarget.getAttribute('name'))
+              }
+            } 
+  
+            if(event.currentTarget.value.length <= 0) {
+              values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
+            }
+  
+            if(values.length >= required_counter) {
+              document.querySelector('.slide-btn.next').classList.add('completed');
+            } else {
+              document.querySelector('.slide-btn.next').classList.remove('completed');
+            }
+
+            console.log(values)
+          })
+        }
+      }
+    })
+  })
+  
+  console.log('required: ', required_counter)
 }
 
 // Handler to slide through forms
@@ -113,7 +214,7 @@ function formSlider(event) {
     if(currentSlide >= 1) {
       currentSlide = currentSlide - 1;
     }
-  } else {
+  } else if(btn.classList.contains('completed')) {
     if(currentSlide < slideItems.length - 1) {
       currentSlide = currentSlide + 1;
     }
