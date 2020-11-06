@@ -18,6 +18,7 @@ let checkIfDomReady = setInterval(function() {
     totalAnswers = document.querySelectorAll('.question input');
     otherOptionInput = document.querySelectorAll('.other-option-input');
     setFormContainHeight()
+    addOtherInputField();
     clearInterval(checkIfDomReady)
   }
 }, 500)
@@ -41,16 +42,12 @@ function getTotalQuestions(data) {
 // goes through getTotalQuestions() to remove duplicates
 function valueStore(event) {
   let currentSelector = event.currentTarget;
-  let valuePosition = allValues.indexOf(currentSelector.getAttribute('name'));
-  console.log('working')
 
   if(currentSelector.getAttribute('type') == "checkbox") {
     if(currentSelector.checked == true) {
-      console.log('here')
       allValues.push(currentSelector.getAttribute('name'))
     } else {
       allValues.splice(allValues.indexOf(currentSelector.getAttribute('name')), 1)
-      console.log('unchecked')
     }
   }
   
@@ -60,13 +57,34 @@ function valueStore(event) {
     }
   }
 
+  if(currentSelector.nodeName == "TEXTAREA") {
+    let textArea = event.currentTarget;
+    setTimeout(() => {
+      console.log(textArea.value)
+      updateTextValue(textArea, textArea.value.length)
+    }, 1000)
+
+    function updateTextValue(el, strlen) {
+      if(strlen >= 5) {
+        allValues.push(el.getAttribute('name'))
+      } else {
+        allValues.splice(allValues.indexOf(el.getAttribute('name')), 1)
+      }
+
+      console.log(allValues)
+    }    
+  }
+
+  
+
+
   setTimeout(() => getTotalQuestions(allValues))
 }
 
 // Set Indicator Counter
-function setIndicator(current = 0, total) {
+function setIndicator() {
   document.querySelector('.indicator-current').innerHTML = 0;
-  document.querySelector('.indicator-total').innerHTML = document.querySelectorAll('.question').length;
+  document.querySelector('.indicator-total').innerHTML = document.querySelectorAll('.required').length;
 }
 
 // animate form height 
@@ -106,8 +124,23 @@ function formSlider(event) {
 // Update progress counter and progress bar
 function progressBarUpdater() {
   document.querySelector('.indicator-current').innerHTML = totalQuestions.length;
-  let percentageCompleted = `${totalQuestions.length * 100}` / document.querySelectorAll('.question').length +'%';
+  let allRequiredQuestions = document.querySelectorAll('.required').length
+  let percentageCompleted = `${totalQuestions.length * 100}` / allRequiredQuestions +'%';
   progressIndicator.style.transform = `translateX(${ percentageCompleted })`
+}
+
+function addOtherInputField() {
+  let checkBoxes = document.querySelectorAll("input[type='checkbox']");
+  
+  checkBoxes.forEach(function(checkbox) {
+    if(checkbox.value.toLowerCase() == "other") {
+      let parentElement = checkbox.closest('div');
+      parentElement.classList.add('has-other')
+      let input = document.createElement('input')
+      input.setAttribute('type', 'text')
+      parentElement.appendChild(input)
+    }
+  })
 }
 
 // Add input value for "other" check
@@ -127,10 +160,15 @@ otherOptionInput.forEach(function(input) {
   input.addEventListener('keyup', addOtherCheckboxValue)
 });
 
-document.querySelectorAll('.question input').forEach(function(input) {
+document.querySelectorAll('.required input, .required textarea').forEach(function(input) {
   if(input.getAttribute('type') === "checkbox" || input.getAttribute('type') == "radio") {
-    console.log('hello')
     input.addEventListener('change', valueStore)
+  }
+
+  console.log(input.nodeType)
+
+  if(input.nodeName == "TEXTAREA") {
+    input.addEventListener('keyup', valueStore)
   }
 })
   

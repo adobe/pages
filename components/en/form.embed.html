@@ -90,8 +90,7 @@
       const name=item.name?item.name:setup.label_clean; 
       const required=item.required?item.required:setup.required;  
       let description = hasPageBreak && item.description.length > 0 ? `<span class="description-title">${item.description}</span>` : '';
-      
-      
+            
       
       if(index == 0 && hasPageBreak) {
         formField += `
@@ -105,7 +104,7 @@
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
         formField += `
-      <div class="input-el question">
+      <div class="input-el question ${required}">
         <label class="label-title" for="${name}">${setup.label}</label>
         <input type="${item.type}" name="${name}" ${required}/>
       </div>
@@ -131,7 +130,7 @@
         `;
         });
         formField += `
-          <div class="radio-el question">
+          <div class="radio-el question ${required}">
             <span class="label-title">${item.label}</span>
             ${description}
             <div class="radio-options-parent">
@@ -163,7 +162,7 @@
           `
         })
         formField += `
-          <div class="input-el checkboxes ${required} question">
+          <div class="input-el checkboxes question ${required}">
             <span class="label-title">${item.label}</span>
             ${description}
             ${options}
@@ -182,7 +181,7 @@
           `
         })
         formField += `
-          <div class="select-el question">
+          <div class="select-el question ${required}">
             <label class="label-title" for="${name}">${item.label}</label>
             ${description}
             <select name="${name}" id="${name}">
@@ -195,14 +194,15 @@
       // TEXTAREA
       if(item.type === "textarea") {
         formField += `
-          <div class="text-el question">
+          <div class="text-el question ${required}">
             <label class="label-title" for="${name}">${item.label}</label>
             ${description}
             <textarea
               name="${name}"
               cols="30"
               rows="5"
-              ${required}></textarea>
+              ${required}
+              ></textarea>
           </div>
         `
       }

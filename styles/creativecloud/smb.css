@@ -101,7 +101,7 @@ main.appear .default:first-of-type {
   color: #747474;
   font-weight: 300;
   margin-bottom: 24px;
-  display: block;
+  display: inline-block;
 }
 
 .slide-btn {
