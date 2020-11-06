@@ -199,6 +199,13 @@ body.feedback .button-group {
 
 /* all forms with class .form */
 
+main div.form button,
+main div.form input,
+main div.form select,
+main div.form textarea {
+	font-family: "Adobe Clean", adobe-clean, sans-serif;
+}
+
 main .section-wrapper div.form {
     background-color: #fafafa;
     padding: 20px;
