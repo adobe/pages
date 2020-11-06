@@ -21,7 +21,7 @@ let checkIfDomReady = setInterval(function() {
     addOtherInputField();
     clearInterval(checkIfDomReady)
   }
-}, 500)
+}, 200)
 
 // ----------------------------------------------  
 // Store the values into array to manage progress 
@@ -86,7 +86,7 @@ function valueStore(event) {
 // Set Indicator Counter
 function setIndicator() {
   document.querySelector('.indicator-current').innerHTML = 0;
-  document.querySelector('.indicator-total').innerHTML = document.querySelectorAll('.required').length;
+  document.querySelector('.indicator-total').innerHTML = document.querySelectorAll('.is-required').length;
 }
 
 // animate form height 
@@ -98,10 +98,6 @@ function setFormContainHeight() {
   })
 }
 
-function pageHasBeenCompleted() {
-
-}
-
 // Set Sliders and disable/enable next button
 function setSlider(count = 0) {
   document.querySelector('.slide-btn.next').classList.remove('completed');
@@ -111,21 +107,19 @@ function setSlider(count = 0) {
   })
   slideItems[count].classList.add('active')
 
-  let currentActiveRequired = slideItems[count].querySelectorAll('.required');
+  let currentActiveRequired = slideItems[count].querySelectorAll('.is-required');
   let values = [];
 
-  // get all required input count
+  // Get all required input count
   let required_counter = 0;
   currentActiveRequired.forEach(function ($el, $in) { 
       required_counter = required_counter + 1
-   });
- 
+  });
+
   if(required_counter < 1) {
     document.querySelector('.slide-btn.next').classList.add('completed');
   }
-   
-  
-  
+
   currentActiveRequired.forEach(function(ele, i) {
     ele.querySelectorAll('input, textarea').forEach(function(fields, index) {
       if(fields.getAttribute('type') == 'checkbox' || fields.getAttribute('type') == 'radio') {
@@ -140,10 +134,6 @@ function setSlider(count = 0) {
         } else {
           document.querySelector('.slide-btn.next').classList.remove('completed');
         }
-
-
-        console.log('on load: ' ,values)
-
       }
 
       if(fields.nodeName == "TEXTAREA" || fields.getAttribute('type') == "text" || fields.getAttribute('type') == "email") {
@@ -183,9 +173,6 @@ function setSlider(count = 0) {
           } else {
             document.querySelector('.slide-btn.next').classList.remove('completed');
           }
-
-          console.log('on change: ' ,values)
-
         })
       }
 
@@ -213,8 +200,6 @@ function setSlider(count = 0) {
       }
     })
   })
-  
-  console.log('required: ', required_counter)
 }
 
 // Handler to slide through forms
@@ -234,13 +219,13 @@ function formSlider(event) {
   // Create sheet to test form submissions 
   // ------------------------------------- //
   
-  // if(currentSlide >= slideItems.length - 1) {
-  //   document.querySelector('.next').style.display = 'none';
-  //   document.querySelector('.submit').style.display = 'inline';
-  // } else {
-  //   document.querySelector('.next').style.display = 'inline';
-  //   document.querySelector('.submit').style.display = 'none';
-  // }
+  if(currentSlide >= slideItems.length - 1) {
+    document.querySelector('.next').style.display = 'none';
+    document.querySelector('.submit').style.display = 'inline';
+  } else {
+    document.querySelector('.next').style.display = 'inline';
+    document.querySelector('.submit').style.display = 'none';
+  }
   setSlider(currentSlide)
   setFormContainHeight();
 }
@@ -248,7 +233,7 @@ function formSlider(event) {
 // Update progress counter and progress bar
 function progressBarUpdater() {
   document.querySelector('.indicator-current').innerHTML = totalQuestions.length;
-  let allRequiredQuestions = document.querySelectorAll('.required').length
+  let allRequiredQuestions = document.querySelectorAll('.is-required').length
   let percentageCompleted = `${totalQuestions.length * 100}` / allRequiredQuestions +'%';
   progressIndicator.style.transform = `translateX(${ percentageCompleted })`
 }
@@ -303,7 +288,7 @@ slideBtns.forEach(function(btn) {
   btn.addEventListener('click', formSlider)
 })
 
-document.querySelectorAll('.required input, .required textarea').forEach(function(input) {
+document.querySelectorAll('.is-required input, .is-required textarea').forEach(function(input) {
   if(input.getAttribute('type') === "checkbox" || input.getAttribute('type') == "radio") {
     input.addEventListener('change', valueStore)
   }
