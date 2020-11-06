@@ -71,6 +71,7 @@
         }
       })
     }
+    
     checkIfSlider();
     
     
@@ -239,29 +240,28 @@
     const $form=document.getElementById(formId)
     $form.innerHTML = formField;
 
-    let slidePanelParent = document.createElement('div');
-    slidePanelParent.classList.add('panel');
-
-    slidePanelParent.innerHTML = `
-      <div class="panel__item">
-        <div class="form-sliders-btns">
-          <button class="slide-btn prev" type="button">Back</button>
-          <button class="slide-btn next" type="button">Next</button>
-          <button type="submit" class="submit" style='display: none;'>Submit</button>
-        </div>
-      </div>
-      <div class="panel__item">
-        <div class="indicator-crumb">
-          <span class="indicator-current">0</span>
-          <span>of</span>
-          <span class="indicator-total">0</span> Requiredanswered
-        </div>
-        <div class="progress-indicator">
-          <span></span>
-        </div>
-      </div>`
-
     if(hasPageBreak) {
+      let slidePanelParent = document.createElement('div');
+      slidePanelParent.classList.add('panel');
+
+      slidePanelParent.innerHTML = `
+        <div class="panel__item">
+          <div class="form-sliders-btns">
+            <button class="slide-btn prev" type="button">Back</button>
+            <button class="slide-btn next" type="button">Next</button>
+            <button type="submit" class="submit" style='display: none;'>Submit</button>
+          </div>
+        </div>
+        <div class="panel__item">
+          <div class="indicator-crumb">
+            <span class="indicator-current">0</span>
+            <span>of</span>
+            <span class="indicator-total">0</span> Required answered
+          </div>
+          <div class="progress-indicator">
+            <span></span>
+          </div>
+        </div>`
       $form.appendChild(slidePanelParent)
     }
 
