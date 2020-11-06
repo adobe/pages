@@ -27,11 +27,6 @@ header .icon {
   padding-bottom: 1em;
 }
 
-#npsForm div:first-of-type > div {
-  display: flex;
-  justify-content: center;
-}
-
 #npsForm div:first-of-type button {
   margin-right: 5px;
 }
@@ -98,8 +93,6 @@ header .icon {
   display: flex;
   width: 100%;
   margin: auto;
-  justify-content: center;
-  /* flex-wrap: wrap; */
 }
 
 
