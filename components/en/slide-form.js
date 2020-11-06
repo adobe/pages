@@ -59,24 +59,25 @@ function valueStore(event) {
 
   if(currentSelector.nodeName == "TEXTAREA") {
     let textArea = event.currentTarget;
-    setTimeout(() => {
-      console.log(textArea.value)
+    setTimeout(function() {
       updateTextValue(textArea, textArea.value.length)
-    }, 1000)
+    })
 
     function updateTextValue(el, strlen) {
       if(strlen >= 5) {
-        allValues.push(el.getAttribute('name'))
-      } else {
-        allValues.splice(allValues.indexOf(el.getAttribute('name')), 1)
+        if(!allValues.includes(el.getAttribute('name'))) {
+          allValues.push(el.getAttribute('name'))
+        }
+      } 
+      
+      if(strlen <= 4) {
+        if(allValues.includes(el.getAttribute('name'))) {
+          allValues.splice(allValues.indexOf(el.getAttribute('name')), 1)
+        }
       }
-
-      console.log(allValues)
+      
     }    
   }
-
-  
-
 
   setTimeout(() => getTotalQuestions(allValues))
 }
@@ -117,6 +118,18 @@ function formSlider(event) {
       currentSlide = currentSlide + 1;
     }
   }
+  
+  // ------------------------------------- //
+  // Create sheet to test form submissions 
+  // ------------------------------------- //
+  
+  // if(currentSlide >= slideItems.length - 1) {
+  //   document.querySelector('.next').style.display = 'none';
+  //   document.querySelector('.submit').style.display = 'inline';
+  // } else {
+  //   document.querySelector('.next').style.display = 'inline';
+  //   document.querySelector('.submit').style.display = 'none';
+  // }
   setSlider(currentSlide)
   setFormContainHeight();
 }
@@ -129,6 +142,8 @@ function progressBarUpdater() {
   progressIndicator.style.transform = `translateX(${ percentageCompleted })`
 }
 
+
+// Create input fields for "Other" checkboxes
 function addOtherInputField() {
   let checkBoxes = document.querySelectorAll("input[type='checkbox']");
   
@@ -138,34 +153,49 @@ function addOtherInputField() {
       parentElement.classList.add('has-other')
       let input = document.createElement('input')
       input.setAttribute('type', 'text')
+      input.classList.add('other-input')
       parentElement.appendChild(input)
     }
   })
+  
+  document.querySelectorAll('.other-input').forEach(function(input) {
+    input.addEventListener('keyup', setOtherCheckboxValue)
+  });
 }
 
 // Add input value for "other" check
-function addOtherCheckboxValue(event) {
-  let closestCheckBox = event.target.closest('.has-other').querySelector('input[type="checkbox"]');
-	closestCheckBox.setAttribute('value', event.currentTarget.value)
+function setOtherCheckboxValue(event) {
+  let input = event.currentTarget;
+  let originalValue = input.getAttribute('value');
+  let parent = input.closest('.has-other');
+  let checkbox = parent.querySelector("input[type='checkbox']");
+
+  if(input.value.length > 0) {
+    if(checkbox.checked != true) {
+      checkbox.click();
+    }
+    checkbox.setAttribute('value', input.value)
+  } else {
+    if(checkbox.checked == true) {
+      checkbox.click();
+    }
+    checkbox.setAttribute('value', 'other')
+  }
 }
 
-setSlider();
 
+setSlider();
 setIndicator(currentSlide, totalAnswers.length);
+
+
 slideBtns.forEach(function(btn) {
   btn.addEventListener('click', formSlider)
 })
-
-otherOptionInput.forEach(function(input) {
-  input.addEventListener('keyup', addOtherCheckboxValue)
-});
 
 document.querySelectorAll('.required input, .required textarea').forEach(function(input) {
   if(input.getAttribute('type') === "checkbox" || input.getAttribute('type') == "radio") {
     input.addEventListener('change', valueStore)
   }
-
-  console.log(input.nodeType)
 
   if(input.nodeName == "TEXTAREA") {
     input.addEventListener('keyup', valueStore)
