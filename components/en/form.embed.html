@@ -155,7 +155,6 @@
                 id="${id}" 
                 name="${name}"
                 value="${value}"
-                ${required}
               />
               <label for="${id}">${option}</label>
             </div>
@@ -163,7 +162,7 @@
           `
         })
         formField += `
-          <div class="input-el checkboxes question is-${required}">
+          <div class="input-el checkboxes ${required} question is-${required}">
             <span class="label-title">${item.label}</span>
             ${description}
             ${options}
@@ -262,7 +261,9 @@
         </div>
       </div>`
 
-    $form.appendChild(slidePanelParent)
+    if(hasPageBreak) {
+      $form.appendChild(slidePanelParent)
+    }
 
     //show_if
     const showIfTypes=['select','input[type=radio]','input[type=checkbox]'];
