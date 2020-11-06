@@ -23,57 +23,10 @@ header .icon {
   height: 40px;
 }
 
-#npsForm div:first-of-type {
-  padding-bottom: 1em;
-}
-
-#npsForm div:first-of-type button {
-  margin-right: 5px;
-}
-
-#npsForm div:first-of-type button:last-of-type {
-  margin-right: 0px;
-}
-
-#npsForm div:nth-child(2) {
-  padding-bottom: 1em;
-}
-
-#npsForm textarea {
-  width: calc(100% - 20px);
-  max-width: 700px;
-  margin: 0;
-  padding: 0;
-  font-size: 18px;
-  padding: 10px;
-  min-height: 100px;
-  margin-bottom: 1em;
-}
-
 #npsForm textarea:focus {
   outline-color: #1473e6;
 }
 
-#npsForm input[type="submit"] {
-  margin-top: 2em;
-  -webkit-appearance: none;
-  outline: none;
-  background: #1473e6;
-  border-color: #1473e6;
-  color: white;
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 16px;
-  min-height: 32px;
-  height: auto;
-  min-width: 72px;
-  padding: 4px 14px;
-  padding-bottom: 4.5px;
-  padding-top: 3.5px;
-  font-size: 14px;
-  font-weight: 700;
-  transition: background .13s ease-out,border-color .13s ease-out,color .13s ease-out,box-shadow .13s ease-out;
-}
 
 #canAdobeContact {
   border: 1px solid #aaa;
