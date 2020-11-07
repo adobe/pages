@@ -127,11 +127,7 @@ function setSlider(count = 0) {
       if(field.getAttribute('type') == 'checkbox' || field.getAttribute('type') == 'radio') {
         
         if(field.checked == true) {
-        
-          
-            values.push(field.getAttribute('name'))
-          
-        
+          values.push(field.getAttribute('name')) 
         }
       
         if(values.length >= required_counter) {
@@ -149,9 +145,7 @@ function setSlider(count = 0) {
             values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
           }
           
-          
           let eachOptions = [];
-          
           for(let i = 0; i < values.length; i++) {
             if(!eachOptions.includes(values[i])) {
                eachOptions.push(values[i]) 
@@ -206,6 +200,7 @@ function setSlider(count = 0) {
       }
     })
   })
+  
 }
 
 // Handler to slide through forms
