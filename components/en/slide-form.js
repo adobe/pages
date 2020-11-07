@@ -113,62 +113,51 @@ function setSlider(count = 0) {
   // Get all required input count
   let required_counter = 0;
   currentActiveRequired.forEach(function ($el, $in) { 
-      required_counter = required_counter + 1
+    required_counter = required_counter + 1
   });
 
   if(required_counter < 1) {
     document.querySelector('.slide-btn.next').classList.add('completed');
   }
 
-  currentActiveRequired.forEach(function(ele, i) {
-    ele.querySelectorAll('input, textarea').forEach(function(fields, index) {
-      if(fields.getAttribute('type') == 'checkbox' || fields.getAttribute('type') == 'radio') {
 
-        if(fields.checked == true) {
-          values.push(fields.getAttribute('name'))
+
+  currentActiveRequired.forEach(function(el, i) {
+    el.querySelectorAll('input, textarea').forEach(function(field, index) {
+      if(field.getAttribute('type') == 'checkbox' || field.getAttribute('type') == 'radio') {
+        
+        if(field.checked == true) {
+        
+          
+            values.push(field.getAttribute('name'))
+          
+        
         }
-
+      
         if(values.length >= required_counter) {
           document.querySelector('.slide-btn.next').classList.add('completed');
           
         } else {
           document.querySelector('.slide-btn.next').classList.remove('completed');
         }
-      }
-
-      if(fields.nodeName == "TEXTAREA" || fields.getAttribute('type') == "text" || fields.getAttribute('type') == "email") {
-        
-        if(!fields.classList.contains('other-input')){
-          if(fields.value.length > 1) {
-            values.push(fields.getAttribute('name'))
-          } 
-  
-          if(values.length >= required_counter) {
-            document.querySelector('.slide-btn.next').classList.add('completed');
-          } else {
-            document.querySelector('.slide-btn.next').classList.remove('completed');
-          }
-        }
-      
-      }
-    })
-  })
-
-
-  currentActiveRequired.forEach(function(el, i) {
-    el.querySelectorAll('input, textarea').forEach(function(field, index) {
-      if(field.getAttribute('type') == 'checkbox' || field.getAttribute('type') == 'radio') {
     
         field.addEventListener('change', function(event) {
           
           if(event.currentTarget.checked === true) {
-            if(!values.includes(event.currentTarget.getAttribute('name'))) {
-              values.push(event.currentTarget.getAttribute('name')) 
-            }
+            values.push(event.currentTarget.getAttribute('name')) 
           } else {
             values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
           }
-          if(values.length >= required_counter) {
+          
+          
+          let eachOptions = [];
+          
+          for(let i = 0; i < values.length; i++) {
+            if(!eachOptions.includes(values[i])) {
+               eachOptions.push(values[i]) 
+            }
+          }
+          if(eachOptions.length >= required_counter) {
             document.querySelector('.slide-btn.next').classList.add('completed');
           } else {
             document.querySelector('.slide-btn.next').classList.remove('completed');
@@ -177,7 +166,17 @@ function setSlider(count = 0) {
       }
 
       if(field.nodeName == "TEXTAREA" || field.getAttribute('type') == "text" || field.getAttribute('type') == "email") {
-        if(!field.classList.contains('other-input')) {
+        if(!field.classList.contains('other-input')){
+          if(field.value.length > 1) {
+            values.push(fields.getAttribute('name'))
+          } 
+  
+          if(values.length >= required_counter) {
+            document.querySelector('.slide-btn.next').classList.add('completed');
+          } else {
+            document.querySelector('.slide-btn.next').classList.remove('completed');
+          }
+        
           field.addEventListener('keyup', function(event) {
   
             if(event.currentTarget.value.length > 1) {
@@ -190,7 +189,14 @@ function setSlider(count = 0) {
               values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
             }
   
-            if(values.length >= required_counter) {
+            let eachOptions = [];
+            
+            for(let i = 0; i < values.length; i++) {
+              if(!eachOptions.includes(values[i])) {
+                 eachOptions.push(values[i]) 
+              }
+            }
+            if(eachOptions.length >= required_counter) {
               document.querySelector('.slide-btn.next').classList.add('completed');
             } else {
               document.querySelector('.slide-btn.next').classList.remove('completed');

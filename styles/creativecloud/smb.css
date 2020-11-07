@@ -1,5 +1,6 @@
 .form-container {
   padding-top: 60px;
+  max-width: 750px !important;
 }
 .slide-form-container {
   position: relative;
