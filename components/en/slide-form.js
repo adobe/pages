@@ -4,6 +4,7 @@ let slideItems = document.querySelectorAll('.slide-form-item');
 let progressIndicator = document.querySelector('.progress-indicator span')
 let totalAnswers = document.querySelectorAll('.field');
 let otherOptionInput = document.querySelectorAll('.other-option-input');
+let header = '';
 let currentSlide = 0;
 let allValues = [];
 let collectNames = [];
@@ -17,11 +18,21 @@ let checkIfDomReady = setInterval(function() {
     progressIndicator = document.querySelector('.progress-indicator span')
     totalAnswers = document.querySelectorAll('.question input');
     otherOptionInput = document.querySelectorAll('.other-option-input');
+    header = document.querySelector('main .default:first-of-type').innerHTML;
+    setHeader(header);
     setFormContainHeight()
     addOtherInputField();
     clearInterval(checkIfDomReady)
   }
 }, 200)
+
+
+function setHeader(content) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = content + `<hr>`;
+  document.querySelectorAll('.slide-form-item')[0].prepend(wrap)
+  document.querySelector('main .default:first-of-type').remove();
+}
 
 // ----------------------------------------------  
 // Store the values into array to manage progress 

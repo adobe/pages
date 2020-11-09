@@ -74,17 +74,7 @@
     
     checkIfSlider();
     
-    
-
-    function setInitialSliderHeader() {
-      let header = '';
-      if(hasPageBreak) {
-        header = document.querySelector('main .default:first-of-type').innerHTML
-      }
-
-      return header;
-    }
-    
+  
     
     output.forEach((item, index) => {
       const setup = inputSettings(item.label);
@@ -97,8 +87,6 @@
         formField += `
         <div class="slide-form-container">
             <div class="slide-form-item active">
-              ${setInitialSliderHeader()}
-              <hr>
               `
       }
       
