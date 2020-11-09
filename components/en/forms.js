@@ -61,6 +61,7 @@ window.setupForm = ({
   $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
     if ($a.textContent.toLowerCase() === 'sheet') {
       sheet = $a.href;
+      sheet = sheet.replace('%5C','') //temp fix for escaped &
       $a.parentElement.remove();
     }
     if ($a.textContent.toLowerCase() === 'thank you') {
