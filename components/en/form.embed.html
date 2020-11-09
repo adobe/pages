@@ -8,10 +8,11 @@
 
 
 <script src="/components/en/forms.js"></script>
+
 <script>
   const $formContainer = document.querySelector(".wg-form-container");
   const $form = document.getElementById("wg-form");
-  
+  let hasPageBreak = 0;
 
   async function formData() {
     const formType = document.querySelectorAll("main p");
@@ -55,25 +56,57 @@
   }
 
 
-
   async function createForm(formId) {
     let formField = "";
     let formSubmitPresent = false;
     let output = await formData();
-    
     window.location.hostname === "localhost" ? output = output : output = output.data;
-  
     
-    output.forEach((item) => {
+  
+    let checkIfSlider = () => {
+      output.find(pageBreak => {
+        if(pageBreak.type == "page-break") {
+          hasPageBreak = hasPageBreak + 1;
+          hasPageBreak = hasPageBreak > 0 ? true : false;
+        }
+      })
+    }
+    
+    checkIfSlider();
+    
+    
+
+    function setInitialSliderHeader() {
+      let header = '';
+      if(hasPageBreak) {
+        header = document.querySelector('main .default:first-of-type').innerHTML
+      }
+
+      return header;
+    }
+    
+    
+    output.forEach((item, index) => {
       const setup = inputSettings(item.label);
       const name=item.name?item.name:setup.label_clean; 
-      const required=item.required?item.required:setup.required;       
+      const required=item.required?item.required:setup.required;  
+      let description = hasPageBreak && item.description.length > 0 ? `<span class="description-title">${item.description}</span>` : '';
+            
+      
+      if(index == 0 && hasPageBreak) {
+        formField += `
+        <div class="slide-form-container">
+            <div class="slide-form-item active">
+              ${setInitialSliderHeader()}
+              <hr>
+              `
+      }
       
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
         formField += `
-      <div class="input-el">
-        <label for="${name}">${setup.label}</label>
+      <div class="input-el question is-${required}">
+        <label class="label-title" for="${name}">${setup.label}</label>
         <input type="${item.type}" name="${name}" ${required}/>
       </div>
       `;
@@ -88,6 +121,7 @@
           const cleanOptionName = toClassName(option);
           const id=name+'-'+cleanOptionName;
           const value=option.replace('"','');
+          
 
           radioOption += `
           <div class="radio-option">
@@ -97,8 +131,9 @@
         `;
         });
         formField += `
-          <div class="radio-el">
-            <span>${item.label}</span>
+          <div class="radio-el question is-${required}">
+            <span class="label-title">${item.label}</span>
+            ${description}
             <div class="radio-options-parent">
               ${radioOption}
             </div>
@@ -120,7 +155,7 @@
               <input type="checkbox" 
                 id="${id}" 
                 name="${name}"
-                value="${value}";
+                value="${value}"
               />
               <label for="${id}">${option}</label>
             </div>
@@ -128,8 +163,9 @@
           `
         })
         formField += `
-          <div class="input-el checkboxes ${required}">
-            <span>${item.label}</span>
+          <div class="input-el checkboxes ${required} question is-${required}">
+            <span class="label-title">${item.label}</span>
+            ${description}
             ${options}
           </div>
         `
@@ -146,8 +182,9 @@
           `
         })
         formField += `
-          <div class="select-el">
-            <label for="${name}">${item.label}</label>
+          <div class="select-el question is-${required}">
+            <label class="label-title" for="${name}">${item.label}</label>
+            ${description}
             <select name="${name}" id="${name}">
               ${options}
             </select>
@@ -158,19 +195,30 @@
       // TEXTAREA
       if(item.type === "textarea") {
         formField += `
-          <div class="text-el">
-            <label for="${name}">${item.label}</label>
+          <div class="text-el question is-${required}">
+            <label class="label-title" for="${name}">${item.label}</label>
+            ${description}
             <textarea
               name="${name}"
               cols="30"
               rows="5"
-              ${required}></textarea>
+              ${required}
+              ></textarea>
           </div>
         `
       }
 
+      if(item.type == "page-break" && hasPageBreak) {
+        formField += `</div> <div class='slide-form-item'>`
+      }
+
+      if(index === output.length - 1 && hasPageBreak) {
+        formField += `</div></div>`
+      }
+      
+
       // Submit Button
-      if(item.type === "submit") {
+      if(item.type === "submit" && !hasPageBreak) {
         formField += `
           <div class="submit-el">
             <button type="submit">${item.label}</button>
@@ -179,9 +227,11 @@
         formSubmitPresent=true;
       }
 
+      
+      
     });
 
-    if (!formSubmitPresent) {
+    if (!formSubmitPresent && !hasPageBreak) {
         formField += `
       <div class="submit-el">
         <button type="submit">Submit</button>
@@ -189,6 +239,33 @@
     }
     const $form=document.getElementById(formId)
     $form.innerHTML = formField;
+
+    if(hasPageBreak) {
+      let slidePanelParent = document.createElement('div');
+      slidePanelParent.classList.add('panel');
+
+      slidePanelParent.innerHTML = `
+        <div class="panel__item">
+          <div class="form-sliders-btns">
+            <button class="slide-btn prev" type="button">Back</button>
+            <button class="slide-btn next" type="button">Next</button>
+            <button type="submit" class="submit" style='display: none;'>Submit</button>
+          </div>
+        </div>
+        <div class="panel__item">
+          <div class="indicator">
+            <div class="indicator-crumb">
+              <span class="indicator-current">0</span>
+              <span>of</span>
+              <span class="indicator-total">0</span> Required answered
+            </div>
+            <div class="progress-indicator">
+              <span></span>
+            </div>  
+          </div>
+        </div>`
+      $form.appendChild(slidePanelParent)
+    }
 
     //show_if
     const showIfTypes=['select','input[type=radio]','input[type=checkbox]'];
@@ -249,6 +326,13 @@ function hideConditionals($inputs, formDefinition, $form) {
   async function instructor() {
     const formId='wg-form'
     await createForm(formId);
+    if(hasPageBreak) {
+      let tag = document.createElement("script");
+      tag.src = "/components/en/slide-form.js";
+      document.getElementsByTagName("body")[0].appendChild(tag);
+    }
+  
+
     setupForm({
       formId, preValidation: customValidate
     })
