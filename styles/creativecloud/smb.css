@@ -1,6 +1,6 @@
 .form-container {
   padding-top: 60px;
-  max-width: 750px !important;
+  max-width: 780px !important;
   width: 90%;
 }
 .slide-form-container {
@@ -49,7 +49,7 @@
 .indicator-crumb {
   display: inline-block;
   /* font-size: 12px; */
-  font-size: 15px;
+  font-size: 16px;
   text-align: right;
   /* padding-bottom: 8px; */
   padding-bottom: 11px;
@@ -129,7 +129,7 @@
   cursor: pointer;
 }
 
-.slide-btn.next {
+.slide-btn.next, .submit {
   background: #F4F4F4;
   border: 1px solid #F4F4F4;
   color: #BCBCBC;
@@ -253,3 +253,14 @@
   }
   
 }
+
+
+/*
+  1) Bump up body line height (and to label)
+  2) More space between question and form elements
+  3) More spacing between each radio option / and checkboxes
+  4) Drop mobile input option
+  5) Add border to nav
+
+
+*/
