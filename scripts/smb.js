@@ -112,10 +112,17 @@ window.addEventListener("resize", debounce(function () {
 );
 
 
+function styleCards() {
+  if(document.querySelector('.thank-you-cards-')) {
+    document.querySelector('.thank-you-cards-').closest('.default').classList.add('thank-you-container')
+  }
+}
+
 
 async function decoratePage() {
   addDefaultClass('main>div');
   decorateTables();
+  styleCards();
   await loadLocalHeader();
   wrapSections("header>div");
   externalLinks("header");
@@ -133,6 +140,7 @@ async function decoratePage() {
   appearMain();
 }
 
+
 if (document.readyState == "loading") {
   window.addEventListener("DOMContentLoaded", (event) => {
     decoratePage();
@@ -144,3 +152,4 @@ if (document.readyState == "loading") {
 function toClassName(name) {
   return name.toLowerCase().replace(/[^0-9a-z]/gi, "-");
 }
+

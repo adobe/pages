@@ -13,16 +13,22 @@
   const $formContainer = document.querySelector(".wg-form-container");
   const $form = document.getElementById("wg-form");
   let hasPageBreak = 0;
+  
+  
+  const formType = document.querySelectorAll("main p");
+  let formToUse = "";
+  
+  // Hide sheet and thank you link from page while loading...
+  document.querySelector('main').style.opacity = '0'
+  
+  formType.forEach(function (text) {
+    if (text.textContent.includes("<Form:") || text.textContent.includes("<form:")) {
+      formToUse = text.textContent.split(":")[1].split(">")[0].trim();
+      text.remove();
+    }
+  });
 
   async function formData() {
-    const formType = document.querySelectorAll("main p");
-    let formToUse = "";
-    formType.forEach(function (text) {
-      if (text.textContent.includes("<Form:") || text.textContent.includes("<form:")) {
-        formToUse = text.textContent.split(":")[1].split(">")[0].trim();
-        text.remove();
-      }
-    });
     const resp = await fetch(`${formToUse}.json`);
     const json = await resp.json();
     window.pages.dependencies.push(`${formToUse}.json`);
@@ -60,6 +66,7 @@
     let formField = "";
     let formSubmitPresent = false;
     let output = await formData();
+    document.querySelectorAll('main')[0].style.opacity = '1'
     window.location.hostname === "localhost" ? output = output : output = output.data;
     
   
@@ -94,7 +101,10 @@
       if (item.type === "text" || item.type === "email") {
         formField += `
       <div class="input-el question is-${required}">
-        <label class="label-title" for="${name}">${setup.label}</label>
+        <div class="title-el">
+          <label class="label-title" for="${name}">${setup.label}</label>
+          ${description}
+        </div>
         <input type="${item.type}" name="${name}" ${required}/>
       </div>
       `;
@@ -120,8 +130,10 @@
         });
         formField += `
           <div class="radio-el question is-${required}">
-            <span class="label-title">${item.label}</span>
-            ${description}
+            <div class="title-el">
+              <span class="label-title">${item.label}</span>
+              ${description}
+            </div>
             <div class="radio-options-parent">
               ${radioOption}
             </div>
@@ -152,8 +164,10 @@
         })
         formField += `
           <div class="input-el checkboxes ${required} question is-${required}">
-            <span class="label-title">${item.label}</span>
-            ${description}
+            <div class="title-el">
+              <span class="label-title">${item.label}</span>
+              ${description}
+            </div>
             ${options}
           </div>
         `
@@ -171,8 +185,10 @@
         })
         formField += `
           <div class="select-el question is-${required}">
-            <label class="label-title" for="${name}">${item.label}</label>
-            ${description}
+            <div class="title-el">
+              <label class="label-title" for="${name}">${item.label}</label>
+              ${description}  
+            </div>
             <select name="${name}" id="${name}">
               ${options}
             </select>
@@ -184,8 +200,10 @@
       if(item.type === "textarea") {
         formField += `
           <div class="text-el question is-${required}">
-            <label class="label-title" for="${name}">${item.label}</label>
-            ${description}
+            <div class="title-el">
+              <label class="label-title" for="${name}">${item.label}</label>
+              ${description}
+            </div>
             <textarea
               name="${name}"
               cols="30"
