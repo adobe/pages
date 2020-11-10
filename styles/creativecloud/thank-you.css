@@ -92,7 +92,7 @@ main .default:first-of-type p {
 		font-size: 45px;
 	}
 	
-	main .default:first-of-type p:last-of-type {
+	main .default:first-of-type p {
 		text-align: center;
 		font-size: 25px;
 	}
