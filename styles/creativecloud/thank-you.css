@@ -61,7 +61,7 @@ main .default:first-of-type p {
 	color: #505050;
 }
 
-.thank-you-cards- p {
+.thank-you-cards- p:last-of-type {
 	border-top: 1px solid #ddd;
 	text-align: right;
 }
@@ -92,7 +92,7 @@ main .default:first-of-type p {
 		font-size: 45px;
 	}
 	
-	main .default:first-of-type p {
+	main .default:first-of-type p:last-of-type {
 		text-align: center;
 		font-size: 25px;
 	}
