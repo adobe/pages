@@ -1,3 +1,29 @@
+/* Page specifics */
+.default-nav .section-wrapper {
+  border: 1px solid #EAEAEA;
+}
+
+.radio-option {
+  margin-bottom: 16px !important;
+}
+
+.radio-option label {
+  line-height: 1.6 !important;
+}
+
+.title-el br {
+  display: none;
+}
+
+
+@media(min-width: 768px) {
+  .title-el br {
+    display: inline-block;
+  }
+}
+
+
+/* End of page specifics */
 .form-container {
   padding-top: 60px;
   max-width: 780px !important;
@@ -48,10 +74,8 @@
 
 .indicator-crumb {
   display: inline-block;
-  /* font-size: 12px; */
   font-size: 16px;
   text-align: right;
-  /* padding-bottom: 8px; */
   padding-bottom: 11px;
   color: #505050;
 }
@@ -84,11 +108,10 @@
 }
 
 .slide-form-item p:first-of-type {
-  /* font-size: 22px; */
   font-size: 17px;
   color: #505050;
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
 .form-container hr {
@@ -96,33 +119,34 @@
   border: 1px solid #EAEAEA;
 }
 
+.title-el {
+  margin-bottom: 32px;
+}
+
 .label-title {
   font-size: 22px !important;
   margin: 0;
-  padding-bottom: 8px;
   font-weight: 700;
   line-height: 1.4 !important;
   color: #323232 !important;
 }
 
 .description-title {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.6;
   color: #747474;
   font-weight: 300;
-  margin-bottom: 24px;
-  display: inline-block;
+  padding-top: 11px;
+  display: block;
 }
 
 .slide-btn {
-  /* font-size: 14px; */
   font-size: 17px;
   font-weight: 700;
   border: none;
   box-shadow: none;
   outline: none;
   background-color: transparent;
-  /* padding: 10px 23px; */
   padding: 12px 26px;
   box-sizing: border-box;
   border-radius: 30px;
@@ -180,6 +204,10 @@
   .form-container h1 {
     font-size: 36px;
   }
+
+  .description-title {
+    font-size: 18px
+  }
   
   .slide-form-item p:first-of-type {
     font-size: 22px;
@@ -225,8 +253,6 @@
     width: 100%;
   }
   
-  
-  
   .panel {
     display: flex;
     padding: 32px 0px;
@@ -253,14 +279,3 @@
   }
   
 }
-
-
-/*
-  1) Bump up body line height (and to label)
-  2) More space between question and form elements
-  3) More spacing between each radio option / and checkboxes
-  4) Drop mobile input option
-  5) Add border to nav
-
-
-*/

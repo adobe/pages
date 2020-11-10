@@ -94,7 +94,10 @@
       if (item.type === "text" || item.type === "email") {
         formField += `
       <div class="input-el question is-${required}">
-        <label class="label-title" for="${name}">${setup.label}</label>
+        <div class="title-el">
+          <label class="label-title" for="${name}">${setup.label}</label>
+          ${description}
+        </div>
         <input type="${item.type}" name="${name}" ${required}/>
       </div>
       `;
@@ -120,8 +123,10 @@
         });
         formField += `
           <div class="radio-el question is-${required}">
-            <span class="label-title">${item.label}</span>
-            ${description}
+            <div class="title-el">
+              <span class="label-title">${item.label}</span>
+              ${description}
+            </div>
             <div class="radio-options-parent">
               ${radioOption}
             </div>
@@ -152,8 +157,10 @@
         })
         formField += `
           <div class="input-el checkboxes ${required} question is-${required}">
-            <span class="label-title">${item.label}</span>
-            ${description}
+            <div class="title-el">
+              <span class="label-title">${item.label}</span>
+              ${description}
+            </div>
             ${options}
           </div>
         `
@@ -171,8 +178,10 @@
         })
         formField += `
           <div class="select-el question is-${required}">
-            <label class="label-title" for="${name}">${item.label}</label>
-            ${description}
+            <div class="title-el">
+              <label class="label-title" for="${name}">${item.label}</label>
+              ${description}  
+            </div>
             <select name="${name}" id="${name}">
               ${options}
             </select>
@@ -184,8 +193,10 @@
       if(item.type === "textarea") {
         formField += `
           <div class="text-el question is-${required}">
-            <label class="label-title" for="${name}">${item.label}</label>
-            ${description}
+            <div class="title-el">
+              <label class="label-title" for="${name}">${item.label}</label>
+              ${description}
+            </div>
             <textarea
               name="${name}"
               cols="30"
