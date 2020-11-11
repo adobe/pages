@@ -295,6 +295,7 @@ function addOtherInputField() {
       let input = document.createElement('input')
       input.setAttribute('type', 'text')
       input.classList.add('other-input')
+      input.setAttribute('placeholder', 'Please explain')
       parentElement.innerHTML = `
         <div class="other-checkbox-element">${parentHTML}</div>
         <div class="other-input-element">${input.outerHTML}</div>

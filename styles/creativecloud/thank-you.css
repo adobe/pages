@@ -1,16 +1,16 @@
-.thank-you main .default:first-of-type {
+.smb-thank-you main .default:first-of-type {
 	padding: 24px 0px;
 	max-width: 640px;
 	width: 90%;
 	margin: auto;
 }
 
-.thank-you main .default:first-of-type h1 {
+.smb-thank-you main .default:first-of-type h1 {
 	text-align: left;
 	font-size: 34px;
 }
 
-.thank-you main .default:first-of-type p {
+.smb-thank-you main .default:first-of-type p {
 	color: #505050;
 	text-align: left;
 	font-size: 17px;
@@ -79,19 +79,19 @@
 
 @media(min-width: 590px) {
 	
-	.thank-you main .default:first-of-type {
+	.smb-thank-you main .default:first-of-type {
 		padding: 32px 0px 48px 0px;
 		max-width: 640px;
 		width: 90%;
 		margin: auto;
 	}
 	
-	.thank-you main .default:first-of-type h1 {
+	.smb-thank-you main .default:first-of-type h1 {
 		text-align: center;
 		font-size: 45px;
 	}
 	
-	.thank-you main .default:first-of-type p {
+	.smb-thank-you main .default:first-of-type p {
 		text-align: center;
 		font-size: 25px;
 	}

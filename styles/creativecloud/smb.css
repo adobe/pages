@@ -1,7 +1,7 @@
 @import url("thank-you.css");
 
 /* Page specifics */
-.default-nav .section-wrapper {
+.smb-form .default-nav .section-wrapper {
   border-bottom: 1px solid #EAEAEA;
 }
 
@@ -21,6 +21,11 @@
   display: none;
 }
 
+.smb-form .form-container {
+  padding-top: 60px;
+  max-width: 780px !important;
+  width: 90%;
+}
 
 @media(min-width: 768px) {
   .title-el br {
@@ -29,17 +34,12 @@
 }
 
 
-main div.form-container button[type=submit] {
+.smb-form main div.form-container button[type=submit] {
   margin-top: 0;
   margin-left: 16px;
 }
 
 /* End of page specifics */
-.form-container {
-  padding-top: 60px;
-  max-width: 780px !important;
-  width: 90%;
-}
 .slide-form-container {
   position: relative;
   overflow: hidden;
@@ -186,7 +186,7 @@ main div.form-container button[type=submit] {
   margin-top: 0;
 }
 .question {
-  margin-top: 2em;
+  margin-top: 4em;
 }
 
 .has-other label {
@@ -219,7 +219,14 @@ main div.form-container button[type=submit] {
   display: block !important;
 }
 
+
+.smb-form textarea {
+  padding-left: 8px;
+  padding-top: 8px;
+  box-sizing: border-box;
+}
 @media(min-width: 768px) {
+  
   .form-container h1 {
     font-size: 36px;
   }
@@ -307,6 +314,10 @@ main div.form-container button[type=submit] {
   
   .has-other {
     display: flex !important;
+  }
+  
+  .has-other input::placeholder {
+    font-style: italic
   }
   
 }
