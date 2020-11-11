@@ -29,6 +29,11 @@
 }
 
 
+main div.form-container button[type=submit] {
+  margin-top: 0;
+  margin-left: 16px;
+}
+
 /* End of page specifics */
 .form-container {
   padding-top: 60px;
@@ -206,6 +211,14 @@
   box-sizing: border-box;
 }
 
+.other-checkbox-element {
+  display: flex;
+}
+
+.has-other {
+  display: block !important;
+}
+
 @media(min-width: 768px) {
   .form-container h1 {
     font-size: 36px;
@@ -282,6 +295,18 @@
   .slide-btn {
     font-size: 14px;
     padding: 10px 23px;
+  }
+  
+  .other-checkbox-element {
+    display: flex;
+  }
+  
+  .other-input-element {
+    width: 100%;
+  }
+  
+  .has-other {
+    display: flex !important;
   }
   
 }

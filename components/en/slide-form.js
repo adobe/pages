@@ -56,7 +56,6 @@ function getTotalQuestions(data) {
       totalQuestions.push(data[i])
     }
   }
-  progressBarUpdater()
 }
 
 // Collects all input values
@@ -105,8 +104,8 @@ function valueStore(event) {
 
 // Set Indicator Counter
 function setIndicator() {
-  document.querySelector('.indicator-current').innerHTML = 0;
-  document.querySelector('.indicator-total').innerHTML = document.querySelectorAll('.is-required').length;
+  document.querySelector('.indicator-current').innerHTML = 1;
+  document.querySelector('.indicator-total').innerHTML = slideItems.length;
 }
 
 // animate form height 
@@ -148,6 +147,8 @@ function setSlider(count = 0) {
     slide.style.transform = `translateX(${index - count}00%)`
   })
   slideItems[count].classList.add('active')
+  
+  progressBarUpdater()
 
   let currentActiveRequired = slideItems[count].querySelectorAll('.is-required');
   let values = [];
@@ -275,9 +276,9 @@ function formSlider(event) {
 
 // Update progress counter and progress bar
 function progressBarUpdater() {
-  document.querySelector('.indicator-current').innerHTML = totalQuestions.length;
+  document.querySelector('.indicator-current').innerHTML = currentSlide + 1;
   let allRequiredQuestions = document.querySelectorAll('.is-required').length
-  let percentageCompleted = `${totalQuestions.length * 100}` / allRequiredQuestions +'%';
+  let percentageCompleted = `${(currentSlide + 1) * 100}` / slideItems.length +'%';
   progressIndicator.style.transform = `translateX(${ percentageCompleted })`
 }
 
@@ -290,10 +291,14 @@ function addOtherInputField() {
     if(checkbox.value.toLowerCase() == "other") {
       let parentElement = checkbox.closest('div');
       parentElement.classList.add('has-other')
+      let parentHTML = parentElement.innerHTML;
       let input = document.createElement('input')
       input.setAttribute('type', 'text')
       input.classList.add('other-input')
-      parentElement.appendChild(input)
+      parentElement.innerHTML = `
+        <div class="other-checkbox-element">${parentHTML}</div>
+        <div class="other-input-element">${input.outerHTML}</div>
+      `
     }
   })
   
