@@ -1,16 +1,16 @@
-main .default:first-of-type {
+.thank-you main .default:first-of-type {
 	padding: 24px 0px;
 	max-width: 640px;
 	width: 90%;
 	margin: auto;
 }
 
-main .default:first-of-type h1 {
+.thank-you main .default:first-of-type h1 {
 	text-align: left;
 	font-size: 34px;
 }
 
-main .default:first-of-type p {
+.thank-you main .default:first-of-type p {
 	color: #505050;
 	text-align: left;
 	font-size: 17px;
@@ -79,19 +79,19 @@ main .default:first-of-type p {
 
 @media(min-width: 590px) {
 	
-	main .default:first-of-type {
+	.thank-you main .default:first-of-type {
 		padding: 32px 0px 48px 0px;
 		max-width: 640px;
 		width: 90%;
 		margin: auto;
 	}
 	
-	main .default:first-of-type h1 {
+	.thank-you main .default:first-of-type h1 {
 		text-align: center;
 		font-size: 45px;
 	}
 	
-	main .default:first-of-type p {
+	.thank-you main .default:first-of-type p {
 		text-align: center;
 		font-size: 25px;
 	}
