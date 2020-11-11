@@ -11,7 +11,7 @@ main .default:first-of-type h1 {
 }
 
 main .default:first-of-type p {
-	color: #747474;
+	color: #505050;
 	text-align: left;
 	font-size: 17px;
 	line-height: 1.6;
@@ -76,7 +76,6 @@ main .default:first-of-type p {
 	text-decoration: none;
 	font-weight: 500;
 }
-
 
 @media(min-width: 590px) {
 	
