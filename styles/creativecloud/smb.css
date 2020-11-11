@@ -5,6 +5,10 @@
   border: 1px solid #EAEAEA;
 }
 
+.default-nav .carrot {
+  display: none;
+}
+
 .radio-option {
   margin-bottom: 16px !important;
 }
