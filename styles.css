@@ -597,12 +597,14 @@ footer p:after {
   
   @media(min-width: 768px) {
 
-	header .nav-logo {
-    	margin-right: 42px;
-    }  
+	  header .nav-logo {
+    	
+    } 
+     
     header.nav-showing {
       background: #fff;
     }
+    
     .premiere header.nav-showing {
         background: black !important;
     }
@@ -621,12 +623,13 @@ footer p:after {
       margin-top: 0em;
       font-size: 14px;
     }
-    
+  
     header ul {
       display: flex !important;
       margin-left: 0em;
       flex-direction: row;
       text-align: left;
+      margin-left: 42px;
     }
     
     header li {
