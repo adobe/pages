@@ -105,7 +105,7 @@
           <label class="label-title" for="${name}">${setup.label}</label>
           ${description}
         </div>
-        <input type="${item.type}" name="${name}" ${required}/>
+        <input type="${item.type}" name="${name}" placeholder="${item.placeholder}" ${required}/>
       </div>
       `;
       }
@@ -198,6 +198,7 @@
 
       // TEXTAREA
       if(item.type === "textarea") {
+        
         formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
@@ -208,8 +209,22 @@
               name="${name}"
               cols="30"
               rows="5"
+              placeholder="${item.placeholder}"
               ${required}
               ></textarea>
+          </div>
+        `
+      }
+      
+      // TEXTAREA
+      if(item.type === "title") {
+        formField += `
+          <div class="text-el question is-${required}">
+            <div class="title-el">
+              <label class="label-title" for="${name}">${item.label}</label>
+              ${description}
+            </div>
+            <hr>
           </div>
         `
       }
@@ -262,7 +277,7 @@
           <div class="indicator">
             <div class="indicator-crumb">
               <span class="indicator-current">1</span>
-              <span>of</span>
+              <span>/</span>
               <span class="indicator-total">0</span>
             </div>
             <div class="progress-indicator">

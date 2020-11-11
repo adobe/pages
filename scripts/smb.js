@@ -115,7 +115,13 @@ window.addEventListener("resize", debounce(function () {
 function styleCards() {
   if(document.querySelector('.thank-you-cards-')) {
     document.querySelector('.thank-you-cards-').closest('.default').classList.add('thank-you-container')
+    document.getElementsByTagName('body')[0].classList.add('smb-thank-you')
   }
+  
+  if(document.querySelector('form')) {
+    document.getElementsByTagName('body')[0].classList.add('smb-form')
+  }
+  
 }
 
 
