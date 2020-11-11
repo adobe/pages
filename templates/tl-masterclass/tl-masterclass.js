@@ -235,8 +235,9 @@ function wrapSections(element) {
 async function decorateHome() {
     document.body.classList.add('home');
     document.querySelectorAll('main p').forEach(($e) => {
-        if ($e.innerHTML.toLowerCase().trim()=='&lt;steps&gt;') {
-            $e.parentNode.classList.add('steps');
+        const inner=$e.innerHTML.toLowerCase().trim();
+        if (inner == "&lt;steps&gt;" || inner == '\\<steps></steps>') {
+                $e.parentNode.classList.add('steps');
             $e.parentNode.innerHTML='';
         }
     })
