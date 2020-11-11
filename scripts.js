@@ -272,6 +272,13 @@ function turnTableSectionIntoCards($table, cols) {
               })
           } else {
               $div.innerHTML=$td.innerHTML;
+              $div.childNodes.forEach(($child) => {
+                if ($child.nodeName=='#text') {
+                  const $p=createTag('p');
+                  $p.innerHTML=$child.nodeValue;
+                  $child.parentElement.replaceChild($p, $child);
+                }
+              })
           }
           $card.append($div);
       });

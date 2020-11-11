@@ -11,14 +11,14 @@ main .default:first-of-type h1 {
 }
 
 main .default:first-of-type p {
-	color: #747474;
+	color: #505050;
 	text-align: left;
 	font-size: 17px;
 	line-height: 1.6;
 }
 
 .thank-you-container {
-	background: #eee;
+	background: #F4F4F4;
 }
 
 .thank-you-cards- {
@@ -37,8 +37,14 @@ main .default:first-of-type p {
 
 .thank-you-cards- .card {
 	background: white;
+	font-size: 15px;
+	line-height: 1.6;
+	color: #505050;
 	width: 100%;
-	/* max-width: 280px; */
+	border-radius: 8px;
+	overflow: hidden;
+	border: 1px solid #EAEAEA;
+	box-sizing: border-box;
 }
 
 .thank-you-cards- .card:first-of-type {
@@ -49,16 +55,9 @@ main .default:first-of-type p {
 	padding: 18px 24px;
 }
 
-
 .thank-you-cards- .card h3 {
 	font-size: 19px;
 	margin: 0px 0px 8px 0px;
-}
-
-.thank-you-cards- .card  {
-	font-size: 15px;
-	line-height: 1.6;
-	color: #505050;
 }
 
 .thank-you-cards- p:last-of-type {
@@ -78,8 +77,8 @@ main .default:first-of-type p {
 	font-weight: 500;
 }
 
-
 @media(min-width: 590px) {
+	
 	main .default:first-of-type {
 		padding: 32px 0px 48px 0px;
 		max-width: 640px;
@@ -97,7 +96,6 @@ main .default:first-of-type p {
 		font-size: 25px;
 	}
 	
-	
 	.thank-you-cards- {
 		padding: 55px 0px;
 		max-width: 615px;
@@ -109,7 +107,7 @@ main .default:first-of-type p {
 	}
 	
 	.thank-you-cards- .card {
-		max-width: 280px;
+		max-width: 260px;
 	}
 	
 	.thank-you-cards- .card:first-of-type {
@@ -128,6 +126,12 @@ main .default:first-of-type p {
 		font-size: 14px;
 	}
 	
+}
+
+@media(min-width: 708px) {
+	.thank-you-cards- .card {
+		max-width: 280px;
+	}
 }
 
 

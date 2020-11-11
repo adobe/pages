@@ -2,7 +2,11 @@
 
 /* Page specifics */
 .default-nav .section-wrapper {
-  border: 1px solid #EAEAEA;
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.default-nav .carrot {
+  display: none;
 }
 
 .radio-option {

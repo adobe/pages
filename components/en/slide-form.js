@@ -27,6 +27,15 @@ let checkIfDomReady = setInterval(function() {
 }, 200)
 
 
+function scrollBackUp() {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth'
+  });
+}
+
+
 function setHeader(content) {
   const wrap = document.createElement('div');
   wrap.innerHTML = content + `<hr>`;
@@ -233,7 +242,7 @@ function setSlider(count = 0) {
       }
     })
   })
-  
+  scrollBackUp();
 }
 
 // Handler to slide through forms
