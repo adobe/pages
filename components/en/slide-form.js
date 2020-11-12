@@ -283,7 +283,7 @@ function addOtherInputField() {
   let checkBoxes = document.querySelectorAll("input[type='checkbox']");
   
   checkBoxes.forEach(function(checkbox) {
-    if(checkbox.value.toLowerCase() == "Other") {
+    if(checkbox.value.toLowerCase() == "other") {
       let parentElement = checkbox.closest('div');
       parentElement.classList.add('has-other')
       let parentHTML = parentElement.innerHTML;
