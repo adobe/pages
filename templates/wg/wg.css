@@ -4,3 +4,11 @@ main .default {
 	margin: 38px auto;
 	width: 90%;
 }
+
+.radio-el {
+	margin-bottom: 1em !important;
+}
+
+.radio-options-parent {
+	padding: 0em 0em 1em 0em !important;
+}
