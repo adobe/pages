@@ -258,11 +258,6 @@ function formSlider(event) {
       currentSlide = currentSlide + 1;
     }
   }
-  
-  // ------------------------------------- //
-  // Create sheet to test form submissions 
-  // ------------------------------------- //
-  
   if(currentSlide >= slideItems.length - 1) {
     document.querySelector('.next').style.display = 'none';
     document.querySelector('.submit').style.display = 'inline';
@@ -288,7 +283,7 @@ function addOtherInputField() {
   let checkBoxes = document.querySelectorAll("input[type='checkbox']");
   
   checkBoxes.forEach(function(checkbox) {
-    if(checkbox.value.toLowerCase() == "other") {
+    if(checkbox.value.toLowerCase() == "Other") {
       let parentElement = checkbox.closest('div');
       parentElement.classList.add('has-other')
       let parentHTML = parentElement.innerHTML;

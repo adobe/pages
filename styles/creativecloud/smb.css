@@ -225,6 +225,15 @@
   padding-top: 8px;
   box-sizing: border-box;
 }
+
+.smb-form textarea::placeholder {
+  font-style: italic;
+}
+
+.smb-form input::placeholder {
+  font-style: italic;
+}
+
 @media(min-width: 768px) {
   
   .form-container h1 {
