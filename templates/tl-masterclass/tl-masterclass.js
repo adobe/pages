@@ -237,7 +237,7 @@ async function decorateHome() {
     document.querySelectorAll('main p').forEach(($e) => {
         const inner=$e.innerHTML.toLowerCase().trim();
         if (inner == "&lt;steps&gt;" || inner == '\\<steps></steps>') {
-            $e.parentNode.classList.add('steps');
+                $e.parentNode.classList.add('steps');
             $e.parentNode.innerHTML='';
         }
     })

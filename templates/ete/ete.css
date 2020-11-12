@@ -1,5 +1,8 @@
-@import url("./default.css");
-@import url("../illustrator/tl.css");
+@import url("/styles/legacy/styles.css");
+@import url("/styles/legacy/default.css");
+@import url("/styles/illustrator/tl.css");
+@import url("/hlx_fonts/pnv6nym.css");
+
 
 .home header {
   margin-bottom: 0px;

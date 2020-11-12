@@ -1,3 +1,5 @@
+@import url("/styles/legacy/styles.css");
+
 body {
 	text-rendering: optimizeLegibility; 
     -webkit-font-smoothing: antialiased; 
@@ -220,7 +222,7 @@ body.home main .default > p {
 }
 
 main .card.index-steps .img {
-    width: 100%%;
+    width: 100%;
     min-height: 180px;
     background-size: cover;
 }

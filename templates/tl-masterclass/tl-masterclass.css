@@ -1,27 +1,5 @@
-main {
-    text-align: center;
-    font-size: 20px;
-    color: black;
-  }
-  
-  main img, main video {
-    max-width: 100%;
-  }
-  
-  main h1 {
-    font-size: 36px;
-    font-weight: 900;
-    max-width: 600px;
-    width: 95%;
-    margin: auto;
-    padding: 20px;
-  }
-
-  main .default:first-of-type p {
-    margin: 0;
-    font-size: 20px;
-    padding-bottom: 1.5em;
-  }
+@import url("/styles/legacy/styles.css");
+@import url("/styles/legacy/default.css");
   
   main .steps {
     display: flex;
@@ -34,7 +12,7 @@ main {
   main .card {
     width: 315px;
     margin: 15px;
-    /* height: 460px; */
+    height: 495px;
     cursor: pointer;
   }
   
@@ -44,7 +22,7 @@ main {
     border-top: 0;
     padding: 24px;
     text-align: left;
-    /* height: 320px; */
+    height: 320px;
     box-sizing: border-box;
   }
   
@@ -57,20 +35,20 @@ main {
     font-size: 18px;
     line-height: 26px;
     margin: 0;
-    margin-top: 12px;
-    padding-bottom: 3em;
+    margin-top: 5px;
   }
   
   main .card .text>div {
-    /* height: 210px; */
+    height: 210px;
     box-sizing: border-box;
   } 
   
   main .card .img {
-    height: 140px;
+    height: 177px;
     background-size: cover;
     box-sizing: border-box;
     position: relative;
+    background-position: center center;
   }
   
   main .card .img svg {
@@ -107,24 +85,11 @@ main {
   
   .step main .content h1 {
     position: relative;
-    border: 1px dashed lightgrey;
     margin: 40px auto;
     padding: 0 10px 10px 10px;
     display: inline-block;
   }
-  
-  .step main .content h1>span {
-    border: 1px solid lightgrey;
-    background-color: #282828;
-    height: 8px;
-    width: 8px;
-    box-sizing: border-box;
-    padding: 0;
-    display: block;
-    position: absolute;
-    margin: auto;
-  }
-  
+   
   .grab-0, .grab-1, .grab-2 {
     top: -4px;
   }
@@ -155,13 +120,14 @@ main {
     background: #282828;
     color: white;
     padding: 20px;
+    padding-bottom: 14em;
   }
 
-  .step .content h1,
-  .step .content p {
-    color: white;
+  @media(min-width: 900px) {
+    .step main .content {
+      margin-bottom: 5em;
+    }
   }
-  
   
   .step main .content a:any-link {
     border-radius: 20px;
@@ -202,14 +168,12 @@ main {
   }
   
   .step main .video-wrapper {
-    background-image: url(/static/twp3/step-bg.png);
-    background-size: contain;
-    background-position: top center;
-    background-repeat: no-repeat;
-    padding: 26px;
-    /* width: 310px; */
-    margin: auto;
-  
+    width: 310px;
+    margin: auto;  
+    /* margin-top: 50px; */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .step .learn {
@@ -312,10 +276,9 @@ main {
   .step main .upnext .window {
     padding-left: 1px;
     box-sizing: border-box;
-    background-image: url(/static/twp3/window.jpg);
     background-size: cover;
     margin: auto;
-    padding-bottom: 84.1%;
+    padding-bottom: 56.25%;
     overflow: hidden;
     position: relative;
     top: -4em;
@@ -334,8 +297,53 @@ main {
   main svg {
     fill: currentColor;
   }
-
-
+  
+  main div.form {
+    background-color: lightgrey;
+    padding: 20px;
+    margin: auto;
+    font-size: 18px;
+  }
+  
+  main div.form p {
+    margin: 30px 0;
+  }
+  
+  main div.form a:any-link {
+    border-radius: 20px;
+    background-color: #1473e6;
+    padding: 7px 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+    display: inline-block;
+    font-size: 20px;
+    margin: auto;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  
+  main div.form form {
+    max-width: 600px;
+    margin: auto;
+    text-align: left;
+  }
+  
+  main input[type=text], main textarea {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin: 5px 0;
+    font-size: 24px;
+    font-family: "Adobe Clean";
+  }
+  
+  main input[type=radio] {
+    margin: 5px 0;
+  }
   
   
   
@@ -350,28 +358,8 @@ main {
     }
   
     .step main .video-wrapper {
-        width: 544px;
-        padding: 120px;
-        padding-left: 119px;
-        padding-top: 98px;
-        background-image: url(/static/twp3/step-desktop-bg.jpg);
+        width: 840px;
     }    
-
-    main .card {
-      height: 460px;
-    }
-    
-    main .card .text {
-      height: 320px;
-    }
-    
-    main .card p {
-      padding-bottom: 0em;
-    }
-    
-    main .card .text>div {
-      height: 210px;
-    } 
   }
   
   
@@ -386,4 +374,11 @@ main {
   }
   
   
+  .default:first-of-type p:first-of-type {
+    margin-top: 0em;
+  }
+  
+  .default:first-of-type p:last-of-type {
+    padding-bottom: 1em;
+  }
   
