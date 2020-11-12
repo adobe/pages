@@ -88,6 +88,8 @@
       const name=item.name?item.name:setup.label_clean; 
       const required=item.required?item.required:setup.required;  
       let description = hasPageBreak && item.description.length > 0 ? `<span class="description-title">${item.description}</span>` : '';
+      
+      let placeholder = item.placeholder ? `placeholder="${item.placeholder}"` : '';
             
       
       if(index == 0 && hasPageBreak) {
@@ -99,13 +101,14 @@
       
       // INPUT TEXT || EMAIL
       if (item.type === "text" || item.type === "email") {
+        
         formField += `
       <div class="input-el question is-${required}">
         <div class="title-el">
           <label class="label-title" for="${name}">${setup.label}</label>
           ${description}
         </div>
-        <input type="${item.type}" name="${name}" placeholder="${item.placeholder}" ${required}/>
+        <input type="${item.type}" name="${name}" ${placeholder} ${required}/>
       </div>
       `;
       }
@@ -209,7 +212,7 @@
               name="${name}"
               cols="30"
               rows="5"
-              placeholder="${item.placeholder}"
+              ${placeholder}
               ${required}
               ></textarea>
           </div>
