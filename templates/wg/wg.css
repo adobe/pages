@@ -6,9 +6,9 @@ main .default {
 }
 
 .radio-el {
-	margin-bottom: 1em !important;
+	margin-bottom: 1em;
 }
 
 .radio-options-parent {
-	padding: 0em 0em 1em 0em !important;
+	padding: 0.5em 0em 1em 0em;
 }
