@@ -12,11 +12,11 @@ header>div {
 header>div:first-of-type {
   background-color: unset;
 } 
-
+/* 
 header p:first-of-type {
   margin: 0;
   padding-top: 2em;
-}
+} */
 
 
 header .icon {
