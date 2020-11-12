@@ -1,0 +1,6 @@
+@import url("/templates/global/default.css");
+
+main .default {
+	margin: 38px auto;
+	width: 90%;
+}

@@ -1,0 +1,89 @@
+@import url("/styles/legacy/styles.css");
+@import url("/styles/legacy/default.css");
+
+
+header>div {
+  display: flex;
+  justify-content: center;
+  padding-top:2em;
+}
+
+
+header>div:first-of-type {
+  background-color: unset;
+} 
+/* 
+header p:first-of-type {
+  margin: 0;
+  padding-top: 2em;
+} */
+
+
+header .icon {
+  width: 40px;
+  height: 40px;
+}
+
+#npsForm textarea:focus {
+  outline-color: #1473e6;
+}
+
+
+#canAdobeContact {
+  border: 1px solid #aaa;
+  background-color: transparent;
+  border-radius: 0px;
+  background-color: none;
+  box-shadow: none;
+  outline: none;
+}
+
+#canAdobeContact:checked {
+  color: #000;
+  background-color: #000;
+}
+
+.button-group {
+  display: flex;
+  width: 100%;
+  margin: auto;
+}
+
+
+
+#npsForm input[type="submit"]:hover {
+  background-color: #0d66d0;
+  border-color: #0d66d0;
+  color: #fff;
+}
+
+@media(max-width: 600px) {
+  .feedback h1 {
+    font-size: 25px;
+  }
+
+
+  .button-group button {
+    margin-bottom: 1em;
+  }
+
+  #npsForm div:first-of-type button {
+    height: 40px;
+    background: #ddd;
+    border: none;
+  }
+
+  .npsScaleButton.selected {
+    background-color: #0d66d0 !important;
+  }
+
+
+
+  .npsScaleButton {
+    -webkit-appearance: none;
+  }
+}
+
+.step .content h1 {
+  color: white;
+}

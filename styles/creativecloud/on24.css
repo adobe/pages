@@ -1,7 +1,0 @@
-@import url("./default.css");
-
-main > .section-wrapper:first-of-type {
-  padding-top: 30px;
-  max-width: 600px;
-  margin: auto;
-}

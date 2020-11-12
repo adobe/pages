@@ -1,0 +1,1 @@
+loadJSModule(`/scripts/default.js`);

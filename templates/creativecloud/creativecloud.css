@@ -1,0 +1,128 @@
+@import url("/styles/legacy/styles.css");
+@import url("/styles/legacy/default.css");
+
+header > div:first-of-type {
+  color: none;
+}
+
+header {
+  border-bottom: 2px solid #eaeaea;
+}
+
+.wg-form-container {
+  padding-top: 1em;
+  padding-bottom: 2em;
+  max-width: 900px;
+  margin: auto;
+  text-align: left;
+}
+
+.input-el,
+.text-el,
+.radio-el {
+  margin-bottom: 1em;
+}
+
+.input-el input[type="text"],
+.input-el input[type="email"],
+.text-el textarea {
+  width: calc(100% - 10px);
+}
+
+.radio-options-parent {
+  display: flex;
+  padding: 0.3em 0em 1em 0em;
+}
+
+.radio-option {
+  margin-right: 1em;
+}
+
+.radio-option:last-of-type {
+  margin-right: 0em;
+}
+
+.submit-el {
+  text-align: center;
+}
+
+.submit-el button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 16px;
+  -webkit-appearance: none;
+  border: 2px solid #1473e6;
+  background: #1473e6;
+  color: white;
+  padding: 4px 14px;
+  min-width: 72px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.submit-el button:hover {
+  background: #0d66d0;
+  border-color: #0d66d0;
+}
+
+.has-wg-form main .section-wrapper:first-of-type {
+  padding: 2em 0em;
+}
+
+
+.hfield {
+  position: relative;
+  overflow: hidden;
+}
+
+.hfield input {
+  height: 0px;
+  width: 0px;
+  opacity: 0;
+  position: absolute;
+  transform: translateX;
+}
+
+.wg-form-loader {
+  width: 150px;
+  height: 8px;
+  margin: auto;
+  border-radius: 65px;
+  border: 1px solid #eee;
+  position: relative;
+  overflow: hidden;
+}
+
+.wg-form-loader__indicator {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+  background: #1473e6;
+  /* transition: all 400ms ease; */ 
+  animation: loader 3200ms infinite;
+  /* animation-direction: alternate; */
+}
+
+
+@keyframes loader {
+    0% {
+      transform: translateX(100%)
+      
+    }
+    
+    25% {
+      transform: translate(-100%)
+    }
+    
+    50% {
+      transform: translateX(0%)
+    }
+    
+    100% {
+      transform: translateX(100%)
+    }
+    
+}

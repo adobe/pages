@@ -1,0 +1,521 @@
+@import url("/styles/legacy/styles.css");
+
+body {
+	text-rendering: optimizeLegibility; 
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
+main a,
+main a:visited {
+	color: #1473E6;
+	text-decoration: none;
+}
+
+main a:hover {
+	color: #0D66D0;
+	text-decoration: underline;
+}
+
+main a.button:hover {
+	text-decoration: none;
+}
+
+a,
+a:hover,
+.default > p > a:only-child,
+.section-wrapper > p > a:only-child,
+#beta-form input[type=submit]:hover,
+.default > p > a:only-child:hover,
+.section-wrapper > p > a:only-child:hover {
+	-webkit-transition: all 0.3s cubic-bezier(0, 0, 0.40, 1); 
+    -moz-transition: all 0.3s cubic-bezier(0, 0, 0.40, 1); 
+    -o-transition: all 0.3s cubic-bezier(0, 0, 0.40, 1); 
+    transition: all 0.3s cubic-bezier(0, 0, 0.40, 1);
+}
+
+body.home main .section-wrapper {
+	padding: 40px;
+}
+
+body.home main .section-wrapper:nth-child(even) {
+	background: #f5f5f5;
+}
+
+main h1 {
+	font-size: 30px;
+	line-height: 36px;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+main h2 {
+	text-align: left;
+	font-size: 27px;
+	line-height: 30px;
+	margin: 0 0 45px 0;
+}
+
+main .default > p {
+	max-width: 928px;
+	margin: 0 auto 20px auto;
+	color: #707070;
+	text-align: left;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+body.home .section-wrapper:last-child .default > h2 {
+	margin: 0 0 20px 0;
+}
+
+a.button.action,
+body.home .section-wrapper > p > a:only-child {
+	display: inline-block;
+	color: #fff;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: #1473E6;
+	border: none;
+	padding: 0 20px;
+	text-decoration: none;
+	margin-top: 20px;
+	font-size: 16px;
+}
+
+a.button.action:hover,
+body.home .section-wrapper > p > a:only-child:hover {
+	background: #0D66D0;
+}
+
+main a.button {
+	border-width: 2px;
+    border-radius: 20px;
+    min-height: 40px;
+    min-width: 90px;
+    padding: 5px 18px;
+    padding-bottom: 5.5px;
+    padding-top: 4.5px;
+    font-size: 17px;
+    font-weight: 700;
+	background-color: rgba(0, 0, 0, 0);
+    border-color: rgb(110, 110, 110);
+    color: rgb(110, 110, 110);
+    padding-top: 6.5px;
+    font-size: 16px;
+}
+
+main a.button:hover {
+    background-color: rgb(110, 110, 110);
+    border-color: rgb(110, 110, 110);
+    color: rgb(255, 255, 255);
+}
+
+
+/* white nav */
+
+.default-nav .icon {
+	width: 25px;
+}
+
+.default-nav>div:first-of-type {
+	background: #fff;
+}
+
+.default-nav a {
+	color: #2c2c2c;
+}
+
+.default-nav li:hover {
+    background: #F5F5F5;
+}
+
+.default-nav .carrot svg {
+	stroke: #2c2c2c;
+	height: 1.25em;
+    width: 1.25em;
+    margin: 0 0 0 1em;
+}
+
+.default-nav li {
+	padding: 0;
+}
+
+.default-nav li a {
+	display: block;
+	padding: 20px 16px;
+}
+
+header .product-icon p {
+	font-size: 14px;
+}
+
+/* cards */
+
+main .card {
+  	width: 100%;
+  	margin: 0 0 40px 0;
+  	background: #fff;
+  	border-radius: 4px;
+  	border: 1px solid #EAEAEA;
+	font-size: 16px;
+	line-height: 20px;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+main .card,
+main .card p a,
+main .card p a:hover {
+	color: #707070;
+}
+
+main .card img {
+	display: block;
+	width: 100%;
+}
+
+main .card > div:last-child {
+	padding: 40px;
+}
+
+main .card h3 {
+  	font-size: 20px;
+  	line-height: 25px;
+  	margin: 0 0 10px 0;
+}
+
+main .card h3,
+main .card h3 a,
+main .card h3 a:hover {
+  	color: #2C2C2C;	
+}
+
+main .card a:hover {
+	text-decoration: none;
+}
+
+
+/* misc layout */
+
+.section-wrapper .default {
+	width: 100%;
+}
+
+body.home h1,
+body.home main .default > p {
+	text-align: center;
+}
+
+main .card.index-steps .img {
+    width: 100%;
+    min-height: 180px;
+    background-size: cover;
+}
+
+main .card.index-steps .text {
+	width: 100%;
+}
+
+body.step main {
+	margin: 0 auto;
+}
+
+.container {
+	box-sizing: border-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -8px;
+    margin-left: -8px;
+}
+
+.image,
+.content {
+	width: 100%;
+    box-sizing: border-box;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    position: relative;
+}
+
+body.step {
+	background: #f6f5f7 url(/static/lightroom-classic/progress-circle.gif) center center no-repeat;
+	background-size: contain;
+	/*transition: 0.3s ease-out background;*/
+}
+
+body.step.loaded {
+	background: none;
+	transition: 0.3s ease-out background;
+}
+
+.image img:last-child,
+.image img:only-child {
+	display: block;
+}
+
+.image img:first-child {
+	display: none;
+}
+
+.content {
+	padding: 0 40px;
+}
+
+.image img {
+	display: block;
+	width: 100%;
+}
+
+.content header {
+	opacity: 1;
+    margin-top: 40px;
+}
+
+.content header nav {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.content header p:first-of-type {
+	display: block;
+	width: auto;
+	margin-bottom: 0;
+}
+
+.content header p,
+.content header p a,
+.content header h3 {
+	font-size: 14px;
+    margin: 0;
+    font-weight: 400;
+    display: inline-block;
+    width: auto;
+}
+
+.content .text {
+	padding-bottom: 60px;
+}
+
+.content .text h1 + div h3 {
+	font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 30px;	
+}
+
+.content .text p {
+	font-size: 16px;
+	line-height: 20px;
+}
+
+.content footer {
+	width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0 40px;
+}
+
+.content footer nav a.button:first-child {
+	float: left;
+}
+
+.content footer nav a.button:last-child {
+	margin: 0;
+	float: right;
+}
+
+.content .text p {
+	font-family: "Adobe Clean Serif", adobe-clean-serif, sans-serif;
+}
+
+
+
+/* desktop specific styles */
+
+@media only screen and (min-width: 769px) {
+	
+	body.step main {
+		padding: 40px 52px 0px 52px;
+	}
+	
+	body.home main h1 {
+		font-size: 48px;
+		line-height: 60px;
+		margin-top: 0;
+	}
+	
+	main h2 {
+		font-size: 36px;
+		line-height: 45px;
+	}
+	
+	main .default > p {
+		font-size: 20px;
+		line-height: 25px;
+	}
+	
+	main .steps {
+	  display: flex;
+	  flex-wrap: wrap;
+	  margin: auto;
+	  justify-content: center;
+	  max-width: 1416px;
+	}
+	
+	body.home main .section-wrapper {
+		padding: 60px 40px;
+	}
+	
+	main .cards {
+	  display: flex;
+	  flex-wrap: nowrap;
+	  margin: auto;
+	  justify-content: center;
+	  max-width: 1416px;
+	}
+	
+	main .card {
+		max-width: 338px;
+		margin: 0 8px 16px 8px;
+		font-size: 22px;
+		line-height: 28px;
+	}
+	
+	main .card.index-steps {
+		max-width: 928px;
+		display: flex;
+		min-height: 240px;
+	}
+	
+	main .card.index-steps .img {
+	    width: 33%;
+	    height: 100%;
+	    background-size: cover;
+	}
+	
+	main .card.index-steps .text {
+		width: 66%;
+	}
+
+	main .card h3 {
+  		font-size: 26px;
+  		line-height: 32px;
+  	}
+  	
+  	main .default > p:last-child {
+	  	margin-bottom: 0;
+  	}
+  	
+}
+
+@media only screen and (min-width: 1025px) {
+  	
+  	.content header {
+	    margin: 0 0 20px 0;
+	}	
+	
+
+  	.content > div:first-child {
+	  	padding-bottom: 0px;
+  	}
+  	
+  	.image,
+  	.content {
+    	padding-right: 8px;
+		padding-left: 8px;
+  	}
+  	
+  	.image {
+	  	flex-basis: 58.33333333%;
+	  	max-width: 58.33333333%;
+	}
+	
+	.content .text {
+		padding-bottom: 0px;
+	}
+		
+  	.content {
+	    -ms-flex-preferred-size: 41.66666667%;
+	    flex-basis: 41.66666667%;
+	    max-width: 41.66666667%;
+	    
+  	}
+  	
+  	.content footer {
+	  	padding: 0 8px;
+  	}
+  	
+  	.content footer nav {
+		border-top: 1px solid #e1e1e1;
+	    padding-top: 30px;
+	}
+
+}
+
+
+@media only screen and (min-width: 1280px) {
+	
+	main .text h1 {
+		font-size: 36px;
+		line-height: 48px;
+	}
+	  	
+  	.content header {
+		border-bottom: 1px solid #eaeaea;
+	    padding-bottom: 30px;
+	    margin-bottom: 30px;
+	}	
+	
+	.container {
+		margin-right: -16px;
+		margin-left: -16px;
+	}
+	
+  	.image,
+  	.content {
+	  	padding-right: 16px;
+	  	padding-left: 16px;
+  	}
+  	
+  	.content footer {
+	  	padding: 0 16px;
+  	}
+  	
+	.content .text p {
+		font-size: 20px;
+		line-height: 25px;
+	}
+	
+	.content header a {
+    	float: right;
+	}
+	  
+}
+
+@media screen and (min-width: 1580px) {
+	body.step main {
+    	max-width: 1500px;
+	}
+}

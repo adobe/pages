@@ -159,65 +159,19 @@ function classify(qs, cls, parent) {
     });
 }
 
-async function loadPagesCSS(pages) {
-  const exp=`${pages.product?'product':''}${pages.project?'+project':''}`;
+function loadTemplate() {
+  decorateTables();
+  let template='default'
+  $template=document.querySelector('.template');
   
-  let url='';
-  let resp;
-
-  switch (exp) {
-    
-    case 'product+project': 
-      url=`/styles/${pages.product}/${pages.project}.css`;
-      resp=await fetch (url);
-      if (resp.ok) break; 
-
-    case 'product': 
-      url=`/styles/${pages.product}/default.css`;
-      resp=await fetch (url);
-      if (resp.ok) break; 
-    
-    default:
-      url=`/styles/default.css`;
-      resp=await fetch (url);
-      if (resp.ok) break;
-      url='';
-
+  if ($template) {
+    template=toClassName($template.textContent);
+    $template.remove();
   }
 
-  if (url) loadCSS(url);
-}
+  loadJSModule(`/templates/${template}/${template}.js`);
+  loadCSS(`/templates/${template}/${template}.css`);
 
-async function loadPagesJSModule(pages, aliases) {
-  
-  let url='';
-  let resp;
-
-  
-  switch (pages.project?true:false) {
-    
-    case true: 
-      let mappedProject=pages.project;
-      for (let name in aliases) {
-          const map=aliases[name];
-          const from=[].concat(map);
-          from.forEach(e => {
-            if (pages.project.startsWith(e)) mappedProject=name;
-          })
-        }
-
-      url=`/scripts/${mappedProject}.js`;
-      resp=await fetch (url);
-      if (resp.ok) break; 
-
-    default:
-      url=`/scripts/default.js`;
-      resp=await fetch (url);
-      if (resp.ok) break;
-      url='';
-      
-  }
-  if (url) loadJSModule(url);
 }
 
 function externalizeImageSources($div) {
@@ -231,6 +185,7 @@ function externalizeImageSources($div) {
     }
   })
 }
+
 function decorateTables() {
   document.querySelectorAll('main div>table').forEach(($table) => {
       const $cols=$table.querySelectorAll('thead tr th');
@@ -287,9 +242,6 @@ function turnTableSectionIntoCards($table, cols) {
   return ($cards);
 }
 
-
-
-
 const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
 
 window.pages={};
@@ -303,19 +255,16 @@ if (pathSegments) {
 
 window.pages.dependencies=[];
 
-const legacyAliasMap={ 
-  max: 'max',
-  twp3: ['twp3', 'tl', 'ai-sa'],
-  'step-by-step': 'learn',
-  twp: 'twp2'
-};
-
-loadPagesCSS(window.pages);
-loadPagesJSModule(window.pages, legacyAliasMap);
-
-
 if (window.pages.product) {
   document.getElementById('favicon').href=`/icons/${window.pages.product}.svg`;
+}
+
+if (document.readyState == 'loading') {
+  window.addEventListener('DOMContentLoaded', (event) => {
+      loadTemplate();
+  });
+} else {
+  loadTemplate();
 }
 
 
