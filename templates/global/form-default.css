@@ -1,5 +1,31 @@
 /* all forms with class .form */
+.has-wg-form .submit-el button,
+button[type=submit],
+input[type=submit] {
+	font-family: "Adobe Clean", adobe-clean, sans-serif;
+	color: #fff;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: #1473E6;
+	border: none;
+	padding: 0 20px;
+	margin-top: 40px;
+	font-size: 16px;
+	line-height: 20px;
+	cursor: pointer;
+}
 
+form label {
+	color: #6E6E6E;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+form label + textarea {
+	margin: 
+}
 main div.form button,
 main div.form input,
 main div.form select,
@@ -192,4 +218,65 @@ main input[type=text]:hover, main textarea:hover {
 	
 main input[type=radio] {
 		margin: 5px 0;
+}
+
+
+.wg-form-container {
+	padding-top: 1em;
+	padding-bottom: 2em;
+	max-width: 900px;
+	margin: auto;
+	text-align: left;
+}
+
+.input-el,
+.text-el,
+.radio-el {
+	margin-bottom: 1em;
+}
+
+.input-el input[type="text"],
+.input-el input[type="email"],
+.text-el textarea {
+	width: calc(100% - 10px);
+}
+
+.radio-options-parent {
+	padding: 1em 0em 1em 0em;
+}
+
+.radio-option {
+	margin-bottom: 0.6em;
+}
+
+.radio-option:last-of-type {
+	margin-bottom: 0em;
+}
+
+.submit-el {
+	text-align: center;
+}
+
+.submit-el button {
+	cursor: pointer;
+	outline: none;
+	border: none;
+	border-radius: 16px;
+	-webkit-appearance: none;
+	border: 2px solid #1473e6;
+	background: #1473e6;
+	color: white;
+	padding: 4px 14px;
+	min-width: 72px;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.submit-el button:hover {
+	background: #0d66d0;
+	border-color: #0d66d0;
+}
+
+.has-wg-form main .section-wrapper:first-of-type {
+	padding: 2em 0em;
 }
