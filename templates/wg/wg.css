@@ -6,7 +6,7 @@ main .default {
 }
 
 .radio-el {
-	margin-bottom: 1em;
+	margin-bottom: 1em !important;
 }
 
 .radio-options-parent {
