@@ -89,8 +89,13 @@
       const required=item.required?item.required:setup.required;  
       let description = hasPageBreak && item.description.length > 0 ? `<span class="description-title">${item.description}</span>` : '';
       
-      let placeholder = item.placeholder ? `placeholder="${item.placeholder}"` : '';
-            
+      let placeholder = item.placeholder ? true : false;
+      
+      if(placeholder) {
+        if(item.placeholder.length > 3) {
+          placeholder = `placeholder="${item.placeholder}`  
+        }
+      }
       
       if(index == 0 && hasPageBreak) {
         formField += `
@@ -214,8 +219,7 @@
               rows="5"
               ${placeholder}
               ${required}
-            >
-            </textarea>
+            ></textarea>
           </div>
         `
       }
