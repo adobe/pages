@@ -23,17 +23,26 @@ function addNavCarrot() {
 			let svg = document.querySelector('header svg') || document.querySelector('header img');
 			let svgWithCarrot = document.createElement('div');
 			svgWithCarrot.classList.add('nav-logo');
+			let carrot = ``;
+			
+			if(document.querySelector('header ul')) {
+				carrot = `<span class="carrot">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+		</span>`
+					
+			}
 
 			svgWithCarrot.innerHTML = `
-			<span class="product-icon">
+				<span class="product-icon">
 					${svg.outerHTML}
-			</span>
+				</span>
 
-			<span class="carrot">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-			</span>
+				${carrot}
 			`;
 			svg.remove();
+			
+			
+			
 			document.querySelector('header div')
 			.prepend(svgWithCarrot);
 			document.querySelector('header').classList.add('default-nav')
