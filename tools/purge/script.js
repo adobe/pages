@@ -83,13 +83,17 @@ async function purge() {
             const dep=deps[i];
             const url=new URL(dep, loc);
             await sendPurge(url.pathname+url.search);
+            if (url.pathname.endsWith('steps.json')) {
+                const stepUrl=url.pathname.replace('steps.json', 'step');
+                await sendPurge(stepUrl);
+            }
         }
     }
 
     const outerURL=`https://pages.adobe.com${path}`;
 
-    console.log(`redirecting ${outerURL}`);
-    window.location.href=outerURL;            
+    console.log(`redirecting ${outerURL+url.search}`);
+    window.location.href=outerURL+url.search;            
 }
 
 async function sendPurge(path) {
