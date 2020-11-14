@@ -147,10 +147,6 @@ form label {
 	line-height: 20px;
 }
 
-form label + textarea {
-	margin: 
-}
-
 /* nps form specifically */
 
 body.feedback main .embed {

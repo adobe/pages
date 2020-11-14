@@ -12,3 +12,14 @@ main .default {
 .radio-options-parent {
 	padding: 0.5em 0em 1em 0em;
 }
+
+main .default:first-of-type h1 br {
+	display: none;
+}
+
+
+@media(min-width: 768px) {
+	main .default:first-of-type h1 br {
+		display: block;
+	}	
+}
