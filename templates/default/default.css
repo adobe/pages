@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Adobe Clean", "adobe-clean", sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    line-height: 1.6;
+    font-size: 1.4em;
+    color: #323232;
+
+}
+
+img {
+    max-width: 100%;
+}
+
+main>.section-wrapper>div {
+    max-width: 900px;
+    width: 80%;
+    margin: auto;
+}
+
+main h1 {
+    font-weight: 700;
+}
+
+main a:any-link {
+    color: #1473E6;
+    text-decoration: none;
+}
+
+main .button {
+    border-radius: 2em;
+    padding: 0.5em 1.5em;
+    font-weight: 800;
+    display: inline-block;
+    transition: background .3s ease;
+}
+
+main .button.primary {
+    color: white;
+    background-color: #1473e6;
+}
+
+main .button.secondary {
+    border: 2px solid currentColor;
+    color: currentColor;
+}
+
+
+
+

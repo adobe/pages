@@ -1,0 +1,26 @@
+main div.bio {
+    display: flex;
+    text-align: left;
+    margin: auto;
+    font-size: 0.7em;
+    align-items: center;
+    padding: 2em;
+    margin: 2em;
+    background-color: #eee;
+}
+
+main div.bio>div:first-of-type {
+    text-align: right;
+}
+main div.bio>div {
+    width: 400px;
+    padding: 12px;
+}
+
+main div.bio img {
+    height: 72px;
+    width: 72px;
+    border-radius: 36px
+}
+
+
