@@ -93,8 +93,12 @@
       
       if(placeholder) {
         if(item.placeholder.length > 3) {
-          placeholder = `placeholder="${item.placeholder}`  
+          placeholder = `${item.placeholder}`  
+        } else {
+          placeholder='';
         }
+      } else {
+        placeholder = ''
       }
       
       if(index == 0 && hasPageBreak) {
@@ -113,7 +117,7 @@
             <label class="label-title" for="${name}">${setup.label}</label>
             ${description}
           </div>
-          <input type="${item.type}" name="${name}" ${placeholder} ${required}/>
+          <input type="${item.type}" name="${name}" placeholder="${placeholder}" ${required}/>
         </div>
         `;
       }
@@ -217,7 +221,7 @@
               name="${name}"
               cols="30"
               rows="5"
-              ${placeholder}
+              placeholder="${placeholder}"
               ${required}
             ></textarea>
           </div>
