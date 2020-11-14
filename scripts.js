@@ -160,7 +160,16 @@ function classify(qs, cls, parent) {
 }
 
 function loadTemplate() {
-  decorateTables();
+  document.querySelectorAll('table th').forEach($th => {
+    if ($th.textContent.toLowerCase().trim() == 'template') {
+      $table=$th.closest('table');
+      const template=$table.querySelector('td').textContent;
+      const $div=createTag('div', {class: 'template'});
+      $div.innerHTML=template;
+      $table.parentElement.replaceChild($div,$table);
+    }
+  })
+
   let template='default'
   $template=document.querySelector('.template');
   
