@@ -130,7 +130,7 @@ async function decorateStep() {
     const $h1=document.querySelector('main .content>h1');
     let title=currentStep.Title;
     if (currentStep.Heading) title=currentStep.Heading;
-    title=title.split(`\n`).join('<br>');
+    title=title.replace('\n', '<br>');
     $h1.innerHTML=title;
     $h1.id='';
 
@@ -170,7 +170,7 @@ async function decorateStep() {
     let skills=[]
     while (currentStep['Skill '+(skills.length+1)]) {
         skills.push({
-            title: currentStep['Skill '+(skills.length+1)], 
+            title: currentStep['Skill '+(skills.length+1)].replace('\n', '<br>'), 
             icon: currentStep['Skill '+(skills.length+1)+' Icon']
         });
     }
@@ -179,7 +179,7 @@ async function decorateStep() {
 
     skills.forEach((skill) => {
         html+=`<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
-            <p>${skill.title}</p></div>`;
+            <p>${skill.title.replace('\n', '<br>')}</p></div>`;
     })
     $skills.innerHTML=html;
     $learn.appendChild($skills);
@@ -209,8 +209,8 @@ async function decorateStep() {
                                 <img src="${getThumbnail(nextStep)}">
                               </div>
                               ${upnext}
-                              <h2>${nextStep.Title}</h2>
-                              <p>${nextStep.Description}</p>
+                              <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
+                              <p>${nextStep.Description.replace('\n', '<br>')}</p>
                             </div>
         
                 `;
