@@ -66,8 +66,8 @@ async function insertSteps() {
                 </svg>
                 </div>
                 <div class='text'>
-                    <div><h4>${step.Title}</h4>
-                    <p>${step.Description}</p>
+                    <div><h4>${step.Title.replace('\n', '<br>')}</h4>
+                    <p>${step.Description.replace('\n', '<br>')}</p>
                     </div>
                     <a href="step?${i+1}">${step.CTA}</a>
                 </div>
