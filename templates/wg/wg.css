@@ -17,6 +17,9 @@ main .default:first-of-type h1 br {
 	display: none;
 }
 
+.premiere.wg header .product-icon p {
+	color: white;
+}
 
 @media(min-width: 768px) {
 	main .default:first-of-type h1 br {
