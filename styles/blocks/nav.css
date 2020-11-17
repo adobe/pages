@@ -1,0 +1,152 @@
+.nav {
+	padding: 0em 0em 0em 0em;
+}
+
+.nav .nav__section:first-of-type {
+	display: inline-flex;
+	align-items: center;
+	line-height: 0px;
+	padding: 1em 0em;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.nav .nav__section:first-of-type a {
+	display: flex;
+	align-items: center;
+	line-height: 0px;
+	justify-content: center;
+	color: #444;
+	text-decoration: none;
+}
+
+.nav img {
+	width: 36px;
+	height: 36px;
+}
+
+
+.app-name {
+	font-size: 15px;
+	font-weight: 700;
+	margin-left: 8px;
+}
+
+.menu-carrot {
+	/* display: none; */
+	width: 16px;
+	margin-left: 8px;
+}
+
+.nav-showing .nav {
+	background: #eee;
+}
+
+.nav-showing .nav nav {
+	display: block;
+}
+
+.nav nav {
+	padding-bottom: 1em;
+	display: none;
+}
+
+.nav nav ul {
+	list-style-type: none;
+	margin: 0; padding: 0;
+	font-size: 16px;
+}
+
+.nav nav li {
+	margin-bottom: 1em;
+}
+
+.nav nav li:last-of-type {
+	margin-bottom: 0em;
+}
+
+.nav nav a {
+	color: #2c2c2c;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+
+@media(min-width: 768px) {
+		.nav {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 1em 0em;
+			background: none !important;
+		}
+		
+		.mobile-home {
+			display: none;
+		}
+		
+		.nav .nav__section:first-of-type {
+			display: inline-flex;
+			align-items: center;
+			line-height: 0px;
+			padding: 0em 0em;
+			justify-content: center;
+		}
+		
+		.nav .nav__section:first-of-type a {
+			display: flex;
+			align-items: center;
+			line-height: 0px;
+			justify-content: center;
+			color: #444;
+			text-decoration: none;
+		}
+		
+		.nav img {
+			width: 36px;
+			height: 36px;
+		}
+		
+		
+		.app-name {
+			font-size: 15px;
+			font-weight: 700;
+			margin-left: 8px;
+		}
+		
+		.menu-carrot {
+			display: none;
+		}
+		
+		.nav-showing .nav nav {
+			display: block;
+		}
+		
+		.nav nav {
+			padding-bottom: 0em;
+			margin-left: 32px;
+			display: block !important;
+		}
+		
+		.nav nav ul {
+			display: flex;
+			font-size: 16px;
+		}
+		
+		.nav nav li {
+			margin-bottom: 0em;
+		}
+		
+		.nav nav li:last-of-type {
+			margin-right: 0px;
+		}
+		
+		.nav nav a {
+			padding: 16px 24px;
+		}
+		
+		.nav nav a:hover {
+			background: #eee;
+		}
+	
+}
