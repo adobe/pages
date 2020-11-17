@@ -1,11 +1,11 @@
-main div.bio-container {
+main div.bio-block{
     background-color: #eee;
 }
 
 main div.bio {
     display: flex;
     text-align: left;
-    justify-content: center;
+    justify-content: space-between;
     margin: auto;
     font-size: 0.7em;
     align-items: center;
@@ -20,11 +20,11 @@ main div.bio > div:first-of-type {
 }
 
 main div.bio > div:last-of-type {
-    width: 75%;
+    width: 70%;
 }
 
 main div.bio img {
-    max-width: 72px;
+    max-width: 96px;
     width: 100%;
     border-radius: 100%;
 }
@@ -33,3 +33,11 @@ main div.bio h3 {
     margin: 0.2em 0em;
 }
 
+
+
+@media(min-width: 768px) {
+	main div.bio {
+		margin: 4em auto;
+		padding: 7em 0em;
+	}
+}
