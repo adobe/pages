@@ -17,7 +17,7 @@ img {
     max-width: 100%;
 }
 
-main>.section-wrapper>div {
+main >.section-wrapper > div {
     max-width: 900px;
     width: 80%;
     margin: auto;
@@ -33,23 +33,135 @@ main a:any-link {
 }
 
 main .button {
-    border-radius: 2em;
-    padding: 0.5em 1.5em;
-    font-weight: 800;
-    display: inline-block;
-    transition: background .3s ease;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 16px;
+  min-height: 32px;
+  height: auto;
+  min-width: 72px;
+  padding: 4px 14px;
+  padding-bottom: 4.5px;
+  padding-top: 3.5px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background .13s ease-out,border-color .13s ease-out,color .13s ease-out,box-shadow .13s ease-out;
+  line-height: 1.3;
 }
 
 main .button.primary {
-    color: white;
     background-color: #1473e6;
+      border-color: #1473e6;
+      color: #fff;
+}
+
+main .button.primary:hover {
+    background-color: #0d66d0;
+      border-color: #0d66d0;
+      color: #fff;
 }
 
 main .button.secondary {
-    border: 2px solid currentColor;
-    color: currentColor;
+    background-color: transparent;
+    border-color: #505050;
+    color: #505050;
+}
+
+main .button.secondary:hover {
+    background-color: #505050;
+      border-color: #505050;
+      color: #fff;
 }
 
 
+footer {
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 32px 0px;
+}
+
+footer > div:last-of-type {
+    margin-left: 16px;
+}
+
+footer svg {
+    fill: currentColor;
+    height: 1em;
+    width: 1em;
+}
+
+footer a {
+    color: #777;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #444;
+}
+
+footer .section-wrapper > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+footer .section-wrapper p {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 12px;
+}
+
+footer .section-wrapper ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+    margin: 0; padding: 0;
+}
+
+footer li {
+    margin-bottom: 12px;
+    position: relative;
+}
+
+footer li:before {
+    content: '';
+    position: relative;
+}
 
 
+@media(min-width: 768px) {
+    footer {
+        font-size: 11px;
+        flex-direction: row;
+    }
+    
+    footer > div:last-of-type {
+        margin-left: 16px;
+    }
+    
+    footer .section-wrapper > div {
+        flex-direction: row;
+    }
+    
+    footer .section-wrapper p {
+        margin-bottom: 0px;
+    }
+    
+    footer .section-wrapper ul {
+        flex-direction: row;
+    }
+    
+    footer li {
+        margin-left: 16px;
+        margin-bottom: 0px;
+    }
+    
+    footer li:before {
+        content: '/';
+        margin-right: 16px;
+        
+    }
+}
