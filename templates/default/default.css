@@ -17,7 +17,7 @@ img {
     max-width: 100%;
 }
 
-main>.section-wrapper>div {
+main >.section-wrapper > div {
     max-width: 900px;
     width: 80%;
     margin: auto;
@@ -51,5 +51,95 @@ main .button.secondary {
 }
 
 
+footer {
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 32px 0px;
+}
+
+footer > div:last-of-type {
+    margin-left: 16px;
+}
+
+footer svg {
+    fill: currentColor;
+    height: 1em;
+    width: 1em;
+}
+
+footer a {
+    color: #777;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #444;
+}
+
+footer .section-wrapper > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+footer .section-wrapper p {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 12px;
+}
+
+footer .section-wrapper ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+    margin: 0; padding: 0;
+}
+
+footer li {
+    margin-bottom: 12px;
+    position: relative;
+}
+
+footer li:before {
+    content: '';
+    position: relative;
+}
 
 
+@media(min-width: 768px) {
+    footer {
+        font-size: 11px;
+        flex-direction: row;
+    }
+    
+    footer > div:last-of-type {
+        margin-left: 16px;
+    }
+    
+    footer .section-wrapper > div {
+        flex-direction: row;
+    }
+    
+    footer .section-wrapper p {
+        margin-bottom: 0px;
+    }
+    
+    footer .section-wrapper ul {
+        flex-direction: row;
+    }
+    
+    footer li {
+        margin-left: 16px;
+        margin-bottom: 0px;
+    }
+    
+    footer li:before {
+        content: '/';
+        margin-right: 16px;
+        
+    }
+}
