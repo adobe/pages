@@ -1,26 +1,35 @@
-main div.bio {
-    display: flex;
-    text-align: left;
-    margin: auto;
-    font-size: 0.7em;
-    align-items: center;
-    padding: 2em;
-    margin: 2em;
+main div.bio-container {
     background-color: #eee;
 }
 
-main div.bio>div:first-of-type {
-    text-align: right;
-}
-main div.bio>div {
+main div.bio {
+    display: flex;
+    text-align: left;
+    justify-content: center;
+    margin: auto;
+    font-size: 0.7em;
+    align-items: center;
+    padding: 4em 0em;
+    margin: 2em auto;
     width: 400px;
-    padding: 12px;
+}
+
+
+main div.bio > div:first-of-type {
+    width: 25%;
+}
+
+main div.bio > div:last-of-type {
+    width: 75%;
 }
 
 main div.bio img {
-    height: 72px;
-    width: 72px;
-    border-radius: 36px
+    max-width: 72px;
+    width: 100%;
+    border-radius: 100%;
 }
 
+main div.bio h3 {
+    margin: 0.2em 0em;
+}
 

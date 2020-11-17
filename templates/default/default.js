@@ -48,6 +48,8 @@ function decorateBlocks() {
         if (length == 1) {
             const classes=$block.className.split('-');
             $block.classList.add(classes);
+            console.log(classes)
+            $block.closest('.section-wrapper').classList.add(`${classes}-container`)
             loadCSS(`/styles/blocks/${classes[0]}.css`);
         }
     
