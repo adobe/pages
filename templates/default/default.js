@@ -113,6 +113,7 @@ function decorateBlocks() {
       if(classes.includes('nav')) {
         let nav = $block.outerHTML;
         $block.remove();
+        console.log(nav)
         document.querySelector('header').innerHTML = nav;
         styleNav();
       }
