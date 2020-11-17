@@ -1,43 +1,43 @@
 function styleNav() {
-  const parent = document.querySelector('.nav');
-  const appIcon = parent.querySelector('img').getAttribute('src');
-  const appLink = parent.querySelector('a').getAttribute('href')
-  const appName = parent.querySelector('a').innerHTML;
-  const listItems = parent.querySelectorAll('ul li');
-  let nav = '';
-  let carrot = '';
+  // const parent = document.querySelector('.nav');
+  // const appIcon = parent.querySelector('img').getAttribute('src');
+  // const appLink = parent.querySelector('a').getAttribute('href')
+  // const appName = parent.querySelector('a').innerHTML;
+  // const listItems = parent.querySelectorAll('ul li');
+  // let nav = '';
+  // let carrot = '';
+  // 
+  // if(listItems) {
+  //   if(listItems.length >= 1) {
+  //     const homeOnMobile = document.createElement('li');
+  //     homeOnMobile.classList.add('mobile-home');
+  //     
+  //     homeOnMobile.innerHTML = `<a href="${appLink}">Home</a>`
+  //     
+  //     parent.querySelector('ul').prepend(homeOnMobile)
+  //     
+  //     nav = parent.querySelector('ul').outerHTML;
+  //     carrot = `
+  //       <div class="menu-carrot">
+  //         <img src='/icons/carrot.svg'>
+  //       </div>
+  //     `
+  //   }
+  // }
   
-  if(listItems) {
-    if(listItems.length >= 1) {
-      const homeOnMobile = document.createElement('li');
-      homeOnMobile.classList.add('mobile-home');
-      
-      homeOnMobile.innerHTML = `<a href="${appLink}">Home</a>`
-      
-      parent.querySelector('ul').prepend(homeOnMobile)
-      
-      nav = parent.querySelector('ul').outerHTML;
-      carrot = `
-        <div class="menu-carrot">
-          <img src='/icons/carrot.svg'>
-        </div>
-      `
-    }
-  }
-  
-  parent.innerHTML = `
-    <div class="nav__section">
-      <a href="${appLink}">
-        <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
-        <div class="app-name">${appName}</div>
-        ${carrot}
-      </a>
-    </div>
-    
-    <nav class="nav-section">
-      ${nav}
-    </nav>
-  `
+  // parent.innerHTML = `
+  //   <div class="nav__section">
+  //     <a href="${appLink}">
+  //       <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
+  //       <div class="app-name">${appName}</div>
+  //       ${carrot}
+  //     </a>
+  //   </div>
+  //   
+  //   <nav class="nav-section">
+  //     ${nav}
+  //   </nav>
+  // `
 }
 
 
@@ -107,15 +107,47 @@ function decorateBlocks() {
       const classes=$block.className.split('-');
       $block.classList.add(classes);
       console.log(classes)
-      $block.closest('.section-wrapper').classList.add(`${classes}-container`)
+      $block.closest('.section-wrapper').classList.add(`${classes}-block`)
       
       
       if(classes.includes('nav')) {
+				$block.closest('.section-wrapper').classList.remove('nav-block')
         let nav = $block.outerHTML;
         $block.remove();
         console.log(nav)
         document.querySelector('header').innerHTML = nav;
         styleNav();
+      }
+      
+      if(classes.includes('form')) {
+        // window.formConfig = {}
+        let formSheet, formRedirect, formToUse;
+        
+        document.querySelectorAll('.form p a, .form p strong').forEach(function(config) {
+          console.log(config.innerText)
+          if(config.innerText.toLowerCase() == "sheet") {
+            formSheet = config.closest('a').getAttribute('href')
+          }
+          
+          if(config.innerText.toLowerCase() == "thank-you") {
+            formRedirect = config.closest('a').getAttribute('href')
+          }
+          
+          if(config.nodeName == "STRONG") {
+            formToUse = config.innerText;
+          }
+        })
+        
+        
+        window.formConfig = {
+          form_sheet: formSheet,
+          form_redirect: formRedirect,
+          form_to_use: formToUse
+        }
+        
+        let tag = document.createElement("script");
+        tag.src = "/templates/default/create-form.js";
+        document.getElementsByTagName("body")[0].appendChild(tag);
       }
       loadCSS(`/styles/blocks/${classes[0]}.css`);
     }
@@ -152,10 +184,9 @@ async function decoratePage() {
   decorateTables();
   wrapSections('main>div');
   decorateBlocks();
-  if(document.querySelector('.nav')) {
-    console.log('here!')
-    document.querySelector('.nav__section:first-of-type a').addEventListener('click', mobileDropDown)
-  }
+  // if(document.querySelector('.nav')) {
+  //   document.querySelector('.nav__section:first-of-type a').addEventListener('click', mobileDropDown)
+  // }
   
   await loadLocalHeader();
   wrapSections('header>div, footer>div');
