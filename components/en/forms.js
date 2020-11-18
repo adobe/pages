@@ -20,7 +20,6 @@ window.setupForm = ({
   const $form = document.getElementById(formId);
 
   let emails = document.getElementsByClassName("emails");
-  console.log(emails.length);
   if (emails.length) {
     // legacy email checker
     for (let i = 0; i < emails.length; i++) {
