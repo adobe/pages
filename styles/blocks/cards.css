@@ -25,4 +25,18 @@ main div.cards .card .text {
 
 main div.cards .card .text .icon {
     height: 2em;
+    max-width: 28px;
+}
+
+main div.cards .card .text .icon:last-of-type {
+    margin-left: 8px;
+}
+
+main div.cards .card .text p,
+main div.cards .card .text h3 {
+    margin: 8px 0;
+}
+
+main div.cards .card a {
+    margin-top: 16px;
 }

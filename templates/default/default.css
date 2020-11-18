@@ -131,6 +131,8 @@ footer li:before {
     position: relative;
 }
 
+footer li:after { display: none; }
+
 
 @media(min-width: 768px) {
     footer {
