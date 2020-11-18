@@ -1,7 +1,3 @@
-.nav {
-	display: none !important; // hiding while bug is present.
-}
-
 .nav .nav__section:first-of-type {
 	display: inline-flex;
 	align-items: center;
@@ -11,6 +7,10 @@
 	cursor: pointer;
 }
 
+header > div {
+	display: block !important;
+}
+
 .nav .nav__section:first-of-type a {
 	display: flex;
 	align-items: center;
@@ -18,6 +18,10 @@
 	justify-content: center;
 	color: #444;
 	text-decoration: none;
+}
+
+.nav nav li:hover {
+	background: none;
 }
 
 .nav img {
@@ -33,7 +37,6 @@
 }
 
 .menu-carrot {
-	/* display: none; */
 	width: 16px;
 	margin-left: 8px;
 }
@@ -58,11 +61,13 @@
 }
 
 .nav nav li {
+	margin-top: 0em;
+	padding: 0;
 	margin-bottom: 1em;
 }
 
 .nav nav li:last-of-type {
-	margin-bottom: 0em;
+	margin-bottom: 0em !important;
 }
 
 .nav nav a {
@@ -135,6 +140,7 @@
 		
 		.nav nav li {
 			margin-bottom: 0em;
+			margin-right: 0 !important;
 		}
 		
 		.nav nav li:last-of-type {

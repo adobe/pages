@@ -37,7 +37,7 @@ main div.bio h3 {
 
 @media(min-width: 768px) {
 	main div.bio {
-		margin: 4em auto;
+		margin: 4em auto 0em auto;
 		padding: 7em 0em;
 	}
 }

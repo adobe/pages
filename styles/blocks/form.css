@@ -1,10 +1,15 @@
 @import url("/styles/legacy/styles.css");
-@import url("thank-you.css");
-
 
 .form-block {
-	background-color: #fafafa;
 	padding: 2em 0em;
+}
+
+.form-block #wg-form {
+	max-width: 100%;
+}
+
+.form-block .form {
+	background: transparent !important;
 }
 
 .form-block h1 {

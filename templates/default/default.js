@@ -1,43 +1,43 @@
 function styleNav() {
-  // const parent = document.querySelector('.nav');
-  // const appIcon = parent.querySelector('img').getAttribute('src');
-  // const appLink = parent.querySelector('a').getAttribute('href')
-  // const appName = parent.querySelector('a').innerHTML;
-  // const listItems = parent.querySelectorAll('ul li');
-  // let nav = '';
-  // let carrot = '';
-  // 
-  // if(listItems) {
-  //   if(listItems.length >= 1) {
-  //     const homeOnMobile = document.createElement('li');
-  //     homeOnMobile.classList.add('mobile-home');
-  //     
-  //     homeOnMobile.innerHTML = `<a href="${appLink}">Home</a>`
-  //     
-  //     parent.querySelector('ul').prepend(homeOnMobile)
-  //     
-  //     nav = parent.querySelector('ul').outerHTML;
-  //     carrot = `
-  //       <div class="menu-carrot">
-  //         <img src='/icons/carrot.svg'>
-  //       </div>
-  //     `
-  //   }
-  // }
+  const parent = document.querySelector('.nav');
+  const appIcon = parent.querySelector('img').getAttribute('src');
+  const appLink = parent.querySelector('a').getAttribute('href')
+  const appName = parent.querySelector('a').innerHTML;
+  const listItems = parent.querySelectorAll('ul li');
+  let nav = '';
+  let carrot = '';
   
-  // parent.innerHTML = `
-  //   <div class="nav__section">
-  //     <a href="${appLink}">
-  //       <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
-  //       <div class="app-name">${appName}</div>
-  //       ${carrot}
-  //     </a>
-  //   </div>
-  //   
-  //   <nav class="nav-section">
-  //     ${nav}
-  //   </nav>
-  // `
+  if(listItems) {
+    if(listItems.length >= 1) {
+      const homeOnMobile = document.createElement('li');
+      homeOnMobile.classList.add('mobile-home');
+      
+      homeOnMobile.innerHTML = `<a href="${appLink}">Home</a>`
+      
+      parent.querySelector('ul').prepend(homeOnMobile)
+      
+      nav = parent.querySelector('ul').outerHTML;
+      carrot = `
+        <div class="menu-carrot">
+          <img src='/icons/carrot.svg'>
+        </div>
+      `
+    }
+  }
+  
+  parent.innerHTML = `
+    <div class="nav__section">
+      <a href="${appLink}">
+        <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
+        <div class="app-name">${appName}</div>
+        ${carrot}
+      </a>
+    </div>
+    
+    <nav class="nav-section">
+      ${nav}
+    </nav>
+  `
 }
 
 
@@ -120,7 +120,6 @@ function decorateBlocks() {
       }
       
       if(classes.includes('form')) {
-        // window.formConfig = {}
         let formSheet, formRedirect, formToUse;
         
         document.querySelectorAll('.form p a, .form p strong').forEach(function(config) {
@@ -184,10 +183,9 @@ async function decoratePage() {
   decorateTables();
   wrapSections('main>div');
   decorateBlocks();
-  // if(document.querySelector('.nav')) {
-  //   document.querySelector('.nav__section:first-of-type a').addEventListener('click', mobileDropDown)
-  // }
-  
+  if(document.querySelector('.nav')) {
+    document.querySelector('.nav__section:first-of-type a').addEventListener('click', mobileDropDown)
+  }
   await loadLocalHeader();
   wrapSections('header>div, footer>div');
   decorateButtons();
