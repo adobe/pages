@@ -1,0 +1,92 @@
+.card {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card > div {
+  /* width: 31%; */
+  width: 100%;
+  max-width: 350px;
+  margin-bottom: 1em;
+  /* margin-right: 4%; */
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #DEDEDE;
+}
+
+.card > div:nth-child(2n) {
+  margin-right: 0;
+}
+
+.card > div > div:first-of-type img {
+  width: 100%;
+}
+
+.card > div > div:last-of-type {
+  padding: 24px 24px;
+}
+
+.card > div > div:last-of-type p{
+  display: flex;
+  text-align: left;
+  font-size: 18px;
+  margin: 0;
+}
+
+
+.card > div > div:last-of-type p img{
+  width: 28px;
+}
+
+.card > div > div:last-of-type p img:last-of-type{
+  margin-left: 14px;
+}
+
+.card > div > div:last-of-type h3{
+  text-align: left;
+  font-size: 22px;
+  margin: 14px 0px 8px 0px;
+  line-height: 1.4;
+}
+
+.card > div > div:last-of-type a {
+  margin-top: 26px;
+}
+
+
+@media(min-width: 600px) {
+  .card > div {
+    /* width: 31%; */
+    width: 48%;
+    max-width: 350px;
+    margin-bottom: 1em;
+    margin-right: 4%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #DEDEDE;
+  }
+  
+  .card > div:nth-child(2n) {
+    margin-right: 0;
+  }
+}
+
+
+@media(min-width: 768px) {
+  .card > div {
+    width: 31%;
+    margin-bottom: 1em;
+    margin-right: 3.5%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #DEDEDE;
+  }
+  
+  .card > div:nth-child(2n) {
+    margin-right: 3.5%;
+  }
+  .card > div:nth-child(3n) {
+    margin-right: 0%;
+  }
+}
