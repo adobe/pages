@@ -1,7 +1,10 @@
 function styleNav() {
   const parent = document.querySelector('.nav');
-  const appIcon = parent.querySelector('img').getAttribute('src');
-  const appLink = parent.querySelector('a').getAttribute('href')
+  const $appIcon = parent.querySelector('img');
+  if (!$appIcon) return;
+  const appIcon = $appIcon.src;
+  const $appLink = parent.querySelector('a');
+  const appLink = $appLink.href;
   const appName = parent.querySelector('a').innerHTML;
   const listItems = parent.querySelectorAll('ul li');
   let nav = '';
@@ -59,45 +62,45 @@ function decorateTables() {
     const $rows=$table.querySelectorAll('tbody tr');
     let $div={};
     
-    if (cols.length==1 && $rows.length==1) {
-      $div=createTag('div', {class:`${cols[0]}`});
-      
-      $rows[0].querySelectorAll('td').forEach($cell => {
-        const $innerDiv=createTag('div');
-        $innerDiv.innerHTML=$cell.innerHTML;
-        $div.appendChild($innerDiv);
-      });
-      
-      externalizeImageSources($div);
-    } else {
-      $div=turnTableSectionIntoCards($table, cols) 
-    }
-    
+    $div=tableToDivs($table, cols) 
     $table.parentNode.replaceChild($div, $table);
   });
 }
   
-function turnTableSectionIntoCards($table, cols) {
+function tableToDivs($table, cols) {
   const $rows=$table.querySelectorAll('tbody tr');
-  const $cards=createTag('div', {class:`cards ${cols.join('-')}`})
+  const $cards=createTag('div', {class:`${cols.join('-')}`})
   $rows.forEach(($tr) => {
-  const $card=createTag('div', {class:'card'})
-  $tr.querySelectorAll('td').forEach(($td, i) => {
-    const $div=createTag('div', {class: cols[i]});
-      $div.innerHTML=$td.innerHTML;
-      $div.childNodes.forEach(($child) => {
-        if ($child.nodeName=='#text') {
-          const $p=createTag('p');
-          $p.innerHTML=$child.nodeValue;
-          $child.parentElement.replaceChild($p, $child);
-        }
-      })
-      $card.append($div);
+    const $card=createTag('div')
+    $tr.querySelectorAll('td').forEach(($td, i) => {
+      const $div=createTag('div', cols.length>1?{class: cols[i]}:{});
+        $div.innerHTML=$td.innerHTML;
+        $div.childNodes.forEach(($child) => {
+          if ($child.nodeName=='#text') {
+            const $p=createTag('p');
+            $p.innerHTML=$child.nodeValue;
+            $child.parentElement.replaceChild($p, $child);
+          }
+        })
+        $card.append($div);
+      });
+      $cards.append($card);
     });
-    $cards.append($card);
-  });
   return ($cards);
 }  
+
+function readBlockConfig($block) {
+  const config={};
+  $block.querySelectorAll(':scope>div').forEach(($row) => {
+    const name=toClassName($row.children[0].textContent);
+    const $a=$row.children[1].querySelector('a');
+    let value='';
+    if ($a) value=$a.href;
+    else value=$row.children[1].textContent;
+    config[name]=value;
+  });
+  return config;
+}
 
 
 function decorateBlocks() {
@@ -105,9 +108,9 @@ function decorateBlocks() {
     const length=$block.classList.length;
     if (length == 1) {
       const classes=$block.className.split('-');
-      $block.classList.add(classes);
+      $block.closest('.section-wrapper').classList.add(`${$block.className}-container`)
+      $block.classList.add(...classes);
       console.log(classes)
-      $block.closest('.section-wrapper').classList.add(`${classes}-block`)
       
       
       if(classes.includes('nav')) {
@@ -120,28 +123,13 @@ function decorateBlocks() {
       }
       
       if(classes.includes('form')) {
-        let formSheet, formRedirect, formToUse;
-        
-        document.querySelectorAll('.form p a, .form p strong').forEach(function(config) {
-          console.log(config.innerText)
-          if(config.innerText.toLowerCase() == "sheet") {
-            formSheet = config.closest('a').getAttribute('href')
-          }
-          
-          if(config.innerText.toLowerCase() == "thank-you") {
-            formRedirect = config.closest('a').getAttribute('href')
-          }
-          
-          if(config.nodeName == "STRONG") {
-            formToUse = config.innerText;
-          }
-        })
-        
+        const config=readBlockConfig($block);
+        console.log(config);
         
         window.formConfig = {
-          form_sheet: formSheet,
-          form_redirect: formRedirect,
-          form_to_use: formToUse
+          form_sheet: config['form-data-submission'],
+          form_redirect: config['form-redirect']?config['form-redirect']:'thank-you',
+          form_to_use: config['form-definition']
         }
         
         let tag = document.createElement("script");
