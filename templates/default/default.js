@@ -92,12 +92,14 @@ function tableToDivs($table, cols) {
 function readBlockConfig($block) {
   const config={};
   $block.querySelectorAll(':scope>div').forEach(($row) => {
-    const name=toClassName($row.children[0].textContent);
-    const $a=$row.children[1].querySelector('a');
-    let value='';
-    if ($a) value=$a.href;
-    else value=$row.children[1].textContent;
-    config[name]=value;
+    if ($row.children && $row.children[1]) {
+      const name=toClassName($row.children[0].textContent);
+      const $a=$row.children[1].querySelector('a');
+      let value='';
+      if ($a) value=$a.href;
+      else value=$row.children[1].textContent;
+      config[name]=value;  
+    }
   });
   return config;
 }
