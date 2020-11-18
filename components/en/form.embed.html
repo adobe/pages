@@ -67,7 +67,7 @@
     let formSubmitPresent = false;
     let output = await formData();
     document.querySelectorAll('main')[0].style.opacity = '1'
-    window.location.hostname === "localhost" ? output = output : output = output.data;
+    output = output.data;
     
   
     let checkIfSlider = () => {
