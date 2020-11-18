@@ -251,6 +251,33 @@ function turnTableSectionIntoCards($table, cols) {
   return ($cards);
 }
 
+function localizeFooter() {
+  const lang=window.pages.locale;
+
+  const footers={
+    de: `<div>
+    <p>Copyright © 2020 Adobe. All rights reserved.</p>
+    <ul>
+    <li><a href="https://www.adobe.com/de/privacy.html">Richtlinien f&uuml;r den Datenschutz</a></li>
+    <li><a href="https://www.adobe.com/de/legal/terms.html">Nutzungsbedingungen</a></li>
+    <li><a href="https://www.adobe.com/de/privacy/ca-rights.html">Daten zu meiner Person nicht verkaufen</a></li>
+    <li><a href="https://www.adobe.com/de/privacy/opt-out.html#interest-based-ads"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdAuswahl</a></li>
+    </ul>
+    </div>
+    <div>
+    <div class="privacy" style="display: block;">
+      <a href="#" class="openPrivacyModal">Einstellungen</a>
+      <div id="feds-footer"></div>
+    </div>
+    </div>`
+  }
+
+  if (footers[lang]) {
+    const $footer = document.querySelector('body>footer');
+    $footer.innerHTML=footers[lang];
+  }
+}
+
 const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
 
 window.pages={};
@@ -270,9 +297,11 @@ if (window.pages.product) {
 
 if (document.readyState == 'loading') {
   window.addEventListener('DOMContentLoaded', (event) => {
-      loadTemplate();
+    localizeFooter();
+    loadTemplate();
   });
 } else {
+  localizeFooter();
   loadTemplate();
 }
 
