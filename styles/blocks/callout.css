@@ -1,18 +1,24 @@
-.cards-variant-two-content {
+
+.callout-container {
+	background: #F4F4F4;
+}
+
+.callout {
 	padding: 55px 0px;
 	max-width: 615px;
 	width: 90%;
 	margin: auto;
-	display: flex;
+  display: flex;
+  flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: space-between;
 }
 
-.thank-you-cards- img {
+.callout img {
 	width: 100%;
 }
 
-.thank-you-cards- .card {
+.callout > div {
 	background: white;
 	font-size: 15px;
 	line-height: 1.6;
@@ -21,28 +27,30 @@
 	border-radius: 8px;
 	overflow: hidden;
 	border: 1px solid #EAEAEA;
-	box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: left;
+  margin-bottom: 2em;
 }
 
-.thank-you-cards- .card:first-of-type {
+.callout > div > div:first-of-type {
 	margin-bottom: 24px;
 }
 
-.thank-you-cards- .card div:last-of-type {
+.callout > div > div:last-of-type {
 	padding: 18px 24px;
 }
 
-.thank-you-cards- .card h3 {
+.callout > div h3 {
 	font-size: 19px;
 	margin: 0px 0px 8px 0px;
 }
 
-.thank-you-cards- p:last-of-type {
+.callout p:last-of-type {
 	border-top: 1px solid #ddd;
 	text-align: right;
 }
 
-.thank-you-cards- a {
+.callout a {
 	margin-top: 16px;
 	display: inline-block;
 	font-size: 17px;
@@ -55,25 +63,11 @@
 }
 
 @media(min-width: 590px) {
+	.callout > div > div:first-of-type {
+    margin-bottom: 0px;
+  }
 	
-	.smb-thank-you main .default:first-of-type {
-		padding: 32px 0px 48px 0px;
-		max-width: 640px;
-		width: 90%;
-		margin: auto;
-	}
-	
-	.smb-thank-you main .default:first-of-type h1 {
-		text-align: center;
-		font-size: 45px;
-	}
-	
-	.smb-thank-you main .default:first-of-type p {
-		text-align: center;
-		font-size: 25px;
-	}
-	
-	.thank-you-cards- {
+	.callout {
 		padding: 55px 0px;
 		max-width: 615px;
 		width: 90%;
@@ -83,30 +77,28 @@
 		justify-content: space-between;
 	}
 	
-	.thank-you-cards- .card {
-		max-width: 260px;
+	.callout > div {
+    max-width: 260px;
+    margin-bottom: 2em;
 	}
 	
-	.thank-you-cards- .card:first-of-type {
-		margin-bottom: 0px;
-	}
 	
-	.thank-you-cards- .card h3 {
+	.callout > div h3 {
 		font-size: 16px;	
 	}
 	
-	.thank-you-cards- .card  {
+	.callout > div  {
 		font-size: 14px;
 	}
 	
-	.thank-you-cards- a {
+	.callout > div a {
 		font-size: 14px;
 	}
 	
 }
 
 @media(min-width: 708px) {
-	.thank-you-cards- .card {
+	.callout > div {
 		max-width: 280px;
 	}
 }

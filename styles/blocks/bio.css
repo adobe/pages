@@ -2,13 +2,16 @@ main div.bio-container {
 	background-color: #eee;
 }
 
+main div.bio {
+	padding: 3em 0em;
+}
+
 main div.bio > div {
 	display: flex;
 	text-align: left;
 	justify-content: space-between;
 	margin: auto;
 	font-size: 0.7em;
-	padding: 4em 0em;
 	width: 372px;
 }
 
@@ -47,6 +50,6 @@ main div.bio  > div > div:last-of-type p:first-of-type a {
 @media (min-width: 768px) {
 
 	main div.bio {
-		padding: 3em 0em;
+		padding: 2em 0em;
 	}
 }

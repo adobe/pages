@@ -3,8 +3,6 @@ function styleNav() {
   const $appIcon = parent.querySelector('img');
   if (!$appIcon) return;
   const appIcon = $appIcon.src;
-  const $appLink = parent.querySelector('a');
-  const appLink = $appLink.href;
   const appName = parent.querySelector('a').innerHTML;
   const listItems = parent.querySelectorAll('ul li');
   let nav = '';
@@ -12,13 +10,6 @@ function styleNav() {
   
   if(listItems) {
     if(listItems.length >= 1) {
-      const homeOnMobile = document.createElement('li');
-      homeOnMobile.classList.add('mobile-home');
-      
-      homeOnMobile.innerHTML = `<a href="${appLink}">Home</a>`
-      
-      parent.querySelector('ul').prepend(homeOnMobile)
-      
       nav = parent.querySelector('ul').outerHTML;
       carrot = `
         <div class="menu-carrot">
@@ -30,11 +21,11 @@ function styleNav() {
   
   parent.innerHTML = `
     <div class="nav__section">
-      <a href="${appLink}">
+      <div class="app-name-and-icon">
         <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
         <div class="app-name">${appName}</div>
         ${carrot}
-      </a>
+      </div>
     </div>
     
     <nav class="nav-section">
@@ -44,14 +35,29 @@ function styleNav() {
 }
 
 
+function decorateHero() {
+  const heroRoot = document.querySelector('.hero > div')
+  const heroContent = heroRoot.querySelector('div:nth-child(2)').innerHTML;
+  const videoEmbed = heroRoot.querySelector('div:first-of-type a').getAttribute('href')
+  const videoPlaceholder = heroRoot.querySelector('div:first-of-type img').getAttribute('src');
+  let videoBackgroundElement = '';
+  if(heroRoot.childNodes.length == 3) {
+    videoBackgroundElement = heroRoot.querySelector('div:last-of-type img').getAttribute('src')
+  }
+
+  console.log(videoPlaceholder)
+
+}
+
+
 function mobileDropDown(event) {
   event.preventDefault();
   const body = document.getElementsByTagName('body')[0];
- if(!body.classList.contains('nav-showing')) {
-   body.classList.add('nav-showing')
- } else {
-   body.classList.remove('nav-showing')
- }
+  if(!body.classList.contains('nav-showing')) {
+    body.classList.add('nav-showing')
+  } else {
+    body.classList.remove('nav-showing')
+  }
 }
 
 
@@ -112,22 +118,18 @@ function decorateBlocks() {
       const classes=$block.className.split('-');
       $block.closest('.section-wrapper').classList.add(`${$block.className}-container`)
       $block.classList.add(...classes);
-      console.log(classes)
-      
       
       if(classes.includes('nav')) {
 				$block.closest('.section-wrapper').classList.remove('nav-block')
         let nav = $block.outerHTML;
         $block.remove();
-        console.log(nav)
         document.querySelector('header').innerHTML = nav;
         styleNav();
       }
       
       if(classes.includes('form')) {
         const config=readBlockConfig($block);
-        console.log(config);
-        
+
         window.formConfig = {
           form_sheet: config['form-data-submission'],
           form_redirect: config['form-redirect']?config['form-redirect']:'thank-you',
@@ -174,7 +176,11 @@ async function decoratePage() {
   wrapSections('main>div');
   decorateBlocks();
   if(document.querySelector('.nav')) {
-    document.querySelector('.nav__section:first-of-type a').addEventListener('click', mobileDropDown)
+    document.querySelector('.app-name-and-icon').addEventListener('click', mobileDropDown)
+  }
+
+  if(document.querySelector('.hero-container')) {
+    decorateHero();
   }
   await loadLocalHeader();
   wrapSections('header>div, footer>div');

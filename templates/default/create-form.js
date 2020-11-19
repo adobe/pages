@@ -18,6 +18,8 @@ let hasPageBreak = 0;
 
 let { form_redirect, form_sheet, form_to_use } = window.formConfig;
 
+console.log(form_redirect, form_sheet, form_to_use)
+
 const formType = document.querySelectorAll("main p");
 let formToUse = "";
 
