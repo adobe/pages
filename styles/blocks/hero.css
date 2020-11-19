@@ -1,3 +1,90 @@
 .hero-container {
-  background: #444;
+  background: #282828;
+}
+
+.hero__inner {
+  max-width: 1000px !important;
+  margin: auto;
+  position: relative;
+}
+
+.hero__content h1,
+.hero__content p,
+.hero__content .button.secondary {
+  color: white;
+}
+
+.hero__content {
+  max-width: 800px;
+  margin: auto;
+}
+
+.hero__content h1 {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.hero__content p {
+  line-height: 1.5;
+  font-size: 20px;
+}
+
+.hero__content .button.secondary {
+  background-color: #1473e6;
+	border-color: #1473e6;
+	color: #fff;
+}
+
+.hero__content .button.secondary:hover {
+  background-color: #0d66d0;
+	border-color: #0d66d0;
+	color: #fff;
+}
+
+
+.video {
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 56.25%;
+  position: relative;
+}
+
+.video-placeholder {
+  height: 70%;
+  width: 70%;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+
+.video-playbtn {
+  width: 80px;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hero-video {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+
+@media(min-width: 768px) {
+  .hero__content h1 {
+    font-size: 42px;
+
+  }
+  
+  .hero__content p {
+    font-size: 22px;
+  }
 }
