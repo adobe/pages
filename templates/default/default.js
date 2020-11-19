@@ -37,15 +37,53 @@ function styleNav() {
 
 function decorateHero() {
   const heroRoot = document.querySelector('.hero > div')
+  const heroParent = document.querySelector('.hero-container')
   const heroContent = heroRoot.querySelector('div:nth-child(2)').innerHTML;
-  const videoEmbed = heroRoot.querySelector('div:first-of-type a').getAttribute('href')
+  const videoEmbed = heroRoot.querySelector('div:first-of-type a').getAttribute('href');
+  let videoPlaying = false;
   const videoPlaceholder = heroRoot.querySelector('div:first-of-type img').getAttribute('src');
   let videoBackgroundElement = '';
   if(heroRoot.childNodes.length == 3) {
-    videoBackgroundElement = heroRoot.querySelector('div:last-of-type img').getAttribute('src')
+    videoBackgroundElement = heroRoot.querySelector('div:nth-child(3) img').getAttribute('src')
   }
 
-  console.log(videoPlaceholder)
+  heroParent.innerHTML = '';
+
+  heroParent.innerHTML = `
+    <div class="hero__inner">
+      <div class="hero__content">
+        ${heroContent}
+      </div>
+
+      <div class="video" style="background-image: url(${videoBackgroundElement})";>
+        <div class="video-placeholder" style="background-image: url(${videoPlaceholder});">
+          <div class="video-playbtn">
+            <img src="/icons/playbutton.svg">
+          </div>
+
+          <video class="hero-video" src="${videoEmbed}" preload="metadata>
+            <source src="${videoEmbed}" type="video/mpeg4">
+          </video>
+        </div>
+      </div>
+    </div>
+  `
+
+  function startVideo() {
+    if(!videoPlaying) {
+      document.querySelector('.hero-video').style.display = 'block'
+      document.querySelector('.hero-video').play();
+      document.querySelector('.hero-video').setAttribute('controls', true)
+    } else {
+      document.querySelector('.hero-video').pause();
+    }
+    
+    
+    videoPlaying = !videoPlaying
+  }
+
+
+  document.querySelector('.video-placeholder').addEventListener('click', startVideo)
 
 }
 
