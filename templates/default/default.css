@@ -8,7 +8,7 @@ body {
 	padding: 0;
 	text-align: center;
 	line-height: 1.6;
-	font-size: 1.4em;
+	font-size: 16px;
 	color: #323232;
 }
 
@@ -23,9 +23,34 @@ main > .section-wrapper > div {
   padding: 2em 0em;
 }
 
-main h1 {
-  font-weight: 700;
-  margin-top: 0em;
+h1,h2,h3,h4,h5 {
+	margin-top: 0;
+	line-height: 1.4;
+	color: #4a4a4a;
+}
+
+h1 {
+	font-size: 34px;
+}
+
+h2 {
+	font-size: 29px;
+}
+
+h3 {
+	font-size: 25px;
+}
+
+h4 {
+	font-size: 22px;
+}
+
+h5 {
+	font-size: 20px;
+}
+
+main p {
+	font-size: 18px;
 }
 
 main a:any-link {
@@ -137,7 +162,56 @@ footer li:after {
 	display: none;
 }
 
-@media (min-width: 768px) {
+
+@media(min-width: 599px) {
+	h1,h2,h3,h4,h5 {
+		margin-top: 0;
+		line-height: 1.4;
+	}
+	
+	h1 {
+		font-size: 40px;
+	}
+	
+	h2 {
+		font-size: 35px;
+	}
+	
+	h3 {
+		font-size: 31px;
+	}
+	
+	h4 {
+		font-size: 28px;
+	}
+	
+	h5 {
+		font-size: 26px;
+	}
+}
+
+@media (min-width: 992px) {
+
+	h1 {
+		font-size: 46px;
+	}
+	
+	h2 {
+		font-size: 41px;
+	}
+	
+	h3 {
+		font-size: 36px;
+	}
+	
+	h4 {
+		font-size: 34px;
+	}
+	
+	h5 {
+		font-size: 32px;
+	}
+
 	footer {
 		font-size: 11px;
 		flex-direction: row;

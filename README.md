@@ -36,8 +36,8 @@ If you don't have NVM, [install it with these instructions](https://github.com/n
 
 
 ### Install helix-cli
-Use your fresh NPM to install the Helix client.  
-`npm install -g @adobe/helix-cli`
+Use your fresh NPM to install the Helix client.
+`npm install -g @adobe/helix-cli` or `sudo npm install -g @adobe/helix-cli` (if you get permission errors.)
 
 ### Clone this repository
 `git clone https://github.com/adobe/pages`

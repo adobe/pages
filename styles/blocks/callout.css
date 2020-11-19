@@ -6,7 +6,7 @@
 .callout {
 	padding: 55px 0px;
 	max-width: 615px;
-	width: 90%;
+	/* width: 90%; */
 	margin: auto;
   display: flex;
   flex-wrap: wrap;

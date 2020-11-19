@@ -50,35 +50,40 @@ function decorateHero() {
   heroParent.innerHTML = '';
 
   heroParent.innerHTML = `
-    <div class="hero__inner">
-      <div class="hero__content">
-        ${heroContent}
-      </div>
+    <div>
+      <div class="hero__inner">
+        <div class="hero__content">
+          ${heroContent}
+        </div>
 
-      <div class="video" style="background-image: url(${videoBackgroundElement})";>
-        <div class="video-placeholder" style="background-image: url(${videoPlaceholder});">
-          <div class="video-playbtn">
-            <img src="/icons/playbutton.svg">
+        <div class="video" style="background-image: url(${videoBackgroundElement})";>
+          <div class="video-placeholder" style="background-image: url(${videoPlaceholder});">
+            <div class="video-playbtn">
+              <img src="/icons/playbutton.svg">
+            </div>
+
+            <video class="hero-video" src="${videoEmbed}" preload="metadata>
+              <source src="${videoEmbed}" type="video/mpeg4">
+            </video>
           </div>
-
-          <video class="hero-video" src="${videoEmbed}" preload="metadata>
-            <source src="${videoEmbed}" type="video/mpeg4">
-          </video>
         </div>
       </div>
     </div>
   `
 
   function startVideo() {
+    const heroVideo = document.querySelector('.hero-video');
     if(!videoPlaying) {
-      document.querySelector('.hero-video').style.display = 'block'
-      document.querySelector('.hero-video').play();
-      document.querySelector('.hero-video').setAttribute('controls', true)
+      heroVideo.style.display = 'block'
+      heroVideo.setAttribute('controls', true)
+      setTimeout(function() {
+        heroVideo.play();
+      })
     } else {
-      document.querySelector('.hero-video').pause();
+      setTimeout(function() {
+        heroVideo.pause();
+      })
     }
-    
-    
     videoPlaying = !videoPlaying
   }
 
