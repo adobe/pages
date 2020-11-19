@@ -28,7 +28,6 @@
 }
 
 .card > div > div:last-of-type p{
-  display: flex;
   text-align: left;
   font-size: 18px;
   margin: 0;
