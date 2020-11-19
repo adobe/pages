@@ -18,7 +18,6 @@ let hasPageBreak = 0;
 
 let { form_redirect, form_sheet, form_to_use } = window.formConfig;
 
-console.log(form_redirect, form_sheet, form_to_use)
 
 const formType = document.querySelectorAll("main p");
 let formToUse = "";
@@ -65,7 +64,6 @@ async function createForm(formId) {
 	let formField = "";
 	let formSubmitPresent = false;
 	let output = await formData();
-	console.log(output)
 	document.querySelectorAll('main')[0].style.opacity = '1'
 	output = output.data;
 	

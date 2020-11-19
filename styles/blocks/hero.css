@@ -3,8 +3,9 @@
 }
 
 .hero__inner {
-  max-width: 1000px !important;
+  max-width: 100% !important;
   margin: auto;
+  padding: 4em 0em !important;
   position: relative;
 }
 
@@ -62,7 +63,7 @@
 
 
 .video-playbtn {
-  width: 80px;
+  width: 60px;
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
@@ -86,5 +87,9 @@
   
   .hero__content p {
     font-size: 22px;
+  }
+
+  .video-playbtn {
+    width: 80px;
   }
 }

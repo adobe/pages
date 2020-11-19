@@ -12,7 +12,7 @@ main div.bio > div {
 	justify-content: space-between;
 	margin: auto;
 	font-size: 0.7em;
-	width: 372px;
+	max-width: 372px;
 }
 
 main div.bio > div > div:first-of-type {
@@ -30,7 +30,12 @@ main div.bio  > div > div:first-of-type img {
 }
 
 main div.bio h3 {
-	margin: 0.2em 0em;
+	margin: 0.2em 0em 0.6em 0em;
+	font-size: 19px;
+}
+
+main div.bio p {
+	font-size: 16px;
 }
 
 main div.bio  > div > div:last-of-type img {
