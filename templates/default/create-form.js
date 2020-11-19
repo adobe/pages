@@ -2,13 +2,11 @@ let formMarkup = document.createElement('div');
 formMarkup.className = 'wg-form-container form-container';
 
 formMarkup.innerHTML = `
-	<div class="wg-form-container form-container">
-		<form id="wg-form">
-			<div class="wg-form-loader">
-				<div class="wg-form-loader__indicator"></div>  
-			<div>
-		</form>
-	</div>
+	<form id="wg-form">
+		<div class="wg-form-loader">
+			<div class="wg-form-loader__indicator"></div>  
+		<div>
+	</form>
 `
 
 document.querySelector('.form').innerHTML = formMarkup.outerHTML
@@ -21,7 +19,6 @@ let hasPageBreak = 0;
 let { form_redirect, form_sheet, form_to_use } = window.formConfig;
 
 console.log(form_redirect, form_sheet, form_to_use)
-
 
 const formType = document.querySelectorAll("main p");
 let formToUse = "";

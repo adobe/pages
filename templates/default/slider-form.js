@@ -181,7 +181,7 @@ function setSlider(count = 0) {
 					let eachOptions = [];
 					for(let i = 0; i < values.length; i++) {
 						if(!eachOptions.includes(values[i])) {
-							 eachOptions.push(values[i]) 
+							eachOptions.push(values[i]) 
 						}
 					}
 					if(eachOptions.length >= required_counter) {
@@ -220,7 +220,7 @@ function setSlider(count = 0) {
 						
 						for(let i = 0; i < values.length; i++) {
 							if(!eachOptions.includes(values[i])) {
-								 eachOptions.push(values[i]) 
+								eachOptions.push(values[i]) 
 							}
 						}
 						if(eachOptions.length >= required_counter) {

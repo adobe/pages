@@ -1,17 +1,20 @@
 @import url("/styles/legacy/styles.css");
-@import url("thank-you.css");
 
-
-.form-block {
-	background-color: #fafafa;
-	padding: 2em 0em;
+.form-container #wg-form {
+	max-width: 100%;
 }
 
-.form-block h1 {
+.form-container .form {
+	background: transparent !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.form-container h1 {
 	margin-bottom: 0em;
 }
 
-.form-block p:first-of-type {
+.form-container p:first-of-type {
 	margin-top: 0em;
 }
 
@@ -72,7 +75,6 @@
 .progress-indicator {
 	position: relative;
 	height: 6px;
-	/* width: 160px; */
 	width: 200px;
 	border-radius: 3px;
 	background: #EAEAEA;
@@ -89,8 +91,7 @@
 	position: absolute;
 }
 
-.form-container h1 {
-	/* font-size: 36px; */
+.form-container .form h1 {
 	font-size: 34px;
 	text-align: left;
 	line-height: 1;

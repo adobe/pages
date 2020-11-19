@@ -1,43 +1,55 @@
-main div.bio-block{
-    background-color: #eee;
+main div.bio-container {
+	background-color: #eee;
 }
 
 main div.bio {
-    display: flex;
-    text-align: left;
-    justify-content: space-between;
-    margin: auto;
-    font-size: 0.7em;
-    align-items: center;
-    padding: 4em 0em;
-    margin: 2em auto;
-    width: 400px;
+	padding: 3em 0em;
 }
 
-
-main div.bio > div:first-of-type {
-    width: 25%;
+main div.bio > div {
+	display: flex;
+	text-align: left;
+	justify-content: space-between;
+	margin: auto;
+	font-size: 0.7em;
+	width: 372px;
 }
 
-main div.bio > div:last-of-type {
-    width: 70%;
+main div.bio > div > div:first-of-type {
+	width: 25%;
 }
 
-main div.bio img {
-    max-width: 96px;
-    width: 100%;
-    border-radius: 100%;
+main div.bio  > div > div:last-of-type {
+	width: 70%;
+}
+
+main div.bio  > div > div:first-of-type img {
+	max-width: 72px;
+	width: 100%;
+	border-radius: 100%;
 }
 
 main div.bio h3 {
-    margin: 0.2em 0em;
+	margin: 0.2em 0em;
 }
 
+main div.bio  > div > div:last-of-type img {
+	width: 24px;
+}
 
+main div.bio  > div > div:last-of-type p:first-of-type {
+	display: flex;
+	margin: 0;
+	align-items: center;
+}
 
-@media(min-width: 768px) {
+main div.bio  > div > div:last-of-type p:first-of-type a {
+	margin-left: 8px;
+}
+
+@media (min-width: 768px) {
+
 	main div.bio {
-		margin: 4em auto;
-		padding: 7em 0em;
+		padding: 2em 0em;
 	}
 }
