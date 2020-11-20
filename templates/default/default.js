@@ -86,10 +86,7 @@ function decorateHero() {
     }
     videoPlaying = !videoPlaying
   }
-
-
   document.querySelector('.video-placeholder').addEventListener('click', startVideo)
-
 }
 
 
@@ -169,6 +166,7 @@ function decorateBlocks() {
         document.querySelector('header').innerHTML = nav;
         styleNav();
       }
+      
       
       if(classes.includes('form')) {
         const config=readBlockConfig($block);
