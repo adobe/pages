@@ -1,3 +1,8 @@
+main .columns-two-container > div,
+main .columns-three-container > div {
+  max-width: 1200px;
+}
+
 .columns {
   display: flex;
   flex-wrap: wrap;

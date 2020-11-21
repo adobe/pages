@@ -45,6 +45,7 @@ function decorateHero() {
   let videoBackgroundElement = '';
   if(heroRoot.childNodes.length == 3) {
     videoBackgroundElement = heroRoot.querySelector('div:nth-child(3) img').getAttribute('src')
+    console.log(videoBackgroundElement)
   }
 
   heroParent.innerHTML = '';

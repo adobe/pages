@@ -1,0 +1,74 @@
+.tutorials-dark-container {
+  background: #282828;
+}
+
+main .tutorials-dark-container > div,
+main .tutorials-container > div {
+  max-width: 1200px;
+}
+
+.tutorials-dark-container p {
+  color: white;
+
+}
+
+.tutorials-dark-container h5 {
+  color: white;
+}
+
+.tutorials p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.tutorials h5 {
+  font-size: 1.4em;
+  margin: 0.3em 0 0.3em 0;
+}
+
+.tutorials img {
+  width: 100%;
+}
+
+.tutorials {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.tutorials > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+
+
+@media(min-width: 768px) {
+
+  .tutorials {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  .tutorials > div {
+    width: 48%;
+  }
+}
+
+
+@media(min-width: 900px) {
+  .tutorials > div {
+    flex-direction: row;
+  }
+
+  .tutorials > div > div:first-of-type {
+    width: 50%;
+  }
+
+  .tutorials > div > div:last-of-type {
+    width: 45%;
+    text-align: left;
+  }
+}
