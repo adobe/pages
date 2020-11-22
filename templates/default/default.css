@@ -9,7 +9,6 @@ body {
 	text-align: center;
 	line-height: 1.6;
 	font-size: 16px;
-	color: #323232;
 }
 
 img {
@@ -20,13 +19,30 @@ main > .section-wrapper > div {
 	max-width: 900px;
 	width: 80%;
 	margin: 0em auto;
-  padding: 2em 0em;
+	padding: 2em 0em;
+}
+
+main .section-wrapper {
+	color: #323232;
+}
+
+main > .section-wrapper.dark {
+	color: white;
+	background: #282828;
+}
+
+main > .section-wrapper.dark .button.secondary {
+	border-color: white;
+	color: white;
+}
+
+main > .section-wrapper.dark h1 {
+	color: white;
 }
 
 h1,h2,h3,h4,h5 {
 	margin-top: 0;
 	line-height: 1.4;
-	color: #4a4a4a;
 }
 
 h1 {
