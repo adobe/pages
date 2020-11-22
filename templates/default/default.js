@@ -28,7 +28,7 @@ function styleNav() {
       </div>
     </div>
     
-    <nav class="nav-section">
+    <nav>
       ${nav}
     </nav>
   `
@@ -157,13 +157,17 @@ function decorateBlocks() {
     const length=$block.classList.length;
     if (length == 1) {
       const classes=$block.className.split('-');
-      $block.closest('.section-wrapper').classList.add(`${$block.className}-container`)
+      const classHelpers = $block.className.split('-');
+      classHelpers.shift();
+
+      $block.closest('.section-wrapper').classList.add(`${classes[0]}-container`)
+      $block.closest('.section-wrapper').classList.add(...classHelpers)
       $block.classList.add(...classes);
       
       if(classes.includes('nav')) {
 				$block.closest('.section-wrapper').classList.remove('nav-block')
         let nav = $block.outerHTML;
-        $block.remove();
+        $block.closest('.section-wrapper').remove();
         document.querySelector('header').innerHTML = nav;
         styleNav();
       }

@@ -72,7 +72,7 @@
 }
 
 
-@media(min-width: 768px) {
+@media(min-width: 968px) {
   .card > div {
     width: 31%;
     margin-bottom: 1em;

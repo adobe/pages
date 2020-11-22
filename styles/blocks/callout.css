@@ -5,13 +5,14 @@
 
 .callout {
 	padding: 55px 0px;
-	max-width: 615px;
-	/* width: 90%; */
+	max-width: 560px;
+	width: 90%;
 	margin: auto;
   display: flex;
-  flex-wrap: wrap;
-	flex-direction: column;
+	flex-wrap: wrap;
 	justify-content: space-between;
+	flex-direction: column;
+	align-items: stretch;
 }
 
 .callout img {
@@ -19,7 +20,7 @@
 }
 
 .callout > div {
-	background: white;
+	background: #ffffff;
 	font-size: 15px;
 	line-height: 1.6;
 	color: #505050;
@@ -28,7 +29,7 @@
 	overflow: hidden;
 	border: 1px solid #EAEAEA;
   box-sizing: border-box;
-  text-align: left;
+	text-align: left;
   margin-bottom: 2em;
 }
 
@@ -69,17 +70,17 @@
 	
 	.callout {
 		padding: 55px 0px;
-		max-width: 615px;
 		width: 90%;
 		margin: auto;
 		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
+		flex-direction: row;	
 	}
 	
 	.callout > div {
+		width: 48%;
     max-width: 260px;
-    margin-bottom: 2em;
+		/* margin-bottom: 2em; */
+		align-items: center;
 	}
 	
 	
@@ -97,10 +98,10 @@
 	
 }
 
-@media(min-width: 708px) {
+/* @media(min-width: 708px) {
 	.callout > div {
 		max-width: 280px;
 	}
-}
+} */
 
 
