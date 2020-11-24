@@ -96,12 +96,13 @@ function decorateNextStep() {
   const link = root.querySelector('div:first-of-type a').getAttribute('href');
   const thumbnail = root.querySelector('div:first-of-type img').getAttribute('src')
   const content = root.querySelector('div:nth-child(2)').innerHTML;
-  const background = root.querySelector('div:last-of-type img').getAttribute('src')
+  const background = root.querySelector('div:nth-child(3) img').getAttribute('src')
+
 
   root.innerHTML = '';
 
   root.innerHTML = `
-    <a href="${link}" class="container">
+    <a href="${link}" class="next-element-container">
       <div class="next-bg-element" style="background-image: url(${background});">
         <div class="next-img-element" style="background-image: url(${thumbnail});">
 

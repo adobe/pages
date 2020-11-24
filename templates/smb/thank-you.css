@@ -65,7 +65,7 @@
 	text-align: right;
 }
 
-.thank-you-cards- a {
+.thank-you-cards- p a {
 	margin-top: 16px;
 	display: inline-block;
 	font-size: 17px;
@@ -75,6 +75,10 @@
 	padding: 6px 14px;
 	text-decoration: none;
 	font-weight: 500;
+}
+
+.inclusive .thank-you-cards- .card {
+	border: none;
 }
 
 @media(min-width: 590px) {

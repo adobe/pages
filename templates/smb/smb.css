@@ -336,3 +336,29 @@
 
   
 }
+
+
+
+
+
+/* Thank you form capture */
+
+.inclusive.smb-form .form-container {
+  background: #F4F4F4;
+  width: 100%;
+  max-width: 100% !important;
+  padding-top: 0;
+}
+
+.inclusive.smb-form form {
+  background: #F4F4F4;
+  width: 90%;
+  max-width: 600px !important;
+  margin: auto;
+  padding: 3em 0em;
+}
+
+
+.inclusive .thank-you-container > div > div{
+  background: #323232;
+}
