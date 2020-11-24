@@ -343,14 +343,18 @@
 
 /* Thank you form capture */
 
-.inclusive.smb-form .form-container {
+.inclusive.thank-you-re main > div:first-of-type {
+  padding: 5em 0em;
+}
+
+.inclusive.thank-you-re.smb-form .form-container {
   background: #F4F4F4;
   width: 100%;
   max-width: 100% !important;
   padding-top: 0;
 }
 
-.inclusive.smb-form form {
+.inclusive.thank-you-re.smb-form form {
   background: #F4F4F4;
   width: 90%;
   max-width: 600px !important;
@@ -358,7 +362,11 @@
   padding: 3em 0em;
 }
 
+.inclusive.thank-you .thank-you-container {
+  background: #323232;
+}
 
-.inclusive .thank-you-container > div > div{
+
+.inclusive.thank-you-re .thank-you-container > div > div{
   background: #323232;
 }
