@@ -347,6 +347,10 @@
   padding: 5em 0em;
 }
 
+.inclusive.thank-you main > div:first-of-type {
+  padding: 5em 0em;
+}
+
 .inclusive.thank-you-re.smb-form .form-container {
   background: #F4F4F4;
   width: 100%;
