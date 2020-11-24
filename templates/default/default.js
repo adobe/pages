@@ -91,6 +91,31 @@ function decorateHero() {
 }
 
 
+function decorateNextStep() {
+  const root = document.querySelector('.next');
+  const link = root.querySelector('div:first-of-type a').getAttribute('href');
+  const thumbnail = root.querySelector('div:first-of-type img').getAttribute('src')
+  const content = root.querySelector('div:nth-child(2)').innerHTML;
+  const background = root.querySelector('div:nth-child(3) img').getAttribute('src')
+
+
+  root.innerHTML = '';
+
+  root.innerHTML = `
+    <a href="${link}" class="next-element-container">
+      <div class="next-bg-element" style="background-image: url(${background});">
+        <div class="next-img-element" style="background-image: url(${thumbnail});">
+
+        </div>
+      </div>
+      <div class="next-content">
+        ${content}
+      </div>
+    </a>
+  `
+}
+
+
 function mobileDropDown(event) {
   event.preventDefault();
   const body = document.getElementsByTagName('body')[0];
@@ -227,6 +252,10 @@ async function decoratePage() {
 
   if(document.querySelector('.hero-container')) {
     decorateHero();
+  }
+
+  if(document.querySelector('.next')) {
+    decorateNextStep();
   }
   await loadLocalHeader();
   wrapSections('header>div, footer>div');
