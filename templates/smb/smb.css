@@ -37,10 +37,14 @@
 
 .smb-form main div.form-container button[type=submit] {
   margin-top: 0;
-  margin-left: 16px;
 }
 
 /* End of page specifics */
+
+.prev {
+  display: none;
+}
+
 .slide-form-container {
   position: relative;
   overflow: hidden;
@@ -169,7 +173,6 @@
   background: #F4F4F4;
   border: 1px solid #F4F4F4;
   color: #BCBCBC;
-  margin-left: 16px;
 }
 
 .slide-btn.next.completed {
@@ -181,6 +184,7 @@
 .slide-btn.prev {
   border: 2px solid #747474;
   color: #747474;
+  margin-right: 16px;
 }
 
 .question:first-of-type {

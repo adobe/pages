@@ -28,13 +28,13 @@
 
 .hero__content .button.secondary {
   background-color: #1473e6;
-	border-color: #1473e6;
+	border-color: #1473e6 !important;
 	color: #fff;
 }
 
 .hero__content .button.secondary:hover {
   background-color: #0d66d0;
-	border-color: #0d66d0;
+	border-color: #0d66d0 !important;
 	color: #fff;
 }
 

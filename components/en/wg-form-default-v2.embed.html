@@ -61,7 +61,7 @@
     let formSubmitPresent = false;
     let output = await formData();
     
-    window.location.hostname === "localhost" ? output = output : output = output.data;
+    output = output.data;
   
     
     output.forEach((item) => {
