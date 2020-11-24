@@ -1,0 +1,13 @@
+.next-container {
+  background: #f5f5f5;
+}
+
+.next {
+  max-width: 700px;
+  margin: auto;
+}
+.next-bg-element {
+  padding-bottom: 82.52%;
+  background-size: cover;
+  background-position: center;
+}
