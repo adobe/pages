@@ -20,7 +20,7 @@ let checkIfDomReady = setInterval(function() {
     otherOptionInput = document.querySelectorAll('.other-option-input');
     header = document.querySelector('main .default:first-of-type').innerHTML;
     setHeader(header);
-    setFormContainHeight()
+    setFormContainHeight();
     addOtherInputField();
     clearInterval(checkIfDomReady)
   }
@@ -141,6 +141,14 @@ window.addEventListener('resize', debounce(function() {
 
 // Set Sliders and disable/enable next button
 function setSlider(count = 0) {
+
+  // Hide back button on first page.
+  if(count >= 1) {
+    document.querySelector('.prev').style.display = 'inline-block'
+  } else {
+    document.querySelector('.prev').style.display = 'none'
+  }
+  
   document.querySelector('.slide-btn.next').classList.remove('completed');
   slideItems.forEach(function(slide, index) {
     slide.classList.remove('active')
