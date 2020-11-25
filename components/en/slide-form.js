@@ -354,14 +354,11 @@ document.querySelectorAll('.is-required input, .is-required textarea').forEach(f
 
 
 function setUpAccessibility() {
-  // let elements = '.slide-btn, .slide-form-item, .label-title, .radio-option, .radio-option input, .radio-option label'
-  let elements = document.querySelectorAll('.slide-item');
+  let elements = document.querySelectorAll('.slide-form-item, .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el, .slide-btn');
   let count = 1;  
   elements.forEach(function(element) {
     count++;
-    if(element.classList.contains('.active')) {
-      element.setAttribute('tabindex', count)
-    }
+    element.setAttribute('tabindex', count)
   })
 
 

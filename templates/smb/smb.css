@@ -175,6 +175,10 @@
   cursor: pointer;
 }
 
+.slide-btn:focus {
+  border: 2px solid #323232 !important;
+}
+
 .slide-btn.next, .submit {
   background: #F4F4F4;
   border: 1px solid #F4F4F4;
