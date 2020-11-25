@@ -22,6 +22,7 @@ let checkIfDomReady = setInterval(function() {
     setHeader(header);
     setFormContainHeight();
     addOtherInputField();
+    setUpAccessibility();
     clearInterval(checkIfDomReady)
   }
 }, 200)
@@ -39,6 +40,7 @@ function scrollBackUp() {
 function setHeader(content) {
   const wrap = document.createElement('div');
   wrap.innerHTML = content + `<hr>`;
+  wrap.setAttribute('tabindex', 0)
   document.querySelectorAll('.slide-form-item')[0].prepend(wrap)
   document.querySelector('main .default:first-of-type').remove();
 }
@@ -349,6 +351,30 @@ document.querySelectorAll('.is-required input, .is-required textarea').forEach(f
     input.addEventListener('keyup', valueStore)
   }
 })
+
+
+function setUpAccessibility() {
+  // let elements = '.slide-btn, .slide-form-item, .label-title, .radio-option, .radio-option input, .radio-option label'
+  let elements = document.querySelectorAll('.slide-item');
+  let count = 1;  
+  elements.forEach(function(element) {
+    count++;
+    if(element.classList.contains('.active')) {
+      element.setAttribute('tabindex', count)
+    }
+  })
+
+
+
+  document.addEventListener('keypress', (event) => {
+    if(event.keyCode == '32'){
+      window.addEventListener('click', function(even) {
+        console.log(event.closest('input'))
+      });
+    }
+  });
+  
+}
   
 
 
