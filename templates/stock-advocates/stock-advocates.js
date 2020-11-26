@@ -22,20 +22,23 @@ function decorateHeroSection() {
 
 function decorateColors() {
     const $colors=document.querySelector('main .colors div div');
-    const colors=Array.from($colors.children).map(e => e.textContent);
-    const $heroSection=document.querySelector('main .hero-section');
-    if ($heroSection && colors.length) {
-        const heroColor=colors.shift();
-        $heroSection.style.backgroundColor=heroColor;
-    }
-    document.querySelectorAll('main .columns>div').forEach(($row, i) => {
-        if (colors[i]) {
-            const color=colors[i];
-            $row.style.backgroundColor=color;
-            const lightness=(parseInt(color.substr(1, 2), 16)+parseInt(color.substr(3, 2), 16)+parseInt(color.substr(5, 2), 16))/3;
-            if (lightness<200) $row.classList.add('white-text');
+    if ($colors) {
+        const colors=Array.from($colors.children).map(e => e.textContent);
+        const $heroSection=document.querySelector('main .hero-section');
+        if ($heroSection && colors.length) {
+            const heroColor=colors.shift();
+            $heroSection.style.backgroundColor=heroColor;
         }
-    })
+        document.querySelectorAll('main .columns>div').forEach(($row, i) => {
+            if (colors[i]) {
+                const color=colors[i];
+                $row.style.backgroundColor=color;
+                const lightness=(parseInt(color.substr(1, 2), 16)+parseInt(color.substr(3, 2), 16)+parseInt(color.substr(5, 2), 16))/3;
+                if (lightness<200) $row.classList.add('white-text');
+            }
+        })
+    
+    }
 }
 
 function decorateGrid() {
