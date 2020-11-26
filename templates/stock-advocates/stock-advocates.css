@@ -1,0 +1,483 @@
+@import url("/templates/default/default.css");
+
+
+main > .section-wrapper > div {
+    max-width: unset;
+    margin: 0em auto;
+    padding: 2em 0em;
+    width: unset;
+}
+
+main .colors {
+    display: none;
+}
+
+/* hero section */
+
+.hero-section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+main>div.hero-section>div {
+    width: 100%;
+    position: relative;
+}
+
+main div.white-text {
+    color: white;
+}
+
+main div.white-text a.button.secondary {
+    color: white;
+    border-color: white;
+} 
+
+
+.hero-section>div.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-section>div.image p:nth-of-type(2) {
+    position: absolute;
+    color: white;
+    bottom: 1em;
+    left: 1em;
+}
+
+.hero-section .text {
+    padding: 2em;
+}
+
+.hero-section .image, .hero-section .image p {
+    padding: 0;
+    margin: 0;
+}
+
+@media (min-width:600px) {
+    main>div.hero-section>div {
+        width: 50%;
+    }
+
+    .hero-section {
+        flex-direction: row-reverse;
+    }
+    
+}
+
+
+/* Footer Embed */
+
+.embed-internal-submitandgetfunded {
+    margin-top: 8em;
+    color: white;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(white, #455f99, #3e1bb2);
+}
+
+.embed-internal-submitandgetfunded a:any-link {
+    color: white;
+}
+.embed-internal-submitandgetfunded .icon {
+    fill: currentColor;
+    width: 2em;
+    height: 2em;
+    display: inline-block;
+    margin: 10px;
+}
+
+.embed-internal-submitandgetfunded h2 {
+    color: #3e1bb2;
+}
+
+.embed-internal-submitandgetfunded a.button.primary {
+    background-color: #3e1bb2;
+    border-color: #3e1bb2;
+}
+
+
+/* Grid */
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.grid > div {
+    width: 50%;
+    position: relative;
+}
+
+.grid > div:after {
+    content: "";
+    padding-bottom: 100%;
+    display: block;
+}
+
+.grid > div > div {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.grid div.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    color: white;
+}
+
+.grid div.text h4 {
+    line-height: 1em;
+    font-style: italic;
+    padding: 3px;
+    font-size: 1.5em;
+}
+
+.grid div.text a:any-link {
+    color: white;
+}
+
+.grid img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+@media (min-width:600px) {
+    .grid>div {
+        width: calc(100%/3);
+    }
+}
+
+@media (min-width:900px) {
+    .grid>div {
+        width: calc(100%/4);
+    }
+
+    .grid div.text {
+        opacity: 0;
+    }
+
+    .grid div.text:hover {
+        opacity: 1;
+    }
+
+}
+
+
+/* Columns */
+
+.columns > div {
+    display: flex;
+    flex-wrap: wrap;
+}
+.columns>div>div {
+    width: 100%;
+    position: relative;
+}
+
+.columns>div>div.merged {
+    width: 100%;
+}
+
+.columns>div>div.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.columns>div>div.image p {
+    position: absolute;
+    color: white;
+    bottom: 1em;
+    left: 1em;
+}
+
+.columns .text {
+    padding: 2em;
+}
+
+@media (min-width:600px) {
+    .columns>div>div {
+        width: 50%;
+    }
+    
+}
+
+
+/*  Parallax */
+
+.parallax {
+    position: relative;
+    overflow: hidden;
+}
+
+.parallax>div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    }
+
+.parallax>div img {
+    width: 100%;
+}
+
+.parallax>div:last-of-type {
+    position: relative;
+    padding: 6rem 0 12rem 0;
+    width: 80%;
+    max-width: 700px;
+    margin: auto;
+}
+
+@media (min-width:600px) {
+    .parallax>div {
+        bottom: unset;
+        top: 0;
+        left: 0;
+        width: 100%;
+        }
+    
+}
+
+
+/*  Hero Carousel */
+    
+  main>div.section-wrapper .hero-carousel {
+    position: relative;
+    padding-top: 75%;
+    perspective: 100px;
+    width: 100%;
+  }
+
+  .hero-carousel-container {
+      position: relative;
+  }
+
+  .hero-carousel-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      color: white;
+      line-height: 1em;
+      pointer-events: none;
+  }
+  
+  .hero-carousel-viewport {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    overflow-x: scroll;
+    counter-reset: item;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .hero-carousel-slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    background-color: #f99;
+    counter-increment: item;
+  }
+
+  .hero-carousel-slide div:nth-of-type(1){
+      height: 100%;
+  }
+    .hero-carousel-slide div:nth-of-type(1) img{
+        height: 100%;
+      object-fit: cover;
+      object-position: center center;
+}
+    .hero-carousel-slide div:nth-of-type(2){
+      position: absolute;
+      bottom: 0px;
+      left: 10px;
+      color: white;
+      font-size: 0.6em;
+  }
+
+  .hero-carousel-slide:nth-child(even) {
+    background-color: #99f;
+  }
+  
+  .hero-carousel-slide:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-40%,70px);
+    color: #fff;
+    font-size: 2em;
+  }
+  
+  .hero-carousel-snapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+  }
+  
+  @media (hover: hover) {
+    .hero-carousel-snapper {
+      animation-name: hero-carousel-tonext, hero-carousel-snap;
+      animation-timing-function: ease;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+  
+    .hero-carousel-slide:last-child .hero-carousel-snapper {
+      animation-name: hero-carousel-tostart, hero-carousel-snap;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .hero-carousel-snapper {
+      animation-name: none;
+    }
+  }
+  
+  .hero-carousel:hover .hero-carousel-snapper,
+  .hero-carousel:focus-within .hero-carousel-snapper {
+    animation-name: none;
+  }
+  
+  .hero-carousel-navigation {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+  }
+  
+  .hero-carousel-navigation-list,
+  .hero-carousel-navigation-item {
+    display: inline-block;
+  }
+  
+  .hero-carousel-navigation-button {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #333;
+    background-clip: content-box;
+    border: 0.25rem solid transparent;
+    border-radius: 50%;
+    font-size: 0;
+    transition: transform 0.1s;
+  }
+  
+  .hero-carousel::before,
+  .hero-carousel::after,
+  .hero-carousel-prev,
+  .hero-carousel-next {
+    position: absolute;
+    top: 0;
+    margin-top: 37.5%;
+    width: 4rem;
+    height: 4rem;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    font-size: 0;
+    outline: 0;
+  }
+  
+  .hero-carousel::before,
+  .hero-carousel-prev {
+    left: 0;
+  }
+  
+  .hero-carousel::after,
+  .hero-carousel-next {
+    right: 0;
+  }
+  
+  .hero-carousel::before,
+  .hero-carousel::after {
+    content: '';
+    z-index: 1;
+    background-color: #33333340;
+    background-size: 1.5rem 1.5rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #ffffff;
+    opacity: 0.5;
+    font-size: 2.5rem;
+    line-height: 4rem;
+    text-align: center;
+    pointer-events: none;
+  }
+  
+  .hero-carousel::before {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
+  }
+  
+  .hero-carousel::after {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
+  }
+
+
+@keyframes hero-carousel-tonext {
+    75% {
+      left: 0;
+    }
+    95% {
+      left: 100%;
+    }
+    98% {
+      left: 100%;
+    }
+    99% {
+      left: 0;
+    }
+  }
+  
+  @keyframes hero-carousel-tostart {
+    75% {
+      left: 0;
+    }
+    95% {
+      left: -300%;
+    }
+    98% {
+      left: -300%;
+    }
+    99% {
+      left: 0;
+    }
+  }
+  
+  @keyframes hero-carousel-snap {
+    96% {
+      scroll-snap-align: center;
+    }
+    97% {
+      scroll-snap-align: none;
+    }
+    99% {
+      scroll-snap-align: none;
+    }
+    100% {
+      scroll-snap-align: center;
+    }
+  }

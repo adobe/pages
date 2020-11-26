@@ -1,0 +1,217 @@
+function wrapSections(element) {
+    document.querySelectorAll(element).forEach(($div) => {
+      const $wrapper=createTag('div', { class: 'section-wrapper'});
+      $div.parentNode.appendChild($wrapper);
+      $wrapper.appendChild($div);
+    });
+  }
+
+function decorateHeroSection() {
+    const $firstSectionImage=document.querySelector('main div.section-wrapper>div>p>img');
+    if ($firstSectionImage) {
+        const $section=$firstSectionImage.closest('.section-wrapper');
+        const $div=$firstSectionImage.closest('div').classList.add('text');
+        $section.classList.add('hero-section','white-text');
+        const $imgWrapper=createTag('div', {class:'image'});
+        $section.append($imgWrapper);
+        const $p=$firstSectionImage.parentNode.nextElementSibling;
+        $imgWrapper.append($firstSectionImage.parentNode);
+        $imgWrapper.append($p);
+    }
+}
+
+function decorateColors() {
+    const $colors=document.querySelector('main .colors div div');
+    const colors=Array.from($colors.children).map(e => e.textContent);
+    const $heroSection=document.querySelector('main .hero-section');
+    if ($heroSection && colors.length) {
+        const heroColor=colors.shift();
+        $heroSection.style.backgroundColor=heroColor;
+    }
+    document.querySelectorAll('main .columns>div').forEach(($row, i) => {
+        if (colors[i]) {
+            const color=colors[i];
+            $row.style.backgroundColor=color;
+            const lightness=(parseInt(color.substr(1, 2), 16)+parseInt(color.substr(3, 2), 16)+parseInt(color.substr(5, 2), 16))/3;
+            if (lightness<200) $row.classList.add('white-text');
+        }
+    })
+}
+
+function decorateGrid() {
+    document.querySelectorAll('main div>.grid').forEach(($grid) => {
+        const rows=Array.from($grid.children);
+        rows.forEach($row => {
+            const cells=Array.from($row.children);
+            cells[0].classList.add('image');
+            cells[1].classList.add('text');            
+            cells[1].style.backgroundColor=cells[2].textContent+'80';
+            cells[2].remove();
+            const $a=cells[1].querySelector('a');
+            if ($a) {
+                const linkTarget=$a.href;
+                $row.addEventListener('click', (evt) => {
+                    window.location.href=linkTarget;
+                })    
+            }
+
+        })
+    })
+}
+
+function decorateButtons() {
+    document.querySelectorAll('main a').forEach($a => {
+      const $up=$a.parentElement;
+      const $twoup=$a.parentElement.parentElement;
+      if ($up.childNodes.length==1 && $up.tagName=='P') {
+        $a.className='button secondary';
+      }
+      if ($up.childNodes.length==1 && $up.tagName=='STRONG' && 
+        $twoup.childNodes.length==1 && $twoup.tagName=='P') {
+        $a.className='button primary';
+      }
+    })
+  }
+  
+
+function decorateColumns() {
+    document.querySelectorAll('main div>.columns').forEach(($columns) => {
+        const rows=Array.from($columns.children);
+        rows.forEach($row => {
+            const cells=Array.from($row.children);
+            cells.forEach(($cell,i,arr) => {
+                const $img=$cell.querySelector('img');
+                if ($img) { 
+                    $cell.classList.add('image');
+                } else {
+                    $cell.classList.add('text');
+                    if ($cell.textContent=='') {
+                        $cell.remove();
+                        arr[i-1].classList.add('merged');
+                    }
+                }
+            })
+        })
+    })
+}
+
+function decorateParallax() {
+    document.querySelectorAll('main div>.parallax').forEach(($parallax) => {
+        Array.from($parallax.children).forEach(($layer) => {
+            $parallax.prepend($layer);
+        })
+        document.addEventListener('scroll', (evt) => {
+            const clientRect=$parallax.getBoundingClientRect();
+            if (clientRect.y<window.innerHeight && clientRect.bottom>0) {
+                const maxExtent=window.innerHeight+clientRect.height;
+                const offsetRatio=((maxExtent)-(window.innerHeight-clientRect.y))/maxExtent;
+                Array.from($parallax.children).forEach(($layer, i ,arr) => {
+                    const translateY=(arr.length-1-i)*clientRect.height/4*offsetRatio;
+                    $layer.style.transform=`translate(0px,${translateY}px)`;
+                })                        
+            }
+        })
+    })
+}
+
+function decorateHeroCarousel() {
+    document.querySelectorAll('main div>.hero-carousel').forEach(($carousel) => {
+        const $wrapper=createTag('div', { class: 'hero-carousel-viewport'});
+        $wrapper.innerHTML=$carousel.innerHTML;
+        $carousel.innerHTML='';
+        $carousel.appendChild($wrapper);
+        const $nav=createTag('div', { class: 'hero-carousel-navigation'});
+        const $navList=createTag('div', {class: 'hero-carousel-navigation-list'});
+        $nav.append($navList);
+        $carousel.appendChild($nav);
+        $wrapper.querySelectorAll(':scope>div').forEach(($slide, i, slides) => {
+            $slide.classList.add('hero-carousel-slide');
+            $slide.id=`hero-carousel-slide${i}`;
+            $slide.append(createTag('div', {class: 'hero-carousel-snapper'} ));
+            $slide.append(createTag('a', {class: 'hero-carousel-prev', href: `#hero-carousel-slide${(i-1)%slides.length}`} ));
+            $slide.append(createTag('a', {class: 'hero-carousel-next', href: `#hero-carousel-slide${(i+1)%slides.length}`} ));
+            const $navitem=createTag('div', {class: 'hero-carousel-navigation-list'});
+            $navitem.innerHTML=`<div class="hero-carousel-navigation-item"><a href="#hero-carousel-slide${i}" class="hero-carousel-navigation-button"><a></div>`;
+            $navList.append($navitem);
+        });
+
+        const $section=$carousel.closest('.section-wrapper');
+        $section.classList.add('hero-carousel-container');
+        $carousel.parentNode.classList.add('hero-carousel-overlay');
+        $section.prepend($carousel);
+    });
+}
+
+function decorateTables() {
+    document.querySelectorAll('main div>table').forEach(($table) => {
+      const $cols=$table.querySelectorAll('thead tr th');
+      const cols=Array.from($cols).map((e) => toClassName(e.innerHTML)).filter(e => e?true:false);
+      const $rows=$table.querySelectorAll('tbody tr');
+      let $div={};
+      
+      $div=tableToDivs($table, cols) 
+      $table.parentNode.replaceChild($div, $table);
+    });
+  }
+    
+  function tableToDivs($table, cols) {
+    const $rows=$table.querySelectorAll('tbody tr');
+    const $cards=createTag('div', {class:`${cols.join('-')}`})
+    $rows.forEach(($tr) => {
+      const $card=createTag('div')
+      $tr.querySelectorAll('td').forEach(($td, i) => {
+        const $div=createTag('div', cols.length>1?{class: cols[i]}:{});
+          $div.innerHTML=$td.innerHTML;
+          $div.childNodes.forEach(($child) => {
+            if ($child.nodeName=='#text' && $child.nodeValue.trim()) {
+              const $p=createTag('p');
+              $p.innerHTML=$child.nodeValue;
+              $child.parentElement.replaceChild($p, $child);
+            }
+          })
+          $card.append($div);
+        });
+        $cards.append($card);
+      });
+    return ($cards);
+  }  
+  
+  function readBlockConfig($block) {
+    const config={};
+    $block.querySelectorAll(':scope>div').forEach(($row) => {
+      if ($row.children && $row.children[1]) {
+        const name=toClassName($row.children[0].textContent);
+        const $a=$row.children[1].querySelector('a');
+        let value='';
+        if ($a) value=$a.href;
+        else value=$row.children[1].textContent;
+        config[name]=value;  
+      }
+    });
+    return config;
+  }
+
+  async function decoratePage() {
+    decorateButtons();
+    decorateTables();
+    wrapSections('main>div');
+    wrapSections('footer>div');
+    decorateHeroCarousel();
+    decorateHeroSection();
+    decorateParallax();
+    decorateColumns();
+    decorateGrid();
+    decorateColors();
+    window.pages.decorated = true;
+    appearMain();
+  }
+  
+  
+  if (document.readyState == 'loading') {
+    window.addEventListener('DOMContentLoaded', (event) => {
+      decoratePage();
+    });
+  } else {
+    decoratePage();
+  }
+  
