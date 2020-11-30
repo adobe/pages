@@ -40,7 +40,7 @@ function scrollBackUp() {
 function setHeader(content) {
   const wrap = document.createElement('div');
   wrap.innerHTML = content + `<hr>`;
-  wrap.setAttribute('tabindex', 0)
+  wrap.setAttribute('tabindex', 1)
   document.querySelectorAll('.slide-form-item')[0].prepend(wrap)
   document.querySelector('main .default:first-of-type').remove();
 }
@@ -142,7 +142,7 @@ window.addEventListener('resize', debounce(function() {
 }, 300))
 
 // Set Sliders and disable/enable next button
-function setSlider(count = 0) {
+function setSlider(count = 0) {   
 
   // Hide back button on first page.
   if(count >= 1) {
@@ -159,6 +159,13 @@ function setSlider(count = 0) {
   slideItems[count].classList.add('active')
   
   progressBarUpdater()
+
+  if(count >= 1) {
+    setUpAccessibility();
+    setTimeout(() => {
+      document.querySelector('.product-icon').focus();    
+    })
+  }
 
   let currentActiveRequired = slideItems[count].querySelectorAll('.is-required');
   let values = [];
@@ -354,23 +361,42 @@ document.querySelectorAll('.is-required input, .is-required textarea').forEach(f
 
 
 function setUpAccessibility() {
-  let elements = document.querySelectorAll('.slide-form-item, .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el, .slide-btn');
-  let count = 1;  
-  elements.forEach(function(element) {
-    count++;
-    element.setAttribute('tabindex', count)
+  document.querySelectorAll('.title-el,  .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el, .slide-btn').forEach((function($el) {
+    $el.setAttribute('tabindex', false)
+  }))
+
+  let element = document.querySelectorAll('.slide-form-item');
+  let button = document.querySelectorAll('.slide-btn')
+
+  element.forEach(function(slides) {
+    let setTabIndex = slides.querySelectorAll('.title-el,  .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el')
+
+    setTabIndex.forEach(function($el) {
+      $el.setAttribute('tabindex', '-1')
+    })
+
+
+    if(slides.classList.contains('active')) {
+      let setTabIndex = slides.querySelectorAll('.title-el,  .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el')
+      let count = 1;
+      setTabIndex.forEach(function($el) {
+        count++;
+        $el.setAttribute('tabindex', count)
+      })
+
+      button.forEach(function(btn) {
+        btn.setAttribute('tabindex', count++)
+      })
+    } 
   })
 
+  // let elements = document.querySelectorAll('.slide-form-item, .title-el,  .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el, .slide-btn');
+  // let count = 1;  
+  // elements.forEach(function(element) {
+  //   count++;
+  //   element.setAttribute('tabindex', count)
+  // })
 
-
-  document.addEventListener('keypress', (event) => {
-    if(event.keyCode == '32'){
-      window.addEventListener('click', function(even) {
-        console.log(event.closest('input'))
-      });
-    }
-  });
-  
 }
   
 
