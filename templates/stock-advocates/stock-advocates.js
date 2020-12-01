@@ -194,9 +194,23 @@ function decorateTables() {
     return config;
   }
 
+  async function decorateHeader() {
+    await loadLocalHeader();
+    const $header=document.querySelector('header>div');
+    const $logo=$header.children[0];
+    const $menu=$header.children[1];
+    const $hamburger=$header.children[2];
+
+    $logo.classList.add('logo');
+    $menu.classList.add('menu');
+    $hamburger.classList.add('hamburger');
+
+  }
+
   async function decoratePage() {
     decorateButtons();
     decorateTables();
+    decorateHeader();
     wrapSections('main>div');
     wrapSections('footer>div');
     decorateHeroCarousel();

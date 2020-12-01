@@ -12,6 +12,62 @@ main .colors {
     display: none;
 }
 
+/* header */
+
+header a:any-link{
+  color: white;
+  text-decoration: none;
+}
+
+header p {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  color: white;
+  position: absolute;
+  width: 100%;
+  height: 56px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+header>div, header div.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header div.menu {
+  display: none;
+}
+
+header>div ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+header>div li {
+  padding: 8px 16px;
+}
+
+header .icon {
+  width: 32px;
+  height: 32px;
+  margin: 10px;
+  fill: currentColor;
+}
+
+@media (min-width:900px) {
+  header div.menu {
+    display: flex;
+  }
+}
+
 /* hero section */
 
 .hero-section {
@@ -270,7 +326,7 @@ main div.white-text a.button.secondary {
 
   .hero-carousel-overlay {
       position: absolute;
-      top: 0;
+      top: 10em;
       right: 0;
       left: 0;
       bottom: 0;
