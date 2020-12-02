@@ -40,7 +40,8 @@ function scrollBackUp() {
 function setHeader(content) {
   const wrap = document.createElement('div');
   wrap.innerHTML = content + `<hr>`;
-  wrap.setAttribute('tabindex', 1)
+  wrap.querySelector('h1').setAttribute('tabindex', 1)
+  wrap.querySelector('p').setAttribute('tabindex', 2)
   document.querySelectorAll('.slide-form-item')[0].prepend(wrap)
   document.querySelector('main .default:first-of-type').remove();
 }
@@ -161,10 +162,8 @@ function setSlider(count = 0) {
   progressBarUpdater()
 
   if(count >= 1) {
-    setUpAccessibility();
-    setTimeout(() => {
-      document.querySelector('.product-icon').focus();    
-    })
+    setUpAccessibility()
+    document.querySelector('[tabindex="2"]').focus();
   }
 
   let currentActiveRequired = slideItems[count].querySelectorAll('.is-required');
@@ -362,22 +361,22 @@ document.querySelectorAll('.is-required input, .is-required textarea').forEach(f
 
 function setUpAccessibility() {
   document.querySelectorAll('.title-el,  .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el, .slide-btn').forEach((function($el) {
-    $el.setAttribute('tabindex', false)
+    $el.removeAttribute('tabindex')
   }))
 
   let element = document.querySelectorAll('.slide-form-item');
   let button = document.querySelectorAll('.slide-btn')
 
   element.forEach(function(slides) {
-    let setTabIndex = slides.querySelectorAll('.title-el,  .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el')
+    let setTabIndex = slides.querySelectorAll('.label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el')
 
     setTabIndex.forEach(function($el) {
-      $el.setAttribute('tabindex', '-1')
+      $el.removeAttribute('tabindex')
     })
 
 
     if(slides.classList.contains('active')) {
-      let setTabIndex = slides.querySelectorAll('.title-el,  .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el')
+      let setTabIndex = slides.querySelectorAll('.label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el')
       let count = 1;
       setTabIndex.forEach(function($el) {
         count++;
