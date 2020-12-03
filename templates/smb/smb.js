@@ -1,3 +1,5 @@
+
+
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
     const $wrapper = createTag("div", { class: "section-wrapper" });
@@ -160,4 +162,25 @@ if (document.readyState == "loading") {
 function toClassName(name) {
   return name.toLowerCase().replace(/[^0-9a-z]/gi, "-");
 }
+
+
+function setTabIndex() {
+  const body = document.getElementsByTagName('body')[0];
+
+
+  if(body.classList.contains('smb-form')) {
+    console.log('hi')
+    let firstElement = document.querySelector('main > div:nth-child(1)')
+
+    let secondElement = document.querySelector('main > div:nth-child(2)')
+    firstElement.querySelector('h1').setAttribute('tabindex', 1)
+    firstElement.querySelector('p').setAttribute('tabindex', 2)
+
+    // secondElement.querySelector('.label-title').setAttribute('tabindex', 3)
+    // secondElement.querySelector('input').setAttribute('tabindex', 4)
+    // secondElement.querySelector('button').setAttribute('tabindex', 5)
+  }
+}
+
+
 

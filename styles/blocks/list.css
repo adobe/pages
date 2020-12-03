@@ -24,6 +24,35 @@
   width: 48px;
 }
 
+.list-container.column {
+  text-align: left;
+}
+
+.list-container.column h1 {
+  text-align: left;
+}
+
+.list.column img {
+  width: 28px;
+}
+
+.list.column > div {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+.list a {
+  color: #1473e6;
+}
+
+.list.column > div > div:first-of-type {
+  margin-right: 14px;
+}
+
+.list.column p {
+  margin: 0;
+}
+
 @media(min-width: 768px) {
   .list.row > div {
     width: 48%;
