@@ -332,9 +332,9 @@ function setOtherCheckboxValue(event) {
     }
     checkbox.setAttribute('value', input.value)
   } else {
-    if(checkbox.checked == true) {
-      checkbox.click();
-    }
+    // if(checkbox.checked == true) {
+    //   checkbox.click();
+    // }
     checkbox.setAttribute('value', 'other')
   }
 }
@@ -368,7 +368,7 @@ function setUpAccessibility() {
   let button = document.querySelectorAll('.slide-btn')
 
   element.forEach(function(slides) {
-    let setTabIndex = slides.querySelectorAll('.label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el')
+    let setTabIndex = slides.querySelectorAll('.label-title, .radio-option, .radio-option input, .input-el label, .text-el')
 
     setTabIndex.forEach(function($el) {
       $el.removeAttribute('tabindex')
@@ -376,8 +376,8 @@ function setUpAccessibility() {
 
 
     if(slides.classList.contains('active')) {
-      let setTabIndex = slides.querySelectorAll('.label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el')
-      let count = 1;
+      let setTabIndex = slides.querySelectorAll('.label-title, .radio-option, .radio-option input, .input-el label, .text-el, textarea')
+      let count = 3;
       setTabIndex.forEach(function($el) {
         count++;
         $el.setAttribute('tabindex', count)
