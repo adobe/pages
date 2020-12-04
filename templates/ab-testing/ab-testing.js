@@ -36,7 +36,7 @@ function decorateABTests() {
             test-=e.traffic;
         })
     
-        window.location.href=selectedUrl;    
+        if (selectedUrl) window.location.href=selectedUrl;    
     }
 }
 
