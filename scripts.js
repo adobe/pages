@@ -324,9 +324,6 @@ function fixImages() {
 
 fixImages();
 
-window.embrew={};
-
-
 const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
 
 window.pages={};
