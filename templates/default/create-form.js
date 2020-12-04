@@ -11,6 +11,10 @@ formMarkup.innerHTML = `
 
 document.querySelector('.form').innerHTML = formMarkup.outerHTML
 
+let tag = document.createElement("script");
+tag.src = "/templates/default/form.js";
+document.getElementsByTagName("body")[0].appendChild(tag);
+
 const $formContainer = document.querySelector(".wg-form-container");
 const $form = document.getElementById("wg-form");
 let hasPageBreak = 0;

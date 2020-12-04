@@ -1,3 +1,5 @@
+
+
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
     const $wrapper = createTag("div", { class: "section-wrapper" });
@@ -135,6 +137,8 @@ async function decoratePage() {
   wrapSections("header>div");
   externalLinks("header");
   externalLinks("footer");
+  setTabIndex();
+
   // nav style/dropdown
   decorateNav();
 
@@ -160,4 +164,31 @@ if (document.readyState == "loading") {
 function toClassName(name) {
   return name.toLowerCase().replace(/[^0-9a-z]/gi, "-");
 }
+
+
+function setTabIndex() {
+  const body = document.getElementsByTagName('body')[0];
+
+  if(body.classList.contains('smb-form')) {
+    let waitForForm = setInterval(function() {
+      if(document.querySelector('form')) {
+        setTimeout(function() {
+          let elements = document.querySelectorAll('h1, p, a, label, input, button , h3, .card');
+          elements.forEach(function(el) { el.setAttribute('tabindex', 0 )})
+        }, 100)
+        clearInterval(waitForForm)
+      }
+    }, 100)
+  }
+
+  if(body.classList.contains('smb-thank-you') && !body.classList.contains('smb-form')) {
+    let elements = document.querySelectorAll('h1, p, a, label, input, button , h3, .card');
+
+    elements.forEach(function(el) { el.setAttribute('tabindex', 0 )})
+  }
+
+  
+}
+
+
 
