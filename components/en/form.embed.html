@@ -276,14 +276,7 @@
 
       slidePanelParent.innerHTML = `
         <div class="panel__item">
-          <div class="form-sliders-btns">
-            <button class="slide-btn prev" type="button">Back</button>
-            <button class="slide-btn next" type="button">Next</button>
-            <button type="submit" class="submit" style='display: none;'>Submit</button>
-          </div>
-        </div>
-        <div class="panel__item">
-          <div class="indicator">
+          <div class="indicator" tabindex="0">
             <div class="indicator-crumb">
               <span class="indicator-current">1</span>
               <span>/</span>
@@ -292,6 +285,13 @@
             <div class="progress-indicator">
               <span></span>
             </div>  
+          </div>
+        </div>
+        <div class="panel__item">
+          <div class="form-sliders-btns">
+            <button class="slide-btn prev" type="button">Back</button>
+            <button class="slide-btn next" type="button">Next</button>
+            <button type="submit" class="submit" style='display: none;'>Submit</button>
           </div>
         </div>`
       $form.appendChild(slidePanelParent)

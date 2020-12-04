@@ -40,8 +40,8 @@ function scrollBackUp() {
 function setHeader(content) {
   const wrap = document.createElement('div');
   wrap.innerHTML = content + `<hr>`;
-  wrap.querySelector('h1').setAttribute('tabindex', 1)
-  wrap.querySelector('p').setAttribute('tabindex', 2)
+  wrap.querySelector('h1').setAttribute('tabindex', 0)
+  wrap.querySelector('p').setAttribute('tabindex', 0)
   document.querySelectorAll('.slide-form-item')[0].prepend(wrap)
   document.querySelector('main .default:first-of-type').remove();
 }
@@ -163,7 +163,7 @@ function setSlider(count = 0) {
 
   if(count >= 1) {
     setUpAccessibility()
-    document.querySelector('[tabindex="2"]').focus();
+    document.querySelector('[tabindex="0"]').focus();
   }
 
   let currentActiveRequired = slideItems[count].querySelectorAll('.is-required');
@@ -376,15 +376,11 @@ function setUpAccessibility() {
 
 
     if(slides.classList.contains('active')) {
-      let setTabIndex = slides.querySelectorAll('.label-title, .radio-option, .radio-option input, .input-el label, .text-el, textarea')
+      let setTabIndex = slides.querySelectorAll('.label-title, .description-title, .radio-el, .radio-option, .radio-option input, .input-el label, .text-el, textarea, .slide-btn')
       let count = 3;
       setTabIndex.forEach(function($el) {
         count++;
-        $el.setAttribute('tabindex', count)
-      })
-
-      button.forEach(function(btn) {
-        btn.setAttribute('tabindex', count++)
+        $el.setAttribute('tabindex', 0)
       })
     } 
   })
