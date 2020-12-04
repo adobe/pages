@@ -81,6 +81,30 @@
 	border: none;
 }
 
+.thank-you-cards- .card:focus {
+	background: #252525;
+	font-size: 15px;
+	line-height: 1.6;
+	color: #fff;
+	width: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+	border: 4px solid #2680EB;
+	box-sizing: border-box;
+	outline: none;
+}
+
+.thank-you-cards- .card:focus p a {
+	color: white;
+	border-color: #fff;
+}
+
+.thank-you-cards- .card:focus p:last-of-type {
+	border: none;
+}
+
+
+
 @media(min-width: 590px) {
 	
 	.smb-thank-you main .default:first-of-type {
