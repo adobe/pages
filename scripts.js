@@ -278,6 +278,55 @@ function localizeFooter() {
   }
 }
 
+function fixImages() {
+  const screenWidth=window.screen.availWidth;
+  const imgSizes=[375, 768, 1000];
+  const fitting=imgSizes.filter(s => s<=screenWidth);
+  const width=fitting.length?fitting[fitting.length-1]*2:imgSizes[0]*2;
+  let heroProcessed=false;
+  const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+          mutation.addedNodes.forEach(node => {
+              // only handle images with src=/hlx_*
+              // console.log(node.tagName +':'+node.src);
+              if (node.tagName === 'IMG' && !node.src.includes('?')) {
+                  let contentHash;
+                  let extension;
+                  if (node.src.includes('/hlx_')) {
+                    const filename=node.src.split('/hlx_')[1];
+                    const splits=filename.split('.');
+                    contentHash=splits[0];
+                    extension=splits[1];
+                  }
+
+                  if (node.src.startsWith('https://hlx.blob.core.windows.net/external/')) {
+                    const filename=node.src.substring(43);
+                    const splits=filename.split('#');
+                    contentHash=splits[0];
+                    extension=splits[1].split('.')[1];
+                  }
+                  
+                  if (contentHash && (extension == 'jpg' || extension == 'jpeg' || extension == 'png')) {
+                    const loading=heroProcessed?'lazy':'eager';
+                    heroProcessed=true;
+                    node.setAttribute('src', `/hlx_${contentHash}.${extension}?width=${width}&auto=webp&format=pjpg&optimize=medium`);
+                    node.setAttribute('loading', loading);  
+                  }
+              }
+          });
+      });
+      if (document.readyState=='interactive' || document.readyState=='complete') {
+          observer.disconnect();
+      }
+  });
+  observer.observe(document, { childList: true, subtree: true });
+}
+
+fixImages();
+
+window.embrew={};
+
+
 const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
 
 window.pages={};
