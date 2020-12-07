@@ -385,13 +385,6 @@ function setUpAccessibility() {
     } 
   })
 
-  // let elements = document.querySelectorAll('.slide-form-item, .title-el,  .label-title, .radio-option, .radio-option input, .radio-option label, .input-el label, .text-el, .slide-btn');
-  // let count = 1;  
-  // elements.forEach(function(element) {
-  //   count++;
-  //   element.setAttribute('tabindex', count)
-  // })
-
 }
   
 
