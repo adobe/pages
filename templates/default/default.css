@@ -259,3 +259,12 @@ footer li:after {
 		margin-right: 16px;
 	}
 }
+
+
+.documentation {
+	text-align: left;
+}
+
+.documentation.getting-started main > div:first-of-type {
+	text-align: center;
+}
