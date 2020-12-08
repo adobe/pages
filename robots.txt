@@ -1,0 +1,4 @@
+user-agent: *
+disallow: /documentation/
+disallow: /cc-growth-sandbox/
+disallow: /internal/
