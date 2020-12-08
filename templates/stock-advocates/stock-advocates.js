@@ -10,14 +10,37 @@ function decorateHeroSection() {
     const $firstSectionImage=document.querySelector('main div.section-wrapper>div>p>img');
     if ($firstSectionImage) {
         const $section=$firstSectionImage.closest('.section-wrapper');
-        const $div=$firstSectionImage.closest('div').classList.add('text');
+        $section.classList.add('full-width');
+        const $div=$firstSectionImage.closest('div');
         $section.classList.add('hero-section','white-text');
-        const $imgWrapper=createTag('div', {class:'image'});
-        $section.append($imgWrapper);
-        const $p=$firstSectionImage.parentNode.nextElementSibling;
-        $imgWrapper.append($firstSectionImage.parentNode);
-        $imgWrapper.append($p);
+        $div.classList.add('text');
+        if ($div.children[1].children[0].tagName=='IMG') {
+          $div.classList.add('image');
+        } else {
+          const $imgWrapper=createTag('div', {class:'image'});
+          $section.append($imgWrapper);
+          const $p=$firstSectionImage.parentNode.nextElementSibling;
+          $imgWrapper.append($firstSectionImage.parentNode);
+          $imgWrapper.append($p);  
+        }
     }
+}
+
+function decorateFaq() {
+  const $faq=document.querySelector('main .faq');
+  $faq.closest('.section-wrapper').classList.add('faq-container');
+  Array.from($faq.children).forEach(($row) => {
+    const $question=$row.children[0];
+    const $answer=$row.children[1];
+
+    $question.classList.add('question');
+    $answer.classList.add('answer');
+
+    $question.addEventListener('click', (evt) => {
+      $row.classList.toggle('show');
+    })
+
+  });
 }
 
 function decorateColors() {
@@ -31,10 +54,13 @@ function decorateColors() {
         }
         document.querySelectorAll('main .columns>div').forEach(($row, i) => {
             if (colors[i]) {
-                const color=colors[i];
+                const line=colors[i];
+                const splits=line.split(',');
+                const color=splits[0].trim();
                 $row.style.backgroundColor=color;
                 const lightness=(parseInt(color.substr(1, 2), 16)+parseInt(color.substr(3, 2), 16)+parseInt(color.substr(5, 2), 16))/3;
                 if (lightness<200) $row.classList.add('white-text');
+                if (splits[1]) $row.classList.add(splits[1].trim());
             }
         })
     
@@ -43,6 +69,8 @@ function decorateColors() {
 
 function decorateGrid() {
     document.querySelectorAll('main div>.grid').forEach(($grid) => {
+      $grid.closest('.section-wrapper').classList.add('full-width');
+
         const rows=Array.from($grid.children);
         rows.forEach($row => {
             const cells=Array.from($row.children);
@@ -79,23 +107,24 @@ function decorateButtons() {
 
 function decorateColumns() {
     document.querySelectorAll('main div>.columns').forEach(($columns) => {
-        const rows=Array.from($columns.children);
-        rows.forEach($row => {
-            const cells=Array.from($row.children);
-            cells.forEach(($cell,i,arr) => {
-                const $img=$cell.querySelector('img');
-                if ($img) { 
-                    $cell.classList.add('image');
-                } else {
-                    $cell.classList.add('text');
-                    if ($cell.textContent=='') {
-                        $cell.remove();
-                        arr[i-1].classList.add('merged');
-                    }
-                }
-            })
-        })
-    })
+      $columns.closest('.section-wrapper').classList.add('full-width');
+      const rows=Array.from($columns.children);
+      rows.forEach($row => {
+          const cells=Array.from($row.children);
+          cells.forEach(($cell,i,arr) => {
+              const $img=$cell.querySelector('img');
+              if ($img) { 
+                  $cell.classList.add('image');
+              } else {
+                  $cell.classList.add('text');
+                  if ($cell.textContent=='') {
+                      $cell.remove();
+                      arr[i-1].classList.add('merged');
+                  }
+              }
+          })
+      })
+  })
 }
 
 function decorateParallax() {
@@ -110,7 +139,9 @@ function decorateParallax() {
                 const offsetRatio=((maxExtent)-(window.innerHeight-clientRect.y))/maxExtent;
                 Array.from($parallax.children).forEach(($layer, i ,arr) => {
                     const translateY=(arr.length-1-i)*clientRect.height/4*offsetRatio;
-                    $layer.style.transform=`translate(0px,${translateY}px)`;
+                    if (translateY) {
+                      $layer.style.transform=`translate(0px,${translateY-0}px)`;
+                    }
                 })                        
             }
         })
@@ -140,8 +171,12 @@ function decorateHeroCarousel() {
 
         const $section=$carousel.closest('.section-wrapper');
         $section.classList.add('hero-carousel-container');
-        $carousel.parentNode.classList.add('hero-carousel-overlay');
+        const $overlay=$carousel.parentNode;
+        $overlay.classList.add('hero-carousel-overlay');
         $section.prepend($carousel);
+        
+        $overlay.innerHTML=$overlay.innerHTML.replace('Adobe Stock Advocates', '<span class="eyebrow">Adobe Stock</span> Advocates')
+
     });
 }
 
@@ -205,10 +240,19 @@ function decorateTables() {
     $menu.classList.add('menu');
     $hamburger.classList.add('hamburger');
 
+    $hamburger.addEventListener('click', (evt) => {
+      const added=$header.classList.toggle('expanded');
+      if (added) {
+        document.body.classList.add('noscroll');
+      } else {
+        document.body.classList.remove('noscroll');
+      }
+    
+    })
+
   }
 
   async function decoratePage() {
-    decorateButtons();
     decorateTables();
     decorateHeader();
     wrapSections('main>div');
@@ -219,6 +263,8 @@ function decorateTables() {
     decorateColumns();
     decorateGrid();
     decorateColors();
+    decorateButtons();
+    decorateFaq();
     window.pages.decorated = true;
     appearMain();
   }

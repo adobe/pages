@@ -2,14 +2,93 @@
 
 
 main > .section-wrapper > div {
-    max-width: unset;
     margin: 0em auto;
-    padding: 2em 0em;
+    padding: 0em 0em;
     width: unset;
+}
+
+main > .section-wrapper:not(.full-width) {
+  padding: 7em 0;
+}
+
+main > .section-wrapper.full-width > div {
+  max-width: unset;
+
 }
 
 main .colors {
     display: none;
+}
+
+body.noscroll {
+  overflow: hidden;
+}
+
+main div.white-text {
+  color: white;
+}
+
+main div a.button.primary {
+background-color: #3e1bb2;
+border-color: #3e1bb2
+}
+
+main div.white-text a.button.secondary {
+  color: white;
+  border-color: white;
+} 
+
+
+/* faq */
+
+main .section-wrapper.faq-container {
+  background-color: #3e1bb2;
+  color: white;
+  padding: 4em;
+}
+
+main .section-wrapper.faq-container a:any-link {
+  color: white;
+  text-decoration: underline;
+  display: inline;
+}
+
+main .faq {
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+main .faq .question {
+  margin-top: 32px;
+  font-weight: 700;
+  padding-left: 32px;
+}
+
+main .faq .question p::before {
+  content: '▶';
+  margin-left: -32px;
+  width: 32px;
+  display: inline-block;
+}
+
+main .faq .show .question p::before {
+  content: '▼ ';
+}
+
+main .faq .answer {
+  padding-top: 3px;
+  padding-left: 32px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.7s ease-out;
+}
+
+main .faq p {
+  margin: 0;
+}
+
+main .faq .show .answer {
+  max-height: 300px;
 }
 
 /* header */
@@ -22,6 +101,38 @@ header a:any-link{
 header p {
   margin: 0;
   padding: 0;
+}
+
+
+header div.expanded div.logo {
+  display: none;
+}
+
+header div.expanded>div {
+  flex-grow: 0;
+}
+
+header div.expanded {
+  align-items: start;
+  backdrop-filter: blur(20px);
+  background-color: rgba(49, 49, 49, 0.7);
+}
+
+header div.expanded>div.menu {
+  flex-grow: 1;
+  justify-content: center;
+  font-size: 1.3em;
+  padding-left: 32px;
+}
+
+header div.expanded div.menu {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+header div.expanded div.menu ul {
+  flex-direction: column;
 }
 
 header {
@@ -65,7 +176,15 @@ header .icon {
 @media (min-width:900px) {
   header div.menu {
     display: flex;
+    padding-right: 32px;
   }
+  header div.hamburger {
+    display: none;
+  }
+  header>div {
+    backdrop-filter: blur(20px);
+    background-color: rgba(49, 49, 49, 0.4);
+  }  
 }
 
 /* hero section */
@@ -74,6 +193,7 @@ header .icon {
     display: flex;
     width: 100%;
     flex-direction: column;
+    align-items: center;
 }
 
 main>div.hero-section>div {
@@ -81,14 +201,6 @@ main>div.hero-section>div {
     position: relative;
 }
 
-main div.white-text {
-    color: white;
-}
-
-main div.white-text a.button.secondary {
-    color: white;
-    border-color: white;
-} 
 
 
 .hero-section>div.image img {
@@ -108,9 +220,35 @@ main div.white-text a.button.secondary {
     padding: 2em;
 }
 
+main>div.hero-section>div.text.image {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+main>div.hero-section>div.text.image h1 {
+  position: absolute;
+  z-index: 1;
+  top: 25%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 2em;
+  padding: 40px;
+}
+
+
+.hero-section h1 {
+  font-size: 4em;
+  line-height: 1em;
+  padding-top: 48px;
+}
+
 .hero-section .image, .hero-section .image p {
     padding: 0;
     margin: 0;
+    line-height: 0;
 }
 
 @media (min-width:600px) {
@@ -245,8 +383,34 @@ main div.white-text a.button.secondary {
     position: relative;
 }
 
+.columns>div.white2>div {
+  height: 500px;
+}
+
+.columns>div.white2>div:nth-of-type(2) {
+  background-color: white;
+  color: black;
+}
+
+
+.columns ul {
+  text-align: left;
+}
+
 .columns>div>div.merged {
     width: 100%;
+}
+
+.columns>div.padded>div.image img {
+  padding: 40px 40px 80px 40px;
+}
+.columns>div.padded>div.image p {
+  color: black;
+  text-align: left;
+  font-size: 0.8rem;
+  left: 40px;
+  padding-right: 40px;
+  line-height: 1.2em;
 }
 
 .columns>div>div.image img {
@@ -264,6 +428,7 @@ main div.white-text a.button.secondary {
 
 .columns .text {
     padding: 2em;
+    margin: auto;
 }
 
 @media (min-width:600px) {
@@ -278,7 +443,6 @@ main div.white-text a.button.secondary {
 
 .parallax {
     position: relative;
-    overflow: hidden;
 }
 
 .parallax>div {
@@ -307,7 +471,10 @@ main div.white-text a.button.secondary {
         left: 0;
         width: 100%;
         }
-    
+      
+      .parallax>div:last-of-type {
+          padding: 6rem 0 24rem 0;
+      }          
 }
 
 
@@ -315,10 +482,18 @@ main div.white-text a.button.secondary {
     
   main>div.section-wrapper .hero-carousel {
     position: relative;
-    padding-top: 75%;
+    padding-top: 65vh;
     perspective: 100px;
     width: 100%;
   }
+
+  @media (min-width:600px) {
+    main>div.section-wrapper .hero-carousel {
+      padding-top: 75%;
+    }
+    
+}
+
 
   .hero-carousel-container {
       position: relative;
@@ -326,13 +501,29 @@ main div.white-text a.button.secondary {
 
   .hero-carousel-overlay {
       position: absolute;
-      top: 10em;
+      top: 6em;
       right: 0;
       left: 0;
       bottom: 0;
       color: white;
       line-height: 1em;
       pointer-events: none;
+  }
+  .hero-carousel-overlay h1 {
+    font-size: 4em;
+    line-height: 0.7em;
+  }
+
+  .hero-carousel-overlay h3 {
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .hero-carousel-overlay .eyebrow {
+    font-size: 0.6em;
+    font-weight: 300;
+    line-height: 1em;
+    display: block;
   }
   
   .hero-carousel-viewport {
@@ -433,9 +624,9 @@ main div.white-text a.button.secondary {
   
   .hero-carousel-navigation-button {
     display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: #333;
+    width: 1.0rem;
+    height: 1.0rem;
+    background-color: #ddd;
     background-clip: content-box;
     border: 0.25rem solid transparent;
     border-radius: 50%;
