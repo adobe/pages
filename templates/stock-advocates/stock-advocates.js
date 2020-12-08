@@ -131,6 +131,7 @@ function decorateColumns() {
 
 function decorateParallax() {
     document.querySelectorAll('main div>.parallax').forEach(($parallax) => {
+        $parallax.closest('.section-wrapper').classList.add('full-width');
         Array.from($parallax.children).forEach(($layer) => {
             $parallax.prepend($layer);
         })
@@ -172,7 +173,7 @@ function decorateHeroCarousel() {
         });
 
         const $section=$carousel.closest('.section-wrapper');
-        $section.classList.add('hero-carousel-container');
+        $section.classList.add('hero-carousel-container','full-width');
         const $overlay=$carousel.parentNode;
         $overlay.classList.add('hero-carousel-overlay');
         $section.prepend($carousel);
