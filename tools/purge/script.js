@@ -77,8 +77,8 @@ async function purge() {
         await sendPurge(path);    
     }
 
-    if (window.pages && window.pages.dependencies) {
-        const deps=window.pages.dependencies;
+    if (window.hlx && window.hlx.dependencies) {
+        const deps=window.hlx.dependencies;
         for (let i=0;i<deps.length;i++) {
             const dep=deps[i];
             const url=new URL(dep, loc);

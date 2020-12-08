@@ -47,7 +47,7 @@ async function insertLocalResource(type) {
   }
 
   if (url) {
-    window.pages.dependencies.push(url);
+    window.hlx.dependencies.push(url);
     const resp=await fetch(url);
     if (resp.status == 200) {
       const html=await resp.text();
@@ -335,7 +335,8 @@ if (pathSegments) {
   window.pages = { product, locale, project };
 }
 
-window.pages.dependencies=[];
+window.hlx = window.hlx||{};
+window.hlx.dependencies = [];
 
 if (window.pages.product) {
   document.getElementById('favicon').href=`/icons/${window.pages.product}.svg`;
