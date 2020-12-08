@@ -137,6 +137,8 @@ async function decoratePage() {
   wrapSections("header>div");
   externalLinks("header");
   externalLinks("footer");
+  setTabIndex();
+
   // nav style/dropdown
   decorateNav();
 
@@ -167,19 +169,25 @@ function toClassName(name) {
 function setTabIndex() {
   const body = document.getElementsByTagName('body')[0];
 
-
   if(body.classList.contains('smb-form')) {
-    console.log('hi')
-    let firstElement = document.querySelector('main > div:nth-child(1)')
-
-    let secondElement = document.querySelector('main > div:nth-child(2)')
-    firstElement.querySelector('h1').setAttribute('tabindex', 1)
-    firstElement.querySelector('p').setAttribute('tabindex', 2)
-
-    // secondElement.querySelector('.label-title').setAttribute('tabindex', 3)
-    // secondElement.querySelector('input').setAttribute('tabindex', 4)
-    // secondElement.querySelector('button').setAttribute('tabindex', 5)
+    let waitForForm = setInterval(function() {
+      if(document.querySelector('form')) {
+        setTimeout(function() {
+          let elements = document.querySelectorAll('h1, p, a, label, input, button , h3, .card');
+          elements.forEach(function(el) { el.setAttribute('tabindex', 0 )})
+        }, 100)
+        clearInterval(waitForForm)
+      }
+    }, 100)
   }
+
+  if(body.classList.contains('smb-thank-you') && !body.classList.contains('smb-form')) {
+    let elements = document.querySelectorAll('h1, p, a, label, input, button , h3, .card');
+
+    elements.forEach(function(el) { el.setAttribute('tabindex', 0 )})
+  }
+
+  
 }
 
 
