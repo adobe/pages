@@ -28,19 +28,21 @@ function decorateHeroSection() {
 
 function decorateFaq() {
   const $faq=document.querySelector('main .faq');
-  $faq.closest('.section-wrapper').classList.add('faq-container');
-  Array.from($faq.children).forEach(($row) => {
-    const $question=$row.children[0];
-    const $answer=$row.children[1];
-
-    $question.classList.add('question');
-    $answer.classList.add('answer');
-
-    $question.addEventListener('click', (evt) => {
-      $row.classList.toggle('show');
-    })
-
-  });
+  if ($faq) {
+    $faq.closest('.section-wrapper').classList.add('faq-container');
+    Array.from($faq.children).forEach(($row) => {
+      const $question=$row.children[0];
+      const $answer=$row.children[1];
+  
+      $question.classList.add('question');
+      $answer.classList.add('answer');
+  
+      $question.addEventListener('click', (evt) => {
+        $row.classList.toggle('show');
+      })
+  
+    });  
+  }
 }
 
 function decorateColors() {
