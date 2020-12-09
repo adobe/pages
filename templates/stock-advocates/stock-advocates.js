@@ -178,7 +178,7 @@ function decorateHeroCarousel() {
         $overlay.classList.add('hero-carousel-overlay');
         $section.prepend($carousel);
         
-        $overlay.innerHTML=$overlay.innerHTML.replace('Adobe Stock Advocates', '<span class="eyebrow">Adobe Stock</span> Advocates')
+        $overlay.innerHTML=$overlay.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates.svg" class="stock-advocates" alt="Adobe Stock Advocates">')
 
     });
 }

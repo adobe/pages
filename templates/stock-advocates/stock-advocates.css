@@ -497,13 +497,13 @@ main>div.hero-section>div.text.image h1 {
     perspective: 100px;
     width: 100%;
   }
-
-  @media (min-width:600px) {
+  
+  @media (min-width:1000px) {
     main>div.section-wrapper .hero-carousel {
-      padding-top: 75%;
+      padding-top: 650px;
     }
-    
-}
+  }   
+
 
 
   .hero-carousel-container {
@@ -512,22 +512,40 @@ main>div.hero-section>div.text.image h1 {
 
   .hero-carousel-overlay {
       position: absolute;
-      top: 6em;
+      top: 0;
       right: 0;
       left: 0;
       bottom: 0;
       color: white;
       line-height: 1em;
       pointer-events: none;
+      height: 65vh;
   }
+
+  @media (min-width:1000px) {
+    .hero-carousel-overlay {
+      height: 650px;
+    }
+  }   
+
   .hero-carousel-overlay h1 {
+    padding-top: 1em;
     font-size: 4em;
     line-height: 0.7em;
   }
 
-  .hero-carousel-overlay h3 {
-    font-style: italic;
-    font-weight: 500;
+  .hero-carousel-overlay img.stock-advocates {
+    min-width: 300px;
+    width: 50%;
+    max-width: 500px;
+  }
+
+  .hero-carousel-overlay>p {
+    position: absolute;
+    bottom: 55px;
+    text-align: center;
+    left: 0;
+    right: 0;
   }
 
   .hero-carousel-overlay .eyebrow {
@@ -548,6 +566,11 @@ main>div.hero-section>div.text.image h1 {
     counter-reset: item;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
+
+  }
+
+  .hero-carousel-viewport::-webkit-scrollbar {
+    display: none;
   }
   
   .hero-carousel-slide {
@@ -556,6 +579,7 @@ main>div.hero-section>div.text.image h1 {
     width: 100%;
     background-color: #f99;
     counter-increment: item;
+    font-size: 1.5em;
   }
 
   .hero-carousel-slide div:nth-of-type(1){
@@ -563,6 +587,7 @@ main>div.hero-section>div.text.image h1 {
   }
     .hero-carousel-slide div:nth-of-type(1) img{
         height: 100%;
+        width: 100%;
       object-fit: cover;
       object-position: center center;
 }
@@ -623,7 +648,7 @@ main>div.hero-section>div.text.image h1 {
   .hero-carousel-navigation {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 38px;
     left: 0;
     text-align: center;
   }
@@ -651,7 +676,7 @@ main>div.hero-section>div.text.image h1 {
   .hero-carousel-next {
     position: absolute;
     top: 0;
-    margin-top: 37.5%;
+    margin-top: 37.5vh;
     width: 4rem;
     height: 4rem;
     transform: translateY(-50%);
@@ -674,24 +699,27 @@ main>div.hero-section>div.text.image h1 {
   .hero-carousel::after {
     content: '';
     z-index: 1;
-    background-color: #33333340;
+    background-color: transparent;
     background-size: 1.5rem 1.5rem;
     background-repeat: no-repeat;
     background-position: center center;
     color: #ffffff;
-    opacity: 0.5;
+    opacity: 1;
     font-size: 2.5rem;
     line-height: 4rem;
     text-align: center;
     pointer-events: none;
   }
-  
+
   .hero-carousel::before {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
+    background-image: url('backward.svg');
+    transform: scaleX(1);
   }
   
   .hero-carousel::after {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
+    background-image: url('backward.svg');
+    transform: scaleX(-1);
+
   }
 
 
