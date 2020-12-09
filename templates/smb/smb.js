@@ -173,7 +173,7 @@ function setTabIndex() {
     let waitForForm = setInterval(function() {
       if(document.querySelector('form')) {
         setTimeout(function() {
-          let elements = document.querySelectorAll('h1, p, a, label, input, button , h3, .card');
+          let elements = document.querySelectorAll('.card');
           elements.forEach(function(el) { el.setAttribute('tabindex', 0 )})
         }, 100)
         clearInterval(waitForForm)
@@ -182,7 +182,7 @@ function setTabIndex() {
   }
 
   if(body.classList.contains('smb-thank-you') && !body.classList.contains('smb-form')) {
-    let elements = document.querySelectorAll('h1, p, a, label, input, button , h3, .card');
+    let elements = document.querySelectorAll('.card');
 
     elements.forEach(function(el) { el.setAttribute('tabindex', 0 )})
   }
