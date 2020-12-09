@@ -812,7 +812,22 @@ main .card a:any-link {
   }
   
   .step main .video-wrapper {
-    padding: 26px 0px;
+    padding: 26px;
+    padding-bottom: 56.25%;
+    position: relative;
+    margin: 1em 0em;
+  }
+
+  .step main .video-wrapper .video {
+    position: absolute;
+    top: 0; left: 10%;
+    width: 80%; height: 80%;
+    background-position: center;
+  }
+
+  .step main .video-wrapper .button {
+    top: 50%;
+    transform: translateY(-50%);
   }
   
 }
