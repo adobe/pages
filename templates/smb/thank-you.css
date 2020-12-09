@@ -77,8 +77,18 @@
 	font-weight: 500;
 }
 
+
 .inclusive .thank-you-cards- .card {
-	border: none;
+	background: #252525;
+	font-size: 15px;
+	line-height: 1.6;
+	color: #fff;
+	width: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+	box-sizing: border-box;
+	outline: none;
+	border: 2px solid #6E6E6E;
 }
 
 .thank-you-cards- .card:focus {
@@ -94,13 +104,19 @@
 	outline: none;
 }
 
-.thank-you-cards- .card:focus p a {
+.thank-you-cards- .card p a {
 	color: white;
 	border-color: #fff;
 }
 
 .thank-you-cards- .card:focus p:last-of-type {
 	border: none;
+}
+
+.inclusive .wg-form-container > div:first-of-type {
+	background: #F4F4F4 !important;
+	text-align: center;
+	padding-bottom: 2em;
 }
 
 

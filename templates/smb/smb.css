@@ -363,7 +363,7 @@
   width: 90%;
   max-width: 600px !important;
   margin: auto;
-  padding: 3em 0em;
+  padding: 3em 0em 2em 0;
 }
 
 .inclusive.thank-you .thank-you-container {
