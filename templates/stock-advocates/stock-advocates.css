@@ -158,6 +158,10 @@ header>div, header div.logo {
   justify-content: space-between;
 }
 
+header>div {
+  padding: 14px 14px 17px 4px;
+}
+
 header div.menu {
   display: none;
 }
@@ -180,6 +184,10 @@ header .icon {
   fill: currentColor;
 }
 
+header .icon.icon-stock-logo {
+  width: 180px;
+}
+
 @media (min-width:900px) {
   header div.menu {
     display: flex;
@@ -188,10 +196,6 @@ header .icon {
   header div.hamburger {
     display: none;
   }
-  header>div {
-    backdrop-filter: blur(20px);
-    background-color: rgba(49, 49, 49, 0.4);
-  }  
 }
 
 /* hero section */
