@@ -91,7 +91,7 @@
 	border: 2px solid #6E6E6E;
 }
 
-.thank-you-cards- .card:focus {
+.inclusive .thank-you-cards- .card:focus {
 	background: #252525;
 	font-size: 15px;
 	line-height: 1.6;
@@ -104,12 +104,12 @@
 	outline: none;
 }
 
-.thank-you-cards- .card p a {
+.inclusive .thank-you-cards- .card p a {
 	color: white;
 	border-color: #fff;
 }
 
-.thank-you-cards- .card:focus p:last-of-type {
+.inclusive .thank-you-cards- .card p:last-of-type {
 	border: none;
 }
 
