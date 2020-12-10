@@ -60,7 +60,7 @@
 }
 
 .panel-tab {
-  outline-color: transparent;
+  outline: none;
 }
 
 /* End of page specifics */
