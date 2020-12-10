@@ -59,6 +59,10 @@
   margin-top: 0;
 }
 
+.panel-tab {
+  outline-color: transparent;
+}
+
 /* End of page specifics */
 
 .prev {
