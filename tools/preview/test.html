@@ -33,30 +33,13 @@
         </style>
     </head>
     <body>
-        <div>
-            <h1>Preview Tester</h1>
-            <p>
-                <input type="text" id="test_location" value="">
-            </p>
-            <p>
-                <a id="bookmarklet" href="">Preview</a>
-                <script>
-                  const p=new URLSearchParams(window.location.search);
-                  document.getElementById('test_location').value = p.get('url');
-                  const config = JSON.stringify({
-                    project: 'pages.adobe.com',
-                    innerHost: window.location.host,
-                    outerHost: 'pages.adobe.com',
-                  });
-                  const href = [
-                    'javascript:(()=>{',
-                    `window.hlxPreviewBookmarklet=${config}';`,
-                    'document.body.appendChild(document.createElement("script")).src="https://www.project-helix.io/bookmarklets/preview.js";',
-                    '})();',
-                    ].join('');
-                  document.getElementById('bookmarklet').setAttribute('href', href);
-                </script>
-                </p>
-        </div>
-    </body>
+      <div>
+        <p>
+            The Preview bookmarklet has been deprecated. You will be redirected to the Helix Sidekick bookmarklet...
+        </p>
+    </div>
+    <script>
+        window.location.href = 'https://www.hlx.page/tools/sidekick/?project=Pages&giturl=https://github.com/adobe/pages/&host=pages.adobe.com';
+    </script>
+</body>
 </html>
