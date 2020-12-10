@@ -66,9 +66,12 @@
     let formField = "";
     let formSubmitPresent = false;
     let output = await formData();
+    let progressLabel = '';
     document.querySelectorAll('main')[0].style.opacity = '1'
     output = output.data;
+
     
+
   
     let checkIfSlider = () => {
       output.find(pageBreak => {
@@ -88,6 +91,10 @@
       const name=item.name?item.name:setup.label_clean; 
       const required=item.required?item.required:setup.required;  
       let description = hasPageBreak && item.description.length > 0 ? `<span class="description-title" tabindex="0">${item.description}</span>` : '';
+
+      if(item.type == 'indicator') {
+        progressLabel = item.label
+      }
       
       let placeholder = item.placeholder ? true : false;
       
@@ -279,10 +286,15 @@
       slidePanelParent.innerHTML = `
         <div class="panel__item panel-tab" tabindex="0">
           <div class="indicator">
-            <div class="indicator-crumb">
-              <span class="indicator-current">1</span>
-              <span>/</span>
-              <span class="indicator-total">0</span>
+            <div class="progress-label">
+              <div class="progress-name">
+                ${progressLabel}
+              </div>
+              <div class="indicator-crumb">
+                <span class="indicator-current">Page 1</span>
+                <span>/</span>
+                <span class="indicator-total">0</span>
+              </div>
             </div>
             <div class="progress-indicator">
               <span></span>

@@ -103,7 +103,7 @@
 
 .panel {
   display: flex;
-  padding: 32px 0px;
+  padding: 0 0 0px 0px;
   flex-direction: column-reverse;
   justify-content: space-between;
 }
@@ -114,22 +114,33 @@
 
 .indicator {
   text-align: right;
-  display: inline-block;
+  display: block;
   padding-bottom: 24px;
 }
 
 .indicator-crumb {
   display: inline-block;
-  font-size: 16px;
+  font-size: 15px;
   text-align: right;
   padding-bottom: 11px;
   color: #505050;
 }
 
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-name {
+  color: #747474;
+  font-size: 15px;
+}
+
 .progress-indicator {
   position: relative;
   height: 6px;
-  width: 200px;
+  /* width: 260px; */
+  width: 100%;
   border-radius: 3px;
   background: #EAEAEA;
   overflow: hidden;
@@ -326,12 +337,16 @@
   
   .panel {
     display: flex;
-    padding: 32px 0px;
+    padding: 0 0 32px 0px;
     flex-direction: row;
   }
   
   .indicator {
     padding-bottom: 0px;
+  }
+
+  .progress-name {
+    font-size: 12px;
   }
   
   .indicator-crumb {
@@ -341,7 +356,7 @@
   }
   
   .progress-indicator {
-    width: 160px;
+    width: 260px;
   }
   
   .slide-btn {
