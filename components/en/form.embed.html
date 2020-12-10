@@ -87,7 +87,7 @@
       const setup = inputSettings(item.label);
       const name=item.name?item.name:setup.label_clean; 
       const required=item.required?item.required:setup.required;  
-      let description = hasPageBreak && item.description.length > 0 ? `<span class="description-title">${item.description}</span>` : '';
+      let description = hasPageBreak && item.description.length > 0 ? `<span class="description-title" tabindex="0">${item.description}</span>` : '';
       
       let placeholder = item.placeholder ? true : false;
       
@@ -114,7 +114,7 @@
         formField += `
         <div class="input-el question is-${required}">
           <div class="title-el">
-            <label class="label-title" for="${name}">${setup.label}</label>
+            <label class="label-title" for="${name}" tabindex="0">${setup.label}</label>
             ${description}
           </div>
           <input type="${item.type}" name="${name}" placeholder="${placeholder}" ${required}/>
@@ -143,7 +143,7 @@
         formField += `
           <div class="radio-el question is-${required}">
             <div class="title-el">
-              <span class="label-title">${item.label}</span>
+              <span class="label-title" tabindex="0">${item.label}</span>
               ${description}
             </div>
             <div class="radio-options-parent">
@@ -177,7 +177,7 @@
         formField += `
           <div class="input-el checkboxes ${required} question is-${required}">
             <div class="title-el">
-              <span class="label-title">${item.label}</span>
+              <span class="label-title" tabindex="0">${item.label}</span>
               ${description}
             </div>
             ${options}
@@ -198,7 +198,7 @@
         formField += `
           <div class="select-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}">${item.label}</label>
+              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
               ${description}  
             </div>
             <select name="${name}" id="${name}">
@@ -214,7 +214,7 @@
         formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}">${item.label}</label>
+              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
               ${description}
             </div>
             <textarea
@@ -233,7 +233,7 @@
         formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}">${item.label}</label>
+              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
               ${description}
             </div>
             <hr>
@@ -272,17 +272,12 @@
 
     if(hasPageBreak) {
       let slidePanelParent = document.createElement('div');
-      slidePanelParent.classList.add('panel');
+      let buttonParent = document.createElement('div');
+      buttonParent.className = "panel button-panel"
+      slidePanelParent.className = 'panel progress-indicator-group'
 
       slidePanelParent.innerHTML = `
-        <div class="panel__item">
-          <div class="form-sliders-btns">
-            <button class="slide-btn prev" type="button">Back</button>
-            <button class="slide-btn next" type="button">Next</button>
-            <button type="submit" class="submit" style='display: none;'>Submit</button>
-          </div>
-        </div>
-        <div class="panel__item">
+        <div class="panel__item panel-tab" tabindex="0">
           <div class="indicator">
             <div class="indicator-crumb">
               <span class="indicator-current">1</span>
@@ -294,7 +289,19 @@
             </div>  
           </div>
         </div>`
-      $form.appendChild(slidePanelParent)
+
+        buttonParent.innerHTML = `
+        <div class="panel__item">
+          <div class="form-sliders-btns">
+            <button class="slide-btn prev" type="button">Back</button>
+            <button class="slide-btn next" type="button">Next</button>
+            <button type="submit" class="submit" style='display: none;'>Submit</button>
+          </div>
+        </div>
+        
+        `
+      $form.prepend(slidePanelParent)
+      $form.appendChild(buttonParent)
     }
 
     //show_if
