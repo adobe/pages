@@ -105,7 +105,7 @@ function valueStore(event) {
 
 // Set Indicator Counter
 function setIndicator() {
-  document.querySelector('.indicator-current').innerHTML = 1;
+  document.querySelector('.indicator-current').innerHTML = `Page ${1}`;
   document.querySelector('.indicator-total').innerHTML = slideItems.length;
 }
 
@@ -281,7 +281,7 @@ function formSlider(event) {
 
 // Update progress counter and progress bar
 function progressBarUpdater() {
-  document.querySelector('.indicator-current').innerHTML = currentSlide + 1;
+  document.querySelector('.indicator-current').innerHTML = `Page ${currentSlide + 1}`;
   let allRequiredQuestions = document.querySelectorAll('.is-required').length
   let percentageCompleted = `${(currentSlide + 1) * 100}` / slideItems.length +'%';
   progressIndicator.style.transform = `translateX(${ percentageCompleted })`
