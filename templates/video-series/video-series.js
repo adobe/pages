@@ -262,7 +262,12 @@ function generateVideo() {
 
   videos.forEach(function(video) {
     let url = video.querySelector('div > a')
-    console.log(url.getAttribute('href'))
+    let videoFrame = document.createElement('div');
+    videoFrame.classList.add('video-parent')
+    videoFrame.innerHTML = `
+      <iframe src="${url}" frameborder="0"></iframe>
+    `
+    video.innerHTML = videoFrame.outerHTML;
 
   })
 }

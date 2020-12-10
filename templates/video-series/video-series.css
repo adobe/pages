@@ -1,1 +1,19 @@
 @import url("/templates/global/default.css");
+
+
+
+.video-test .video-embed- {
+  max-width: 700px;
+  margin: auto;
+  justify-content: center;
+}
+.video-test .video-parent {
+  padding-bottom: 56.25%;
+  position: relative;
+}
+
+.video-test .video-parent iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
