@@ -28,6 +28,12 @@ main div.white-text {
   color: white;
 }
 
+main div a.button.primary:hover {
+  background-color: rgba(255,255,255,0.3);
+  color: #3e1bb2;
+  border-color: #3e1bb2
+}
+
 main div a.button.primary {
 background-color: #3e1bb2;
 border-color: #3e1bb2
@@ -96,6 +102,30 @@ main .faq p {
 
 main .faq .show .answer {
   max-height: 300px;
+}
+
+main h2 {
+  margin-top: 3em;
+}
+
+/* overlay */
+
+main div.overlay {
+  margin-bottom: 4em;
+}
+
+main div.overlay>div:first-of-type {
+  max-width: 800px;
+  margin: auto;
+  padding: 32px;
+}
+
+main div.overlay>div:nth-of-type(2) {
+  margin-top: -25%;
+}
+
+main div.overlay>div:nth-of-type(2) img {
+  width: 100%;
 }
 
 /* header */
@@ -274,7 +304,65 @@ main>div.hero-section>div.text.image h1 {
 }
 
 
-/* Footer Embed */
+/* fund section */ 
+
+.embed-internal-fundsection {
+  margin-top: 6em;
+  color: white;
+  display: grid;
+  grid-template-areas: 'a';
+}
+
+.embed-internal-fundsection>div {
+  grid-area: a;
+  position: relative;
+}
+.embed-internal-fundsection h2 {
+  margin-top: 0;
+}
+
+.embed-internal-fundsection>div:first-of-type>p:first-of-type {
+    display: flex;
+}
+
+.embed-internal-fundsection>div:first-of-type img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.embed-internal-fundsection>div:first-of-type>p:first-of-type {
+  height: 100%;
+  width: 100%;
+}
+
+.embed-internal-fundsection>div:first-of-type>p:nth-of-type(2) {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+}
+
+.embed-internal-fundsection>div:nth-of-type(2) {
+  padding: 32px;
+  margin: auto;
+  max-width: 600px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.embed-internal-fundsection a.button.primary {
+  background-color: white;
+  color: #3e1bb2;
+  border-color: white;
+
+}
+
+.embed-internal-fundsection a.button.primary:hover {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+}
+
+/* getfunded embed */
 
 .embed-internal-submitandgetfunded {
     margin-top: 8em;
@@ -305,6 +393,13 @@ main>div.hero-section>div.text.image h1 {
     border-color: #3e1bb2;
 }
 
+.embed-internal-submitandgetfunded img.stock-advocates {
+  min-width: 200px;
+  width: 30%;
+  max-width: 400px;
+}
+
+
 
 /* Grid */
 
@@ -312,6 +407,10 @@ main>div.hero-section>div.text.image h1 {
     display: flex;
     flex-wrap: wrap;
     padding: 10px;
+}
+
+.grid h4, .grid p {
+  margin: 0;
 }
 
 .grid > div {
@@ -384,6 +483,22 @@ main>div.hero-section>div.text.image h1 {
 
 
 /* Columns */
+
+.columns h2 {
+    font-size: 29px;
+  }
+  
+.columns h3 {
+    font-size: 25px;
+  }
+  
+.columns h4 {
+    font-size: 22px;
+  }
+  
+.columns h5 {
+    font-size: 20px;
+  }
 
 .columns > div {
     display: flex;

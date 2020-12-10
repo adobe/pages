@@ -129,6 +129,12 @@ function decorateColumns() {
   })
 }
 
+function decorateOverlay() {
+  document.querySelectorAll('main div>.overlay').forEach(($overlay) => {
+    $overlay.closest('.section-wrapper').classList.add('full-width');
+  });
+}
+
 function decorateParallax() {
     document.querySelectorAll('main div>.parallax').forEach(($parallax) => {
         $parallax.closest('.section-wrapper').classList.add('full-width');
@@ -149,6 +155,13 @@ function decorateParallax() {
             }
         })
     })
+}
+
+function decorateInternalAdvocates() {
+  document.querySelectorAll('main div>.embed-internal-advocates').forEach(($embed) => {
+    $embed.innerHTML=$embed.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates">')
+
+  })
 }
 
 function decorateHeroCarousel() {
@@ -263,6 +276,8 @@ function decorateTables() {
     decorateHeroCarousel();
     decorateHeroSection();
     decorateParallax();
+    decorateOverlay();
+    decorateInternalAdvocates();
     decorateColumns();
     decorateGrid();
     decorateColors();
