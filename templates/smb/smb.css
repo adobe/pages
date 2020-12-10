@@ -35,6 +35,26 @@
 }
 
 
+.slide-form-container input[type="radio"]:focus,
+.slide-form-container input[type="checkbox"]:focus,
+.slide {
+  border: 4px solid  #1473E6;
+}
+
+
+.slide-form-container input[type="radio"]:focus + label,
+.slide-form-container input[type="checkbox"]:focus + label {
+  color: #1473E6;
+}
+
+.button-panel .next:focus {
+  border: 2px solid  #1473E6 !important;
+}
+
+.button-panel button.prev:focus {
+  border: 2px solid #1473E6 !important;
+}
+
 .smb-form main div.form-container button[type=submit] {
   margin-top: 0;
 }
@@ -54,11 +74,13 @@
 
 .slide-form-item {
   opacity: 0;
+  visibility: hidden;
   transition: all 500ms cubic-bezier(0.075,  0.820, 0.165, 1.000);
 }
 
 .slide-form-item.active {
   position: relative;
+  visibility: visible;
   overflow: hidden;
   width: 100%;
   opacity: 1;
@@ -82,6 +104,10 @@
   justify-content: space-between;
 }
 
+.progress-indicator-group {
+  justify-content: flex-end;
+}
+
 .indicator {
   text-align: right;
   display: inline-block;
@@ -99,7 +125,6 @@
 .progress-indicator {
   position: relative;
   height: 6px;
-  /* width: 160px; */
   width: 200px;
   border-radius: 3px;
   background: #EAEAEA;
@@ -117,7 +142,6 @@
 }
 
 .form-container h1 {
-  /* font-size: 36px; */
   font-size: 34px;
   text-align: left;
   line-height: 1;
@@ -223,7 +247,6 @@
 .has-other {
   display: block !important;
 }
-
 
 .smb-form textarea {
   padding-left: 8px;

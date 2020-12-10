@@ -40,6 +40,7 @@ function setHeader(content) {
   const wrap = document.createElement('div');
   wrap.innerHTML = content + `<hr>`;
   document.querySelectorAll('.slide-form-item')[0].prepend(wrap)
+  wrap.setAttribute('tabindex', 0)
   document.querySelector('main .default:first-of-type').remove();
 }
 
@@ -199,7 +200,7 @@ function setSlider(count = 0) {
           let eachOptions = [];
           for(let i = 0; i < values.length; i++) {
             if(!eachOptions.includes(values[i])) {
-               eachOptions.push(values[i]) 
+              eachOptions.push(values[i]) 
             }
           }
           if(eachOptions.length >= required_counter) {
@@ -238,7 +239,7 @@ function setSlider(count = 0) {
             
             for(let i = 0; i < values.length; i++) {
               if(!eachOptions.includes(values[i])) {
-                 eachOptions.push(values[i]) 
+                eachOptions.push(values[i]) 
               }
             }
             if(eachOptions.length >= required_counter) {
@@ -275,6 +276,7 @@ function formSlider(event) {
   }
   setSlider(currentSlide)
   setFormContainHeight();
+  document.querySelector('.panel-tab').focus();
 }
 
 // Update progress counter and progress bar
@@ -324,9 +326,6 @@ function setOtherCheckboxValue(event) {
     }
     checkbox.setAttribute('value', input.value)
   } else {
-    if(checkbox.checked == true) {
-      checkbox.click();
-    }
     checkbox.setAttribute('value', 'other')
   }
 }
