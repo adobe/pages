@@ -23,7 +23,7 @@
 }
 
 .smb-form .form-container {
-  padding-top: 60px;
+  padding-top: 32px;
   max-width: 780px !important;
   width: 90%;
 }
@@ -328,6 +328,10 @@
     width: 100%;
     box-sizing: border-box;
   }
+
+  .text-el.question {
+    margin-bottom: 40px !important;
+  }
   
   .slide-form-item {
     position: absolute;
@@ -337,7 +341,7 @@
   
   .panel {
     display: flex;
-    padding: 0 0 32px 0px;
+    padding: 0 0 54px 0px;
     flex-direction: row;
   }
   
@@ -386,7 +390,11 @@
 /* Thank you form capture */
 
 .inclusive.thank-you-re main > div:first-of-type {
-  padding: 5em 0em;
+  padding: 88px 0em;
+}
+
+.inclusive #wg-form {
+  padding: 54px 0px 40px 0px;
 }
 
 .inclusive.thank-you main > div:first-of-type {
@@ -408,6 +416,12 @@
   padding: 3em 0em 2em 0;
 }
 
+.inclusive.thank-you-re form button:focus {
+  border: 2px solid #1473E6;
+  outline: none;
+  padding-bottom: 40px;
+}
+
 .inclusive.thank-you .thank-you-container {
   background: #323232;
 }
@@ -415,4 +429,5 @@
 
 .inclusive.thank-you-re .thank-you-container > div > div{
   background: #323232;
+  padding-bottom: 34px;
 }
