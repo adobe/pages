@@ -115,6 +115,11 @@ main .button.secondary:hover {
 	color: #fff;
 }
 
+main .icon {
+	height: 48px;
+}
+
+
 footer {
 	font-size: 14px;
 	display: flex;
