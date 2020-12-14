@@ -490,8 +490,14 @@ main>div.hero-section>div.text.image h1 {
   
 .columns h3 {
     font-size: 25px;
+    font-weight: 300
   }
+
   
+.columns h3 strong {
+  display: block;
+}
+
 .columns h4 {
     font-size: 22px;
   }
