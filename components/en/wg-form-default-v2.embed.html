@@ -24,7 +24,7 @@
     });
     const resp = await fetch(`${formToUse}.json`);
     const json = await resp.json();
-    window.pages.dependencies.push(`${formToUse}.json`);
+    window.hlx.dependencies.push(`${formToUse}.json`);
     return json;
   }
 
