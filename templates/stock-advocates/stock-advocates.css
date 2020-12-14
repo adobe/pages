@@ -1,0 +1,884 @@
+@import url("/templates/default/default.css");
+
+
+main > .section-wrapper > div {
+    margin: 0em auto;
+    padding: 0em 0em;
+    width: unset;
+}
+
+main > .section-wrapper:not(.full-width) {
+  padding: 7em 0;
+}
+
+main > .section-wrapper.full-width > div {
+  max-width: unset;
+
+}
+
+main .colors {
+    display: none;
+}
+
+body.noscroll {
+  overflow: hidden;
+}
+
+main div.white-text {
+  color: white;
+}
+
+main div a.button.primary:hover {
+  background-color: rgba(255,255,255,0.3);
+  color: #3e1bb2;
+  border-color: #3e1bb2
+}
+
+main div a.button.primary {
+background-color: #3e1bb2;
+border-color: #3e1bb2
+}
+
+main div.white-text a.button.secondary {
+  color: white;
+  border-color: white;
+} 
+
+
+/* faq */
+
+main .section-wrapper.faq-container {
+  background-color: #3e1bb2;
+  color: white;
+  padding: 4em;
+}
+
+main .section-wrapper.faq-container a:any-link {
+  color: white;
+  text-decoration: underline;
+  display: inline;
+}
+
+main .faq {
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+main .faq .question {
+  margin-top: 32px;
+  font-weight: 700;
+  padding-left: 32px;
+}
+
+main .faq .question p::before {
+  position: absolute;
+  content: '\A';
+  width: 0; 
+  height: 0; 
+  border: 7px solid transparent;
+  border-left: 7px solid currentColor;
+  margin-left: -32px;
+  margin-top: 5px;
+}
+
+main .faq .show .question p::before {
+  border: 7px solid transparent;
+  border-top: 7px solid currentColor;
+  margin-top: 10px;
+  margin-left: -37px;
+}
+
+main .faq .answer {
+  padding-top: 3px;
+  padding-left: 32px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.7s ease-out;
+}
+
+main .faq p {
+  margin: 0;
+}
+
+main .faq .show .answer {
+  max-height: 300px;
+}
+
+main h2 {
+  margin-top: 3em;
+}
+
+/* overlay */
+
+main div.overlay {
+  margin-bottom: 4em;
+}
+
+main div.overlay>div:first-of-type {
+  max-width: 800px;
+  margin: auto;
+  padding: 32px;
+}
+
+main div.overlay>div:nth-of-type(2) {
+  margin-top: -25%;
+}
+
+main div.overlay>div:nth-of-type(2) img {
+  width: 100%;
+}
+
+/* header */
+
+header a:any-link{
+  color: white;
+  text-decoration: none;
+}
+
+header p {
+  margin: 0;
+  padding: 0;
+}
+
+
+header div.expanded div.logo {
+  display: none;
+}
+
+header div.expanded>div {
+  flex-grow: 0;
+}
+
+header div.expanded {
+  align-items: start;
+  backdrop-filter: blur(20px);
+  background-color: rgba(49, 49, 49, 0.7);
+}
+
+header div.expanded>div.menu {
+  flex-grow: 1;
+  justify-content: center;
+  font-size: 1.3em;
+  padding-left: 32px;
+}
+
+header div.expanded div.menu {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+header div.expanded div.menu ul {
+  flex-direction: column;
+}
+
+header {
+  color: white;
+  position: absolute;
+  width: 100%;
+  height: 56px;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+header>div, header div.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header>div {
+  padding: 14px 14px 17px 4px;
+}
+
+header div.menu {
+  display: none;
+}
+
+header>div ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+header>div li {
+  padding: 8px 16px;
+}
+
+header .icon {
+  width: 32px;
+  height: 32px;
+  margin: 10px;
+  fill: currentColor;
+}
+
+header .icon.icon-stock-logo {
+  width: 180px;
+}
+
+@media (min-width:900px) {
+  header div.menu {
+    display: flex;
+    padding-right: 32px;
+  }
+  header div.hamburger {
+    display: none;
+  }
+}
+
+/* hero section */
+
+.hero-section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+main>div.hero-section>div {
+    width: 100%;
+    position: relative;
+}
+
+
+
+.hero-section>div.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-section>div.image p:nth-of-type(2) {
+    position: absolute;
+    color: white;
+    bottom: 1em;
+    left: 1em;
+}
+
+.hero-section .text {
+    padding: 2em;
+}
+
+main>div.hero-section>div.text.image {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+main>div.hero-section>div.text.image h1 {
+  position: absolute;
+  z-index: 1;
+  top: 25%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 2em;
+  padding: 40px;
+}
+
+
+.hero-section h1 {
+  font-size: 4em;
+  line-height: 1em;
+  padding-top: 48px;
+}
+
+.hero-section .image, .hero-section .image p {
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+}
+
+@media (min-width:600px) {
+    main>div.hero-section>div {
+        width: 50%;
+    }
+
+    .hero-section {
+        flex-direction: row-reverse;
+    }
+    
+}
+
+
+/* fund section */ 
+
+.embed-internal-fundsection {
+  margin-top: 6em;
+  color: white;
+  display: grid;
+  grid-template-areas: 'a';
+}
+
+.embed-internal-fundsection>div {
+  grid-area: a;
+  position: relative;
+}
+.embed-internal-fundsection h2 {
+  margin-top: 0;
+}
+
+.embed-internal-fundsection>div:first-of-type>p:first-of-type {
+    display: flex;
+}
+
+.embed-internal-fundsection>div:first-of-type img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.embed-internal-fundsection>div:first-of-type>p:first-of-type {
+  height: 100%;
+  width: 100%;
+}
+
+.embed-internal-fundsection>div:first-of-type>p:nth-of-type(2) {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+}
+
+.embed-internal-fundsection>div:nth-of-type(2) {
+  padding: 32px;
+  margin: auto;
+  max-width: 600px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.embed-internal-fundsection a.button.primary {
+  background-color: white;
+  color: #3e1bb2;
+  border-color: white;
+
+}
+
+.embed-internal-fundsection a.button.primary:hover {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+}
+
+/* getfunded embed */
+
+.embed-internal-submitandgetfunded {
+    margin-top: 8em;
+    color: white;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(white, #455f99, #3e1bb2);
+}
+
+.embed-internal-submitandgetfunded a:any-link {
+    color: white;
+}
+.embed-internal-submitandgetfunded .icon {
+    fill: currentColor;
+    width: 2em;
+    height: 2em;
+    display: inline-block;
+    margin: 10px;
+}
+
+.embed-internal-submitandgetfunded h2 {
+    color: #3e1bb2;
+}
+
+.embed-internal-submitandgetfunded a.button.primary {
+    background-color: #3e1bb2;
+    border-color: #3e1bb2;
+}
+
+.embed-internal-submitandgetfunded img.stock-advocates {
+  min-width: 200px;
+  width: 30%;
+  max-width: 400px;
+}
+
+
+
+/* Grid */
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.grid h4, .grid p {
+  margin: 0;
+}
+
+.grid > div {
+    width: 50%;
+    position: relative;
+}
+
+.grid > div:after {
+    content: "";
+    padding-bottom: 100%;
+    display: block;
+}
+
+.grid > div > div {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.grid div.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    color: white;
+}
+
+.grid div.text h4 {
+    line-height: 1em;
+    font-style: italic;
+    padding: 3px;
+    font-size: 1.5em;
+}
+
+.grid div.text a:any-link {
+    color: white;
+}
+
+.grid img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+@media (min-width:600px) {
+    .grid>div {
+        width: calc(100%/3);
+    }
+}
+
+@media (min-width:900px) {
+    .grid>div {
+        width: calc(100%/4);
+    }
+
+    .grid div.text {
+        opacity: 0;
+    }
+
+    .grid div.text:hover {
+        opacity: 1;
+    }
+
+}
+
+
+/* Columns */
+
+.columns h2 {
+    font-size: 29px;
+  }
+  
+.columns h3 {
+    font-size: 25px;
+  }
+  
+.columns h4 {
+    font-size: 22px;
+  }
+  
+.columns h5 {
+    font-size: 20px;
+  }
+
+.columns > div {
+    display: flex;
+    flex-wrap: wrap;
+}
+.columns>div>div {
+    width: 100%;
+    position: relative;
+}
+
+.columns>div.white2>div {
+  height: 500px;
+}
+
+.columns>div.white2>div:nth-of-type(2) {
+  background-color: white;
+  color: black;
+}
+
+
+.columns ul {
+  text-align: left;
+}
+
+.columns>div>div.merged {
+    width: 100%;
+}
+
+.columns>div.padded>div.image img {
+  padding: 40px 40px 80px 40px;
+}
+.columns>div.padded>div.image p {
+  color: black;
+  text-align: left;
+  font-size: 0.8rem;
+  left: 40px;
+  padding-right: 40px;
+  line-height: 1.2em;
+}
+
+.columns>div>div.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.columns>div>div.image p {
+    position: absolute;
+    color: white;
+    bottom: 1em;
+    left: 1em;
+}
+
+.columns .text {
+    padding: 2em;
+    margin: auto;
+}
+
+@media (min-width:600px) {
+    .columns>div>div {
+        width: 50%;
+    }
+    
+}
+
+
+/*  Parallax */
+
+.parallax {
+    position: relative;
+}
+
+.parallax>div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    }
+
+.parallax>div img {
+    width: 100%;
+}
+
+.parallax>div:last-of-type {
+    position: relative;
+    padding: 6rem 0 12rem 0;
+    width: 80%;
+    max-width: 700px;
+    margin: auto;
+}
+
+@media (min-width:600px) {
+    .parallax>div {
+        bottom: unset;
+        top: 0;
+        left: 0;
+        width: 100%;
+        }
+      
+      .parallax>div:last-of-type {
+          padding: 6rem 0 24rem 0;
+      }          
+}
+
+
+/*  Hero Carousel */
+    
+  main>div.section-wrapper .hero-carousel {
+    position: relative;
+    padding-top: 65vh;
+    perspective: 100px;
+    width: 100%;
+  }
+  
+  @media (min-width:1000px) {
+    main>div.section-wrapper .hero-carousel {
+      padding-top: 650px;
+    }
+  }   
+
+
+
+  .hero-carousel-container {
+      position: relative;
+  }
+
+  .hero-carousel-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      color: white;
+      line-height: 1em;
+      pointer-events: none;
+      height: 65vh;
+  }
+
+  @media (min-width:1000px) {
+    .hero-carousel-overlay {
+      height: 650px;
+    }
+  }   
+
+  .hero-carousel-overlay h1 {
+    padding-top: 1em;
+    font-size: 4em;
+    line-height: 0.7em;
+  }
+
+  .hero-carousel-overlay img.stock-advocates {
+    min-width: 300px;
+    width: 50%;
+    max-width: 500px;
+  }
+
+  .hero-carousel-overlay>p {
+    position: absolute;
+    bottom: 55px;
+    text-align: center;
+    left: 0;
+    right: 0;
+  }
+
+  .hero-carousel-overlay .eyebrow {
+    font-size: 0.6em;
+    font-weight: 300;
+    line-height: 1em;
+    display: block;
+  }
+  
+  .hero-carousel-viewport {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    overflow-x: scroll;
+    counter-reset: item;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+
+  }
+
+  .hero-carousel-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hero-carousel-slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    background-color: #f99;
+    counter-increment: item;
+    font-size: 1.5em;
+  }
+
+  .hero-carousel-slide div:nth-of-type(1){
+      height: 100%;
+  }
+    .hero-carousel-slide div:nth-of-type(1) img{
+        height: 100%;
+        width: 100%;
+      object-fit: cover;
+      object-position: center center;
+}
+    .hero-carousel-slide div:nth-of-type(2){
+      position: absolute;
+      bottom: 0px;
+      left: 10px;
+      color: white;
+      font-size: 0.6em;
+  }
+
+  .hero-carousel-slide:nth-child(even) {
+    background-color: #99f;
+  }
+  
+  .hero-carousel-slide:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-40%,70px);
+    color: #fff;
+    font-size: 2em;
+  }
+  
+  .hero-carousel-snapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+  }
+  
+  @media (hover: hover) {
+    .hero-carousel-snapper {
+      animation-name: hero-carousel-tonext, hero-carousel-snap;
+      animation-timing-function: ease;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+  
+    .hero-carousel-slide:last-child .hero-carousel-snapper {
+      animation-name: hero-carousel-tostart, hero-carousel-snap;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .hero-carousel-snapper {
+      animation-name: none;
+    }
+  }
+  
+  .hero-carousel:hover .hero-carousel-snapper,
+  .hero-carousel:focus-within .hero-carousel-snapper {
+    animation-name: none;
+  }
+  
+  .hero-carousel-navigation {
+    position: absolute;
+    right: 0;
+    bottom: 38px;
+    left: 0;
+    text-align: center;
+  }
+  
+  .hero-carousel-navigation-list,
+  .hero-carousel-navigation-item {
+    display: inline-block;
+  }
+  
+  .hero-carousel-navigation-button {
+    display: inline-block;
+    width: 1.0rem;
+    height: 1.0rem;
+    background-color: #ddd;
+    background-clip: content-box;
+    border: 0.25rem solid transparent;
+    border-radius: 50%;
+    font-size: 0;
+    transition: transform 0.1s;
+  }
+  
+  .hero-carousel::before,
+  .hero-carousel::after,
+  .hero-carousel-prev,
+  .hero-carousel-next {
+    position: absolute;
+    top: 0;
+    margin-top: 37.5vh;
+    width: 4rem;
+    height: 4rem;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    font-size: 0;
+    outline: 0;
+  }
+  
+  .hero-carousel::before,
+  .hero-carousel-prev {
+    left: 0;
+  }
+  
+  .hero-carousel::after,
+  .hero-carousel-next {
+    right: 0;
+  }
+  
+  .hero-carousel::before,
+  .hero-carousel::after {
+    content: '';
+    z-index: 1;
+    background-color: transparent;
+    background-size: 1.5rem 1.5rem;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #ffffff;
+    opacity: 1;
+    font-size: 2.5rem;
+    line-height: 4rem;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hero-carousel::before {
+    background-image: url('backward.svg');
+    transform: scaleX(1);
+  }
+  
+  .hero-carousel::after {
+    background-image: url('backward.svg');
+    transform: scaleX(-1);
+
+  }
+
+
+@keyframes hero-carousel-tonext {
+    75% {
+      left: 0;
+    }
+    95% {
+      left: 100%;
+    }
+    98% {
+      left: 100%;
+    }
+    99% {
+      left: 0;
+    }
+  }
+  
+  @keyframes hero-carousel-tostart {
+    75% {
+      left: 0;
+    }
+    95% {
+      left: -300%;
+    }
+    98% {
+      left: -300%;
+    }
+    99% {
+      left: 0;
+    }
+  }
+  
+  @keyframes hero-carousel-snap {
+    96% {
+      scroll-snap-align: center;
+    }
+    97% {
+      scroll-snap-align: none;
+    }
+    99% {
+      scroll-snap-align: none;
+    }
+    100% {
+      scroll-snap-align: center;
+    }
+  }

@@ -33,7 +33,7 @@ document.querySelector('main').style.opacity = '1'
 async function formData() {
 	const resp = await fetch(`${form_to_use}.json`);
 	const json = await resp.json();
-	window.pages.dependencies.push(`${form_to_use}.json`);
+	window.hlx.dependencies.push(`${form_to_use}.json`);
 	return json;
 }
 
