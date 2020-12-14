@@ -69,6 +69,10 @@ main p {
 	font-size: 1em;
 }
 
+main .section-wrapper h1:not(#headline-for-an-h1){
+	margin-bottom: 0;
+}
+
 main a:any-link {
 	color: #1473e6;
 	text-decoration: none;
