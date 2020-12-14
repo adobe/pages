@@ -57,6 +57,16 @@
 
 .smb-form main div.form-container button[type=submit] {
   margin-top: 0;
+  font-family: "Adobe Clean", adobe-clean, sans-serif;
+  color: #fff;
+  font-weight: bold;
+  height: auto;
+  line-height: 40px;
+  border-radius: 30px;
+  background-color: #1473E6;
+  border: none;
+  padding: 4px 26px;
+  display: block;
 }
 
 .panel-tab {
@@ -281,7 +291,24 @@
   font-style: italic
 }
 
+.text-el.question {
+  margin-bottom: 40px !important;
+}
+
 @media(min-width: 768px) {
+  .smb-form main div.form-container button[type=submit] {
+    margin-top: 0;
+    font-family: "Adobe Clean", adobe-clean, sans-serif;
+    color: #fff;
+    font-weight: bold;
+    height: auto;
+    line-height: 40px;
+    border-radius: 30px;
+    background-color: #1473E6;
+    border: none;
+    padding: 0px 26px;
+    display: block;
+  }
   
   .form-container h1 {
     font-size: 36px;
@@ -329,10 +356,6 @@
     box-sizing: border-box;
   }
 
-  .text-el.question {
-    margin-bottom: 40px !important;
-  }
-  
   .slide-form-item {
     position: absolute;
     top: 0; left: 0;
