@@ -188,7 +188,7 @@ function decorateBackgroundImageBlocks() {
 }
 
 
-function decorateBlocks() {
+async function decorateBlocks() {
   document.querySelectorAll('main>div.section-wrapper>div>div').forEach($block => {
     const length=$block.classList.length;
     if (length == 1) {
@@ -206,6 +206,10 @@ function decorateBlocks() {
         $block.closest('.section-wrapper').remove();
         document.querySelector('header').innerHTML = nav;
         styleNav();
+        document.querySelector('header').classList.add('appear');
+      } else {
+
+        loadLocalHeader();
       }
       
       
@@ -271,11 +275,11 @@ async function decoratePage() {
 
   decorateBackgroundImageBlocks();
 
-  await loadLocalHeader();
-  wrapSections('header>div, footer>div');
   decorateButtons();
   window.pages.decorated = true;
   appearMain();
+  wrapSections('header>div, footer>div');      
+
 }
 
 
