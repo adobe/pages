@@ -56,7 +56,7 @@
 
 
 async function fetchSteps() {
-    window.pages.dependencies.push('steps.json');
+    window.hlx.dependencies.push('steps.json');
     const resp=await fetch('steps.json');
     const json=await resp.json();
     return (Array.isArray(json) ? json : json.data);

@@ -44,7 +44,7 @@ async function insertSteps() {
         let html='';
         do {
             const url=`step-${i}.plain.html`;
-            window.pages.dependencies.push(url);
+            window.hlx.dependencies.push(url);
             const resp=await fetch (url);
             if (resp.status == 200) {
                 const text=await resp.text();

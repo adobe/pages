@@ -77,8 +77,8 @@ async function purge() {
         await sendPurge(path);    
     }
 
-    if (window.pages && window.pages.dependencies) {
-        const deps=window.pages.dependencies;
+    if (window.hlx && window.hlx.dependencies) {
+        const deps=window.hlx.dependencies;
         for (let i=0;i<deps.length;i++) {
             const dep=deps[i];
             const url=new URL(dep, loc);
@@ -109,5 +109,8 @@ async function sendPurge(path) {
 
     return(json);
 }
-
-purge();
+if (confirm('Try out the new Helix Sidekick, your one-stop bookmarklet for preview, edit and publish! \n\nDo you want to install it now? It will only take a minute ...')) {
+  window.location.href = `https://www.hlx.page/tools/sidekick/?project=Pages&giturl=https://github.com/adobe/pages/&host=pages.adobe.com&from=${window.location.href}`;
+} else {
+  purge();
+}
