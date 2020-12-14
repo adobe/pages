@@ -1,0 +1,24 @@
+main div.background-container {
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+    padding: 4em;
+}
+
+main div.background-image {
+    color: white;
+}
+
+main div.background-image .icon {
+    fill: currentColor;
+}
+
+main div.background-image a:any-link {
+    color: white;
+}
+
+main div.background-image .background-image-caption {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+}

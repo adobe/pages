@@ -147,13 +147,6 @@ function tableToDivs($table, cols) {
     $tr.querySelectorAll('td').forEach(($td, i) => {
       const $div=createTag('div', cols.length>1?{class: cols[i]}:{});
         $div.innerHTML=$td.innerHTML;
-        $div.childNodes.forEach(($child) => {
-          if ($child.nodeName=='#text') {
-            const $p=createTag('p');
-            $p.innerHTML=$child.nodeValue;
-            $child.parentElement.replaceChild($p, $child);
-          }
-        })
         $card.append($div);
       });
       $cards.append($card);
@@ -174,6 +167,24 @@ function readBlockConfig($block) {
     }
   });
   return config;
+}
+
+function decorateBackgroundImageBlocks() {
+  document.querySelectorAll('main div.background-image').forEach($bgImgDiv => {
+    const $images=$bgImgDiv.querySelectorAll('img');
+    const $lastImage=$images[$images.length-1];
+
+    const $section=$bgImgDiv.closest('.section-wrapper');
+    if ($section && $lastImage) {
+      $section.style.backgroundImage=`url(${$lastImage.src})`;
+      let $caption=$lastImage.nextElementSibling;
+      if ($caption) {
+        if ($caption.textContent=='') $caption=$caption.nextElementSibling;
+        if ($caption) $caption.classList.add('background-image-caption');
+      }
+      $lastImage.remove();
+    } 
+  }) 
 }
 
 
@@ -257,6 +268,9 @@ async function decoratePage() {
   if(document.querySelector('.next')) {
     decorateNextStep();
   }
+
+  decorateBackgroundImageBlocks();
+
   await loadLocalHeader();
   wrapSections('header>div, footer>div');
   decorateButtons();
