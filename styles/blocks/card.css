@@ -1,6 +1,6 @@
 .card {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
@@ -8,16 +8,13 @@
   /* width: 31%; */
   width: 100%;
   /* max-width: 350px; */
-  margin-bottom: 1em;
   /* margin-right: 4%; */
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid #DEDEDE;
+  margin: 2% auto;
 }
 
-.card > div:nth-child(2n) {
-  margin-right: 0;
-}
 
 .card > div > div:first-of-type img {
   width: 100%;
@@ -49,8 +46,9 @@
   line-height: 1.4;
 }
 
-.card > div > div:last-of-type a {
+.card > div > div:last-of-type a.button {
   margin-top: 26px;
+  display: inline-block;
 }
 
 
@@ -59,15 +57,10 @@
     /* width: 31%; */
     width: 48%;
     max-width: 350px;
-    margin-bottom: 1em;
-    margin-right: 4%;
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid #DEDEDE;
-  }
-  
-  .card > div:nth-child(2n) {
-    margin-right: 0;
+    height: 500px;
   }
 }
 
@@ -75,17 +68,9 @@
 @media(min-width: 968px) {
   .card > div {
     width: 31%;
-    margin-bottom: 1em;
-    margin-right: 3.5%;
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid #DEDEDE;
   }
   
-  .card > div:nth-child(2n) {
-    margin-right: 3.5%;
-  }
-  .card > div:nth-child(3n) {
-    margin-right: 0%;
-  }
 }
