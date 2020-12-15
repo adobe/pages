@@ -1,5 +1,5 @@
 function styleNav() {
-  const parent = document.querySelector('.nav');
+  const parent = document.querySelector('header');
   const $appIcon = parent.querySelector('img');
   if (!$appIcon) return;
   const appIcon = $appIcon.src;
@@ -20,6 +20,8 @@ function styleNav() {
   }
   
   parent.innerHTML = `
+    <div class="section-wrapper">
+    <div class="nav">
     <div class="nav__section">
       <div class="app-name-and-icon">
         <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
@@ -31,6 +33,8 @@ function styleNav() {
     <nav>
       ${nav}
     </nav>
+    </div>
+    </div>
   `
 }
 
@@ -187,6 +191,15 @@ function decorateBackgroundImageBlocks() {
   }) 
 }
 
+async function decorateNav() {
+  await loadLocalHeader();
+  styleNav();
+  if(document.querySelector('.nav')) {
+    document.querySelector('.app-name-and-icon').addEventListener('click', mobileDropDown)
+  }
+  document.querySelector('header').classList.add('appear');
+  loadCSS(`/styles/blocks/nav.css`);
+}
 
 async function decorateBlocks() {
   document.querySelectorAll('main>div.section-wrapper>div>div').forEach($block => {
@@ -198,21 +211,12 @@ async function decorateBlocks() {
 
       $block.closest('.section-wrapper').classList.add(`${classes[0]}-container`)
       $block.closest('.section-wrapper').classList.add(...classHelpers)
-      $block.classList.add(...classes);
-      
-      if(classes.includes('nav')) {
-				$block.closest('.section-wrapper').classList.remove('nav-block')
-        let nav = $block.outerHTML;
-        $block.closest('.section-wrapper').remove();
-        document.querySelector('header').innerHTML = nav;
-        styleNav();
-        document.querySelector('header').classList.add('appear');
-      } else {
+      $block.classList.add(...classes);      
 
-        loadLocalHeader();
+      if(classes.includes('nav')) {
+        $block.classList.add('header-block');
       }
-      
-      
+
       if(classes.includes('form')) {
         const config=readBlockConfig($block);
 
@@ -261,9 +265,6 @@ async function decoratePage() {
   decorateTables();
   wrapSections('main>div');
   decorateBlocks();
-  if(document.querySelector('.nav')) {
-    document.querySelector('.app-name-and-icon').addEventListener('click', mobileDropDown)
-  }
 
   if(document.querySelector('.hero-container')) {
     decorateHero();
@@ -272,6 +273,8 @@ async function decoratePage() {
   if(document.querySelector('.next')) {
     decorateNextStep();
   }
+
+  decorateNav();
 
   decorateBackgroundImageBlocks();
 
