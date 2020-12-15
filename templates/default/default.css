@@ -123,6 +123,12 @@ main .icon {
 	height: 48px;
 }
 
+main ol, main ul {
+	text-align: left;
+	margin: auto;
+	display: inline-block;
+}
+
 
 footer {
 	font-size: 14px;
