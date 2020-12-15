@@ -91,6 +91,25 @@
 	border: 2px solid #6E6E6E;
 }
 
+.inclusive .thank-you-re #wg-form {
+	max-width: 700px !important;
+	text-align: center;
+}
+
+.inclusive .thank-you-re main div.form-container .input-el {
+	margin-bottom: 24px;
+}
+
+.inclusive .other-checkbox-element label {
+	display: block;
+	min-width: 140px;
+}
+
+.inclusive .title-el {
+	margin-bottom: 24px;
+}
+
+
 .inclusive .thank-you-cards- .card:focus {
 	background: #252525;
 	font-size: 15px;
@@ -107,6 +126,34 @@
 .inclusive .thank-you-cards- .card p a {
 	color: white;
 	border-color: #fff;
+}
+
+.inclusive .thank-you-cards- .card p a:hover {
+	color: #252525;
+	background: #fff;
+}
+
+.inclusive .thank-you-cards- img {
+	outline-color: #2680EB;
+}
+
+.inclusive .thank-you-cards- .card p a:focus {
+	outline: none;
+	color: #252525;
+	position: relative;
+	display: inline-block;
+	background: #fff;
+}
+
+.inclusive .thank-you-cards- .card p a:focus:after {
+	content: '';
+	position: absolute;
+	top: -18%; left: -8%;
+	width: 116%;
+	height: 140%;
+	box-sizing: border-box;
+	border: 2px solid  #2680EB;
+	border-radius: 40px;
 }
 
 .inclusive .thank-you-cards- .card p:last-of-type {

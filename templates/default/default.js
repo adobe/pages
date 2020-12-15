@@ -21,19 +21,19 @@ function styleNav() {
   
   parent.innerHTML = `
     <div class="section-wrapper">
-    <div class="nav">
-    <div class="nav__section">
-      <div class="app-name-and-icon">
-        <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
-        <div class="app-name">${appName}</div>
-        ${carrot}
+      <div class="nav">
+      <div class="nav__section">
+        <div class="app-name-and-icon">
+          <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
+          <div class="app-name">${appName}</div>
+          ${carrot}
+        </div>
       </div>
-    </div>
-    
-    <nav>
-      ${nav}
-    </nav>
-    </div>
+      
+        <nav>
+          ${nav}
+        </nav>
+      </div>
     </div>
   `
 }
@@ -47,9 +47,9 @@ function decorateHero() {
   let videoPlaying = false;
   const videoPlaceholder = heroRoot.querySelector('div:first-of-type img').getAttribute('src');
   let videoBackgroundElement = '';
+
   if(heroRoot.childNodes.length == 3) {
     videoBackgroundElement = heroRoot.querySelector('div:nth-child(3) img').getAttribute('src')
-    console.log(videoBackgroundElement)
   }
 
   heroParent.innerHTML = '';
