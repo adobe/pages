@@ -364,6 +364,10 @@ main>div.hero-section>div.text.image h1 {
 
 /* getfunded embed */
 
+.embed-internal-submitandgetfunded h3 {
+  display: none;
+}
+
 .embed-internal-submitandgetfunded {
     margin-top: 8em;
     color: white;
