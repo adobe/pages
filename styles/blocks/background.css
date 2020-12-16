@@ -11,6 +11,12 @@ main div.background-image {
 
 main div.background-image .icon {
     fill: currentColor;
+    height: 40px;
+    margin: 8px;
+}
+
+main div.background-image svg.icon {
+    width: 40px;
 }
 
 main div.background-image a:any-link {
