@@ -431,11 +431,13 @@
   padding-top: 0;
 }
 
+
 .inclusive.thank-you-re.smb-form form {
   background: #F4F4F4;
   width: 90%;
-  max-width: 600px !important;
+  max-width: 700px !important;
   margin: auto;
+  text-align: center;
   padding: 3em 0em 2em 0;
 }
 

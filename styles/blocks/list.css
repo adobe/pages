@@ -1,3 +1,7 @@
+.list-container.column p:first-of-type {
+  margin-bottom: 2.5em;
+}
+
 .list.row {
   display: flex;
   justify-content: space-between;
