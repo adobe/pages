@@ -546,6 +546,7 @@ main .hero-section + .section-wrapper a.button {
 
 .columns h2 {
     font-size: 29px;
+    margin-top: 0;
   }
   
 .columns h3 {
@@ -596,8 +597,9 @@ main .hero-section + .section-wrapper a.button {
 }
 
 
-.columns ul {
+main .columns ul {
   text-align: left;
+  display: block;
 }
 
 .columns>div>div.merged {
