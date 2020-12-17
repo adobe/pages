@@ -1,3 +1,29 @@
+async function loadLocalHeader() {
+  const $inlineHeader=document.querySelector('main div.header-block');
+  if ($inlineHeader) {
+    const $header=document.querySelector('header');
+    $inlineHeader.childNodes.forEach((e, i) => {
+      if (e.nodeName == '#text' && !i) {
+        const $p=createTag('p');
+        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.nodeValue}`
+        $p.innerHTML=inner;
+        e.parentNode.replaceChild($p,e);
+      }
+      if (e.nodeName == 'P' && !i) {
+        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`
+        e.innerHTML=inner;
+      }
+    });
+    $header.innerHTML=`<div>${$inlineHeader.innerHTML}</div>`;
+    $inlineHeader.remove();
+    document.querySelector('header').classList.add('appear');
+  } else {
+    await insertLocalResource('header');
+
+  }
+}
+
+
 function wrapSections(element) {
     document.querySelectorAll(element).forEach(($div) => {
       const $wrapper=createTag('div', { class: 'section-wrapper'});
@@ -197,10 +223,10 @@ function decorateHeroCarousel() {
 }
 
 function decorateTables() {
-    document.querySelectorAll('main div>table').forEach(($table) => {
-      const $cols=$table.querySelectorAll('thead tr th');
+    document.querySelectorAll('main>div>table,.embed>div>table').forEach(($table) => {
+      const $cols=$table.querySelectorAll(':scope>thead>tr>th');
       const cols=Array.from($cols).map((e) => toClassName(e.innerHTML)).filter(e => e?true:false);
-      const $rows=$table.querySelectorAll('tbody tr');
+      const $rows=$table.querySelectorAll(':scope>tbody>tr');
       let $div={};
       
       $div=tableToDivs($table, cols) 
@@ -209,11 +235,11 @@ function decorateTables() {
   }
     
   function tableToDivs($table, cols) {
-    const $rows=$table.querySelectorAll('tbody tr');
+    const $rows=$table.querySelectorAll(':scope>tbody>tr');
     const $cards=createTag('div', {class:`${cols.join('-')}`})
     $rows.forEach(($tr) => {
       const $card=createTag('div')
-      $tr.querySelectorAll('td').forEach(($td, i) => {
+      $tr.querySelectorAll(':scope>td').forEach(($td, i) => {
         const $div=createTag('div', cols.length>1?{class: cols[i]}:{});
           $div.innerHTML=$td.innerHTML;
           $div.childNodes.forEach(($child) => {
