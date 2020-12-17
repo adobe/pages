@@ -3,6 +3,7 @@
 	background: #F4F4F4;
 }
 
+
 .callout {
 	padding: 55px 0px;
 	max-width: 560px;
@@ -51,7 +52,7 @@
 	text-align: right;
 }
 
-.callout a {
+.callout p:last-of-type a {
 	margin-top: 16px;
 	display: inline-block;
 	font-size: 17px;
@@ -63,10 +64,24 @@
 	font-weight: 500;
 }
 
+.callout p a {
+	border: none;
+	padding: 0;
+	display: inline;
+}
+
 @media(min-width: 590px) {
 	.callout > div > div:first-of-type {
     margin-bottom: 0px;
-  }
+	}
+	
+	.callout-container.three .callout > div {
+		width: 31%;
+	}
+
+	.callout-container.three .callout {
+		max-width: 900px;
+	}
 	
 	.callout {
 		padding: 55px 0px;
@@ -79,7 +94,6 @@
 	.callout > div {
 		width: 48%;
     max-width: 260px;
-		/* margin-bottom: 2em; */
 		align-items: center;
 	}
 	
@@ -92,7 +106,7 @@
 		font-size: 14px;
 	}
 	
-	.callout > div a {
+	.callout > div p:last-of-type a {
 		font-size: 14px;
 	}
 	
