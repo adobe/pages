@@ -7,6 +7,10 @@ main > .section-wrapper > div {
     width: unset;
 }
 
+main > .section-wrapper > div > p {
+  padding: 0 24px;
+}
+
 main > .section-wrapper:not(.full-width) {
   padding: 7em 0;
 }
@@ -52,6 +56,11 @@ main div.white-text a.button.secondary {
   color: white;
   border-color: white;
 } 
+
+main div.white-text a.button.secondary:hover {
+  background-color: white;
+  color: #2c2c2c;
+}
 
 
 /* faq */
@@ -115,6 +124,7 @@ main .faq .show .answer {
 
 main h2 {
   margin-top: 3em;
+  padding: 0 16px;
 }
 
 /* overlay */
@@ -147,6 +157,22 @@ header a:any-link{
 header p {
   margin: 0;
   padding: 0;
+}
+
+header .asa-logo {
+  width: 160px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: none;
+}
+
+@media (min-width:600px) {
+  header .asa-logo {
+    display: block;
+  }
 }
 
 
@@ -227,7 +253,7 @@ header .icon.icon-stock-logo {
   width: 180px;
 }
 
-@media (min-width:900px) {
+@media (min-width:1200px) {
   header div.menu {
     display: flex;
     padding-right: 32px;
@@ -272,7 +298,7 @@ main>div.hero-section>div {
 
 main>div.hero-section>div.text.image {
   width: 100%;
-  max-height: 60vh;
+  max-height: 50vh;
   object-fit: cover;
   overflow: hidden;
 }
@@ -310,6 +336,12 @@ main>div.hero-section>div.text.image h1 {
         flex-direction: row-reverse;
     }
     
+}
+
+
+main .hero-section + .section-wrapper a.button {
+  display: inline-block;
+  margin-top: 32px;
 }
 
 
@@ -393,6 +425,10 @@ main>div.hero-section>div.text.image h1 {
 .embed-internal-submitandgetfunded .columns {
   max-width: 600px;
   margin: auto;
+}
+
+.embed-internal-submitandgetfunded .columns .text p {
+  text-align: center;
 }
 
 .embed-internal-submitandgetfunded .columns .text {
@@ -540,12 +576,23 @@ main>div.hero-section>div.text.image h1 {
 }
 
 .columns>div.white2>div {
-  height: 500px;
+  height: 540px;
 }
 
 .columns>div.white2>div:nth-of-type(2) {
   background-color: white;
   color: black;
+}
+
+.columns .text a.button {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.columns>div.white2>div:nth-of-type(2) a.button {
+  color: black;
+  border-color: black;
+
 }
 
 
@@ -586,6 +633,11 @@ main>div.hero-section>div.text.image h1 {
     padding: 2em;
     margin: auto;
 }
+
+.columns .text p {
+  text-align: left;
+}
+
 
 .columns .text table {
   display: inline-block;

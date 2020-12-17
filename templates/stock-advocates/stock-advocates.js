@@ -218,7 +218,6 @@ function decorateHeroCarousel() {
         $section.prepend($carousel);
         
         $overlay.innerHTML=$overlay.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates.svg" class="stock-advocates" alt="Adobe Stock Advocates">')
-
     });
 }
 
@@ -291,6 +290,7 @@ function decorateTables() {
       }
     
     })
+    decorateLogo();
 
   }
 
@@ -305,6 +305,17 @@ function decorateTables() {
       }
     }
   }
+
+  function decorateLogo() {
+    const $hero=document.querySelector('.hero-carousel');
+    if (!$hero) {
+      const $header=document.querySelector('header');
+      const $asaLogoDiv=createTag('div', {class: 'asa-logo'});
+      $asaLogoDiv.innerHTML=`<img src="/templates/stock-advocates/advocates_logo_small.svg">`;
+      $header.append($asaLogoDiv);
+    }
+  }
+
 
   async function decoratePage() {
     decorateTables();
@@ -324,7 +335,6 @@ function decorateTables() {
     window.pages.decorated = true;
     appearMain();
     decorateContactUs();
-
   }
   
   
