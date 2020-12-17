@@ -268,6 +268,18 @@ function decorateTables() {
 
   }
 
+  function decorateContactUs() {
+    const $contactus=document.getElementById('contact-us');
+    if ($contactus) {
+      const $parent=$contactus.parentElement;
+      $contactus.remove();
+      $parent.id='contact-us';
+      if (window.location.hash=='#contact-us') {
+        $parent.scrollIntoView();
+      }
+    }
+  }
+
   async function decoratePage() {
     decorateTables();
     decorateHeader();
@@ -285,6 +297,8 @@ function decorateTables() {
     decorateFaq();
     window.pages.decorated = true;
     appearMain();
+    decorateContactUs();
+
   }
   
   
