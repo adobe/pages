@@ -5,7 +5,16 @@ async function delegatePageDecoration() {
 } 
 
 function decorateABTests() {
-    if (!window.location.hash) {
+    let runTest=true;
+    let reason='';
+
+    if (window.location.host!='pages.adobe.com') { runTest=false; reason='not prod host';}
+    if (window.location.hash) {runTest=false; reason='suppressed by #'; }
+    if (window.location.search == '?test') runTest=true;
+    if (navigator.userAgent.match(/bot|crawl|spider/i)) {runTest=false; reason='bot detected'; }
+
+
+    if (runTest) {
         let $testTable;
         document.querySelectorAll('table th').forEach($th => {
             if ($th.textContent.toLowerCase().trim() == 'a/b test') {
@@ -26,6 +35,7 @@ function decorateABTests() {
                 }
             })
         }
+
         
         let test=Math.random();
         let selectedUrl='';
@@ -37,6 +47,8 @@ function decorateABTests() {
         })
     
         if (selectedUrl) window.location.href=selectedUrl;    
+    } else {
+        console.log(`Test is not run => ${reason}`);
     }
 }
 
