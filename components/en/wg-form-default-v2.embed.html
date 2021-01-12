@@ -11,6 +11,25 @@
 <script>
   const $formContainer = document.querySelector(".wg-form-container");
   const $form = document.getElementById("wg-form");
+
+  function clearButtons() {
+    const formType = document.querySelectorAll("main p");
+    const buttons = document.querySelectorAll('main p a');
+
+    formType.forEach(function (text) {
+      if (text.textContent.includes("<Form:") || text.textContent.includes("<form:")) {
+        text.style.opacity = 0
+      }
+    });
+    
+    buttons.forEach(function(a) {
+      if(a.getAttribute('href').includes('https://adobe.sharepoint.com') || a.getAttribute('href').includes('thank-you') || a.getAttribute('href').includes('thankyou')) {
+        a.style.opacity = 0
+      }
+    })
+  }
+
+  clearButtons();
   
 
   async function formData() {
