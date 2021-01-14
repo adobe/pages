@@ -3,6 +3,11 @@
   position: relative;
 }
 
+.clvideo-container {
+  background-position: center;
+  background-size: cover;
+}
+
 main > .section-wrapper.clvideo-container{
   text-align: left;
   position: relative;
@@ -41,6 +46,7 @@ main > .section-wrapper.clvideo-container{
   right: 0;
   box-shadow: 0px 0px 40px 00px rgba(0, 0, 0, .2);
   border-radius: 10px;
+  background: white;
 }
 
 .checklist {

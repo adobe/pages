@@ -2,10 +2,19 @@ const videoParent = document.querySelector('.clvideo > div');
 
 function createVideoElement() {
   const videoEl = videoParent.querySelector('div:first-of-type');
+  const backgroundImage = videoEl.querySelector('img');
+  const videlSrc = videoEl.querySelector('a').getAttribute('href');
+
+
+  document.querySelector('.clvideo-container').style.backgroundImage = `url(${backgroundImage.getAttribute('src')})`;
+
+  backgroundImage.remove();
+
+
   const video = `
   <div class="video-iframe">
     <iframe 
-      src="${videoEl.innerText}" 
+      src="${videlSrc}" 
       frameborder="0" 
       allow="accelerometer; 
       autoplay; 
@@ -27,7 +36,6 @@ function setupCheckList() {
   checkListParent.innerHTML = checklist;
   document.querySelector('.clvideo-container > div').appendChild(checkListParent);
   document.querySelector('.checklist-container').remove();
-  console.log(checklist)
 }
 
 createVideoElement();
