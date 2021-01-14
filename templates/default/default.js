@@ -261,6 +261,11 @@ async function decorateBlocks() {
         tag.src = "/templates/default/create-form.js";
         document.getElementsByTagName("body")[0].appendChild(tag);
       }
+
+      if(classes.includes('checklist')) {
+        loadJSModule(`/templates/default/checklist.js`);
+        document.getElementsByTagName('body')[0].classList.add('checklist-page')
+      }
       loadCSS(`/styles/blocks/${classes[0]}.css`);
     }
 
