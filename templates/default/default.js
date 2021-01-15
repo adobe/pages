@@ -297,6 +297,17 @@ function wrapSections(element) {
   });
 }
 
+function decorateVideoBlocks() {
+  document.querySelectorAll('main .video a[href]').forEach(($a) => {
+    const videoLink=$a.href;
+    let $video=$a;
+    if (videoLink.includes('tv.adobe.com')) {
+      $video=createTag('iframe', {src: videoLink, class:'embed tv-adobe' });
+    }
+    $a.parentElement.replaceChild($video, $a)
+  })
+}
+
 async function decoratePage() {
   decorateTables();
   wrapSections('main>div');
@@ -313,6 +324,7 @@ async function decoratePage() {
   decorateNav();
 
   decorateBackgroundImageBlocks();
+  decorateVideoBlocks();
 
   decorateButtons();
   window.pages.decorated = true;
