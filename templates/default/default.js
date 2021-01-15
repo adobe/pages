@@ -261,6 +261,11 @@ async function decorateBlocks() {
         tag.src = "/templates/default/create-form.js";
         document.getElementsByTagName("body")[0].appendChild(tag);
       }
+
+      if(classes.includes('checklist')) {
+        loadJSModule(`/templates/default/checklist.js`);
+        document.getElementsByTagName('body')[0].classList.add('checklist-page')
+      }
       loadCSS(`/styles/blocks/${classes[0]}.css`);
     }
 
@@ -292,6 +297,17 @@ function wrapSections(element) {
   });
 }
 
+function decorateVideoBlocks() {
+  document.querySelectorAll('main .video a[href]').forEach(($a) => {
+    const videoLink=$a.href;
+    let $video=$a;
+    if (videoLink.includes('tv.adobe.com')) {
+      $video=createTag('iframe', {src: videoLink, class:'embed tv-adobe' });
+    }
+    $a.parentElement.replaceChild($video, $a)
+  })
+}
+
 async function decoratePage() {
   decorateTables();
   wrapSections('main>div');
@@ -308,6 +324,7 @@ async function decoratePage() {
   decorateNav();
 
   decorateBackgroundImageBlocks();
+  decorateVideoBlocks();
 
   decorateButtons();
   window.pages.decorated = true;

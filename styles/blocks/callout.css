@@ -3,7 +3,6 @@
 	background: #F4F4F4;
 }
 
-
 .callout {
 	padding: 55px 0px;
 	max-width: 560px;
@@ -71,6 +70,7 @@
 }
 
 @media(min-width: 590px) {
+
 	.callout > div > div:first-of-type {
     margin-bottom: 0px;
 	}
@@ -97,7 +97,6 @@
 		align-items: center;
 	}
 	
-	
 	.callout > div h3 {
 		font-size: 16px;	
 	}
@@ -111,11 +110,3 @@
 	}
 	
 }
-
-/* @media(min-width: 708px) {
-	.callout > div {
-		max-width: 280px;
-	}
-} */
-
-
