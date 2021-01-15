@@ -1,16 +1,11 @@
 const videoParent = document.querySelector('.clvideo > div');
 
-function createVideoElement() {
+function layoutSetUp() {
   const videoEl = videoParent.querySelector('div:first-of-type');
   const backgroundImage = videoEl.querySelector('img');
   const videlSrc = videoEl.querySelector('a').getAttribute('href');
-
-
   document.querySelector('.clvideo-container').style.backgroundImage = `url(${backgroundImage.getAttribute('src')})`;
-
   backgroundImage.remove();
-
-
   const video = `
   <div class="video-iframe">
     <iframe 
@@ -38,5 +33,44 @@ function setupCheckList() {
   document.querySelector('.checklist-container').remove();
 }
 
-createVideoElement();
+
+function createCheckListLayout() {
+  const checklistElements = document.querySelectorAll('.checklist > div');
+  let wrapper = ``
+  checklistElements.forEach((checklist, index) => {
+    if(index === 0) {
+      wrapper += `
+        <div class="get-started">
+          <div class="checklist-info">
+            <div class="step-info">${checklist.innerHTML}</div>
+          </div>
+        </div>`
+    }
+    if(index === 1) { 
+      wrapper += `<div class="checklist-steps">`
+    }
+
+    if(index >= 1 && index < checklistElements.length - 1) {
+      wrapper += checklist.innerHTML = `
+      <div class="checklist-info">
+        <div class="step-count"><span class="step-index">${index}</span></div>
+        <div class="step-info">${checklist.innerHTML}</div>
+      </div>`;
+    } else if(index >= 1 && index <= checklistElements.length) {
+      wrapper += checklist.innerHTML = `
+      <div class="get-help">
+        <div class="get-help-info">${checklist.innerHTML}</div>
+      </div>`;
+    }
+
+    if(index >= checklistElements.length - 2 ) {
+      wrapper += `</div>`
+    }
+
+  })
+  document.querySelector('.checklist').innerHTML = wrapper;
+}
+
+layoutSetUp();
 setupCheckList();
+createCheckListLayout()
