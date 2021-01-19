@@ -21,11 +21,11 @@ main > .section-wrapper.full-width > div {
 }
 
 main #call-for-content {
-  margin-top: -10%;
+  margin-top: -7%;
 }
 
 main #explore-the-creative-briefs {
-  margin-top: 30px;
+  margin-top: 3rem;
 }
 
 
@@ -314,6 +314,12 @@ main>div.hero-section>div.text.image h1 {
   padding: 40px;
 }
 
+/* vertical center text */
+
+body.artist-development-fund main>div.hero-section>div.text.image h1 {
+  top: inherit;
+  bottom: 22vh;
+}
 
 .hero-section h1 {
   font-size: 4em;
@@ -561,6 +567,7 @@ main .hero-section + .section-wrapper a.button {
 
 .columns h4 {
     font-size: 22px;
+    font-weight: 100;
   }
   
 .columns h5 {
@@ -637,7 +644,7 @@ main .columns ul {
 }
 
 .columns .text p {
-  text-align: left;
+  text-align: center;
 }
 
 
@@ -650,6 +657,8 @@ main .columns ul {
 
 .columns .text table th p {
   margin: 0;
+  text-align: center;
+  font-size: 1.1rem;
 }
 
 
@@ -662,9 +671,30 @@ main .columns ul {
 
 @media (min-width:900px) {
   .columns .text {
-    padding: 4em;
+    padding: 4rem;
+    margin: auto;
+    max-width: 36rem;
+  }
+
+  .columns .text p {
+    font-size: 0.9375rem;
+    line-height: 1.9rem;
+    margin-bottom: 1.5rem;
   }
   
+}
+
+/* alignment rules for specific pages */
+body.identity-and-gender .columns .text,
+body.artist-development-fund .columns .text,
+body.identity-and-gender .columns .text p,
+body.artist-development-fund .columns .text p {
+  text-align: left;
+}
+
+body.identity-and-gender .columns .text h2,
+body.artist-development-fund .columns .text h2 {
+  padding-left: 0;
 }
 
 
@@ -718,7 +748,7 @@ main .columns ul {
   
   @media (min-width:1000px) {
     main>div.section-wrapper .hero-carousel {
-      padding-top: 650px;
+      padding-top: 100vh;
     }
   }   
 
@@ -742,7 +772,7 @@ main .columns ul {
 
   @media (min-width:1000px) {
     .hero-carousel-overlay {
-      height: 650px;
+      height: 100vh;
     }
   }   
 
@@ -760,11 +790,15 @@ main .columns ul {
 
   .hero-carousel-overlay>p {
     position: absolute;
-    bottom: 55px;
+    bottom: 50px;
     text-align: center;
     left: 0;
     right: 0;
+    font-size: 2rem;
+    font-weight: 100;
+    line-height: 2.2rem;
   }
+
 
   .hero-carousel-overlay .eyebrow {
     font-size: 0.6em;
@@ -814,7 +848,8 @@ main .columns ul {
       bottom: 0px;
       left: 10px;
       color: white;
-      font-size: 0.6em;
+      font-size: 0.7em;
+      font-weight: 100;
   }
 
   .hero-carousel-slide:nth-child(even) {
