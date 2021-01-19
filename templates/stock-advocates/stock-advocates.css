@@ -314,6 +314,12 @@ main>div.hero-section>div.text.image h1 {
   padding: 40px;
 }
 
+/* vertical center text */
+
+body.artist-development-fund main>div.hero-section>div.text.image h1 {
+  top: inherit;
+  bottom: 22vh;
+}
 
 .hero-section h1 {
   font-size: 4em;
@@ -676,6 +682,19 @@ main .columns ul {
     margin-bottom: 1.5rem;
   }
   
+}
+
+/* alignment rules for specific pages */
+body.identity-and-gender .columns .text,
+body.artist-development-fund .columns .text,
+body.identity-and-gender .columns .text p,
+body.artist-development-fund .columns .text p {
+  text-align: left;
+}
+
+body.identity-and-gender .columns .text h2,
+body.artist-development-fund .columns .text h2 {
+  padding-left: 0;
 }
 
 
