@@ -334,8 +334,10 @@ body.artist-development-fund .columns .text h2 {
   padding-left: 0;
 }
 
-body.identity-and-gender .embed-internal-fundsection .columns .text p,
-body.artist-development-fund .embed-internal-fundsection .columns .text p {
+body.identity-and-gender .embed-internal-submitandgetfunded .columns .text,
+body.artist-development-fund .embed-internal-submitandgetfunded .columns .text,
+body.identity-and-gender .embed-internal-submitandgetfunded .columns .text p,
+body.artist-development-fund .embed-internal-submitandgetfunded .columns .text p {
   text-align: center;
 }
 
