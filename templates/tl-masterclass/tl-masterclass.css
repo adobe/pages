@@ -8,6 +8,10 @@
     justify-content: center;
     max-width: 1100px;
   }
+
+  .tl-masterclass .appear .default:first-of-type h1 {
+    color: white;
+  }
   
   main .card {
     width: 315px;
