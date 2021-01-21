@@ -435,10 +435,12 @@ main .hero-section + .section-wrapper a.button {
 
 .embed-internal-submitandgetfunded .columns .text p {
   text-align: center;
+  line-height: 2.9rem;
 }
 
 .embed-internal-submitandgetfunded .columns .text {
   padding: 2em 0;
+  margin-top: 0;
 }
 
 .embed-internal-submitandgetfunded .icon {
@@ -451,6 +453,7 @@ main .hero-section + .section-wrapper a.button {
 
 .embed-internal-submitandgetfunded h2 {
     color: #3e1bb2;
+    margin-bottom: 0;
 }
 
 .embed-internal-submitandgetfunded a.button.primary {
