@@ -606,6 +606,9 @@ main .hero-section + .section-wrapper a.button {
 
 }
 
+.columns>div.selection-criteria a {
+  color: #40B0E0;
+}
 
 main .columns ul {
   text-align: left;
