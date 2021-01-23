@@ -266,6 +266,13 @@ async function decorateBlocks() {
         loadJSModule(`/templates/default/checklist.js`);
         document.getElementsByTagName('body')[0].classList.add('checklist-page')
       }
+
+      if(classes.includes('iframe')) {
+        loadJSModule(`/templates/default/iframe.js`);
+      }
+
+
+
       loadCSS(`/styles/blocks/${classes[0]}.css`);
     }
 
