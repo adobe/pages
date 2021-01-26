@@ -1,3 +1,11 @@
+.nav {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav a {
+  color: #FF9A00 !important;
+}
+
 .timeline-items {
   display: flex;
   justify-content: center;
@@ -32,10 +40,10 @@
   box-sizing: border-box;
 }
 
-
 .checklist-item.unchecked img {
   opacity: 0;
 }
+
 .checklist-item img {
   max-width: 60px;
   position: absolute;
