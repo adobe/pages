@@ -127,6 +127,9 @@ main h2 {
   padding: 0 16px;
 }
 
+.artist-development-fund main h2 {
+  margin-top: 0;
+}
 /* overlay */
 
 main div.overlay {
@@ -318,8 +321,36 @@ main>div.hero-section>div.text.image h1 {
 
 body.artist-development-fund main>div.hero-section>div.text.image h1 {
   top: inherit;
-  bottom: 22vh;
 }
+
+
+@media (min-width:600px) {
+  body.artist-development-fund main>div.hero-section>div.text.image h1 {
+    bottom: 22vh;
+  }
+}
+
+/* alignment rules for specific pages */
+body.identity-and-gender .columns .text,
+body.artist-development-fund .columns .text,
+body.identity-and-gender .columns .text p,
+body.artist-development-fund .columns .text p,
+main.appear #call-for-content + .columns .text p {
+  text-align: left;
+}
+
+body.identity-and-gender .columns .text h2,
+body.artist-development-fund .columns .text h2 {
+  padding-left: 0;
+}
+
+body.identity-and-gender .embed-internal-submitandgetfunded .columns .text,
+body.artist-development-fund .embed-internal-submitandgetfunded .columns .text,
+body.identity-and-gender .embed-internal-submitandgetfunded .columns .text p,
+body.artist-development-fund .embed-internal-submitandgetfunded .columns .text p {
+  text-align: center;
+}
+
 
 .hero-section h1 {
   font-size: 4em;
@@ -435,10 +466,12 @@ main .hero-section + .section-wrapper a.button {
 
 .embed-internal-submitandgetfunded .columns .text p {
   text-align: center;
+  line-height: 2.9rem;
 }
 
 .embed-internal-submitandgetfunded .columns .text {
   padding: 2em 0;
+  margin-top: 0;
 }
 
 .embed-internal-submitandgetfunded .icon {
@@ -451,6 +484,7 @@ main .hero-section + .section-wrapper a.button {
 
 .embed-internal-submitandgetfunded h2 {
     color: #3e1bb2;
+    margin-bottom: 0;
 }
 
 .embed-internal-submitandgetfunded a.button.primary {
@@ -603,6 +637,9 @@ main .hero-section + .section-wrapper a.button {
 
 }
 
+.columns>div.selection-criteria a {
+  color: #40B0E0;
+}
 
 main .columns ul {
   text-align: left;
@@ -682,19 +719,6 @@ main .columns ul {
     margin-bottom: 1.5rem;
   }
   
-}
-
-/* alignment rules for specific pages */
-body.identity-and-gender .columns .text,
-body.artist-development-fund .columns .text,
-body.identity-and-gender .columns .text p,
-body.artist-development-fund .columns .text p {
-  text-align: left;
-}
-
-body.identity-and-gender .columns .text h2,
-body.artist-development-fund .columns .text h2 {
-  padding-left: 0;
 }
 
 
