@@ -331,23 +331,17 @@ body.artist-development-fund main>div.hero-section>div.text.image h1 {
 }
 
 /* alignment rules for specific pages */
-body.identity-and-gender .columns .text,
-body.artist-development-fund .columns .text,
-body.identity-and-gender .columns .text p,
-body.artist-development-fund .columns .text p,
+.columns.left-justify .text,
+.columns.left-justify .text p,
 main.appear #call-for-content + .columns .text p {
   text-align: left;
 }
 
-body.identity-and-gender .columns .text h2,
-body.artist-development-fund .columns .text h2 {
+.columns.left-justify .text h2 {
   padding-left: 0;
 }
 
-body.identity-and-gender .embed-internal-submitandgetfunded .columns .text,
-body.artist-development-fund .embed-internal-submitandgetfunded .columns .text,
-body.identity-and-gender .embed-internal-submitandgetfunded .columns .text p,
-body.artist-development-fund .embed-internal-submitandgetfunded .columns .text p {
+.embed-internal-submitandgetfunded .columns .text {
   text-align: center;
 }
 
