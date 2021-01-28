@@ -134,7 +134,9 @@ function decorateButtons() {
   
 
 function decorateColumns() {
-    document.querySelectorAll('main div>.columns').forEach(($columns) => {
+  var isIndex = window.location.pathname.endsWith('/');
+  document.querySelectorAll('main div>.columns').forEach(($columns) => {
+      if (!isIndex) {$columns.classList.add("left-justify"); }
       $columns.closest('.section-wrapper').classList.add('full-width');
       const rows=Array.from($columns.children);
       rows.forEach($row => {
