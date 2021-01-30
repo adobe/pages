@@ -303,9 +303,6 @@ function decorateTables() {
 
   }
 
-  function navigateHome() {
-    
-  }
 
   function decorateContactUs() {
     const $contactus=document.getElementById('contact-us');
