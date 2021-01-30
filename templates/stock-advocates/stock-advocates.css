@@ -266,6 +266,10 @@ header .icon.icon-stock-logo {
   }
 }
 
+.handsy {
+  cursor: pointer;
+}
+
 /* hero section */
 
 .hero-section {
