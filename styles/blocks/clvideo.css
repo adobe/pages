@@ -14,6 +14,7 @@ main > .section-wrapper.clvideo-container{
   padding-top: 3em;
 }
 
+
 .video-iframe {
   padding-bottom: 56%;
   position: relative;
@@ -28,12 +29,14 @@ main > .section-wrapper.clvideo-container{
 
 .clvideo-container h1 {
   font-size: 36px;
-  width: 60%;
+  /* width: 60%; */
+  width: 100%;
 }
 
 .clvideo {
   padding: 2em 0em;
-  width: 60%;
+  /* width: 60%; */
+  width: 100%;
 }
 
 .clvideo > div:last-child h2 {
@@ -43,7 +46,8 @@ main > .section-wrapper.clvideo-container{
 }
 
 .clvideo > div > div:last-of-type {
-  width: 60%;
+  /* width: 60%; */
+  width: 100%;
 }
 
 .clvideo > div:last-child h2:after {
@@ -54,4 +58,20 @@ main > .section-wrapper.clvideo-container{
   height: 4px;
   bottom: -10px;
   left: 0;
+}
+
+
+@media (min-width:801px)  { 
+  .clvideo-container h1 {
+    width: 60%;
+  }
+  
+  .clvideo {
+    width: 60%;
+  }
+  
+  .clvideo > div > div:last-of-type {
+    width: 60%;
+  }
+
 }
