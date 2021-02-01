@@ -280,6 +280,13 @@ function decorateTables() {
     const $hamburger=$header.children[2];
 
     $logo.classList.add('logo');
+    $logo.classList.add('handsy');
+
+    $logo.addEventListener("click", (() => { 
+      // don't want to wrap with a tag, too many styles using children[0]
+      // this won't work if we add more subs, takes us back to /stock/en/
+      window.location.pathname = window.location.pathname.split("/").slice(0,-2).join("/") + "/";
+    }));
     $menu.classList.add('menu');
     $hamburger.classList.add('hamburger');
 
@@ -295,6 +302,7 @@ function decorateTables() {
     decorateLogo();
 
   }
+
 
   function decorateContactUs() {
     const $contactus=document.getElementById('contact-us');
@@ -312,8 +320,13 @@ function decorateTables() {
     const $hero=document.querySelector('.hero-carousel');
     if (!$hero) {
       const $header=document.querySelector('header');
-      const $asaLogoDiv=createTag('div', {class: 'asa-logo'});
+      const $asaLogoDiv=createTag('div', {class: 'asa-logo handsy'});
       $asaLogoDiv.innerHTML=`<img src="/templates/stock-advocates/advocates_logo_small.svg">`;
+      // don't want to wrap with a tag, too many style selectors may break - kk
+      $asaLogoDiv.addEventListener("click", (() => { 
+        // this won't work if we add more sub folders
+        window.location.pathname = window.location.pathname.split("/").slice(0,-1).join("/") + "/";
+      }));
       $header.append($asaLogoDiv);
     }
   }
