@@ -8,6 +8,21 @@
   background-size: cover;
 }
 
+#ply-btn {
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  outline: none;
+  border-radius: 0px;
+  border: none;
+}
+
+.cl-video-el {
+  display: none;
+}
+
 main > .section-wrapper.clvideo-container{
   text-align: left;
   position: relative;
@@ -15,13 +30,25 @@ main > .section-wrapper.clvideo-container{
 }
 
 
-.video-iframe {
-  padding-bottom: 56%;
+.video-parent {
+  padding-bottom: 61.7%;
   position: relative;
-  box-shadow: 0px 0px 40px 00px rgba(0, 0, 0, .4);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.video-iframe iframe {
+.video-iframe {
+  height: 75%;
+  width: 90%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+}
+
+.video-iframe video {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
@@ -61,7 +88,18 @@ main > .section-wrapper.clvideo-container{
 }
 
 
-@media (min-width:801px)  { 
+@media (min-width:924px)  { 
+
+  .video-iframe {
+    height: 80%;
+    width: 90%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+  }
+
   .clvideo-container h1 {
     width: 60%;
   }
@@ -73,5 +111,5 @@ main > .section-wrapper.clvideo-container{
   .clvideo > div > div:last-of-type {
     width: 60%;
   }
-
 }
+

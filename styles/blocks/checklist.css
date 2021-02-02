@@ -8,12 +8,10 @@
   overflow: hidden;
 }
 
-
 .checklist {
   position: relative;
   padding-top: 2em;
 }
-
 
 .checklist > div {
   margin-bottom: 1.5em;
@@ -22,6 +20,10 @@
 
 .get-started {
   position: relative;
+}
+
+.get-started .step-info > div:last-of-type {
+  display: none;
 }
 
 .checklist-steps {
@@ -43,12 +45,24 @@
 .checklist-steps .checklist-info {
   margin-bottom: 2.5em;
   position: relative;
-  cursor: pointer;
+}
+
+.step-info div:first-of-type {
+  margin-top: 2em;
+  padding: 0em 2em;
+  color: #959595;
 }
 
 .step-info div:last-of-type {
   margin-top: 2em;
+  padding: 1em 2em;
+  cursor: pointer;
   color: #959595;
+}
+
+.step-info div:last-of-type:hover {
+  background: #E9E9EA;
+  border-radius: 8px;
 }
 
 .checklist-info strong a {
@@ -58,6 +72,15 @@
   border-radius: 40px;
   display: inline-block;
   font-size: 14px;
+}
+
+.checklist-info.complete .step-count {
+  background-color: #33AB84;
+  border: none;
+}
+
+.checklist-steps .checklist-info:first-of-type .step-info > div:last-of-type {
+  background: transparent;
 }
 
 .checklist-steps .checklist-info:last-of-type {
@@ -92,7 +115,7 @@
   transform: translate(-50%, -50%);
 }
 .step-info {
-  margin-left: 3em;
+  margin-left: 1em;
 }
 
 .checklist > div:last-of-type a {
@@ -106,10 +129,10 @@
 
 
 
-@media (min-width:801px)  { 
+@media (min-width:924px)  { 
+
   .checklist-timeline {
     position: absolute;
-    /* width: 30%; */
     width: 35%;
   }
 
@@ -122,27 +145,23 @@
   .checklist-steps {
     position: relative;
     display: block;
-    /* margin: 0em 4em; */
     margin: 0em 3em;
   }
 
-
   .checklist-steps .checklist-info {
-    /* margin-bottom: 2.5em; */
     margin-bottom: 1em;
     position: relative;
-    cursor: pointer;
   }
 
   .step-info div:last-of-type {
     margin-top: 2em;
     color: #959595;
+    cursor: pointer;
   }
 
   .checklist-info strong a {
     background: #0D66D0;
     color: white;
-    /* padding: 12px 23px; */
     padding: 12px 13px;
     border-radius: 40px;
     display: inline-block;
@@ -155,7 +174,6 @@
 
   .checklist > div:last-of-type {
     margin-bottom: 0em;
-    /* padding: 1.5em 2em; */
     text-align: center;
     background: #4846CE;
     color: white;
@@ -163,8 +181,6 @@
   }
 
   .step-count, .icon {
-    /* height: 40px;
-    width: 40px; */
     height: 30px;
     width: 30px;
     position: absolute;
@@ -183,8 +199,7 @@
     transform: translate(-50%, -50%);
   }
   .step-info {
-    /* margin-left: 3em; */
-    margin-left: 1.4em;
+    margin-left: 0.3em;
   }
 
   .checklist > div:last-of-type a {
@@ -199,7 +214,7 @@
 
 }
 
-@media(min-width: 1145px) {
+@media(min-width: 1211px) {
 
   .checklist-timeline {
     width: 35%;
@@ -242,7 +257,7 @@
 
 
   .step-info {
-    margin-left: 3em;
+    margin-left: 1.4em;
   }
 
   
