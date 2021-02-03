@@ -39,9 +39,9 @@ main > .section-wrapper.clvideo-container{
 }
 
 .video-iframe {
-  height: 75%;
-  width: 90%;
-  top: 50%; left: 50%;
+  height: 93%;
+  width: 98%;
+  top: 51%; left: 49%;
   transform: translate(-50%, -50%);
   position: absolute;
   background-position: center;
@@ -91,9 +91,9 @@ main > .section-wrapper.clvideo-container{
 @media (min-width:924px)  { 
 
   .video-iframe {
-    height: 80%;
-    width: 90%;
-    top: 50%; left: 50%;
+    height: 93%;
+    width: 98%;
+    top: 51%; left: 48.9%;
     transform: translate(-50%, -50%);
     position: absolute;
     background-position: center;

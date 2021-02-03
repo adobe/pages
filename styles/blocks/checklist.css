@@ -32,13 +32,24 @@
   margin: 0em 4em;
 }
 
-.checklist-steps:after{
+.checklist-steps:before{
   content: '';
   position: absolute;
   left: 0; top: 0;
   width: 1px;
   background: #EAEAEA;
   height: 100%;
+  left: 0;
+}
+
+.checklist-steps:after{
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1px;
+  background: #33AB84;
+  height: 161px;
+  transition: all 400ms ease;
   left: 0;
 }
 
