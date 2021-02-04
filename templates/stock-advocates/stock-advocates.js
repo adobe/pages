@@ -203,11 +203,13 @@ function decorateHeroCarousel() {
         $nav.append($navList);
         $carousel.appendChild($nav);
         $wrapper.querySelectorAll(':scope>div').forEach(($slide, i, slides) => {
-            $slide.classList.add('hero-carousel-slide');
+          const prevSlide = i > 0 ? (i-1)%slides.length : slides.length - 1;
+          const nextSlide =  (i+1)%slides.length;
+          $slide.classList.add('hero-carousel-slide');
             $slide.id=`hero-carousel-slide${i}`;
             $slide.append(createTag('div', {class: 'hero-carousel-snapper'} ));
-            $slide.append(createTag('a', {class: 'hero-carousel-prev', href: `#hero-carousel-slide${(i-1)%slides.length}`} ));
-            $slide.append(createTag('a', {class: 'hero-carousel-next', href: `#hero-carousel-slide${(i+1)%slides.length}`} ));
+            $slide.append(createTag('a', {class: 'hero-carousel-prev', href: `#hero-carousel-slide${prevSlide}`} ));
+            $slide.append(createTag('a', {class: 'hero-carousel-next', href: `#hero-carousel-slide${nextSlide}`} ));
             const $navitem=createTag('div', {class: 'hero-carousel-navigation-list'});
             $navitem.innerHTML=`<div class="hero-carousel-navigation-item"><a href="#hero-carousel-slide${i}" class="hero-carousel-navigation-button"><a></div>`;
             $navList.append($navitem);
@@ -284,8 +286,8 @@ function decorateTables() {
 
     $logo.addEventListener("click", (() => { 
       // don't want to wrap with a tag, too many styles using children[0]
-      // this won't work if we add more subs, takes us back to /stock/en/
-      window.location.pathname = window.location.pathname.split("/").slice(0,-2).join("/") + "/";
+      //window.location.pathname = window.location.pathname.split("/").slice(0,-2).join("/") + "/";
+      window.location.href = 'https://stock.adobe.com/'; // hardcoded for now
     }));
     $menu.classList.add('menu');
     $hamburger.classList.add('hamburger');
