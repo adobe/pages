@@ -35,21 +35,10 @@
 .checklist-steps:before{
   content: '';
   position: absolute;
-  left: 0; top: 0;
+  left: 0; top: 18px;
   width: 1px;
   background: #EAEAEA;
-  height: 100%;
-  left: 0;
-}
-
-.checklist-steps:after{
-  content: '';
-  position: absolute;
-  left: 0; top: 0;
-  width: 1px;
-  background: #33AB84;
-  height: 161px;
-  transition: all 400ms ease;
+  height: 100.5%;
   left: 0;
 }
 
@@ -58,11 +47,16 @@
   position: relative;
 }
 
+.checklist-steps:first-of-type .step-count {
+  border: none;
+}
+
 .step-info div:first-of-type {
   margin-top: 2em;
   padding: 0em 2em;
   color: #959595;
 }
+
 
 .step-info div:last-of-type {
   margin-top: 2em;
@@ -74,6 +68,15 @@
 .step-info div:last-of-type:hover {
   background: #E9E9EA;
   border-radius: 8px;
+}
+
+.step-info div:last-of-type p:first-of-type {
+  margin: 0;
+}
+
+
+.step-info div:last-of-type p:last-of-type {
+  display: none;
 }
 
 .checklist-info strong a {

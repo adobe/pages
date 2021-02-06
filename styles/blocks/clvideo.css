@@ -36,6 +36,7 @@ main > .section-wrapper.clvideo-container{
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  box-shadow: 0px 0px 40px 10px rgba(0, 0, 0, .2);
 }
 
 .video-iframe {
