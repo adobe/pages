@@ -9,6 +9,7 @@ function generateVideo() {
 
 
 function setUpTimeline() {
+  console.log('setuptimeline func')
   if(!document.querySelector('.missiontimeline-container')) return;
   let timelineCount = 0;
   let timelineGroup = '';

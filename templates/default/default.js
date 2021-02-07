@@ -267,8 +267,9 @@ async function decorateBlocks() {
         document.getElementsByTagName('body')[0].classList.add('checklist-page')
       }
 
-      if(classes.includes('iframe')) {
-        loadJSModule(`/templates/default/iframe.js`);
+      if(classes.includes('iframe') || classes.includes('missiontimeline') || classes.includes('missionbg')) {
+        loadJSModule(`/templates/default/mission-series/iframe.js`);
+        loadJSModule(`/templates/default/mission-series/background.js`);
       }
 
 
