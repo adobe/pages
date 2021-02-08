@@ -1,0 +1,29 @@
+main {
+  position: relative;
+  padding-bottom: 10em;
+}
+.missionbg-container {
+  position: absolute;
+  bottom: 3%; left: 50%;
+  width: 1200px; height: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  transform: translateX(-50%);
+  background-position: center bottom;
+  z-index: -1;
+}
+
+
+main.tall-bg {
+  padding-bottom: 23em;
+}
+
+main.tallest-bg {
+  padding-bottom: 42em;
+}
+
+
+
+.missionbg-container.tall {
+  bottom: 0%;
+}

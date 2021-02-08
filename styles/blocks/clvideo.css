@@ -8,19 +8,48 @@
   background-size: cover;
 }
 
+#ply-btn {
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  outline: none;
+  border-radius: 0px;
+  border: none;
+}
+
+.cl-video-el {
+  display: none;
+}
+
 main > .section-wrapper.clvideo-container{
   text-align: left;
   position: relative;
   padding-top: 3em;
 }
 
-.video-iframe {
-  padding-bottom: 56%;
+
+.video-parent {
+  padding-bottom: 61.7%;
   position: relative;
-  box-shadow: 0px 0px 40px 00px rgba(0, 0, 0, .4);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0px 0px 40px 10px rgba(0, 0, 0, .2);
 }
 
-.video-iframe iframe {
+.video-iframe {
+  height: 93%;
+  width: 98%;
+  top: 51%; left: 49%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+}
+
+.video-iframe video {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
@@ -28,12 +57,14 @@ main > .section-wrapper.clvideo-container{
 
 .clvideo-container h1 {
   font-size: 36px;
-  width: 60%;
+  /* width: 60%; */
+  width: 100%;
 }
 
 .clvideo {
   padding: 2em 0em;
-  width: 60%;
+  /* width: 60%; */
+  width: 100%;
 }
 
 .clvideo > div:last-child h2 {
@@ -43,7 +74,8 @@ main > .section-wrapper.clvideo-container{
 }
 
 .clvideo > div > div:last-of-type {
-  width: 60%;
+  /* width: 60%; */
+  width: 100%;
 }
 
 .clvideo > div:last-child h2:after {
@@ -55,3 +87,30 @@ main > .section-wrapper.clvideo-container{
   bottom: -10px;
   left: 0;
 }
+
+
+@media (min-width:924px)  { 
+
+  .video-iframe {
+    height: 93%;
+    width: 98%;
+    top: 51%; left: 48.9%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .clvideo-container h1 {
+    width: 60%;
+  }
+  
+  .clvideo {
+    width: 60%;
+  }
+  
+  .clvideo > div > div:last-of-type {
+    width: 60%;
+  }
+}
+

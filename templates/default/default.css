@@ -26,6 +26,10 @@ main .section-wrapper {
 	color: #323232;
 }
 
+body.mission main  p {
+	font-size: 22px !important;
+}
+
 main > .section-wrapper.dark {
 	color: white;
 	background: #282828;
