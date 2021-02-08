@@ -88,7 +88,7 @@ function createCheckListLayout() {
 
     if(index >= 1 && index < checklistElements.length - 1) {
       wrapper += checklist.innerHTML = `
-      <div class="checklist-info">
+      <div class="checklist-info" data-index=${index}>
         <div class="step-count"><span class="step-index">${index}</span></div>
         <div class="step-info">${checklist.innerHTML}</div>
       </div>`;
@@ -111,8 +111,19 @@ function createCheckListLayout() {
 }
 
 
+function setTranscript(index) {
+  const transcripts = document.querySelectorAll('.transcript > div');
+  transcripts.forEach(function(el) {
+    el.style.display = 'none'
+  })
+  transcripts[index - 1].style.display = 'block'
+}
+
 function addState(evt) {
   const currentItem = evt.currentTarget;
+  console.log(currentItem.getAttribute('data-time'))
+
+  setTranscript(currentItem.closest('.checklist-info').getAttribute('data-index'))
   
   const currentParent = currentItem.closest('.checklist-steps .checklist-info');
   const svg = `<svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 30">
@@ -131,21 +142,23 @@ function addState(evt) {
 </svg>
 `
 
-if(currentItem.getAttribute('data-time').includes('<a') && currentItem.getAttribute('data-time')) {
-  currentParent.classList.add('complete')
-} else {
+if(currentItem.getAttribute('data-time') >= 1) {
   document.querySelector('.cl-video-el').style.display = 'block';
   document.querySelector('.cl-video-el').setAttribute('controls', true)
   document.querySelector('.cl-video-el').play();
   document.querySelector('.video-iframe').style.backgroundImage = `url()`
   document.querySelector(".cl-video-el").currentTime = evt.currentTarget.getAttribute('data-time');
-}
-
   if(!hasPlayed) {
     document.querySelector('#ply-btn').remove();
     hasPlayed = true;
     timeTracker();
   }
+  console.log('if')
+} else {
+  currentParent.classList.add('complete')
+  console.log('else')
+}
+
 
 
   currentParent.querySelector('.step-count').innerHTML = svg;
@@ -187,11 +200,14 @@ function timeTracker() {
 let checker;
   if(hasPlayed) {
     function runChecker() {
-      const timelineItems = document.querySelectorAll('.checklist-steps:last-of-type .checklist-info .step-info > div:last-of-type');
+      console.log('running')
+      const timelineItems = document.querySelectorAll('.checklist-steps:nth-of-type(2) .checklist-info .step-info div:last-of-type');
+      console.log(timelineItems)
       timelineItems.forEach(function(item) {
         if(item.getAttribute('data-time') <= document.querySelector(".cl-video-el").currentTime) {
           item.closest('.checklist-info').classList.add('complete')
           item.closest('.checklist-info').querySelector('.step-count').innerHTML = svg;
+          setTranscript(item.closest('.checklist-info').getAttribute('data-index'))
         }
       })
     }
@@ -207,19 +223,12 @@ let checker;
 
 
 function setTimeAttribute() {
-
   let time = document.querySelectorAll('.checklist-steps .checklist-info .step-info > div:last-of-type strong');
-
-  console.log(time)
   time.forEach(function(time_item) {
     time_item.closest('.step-info > div:last-of-type').setAttribute('data-time', time_item.innerText)
   })
-
-  // timelineItems.forEach(function(item, index) {
-  //   console.log(time[index].innerText)
-  //   item.setAttribute('data-time', time[index].innerHTML)
-  // })
 }
+
 
 
 layoutSetUp();
