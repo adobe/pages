@@ -1,0 +1,34 @@
+version: 2.1
+executors:
+  node12:
+    docker:
+    - image: circleci/node:12
+      environment:
+        NPM_CONFIG_PREFIX: "~/.npm-global"
+        working_directory: ~/repo
+
+orbs:
+  helix-post-deploy: adobe/helix-post-deploy@2.0.10
+
+jobs:
+  operations:
+    executor: node12
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      - helix-post-deploy/monitoring:
+          newrelic_name: Adobe Landing Pages - Uptime
+          newrelic_url: https://pages.adobe.com/
+          newrelic_group_policy: Customer Sites
+          newrelic_locations: AWS_US_WEST_1, AWS_EU_CENTRAL_1
+          newrelic_frequency: 1
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - operations:
+          context: Project Helix
+          filters:
+            branches:
+              only: main
