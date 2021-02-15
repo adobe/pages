@@ -132,6 +132,17 @@
   margin-left: 1em;
 }
 
+.step-info > div:last-of-type {
+  color: red;
+  display: flex;
+  align-items: center;
+}
+.step-info > div:last-of-type span svg {
+  top: 2px;
+  margin-right: 5px;
+  position: relative;
+  display: inline-block;
+}
 .checklist > div:last-of-type a {
   text-decoration: none;
   color: white;
@@ -141,6 +152,10 @@
   padding: 0em 4em;
 }
 
+.checklist .checklist-steps:first-of-type .step-info div:last-of-type {
+  margin-top: 0em;
+  padding: 0.5em 2em;
+}
 
 
 @media (min-width:924px)  { 
@@ -201,7 +216,7 @@
     border-radius: 100%;
     border: 1px solid black;
     background: white;
-    left: -20px;
+    left: -15px;
     top: -5px;
     z-index: 9;
   }
@@ -225,8 +240,9 @@
     padding: 0em 4em;
   }
   
-
 }
+
+
 
 @media(min-width: 1211px) {
 
@@ -263,12 +279,6 @@
     margin-bottom: 0em;
     padding: 1.5em 2em;
   }
-
-  .step-count, .icon {
-    height: 40px;
-    width: 40px;
-  }
-
 
   .step-info {
     margin-left: 1.4em;
