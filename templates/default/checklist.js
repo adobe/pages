@@ -153,10 +153,8 @@ if(currentItem.getAttribute('data-time') >= 1) {
     hasPlayed = true;
     timeTracker();
   }
-  console.log('if')
 } else {
   currentParent.classList.add('complete')
-  console.log('else')
 }
 
 
@@ -200,9 +198,7 @@ function timeTracker() {
 let checker;
   if(hasPlayed) {
     function runChecker() {
-      console.log('running')
       const timelineItems = document.querySelectorAll('.checklist-steps:nth-of-type(2) .checklist-info .step-info div:last-of-type');
-      console.log(timelineItems)
       timelineItems.forEach(function(item) {
         if(item.getAttribute('data-time') <= document.querySelector(".cl-video-el").currentTime) {
           item.closest('.checklist-info').classList.add('complete')
