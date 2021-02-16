@@ -153,10 +153,8 @@ if(currentItem.getAttribute('data-time') >= 1) {
     hasPlayed = true;
     timeTracker();
   }
-  console.log('if')
 } else {
   currentParent.classList.add('complete')
-  console.log('else')
 }
 
 
@@ -200,9 +198,7 @@ function timeTracker() {
 let checker;
   if(hasPlayed) {
     function runChecker() {
-      console.log('running')
       const timelineItems = document.querySelectorAll('.checklist-steps:nth-of-type(2) .checklist-info .step-info div:last-of-type');
-      console.log(timelineItems)
       timelineItems.forEach(function(item) {
         if(item.getAttribute('data-time') <= document.querySelector(".cl-video-el").currentTime) {
           item.closest('.checklist-info').classList.add('complete')
@@ -230,6 +226,32 @@ function setTimeAttribute() {
 }
 
 
+function addPlayIcon() {
+  let timeStamp = document.querySelectorAll('.checklist-steps:nth-child(2) .checklist-info .step-info div:last-of-type p:first-of-type')
+
+  
+  timeStamp.forEach(function(el) {
+    let newEl = document.createElement('span')
+    newEl.innerHTML = `<svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 18 18">
+    <g id="Placement_Area" data-name="Placement Area" fill="red" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="18" height="18" stroke="none"/>
+      <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
+    </g>
+    <g id="Icon">
+      <g id="Canvas" fill="#959595" stroke="#959595" stroke-width="1" opacity="0">
+        <rect width="18" height="18" stroke="none"/>
+        <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
+      </g>
+      <path id="Path_104090" data-name="Path 104090" d="M4.73,2H3.5a.5.5,0,0,0-.5.5v13a.5.5,0,0,0,.5.5H4.73a1,1,0,0,0,.5-.136L16.265,9.431a.5.5,0,0,0,0-.862L5.234,2.136A1,1,0,0,0,4.73,2Z" fill="#959595"/>
+    </g>
+  </svg>
+  `
+    el.prepend(newEl)
+  })
+
+}
+
+
 
 layoutSetUp();
 setupCheckList();
@@ -237,3 +259,4 @@ createCheckListLayout()
 checklistStates();
 setHeroBackground();
 setTimeAttribute();
+addPlayIcon()
