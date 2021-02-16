@@ -88,6 +88,16 @@ main > .section-wrapper.clvideo-container{
   left: 0;
 }
 
+.checklist-page main .section-wrapper:last-of-type {
+  padding: 3em 0em;
+}
+
+.checklist-page main .section-wrapper:last-of-type a{
+  padding: 0em 0em;
+  border: none;
+  color: #1473E6;
+  font-size: 18px;
+}
 
 @media (min-width:924px)  { 
 

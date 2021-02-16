@@ -252,6 +252,11 @@ function addPlayIcon() {
 }
 
 
+function setDynamicHeight() {
+  const timeline = document.querySelector('.checklist-timeline');
+  const timelineParent = document.querySelector('.clvideo-container');
+  document.querySelector('.next-container').style.marginTop = (timeline.clientHeight - timelineParent.offsetHeight) + 140 + 'px'
+}
 
 layoutSetUp();
 setupCheckList();
@@ -260,3 +265,6 @@ checklistStates();
 setHeroBackground();
 setTimeAttribute();
 addPlayIcon()
+setTimeout(function() {
+  setDynamicHeight();
+}, 1000)
