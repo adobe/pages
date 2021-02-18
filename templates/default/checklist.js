@@ -205,8 +205,10 @@ function checklistStates() {
 
 function setHeroBackground() {
   const background = document.querySelector('.clbackground img').getAttribute('src');
-  document.querySelector('.clbackground-container').remove();
-  document.querySelector('.clvideo-container').style.backgroundImage = `url(${background})`
+  if(background.length > 2) {
+    document.querySelector('.clbackground-container').remove();
+    document.querySelector('.clvideo-container').style.backgroundImage = `url(${background})`
+  }
 }
 
 function timeTracker() {

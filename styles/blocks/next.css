@@ -52,3 +52,8 @@
   font-size: 24px;
   margin-top: 0;
 }
+
+.next a {
+  position: relative;
+  z-index: 99;
+}

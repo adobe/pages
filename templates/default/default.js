@@ -36,8 +36,15 @@ function styleNav() {
       </div>
     </div>
   `
-}
 
+  if(document.querySelector('.nav-container')) {
+    const $nav = document.querySelector('.nav-container');
+    if($nav.querySelector('div').children.length === 0) {
+      $nav.remove();
+    }
+    console.log($nav.children.length)
+  }
+}
 
 function decorateHero() {
   const heroRoot = document.querySelector('.hero > div')
@@ -161,6 +168,13 @@ function decorateEmbeds() {
   })
 }
 
+
+function linkInNewTab($el) {
+  let links = $el.querySelectorAll('a');
+  links.forEach(function($link) {
+    $link.setAttribute('target', '_blank');
+  })
+}
 
 function decorateTables() {
   document.querySelectorAll('main div>table').forEach(($table) => {
@@ -335,11 +349,19 @@ async function decoratePage() {
   decorateVideoBlocks();
 
   decorateButtons();
+  
   window.pages.decorated = true;
   appearMain();
   decorateEmbeds();
-  wrapSections('header>div, footer>div');      
-
+  wrapSections('header>div, footer>div');   
+  // window.addEventListener('load', equalizer)  
+  window.addEventListener('load', function() {
+    if(document.querySelector('.callout')) {
+      document.querySelectorAll('.callout').forEach(function($element) {
+        linkInNewTab($element)
+      })
+    }
+  })
 }
 
 
