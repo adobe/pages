@@ -204,8 +204,8 @@ function checklistStates() {
 
 
 function setHeroBackground() {
-  const background = document.querySelector('.clbackground img').getAttribute('src');
-  if(background.length > 2) {
+  if(document.querySelector('.clbackground img')) {
+    const background = document.querySelector('.clbackground img').getAttribute('src');
     document.querySelector('.clbackground-container').remove();
     document.querySelector('.clvideo-container').style.backgroundImage = `url(${background})`
   }
