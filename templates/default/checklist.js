@@ -104,10 +104,40 @@ function createCheckListLayout() {
     }
 
   })
+
+  const launchInLr = document.createElement('div');
+  launchInLr.classList.add('checklist-steps')
+  launchInLr.innerHTML = `
+  <div class="checklist-info">
+    <div class="step-count"><span class="step-index" style="margin-top: 4px;"><svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+    <g id="Placement_Area" data-name="Placement Area" fill="#505050" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="18" height="18" stroke="none"/>
+      <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
+    </g>
+    <g id="Icon">
+      <g id="Canvas" fill="#505050" stroke="#747474" stroke-width="1" opacity="0">
+        <rect width="18" height="18" stroke="none"/>
+        <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
+      </g>
+      <path id="Path_104095" data-name="Path 104095" d="M17.489.189A17.364,17.364,0,0,0,4.793,11a.261.261,0,0,0,.062.273l1.876,1.875A.261.261,0,0,0,7,13.207,17.214,17.214,0,0,0,17.809.509a.272.272,0,0,0-.32-.321Z" fill="#505050"/>
+      <path id="Path_104096" data-name="Path 104096" d="M3.9,9.574H.45a.262.262,0,0,1-.23-.391C1.01,7.8,3.96,3.26,8.424,3.26,7.388,4.3,3.981,8.785,3.9,9.574Z" fill="#505050"/>
+      <path id="Path_104097" data-name="Path 104097" d="M8.424,14.1v3.454a.262.262,0,0,0,.389.23c1.376-.777,5.924-3.688,5.924-8.209C13.7,10.61,9.213,14.017,8.424,14.1Z" fill="#505050"/>
+    </g>
+  </svg>
+  </span></div>
+    <div class="step-info"><div>Ready to start?</div><div data-time="Launch in Lightroom"><strong><a class="launch-btn" href="https://google.com" target="_blank">Launch in Lightroom</a></strong></div></div>
+  </div>
+  
+  `
+
   document.querySelector('.checklist').innerHTML = wrapper;
   document.querySelectorAll('.checklist-steps a').forEach(function(link) {
     link.setAttribute('target', '_blank')
   })
+  document.querySelector('.get-help').insertAdjacentHTML('beforebegin', launchInLr.outerHTML)
+
+  let buttonLink = document.querySelector('.checklist-steps a:first-of-type').getAttribute('href')
+  document.querySelector('.launch-btn').setAttribute('href', buttonLink)
 }
 
 
@@ -174,9 +204,11 @@ function checklistStates() {
 
 
 function setHeroBackground() {
-  const background = document.querySelector('.clbackground img').getAttribute('src');
-  document.querySelector('.clbackground-container').remove();
-  document.querySelector('.clvideo-container').style.backgroundImage = `url(${background})`
+  if(document.querySelector('.clbackground img')) {
+    const background = document.querySelector('.clbackground img').getAttribute('src');
+    document.querySelector('.clbackground-container').remove();
+    document.querySelector('.clvideo-container').style.backgroundImage = `url(${background})`
+  }
 }
 
 function timeTracker() {
@@ -252,6 +284,16 @@ function addPlayIcon() {
 }
 
 
+function setDynamicHeight() {
+  const timeline = document.querySelector('.checklist-timeline');
+  const timelineParent = document.querySelector('.clvideo-container');
+  console.log(window.innerWidth)
+  if(window.innerWidth >= 924) {
+    document.querySelector('.next-container').style.marginTop = (timeline.clientHeight - timelineParent.offsetHeight) + 140 + 'px'  
+  } else {
+    document.querySelector('.next-container').style.marginTop = 0 + 'px'
+  }
+}
 
 layoutSetUp();
 setupCheckList();
@@ -260,3 +302,30 @@ checklistStates();
 setHeroBackground();
 setTimeAttribute();
 addPlayIcon()
+
+const debounce = function (func, wait, immediate) {
+	let timeout;
+	return function () {
+		let context = this,
+			args = arguments;
+		let later = function () {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		let callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+
+
+// Example:
+const resizer = debounce(function() { setDynamicHeight() }, 1000);
+
+window.addEventListener('resize', resizer)
+
+
+setTimeout(function() {
+  setDynamicHeight();
+}, 1000)

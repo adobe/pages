@@ -42,6 +42,10 @@
   left: 0;
 }
 
+.checklist-steps:nth-child(3):before {
+  display: none;
+}
+
 .checklist-steps .checklist-info {
   margin-bottom: 2.5em;
   position: relative;
@@ -133,7 +137,6 @@
 }
 
 .step-info > div:last-of-type {
-  color: red;
   display: flex;
   align-items: center;
 }
