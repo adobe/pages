@@ -12,6 +12,11 @@
   .tl-masterclass .appear .default:first-of-type h1 {
     color: black;
   }
+
+  .premiere.step main .default:first-of-type h1 {
+    color: white !important;
+  }
+
   
   main .card {
     width: 315px;
