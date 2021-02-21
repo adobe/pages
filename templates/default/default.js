@@ -42,7 +42,51 @@ function styleNav() {
     if($nav.querySelector('div').children.length === 0) {
       $nav.remove();
     }
-    console.log($nav.children.length)
+  }
+}
+
+
+function equalizer($element) {
+  if(document.querySelector($element)) {
+    if(document.querySelectorAll($element)[0].className.includes('callout')) {
+      const callOutParents = document.querySelectorAll('.callout-container');
+      callOutParents.forEach(function($callouts) {
+        let titleHeight = 0;
+        let copyHeight = 0; 
+        let $card_items = $callouts.querySelectorAll('.callout > div div:last-of-type');
+
+        // reset applied on resizing
+        $card_items.forEach(function($row) {
+          let title = $row.querySelector('h3');
+          let copy = $row.querySelector('p:first-of-type');
+          title.style.height = ''
+          copy.style.height = ''
+        })
+
+        // collects tallest heights of elements per row
+        $card_items.forEach(function(item) {
+          let title = item.querySelector('h3');
+          let copy = item.querySelector('p:first-of-type');
+
+          if(title.offsetHeight > titleHeight) {
+            titleHeight = title.offsetHeight
+          }
+
+          if(copy.offsetHeight >= copyHeight) {
+            copyHeight = copy.offsetHeight
+          }
+        })
+
+        // Applies styles to each row (tallest title and copy)
+        $card_items.forEach(function($row) {
+          let title = $row.querySelector('h3');
+          let copy = $row.querySelector('p:first-of-type');
+
+          title.style.height = titleHeight + 'px'
+          copy.style.height = copyHeight + 'px'
+        })
+      })
+    }
   }
 }
 
@@ -101,6 +145,20 @@ function decorateHero() {
   document.querySelector('.video-placeholder').addEventListener('click', startVideo)
 }
 
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
 
 function decorateNextStep() {
   const root = document.querySelector('.next');
@@ -354,10 +412,24 @@ async function decoratePage() {
   appearMain();
   decorateEmbeds();
   wrapSections('header>div, footer>div');   
-  // window.addEventListener('load', equalizer)  
   window.addEventListener('load', function() {
-    if(document.querySelector('.callout')) {
-      document.querySelectorAll('.callout').forEach(function($element) {
+    setTimeout(function() {
+      if(document.querySelector('.callout-container')) {
+        equalizer('.eq')
+      }
+    }, 1000)
+  })  
+
+  const runResizerFunctions = debounce(function() {
+    if(document.querySelector('.callout-container')) {
+      equalizer('.eq')
+    }
+  }, 250)
+
+  window.addEventListener('resize', runResizerFunctions)
+  window.addEventListener('load', function() {
+    if(document.querySelector('.eq')) {
+      document.querySelectorAll('.eq').forEach(function($element) {
         linkInNewTab($element)
       })
     }
