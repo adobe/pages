@@ -14,6 +14,7 @@
   max-width: 300px;
   margin: auto;
   position: relative;
+  margin-top: 65px;
 }
 
 .timeline-items:after {
