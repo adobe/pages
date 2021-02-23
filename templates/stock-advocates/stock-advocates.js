@@ -333,8 +333,16 @@ function decorateTables() {
     }
   }
 
+  function handleRedirects() {
+    const path = window.location.pathname.toLowerCase();
+    const page = path.split('/').slice(-1)[0];
+    if (page.startsWith("intersectional-family-life")) {
+      window.location.replace(window.location.href.replace(/intersectional-/,''));
+    }
+  }
 
   async function decoratePage() {
+    handleRedirects();
     decorateTables();
     decorateHeader();
     wrapSections('main>div');
