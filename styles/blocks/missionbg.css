@@ -30,7 +30,7 @@ main.tallest-bg {
 .mission main .section-wrapper:first-of-type p:last-of-type {
   margin-top: 50px !important;
 }
-.mission main .section-wrapper:first-of-type a {
+.mission main .section-wrapper:first-of-type p a {
   color: black;
   padding: 1em 3em;
   border-radius: 60px;
@@ -40,7 +40,7 @@ main.tallest-bg {
   transition: background 100ms ease;
 }
 
-.mission main .section-wrapper:first-of-type a:hover {
+.mission main .section-wrapper:first-of-type p a:hover {
   color: white;
   padding: 1em 3em;
   border-radius: 60px;
@@ -49,7 +49,7 @@ main.tallest-bg {
   border: 3px solid #F29C38;
 }
 
-.mission main .section-wrapper:first-of-type a:hover:active {
+.mission main .section-wrapper:first-of-type p a:hover:active {
   color: white;
   padding: 1em 3em;
   border-radius: 60px;
