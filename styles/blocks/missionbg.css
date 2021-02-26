@@ -2,6 +2,7 @@ main {
   position: relative;
   padding-bottom: 10em;
 }
+
 .missionbg-container {
   position: absolute;
   bottom: 3%; left: 50%;
@@ -22,8 +23,54 @@ main.tallest-bg {
   padding-bottom: 42em;
 }
 
-
-
 .missionbg-container.tall {
   bottom: 0%;
+}
+
+.mission main .section-wrapper:first-of-type p:last-of-type {
+  margin-top: 50px !important;
+}
+.mission main .section-wrapper:first-of-type a {
+  color: black;
+  padding: 1em 3em;
+  border-radius: 60px;
+  font-size: 15px;
+  color: black;
+  border: 3px solid black;
+  transition: background 100ms ease;
+}
+
+.mission main .section-wrapper:first-of-type a:hover {
+  color: white;
+  padding: 1em 3em;
+  border-radius: 60px;
+  font-size: 15px;
+  background-color: #F29C38;
+  border: 3px solid #F29C38;
+}
+
+.mission main .section-wrapper:first-of-type a:hover:active {
+  color: white;
+  padding: 1em 3em;
+  border-radius: 60px;
+  font-size: 15px;
+  background-color: #2E0402;
+  border: 3px solid #2E0402;
+}
+
+.mission h1 {
+  line-height: 1;
+  color: #000000;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.mission h1:first-of-type {
+  margin-top: 40px;
+}
+
+.mission main p {
+  font-weight: 100;
+  line-height: 1.3;
+  color: #000000;
 }

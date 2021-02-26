@@ -13,6 +13,7 @@
 
 .instructions > div > div:first-of-type {
   color: #FF9A00;
+  letter-spacing: 2px;
   font-weight: 800;
   font-size: 20px;
   margin-top: 0;
