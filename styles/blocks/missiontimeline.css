@@ -1,11 +1,6 @@
-.nav {
-  border-bottom: 1px solid #ddd;
+.mission main > .section-wrapper > div {
+  padding-bottom: 0;
 }
-
-.nav a {
-  color: #FF9A00 !important;
-}
-
 
 .timeline-items {
   display: flex;
