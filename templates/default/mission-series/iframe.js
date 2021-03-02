@@ -3,8 +3,22 @@ function generateVideo() {
   const videos = document.querySelectorAll('.iframe > div a');
   videos.forEach(function(video){
     const videoParent = video.closest('div');
-    videoParent.innerHTML = `<iframe src="${video.getAttribute('href')}" frameborder="0"></iframe>`
+    videoParent.innerHTML = `<iframe src="${video.getAttribute('href')}" frameborder="0" id="video"></iframe>`
   })
+
+  function runLink(event) {
+    console.log(event)
+  }
+
+  var base = document.createElement('base');
+  base.target = '_parent';
+  document.getElementsByTagName('head')[0].appendChild(base);
+  
+
+  
+  setTimeout(function() {
+    console.log(document.querySelector(".hotspot-link-7"))
+  }, 3000)
 }
 
 
