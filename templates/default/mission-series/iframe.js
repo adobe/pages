@@ -3,22 +3,15 @@ function generateVideo() {
   const videos = document.querySelectorAll('.iframe > div a');
   videos.forEach(function(video){
     const videoParent = video.closest('div');
-    videoParent.innerHTML = `<iframe src="${video.getAttribute('href')}" frameborder="0" id="video"></iframe>`
+    videoParent.innerHTML = `
+      <iframe src="${video.getAttribute('href')}" frameborder="0" id="video"></iframe>
+      `
   })
-
-  function runLink(event) {
-    console.log(event)
-  }
 
   var base = document.createElement('base');
   base.target = '_parent';
   document.getElementsByTagName('head')[0].appendChild(base);
-  
-
-  
-  setTimeout(function() {
-    console.log(document.querySelector(".hotspot-link-7"))
-  }, 3000)
+  document.querySelector('.iframe > div > div').classList.add('iframe-parent');
 }
 
 
@@ -50,5 +43,48 @@ function setUpTimeline() {
   })
 }
 
+function setUpControllers() {
+  const items = document.querySelectorAll('.iframecontrol > div');
+  let element;
+  
+  items.forEach(function($row) {
+    const type = $row.querySelector('div:first-of-type').innerText;
+    const link = $row.querySelector('a').getAttribute('href');
+    
+    if(type === "previous") {
+      element = document.createElement('div');
+      element.className = 'btn previous';
+      element.innerHTML = `
+        <a href="${link}">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="53" height="63" viewBox="0 0 53 63">
+              <path id="Polygon_1" data-name="Polygon 1" d="M27.2,7.232a5,5,0,0,1,8.6,0L58.51,45.445A5,5,0,0,1,54.212,53H8.788a5,5,0,0,1-4.3-7.555Z" transform="translate(0 63) rotate(-90)" fill="#3a0001"/>
+            </svg>
+          </span>
+        </a>
+      `
+    } else {
+      element = document.createElement('div');
+      element.className = 'btn next';
+      element.innerHTML = `
+        <a href="${link}">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="53" height="63" viewBox="0 0 53 63">
+            <path id="Polygon_1" data-name="Polygon 1" d="M27.2,7.232a5,5,0,0,1,8.6,0L58.51,45.445A5,5,0,0,1,54.212,53H8.788a5,5,0,0,1-4.3-7.555Z" transform="translate(53) rotate(90)" fill="#3a0001"/>
+          </svg>
+          
+          
+          </span>
+        </a>
+      `
+    }  
+    document.querySelector('.iframe-parent').appendChild(element)
+  })
+  document.querySelector('.iframecontrol-container').remove();
+}
+
 setUpTimeline();
 generateVideo();
+if(document.querySelector('.iframecontrol')) {
+  setUpControllers();
+}

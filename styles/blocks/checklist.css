@@ -114,7 +114,7 @@
   margin-top: 3em;
 }
 
-.step-count, .icon {
+.step-count, .step-count .icon {
   height: 40px;
   width: 40px;
   position: absolute;
