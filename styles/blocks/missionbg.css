@@ -38,6 +38,8 @@ main.tallest-bg {
   color: black;
   border: 3px solid black;
   transition: background 100ms ease;
+  margin-top: 32px;
+  display: inline-block;
 }
 
 .mission main .section-wrapper p a:hover {
