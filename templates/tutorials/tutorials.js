@@ -135,8 +135,31 @@ async function insertSteps() {
     }
 }
 
+async function loadLocalHeader() {
+  decorateTables();
+  const $inlineHeader=document.querySelector('main div.header-block');
+  if ($inlineHeader) {
+    const $header=document.querySelector('header');
+    $inlineHeader.childNodes.forEach((e, i) => {
+      if (e.nodeName == '#text' && !i) {
+        const $p=createTag('p');
+        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.nodeValue}`
+        $p.innerHTML=inner;
+        e.parentNode.replaceChild($p,e);
+      }
+      if (e.nodeName == 'P' && !i) {
+        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`
+        e.innerHTML=inner;
+      }
+    });
+    $header.innerHTML=`<div>${$inlineHeader.innerHTML}</div>`;
+    $inlineHeader.remove();
+    document.querySelector('header').classList.add('appear');
+  } else {
+    await insertLocalResource('header');
 
-
+  }
+}
 function dropDownMenu() {
   let $header = document.querySelector('header');
 
@@ -270,6 +293,18 @@ async function decorateHome() {
 
 }
 
+function decorateVideoBlocks() {
+  document.querySelectorAll('main .video a[href]').forEach(($a) => {
+    const videoLink=$a.href;
+    let $video=$a;
+    if (videoLink.includes('tv.adobe.com')) {
+      $video=createTag('iframe', {src: videoLink, class:'embed tv-adobe' });
+    }
+    $a.parentElement.replaceChild($video, $a)
+  })
+}
+
+
 async function decoratePage() {
     addDefaultClass('main>div');
 
@@ -282,6 +317,8 @@ async function decoratePage() {
     addNavCarrot();
     decorateTables();
 //    wrapSections('main>div');
+
+	decorateVideoBlocks();
 
     if(document.querySelector('.nav-logo')) {
       document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
