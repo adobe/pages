@@ -138,6 +138,7 @@ async function insertSteps() {
 async function loadLocalHeader() {
   decorateTables();
   const $inlineHeader=document.querySelector('main div.header-block');
+  if ($inlineHeader) {
     const $header=document.querySelector('header');
     $inlineHeader.childNodes.forEach((e, i) => {
       if (e.nodeName == '#text' && !i) {
@@ -154,9 +155,11 @@ async function loadLocalHeader() {
     $header.innerHTML=`<div>${$inlineHeader.innerHTML}</div>`;
     $inlineHeader.remove();
     document.querySelector('header').classList.add('appear');
+  } else {
+    await insertLocalResource('header');
+
+  }
 }
-
-
 function dropDownMenu() {
   let $header = document.querySelector('header');
 
@@ -204,8 +207,8 @@ async function decorateStep() {
     
     //const $upnext=document.querySelector('a[');
 
-    const $video=createTag('div', {class: 'video-wrapper'});
-    $content.appendChild($video);
+    //const $video=createTag('div', {class: 'video-wrapper'});
+    //$content.appendChild($video);
 
     const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
     const steps=await fetchSteps();
@@ -307,7 +310,7 @@ async function decoratePage() {
 
     await loadLocalHeader();
 
-    //externalLinks('header');
+    externalLinks('header');
     externalLinks('footer');
 	wrapSections('header>div, main>div');
     // nav style/dropdown
