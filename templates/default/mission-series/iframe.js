@@ -49,7 +49,11 @@ function setUpControllers() {
   
   items.forEach(function($row) {
     const type = $row.querySelector('div:first-of-type').innerText;
-    const link = $row.querySelector('a').getAttribute('href');
+    let link = '';
+    
+    if($row.querySelector('a')) {
+      link = $row.querySelector('a').getAttribute('href');
+    }
     
     if(type === "previous") {
       element = document.createElement('div');
