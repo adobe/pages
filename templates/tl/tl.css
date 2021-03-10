@@ -19,6 +19,17 @@ main h1 {
   padding: 20px;
 }
 
+.row-title {
+  text-align: center;
+  /* margin-left: 2em; */
+}
+
+.row {
+  margin-bottom: 2em;
+}
+.row:last-of-type {
+  margin-bottom: 0;
+}
 
 .illustrator main .default:first-of-type h1 {
   border: none;
@@ -41,6 +52,7 @@ main .steps {
   justify-content: center;
   max-width: 1100px;
 }
+
 
 main .card {
   width: 315px;
@@ -357,6 +369,11 @@ main svg {
 
   main {
       font-size: 24px;
+  }
+
+  .row-title {
+    text-align: left;
+    margin-left: 2em;
   }
 
   .step main .video-wrapper {
