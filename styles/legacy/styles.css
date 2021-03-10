@@ -471,7 +471,6 @@ footer p:after {
   }
   
   header .nav-logo {
-    cursor: pointer;
     padding: 1em 0em;
     display: flex;
     align-items: center;
