@@ -109,23 +109,31 @@ function createCheckListLayout() {
   launchInLr.classList.add('checklist-steps')
   launchInLr.innerHTML = `
   <div class="checklist-info">
-    <div class="step-count"><span class="step-index" style="margin-top: 4px;"><svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-    <g id="Placement_Area" data-name="Placement Area" fill="#505050" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
-      <rect width="18" height="18" stroke="none"/>
-      <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
-    </g>
-    <g id="Icon">
-      <g id="Canvas" fill="#505050" stroke="#747474" stroke-width="1" opacity="0">
-        <rect width="18" height="18" stroke="none"/>
-        <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
-      </g>
-      <path id="Path_104095" data-name="Path 104095" d="M17.489.189A17.364,17.364,0,0,0,4.793,11a.261.261,0,0,0,.062.273l1.876,1.875A.261.261,0,0,0,7,13.207,17.214,17.214,0,0,0,17.809.509a.272.272,0,0,0-.32-.321Z" fill="#505050"/>
-      <path id="Path_104096" data-name="Path 104096" d="M3.9,9.574H.45a.262.262,0,0,1-.23-.391C1.01,7.8,3.96,3.26,8.424,3.26,7.388,4.3,3.981,8.785,3.9,9.574Z" fill="#505050"/>
-      <path id="Path_104097" data-name="Path 104097" d="M8.424,14.1v3.454a.262.262,0,0,0,.389.23c1.376-.777,5.924-3.688,5.924-8.209C13.7,10.61,9.213,14.017,8.424,14.1Z" fill="#505050"/>
-    </g>
-  </svg>
-  </span></div>
-    <div class="step-info"><div>Ready to start?</div><div data-time="Launch in Lightroom"><strong><a class="launch-btn" href="https://google.com" target="_blank">Launch in Lightroom</a></strong></div></div>
+    <div class="step-count">
+      <span class="step-index" style="margin-top: 4px;">
+        <svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+          <g id="Placement_Area" data-name="Placement Area" fill="#505050" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+            <rect width="18" height="18" stroke="none"/>
+            <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
+          </g>
+          <g id="Icon">
+            <g id="Canvas" fill="#505050" stroke="#747474" stroke-width="1" opacity="0">
+              <rect width="18" height="18" stroke="none"/>
+              <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
+            </g>
+            <path id="Path_104095" data-name="Path 104095" d="M17.489.189A17.364,17.364,0,0,0,4.793,11a.261.261,0,0,0,.062.273l1.876,1.875A.261.261,0,0,0,7,13.207,17.214,17.214,0,0,0,17.809.509a.272.272,0,0,0-.32-.321Z" fill="#505050"/>
+            <path id="Path_104096" data-name="Path 104096" d="M3.9,9.574H.45a.262.262,0,0,1-.23-.391C1.01,7.8,3.96,3.26,8.424,3.26,7.388,4.3,3.981,8.785,3.9,9.574Z" fill="#505050"/>
+            <path id="Path_104097" data-name="Path 104097" d="M8.424,14.1v3.454a.262.262,0,0,0,.389.23c1.376-.777,5.924-3.688,5.924-8.209C13.7,10.61,9.213,14.017,8.424,14.1Z" fill="#505050"/>
+          </g>
+        </svg>
+      </span>
+    </div>
+    <div class="step-info">
+      <div>Ready to start?</div>
+      <div data-time="Launch in Lightroom" style="margin-top: 0; padding-bottom: 0;">
+        &nbsp;
+      </div>
+    </div>
   </div>
   
   `
@@ -137,7 +145,7 @@ function createCheckListLayout() {
   document.querySelector('.get-help').insertAdjacentHTML('beforebegin', launchInLr.outerHTML)
 
   let buttonLink = document.querySelector('.checklist-steps a:first-of-type').getAttribute('href')
-  document.querySelector('.launch-btn').setAttribute('href', buttonLink)
+  // document.querySelector('.launch-btn').setAttribute('href', buttonLink)
 }
 
 
@@ -255,6 +263,7 @@ function setTimeAttribute() {
   time.forEach(function(time_item) {
     time_item.closest('.step-info > div:last-of-type').setAttribute('data-time', time_item.innerText)
   })
+  document.querySelector('.get-help a').setAttribute('target', '_blank')
 }
 
 

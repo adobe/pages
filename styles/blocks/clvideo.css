@@ -81,7 +81,8 @@ main > .section-wrapper.clvideo-container{
 .clvideo > div:last-child h2:after {
   content: '';
   position: absolute;
-  width: 345px;
+  max-width: 345px;
+  width: 100%;
   background: #4B4B4B;
   height: 4px;
   bottom: -10px;
@@ -112,15 +113,22 @@ main > .section-wrapper.clvideo-container{
   }
 
   .clvideo-container h1 {
-    width: 60%;
+    width: 55%;
   }
   
+  /* .clvideo {
+    width: 70%;
+  } */
   .clvideo {
+    width: 100%;
+  }
+
+  .clvideo > div>div {
     width: 60%;
   }
   
   .clvideo > div > div:last-of-type {
-    width: 60%;
+    width: 55%;
   }
 }
 
