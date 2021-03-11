@@ -81,6 +81,8 @@ body.home .section-wrapper:last-child .default > h2 {
 	margin: 0 0 20px 0;
 }
 
+.default > p > a:only-child, 
+.section-wrapper > p > a:only-child,
 a.button.action,
 body.home .section-wrapper > p > a:only-child {
 	display: inline-block;
@@ -95,12 +97,16 @@ body.home .section-wrapper > p > a:only-child {
 	text-decoration: none;
 	margin-top: 20px;
 	font-size: 16px;
+	-webkit-appearance: none;
 }
 
+.default > p > a:only-child:hover, 
+.section-wrapper > p > a:only-child:hover,
 a.button.action:hover,
 body.home .section-wrapper > p > a:only-child:hover {
 	background: #0D66D0;
 }
+
 
 main a.button {
 	border-width: 2px;
@@ -117,7 +123,9 @@ main a.button {
     color: rgb(110, 110, 110);
     padding-top: 6.5px;
     font-size: 16px;
+	-webkit-appearance: none;
 }
+
 
 main a.button:hover {
     background-color: rgb(110, 110, 110);
@@ -195,7 +203,7 @@ main .card > div:last-child {
 
 main .card h3 {
   	font-size: 20px;
-  	line-height: 25px;
+  	line-height: 27px;
   	margin: 0 0 10px 0;
 }
 
@@ -341,13 +349,13 @@ body.step.loaded {
 	float: left;
 }
 
-.content footer nav a.button:last-child {
-	margin: 0;
-	float: right;
-}
-
 .content .text p {
 	font-family: "Adobe Clean Serif", adobe-clean-serif, sans-serif;
+}
+
+/* hide lrc launch button on non-desktop devices */
+.content footer nav a.button:last-child {
+	display: none;
 }
 
 
@@ -369,6 +377,11 @@ body.step.loaded {
 	main h2 {
 		font-size: 36px;
 		line-height: 45px;
+	}
+	
+	main .default > h2:first-child,
+	main .default .cards + p {
+		text-align: center;
 	}
 	
 	main .default > p {
@@ -399,8 +412,6 @@ body.step.loaded {
 	main .card {
 		max-width: 338px;
 		margin: 0 8px 16px 8px;
-		font-size: 22px;
-		line-height: 28px;
 	}
 	
 	main .card.index-steps {
@@ -418,11 +429,6 @@ body.step.loaded {
 	main .card.index-steps .text {
 		width: 66%;
 	}
-
-	main .card h3 {
-  		font-size: 26px;
-  		line-height: 32px;
-  	}
   	
   	main .default > p:last-child {
 	  	margin-bottom: 0;
@@ -470,6 +476,12 @@ body.step.loaded {
   	.content footer nav {
 		border-top: 1px solid #e1e1e1;
 	    padding-top: 30px;
+	}
+	
+	.content footer nav a.button:last-child {
+		display: inline-block;
+		margin: 0;
+		float: right;
 	}
 
 }

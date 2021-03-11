@@ -89,6 +89,7 @@ main .default > p {
 	border: none;
 	padding: 0 20px;
 	text-decoration: none;
+	-webkit-appearance: none;
 }
 
 #beta-form input[type=submit]:hover,
@@ -182,11 +183,20 @@ main .card div:last-child {
 	padding: 40px;
 }
 
-main .card h3 {
+main .card h3,
+main .card h3 a {
   	font-size: 20px;
-  	line-height: 25px;
+  	line-height: 27px;
   	margin: 0 0 10px 0;
   	color: #2C2C2C;
+}
+
+main .card a {
+	display: block; 
+}
+
+main .card:hover h3 a {
+	text-decoration: none;
 }
 
 
@@ -214,7 +224,7 @@ main .card h3 {
 	
 	main .default > p {
 		font-size: 20px;
-		line-height: 25px;
+		line-height: 27px;
 	}
 	
 	main .cards {
@@ -231,7 +241,7 @@ main .card h3 {
 	
 	main .card {
 		width: 338px;
-		margin: 0 8px;
+		margin: 24px 8px 40px 8px;
 		font-size: 22px;
 		line-height: 28px;
 	}
@@ -247,6 +257,11 @@ main .card h3 {
   	
   	header p:first-of-type {
 	  	margin-left: 12px;
+  	}
+  	
+  	main .card-section h2,
+  	main .card-section > p {
+	  	text-align: center;
   	}
 }
 

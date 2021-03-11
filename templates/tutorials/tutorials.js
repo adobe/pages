@@ -14,10 +14,13 @@
         if (cols.length==1 && $rows.length==1) {
             $div=createTag('div', {class:`${cols[0]}`});
             $div.innerHTML=$rows[0].querySelector('td').innerHTML;
+            $table.parentNode.replaceChild($div, $table);
+
         } else {
-            $div=turnTableSectionIntoCards($table, cols) 
+            $div=turnTableSectionIntoCards($table, cols)
+            $table.parentNode.replaceChild($div, $table);
+            $div.parentNode.classList.add('card-section');
         }
-        $table.parentNode.replaceChild($div, $table);
     });
   }
 
