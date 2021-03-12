@@ -349,23 +349,29 @@ async function decoratePage() {
         pageType = 'home';
     }
 
+    
     window.pages.pageType = pageType;
 
+    
     if (pageType == 'home') {
         await decorateHome();
     }
-
+    
     if (pageType == 'step') {
         await decorateStep();
     }
-
+    
     window.pages.decorated = true;
     appearMain();
+    if(document.getElementsByTagName('body')[0].classList.contains('photography-plan')) {
+        document.querySelector('.progress').innerHTML = '';
+    }
 }
 
 if (document.readyState == 'loading') {
     window.addEventListener('DOMContentLoaded', (event) => {
         decoratePage();
+
     });
 } else {
     decoratePage();
