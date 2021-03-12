@@ -84,32 +84,54 @@ async function insertSteps() {
                 
                 steps.forEach((step, i) => {
                     if(step.Category === stepsNest.Category) {
-                        markup += `
-                        <div class="card" onclick="window.location='step?${i+1}'">
-                    <div class='img' style="background-image: url(${getThumbnail(step)})">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                    <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                        <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                        <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                    </g>
-                    </svg>
-                    </div>
-                    <div class='text'>
-                        <div><h4>${step.Title.replace('\n', '<br>')}</h4>
-                        <p>${step.Description.replace('\n', '<br>')}</p>
-                        </div>
-                        <a href="step?${i+1}">${step.CTA}</a>
-                    </div>
-                </div>
+                        if(step.CTA_URL) {
+                            markup += `
+                                <a href="${step.CTA_URL}" class="card ext-link" target="_blank">
+                                    <span>
+                                        <div class='img' style="background-image: url(${getThumbnail(step)})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+                                                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                                                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                                                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="text">
+                                            <div>
+                                                <h4>${step.Title.replace('\n', '<br>')}</h4>
+                                                <p>${step.Description.replace('\n', '<br>')}</p>
+                                            </div>
+                                            <span class="card-cta">${step.CTA}</span>
+                                        </div>
+                                    </span>
+                                </a>
+                            `
+                        } else {
+                            markup += `
+                                <div class="card" onclick="window.location='step?${i+1}'">
+                                    <div class='img' style="background-image: url(${getThumbnail(step)})">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+                                    <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                                        <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                                        <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+                                    </g>
+                                    </svg>
+                                    </div>
+                                    <div class='text'>
+                                        <div><h4>${step.Title.replace('\n', '<br>')}</h4>
+                                        <p>${step.Description.replace('\n', '<br>')}</p>
+                                        </div>
+                                        <a href="step?${i+1}">${step.CTA}</a>
+                                    </div>
+                                </div>
+                            `
+                        }
                         
-                        `
                     }
                 })
                 markup += `</div> </div>`
             })
-
             $steps.innerHTML=markup;
-            // console.log(markup)
 
         } else {
             let html='';

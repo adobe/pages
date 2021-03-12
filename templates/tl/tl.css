@@ -13,7 +13,7 @@ main img, main video {
 main h1 {
   font-size: 42px;
   font-weight: 900;
-  max-width: 650px;
+  max-width: 750px;
   width: 95%;
   margin: auto;
   padding: 20px;
@@ -58,6 +58,12 @@ main .card {
   width: 315px;
   margin: 15px;
   cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.ext-link {
+  color: #323232;
 }
 
 main .card .text {
@@ -131,6 +137,23 @@ main .card a:any-link:hover {
   margin: 50px auto 0.4em auto;
   padding: 0px 10px 0px 10px;
   display: inline-block;
+}
+
+.card-cta {
+  border: 2px solid currentColor;
+  border-radius: 20px;
+  padding: 7px 20px;
+  text-decoration: none;
+  color: currentColor;
+  font-weight: 800;
+  display: inline-block;
+  font-size: 14px;
+  transition: background .3s ease;
+}
+
+.card-cta:hover {
+  background-color: #C8C8C8;
+  border-color: #C8C8C8;
 }
 
 
