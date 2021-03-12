@@ -39,11 +39,10 @@ function layoutSetUp() {
     </div>
   `
   videoEl.innerHTML = video;
-
   document.querySelector('.clvideo > div > div:last-of-type').innerHTML = transcript.outerHTML
   document.querySelector('.transcript-container').remove();
 
-  
+
 
   function runVideo() {
     if(!hasPlayed) {
@@ -56,7 +55,6 @@ function layoutSetUp() {
       timeTracker();
     }
   }
-
   document.querySelector('.video-iframe').addEventListener('click', runVideo)
 }
 
@@ -102,42 +100,39 @@ function createCheckListLayout() {
     if(index >= checklistElements.length - 2 ) {
       wrapper += `</div>`
     }
-
   })
 
   const launchInLr = document.createElement('div');
   launchInLr.classList.add('checklist-steps')
   launchInLr.innerHTML = `
-  <div class="checklist-info">
-    <div class="step-count">
-      <span class="step-index" style="margin-top: 4px;">
-        <svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-          <g id="Placement_Area" data-name="Placement Area" fill="#505050" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
-            <rect width="18" height="18" stroke="none"/>
-            <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
-          </g>
-          <g id="Icon">
-            <g id="Canvas" fill="#505050" stroke="#747474" stroke-width="1" opacity="0">
+    <div class="checklist-info">
+      <div class="step-count">
+        <span class="step-index" style="margin-top: 4px;">
+          <svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <g id="Placement_Area" data-name="Placement Area" fill="#505050" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
               <rect width="18" height="18" stroke="none"/>
               <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
             </g>
-            <path id="Path_104095" data-name="Path 104095" d="M17.489.189A17.364,17.364,0,0,0,4.793,11a.261.261,0,0,0,.062.273l1.876,1.875A.261.261,0,0,0,7,13.207,17.214,17.214,0,0,0,17.809.509a.272.272,0,0,0-.32-.321Z" fill="#505050"/>
-            <path id="Path_104096" data-name="Path 104096" d="M3.9,9.574H.45a.262.262,0,0,1-.23-.391C1.01,7.8,3.96,3.26,8.424,3.26,7.388,4.3,3.981,8.785,3.9,9.574Z" fill="#505050"/>
-            <path id="Path_104097" data-name="Path 104097" d="M8.424,14.1v3.454a.262.262,0,0,0,.389.23c1.376-.777,5.924-3.688,5.924-8.209C13.7,10.61,9.213,14.017,8.424,14.1Z" fill="#505050"/>
-          </g>
-        </svg>
-      </span>
-    </div>
-    <div class="step-info">
-      <div>Ready to start?</div>
-      <div data-time="Launch in Lightroom" style="margin-top: 0; padding-bottom: 0;">
-        &nbsp;
+            <g id="Icon">
+              <g id="Canvas" fill="#505050" stroke="#747474" stroke-width="1" opacity="0">
+                <rect width="18" height="18" stroke="none"/>
+                <rect x="0.5" y="0.5" width="17" height="17" fill="none"/>
+              </g>
+              <path id="Path_104095" data-name="Path 104095" d="M17.489.189A17.364,17.364,0,0,0,4.793,11a.261.261,0,0,0,.062.273l1.876,1.875A.261.261,0,0,0,7,13.207,17.214,17.214,0,0,0,17.809.509a.272.272,0,0,0-.32-.321Z" fill="#505050"/>
+              <path id="Path_104096" data-name="Path 104096" d="M3.9,9.574H.45a.262.262,0,0,1-.23-.391C1.01,7.8,3.96,3.26,8.424,3.26,7.388,4.3,3.981,8.785,3.9,9.574Z" fill="#505050"/>
+              <path id="Path_104097" data-name="Path 104097" d="M8.424,14.1v3.454a.262.262,0,0,0,.389.23c1.376-.777,5.924-3.688,5.924-8.209C13.7,10.61,9.213,14.017,8.424,14.1Z" fill="#505050"/>
+            </g>
+          </svg>
+        </span>
+      </div>
+      <div class="step-info">
+        <div>Ready to start?</div>
+        <div data-time="Launch in Lightroom" style="margin-top: 0; padding-bottom: 0;">
+          &nbsp;
+        </div>
       </div>
     </div>
-  </div>
-  
   `
-
   document.querySelector('.checklist').innerHTML = wrapper;
   document.querySelectorAll('.checklist-steps a').forEach(function(link) {
     link.setAttribute('target', '_blank')
@@ -154,49 +149,44 @@ function setTranscript(index) {
   transcripts.forEach(function(el) {
     el.style.display = 'none'
   })
-  transcripts[index - 2].style.display = 'block'
+  transcripts[index - 1].style.display = 'block'
 }
 
 function addState(evt) {
   const currentItem = evt.currentTarget;
-  console.log(currentItem.getAttribute('data-time'))
-
   setTranscript(currentItem.closest('.checklist-info').getAttribute('data-index'))
-  
   const currentParent = currentItem.closest('.checklist-steps .checklist-info');
-  const svg = `<svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 30">
-  <g id="Placement_Area" data-name="Placement Area" fill="red" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
-    <rect width="30" height="30" stroke="none"/>
-    <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
-  </g>
-  <circle id="White_background" data-name="White background" cx="15" cy="15" r="15" fill="#fff"/>
-  <g id="Icon">
-    <g id="Canvas" fill="#747474" stroke="#747474" stroke-width="1" opacity="0">
-      <rect width="30" height="30" stroke="none"/>
-      <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
-    </g>
-    <path id="Path_104098" data-name="Path 104098" d="M15,1A14,14,0,1,0,29,15,14,14,0,0,0,15,1Zm9.333,7.945L13.266,23.173a1.055,1.055,0,0,1-.766.4h-.064a1.05,1.05,0,0,1-.743-.307L4.882,16.451a1.05,1.05,0,0,1,0-1.485l0,0L6.042,13.8a1.05,1.05,0,0,1,1.485,0l0,0,4.671,4.68,9.2-11.82a1.05,1.05,0,0,1,1.473-.185l0,0,1.273.995a1.05,1.05,0,0,1,.185,1.47Z" fill="#33ab84"/>
-  </g>
-</svg>
-`
+  const svg = `
+    <svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 30">
+      <g id="Placement_Area" data-name="Placement Area" fill="red" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+        <rect width="30" height="30" stroke="none"/>
+        <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
+      </g>
+      <circle id="White_background" data-name="White background" cx="15" cy="15" r="15" fill="#fff"/>
+      <g id="Icon">
+        <g id="Canvas" fill="#747474" stroke="#747474" stroke-width="1" opacity="0">
+          <rect width="30" height="30" stroke="none"/>
+          <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
+        </g>
+        <path id="Path_104098" data-name="Path 104098" d="M15,1A14,14,0,1,0,29,15,14,14,0,0,0,15,1Zm9.333,7.945L13.266,23.173a1.055,1.055,0,0,1-.766.4h-.064a1.05,1.05,0,0,1-.743-.307L4.882,16.451a1.05,1.05,0,0,1,0-1.485l0,0L6.042,13.8a1.05,1.05,0,0,1,1.485,0l0,0,4.671,4.68,9.2-11.82a1.05,1.05,0,0,1,1.473-.185l0,0,1.273.995a1.05,1.05,0,0,1,.185,1.47Z" fill="#33ab84"/>
+      </g>
+    </svg>
+  `
 
-if(currentItem.getAttribute('data-time') >= 1) {
-  document.querySelector('.cl-video-el').style.display = 'block';
-  document.querySelector('.cl-video-el').setAttribute('controls', true)
-  document.querySelector('.cl-video-el').play();
-  document.querySelector('.video-iframe').style.backgroundImage = `url()`
-  document.querySelector(".cl-video-el").currentTime = evt.currentTarget.getAttribute('data-time');
-  if(!hasPlayed) {
-    document.querySelector('#ply-btn').remove();
-    hasPlayed = true;
-    timeTracker();
+  if(currentItem.getAttribute('data-time') >= 1) {
+    document.querySelector('.cl-video-el').style.display = 'block';
+    document.querySelector('.cl-video-el').setAttribute('controls', true)
+    document.querySelector('.cl-video-el').play();
+    document.querySelector('.video-iframe').style.backgroundImage = `url()`
+    document.querySelector(".cl-video-el").currentTime = evt.currentTarget.getAttribute('data-time');
+    if(!hasPlayed) {
+      document.querySelector('#ply-btn').remove();
+      hasPlayed = true;
+      timeTracker();
+    }
+  } else {
+    currentParent.classList.add('complete')
   }
-} else {
-  currentParent.classList.add('complete')
-}
-
-
-
   currentParent.querySelector('.step-count').innerHTML = svg;
 }
 
@@ -210,7 +200,6 @@ function checklistStates() {
 }
 
 
-
 function setHeroBackground() {
   if(document.querySelector('.clbackground img')) {
     const background = document.querySelector('.clbackground img').getAttribute('src');
@@ -220,20 +209,22 @@ function setHeroBackground() {
 }
 
 function timeTracker() {
-  const svg = `<svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 30">
-  <g id="Placement_Area" data-name="Placement Area" fill="red" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
-    <rect width="30" height="30" stroke="none"/>
-    <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
-  </g>
-  <circle id="White_background" data-name="White background" cx="15" cy="15" r="15" fill="#fff"/>
-  <g id="Icon">
-    <g id="Canvas" fill="#747474" stroke="#747474" stroke-width="1" opacity="0">
+  const svg = `
+  <svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 30">
+    <g id="Placement_Area" data-name="Placement Area" fill="red" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
       <rect width="30" height="30" stroke="none"/>
       <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
     </g>
-    <path id="Path_104098" data-name="Path 104098" d="M15,1A14,14,0,1,0,29,15,14,14,0,0,0,15,1Zm9.333,7.945L13.266,23.173a1.055,1.055,0,0,1-.766.4h-.064a1.05,1.05,0,0,1-.743-.307L4.882,16.451a1.05,1.05,0,0,1,0-1.485l0,0L6.042,13.8a1.05,1.05,0,0,1,1.485,0l0,0,4.671,4.68,9.2-11.82a1.05,1.05,0,0,1,1.473-.185l0,0,1.273.995a1.05,1.05,0,0,1,.185,1.47Z" fill="#33ab84"/>
-  </g>
-</svg>`
+    <circle id="White_background" data-name="White background" cx="15" cy="15" r="15" fill="#fff"/>
+    <g id="Icon">
+      <g id="Canvas" fill="#747474" stroke="#747474" stroke-width="1" opacity="0">
+        <rect width="30" height="30" stroke="none"/>
+        <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
+      </g>
+      <path id="Path_104098" data-name="Path 104098" d="M15,1A14,14,0,1,0,29,15,14,14,0,0,0,15,1Zm9.333,7.945L13.266,23.173a1.055,1.055,0,0,1-.766.4h-.064a1.05,1.05,0,0,1-.743-.307L4.882,16.451a1.05,1.05,0,0,1,0-1.485l0,0L6.042,13.8a1.05,1.05,0,0,1,1.485,0l0,0,4.671,4.68,9.2-11.82a1.05,1.05,0,0,1,1.473-.185l0,0,1.273.995a1.05,1.05,0,0,1,.185,1.47Z" fill="#33ab84"/>
+    </g>
+  </svg>
+  `
 
 let checker;
   if(hasPlayed) {
@@ -296,7 +287,6 @@ function addPlayIcon() {
 function setDynamicHeight() {
   const timeline = document.querySelector('.checklist-timeline');
   const timelineParent = document.querySelector('.clvideo-container');
-  console.log(window.innerWidth)
   if(window.innerWidth >= 924) {
     document.querySelector('.next-container').style.marginTop = (timeline.clientHeight - timelineParent.offsetHeight) + 140 + 'px'  
   } else {
@@ -329,11 +319,8 @@ const debounce = function (func, wait, immediate) {
 };
 
 
-// Example:
 const resizer = debounce(function() { setDynamicHeight() }, 1000);
-
 window.addEventListener('resize', resizer)
-
 
 setTimeout(function() {
   setDynamicHeight();
