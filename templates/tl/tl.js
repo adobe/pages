@@ -176,14 +176,18 @@ function dropDownMenu() {
 
 
 
+let videoHasPlayed = false;
 
 export function playVideo() {
     document.getElementById('placeholder').classList.add('hidden');
     const $video=document.getElementById('video');
     $video.classList.remove('hidden');
     $video.classList.remove('hidden');
-    $video.play();
-    $video.setAttribute('controls', true)
+    if(!videoHasPlayed) {
+        $video.play();
+        $video.setAttribute('controls', true)
+    }
+    videoHasPlayed = true;
 
 }
 
@@ -290,14 +294,15 @@ async function decorateStep() {
 
     const nextStep=steps[stepIndex+1];
     if (nextStep) {
-        $upnext.innerHTML=` <div class="upnext__inner">
-                              <div class="window">
-                                <img src="${getThumbnail(nextStep)}">
-                              </div>
-                              ${upnext}
-                              <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
-                              <p>${nextStep.Description.replace('\n', '<br>')}</p>
-                            </div>
+        $upnext.innerHTML=` 
+            <div class="upnext__inner">
+                <div class="window">
+                    <img src="${getThumbnail(nextStep)}">
+                </div>
+                ${upnext}
+                <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
+                <p>${nextStep.Description.replace('\n', '<br>')}</p>
+            </div>
         
                 `;
     } else {
@@ -333,17 +338,14 @@ async function decorateHome() {
 
 async function decoratePage() {
     addDefaultClass('main>div');
-
     await loadLocalHeader();
-
     externalLinks('header');
     externalLinks('footer');
     wrapSections('header>div');
-    // nav style/dropdown
     addNavCarrot();
 
     if(document.querySelector('.nav-logo')) {
-      document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
+        document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
     }
 
     let pageType;
