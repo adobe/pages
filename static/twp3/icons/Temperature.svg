@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <g id="Temperature" transform="translate(-186 -1344)">
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-1" width="48" height="42" transform="translate(186 1344)"/>
+    <g id="icons" transform="translate(188.808 1347.425)">
+      <g id="Smock_Temperature_18_N" transform="translate(4.192 -0.765)">
+        <rect id="Canvas" class="cls-2" width="35" height="35" transform="translate(0 0.34)"/>
+        <path id="Path_104065" data-name="Path 104065" class="cls-3" d="M13.8,15.1V5H9.9V15.1a5.848,5.848,0,1,0,3.9,0Z" transform="translate(5.49 5.651)"/>
+        <path id="Path_104066" data-name="Path 104066" class="cls-3" d="M13.746,1.754a4.093,4.093,0,0,1,4.093,4.093h0V18.46l.7.526a7.992,7.992,0,1,1-9.58,0l.7-.526V5.848a4.093,4.093,0,0,1,4.093-4.093Zm0-1.754A5.848,5.848,0,0,0,7.9,5.848V17.586a9.746,9.746,0,1,0,11.7,0V5.848A5.848,5.848,0,0,0,13.746,0Z" transform="translate(3.591 0.905)"/>
+      </g>
+    </g>
+  </g>
+</svg>

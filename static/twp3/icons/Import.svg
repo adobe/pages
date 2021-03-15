@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <g id="Import" transform="translate(-186 -1344)">
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-1" width="48" height="42" transform="translate(186 1344)"/>
+    <g id="Smock_Import_18_N" transform="translate(193 1349.393)">
+      <rect id="Canvas" class="cls-2" width="32" height="32" transform="translate(0 -0.393)"/>
+      <path id="Path_104076" data-name="Path 104076" class="cls-3" d="M25.1,1H5.874A.874.874,0,0,0,5,1.874V7.118a.874.874,0,0,0,.874.874H7.622A.874.874,0,0,0,8.5,7.118V4.5H22.479V25.47H8.5V22.849a.874.874,0,0,0-.874-.874H5.874A.874.874,0,0,0,5,22.849v5.244a.874.874,0,0,0,.874.874H25.1a.874.874,0,0,0,.874-.874V1.874A.874.874,0,0,0,25.1,1Z" transform="translate(3.739 0.748)"/>
+      <path id="Path_104077" data-name="Path 104077" class="cls-3" d="M13.235,18.284a.7.7,0,0,0,.7.7.688.688,0,0,0,.461-.175L20.971,12.3a.437.437,0,0,0,0-.612L14.4,5.175A.688.688,0,0,0,13.939,5a.7.7,0,0,0-.7.7v4.545H1.874A.874.874,0,0,0,1,11.118v1.748a.874.874,0,0,0,.874.874H13.235Z" transform="translate(0.748 3.739)"/>
+    </g>
+  </g>
+</svg>

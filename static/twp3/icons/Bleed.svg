@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <g id="Bleed" transform="translate(-186 -1344)">
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-1" width="48" height="42" transform="translate(186 1344)"/>
+    <g id="Smock_Border_18_N" transform="translate(193 1347)">
+      <rect id="Canvas" class="cls-2" width="35" height="35"/>
+      <path id="Path_104091" data-name="Path 104091" class="cls-3" d="M2,3.079V31.143a1.079,1.079,0,0,0,1.079,1.079H31.143a1.079,1.079,0,0,0,1.079-1.079V3.079A1.079,1.079,0,0,0,31.143,2H3.079A1.079,1.079,0,0,0,2,3.079ZM30.064,30.064H4.159V4.159H30.064Z" transform="translate(0.337 0.187)"/>
+      <path id="Path_104092" data-name="Path 104092" class="cls-3" d="M4,4V25.587H25.588V4ZM23.429,23.429H6.159V6.159h17.27Z" transform="translate(2.655 2.504)"/>
+    </g>
+  </g>
+</svg>

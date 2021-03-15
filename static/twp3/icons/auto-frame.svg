@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+	<g id="Auto" transform="translate(-186 -1344)">
+		<g id="Smock_Crop_18_N" transform="translate(194 1348)">
+			<rect id="Canvas" width="33" height="33" fill="#ff13dc" opacity="0"/>
+			<path id="Path_104104" data-name="Path 104104" d="M16.042,16.659h3.617V4.9a.9.9,0,0,0-.9-.9H7V7.617h9.042Z" transform="translate(5.659 3.233)" fill="#494949"/>
+			<path id="Path_104105" data-name="Path 104105" d="M10.042,20.892V1.9a.9.9,0,0,0-.9-.9H7.329a.9.9,0,0,0-.9.9V6.425H1.9a.9.9,0,0,0-.9.9V9.138a.9.9,0,0,0,.9.9H6.425V23.6a.9.9,0,0,0,.9.9H20.892V29.03a.9.9,0,0,0,.9.9H23.6a.9.9,0,0,0,.9-.9V24.509H29.03a.9.9,0,0,0,.9-.9V21.8a.9.9,0,0,0-.9-.9Z" transform="translate(0.808 0.808)" fill="#494949"/>
+		</g>
+		<rect id="Rectangle_151117" data-name="Rectangle 151117" width="48" height="42" transform="translate(186 1344)" fill="none"/>
+	</g>
+</svg>

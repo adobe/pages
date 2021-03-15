@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <g id="Text" transform="translate(-186 -1344)">
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-1" width="48" height="42" transform="translate(186 1344)"/>
+    <g id="Smock_TextStroke_18_N" transform="translate(193 1348)">
+      <rect id="Canvas" class="cls-2" width="35" height="35"/>
+      <path id="Path_104088" data-name="Path 104088" class="cls-3" d="M22.417,29.222H8.806a.972.972,0,0,1-.972-.972V24.361a.972.972,0,0,1,.972-.972h2.917V7.833H7.833V10.75a.972.972,0,0,1-.972.972H2.972A.972.972,0,0,1,2,10.75V2.972A.972.972,0,0,1,2.972,2H28.25a.972.972,0,0,1,.972.972v7.752a.972.972,0,0,1-.972.972H24.361a.972.972,0,0,1-.972-.972V7.833H19.5V23.389h2.917a.972.972,0,0,1,.972.972V28.25A.972.972,0,0,1,22.417,29.222ZM9.778,25.333v1.944H21.444V25.333H17.556V5.889h7.778V9.778h1.944V3.906H3.944V9.778H5.889V5.889h7.778V25.333ZM3.944,2.972Z" transform="translate(1.889 1.889)"/>
+    </g>
+  </g>
+</svg>
