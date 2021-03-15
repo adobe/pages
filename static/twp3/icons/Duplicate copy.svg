@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <g id="Duplicate" transform="translate(-186 -1344)">
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-1" width="48" height="42" transform="translate(186 1344)"/>
+    <g id="Smock_Duplicate_18_N" transform="translate(193 1347)">
+      <rect id="Canvas" class="cls-2" width="35" height="35"/>
+      <path id="Path_104093" data-name="Path 104093" class="cls-3" d="M7.806,6.833H24.333V1.972A.972.972,0,0,0,23.361,1H1.972A.972.972,0,0,0,1,1.972V23.361a.972.972,0,0,0,.972.972H6.833V7.806A.972.972,0,0,1,7.806,6.833Z" transform="translate(0.944 0.944)"/>
+      <path id="Path_104094" data-name="Path 104094" class="cls-3" d="M27.361,5H5.972A.972.972,0,0,0,5,5.972V27.361a.972.972,0,0,0,.972.972H27.361a.972.972,0,0,0,.972-.972V5.972A.972.972,0,0,0,27.361,5ZM23.472,18.125H18.125v5.347H15.208V18.125H9.861V15.208h5.347V9.861h2.917v5.347h5.347Z" transform="translate(4.722 4.722)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <g id="Auto" transform="translate(-186 -1344)">
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-1" width="48" height="42" transform="translate(186 1344)"/>
+    <g id="Smock_ImageAutoMode_18_N" transform="translate(195 1348)">
+      <rect id="Canvas" class="cls-2" width="35" height="35"/>
+      <circle id="Ellipse_123" data-name="Ellipse 123" class="cls-3" cx="2.431" cy="2.431" r="2.431" transform="translate(17.75 16.317)"/>
+      <path id="Path_104097" data-name="Path 104097" class="cls-3" d="M13.346.2l.1,2.763A2.254,2.254,0,0,0,14.6,4.853L17.009,6.2l-2.764.1a2.253,2.253,0,0,0-1.884,1.151L11.009,9.865l-.1-2.764A2.253,2.253,0,0,0,9.761,5.216L7.348,3.865l2.764-.1a2.254,2.254,0,0,0,1.882-1.151Z" transform="translate(6.94 0.193)"/>
+      <path id="Path_104098" data-name="Path 104098" class="cls-3" d="M18.6,2.77l.129,3.557a2.9,2.9,0,0,0,1.482,2.431L23.32,10.5l-3.559.129A2.9,2.9,0,0,0,17.33,12.11l-1.741,3.111-.128-3.559a2.9,2.9,0,0,0-1.483-2.431L10.867,7.49l3.559-.128a2.9,2.9,0,0,0,2.431-1.483Z" transform="translate(10.263 2.617)"/>
+      <path id="Path_104099" data-name="Path 104099" class="cls-3" d="M25.278,15.722v6.283l-3.585-3.584a1.944,1.944,0,0,0-2.749,0l-2.986,2.986L8.612,14.062a1.944,1.944,0,0,0-2.75,0h0L1.944,17.979V7.944H22.361L19.444,6H.972A.972.972,0,0,0,0,6.972v17.5a.972.972,0,0,0,.972.972H26.25a.972.972,0,0,0,.972-.972V12.806Z" transform="translate(0 5.667)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-2 {
+        fill: #494949;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Rotate" transform="translate(-186 -1344)">
+    <g id="Smock_RotateLeftOutline_18_N" transform="translate(192 1347)">
+      <rect id="Canvas" class="cls-1" width="36" height="36"/>
+      <path id="Path_104095" data-name="Path 104095" class="cls-2" d="M28,5H6A1,1,0,0,0,5,6V28a1,1,0,0,0,1,1H28a1,1,0,0,0,1-1V6A1,1,0,0,0,28,5ZM27,27H7V7H27Z" transform="translate(5 5)"/>
+      <path id="Path_104096" data-name="Path 104096" class="cls-2" d="M7.5,13.5h-2v-3a6,6,0,0,1,6-6h2a1,1,0,0,0,1-1v-1a1,1,0,0,0-1-1h-2a9,9,0,0,0-9,9v3H.5A.5.5,0,0,0,0,14a.49.49,0,0,0,.147.35l3.537,4.033a.5.5,0,0,0,.632,0L7.853,14.35A.49.49,0,0,0,8,14a.5.5,0,0,0-.5-.5Z" transform="translate(0 1.5)"/>
+    </g>
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-3" width="48" height="42" transform="translate(186 1344)"/>
+  </g>
+</svg>

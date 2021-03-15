@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-2 {
+        fill: #494949;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Fill" transform="translate(-186 -1344)">
+    <g id="Smock_ColorFill_18_N" transform="translate(192 1347)">
+      <rect id="Canvas" class="cls-1" width="36" height="36"/>
+      <path id="Path_104089" data-name="Path 104089" class="cls-2" d="M32.757,20.9a63.975,63.975,0,0,0-1.3-6.593c-.62-2.422-2.9-2.963-5.309-3.289L18.09,2.957a.994.994,0,0,0-1.406,0h0l-2.41,2.416,4.843,4.843a1.491,1.491,0,0,1-2.072,2.145l-.037-.037L12.165,7.482,1.073,18.574a.994.994,0,0,0,0,1.406h0l10.69,10.676a.994.994,0,0,0,1.406,0l15.48-15.5a.994.994,0,0,0,.015-1.392.378.378,0,0,1,.563.148,6.606,6.606,0,0,1-.525,5.541,9.429,9.429,0,0,0-1.38,3.237,2.5,2.5,0,0,0,2.763,2.784C31.716,25.474,33.061,23.942,32.757,20.9Z" transform="translate(1.199 3.07)"/>
+      <path id="Path_104090" data-name="Path 104090" class="cls-2" d="M11.664,7.075l-5.7-5.7A1.492,1.492,0,1,0,3.855,3.485l5.7,5.7Z" transform="translate(3.807 1.362)"/>
+    </g>
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-3" width="48" height="42" transform="translate(186 1344)"/>
+  </g>
+</svg>

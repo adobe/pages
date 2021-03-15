@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-2 {
+        fill: #494949;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Export" transform="translate(-186 -1344)">
+    <g id="Smock_Export_18_N" transform="translate(194 1349)">
+      <rect id="Canvas" class="cls-1" width="32" height="32"/>
+      <path id="Path_104086" data-name="Path 104086" class="cls-2" d="M21.444,22.333H19.667a.889.889,0,0,0-.889.889v2.667H4.556V4.556H18.778V7.222a.889.889,0,0,0,.889.889h1.778a.889.889,0,0,0,.889-.889V1.889A.889.889,0,0,0,21.444,1H1.889A.889.889,0,0,0,1,1.889V28.556a.889.889,0,0,0,.889.889H21.444a.889.889,0,0,0,.889-.889V23.222A.889.889,0,0,0,21.444,22.333Z" transform="translate(0.778 0.778)"/>
+      <path id="Path_104087" data-name="Path 104087" class="cls-2" d="M25.645,11.8,19.851,5.178A.7.7,0,0,0,19.382,5a.711.711,0,0,0-.711.711v4.622H8.889A.889.889,0,0,0,8,11.222V13a.889.889,0,0,0,.889.889h9.778v4.622a.711.711,0,0,0,.711.711.7.7,0,0,0,.468-.178l5.8-6.618A.444.444,0,0,0,25.645,11.8Z" transform="translate(6.222 3.889)"/>
+    </g>
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-3" width="48" height="42" transform="translate(186 1344)"/>
+  </g>
+</svg>
