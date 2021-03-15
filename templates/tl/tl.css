@@ -253,7 +253,17 @@ main .card a:any-link:hover {
   background-repeat: no-repeat;
   padding: 26px;
   margin: auto;
+}
 
+/* .step main .video-wrapper .video {
+  position: relative;
+  /* padding-bottom: 56.25%; */
+} */
+
+.step main .video-wrapper video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
 }
 
 .step .learn {
