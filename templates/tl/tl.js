@@ -292,22 +292,65 @@ async function decorateStep() {
 
     var upnext=$upnext.innerHTML;
 
-    const nextStep=steps[stepIndex+1];
-    if (nextStep) {
-        $upnext.innerHTML=` 
-            <div class="upnext__inner">
-                <div class="window">
-                    <img src="${getThumbnail(nextStep)}">
+    // check if it's a step or external link
+    // set next step page if one is available
+    // console.log(steps)
+    let internalSteps = [];
+    let hasNextSteps;
+    let hasAddedFilter = false;
+    let nextIndex = [];
+
+    steps.forEach((step, index) => {
+        if(!step.CTA_URL) {
+            if(stepIndex + 1 < index) {
+                nextIndex.push(index);
+                hasNextSteps = true;
+                return false;
+            } else {
+                hasNextSteps = false;
+            }
+        } else {
+            hasAddedFilter = true;
+        }
+    })
+
+    if(hasAddedFilter) {
+        const nextStep=steps[nextIndex[0]];
+        if (nextStep && hasNextSteps) {
+            $upnext.innerHTML=` 
+                <div class="upnext__inner">
+                    <div class="window">
+                        <img src="${getThumbnail(nextStep)}">
+                    </div>
+                    ${upnext}
+                    <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
+                    <p>${nextStep.Description.replace('\n', '<br>')}</p>
                 </div>
-                ${upnext}
-                <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
-                <p>${nextStep.Description.replace('\n', '<br>')}</p>
-            </div>
-        
-                `;
+            
+                    `;
+        } else {
+            $upnext.remove();
+        }
     } else {
-        $upnext.remove();
+        const nextStep=steps[stepIndex+1];
+        if (nextStep) {
+            $upnext.innerHTML=` 
+                <div class="upnext__inner">
+                    <div class="window">
+                        <img src="${getThumbnail(nextStep)}">
+                    </div>
+                    ${upnext}
+                    <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
+                    <p>${nextStep.Description.replace('\n', '<br>')}</p>
+                </div>
+            
+                    `;
+        } else {
+            $upnext.remove();
+        }
     }
+
+    
     
     $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
 

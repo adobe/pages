@@ -126,7 +126,7 @@ function createCheckListLayout() {
         </span>
       </div>
       <div class="step-info">
-        <div>Ready to start?</div>
+        <div>Great job!</div>
         <div data-time="Launch in Lightroom" style="margin-top: 0; padding-bottom: 0;">
           &nbsp;
         </div>
