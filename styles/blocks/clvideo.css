@@ -93,11 +93,15 @@ main > .section-wrapper.clvideo-container{
   padding: 3em 0em;
 }
 
-.checklist-page main .section-wrapper:last-of-type a{
+.checklist-page main .section-wrapper:last-of-type a {
   padding: 0em 0em;
   border: none;
   color: #1473E6;
   font-size: 18px;
+}
+
+.checklist-page main .section-wrapper:last-of-type a:hover {
+  background: transparent;
 }
 
 @media (min-width:924px)  { 

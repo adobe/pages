@@ -53,6 +53,10 @@ main .steps {
   max-width: 1100px;
 }
 
+.photography-plan main .default.steps {
+  display: block;
+}
+
 
 main .card {
   width: 315px;
