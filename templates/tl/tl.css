@@ -57,7 +57,6 @@ main .steps {
   display: block;
 }
 
-
 main .card {
   width: 315px;
   margin: 15px;
@@ -294,6 +293,7 @@ main .card a:any-link:hover {
 .step main .skill {
   margin: 12px;
   max-width: 220px;
+  width: 48%;
 }
 
 .step main .skills img {
