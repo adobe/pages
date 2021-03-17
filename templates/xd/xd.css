@@ -26,6 +26,11 @@ main .section-wrapper {
 	color: #323232;
 }
 
+/* adding style for headline  */
+main .section-wrapper strong {
+	size: 55px;
+}
+
 body.mission main  p {
 	font-size: 22px !important;
 }
