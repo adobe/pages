@@ -29,6 +29,7 @@ main .section-wrapper {
 /* adding style for headline  */
 main .section-wrapper strong {
 	size: 55px;
+	font-weight: 900;
 }
 
 body.mission main  p {
