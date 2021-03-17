@@ -149,7 +149,8 @@ function setTranscript(index) {
   transcripts.forEach(function(el) {
     el.style.display = 'none'
   })
-  transcripts[index - 1].style.display = 'block'
+  let newIndex = index == 1 || index == 2 ? 0 : index - 2;
+  transcripts[newIndex].style.display = 'block'
 }
 
 function addState(evt) {
