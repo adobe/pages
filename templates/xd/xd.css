@@ -2,6 +2,15 @@
 	box-sizing: border-box;
 }
 
+/* bio adjustments */
+main div.bio > div > div:first-of-type {
+	width: 40%;
+}
+
+main div.bio  > div > div:last-of-type {
+	width: 60%;
+}
+
 body {
 	font-family: "Adobe Clean", "adobe-clean", sans-serif;
 	margin: 0;
