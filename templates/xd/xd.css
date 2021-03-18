@@ -26,11 +26,14 @@ main .section-wrapper {
 	color: #323232;
 }
 
+
 /* adding style for headline  */
 main .section-wrapper strong {
 	size: 55px;
 	font-weight: 900;
 }
+
+
 
 body.mission main  p {
 	font-size: 22px !important;
@@ -295,6 +298,8 @@ footer li:after {
 }
 
 
+
+
 .documentation main {
 	text-align: left;
 }
@@ -302,3 +307,4 @@ footer li:after {
 .documentation.getting-started main > div:first-of-type {
 	text-align: center;
 }
+

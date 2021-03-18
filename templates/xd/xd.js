@@ -378,6 +378,7 @@ function styleNav() {
   }
   
   function decorateVideoBlocks() {
+		  
 	document.querySelectorAll('main .video a[href]').forEach(($a) => {
 	  const videoLink=$a.href;
 	  let $video=$a;
