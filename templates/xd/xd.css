@@ -225,6 +225,29 @@ footer li:after {
 }
 
 
+/* styling for video sections and text in video sections */
+.section-wrapper:nth-child(4), .section-wrapper:nth-child(5), .section-wrapper:nth-child(6)   {
+	background-color: #323232;
+	color:#fff;
+	
+}
+
+.section-wrapper:nth-child(9){
+	background-color: #F2F2F2;
+	
+}
+
+[id ='1'], [id ='2'], [id ='3'], [id ='4'], [id ='5'], [id ='6'] {
+	color: rgb(255, 38, 190);
+
+}
+
+
+
+/*end of work*/
+
+
+
 @media(min-width: 599px) {
 	h1,h2,h3,h4,h5 {
 		margin-top: 0;
