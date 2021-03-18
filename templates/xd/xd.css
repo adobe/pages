@@ -2,15 +2,6 @@
 	box-sizing: border-box;
 }
 
-/* bio adjustments */
-main div.bio > div > div:first-of-type {
-	width: 40%;
-}
-
-main div.bio  > div > div:last-of-type {
-	width: 60%;
-}
-
 body {
 	font-family: "Adobe Clean", "adobe-clean", sans-serif;
 	margin: 0;
@@ -237,10 +228,17 @@ footer li:after {
 	
 }
 
+.section-wrapper h1 {
+	font-weight: 900;
+	letter-spacing: -1px;
+	
+}
+
 [id ='1'], [id ='2'], [id ='3'], [id ='4'], [id ='5'], [id ='6'] {
 	color: rgb(255, 38, 190);
 
 }
+
 
 
 
