@@ -1,0 +1,26 @@
+.btn {
+	position: absolute;
+	top: 5px;
+	width: 30px;
+	height: 28px;
+	background: white;
+	border-radius: 6px;
+	/* display: none; */
+	border: 3px solid #3A0001;
+	box-sizing: border-box;
+}
+
+.btn.previous {
+	left: 6px;
+}
+
+.btn.next {
+	right: 6px;
+}
+
+.btn span svg {
+	width: 60%;
+	position: absolute;
+	left: 50%; top: 50%;
+	transform: translate(-50%, -50%);
+}

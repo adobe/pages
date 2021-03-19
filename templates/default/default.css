@@ -198,6 +198,15 @@ footer li:after {
 }
 
 
+.mission .nav {
+	border-bottom: 1px solid #ddd;
+}
+
+.mission .nav a {
+	color: #FF9A00 !important;
+}
+
+
 @media(min-width: 599px) {
 	h1,h2,h3,h4,h5 {
 		margin-top: 0;

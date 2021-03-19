@@ -86,10 +86,11 @@
 .checklist-info strong a {
   background: #0D66D0;
   color: white;
-  padding: 12px 23px;
+  min-width: 130px;
+  padding: 12px 16px;
   border-radius: 40px;
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .checklist-info.complete .step-count {
@@ -114,7 +115,7 @@
   margin-top: 3em;
 }
 
-.step-count, .icon {
+.step-count, .step-count .icon {
   height: 40px;
   width: 40px;
   position: absolute;
@@ -194,6 +195,7 @@
   .checklist-info strong a {
     background: #0D66D0;
     color: white;
+    min-width: auto;
     padding: 12px 13px;
     border-radius: 40px;
     display: inline-block;
@@ -212,7 +214,7 @@
     margin-top: 3em;
   }
 
-  .step-count, .icon {
+  .step-count .icon {
     height: 30px;
     width: 30px;
     position: absolute;

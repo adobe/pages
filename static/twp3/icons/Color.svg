@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7 {
+        fill: #6e6e6e;
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        opacity: 0.2;
+      }
+
+      .cls-3 {
+        opacity: 0.33;
+      }
+
+      .cls-4 {
+        opacity: 0.47;
+      }
+
+      .cls-5 {
+        opacity: 0.6;
+      }
+
+      .cls-6 {
+        opacity: 0.7;
+      }
+
+      .cls-7 {
+        opacity: 0.8;
+      }
+
+      .cls-8 {
+        fill: #494949;
+      }
+
+      .cls-9 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Color" transform="translate(-186 -1344)">
+    <g id="Smock_ColorWheel_18_N" transform="translate(193 1348)">
+      <rect id="Canvas" class="cls-1" width="34" height="34"/>
+      <path id="Path_104079" data-name="Path 104079" class="cls-2" d="M22.222,13.4a13.178,13.178,0,0,0-3.885-9.35L9,13.4Z" transform="translate(8 3.6)"/>
+      <path id="Path_104080" data-name="Path 104080" class="cls-3" d="M9,9l9.368,9.321A13.181,13.181,0,0,0,22.222,9Z" transform="translate(8 8)"/>
+      <path id="Path_104081" data-name="Path 104081" class="cls-4" d="M9,9V22.222a13.18,13.18,0,0,0,9.325-3.86Z" transform="translate(8 8)"/>
+      <path id="Path_104082" data-name="Path 104082" class="cls-5" d="M13.4,22.222V9L4.05,18.34a13.184,13.184,0,0,0,9.35,3.883Z" transform="translate(3.6 8)"/>
+      <path id="Path_104083" data-name="Path 104083" class="cls-6" d="M15.222,9H2a13.183,13.183,0,0,0,3.872,9.34Z" transform="translate(1.778 8)"/>
+      <path id="Path_104084" data-name="Path 104084" class="cls-7" d="M15.222,13.39,5.863,4.061A13.178,13.178,0,0,0,2,13.39Z" transform="translate(1.778 3.61)"/>
+      <path id="Path_104085" data-name="Path 104085" class="cls-8" d="M16.111,1A15.111,15.111,0,1,0,31.222,16.111,15.111,15.111,0,0,0,16.111,1Zm0,28.333A13.214,13.214,0,0,1,6.733,6.8l9.321,9.308V2.889h.058a13.222,13.222,0,0,1,0,26.444Z" transform="translate(0.889 0.889)"/>
+    </g>
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-9" width="48" height="42" transform="translate(186 1344)"/>
+  </g>
+</svg>

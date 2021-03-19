@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="42" viewBox="0 0 48 42">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #494949;
+      }
+    </style>
+  </defs>
+  <g id="Shape" transform="translate(-186 -1344)">
+    <rect id="Rectangle_151117" data-name="Rectangle 151117" class="cls-1" width="48" height="42" transform="translate(186 1344)"/>
+    <g id="Smock_Shapes_18_N" transform="translate(193 1348)">
+      <rect id="Canvas" class="cls-2" width="34" height="34"/>
+      <path id="Path_104078" data-name="Path 104078" class="cls-3" d="M22.872,31.128a11.892,11.892,0,0,1-11.624-9.491l-.034-.168H1.012a.269.269,0,0,1-.236-.138.259.259,0,0,1,0-.269L11.529,2.236a.275.275,0,0,1,.473,0l4.145,7.257.189-.126a11.863,11.863,0,1,1,6.536,21.761Zm-9.555-9.4A9.866,9.866,0,1,0,17.3,11.119l-.161.105,5.619,9.833a.264.264,0,0,1,0,.269.27.27,0,0,1-.237.138H13.248Z" transform="translate(-0.739 0.581)"/>
+    </g>
+  </g>
+</svg>

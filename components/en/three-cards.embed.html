@@ -21,6 +21,7 @@
     display: inline-block !important;
     color: #323232;
     margin-bottom: 3em;
+    text-decoration: none !important;
   }
 
   .three-cards-lr__content {
@@ -29,6 +30,10 @@
     border-right: 1px solid #DEDEDE;
     border-bottom: 1px solid #DEDEDE;
     border-left: 1px solid #DEDEDE;
+  }
+
+  .three-cards-lr__content h4 {
+    font-size: 0.8em !important;
   }
 
   @media(min-width: 800px) {
@@ -49,19 +54,19 @@
   const parentEl = document.querySelector('.three-cards-lr').parentElement.classList.add('image-third')
   const images = document.querySelectorAll('.image-third img');
   const markUp = `
-  <a class="three-cards-lr__el" href="" target="_blank">
+  <a class="three-cards-lr__el" href="https://pages.adobe.com/creativecloud/en/photography-plan/photoshop/" target="_blank">
     <img src="${images[0].getAttribute('src')}">
     <div class="three-cards-lr__content">
-      <h4>Learn Photoshop by Doing</h4>
+      <h4>Learn Photoshop by doing</h4>
     </div>
   </a>
-  <a class="three-cards-lr__el" href="" target="_blank">
+  <a class="three-cards-lr__el" href="https://pages.adobe.com/creativecloud/en/photography-plan/lightroom/" target="_blank">
     <img src="${images[1].getAttribute('src')}">
     <div class="three-cards-lr__content">
       <h4>Learn Lightroom by doing</h4>
     </div>
   </a>
-  <a class="three-cards-lr__el" href="" target="_blank">
+  <a class="three-cards-lr__el" href="https://pages.adobe.com/creativecloud/en/photography-plan/ps-lr/" target="_blank">
     <img src="${images[2].getAttribute('src')}">
     <div class="three-cards-lr__content">
       <h4>Learn to use both apps together</h4>

@@ -1,5 +1,3 @@
-console.log('im here')
-
 function setUpBackground() {
   if(!document.querySelector('.missionbg-container')) return;
   const backgroundParent = document.querySelector('.missionbg-container');

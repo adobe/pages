@@ -7,6 +7,7 @@ async function fetchSteps() {
 
 function getThumbnail(step) {
     let thumbnail=step.Thumbnail;
+    console.log(step.Thumbnail)
     if (!thumbnail) {
         if (step.Video.startsWith('https://www.youtube.com')) {
             const yturl=new URL(step.Video);
@@ -16,6 +17,8 @@ function getThumbnail(step) {
     }
     return (thumbnail);
 }
+
+
 
 
 function addNavCarrot() {
@@ -55,7 +58,7 @@ async function insertSteps() {
     if ($steps) {
         const steps=await fetchSteps();
         if(steps[0].Category) {
-
+            
             
             let titles = [];
             let stepGroups = [];
@@ -84,60 +87,9 @@ async function insertSteps() {
                 
                 steps.forEach((step, i) => {
                     if(step.Category === stepsNest.Category) {
-                        if(step.CTA_URL) {
-                            markup += `
-                                <a href="${step.CTA_URL}" class="card ext-link" target="_blank">
-                                    <span>
-                                        <div class='img' style="background-image: url(${getThumbnail(step)})">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                                                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                                                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                                                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                                                </g>
-                                            </svg>
-                                        </div>
-                                        <div class="text">
-                                            <div>
-                                                <h4>${step.Title.replace('\n', '<br>')}</h4>
-                                                <p>${step.Description.replace('\n', '<br>')}</p>
-                                            </div>
-                                            <span class="card-cta">${step.CTA}</span>
-                                        </div>
-                                    </span>
-                                </a>
-                            `
-                        } else {
-                            markup += `
-                                <div class="card" onclick="window.location='step?${i+1}'">
-                                    <div class='img' style="background-image: url(${getThumbnail(step)})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                                    <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                                        <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                                        <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                                    </g>
-                                    </svg>
-                                    </div>
-                                    <div class='text'>
-                                        <div><h4>${step.Title.replace('\n', '<br>')}</h4>
-                                        <p>${step.Description.replace('\n', '<br>')}</p>
-                                        </div>
-                                        <a href="step?${i+1}">${step.CTA}</a>
-                                    </div>
-                                </div>
-                            `
-                        }
-                        
-                    }
-                })
-                markup += `</div> </div>`
-            })
-            $steps.innerHTML=markup;
-
-        } else {
-            let html='';
-            steps.forEach((step, i) => {
-                html+=`<div class="card" onclick="window.location='step?${i+1}'">
-                    <div class='img' style="background-image: url(${getThumbnail(step)})">
+                        markup += `
+                        <div class="card" onclick="window.location='step?${i+1}'">
+                    <div class='img' style="background-image: url(../../../static/ete/${step.Thumbnail})">
                     <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
                     <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
                         <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
@@ -150,6 +102,47 @@ async function insertSteps() {
                         <p>${step.Description.replace('\n', '<br>')}</p>
                         </div>
                         <a href="step?${i+1}">${step.CTA}</a>
+                    </div>
+                </div>
+                        
+                        `
+                    }
+                })
+                markup += `</div> </div>`
+            })
+
+            $steps.innerHTML=markup;
+            // console.log(markup)
+
+        } else {
+            let html='';
+            console.log(steps)
+            steps.forEach((step, i) => {
+                html+=`<div class="card" onclick="window.location='step?${i+1}'">
+                    <div class='img' style="background-image: url(../../../../static/ete/hero-posters/${getThumbnail(
+                      step
+                    )})">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+                    <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                        <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                        <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+                    </g>
+                    </svg>
+                    </div>
+                    <div class='text'>
+                      <div class="icons">
+                        <div class="icons__item">
+                          <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
+                        </div>
+                        <div class="icons__item">
+                          <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
+                        </div>
+                      </div>
+                      <div class="card-content"> 
+                        <h4>${step.Title}</h4>
+                        <p>${step.Description}</p>
+                      </div>
+                      <a href="step?${i + 1}">${step.CTA}</a>
                     </div>
                 </div>`
             })
@@ -176,18 +169,14 @@ function dropDownMenu() {
 
 
 
-let videoHasPlayed = false;
 
 export function playVideo() {
     document.getElementById('placeholder').classList.add('hidden');
     const $video=document.getElementById('video');
     $video.classList.remove('hidden');
     $video.classList.remove('hidden');
-    if(!videoHasPlayed) {
-        $video.play();
-        $video.setAttribute('controls', true)
-    }
-    videoHasPlayed = true;
+    $video.play();
+    $video.setAttribute('controls', true)
 
 }
 
@@ -217,19 +206,22 @@ async function decorateStep() {
     if (currentStep.Heading) title=currentStep.Heading;
     title=title.replace('\n', '<br>');
     $h1.innerHTML=title;
+    let iconParent = document.createElement("div");
+    iconParent.setAttribute("class", "icons_parent");
+    iconParent.innerHTML = `
+    <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
+    <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
+
     $h1.id='';
 
+    document.querySelector("main .content").prepend(iconParent);
+    
     for (let i=0;i<8;i++) {
         $h1.appendChild(createTag('span', {class: 'grab-'+i}))
     }
     document.title=currentStep.Title;
     if (currentStep['Practice File']) {
-        
-        if(currentStep['Practice File'].includes('http')) {
-            document.querySelector('main .content>p>a').setAttribute('href', `${currentStep['Practice File']}`);
-        } else {
-            document.querySelector('main .content>p>a').setAttribute('href', `/static/twp3/practice-files/${currentStep['Practice File']}`);
-        }
+        document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
     }
 
     if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
@@ -292,65 +284,21 @@ async function decorateStep() {
 
     var upnext=$upnext.innerHTML;
 
-    // check if it's a step or external link
-    // set next step page if one is available
-    // console.log(steps)
-    let internalSteps = [];
-    let hasNextSteps;
-    let hasAddedFilter = false;
-    let nextIndex = [];
-
-    steps.forEach((step, index) => {
-        if(!step.CTA_URL) {
-            if(stepIndex + 1 < index) {
-                nextIndex.push(index);
-                hasNextSteps = true;
-                return false;
-            } else {
-                hasNextSteps = false;
-            }
-        } else {
-            hasAddedFilter = true;
-        }
-    })
-
-    if(hasAddedFilter) {
-        const nextStep=steps[nextIndex[0]];
-        if (nextStep && hasNextSteps) {
-            $upnext.innerHTML=` 
-                <div class="upnext__inner">
-                    <div class="window">
-                        <img src="${getThumbnail(nextStep)}">
-                    </div>
-                    ${upnext}
-                    <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
-                    <p>${nextStep.Description.replace('\n', '<br>')}</p>
-                </div>
-            
-                    `;
-        } else {
-            $upnext.remove();
-        }
+    const nextStep=steps[stepIndex+1];
+    if (nextStep) {
+        $upnext.innerHTML=` <div class="upnext__inner">
+                              <div class="window">
+                                <img src="${getThumbnail(nextStep)}">
+                              </div>
+                              ${upnext}
+                              <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
+                              <p>${nextStep.Description.replace('\n', '<br>')}</p>
+                            </div>
+        
+                `;
     } else {
-        const nextStep=steps[stepIndex+1];
-        if (nextStep) {
-            $upnext.innerHTML=` 
-                <div class="upnext__inner">
-                    <div class="window">
-                        <img src="${getThumbnail(nextStep)}">
-                    </div>
-                    ${upnext}
-                    <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
-                    <p>${nextStep.Description.replace('\n', '<br>')}</p>
-                </div>
-            
-                    `;
-        } else {
-            $upnext.remove();
-        }
+        $upnext.remove();
     }
-
-    
     
     $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
 
@@ -379,16 +327,68 @@ async function decorateHome() {
 
 }
 
+let debounce = function (func, wait, immediate) {
+  let timeout;
+  return function () {
+    let context = this,
+      args = arguments;
+    let later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    let callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
+// set fixed height to cards to create a uniform UI
+function cardHeightEqualizer($el) {
+  let initialHeight = 0;
+  let element = document.querySelectorAll($el);
+
+  if (window.innerWidth >= 700 && element.length > 1) {
+    element.forEach(function (card_el) {
+      card_el.style.height = "auto";
+    });
+
+    element.forEach(function (card_text) {
+      if (initialHeight < card_text.offsetHeight) {
+        initialHeight = card_text.offsetHeight;
+      }
+    });
+
+    element.forEach(function (card_el) {
+      card_el.style.height = initialHeight + "px";
+    });
+  } else {
+    element.forEach(function (card_el) {
+      card_el.style.height = "auto";
+    });
+  }
+}
+
+window.addEventListener("resize", debounce(function () {
+    // run resize events
+    cardHeightEqualizer(".card-content");
+  }, 250)
+);
+
 async function decoratePage() {
     addDefaultClass('main>div');
+
     await loadLocalHeader();
+
     externalLinks('header');
     externalLinks('footer');
     wrapSections('header>div');
+    // nav style/dropdown
     addNavCarrot();
+  
 
     if(document.querySelector('.nav-logo')) {
-        document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
+      document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
     }
 
     let pageType;
@@ -399,29 +399,24 @@ async function decoratePage() {
         pageType = 'home';
     }
 
-    
     window.pages.pageType = pageType;
 
-    
     if (pageType == 'home') {
         await decorateHome();
     }
-    
+
     if (pageType == 'step') {
         await decorateStep();
     }
-    
+
     window.pages.decorated = true;
     appearMain();
-    if(document.getElementsByTagName('body')[0].classList.contains('photography-plan')) {
-        document.querySelector('.progress').innerHTML = '';
-    }
+    cardHeightEqualizer(".card-content");
 }
 
 if (document.readyState == 'loading') {
     window.addEventListener('DOMContentLoaded', (event) => {
         decoratePage();
-
     });
 } else {
     decoratePage();
