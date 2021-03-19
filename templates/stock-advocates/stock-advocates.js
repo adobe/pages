@@ -336,7 +336,7 @@ function decorateTables() {
     }
   }
 
-  function addlang() {
+  function addAccessibility() {
     try {
       const url = location.pathname;
       const lang = url.split('/')[2];
@@ -346,6 +346,20 @@ function decorateTables() {
     catch(e) {
       console.debug("could not add lang to html tag");
     }
+    const footerIcons = document.querySelectorAll('#contact-us .icon');
+    footerIcons.forEach($icon => {
+      try {
+        $icon.classList.forEach(($cl) => {
+          if ($cl.startsWith('icon-')) {
+              const $name = $cl.split('-')[1];
+              $icon.parentElement.setAttribute('aria-label', $name);
+          }
+        });
+      }
+      catch (e) {
+        console.debug('Count not set icon aria-label');
+      }
+    });
   }
 
   async function decoratePage() {
@@ -366,7 +380,7 @@ function decorateTables() {
     window.pages.decorated = true;
     appearMain();
     decorateContactUs();
-    addlang();
+    addAccessibility();
   }
   
   
