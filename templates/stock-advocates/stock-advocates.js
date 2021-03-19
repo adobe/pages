@@ -145,6 +145,9 @@ function decorateColumns() {
               const $img=$cell.querySelector('img');
               if ($img) { 
                   $cell.classList.add('image');
+                  if (!!!$img.getAttribute('alt', '')) {
+                    $img.setAttribute('alt','');
+                  }
               } else {
                   $cell.classList.add('text');
                   if ($cell.textContent=='') {
@@ -187,7 +190,7 @@ function decorateParallax() {
 
 function decorateInternalAdvocates() {
   document.querySelectorAll('main div>.embed-internal-advocates').forEach(($embed) => {
-    $embed.innerHTML=$embed.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates">')
+    $embed.innerHTML=$embed.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">')
 
   })
 }
@@ -208,10 +211,10 @@ function decorateHeroCarousel() {
           $slide.classList.add('hero-carousel-slide');
             $slide.id=`hero-carousel-slide${i}`;
             $slide.append(createTag('div', {class: 'hero-carousel-snapper'} ));
-            $slide.append(createTag('a', {class: 'hero-carousel-prev', href: `#hero-carousel-slide${prevSlide}`} ));
-            $slide.append(createTag('a', {class: 'hero-carousel-next', href: `#hero-carousel-slide${nextSlide}`} ));
+            $slide.append(createTag('a', {class: 'hero-carousel-prev', 'aria-label': 'Previous', role: 'button', href: `#hero-carousel-slide${prevSlide}`} ));
+            $slide.append(createTag('a', {class: 'hero-carousel-next', 'aria-label': 'Next', role: 'button', href: `#hero-carousel-slide${nextSlide}`} ));
             const $navitem=createTag('div', {class: 'hero-carousel-navigation-list'});
-            $navitem.innerHTML=`<div class="hero-carousel-navigation-item"><a href="#hero-carousel-slide${i}" class="hero-carousel-navigation-button"><a></div>`;
+            $navitem.innerHTML=`<div class="hero-carousel-navigation-item"><a href="#hero-carousel-slide${i}" role="button" aria-label="Hero Slide ${i}" class="hero-carousel-navigation-button"><a></div>`;
             $navList.append($navitem);
         });
 
@@ -221,7 +224,7 @@ function decorateHeroCarousel() {
         $overlay.classList.add('hero-carousel-overlay');
         $section.prepend($carousel);
         
-        $overlay.innerHTML=$overlay.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates.svg" class="stock-advocates" alt="Adobe Stock Advocates">')
+        $overlay.innerHTML=$overlay.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">')
     });
 }
 
@@ -333,6 +336,31 @@ function decorateTables() {
     }
   }
 
+  function addAccessibility() {
+    try {
+      const url = location.pathname;
+      const lang = url.split('/')[2];
+      const htmlTag = document.querySelector('html');
+      htmlTag.setAttribute('lang', lang);
+    }
+    catch(e) {
+      console.debug("could not add lang to html tag");
+    }
+    const footerIcons = document.querySelectorAll('#contact-us .icon');
+    footerIcons.forEach($icon => {
+      try {
+        $icon.classList.forEach(($cl) => {
+          if ($cl.startsWith('icon-')) {
+              const $name = $cl.split('-')[1];
+              $icon.parentElement.setAttribute('aria-label', $name);
+          }
+        });
+      }
+      catch (e) {
+        console.debug('Count not set icon aria-label');
+      }
+    });
+  }
 
   async function decoratePage() {
     decorateTables();
@@ -352,6 +380,7 @@ function decorateTables() {
     window.pages.decorated = true;
     appearMain();
     decorateContactUs();
+    addAccessibility();
   }
   
   

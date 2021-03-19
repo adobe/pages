@@ -573,7 +573,7 @@ main .hero-section + .section-wrapper a.button {
         opacity: 0;
     }
 
-    .grid div.text:hover {
+    .grid div.text:hover, .grid div.text:focus-within {
         opacity: 1;
     }
 
