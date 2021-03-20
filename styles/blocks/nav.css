@@ -33,11 +33,24 @@ header > div {
 	height: 36px;
 }
 
+.app-icon.desktop {
+	display: none !important;
+}
+
 .app-name {
 	font-size: 15px;
 	font-weight: 700;
 	margin-left: 8px;
 	user-select: none;
+}
+
+.app-name.desktop {
+	display: none !important;
+}
+
+.app-name.desktop a {
+	color: #444 !important;
+	text-decoration: none;
 }
 
 .menu-carrot {
@@ -88,6 +101,19 @@ header > div {
 		justify-content: center;
 		padding: 1em 0em;
 		background: none !important;
+	}
+	.app-name.mobile {
+		display: none !important;
+	}
+	.app-name.desktop {
+		display: block !important;
+	}
+	.app-icon.desktop {
+		display: block !important;
+	}
+
+	.app-icon.mobile {
+		display: none !important;
 	}
 
 	.mobile-home {

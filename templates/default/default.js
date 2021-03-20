@@ -4,6 +4,7 @@ function styleNav() {
   if (!$appIcon) return;
   const appIcon = $appIcon.src;
   const appName = parent.querySelector('a').innerHTML;
+  const appNameLink = parent.querySelector('a').getAttribute('href');
   const listItems = parent.querySelectorAll('ul li');
   let nav = '';
   let carrot = '';
@@ -24,8 +25,18 @@ function styleNav() {
       <div class="nav">
       <div class="nav__section">
         <div class="app-name-and-icon">
-          <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
-          <div class="app-name">${appName}</div>
+          <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
+          <div class="app-icon desktop">
+            <a href="${appNameLink}" target="_blank">
+              <img src="${appIcon}" alt="${appName}">
+            </a>
+          </div>
+          <div class="app-name mobile">
+            ${appName}
+          </div>
+          <div class="app-name desktop">
+            <a href="${appNameLink}" target="_blank">${appName}</a>
+          </div>
           ${carrot}
         </div>
       </div>
@@ -186,7 +197,7 @@ function decorateNextStep() {
 
 
 function mobileDropDown(event) {
-  event.preventDefault();
+  // event.preventDefault();
   const body = document.getElementsByTagName('body')[0];
   if(!body.classList.contains('nav-showing')) {
     body.classList.add('nav-showing')
