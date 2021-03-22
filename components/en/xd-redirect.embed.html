@@ -1,4 +1,5 @@
 <script>
+  async function redirect() {
     if (window.location.href.includes('xd-plugin-download')) {
         const usp = new URLSearchParams(window.location.search);
         const name = usp.get('name');
@@ -6,15 +7,22 @@
         console.log(`redirecting to ${target}`)        
         window.location.href = target;       
     } else {
-      const urls = {
-        '?name=xd_ui_kit_amazon_alexa&kitname=Amazon-Alexa-UI-kit&img=https://theblogimages.adobe.com/wp-content/uploads/2018/12/image5-1-e1544039145883.png': 'https://adobexd2.app.link/P3jurtkELeb',
-        '?name=xd_ui_kit_auto_animate&kitname=Auto-animate-kit&img=https://www.adobe.com/content/dam/acom/en/products/xd/resources/ui-kit/auto-animate-ui-600x340.jpg' : 'https://adobexd2.app.link/P3jurtkELeb'
-      }
-      const target = urls[window.location.search];
+      const resp = await fetch('/redirects.json');
+      const json = await resp.json();
+      let target;
+      json.data.forEach((e) => {
+        if (e.Source == window.location.pathname+window.location.search) {
+          target = e.Destination;
+        }
+      });
       if (target) {
         console.log(`redirecting to ${target}`) 
         window.location.href = target;
-      } 
+      } else {
+        console.log(`no target found for ${window.location.pathname+window.location.search}`) 
+      }
     }
+  }
 
+redirect();
 </script>
