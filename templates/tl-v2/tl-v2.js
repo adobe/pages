@@ -216,9 +216,9 @@ async function decorateStep() {
 
     document.querySelector("main .content").prepend(iconParent);
     
-    for (let i=0;i<8;i++) {
-        $h1.appendChild(createTag('span', {class: 'grab-'+i}))
-    }
+    // for (let i=0;i<8;i++) {
+    //     $h1.appendChild(createTag('span', {class: 'grab-'+i}))
+    // }
     document.title=currentStep.Title;
     if (currentStep['Practice File']) {
         document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
