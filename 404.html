@@ -1,0 +1,167 @@
+<html><head>
+  <title>Not Found</title>
+  <meta name="description" content="Not Found (404) Error">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+    --alert-color: 234,65,19;
+    --link-color: 3,95,230;
+    --background-color: 255,255,255;
+    --text-color: 0,0,0;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --link-color: 21,190,236;
+        --background-color: 0,0,0;
+        --text-color: 255,255,255;
+    }
+}
+
+* {
+    box-sizing: border-box;
+  }
+  
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont,
+    'avenir next', avenir,
+    'helvetica neue', helvetica,
+    ubuntu,
+    roboto, noto,
+    'segoe ui', arial,
+    sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    color: rgba(var(--text-color),.9);
+    background-color: rgba(var(--background-color),.92);
+}
+
+main {
+    font-size: 1.6rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+main.ready {
+    opacity: 1;
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: .875rem; }
+
+p, dl, ol, ul, pre, blockquote {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+    
+a:any-link {
+    color: rgb(var(--link-color));
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+main>.section-wrapper {
+    padding: 0 2rem; 
+}
+
+main>.section-wrapper.hero {
+    padding: 2rem;
+    color: white;
+    background-size: cover;
+    background-position: center center;
+    height: 60vh;
+    text-shadow: 0 0 5px black;
+}
+
+main pre {
+    background-color: rgb(var(--text-color),0.05);;
+    padding: 1em;
+    border-radius: .25em;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+code,
+pre,
+samp {
+  font-family:
+    'Roboto Mono',
+    Menlo,
+    Consolas,
+    'Liberation Mono',
+    monospace;
+
+}
+
+code, samp {
+  font-size: 87.5%;
+  padding: .125em;
+}
+
+pre {
+  font-size: 75%;
+  overflow: scroll;
+}
+
+hr {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    border: 0;
+    border-bottom: 1px solid rgba(var(--text-color),0.2);
+}
+
+main img {
+    max-width: 100%;
+    height: auto;
+}
+
+main .table-wrapper { 
+    overflow-x: scroll;
+}
+
+html {
+    font-size: 62.5%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 600px) {
+    html {
+        font-size: 85%;
+    }
+}
+@media (min-width: 900px) {
+    html {
+        font-size: 100%;
+    }
+    main>.section-wrapper>div {
+        max-width: 30em;
+        margin: auto;
+    }    
+}
+    </style>
+
+</head>
+<body>
+  <main class="ready"><div class="section-wrapper"><div>
+<h1 id="not-found">Not Found</h1>
+<p>
+    Sorry, that page can't be found.
+</p>
+</div></div></main>
+</body></html>
