@@ -11,8 +11,10 @@
         '?name=xd_ui_kit_auto_animate&kitname=Auto-animate-kit&img=https://www.adobe.com/content/dam/acom/en/products/xd/resources/ui-kit/auto-animate-ui-600x340.jpg' : 'https://adobexd2.app.link/P3jurtkELeb'
       }
       const target = urls[window.location.search];
-      if (target) console.log(`redirecting to ${target}`) 
-      window.location.href = target;       
+      if (target) {
+        console.log(`redirecting to ${target}`) 
+        window.location.href = target;
+      } 
     }
 
 </script>
