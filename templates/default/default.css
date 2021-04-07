@@ -153,12 +153,12 @@ footer svg {
 }
 
 footer a {
-	color: #777;
+	color: #4B4B4B;
 	text-decoration: none;
 }
 
 footer a:hover {
-	color: #444;
+	color: #999999;
 }
 
 footer .section-wrapper > div {
@@ -170,6 +170,7 @@ footer .section-wrapper > div {
 
 footer .section-wrapper p {
 	margin: 0;
+	color: #4B4B4B;
 	padding: 0;
 	margin-bottom: 12px;
 }

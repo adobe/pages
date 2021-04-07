@@ -390,14 +390,14 @@ main input[type=radio] {
   
   
 footer {
-    color: #777;
+    color: #2c2c2c;
     font-size: 11px;
     padding: 2em;
     text-align: center;
 }
 
 footer a:any-link {
-    color: #4B4B4B;
+    color: #2c2c2c;
     text-decoration: none;
 }
   
@@ -673,7 +673,7 @@ footer p:after {
     }
       
   footer a:hover {
-      color: black;
+      color: #4B4B4B;
     }
     
   footer p {
