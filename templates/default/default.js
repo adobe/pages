@@ -56,6 +56,18 @@ function styleNav() {
   }
 }
 
+function setExternalLinks() {
+  if(!document.querySelectorAll('main a')) return;
+  const links = document.querySelectorAll('main a');
+  links.forEach(($a, $i) => {
+    const hasExternalLink = $a.innerText.includes('[!]')
+    if(hasExternalLink) {
+      $a.innerText = $a.innerText.split('[!]')[0]
+      $a.setAttribute('target', '_blank')
+    }
+  })
+}
+
 
 function equalizer($element) {
   if(document.querySelector($element)) {
@@ -401,9 +413,7 @@ function decorateVideoBlocks() {
 
 function decorateLinkTexting() {
 	const $linktexting=document.querySelector('main div.linktexting');
-	console.log($linktexting)
 	if ($linktexting) {
-		console.log("linktexting found")
 	    const $id=$linktexting.children[0].children[1].textContent;
 		//const $main = document.querySelector('main');
 		document.querySelectorAll('main p').forEach(($p) => {
@@ -459,7 +469,7 @@ function decorateLinkTexting() {
 		$linktexting.remove();
 	}
 	else {
-		console.log("linktexting not found")
+		
 	}
 	
 }
@@ -483,7 +493,7 @@ async function decoratePage() {
   decorateVideoBlocks();
 
   decorateButtons();
- 
+  setExternalLinks();
 	decorateLinkTexting();
   
   window.pages.decorated = true;
