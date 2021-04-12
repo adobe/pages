@@ -1,3 +1,29 @@
+async function loadLocalHeader() {
+  const $inlineHeader=document.querySelector('main div.header-block');
+  if ($inlineHeader) {
+    const $header=document.querySelector('header');
+    $inlineHeader.childNodes.forEach((e, i) => {
+      if (e.nodeName == '#text' && !i) {
+        const $p=createTag('p');
+        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.nodeValue}`
+        $p.innerHTML=inner;
+        e.parentNode.replaceChild($p,e);
+      }
+      if (e.nodeName == 'P' && !i) {
+        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`
+        e.innerHTML=inner;
+      }
+    });
+    $header.innerHTML=`<div>${$inlineHeader.innerHTML}</div>`;
+    $inlineHeader.remove();
+    document.querySelector('header').classList.add('appear');
+  } else {
+    await insertLocalResource('header');
+
+  }
+}
+
+
 function wrapSections(element) {
     document.querySelectorAll(element).forEach(($div) => {
       const $wrapper=createTag('div', { class: 'section-wrapper'});
@@ -108,7 +134,9 @@ function decorateButtons() {
   
 
 function decorateColumns() {
-    document.querySelectorAll('main div>.columns').forEach(($columns) => {
+  var isIndex = window.location.pathname.endsWith('/');
+  document.querySelectorAll('main div>.columns').forEach(($columns) => {
+      if (!isIndex) {$columns.classList.add("left-justify"); }
       $columns.closest('.section-wrapper').classList.add('full-width');
       const rows=Array.from($columns.children);
       rows.forEach($row => {
@@ -117,6 +145,9 @@ function decorateColumns() {
               const $img=$cell.querySelector('img');
               if ($img) { 
                   $cell.classList.add('image');
+                  if (!!!$img.getAttribute('alt', '')) {
+                    $img.setAttribute('alt','');
+                  }
               } else {
                   $cell.classList.add('text');
                   if ($cell.textContent=='') {
@@ -159,7 +190,7 @@ function decorateParallax() {
 
 function decorateInternalAdvocates() {
   document.querySelectorAll('main div>.embed-internal-advocates').forEach(($embed) => {
-    $embed.innerHTML=$embed.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates">')
+    $embed.innerHTML=$embed.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">')
 
   })
 }
@@ -175,13 +206,15 @@ function decorateHeroCarousel() {
         $nav.append($navList);
         $carousel.appendChild($nav);
         $wrapper.querySelectorAll(':scope>div').forEach(($slide, i, slides) => {
-            $slide.classList.add('hero-carousel-slide');
+          const prevSlide = i > 0 ? (i-1)%slides.length : slides.length - 1;
+          const nextSlide =  (i+1)%slides.length;
+          $slide.classList.add('hero-carousel-slide');
             $slide.id=`hero-carousel-slide${i}`;
             $slide.append(createTag('div', {class: 'hero-carousel-snapper'} ));
-            $slide.append(createTag('a', {class: 'hero-carousel-prev', href: `#hero-carousel-slide${(i-1)%slides.length}`} ));
-            $slide.append(createTag('a', {class: 'hero-carousel-next', href: `#hero-carousel-slide${(i+1)%slides.length}`} ));
+            $slide.append(createTag('a', {class: 'hero-carousel-prev', 'aria-label': 'Previous', role: 'button', href: `#hero-carousel-slide${prevSlide}`} ));
+            $slide.append(createTag('a', {class: 'hero-carousel-next', 'aria-label': 'Next', role: 'button', href: `#hero-carousel-slide${nextSlide}`} ));
             const $navitem=createTag('div', {class: 'hero-carousel-navigation-list'});
-            $navitem.innerHTML=`<div class="hero-carousel-navigation-item"><a href="#hero-carousel-slide${i}" class="hero-carousel-navigation-button"><a></div>`;
+            $navitem.innerHTML=`<div class="hero-carousel-navigation-item"><a href="#hero-carousel-slide${i}" role="button" aria-label="Hero Slide ${i}" class="hero-carousel-navigation-button"><a></div>`;
             $navList.append($navitem);
         });
 
@@ -191,16 +224,15 @@ function decorateHeroCarousel() {
         $overlay.classList.add('hero-carousel-overlay');
         $section.prepend($carousel);
         
-        $overlay.innerHTML=$overlay.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates.svg" class="stock-advocates" alt="Adobe Stock Advocates">')
-
+        $overlay.innerHTML=$overlay.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">')
     });
 }
 
 function decorateTables() {
-    document.querySelectorAll('main div>table').forEach(($table) => {
-      const $cols=$table.querySelectorAll('thead tr th');
+    document.querySelectorAll('main>div>table,.embed>div>table').forEach(($table) => {
+      const $cols=$table.querySelectorAll(':scope>thead>tr>th');
       const cols=Array.from($cols).map((e) => toClassName(e.innerHTML)).filter(e => e?true:false);
-      const $rows=$table.querySelectorAll('tbody tr');
+      const $rows=$table.querySelectorAll(':scope>tbody>tr');
       let $div={};
       
       $div=tableToDivs($table, cols) 
@@ -209,11 +241,11 @@ function decorateTables() {
   }
     
   function tableToDivs($table, cols) {
-    const $rows=$table.querySelectorAll('tbody tr');
+    const $rows=$table.querySelectorAll(':scope>tbody>tr');
     const $cards=createTag('div', {class:`${cols.join('-')}`})
     $rows.forEach(($tr) => {
       const $card=createTag('div')
-      $tr.querySelectorAll('td').forEach(($td, i) => {
+      $tr.querySelectorAll(':scope>td').forEach(($td, i) => {
         const $div=createTag('div', cols.length>1?{class: cols[i]}:{});
           $div.innerHTML=$td.innerHTML;
           $div.childNodes.forEach(($child) => {
@@ -253,6 +285,13 @@ function decorateTables() {
     const $hamburger=$header.children[2];
 
     $logo.classList.add('logo');
+    $logo.classList.add('handsy');
+
+    $logo.addEventListener("click", (() => { 
+      // don't want to wrap with a tag, too many styles using children[0]
+      //window.location.pathname = window.location.pathname.split("/").slice(0,-2).join("/") + "/";
+      window.location.href = 'https://stock.adobe.com/'; // hardcoded for now
+    }));
     $menu.classList.add('menu');
     $hamburger.classList.add('hamburger');
 
@@ -265,7 +304,62 @@ function decorateTables() {
       }
     
     })
+    decorateLogo();
 
+  }
+
+
+  function decorateContactUs() {
+    const $contactus=document.getElementById('contact-us');
+    if ($contactus) {
+      const $parent=$contactus.parentElement;
+      $contactus.remove();
+      $parent.id='contact-us';
+      if (window.location.hash=='#contact-us') {
+        $parent.scrollIntoView();
+      }
+    }
+  }
+
+  function decorateLogo() {
+    const $hero=document.querySelector('.hero-carousel');
+    if (!$hero) {
+      const $header=document.querySelector('header');
+      const $asaLogoDiv=createTag('div', {class: 'asa-logo handsy'});
+      $asaLogoDiv.innerHTML=`<img src="/templates/stock-advocates/advocates_logo_small.svg">`;
+      // don't want to wrap with a tag, too many style selectors may break - kk
+      $asaLogoDiv.addEventListener("click", (() => { 
+        // this won't work if we add more sub folders
+        window.location.pathname = window.location.pathname.split("/").slice(0,-1).join("/") + "/";
+      }));
+      $header.append($asaLogoDiv);
+    }
+  }
+
+  function addAccessibility() {
+    try {
+      const url = location.pathname;
+      const lang = url.split('/')[2];
+      const htmlTag = document.querySelector('html');
+      htmlTag.setAttribute('lang', lang);
+    }
+    catch(e) {
+      console.debug("could not add lang to html tag");
+    }
+    const footerIcons = document.querySelectorAll('#contact-us .icon');
+    footerIcons.forEach($icon => {
+      try {
+        $icon.classList.forEach(($cl) => {
+          if ($cl.startsWith('icon-')) {
+              const $name = $cl.split('-')[1];
+              $icon.parentElement.setAttribute('aria-label', $name);
+          }
+        });
+      }
+      catch (e) {
+        console.debug('Count not set icon aria-label');
+      }
+    });
   }
 
   async function decoratePage() {
@@ -285,6 +379,8 @@ function decorateTables() {
     decorateFaq();
     window.pages.decorated = true;
     appearMain();
+    decorateContactUs();
+    addAccessibility();
   }
   
   
