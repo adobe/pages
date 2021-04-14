@@ -224,8 +224,12 @@ async function decorateStep() {
     }
     document.title=currentStep.Title;
     if (currentStep['Practice File']) {
-        document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
-        document.querySelector('main .content>p>a').setAttribute('target', '_blank')
+        if(currentStep['Practice File'].includes('http')) {
+            document.querySelector('main .content>p>a').setAttribute('href', `${currentStep['Practice File']}`);
+            document.querySelector('main .content>p>a').setAttribute('target', '_blank')
+        } else {
+            document.querySelector('main .content>p>a').setAttribute('href', `/static/twp3/practice-files/${currentStep['Practice File']}`);
+        }
     }
 
     if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
