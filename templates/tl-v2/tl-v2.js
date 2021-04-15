@@ -7,7 +7,6 @@ async function fetchSteps() {
 
 function getThumbnail(step) {
     let thumbnail=step.Thumbnail;
-    console.log(step.Thumbnail)
     if (!thumbnail) {
         if (step.Video.startsWith('https://www.youtube.com')) {
             const yturl=new URL(step.Video);
@@ -81,7 +80,12 @@ async function insertSteps() {
                             <h3>${stepsNest.title}</h3>
                         </div>
                 `
-
+                
+                if(step.Thumbnail.includes('http')) {
+                    console.log('has external link')
+                } else {
+                    console.log('does not contain external link')
+                }
 
                 markup += `<div class="steps">`
                 
@@ -116,12 +120,16 @@ async function insertSteps() {
 
         } else {
             let html='';
-            console.log(steps)
             steps.forEach((step, i) => {
+                let setThumbnail;
+
+                if(step.Thumbnail.includes('http')) {
+                    setThumbnail = step.Thumbnail
+                } else {
+                    setThumbnail = ` ../../../../static/ete/hero-posters/${getThumbnail(step)}`
+                }
                 html+=`<div class="card" onclick="window.location='step?${i+1}'">
-                    <div class='img' style="background-image: url(../../../../static/ete/hero-posters/${getThumbnail(
-                      step
-                    )})">
+                    <div class='img' style="background-image: url(${setThumbnail})">
                     <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
                     <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
                         <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
