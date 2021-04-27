@@ -129,7 +129,8 @@ async function insertSteps() {
                     setThumbnail = ` ../../../../static/ete/hero-posters/${getThumbnail(step)}`
                 }
                 html+=`<div class="card" onclick="window.location='step?${i+1}'">
-                    <div class='img' style="background-image: url(${setThumbnail})">
+                    <div class='img'>
+                    <img src="${setThumbnail}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
                     <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
                         <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
