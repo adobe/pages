@@ -222,6 +222,7 @@ main .card a:any-link:hover {
   padding-top: 59%;
   background-size: cover;
   position: relative;
+  -webkit-appearance: none;
 }
 
 .step main .content .video .button svg {
@@ -231,7 +232,8 @@ main .card a:any-link:hover {
   height: 100px;
   position: absolute;
   margin: auto;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   right: 0;
   top: 0;
   bottom: 0;

@@ -20,6 +20,7 @@ function getThumbnail(step) {
 
 
 
+
 function addNavCarrot() {
     if(document.querySelector('header svg') || document.querySelector('header img')) {
         let svg = document.querySelector('header svg') || document.querySelector('header img');
@@ -178,14 +179,19 @@ function dropDownMenu() {
 
 
 
+let is_video_playing = false;
+
 
 export function playVideo() {
     document.getElementById('placeholder').classList.add('hidden');
     const $video=document.getElementById('video');
     $video.classList.remove('hidden');
     $video.classList.remove('hidden');
-    $video.play();
-    $video.setAttribute('controls', true)
+    if(!is_video_playing) {
+        $video.play();
+        $video.setAttribute('controls', true)
+        is_video_playing = true;
+    } 
 
 }
 
