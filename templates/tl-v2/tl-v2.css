@@ -13,7 +13,7 @@ main img, main video {
 main h1 {
   font-size: 42px;
   font-weight: 900;
-  max-width: 650px;
+  max-width: 750px;
   width: 95%;
   margin: auto;
   padding: 20px;
@@ -71,15 +71,16 @@ main .steps {
 
 main .card {
   width: 315px;
-  margin: 15px;
+  margin: 25px 15px;
   cursor: pointer;
+  overflow: hidden;
+  border: 1px solid #DEDEDE;
+  border-radius: 10px !important;
 }
 
 main .card .text {
-  border: 1px solid #DEDEDE;
-  border-radius: 5px;
   border-top: 0;
-  padding: 24px 32px;
+  padding: 12px 32px;
   text-align: left;
   box-sizing: border-box;
 }
@@ -102,10 +103,10 @@ main .card .text>div {
 } 
 
 main .card .img {
-  height: 140px;
   background-size: cover;
   box-sizing: border-box;
   position: relative;
+  width: 100%;
 }
 
 main .card .img svg {
@@ -127,6 +128,7 @@ main .card a:any-link {
   border: 2px solid currentColor;
   border-radius: 20px;
   padding: 7px 20px;
+  margin-bottom: 2em !important;
   text-decoration: none;
   color: currentColor;
   font-weight: 800;
@@ -220,6 +222,7 @@ main .card a:any-link:hover {
   padding-top: 59%;
   background-size: cover;
   position: relative;
+  -webkit-appearance: none;
 }
 
 .step main .content .video .button svg {
@@ -229,7 +232,8 @@ main .card a:any-link:hover {
   height: 100px;
   position: absolute;
   margin: auto;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   right: 0;
   top: 0;
   bottom: 0;

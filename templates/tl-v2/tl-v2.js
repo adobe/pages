@@ -7,7 +7,6 @@ async function fetchSteps() {
 
 function getThumbnail(step) {
     let thumbnail=step.Thumbnail;
-    console.log(step.Thumbnail)
     if (!thumbnail) {
         if (step.Video.startsWith('https://www.youtube.com')) {
             const yturl=new URL(step.Video);
@@ -17,6 +16,7 @@ function getThumbnail(step) {
     }
     return (thumbnail);
 }
+
 
 
 
@@ -81,7 +81,12 @@ async function insertSteps() {
                             <h3>${stepsNest.title}</h3>
                         </div>
                 `
-
+                
+                if(step.Thumbnail.includes('http')) {
+                    console.log('has external link')
+                } else {
+                    console.log('does not contain external link')
+                }
 
                 markup += `<div class="steps">`
                 
@@ -116,12 +121,17 @@ async function insertSteps() {
 
         } else {
             let html='';
-            console.log(steps)
             steps.forEach((step, i) => {
+                let setThumbnail;
+
+                if(step.Thumbnail.includes('http')) {
+                    setThumbnail = step.Thumbnail
+                } else {
+                    setThumbnail = ` ../../../../static/ete/hero-posters/${getThumbnail(step)}`
+                }
                 html+=`<div class="card" onclick="window.location='step?${i+1}'">
-                    <div class='img' style="background-image: url(../../../../static/ete/hero-posters/${getThumbnail(
-                      step
-                    )})">
+                    <div class='img'>
+                    <img src="${setThumbnail}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
                     <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
                         <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
@@ -169,14 +179,19 @@ function dropDownMenu() {
 
 
 
+let is_video_playing = false;
+
 
 export function playVideo() {
     document.getElementById('placeholder').classList.add('hidden');
     const $video=document.getElementById('video');
     $video.classList.remove('hidden');
     $video.classList.remove('hidden');
-    $video.play();
-    $video.setAttribute('controls', true)
+    if(!is_video_playing) {
+        $video.play();
+        $video.setAttribute('controls', true)
+        is_video_playing = true;
+    } 
 
 }
 
