@@ -26,3 +26,7 @@ main .default:first-of-type h1 br {
 		display: block;
 	}	
 }
+
+.hidden {
+	display: none;
+}
