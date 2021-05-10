@@ -1,0 +1,193 @@
+@import url("/styles/legacy/styles.css");
+
+
+body {
+  background: black;
+  color: white;
+}
+
+h1, p {
+  color: white !important;
+}
+
+footer a {
+  color: white !important;
+}
+
+.home header {
+  position: absolute;
+  top: 40px;
+  z-index: 9;
+  width: 100%;
+}
+
+.home header img {
+  margin-right: 16px;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero__content {
+  padding: 14em 0em;
+  text-align: center;
+  position: relative;
+  max-width: 900px;
+  width: 95%;
+  margin: auto;
+  z-index: 6;
+}
+
+.hero__content p {
+  max-width: 600px;
+  margin: auto;
+}
+
+.hero__background {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+.default:nth-child(2) {
+  max-width: 900px;
+  width: 95%;
+  margin: auto;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 3em;
+}
+
+.steps__inner {
+  max-width: 900px;
+  padding-bottom: 5em;
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.steps__item {
+  width: 100%;
+  margin-bottom: 3em;
+}
+
+.steps__img {
+  position: relative;
+  width: 100%;
+  background: #444;
+  padding-bottom: 56.38%;
+  margin-bottom: 1em;
+}
+
+.steps__img img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.steps__info {
+  display: flex;
+  color: #9A9A9A;
+}
+
+.steps__info span:nth-child(2) {
+  margin: 0em 0.6em;
+}
+
+.steps h4 {
+  font-size: 24px;
+  margin: 0.5em 0em;
+}
+
+.steps hr {
+  height: 2px;
+  border: none;
+  background: #444;
+}
+
+.steps p {
+  color: #9A9A9A !important;
+}
+
+.steps a {
+  color: #1473E6;
+  font-size: 19px;
+  text-decoration: none;
+}
+
+
+.default:nth-child(4) {
+  background: #454545;
+  text-align: center;
+  padding: 2em 0em;
+}
+
+.default:nth-child(4) p {
+  max-width: 800px;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.button_group {
+  padding: 1.5em 0em;
+}
+
+.button_group .cta {
+  background: #1473E6;
+  padding: 10px 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  margin-right: 24px;
+}
+
+.button_group .secondary {
+  border: 2px solid white;
+  padding: 10px 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  margin-right: 24px;
+}
+
+.row_title {
+  font-size: 24px;
+}
+
+.default:nth-child(4) a{
+  color: white;
+}
+
+@media(min-width: 700px) {
+  .hero__content h1 {
+    font-size: 55px;
+  }
+
+  .hero__content p {
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .steps__item {
+    width: 46%;
+  }
+
+  .steps h4 {
+    font-size: 28px;
+  }
+  
+  .steps p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  .row_title {
+    font-size: 30px;
+  }
+}
