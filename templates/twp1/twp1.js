@@ -18,9 +18,6 @@ function getThumbnail(step) {
 }
 
 
-
-
-
 function addNavCarrot() {
   if(document.querySelector('header svg') || document.querySelector('header img')) {
       let svg = document.querySelector('header svg') || document.querySelector('header img');
@@ -51,8 +48,6 @@ function addNavCarrot() {
   }
 }
 
-
-
 async function insertSteps() {
   const $steps=document.querySelector('main div.steps');
   if ($steps) {
@@ -62,7 +57,8 @@ async function insertSteps() {
       let step_item = ``;
       console.log(steps)
 
-      steps.forEach((step) => {
+      steps.forEach((step, index) => {
+        console.log(index)
         step_item += `
           <div class="steps__item">
             <div class="steps__img">
@@ -76,7 +72,7 @@ async function insertSteps() {
             <h4>${step.Title}</h4>
             <hr>
             <p>${step.Description}</p>
-            <a href="">${step.CTA}</a>
+            <a href="step?${index + 1}">${step.CTA_text}</a>
           </div>
         `
       })
@@ -91,126 +87,124 @@ async function insertSteps() {
 
 async function decorateStep() {
   document.body.classList.add('step');
-  classify('main>div:first-of-type', 'content');
-  classify('main>div:nth-of-type(2)', 'learn');
-  classify('main>div:nth-of-type(3)', 'progress');
-  classify('main>div:nth-of-type(4)', 'upnext');
-
-  const $content=document.querySelector('.content');
-  const $learn=document.querySelector('.learn');
-  const $progress=document.querySelector('.progress');
-  const $upnext=document.querySelector('.upnext');
-
-  const $video=createTag('div', {class: 'video-wrapper'});
-  $content.appendChild($video);
 
   const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
   const steps=await fetchSteps();
+
+
+  console.log(steps[stepIndex].Title)
+  let next_video = '';
+  let next_video_index = stepIndex + 1;
+
+
+
+
+  if(stepIndex + 1 < steps.length) {
+    next_video = `<a href="?${next_video_index + 1}">${steps[next_video_index].Title}</a> <span>|</span>`
+  } else {
+    next_video = '';
+  }
+  // if(stepIndex)
   const currentStep=steps[stepIndex];
 
-  //fill content section
+  console.log(currentStep)
+  document.querySelector('main .default:first-of-type').classList.add('hero')
+  decorateHero();
+  const $hero = document.querySelector('main .hero');
+  const $step_1 = document.querySelector('main .default:nth-child(2)')
+  const $step_2 = document.querySelector('main .default:nth-child(3)')
+  const $step_3 = document.querySelector('main .default:nth-child(4)')
+  const last_row = document.querySelector('main .default:last-of-type')
 
-  const $h1=document.querySelector('main .content>h1');
-  let title=currentStep.Title;
-  if (currentStep.Heading) title=currentStep.Heading;
-  title=title.replace('\n', '<br>');
-  $h1.innerHTML=title;
-  let iconParent = document.createElement("div");
-  iconParent.setAttribute("class", "icons_parent");
-  iconParent.innerHTML = `
-  <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
-  <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
 
-  $h1.id='';
-
-  document.querySelector("main .content").prepend(iconParent);
+  // set up hero
+  $hero.querySelector('h4').innerText = currentStep.Milestone;
+  $hero.querySelector('h1').innerText = currentStep.Title;
+  $hero.querySelector('p').innerText = currentStep.Single_page_description
+  // console.log(currentStep.Step_two_timestamp.split('\n'))
   
-  // for (let i=0;i<8;i++) {
-  //     $h1.appendChild(createTag('span', {class: 'grab-'+i}))
-  // }
-  document.title=currentStep.Title;
-  if (currentStep['Practice File']) {
-      document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
-  }
-
-  if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
-      $video.innerHTML=`<div class="video"><div id="placeholder" class="button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-              <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                  <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                  <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-              </g>
-              </svg>
+  // set up step 1
+  $step_1.innerHTML = `
+    <div class="default__container step-1">
+      <div class="default__content">
+        <h3>${currentStep.Step_one_mini_title}</h3>
+        <h2>${currentStep.Step_one_title}</h2>
+        <p>${currentStep.Step_one_copy}</p>
+        <a href="${currentStep.Step_one_link}" class="cta">${currentStep.Step_one_cta_text}</a>
       </div>
-      <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
-      <source src="${currentStep.Video}" type="video/mpeg4">
-      </video></div>`;
-      $video.firstChild.style.backgroundImage=`url(${currentStep.Thumbnail})`;
-      $video.firstChild.addEventListener('click', (e) => playVideo());
-  }
+    </div>
+  `
 
-  if (currentStep.Video.startsWith('https://www.youtube.com/')) {
-      const yturl=new URL(currentStep.Video);
-      const vid=yturl.searchParams.get('v');
-      $video.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+ 
 
-  }
+  // set up step 2
 
-  //fill learn section
+  const timestamps_all = currentStep.Step_two_timestamp.split('\n');
+  let timestamps = '';
+  const timestamp_parent = document.createElement('ul');
 
-  let skills=[]
-  while (currentStep['Skill '+(skills.length+1)]) {
-      skills.push({
-          title: currentStep['Skill '+(skills.length+1)].replace('\n', '<br>'), 
-          icon: currentStep['Skill '+(skills.length+1)+' Icon']
-      });
-  }
-  const $skills=createTag('div',{class: 'skills'});
-  let html='';
-
-  skills.forEach((skill) => {
-      html+=`<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
-          <p>${skill.title.replace('\n', '<br>')}</p></div>`;
+  timestamps_all.forEach((time) => {
+    if(time.length > 2) {
+      timestamps += `<li>${time}</li>`
+    }
   })
-  $skills.innerHTML=html;
-  $learn.appendChild($skills);
 
-  //fill progress section
+  timestamp_parent.innerHTML = timestamps
 
-  const splits=$progress.innerHTML.split("#");
-  $progress.innerHTML=splits[0]+(stepIndex+1)+splits[1]+(steps.length)+splits[2];
 
-  const $progressbar=createTag('div',{class: 'progress-bar'});
-  html='';
-  steps.forEach((step,i) => {
-      html+=`<div onclick="window.location.href='step?${i+1}'" class="${i==stepIndex?'active':'inactive'}"></div>`
+  $step_2.innerHTML = `
+  <div class="default__container step-2">
+    <div class="default__content">
+      <h3>${currentStep.Step_two_mini_title}</h3>
+      <h2>${currentStep.Step_two_title}</h2>
+    </div>
+    <div class="video">
+      <video preload="metadata" src="${currentStep.Step_two_video}">
+        <source src="${currentStep.Step_two_video}" type="video/mpeg4">
+      </video>
+    </div>
+    <div class="default__content default__step-info">
+      <h4>${currentStep.Title}
+        <span>|</span>
+        ${currentStep.Duration}
+      </h3>
+      <p>${currentStep.Description}</p>
+    </div>
+    <div class="default__following-along">
+      <h5>${currentStep.Step_two_timestamp_title}</h5>
+      ${timestamp_parent.outerHTML}
+
+      <div class="milestones">
+        <p class="milestone-of">${currentStep.Step_two_see_all_title}</p>
+        <p class="milestones-links">
+          ${currentStep.Next}:
+          ${next_video}
+          <a href="./">${currentStep.See_all}</a>
+        </p>
+      </div>
+    </div>
+    
+  </div>
+  `
+
+
+
+  last_row.firstElementChild.classList.add('row_title')
+  const last_row_links = last_row.querySelectorAll('a');
+  const button_group = document.createElement('div');
+  button_group.className = 'button_group';
+  let links = '';
+
+  last_row_links.forEach((link, index) => {
+    link.closest('p').remove();
+    let class_name = index >= 1 ? 'secondary' : 'cta'
+    console.log(class_name)
+    links += `<a href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`
   })
-  $progressbar.innerHTML=html;
-  $progress.appendChild($progressbar);
 
-
-  // fill up next
-
-  var upnext=$upnext.innerHTML;
-
-  const nextStep=steps[stepIndex+1];
-  if (nextStep) {
-      $upnext.innerHTML=` <div class="upnext__inner">
-                            <div class="window">
-                              <img src="${getThumbnail(nextStep)}">
-                            </div>
-                            ${upnext}
-                            <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
-                            <p>${nextStep.Description.replace('\n', '<br>')}</p>
-                          </div>
-      
-              `;
-  } else {
-      $upnext.remove();
-  }
+  button_group.innerHTML = links;
+  last_row.append(button_group);
   
-  $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
-
 }
 
 function wrapSections(element) {
