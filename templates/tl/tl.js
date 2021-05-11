@@ -40,7 +40,7 @@ function addNavCarrot() {
 
     
 
-        if(document.querySelector('header .section-wrapper').children[1].firstElementChild.nodeName === "P") {
+        if(document.querySelector('header .section-wrapper p')) {
             let productName = document.querySelector('header .section-wrapper').children[1].querySelector('p')
             document.querySelector('.product-icon').appendChild(productName)            
         }
