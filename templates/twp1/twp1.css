@@ -40,7 +40,7 @@ header img {
 }
 
 .hero__content {
-  padding: 14em 0em;
+  padding: 9em 0em;
   text-align: center;
   position: relative;
   max-width: 900px;
@@ -90,7 +90,7 @@ header img {
 
 .steps__item {
   width: 100%;
-  margin-bottom: 3em;
+  margin-bottom: 20px;
 }
 
 .steps__img {
@@ -98,6 +98,7 @@ header img {
   width: 100%;
   background: #444;
   padding-bottom: 56.38%;
+  display: inline-block;
   margin-bottom: 1em;
 }
 
@@ -167,6 +168,7 @@ main .default:last-of-type p {
   border-radius: 30px;
   text-decoration: none;
   margin-right: 24px;
+  border: 2px solid #1473E6;
 }
 
 .button_group .secondary {
@@ -181,7 +183,7 @@ main .default:last-of-type p {
   font-size: 24px;
 }
 
-.step main .default:nth-child(2) {
+.step main .default:nth-child(2), .step main .default:nth-child(4) {
   background-color: #191919;
   text-align: center;
   padding: 3.5em 0em;
@@ -212,6 +214,7 @@ main .default:last-of-type p {
 .default__content a {
   background: #1473E6;
   padding: 10px 16px;
+  font-weight: 800;
   border-radius: 30px;
   text-decoration: none;
   margin-right: 24px;
@@ -227,12 +230,17 @@ main .default:last-of-type p {
   padding: 4em 0em;
 }
 
-.step-2 video {
-  padding: 2em 0em;
+.video {
+  margin: 2em 0em;
+  width: 100%;
+  position: relative;
+}
+
+.video video {
+  width: 100%;
 }
 
 .default__content h4 {
-  /* font-size: 26px; */
   font-size: 22px;
   margin: 0;
   padding-bottom: 0.4em;
@@ -241,7 +249,6 @@ main .default:last-of-type p {
 .default__content p {
   padding-bottom: 0.5em;
   font-size: 16px;
-  /* font-size: 18px; */
 }
 
 .default__content span {
@@ -298,6 +305,30 @@ main .default:last-of-type p {
 .milestones span {
   padding: 0em 0.5em;
   color: #B2B2B2 !important;
+}
+
+.play-video {
+  position: absolute;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: white;
+  background: #1473E6;
+  width: 115px;
+  height: 115px;
+  cursor: pointer;
+  border-radius: 100%;
+  z-index: 9;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.play-video svg {
+  width: 70%;
+  left: 54%;
+  position: absolute;
+  top: 50%; 
+  transform: translate(-50%, -50%);
 }
 
 @media(min-width: 700px) {
