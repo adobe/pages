@@ -55,15 +55,14 @@ async function insertSteps() {
       const steps__inner = document.createElement('div');
       steps__inner.classList.add('steps__inner')
       let step_item = ``;
-      console.log(steps)
-
+  
       steps.forEach((step, index) => {
         console.log(index)
         step_item += `
           <div class="steps__item">
-            <div class="steps__img">
+            <a href="step?${index + 1}" class="steps__img">
               <img src="${step.Thumbnail}"/>
-            </div>
+            </a>
             <div class="steps__info">
               <span>${step.Milestone}</span>
               <span>|</span>
@@ -90,13 +89,8 @@ async function decorateStep() {
 
   const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
   const steps=await fetchSteps();
-
-
-  console.log(steps[stepIndex].Title)
   let next_video = '';
   let next_video_index = stepIndex + 1;
-
-
 
 
   if(stepIndex + 1 < steps.length) {
@@ -106,8 +100,6 @@ async function decorateStep() {
   }
   // if(stepIndex)
   const currentStep=steps[stepIndex];
-
-  console.log(currentStep)
   document.querySelector('main .default:first-of-type').classList.add('hero')
   decorateHero();
   const $hero = document.querySelector('main .hero');
@@ -120,8 +112,7 @@ async function decorateStep() {
   // set up hero
   $hero.querySelector('h4').innerText = currentStep.Milestone;
   $hero.querySelector('h1').innerText = currentStep.Title;
-  $hero.querySelector('p').innerText = currentStep.Single_page_description
-  // console.log(currentStep.Step_two_timestamp.split('\n'))
+  $hero.querySelector('p').innerText = currentStep.Single_page_description;
   
   // set up step 1
   $step_1.innerHTML = `
@@ -129,13 +120,11 @@ async function decorateStep() {
       <div class="default__content">
         <h3>${currentStep.Step_one_mini_title}</h3>
         <h2>${currentStep.Step_one_title}</h2>
-        <p>${currentStep.Step_one_copy}</p>
+        <p>${currentStep.Step_one_copy?currentStep.Step_one_copy:''}</p>
         <a href="${currentStep.Step_one_link}" class="cta">${currentStep.Step_one_cta_text}</a>
       </div>
     </div>
   `
-
- 
 
   // set up step 2
 
@@ -159,9 +148,15 @@ async function decorateStep() {
       <h2>${currentStep.Step_two_title}</h2>
     </div>
     <div class="video">
-      <video preload="metadata" src="${currentStep.Step_two_video}">
+      <video class="video__el" preload="metadata" src="${currentStep.Step_two_video}">
         <source src="${currentStep.Step_two_video}" type="video/mpeg4">
       </video>
+      <button class="play-video">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="51" viewBox="0 0 40 51">
+        <path id="Polygon_1" data-name="Polygon 1" d="M25.5,0,51,40H0Z" transform="translate(40) rotate(90)" fill="#fff"/>
+      </svg>
+    
+      </button>
     </div>
     <div class="default__content default__step-info">
       <h4>${currentStep.Title}
@@ -187,8 +182,28 @@ async function decorateStep() {
   </div>
   `
 
+  // step 3
+  $step_3.innerHTML = `
+    <div class="default__container step-3">
+      <div class="default__content">
+        <h3>${currentStep.Step_three_mini_title}</h3>
+        <h2>${currentStep.Step_three_title}</h2>
+        <p>${currentStep.Step_three_copy?currentStep.Step_three_copy:''}</p>
+        <a href="${currentStep.Step_three_link}" class="cta">${currentStep.Step_three_cta_text}</a>
+      </div>
+    </div>
+  `
 
 
+  // play video handler
+  document.querySelector('.play-video').addEventListener('click', (event) => {
+    document.querySelector('.video__el').play();
+    document.querySelector('.video__el').setAttribute('controls', true)
+    event.currentTarget.remove()
+  })
+  
+
+  // style last row
   last_row.firstElementChild.classList.add('row_title')
   const last_row_links = last_row.querySelectorAll('a');
   const button_group = document.createElement('div');
