@@ -16,15 +16,31 @@ footer a {
 
 header {
   position: absolute;
-  top: 40px;
+  top: 30px;
   z-index: 9;
   width: 100%;
+}
+
+header a {
+  color: white;
+}
+
+header li:hover {
+  background: transparent !important;
+  text-decoration: underline;
+}
+
+header a:hover {
+  text-decoration: underline;
 }
 
 header img {
   margin-right: 16px;
 }
 
+header .section-wrapper div div {
+  display: flex;
+}
 .hero {
   position: relative;
 }
