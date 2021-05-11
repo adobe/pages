@@ -16,15 +16,22 @@ footer a {
 
 header {
   position: absolute;
-  top: 40px;
+  top: 30px;
   z-index: 9;
   width: 100%;
+}
+
+header a {
+  color: white;
 }
 
 header img {
   margin-right: 16px;
 }
 
+header .section-wrapper div div {
+  display: flex;
+}
 .hero {
   position: relative;
 }
