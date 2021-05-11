@@ -25,6 +25,15 @@ header a {
   color: white;
 }
 
+header li:hover {
+  background: transparent !important;
+  text-decoration: underline;
+}
+
+header a:hover {
+  text-decoration: underline;
+}
+
 header img {
   margin-right: 16px;
 }
