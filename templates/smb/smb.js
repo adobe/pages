@@ -29,10 +29,7 @@ function decorateNav() {
     document.querySelector("header div").prepend(svgWithCarrot);
     document.querySelector("header").classList.add("default-nav");
 
-    if (
-      document.querySelector("header .section-wrapper").children[1]
-        .firstElementChild.nodeName === "P"
-    ) {
+    if(document.querySelector('header .section-wrapper p')) {
       let productName = document
         .querySelector("header .section-wrapper")
         .children[1].querySelector("p");
