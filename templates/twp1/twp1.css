@@ -183,6 +183,7 @@ main .default:last-of-type p {
   padding: 10px 16px;
   border-radius: 30px;
   text-decoration: none;
+  font-weight: 800;
   margin-right: 24px;
   border: 2px solid #1473E6;
 }
@@ -191,6 +192,7 @@ main .default:last-of-type p {
   border: 2px solid white;
   padding: 10px 16px;
   border-radius: 30px;
+  font-weight: 800;
   text-decoration: none;
   margin-right: 24px;
 }
