@@ -18,9 +18,6 @@ function getThumbnail(step) {
 }
 
 
-
-
-
 function addNavCarrot() {
     if(document.querySelector('header svg') || document.querySelector('header img')) {
         let svg = document.querySelector('header svg') || document.querySelector('header img');
