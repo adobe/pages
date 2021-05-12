@@ -83,9 +83,9 @@ async function loadLocalHeader() {
   if ($inlineHeader) {
     const $header=document.querySelector('header');
     $inlineHeader.childNodes.forEach((e, i) => {
-      if (e.nodeName == '#text' && !i) {
-        const $p=createTag('p');
-        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.nodeValue}`
+      if (e.nodeName == 'DIV' && !i) {
+        const $p=createTag('div');
+        const inner=`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`
         $p.innerHTML=inner;
         e.parentNode.replaceChild($p,e);
       }
