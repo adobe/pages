@@ -113,18 +113,34 @@ async function decorateStep() {
   $hero.querySelector('h4').innerText = currentStep.Milestone;
   $hero.querySelector('h1').innerText = currentStep.Title;
   $hero.querySelector('p').innerText = currentStep.Single_page_description;
+
+  let $step_one_link = ``;
+
+  if(currentStep.Step_one_link) {
+    if(currentStep.Step_one_link.includes('http')) {
+      $step_one_link = `${currentStep.Step_one_link}`
+    } else {
+      $step_one_link = `/templates/twp1/sample-images/${currentStep.Step_one_link}`
+    }
+    $step_one_link = `<a href="${$step_one_link}" class="cta">${currentStep.Step_one_cta_text}</a>`
+  }
   
   // set up step 1
-  $step_1.innerHTML = `
-    <div class="default__container step-1">
-      <div class="default__content center">
-        <h3>${currentStep.Step_one_mini_title}</h3>
-        <h2>${currentStep.Step_one_title}</h2>
-        <p>${currentStep.Step_one_copy?currentStep.Step_one_copy:''}</p>
-        <a href="${currentStep.Step_one_link}" class="cta">${currentStep.Step_one_cta_text}</a>
+  if(currentStep.Step_one_title) {
+    $step_1.innerHTML = `
+      <div class="default__container step-1">
+        <div class="default__content center">
+          <h3>${currentStep.Step_one_mini_title}</h3>
+          <h2>${currentStep.Step_one_title}</h2>
+          <p>${currentStep.Step_one_copy?currentStep.Step_one_copy:''}</p>
+          ${$step_one_link}
+        </div>
       </div>
-    </div>
-  `
+    `
+  } else {
+    $step_1.innerHTML = ``;
+    $step_1.childElementCount < 1 ? $step_1.style.padding = '0px' : '';
+  }
 
   // set up step 2
 
@@ -182,17 +198,33 @@ async function decorateStep() {
   </div>
   `
 
+  let $Step_three_link = ``;
+  
+  if(currentStep.Step_three_link) {
+    if(currentStep.Step_three_link.includes('http')) {
+      $Step_three_link = `${currentStep.Step_three_link}`
+    } else {
+      $Step_three_link = `/templates/twp1/practice-images/${currentStep.Step_one_link}`
+    }
+    $Step_three_link = `<a href="${$Step_three_link}" class="cta">${currentStep.Step_three_cta_text}</a>`
+  }
+
   // step 3
-  $step_3.innerHTML = `
+  if(currentStep.Step_three_title) {
+    $step_3.innerHTML = `
     <div class="default__container step-3">
       <div class="default__content center">
         <h3>${currentStep.Step_three_mini_title}</h3>
         <h2>${currentStep.Step_three_title}</h2>
         <p>${currentStep.Step_three_copy?currentStep.Step_three_copy:''}</p>
-        <a href="${currentStep.Step_three_link}" class="cta">${currentStep.Step_three_cta_text}</a>
+        ${$Step_three_link}
       </div>
     </div>
   `
+  } else {
+    $step_3.innerHTML = ``;
+    $step_3.childElementCount < 1 ? $step_3.style.padding = '0px' : '';
+  }
 
 
   // play video handler
