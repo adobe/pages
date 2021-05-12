@@ -90,8 +90,12 @@ header .section-wrapper div div {
 
 .default__container {
   max-width: 900px;
-  width: 95%;
+  width: 90%;
   margin: auto;
+}
+
+.center {
+  text-align: center !important;
 }
 
 .steps__inner {
@@ -106,7 +110,7 @@ header .section-wrapper div div {
 
 .steps__item {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .steps__img {
@@ -208,7 +212,7 @@ main .default:last-of-type p {
 }
 
 .default__content {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .default__content h3 {
@@ -274,7 +278,7 @@ main .default:last-of-type p {
 }
 
 .default__following-along {
-  max-width: 500px;
+  max-width: 900px;
   margin: auto;
 }
 
@@ -282,6 +286,9 @@ main .default:last-of-type p {
   font-style: italic;
   font-size: 18px;
   color: #B2B2B2;
+  margin-bottom: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #707070;
 }
 
 .default__following-along ul {
@@ -294,10 +301,6 @@ main .default:last-of-type p {
   margin-bottom: 1em;
   color: #B2B2B2;
   font-size: 18px;
-}
-
-.milestones {
-  text-align: center;
 }
 
 .milestone-of {
@@ -364,7 +367,7 @@ main .default:last-of-type p {
   }
 
   .steps h4 {
-    font-size: 28px;
+    font-size: 25px;
   }
   
   .steps p {
@@ -377,7 +380,7 @@ main .default:last-of-type p {
   }
 
   .default__content h4 {
-    font-size: 26px;
+    font-size: 25px;
   }
   
   .default__content p {
