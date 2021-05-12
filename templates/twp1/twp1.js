@@ -117,7 +117,7 @@ async function decorateStep() {
   // set up step 1
   $step_1.innerHTML = `
     <div class="default__container step-1">
-      <div class="default__content">
+      <div class="default__content center">
         <h3>${currentStep.Step_one_mini_title}</h3>
         <h2>${currentStep.Step_one_title}</h2>
         <p>${currentStep.Step_one_copy?currentStep.Step_one_copy:''}</p>
@@ -143,7 +143,7 @@ async function decorateStep() {
 
   $step_2.innerHTML = `
   <div class="default__container step-2">
-    <div class="default__content">
+    <div class="default__content center">
       <h3>${currentStep.Step_two_mini_title}</h3>
       <h2>${currentStep.Step_two_title}</h2>
     </div>
@@ -185,7 +185,7 @@ async function decorateStep() {
   // step 3
   $step_3.innerHTML = `
     <div class="default__container step-3">
-      <div class="default__content">
+      <div class="default__content center">
         <h3>${currentStep.Step_three_mini_title}</h3>
         <h2>${currentStep.Step_three_title}</h2>
         <p>${currentStep.Step_three_copy?currentStep.Step_three_copy:''}</p>
@@ -213,8 +213,7 @@ async function decorateStep() {
   last_row_links.forEach((link, index) => {
     link.closest('p').remove();
     let class_name = index >= 1 ? 'secondary' : 'cta'
-    console.log(class_name)
-    links += `<a href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`
+    links += `<a target="_BLANK" href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`
   })
 
   button_group.innerHTML = links;
@@ -279,7 +278,7 @@ async function decorateHome() {
     link.closest('p').remove();
     let class_name = index >= 1 ? 'secondary' : 'cta'
     console.log(class_name)
-    links += `<a href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`
+    links += `<a target="_blank" href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`
   })
 
   button_group.innerHTML = links;
