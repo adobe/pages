@@ -1,0 +1,146 @@
+@import url("/styles/legacy/styles.css");
+
+header {
+  position: absolute;
+  top: 12px; left: 0;
+  width: 100%;
+  font-weight: 800;
+  z-index: 9;
+}
+
+header img {
+  margin-right: 16px;
+}
+
+header .container p {
+  color: white !important;
+}
+
+.container {
+  max-width: 960px;
+  width: 90%;
+  margin: auto;
+}
+
+.container p {
+  color: #000000 !important;
+  font-size: 18px;
+}
+
+.hero-banner img {
+  width: 100%;
+}
+
+.hero {
+  text-align: center;
+  position: relative;
+}
+
+.hero h3 {
+  position: relative;
+  margin-top: -16px;
+}
+
+.hero h1 {
+  font-size: 40px;
+  margin: 0.2em auto 0.5em auto;
+}
+
+.hero p {
+  max-width: 675px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+main .default:nth-child(2) {
+  text-align: center;
+  padding-top: 2.5em;
+}
+
+.topic_icons {
+  display: flex;
+  width: 90%;
+  max-width: 900px;
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 1em 0em;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+
+.topic_icons li {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #626262;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.topic_icons span:first-of-type {
+  margin-bottom: 10px;
+}
+
+.engineer span:last-of-type{
+  position: relative;
+}
+
+main .default:nth-child(3) {
+  background: #F6F6F6;
+  padding: 1em 0em;
+  margin-top: 4em;
+}
+
+.video__wrapper {
+  margin: 3em auto;
+  max-width: 705px;
+  display: flex;
+  background: white;
+  align-items: center;
+}
+
+.video__element {
+  width: 60%;
+  position: relative;
+}
+
+.video__wrapper video {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
+
+.video__play-button {
+  border: none;
+  outline: none;
+  background: none;
+  position: absolute;
+  z-index: 4;
+  cursor: pointer;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.video__content {
+  max-width: 180px;
+  margin: auto;
+}
+
+.video__content h1 {
+  text-align: left !important;
+  margin-top: 0.2em;
+  font-size: 35px;
+  font-weight: 100;
+}
+
+.video__content h4 {
+  margin: 0;
+  color: #37C9D0;
+  font-weight: 800;
+}
+
+.video__content p {
+  font-weight: 100;
+  line-height: 1.6;
+}
