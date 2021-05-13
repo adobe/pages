@@ -47,38 +47,57 @@ function addNavCarrot() {
   }
 }
 
+const icon_cleanup = ($string) => {
+  let original = $string.split('\n')
+  let type = '';
+  original.forEach((icon_set) => {
+    if(icon_set.split('-')[1] != undefined) {
+      type += `
+        <div class="great_for_icon_set">
+          <img src="${window.location.origin}/templates/ai-scientist/assets/${icon_set.split('-')[1].trim().toLowerCase()}.svg">
+        </div>
+      `
+    }
+  })
+  return type;
+}
+
 async function insertSteps() {
   const $steps=document.querySelector('main div.steps');
-  // if ($steps) {
-  //     const steps=await fetchSteps();
-  //     const steps__inner = document.createElement('div');
-  //     steps__inner.classList.add('steps__inner')
-  //     let step_item = ``;
-  
-  //     steps.forEach((step, index) => {
-  //       console.log(index)
-  //       step_item += `
-  //         <div class="steps__item">
-  //           <a href="step?${index + 1}" class="steps__img">
-  //             <img src="${step.Thumbnail}"/>
-  //           </a>
-  //           <div class="steps__info">
-  //             <span>${step.Milestone}</span>
-  //             <span>|</span>
-  //             <span>${step.Duration}</span>
-  //           </div>
-  //           <h4>${step.Title}</h4>
-  //           <hr>
-  //           <p>${step.Description}</p>
-  //           <a href="step?${index + 1}">${step.CTA_text}</a>
-  //         </div>
-  //       `
-  //     })
+  if ($steps) {
+      const steps=await fetchSteps();
+      console.table(steps)
+      let $step_item = '';
 
-  //     steps__inner.innerHTML = step_item;
-  //     $steps.innerHTML = steps__inner.outerHTML
-      
-  // }
+      steps.forEach((step, index) => {
+        let icons = icon_cleanup(step.Great_for)
+        $step_item += `
+          <div class="steps__item">
+            <div class="steps__item--inner flex">
+              <div class="steps__for">
+                <span>${step.Duration}</span>
+                <span class="spacer">|</span>
+                <span>${step.Great_for_title}</span>
+              </div>
+              <div class="steps__for-icons flex">
+                ${icons}
+              </div>
+            </div>
+            <a href="/step?${index + 1}" class="steps__image">
+              <img src="${step.Thumbnail}"/>
+            </a>
+
+            <div class="steps__item--inner content">
+              <h2>${step.Title}</h2>
+              <p>${step.Description}</p>
+              <a href="/step?${index + 1}">${step.CTA}</a>
+            </div>
+          </div>
+        `
+      })
+
+      $steps.innerHTML = $step_item
+  }
 }
 
 
