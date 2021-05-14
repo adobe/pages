@@ -33,7 +33,7 @@ function wrapSections(element) {
   }
 
 function decorateHeroSection() {
-    const $firstSectionImage=document.querySelector('main div.section-wrapper>div>p>img');
+    const $firstSectionImage=document.querySelector('main div.section-wrapper>div>p img');
     if ($firstSectionImage) {
         const $section=$firstSectionImage.closest('.section-wrapper');
         $section.classList.add('full-width');
