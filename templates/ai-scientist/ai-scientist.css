@@ -1,7 +1,6 @@
 @import url("/styles/legacy/styles.css");
 
 header {
-  /* position: absolute; */
   top: 12px; left: 0;
   width: 100%;
   font-weight: 800; 
@@ -40,7 +39,6 @@ header .container p {
 
 .hero h3 {
   position: relative;
-  /* margin-top: -16px; */
 }
 
 .hero h1 {
@@ -78,7 +76,6 @@ main .default:nth-child(2) {
   color: #626262;
   font-weight: 600;
   letter-spacing: 1px;
-
   width: 48%;
   margin-bottom: 2em;
 }
@@ -91,10 +88,9 @@ main .default:nth-child(2) {
   position: relative;
 }
 
-main .default:nth-child(3) {
+.home main .default:nth-child(3), .video_card {
   background: #F6F6F6;
   padding: 1em 0em;
-  /* margin-top: 4em; */
   margin-top: 2em;
 }
 
@@ -104,13 +100,10 @@ main .default:nth-child(3) {
   display: flex;
   background: white;
   align-items: center;
-
-  /* mobile */
   flex-direction: column;
 }
 
 .video__element {
-  /* width: 60%; */
   position: relative;
 }
 
@@ -133,8 +126,6 @@ main .default:nth-child(3) {
 }
 
 .video__content {
-  /* max-width: 180px; */
-  /* margin: auto; */
   padding: 2em 0em;
 }
 
@@ -157,12 +148,12 @@ main .default:nth-child(3) {
 }
 
 
-main .default:nth-child(4) {
+.home main .default:nth-child(4) {
   text-align: center;
   padding-top: 3em;
 }
 
-main .default:nth-child(4) h1 {
+.home main .default:nth-child(4) h1 {
   font-weight: 400;
   font-size: 35px;
 }
@@ -175,7 +166,6 @@ main .default:nth-child(4) h1 {
 }
 
 .steps__item {
-  /* width: 45%; */
   width: 100%;
   border: 1px solid #BCBCBC;
   border-radius: 4px;
@@ -255,6 +245,167 @@ main .default:nth-child(4) h1 {
   color: white;
 }
 
+main .default:last-of-type {
+  text-align: center;
+  position: relative;
+  margin-bottom: 2em;
+}
+
+main .default:last-of-type a {
+  display: inline-block;
+  border: 2px solid #323232;
+  border-radius: 30px;
+  padding: 6px 40px;
+  color: #323232;
+  text-decoration: none;
+  font-weight: 700;
+  background: white;
+  margin-top: 10px;
+}
+
+main .default:last-of-type a:hover {
+  background-color: #323232;
+  color: white;
+}
+
+footer {
+  background: #F6F6F6;
+  width: 100%;
+  margin: auto;
+  padding: 2em 0em;
+}
+
+
+main .default:last-of-type .footer-wave {
+  position: absolute;
+  left: 0; width: 100%;
+  height: 100%;
+  z-index: 9;
+  bottom: 0;
+  z-index: -1;
+}
+
+main .default:last-of-type .footer-wave img {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  top: 61.8%;
+}
+
+.step main .default:last-of-type h1 {
+  margin-top: 1em;
+}
+
+.icon-set {
+  text-align: center;
+  padding: 2em 0em;
+}
+
+.icon-set h4 {
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 0em;
+}
+
+
+.step-two a {
+  background:#0D66D0;
+  font-size: 17px;
+  color: white;
+  padding: 0.7em 3em;
+  border-radius: 30px;
+  text-decoration: none;
+  margin-top: 1em;
+  display: inline-block;
+}
+
+.step-two {
+  text-align: center;
+  background: #F6F6F6;
+  padding: 45px 0em;
+}
+
+.step-three {
+  text-align: center;
+  padding: 45px 0em;
+}
+
+.step-two h4, 
+.step-three h4 {
+  color: #747474;
+  font-size: 16px;
+  margin-bottom: 0.5em;
+}
+
+.step-two h2, 
+.step-three h2 {
+  color:#323232;
+  font-size: 25px;
+  margin-top: 0em;
+}
+
+.step-three .video__wrapper {
+  display: inline-block;
+  margin: auto;
+  width: 100% !important;
+  max-width: 785px;
+  padding-top: 1.5em;
+}
+
+.step-three .video__element {
+  width: 100%;
+}
+
+.video-info-single {
+  text-align: left;
+  padding: 1.4em 0em;
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.video-timeline {
+  text-align: left;
+  margin: 0; padding: 2em 0em;
+  border-bottom: 1px solid #EAEAEA;
+}
+
+
+.video-timeline li {
+  list-style-type: none;
+  margin-bottom: 18px;
+}
+
+.video-timeline li:last-of-type {
+  margin-bottom: 0;
+}
+
+.mini-nav {
+  display: flex;
+  margin: 0; padding: 0;
+  padding-top: 2em;
+  list-style-type: none;
+}
+
+.mini-nav li {
+  /* margin-right: 1em; */
+  text-align: left;
+}
+
+.mini-nav li:after {
+  content: '|';
+  margin: 0em 1em;
+}
+
+.mini-nav li:last-of-type:after {
+  display: none;
+}
+
+.mini-nav a {
+  color: #1473E6;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 14px;
+}
 
 @media(min-width: 720px) {
   header {
@@ -303,7 +454,7 @@ main .default:nth-child(4) h1 {
     width: 33%;
   }
   
-  main .default:nth-child(3) {
+  .home main .default:nth-child(3) {
     margin-top: 2em;
   }
   
@@ -339,12 +490,12 @@ main .default:nth-child(4) h1 {
   }
   
   
-  main .default:nth-child(4) {
+  .home main .default:nth-child(4) {
     text-align: center;
     padding-top: 3em;
   }
   
-  main .default:nth-child(4) h1 {
+  .home main .default:nth-child(4) h1 {
     font-weight: 400;
     font-size: 35px;
   }
