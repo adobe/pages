@@ -104,7 +104,7 @@ async function insertSteps() {
             <div class="steps__item--inner content">
               <h2>${step.Title}</h2>
               <p>${step.Description}</p>
-              <a href="/step?${index + 1}">${step.CTA}</a>
+              <a href="step?${index + 1}">${step.CTA}</a>
             </div>
           </div>
         `
@@ -174,6 +174,14 @@ async function decorateStep() {
 
   console.table(currentStep)
 
+  if(currentStep.Practice_file.length > 1) {
+    $step_two.querySelector('a').setAttribute('href', currentStep.Practice_file)
+    $step_two.querySelector('a').setAttribute('target', '_blank')
+  } else {
+    $step_two.innerHTML = ``;
+    $step_two.style.padding = '0px';
+  }
+
   // hero
   $intro.querySelector('h1').innerText = currentStep.Title
   $intro.querySelector('p').innerText = currentStep.Description
@@ -211,11 +219,9 @@ async function decorateStep() {
   }
 
   if(stepIndex + 1 < steps.length) {
-    console.log('not last video')
     document.querySelector('.mini-nav li:nth-child(1) a').setAttribute('href', `step?${stepIndex+2}`)
     document.querySelector('.mini-nav li:nth-child(1) a').innerText = steps[stepIndex+1].Title
   } else {
-    console.log('last video')
     document.querySelector('.mini-nav li:nth-child(1)').remove(); 
   }
   
@@ -249,13 +255,17 @@ async function decorateStep() {
     </div>
   
   `
-  
-  document.querySelector('.video__play-button').addEventListener('click', (event) => {
-    document.querySelector('.video__element video').play();
-    document.querySelector('.video__element video').setAttribute('controls', true);
-    event.currentTarget.remove();
-  })
 
+  console.log(document.querySelectorAll('.video__play-button').length, 'hello')
+  let buttons = document.querySelectorAll('.video__play-button')
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', event => {
+      event.currentTarget.closest('.video__element').querySelector('video').play();
+      event.currentTarget.closest('.video__element').querySelector('video').setAttribute('controls', true);
+      event.currentTarget.remove();
+    })
+  })
 
 
 

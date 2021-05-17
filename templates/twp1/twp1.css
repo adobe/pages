@@ -56,7 +56,7 @@ header .section-wrapper div div {
 }
 
 .hero__content {
-  padding: 9em 0em;
+  padding: 7em 0em;
   text-align: center;
   position: relative;
   max-width: 900px;
@@ -162,7 +162,7 @@ header .section-wrapper div div {
 main .default:last-of-type {
   background: #454545;
   text-align: center;
-  padding: 2em 0em;
+  padding: 3em 0em;
 }
 
 main .default:last-of-type a {
@@ -179,7 +179,7 @@ main .default:last-of-type p {
 }
 
 .button_group {
-  padding: 1.5em 0em;
+  padding: 4em 0 1.5em 0em;
 }
 
 .button_group .cta {
