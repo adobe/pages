@@ -60,6 +60,22 @@ main .default:first-of-type p {
   padding-bottom: 1.5em;
 }
 
+.step .content p {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.step .content a:first-of-type {
+  border: 2px solid #1473e6;
+}
+
+.step .content .secondary {
+  border: 2px solid white;
+  background: transparent !important;
+}
+
 main .steps {
   display: flex;
   flex-wrap: wrap;
@@ -568,6 +584,17 @@ main svg {
     margin-left: 20px;
     /* margin-left: 10px; */
   }
+
+
+  .step .content p {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .step .content a.secondary {
+    margin-left: 32px;
+  }
+  
 
 }
 
