@@ -276,8 +276,37 @@ main {
   }
   
 
+  .additional-links {
+    font-size: 14px;
+  }
+
+  .additional-links br {
+    display: none;
+  }
+
   .additional-links a {
     font-size: 14px;
     margin-bottom: 10px;
-    display: inline-block
+    display: inline-block;
+    color: #1473e6;
+  }
+
+  .additional-links > div:first-of-type a {
+    color: white;
+    background: #1473e6;
+    padding: 10px 30px;
+    border-radius: 30px;
+    margin-bottom: 2em;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .additional-links p {
+    padding-bottom: 0 !important; 
+  }
+
+  .additional-links  p:empty {
+    margin: 0  !important;
+    padding: 0 !important;
+    padding-bottom: 0 !important;
   }
