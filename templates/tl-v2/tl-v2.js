@@ -234,6 +234,13 @@ async function decorateStep() {
     document.title=currentStep.Title;
     if (currentStep['Practice File']) {
         document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
+        console.log(currentStep['Next_file'], currentStep)
+    }
+    if(currentStep['Next_file']) {
+        document.querySelector('main .content>p>a:nth-of-type(2)').setAttribute('href', currentStep['Next_file']);
+        document.querySelector('main .content>p>a:nth-of-type(2)').classList.add('secondary')
+    } else {
+        document.querySelector('main .content>p>a:nth-of-type(2)').remove();
     }
 
     if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
