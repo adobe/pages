@@ -196,19 +196,26 @@ async function decorateStep() {
     document.body.classList.add('step');
     classify('main>div:first-of-type', 'content');
     classify('main>div:nth-of-type(2)', 'learn');
-    classify('main>div:nth-of-type(3)', 'progress');
-    classify('main>div:nth-of-type(4)', 'upnext');
+    classify('main>div:nth-of-type(3)', 'learn-in-illustrator');
+    classify('main>div:nth-of-type(4)', 'learn-in-photoshop');
+    classify('main>div:nth-of-type(5)', 'head-back');
+    classify('main>div:nth-of-type(6)', 'next-steps');
 
     const $content=document.querySelector('.content');
     const $learn=document.querySelector('.learn');
-    const $progress=document.querySelector('.progress');
-    const $upnext=document.querySelector('.upnext');
+    const $learn_step_one = document.querySelector('.learn-in-illustrator');
+    const $learn_step_two = document.querySelector('.learn-in-photoshop');
+    const $head_back = document.querySelector('.head-back');
+    const $next_steps = document.querySelector('.next-steps');
+
+    
 
     const $video=createTag('div', {class: 'video-wrapper'});
     $content.appendChild($video);
 
     const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
     const steps=await fetchSteps();
+    console.log(steps)
     const currentStep=steps[stepIndex];
 
     //fill content section
@@ -228,13 +235,10 @@ async function decorateStep() {
 
     document.querySelector("main .content").prepend(iconParent);
     
-    // for (let i=0;i<8;i++) {
-    //     $h1.appendChild(createTag('span', {class: 'grab-'+i}))
-    // }
+ 
     document.title=currentStep.Title;
     if (currentStep['Practice File']) {
         document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
-        console.log(currentStep['Next_file'], currentStep)
     }
     let all_ctas = document.querySelectorAll('main .content>p>a');
     if(all_ctas.length >= 2) {
@@ -249,11 +253,11 @@ async function decorateStep() {
     if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
         $video.innerHTML=`<div class="video"><div id="placeholder" class="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                </g>
-                </svg>
+            <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+            </g>
+        </svg>
         </div>
         <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
@@ -266,64 +270,147 @@ async function decorateStep() {
         const yturl=new URL(currentStep.Video);
         const vid=yturl.searchParams.get('v');
         $video.innerHTML=`<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
-
     }
 
-    //fill learn section
+    // replace this with real checker
+    let has_tutorials = currentStep.Tutorial_must_haves;
+    let has_tutorials_one = currentStep.Tutorial_type_one
+    let has_tutorials_two = currentStep.Tutorial_type_two
+    let tutorials = '';
 
-    let skills=[]
-    while (currentStep['Skill '+(skills.length+1)]) {
-        skills.push({
-            title: currentStep['Skill '+(skills.length+1)].replace('\n', '<br>'), 
-            icon: currentStep['Skill '+(skills.length+1)+' Icon']
-        });
+    if(has_tutorials_one) {
+        tutorials += `
+            <div class="tutorial__item">
+                <div class="tutorial__icon">
+                    <img src="../../../../icons/${currentStep.Tutorial_type_one.toLowerCase()}.svg">
+                </div>
+                <div class="tutorial__info">
+                    <p>${currentStep.Tutorial_download_title_one}</p>
+                    <a href="${currentStep.Tutorial_button_link_one}" target="_blank" class="cta">${currentStep.Tutorial_button_text_one}</a>
+                </div>
+            </div>
+
+        `
     }
-    const $skills=createTag('div',{class: 'skills'});
-    let html='';
 
-    skills.forEach((skill) => {
-        html+=`<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
-            <p>${skill.title.replace('\n', '<br>')}</p></div>`;
-    })
-    $skills.innerHTML=html;
-    $learn.appendChild($skills);
+    if(has_tutorials_two) {
+        tutorials += `
+            <div class="tutorial__item">
+                <div class="tutorial__icon">
+                    <img src="../../../../icons/${currentStep.Tutorial_type_two.toLowerCase()}.svg">
+                </div>
+                <div class="tutorial__info">
+                    <p>${currentStep.Tutorial_download_title_two}</p>
+                    <a href="${currentStep.Tutorial_button_link_two}" target="_blank" class="cta">${currentStep.Tutorial_button_text_two}</a>
+                </div>
+            </div>
 
-    //fill progress section
+        `
+    }
 
-    const splits=$progress.innerHTML.split("#");
-    $progress.innerHTML=splits[0]+(stepIndex+1)+splits[1]+(steps.length)+splits[2];
-
-    const $progressbar=createTag('div',{class: 'progress-bar'});
-    html='';
-    steps.forEach((step,i) => {
-        html+=`<div onclick="window.location.href='step?${i+1}'" class="${i==stepIndex?'active':'inactive'}"></div>`
-    })
-    $progressbar.innerHTML=html;
-    $progress.appendChild($progressbar);
-
-
-    // fill up next
-
-    var upnext=$upnext.innerHTML;
-
-    const nextStep=steps[stepIndex+1];
-    if (nextStep) {
-        $upnext.innerHTML=` <div class="upnext__inner">
-                              <div class="window">
-                                <img src="${getThumbnail(nextStep)}">
-                              </div>
-                              ${upnext}
-                              <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
-                              <p>${nextStep.Description.replace('\n', '<br>')}</p>
-                            </div>
-        
-                `;
+    if(has_tutorials) {
+        $learn.innerHTML = `
+        <div class="container">
+            <h2>${currentStep.Tutorial_must_haves}</h2>
+            <p>${currentStep.Tutorial_must_haves_copy}</p>
+            <div class="tutorial">${tutorials}</div>
+        </div>
+    `
     } else {
-        $upnext.remove();
+        $learn.remove();
     }
-    
-    $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
 
+    function clean_up_icons($string) {
+        let line_items = $string.split('\n')
+        let li = '';
+        line_items.forEach((line_item) => {
+            let icon = '../../../../static/you-will-learn/'+line_item.split('-')[0].trim()+'.svg';
+            li += `
+                <li class="icon-list__set">
+                    <span><img src="${icon}"></span>
+                    ${line_item.split('-')[1].trim()}
+                </li>
+            
+            `
+        })
+        return li;
+    }
+
+    if(currentStep.Icon_row_title_one) {
+        $learn_step_one.innerHTML = `
+            <div class="container">
+                <h2><img class="title_icon" src="../../../../icons/${currentStep.Tutorial_type_one.toLowerCase()}.svg">${currentStep.Icon_row_title_one}</h2>
+                <ul class="icon-list">
+                    ${clean_up_icons(currentStep.Icon_row_one)}
+                </ul>
+            </div>
+        
+        `
+    } else { $learn_step_one.remove() }
+
+    if(currentStep.Icon_row_title_two) {
+        $learn_step_two.innerHTML = `
+            <div class="container">
+                <h2><img class="title_icon" src="../../../../icons/${currentStep.Tutorial_type_two.toLowerCase()}.svg">${currentStep.Icon_row_title_two}</h2>
+                <ul class="icon-list">
+                    ${clean_up_icons(currentStep.Icon_row_two)}
+                </ul>
+            </div>
+        
+        `
+    } else { $learn_step_two.remove() }
+
+    if(currentStep.Icon_row_title_three) {
+        $head_back.innerHTML = `
+            <div class="container">
+                <h2><img class="title_icon" src="../../../../icons/${currentStep.Tutorial_type_one.toLowerCase()}.svg">${currentStep.Icon_row_title_three}</h2>
+                <ul class="icon-list">
+                    ${clean_up_icons(currentStep.Icon_row_three)}
+                </ul>
+            </div>
+        
+        `
+    } else {
+        $head_back.remove()
+    }
+
+    let next_step_row = document.createElement('div');
+    next_step_row.className = 'container lg';
+    let next_step = '';
+    let counter = 0;
+
+    if(stepIndex >= 1) {
+        next_step += `
+            <a href="step?${stepIndex}" class="next">
+                <img src="${steps[stepIndex - 1].Thumbnail}">
+                <div>
+                    <h3>${steps[stepIndex - 1].Title}</h3>
+                    <p>${steps[stepIndex - 1].Description}</p>
+                </div>
+            </a>
+        `
+        counter=counter+1;
+    }
+    console.log(stepIndex + 1 , steps.length)
+    if(stepIndex + 1 < steps.length) {
+        next_step += `
+            <a href="step?${stepIndex + 2}" class="next">
+                <img src="${steps[stepIndex + 1].Thumbnail}">
+                <div>
+                    <h3>${steps[stepIndex + 1].Title}</h3>
+                    <p>${steps[stepIndex + 1].Description}</p>
+                </div>
+            </a>
+        `
+        counter = counter+1;
+    }
+
+    console.log(counter)
+
+    next_step_row.innerHTML =next_step
+
+    $next_steps.append(next_step_row)
+    if(counter <= 1) $next_steps.classList.add('has-one')
 }
 
 function wrapSections(element) {
