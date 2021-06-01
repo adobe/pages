@@ -11,6 +11,15 @@ body {
 	font-size: 16px;
 }
 
+header, main {
+	opacity: 0;
+}
+
+header.appear,
+main.appear {
+	opacity: 1;
+}
+
 img {
 	max-width: 100%;
 }
