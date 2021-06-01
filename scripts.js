@@ -360,6 +360,7 @@ if (window.pages.product) {
   document.getElementById('favicon').href=`/icons/${window.pages.product}.svg`;
 }
 
+
 if (document.readyState == 'loading') {
   window.addEventListener('DOMContentLoaded', (event) => {
     localizeFooter();
@@ -369,7 +370,7 @@ if (document.readyState == 'loading') {
 } else {
   localizeFooter();
   loadTemplate();
-  
+
 }
 
 

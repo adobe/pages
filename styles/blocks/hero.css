@@ -32,6 +32,17 @@
 	color: #fff;
 }
 
+.hero__content .button.secondary {
+  border-radius: 50px;
+  background-color: #1473e6;
+  padding: 14px 40px;
+  text-decoration: none;
+  color: currentColor;
+  font-weight: 800;
+  display: inline-block;
+  font-size: 16px;
+}
+
 .hero__content .button.secondary:hover {
   background-color: #0d66d0;
 	border-color: #0d66d0 !important;
@@ -77,12 +88,12 @@
 
 @media(min-width: 768px) {
   .hero__content h1 {
-    font-size: 42px;
+    font-size: 48px;
 
   }
   
   .hero__content p {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .video-playbtn {
