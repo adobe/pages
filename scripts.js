@@ -322,6 +322,24 @@ function fixImages() {
   observer.observe(document, { childList: true, subtree: true });
 }
 
+
+
+function style_buttons() {
+  const links = document.querySelectorAll('main a');
+  if(!document.querySelectorAll('main a')) return;
+  links.forEach((link) => {
+    if(
+      link.parentElement.parentNode.nodeName === "P" 
+      && 
+      link.parentElement.parentNode.childElementCount === 1
+      && 
+      link.parentElement.parentNode.firstChild.nodeName === "STRONG"
+      ) {
+      link.className = 'button primary'
+    }
+  })
+}
+
 fixImages();
 
 const pathSegments=window.location.pathname.match(/[\w-]+(?=\/)/g);
@@ -346,10 +364,12 @@ if (document.readyState == 'loading') {
   window.addEventListener('DOMContentLoaded', (event) => {
     localizeFooter();
     loadTemplate();
+    style_buttons();
   });
 } else {
   localizeFooter();
   loadTemplate();
+  
 }
 
 
