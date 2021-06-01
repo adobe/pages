@@ -4,7 +4,7 @@
 
 .list.row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;;
   flex-wrap: wrap;
 }
 
@@ -22,6 +22,14 @@
   margin-bottom: 1em;
   display: flex;
   flex-direction: column;
+}
+
+.list.row > div > div:last-of-type {
+  max-width: 75%;
+  margin: auto;
+  font-size: 18px;
+  line-height: 24px;
+  padding-top: 16px;
 }
 
 .list.row img {

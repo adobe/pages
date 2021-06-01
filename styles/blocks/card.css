@@ -5,14 +5,12 @@
 }
 
 .card > div {
-  /* width: 31%; */
   width: 100%;
-  /* max-width: 350px; */
-  /* margin-right: 4%; */
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid #DEDEDE;
   margin: 2% auto;
+  background: #ffffff;
 }
 
 
