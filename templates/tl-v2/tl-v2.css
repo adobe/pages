@@ -635,8 +635,8 @@ main svg {
   justify-content: center;
 }
 
-.tutorial__item:last-of-type {
-  margin-left: 2em;
+.tutorial__item:first-of-type {
+  margin-right: 2em;
 }
 
 .tutorial__icon {
@@ -708,9 +708,15 @@ main svg {
   display: flex;
   color: white;
   flex-direction: column;
+  align-items: flex-start;
   text-decoration: none;
   margin-bottom: 4em;
 }
+
+.next:last-of-type {
+  margin-bottom: 0em;
+}
+
 
 .next-steps .container {
   padding: 0em !important;
@@ -730,8 +736,7 @@ main svg {
 }
 
 .next img {
-  /* width: 290px; */
-  /* margin-right: 1em; */
+
   width: 100%;
 }
 
@@ -744,10 +749,22 @@ main svg {
   left: 5px;
 }
 
+.see-all-cta {
+  color: white;
+  border: 2px solid currentColor;
+  padding: 7px 20px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 4em;
+}
+
 @media(min-width: 650px) {
 
   .next-steps .container.lg {
-    max-width: 1150px;
+    max-width: 1250px;
   }
 
   .next-steps.has-one .container {
@@ -765,6 +782,7 @@ main svg {
   }
   .next {
     width: 48%;
+    margin-bottom: 0;
   }
 
   .container h2 {
@@ -789,10 +807,6 @@ main svg {
     justify-content: flex-start;
   }
 
-  .tutorial__item:last-of-type {
-    margin-left: 2em;
-  }
-
   .tutorial__icon {
     width: 72px;
     margin: auto;
@@ -802,10 +816,10 @@ main svg {
   }
 }
 
-@media(min-width: 1100px) {
+@media(min-width: 1200px) {
 
   .next-steps .container.lg {
-    max-width: 1150px;
+    max-width: 1250px;
   }
 
   .next-steps.has-one .container {
