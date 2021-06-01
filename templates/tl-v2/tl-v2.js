@@ -264,7 +264,18 @@ async function decorateStep() {
         </video></div>`;
         $video.firstChild.style.backgroundImage=`url(${currentStep.Thumbnail})`;
         $video.firstChild.addEventListener('click', (e) => playVideo());
+
+
+        if($content.querySelector('a').getAttribute('href')==="#0") {
+            $content.querySelector('a').addEventListener('click', function(event) {
+                event.preventDefault();
+                console.log(document.querySelector('.video-wrapper').offsetTop)
+                window.scrollTo(0, document.querySelector('.video-wrapper').offsetTop)
+                playVideo();
+            })
+        }
     }
+    
 
     if (currentStep.Video.startsWith('https://www.youtube.com/')) {
         const yturl=new URL(currentStep.Video);
@@ -379,6 +390,10 @@ async function decorateStep() {
     let next_step = '';
     let counter = 0;
 
+    const see_all_tutorials = $next_steps.querySelector('a');
+    see_all_tutorials.parentNode.remove();
+    see_all_tutorials.className = 'see-all-cta'
+
     if(stepIndex >= 1) {
         next_step += `
             <a href="step?${stepIndex}" class="next">
@@ -405,11 +420,13 @@ async function decorateStep() {
         counter = counter+1;
     }
 
-    console.log(counter)
-
+    
+    
+    
     next_step_row.innerHTML =next_step
-
+    
     $next_steps.append(next_step_row)
+    $next_steps.append(see_all_tutorials)
     if(counter <= 1) $next_steps.classList.add('has-one')
 }
 
