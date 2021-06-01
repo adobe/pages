@@ -49,8 +49,10 @@ header > div {
 }
 
 .app-name.desktop a {
-	color: #444 !important;
+	color: #2c2c2c !important;
 	text-decoration: none;
+	font-size: 14px;
+	font-weight: 800;
 }
 
 .menu-carrot {
@@ -90,7 +92,8 @@ header > div {
 
 .nav nav a {
 	color: #2c2c2c;
-	font-weight: 600;
+	font-weight: 800;
+	font-size: 14px;
 	text-decoration: none;
 }
 

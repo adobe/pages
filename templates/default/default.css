@@ -35,6 +35,11 @@ main > .section-wrapper.dark {
 	background: #282828;
 }
 
+main > .section-wrapper.lightgray {
+	background: #eee;
+}
+
+
 main > .section-wrapper.dark .button.secondary {
 	border-color: white;
 	color: white;
