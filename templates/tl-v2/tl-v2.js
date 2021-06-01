@@ -335,7 +335,7 @@ async function decorateStep() {
         let line_items = $string.split('\n')
         let li = '';
         line_items.forEach((line_item) => {
-            let icon = '../../../../static/you-will-learn/'+line_item.split('-')[0].trim()+'.svg';
+            let icon = '../../../../static/twp3/icons/'+line_item.split('-')[0].trim()+'.svg';
             li += `
                 <li class="icon-list__set">
                     <span><img src="${icon}"></span>
@@ -450,7 +450,6 @@ async function decorateHome() {
         }
     })
     await insertSteps();
-
 }
 
 let debounce = function (func, wait, immediate) {
