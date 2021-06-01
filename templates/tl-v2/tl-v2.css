@@ -231,6 +231,7 @@ main .card a:any-link:hover {
   max-width: 854px;
   margin: auto;
   line-height: 0;
+  background-position: center;
   background-size: cover;
 }
 
