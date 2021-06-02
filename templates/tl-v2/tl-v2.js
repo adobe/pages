@@ -121,7 +121,8 @@ async function insertSteps() {
             steps.forEach((step, i) => {
                 let setThumbnail;
                 let mini_thumb_nails = '';
-                if(step.Product_icon_1.length > 2 && step.Product_icon_2.length > 2) {
+
+                if(step.show_icons_on_card) {
                     mini_thumb_nails += `
                     <div class="icons">
                         <div class="icons__item">
