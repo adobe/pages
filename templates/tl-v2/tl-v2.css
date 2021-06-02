@@ -737,17 +737,16 @@ main svg {
 }
 
 .next img {
-
   width: 100%;
 }
 
 .title_icon {
   width: 30px;
   display: inline;
-  margin-right: 1em;
+  margin-right: 0.5em;
   position: relative;
   top: 6px;
-  left: 5px;
+  left: -7px;
 }
 
 .see-all-cta {

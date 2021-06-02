@@ -120,6 +120,20 @@ async function insertSteps() {
             let html='';
             steps.forEach((step, i) => {
                 let setThumbnail;
+                let mini_thumb_nails = '';
+                if(step.Product_icon_1.length > 2 && step.Product_icon_2.length > 2) {
+                    mini_thumb_nails += `
+                    <div class="icons">
+                        <div class="icons__item">
+                            <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
+                        </div>
+                        <div class="icons__item">
+                            <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
+                        </div>
+                    </div>
+                    
+                    `
+                }
 
                 if(step.Thumbnail.includes('http')) {
                     setThumbnail = step.Thumbnail
@@ -137,14 +151,7 @@ async function insertSteps() {
                     </svg>
                     </div>
                     <div class='text'>
-                      <div class="icons">
-                        <div class="icons__item">
-                          <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
-                        </div>
-                        <div class="icons__item">
-                          <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
-                        </div>
-                      </div>
+                      ${mini_thumb_nails}
                       <div class="card-content"> 
                         <h4>${step.Title}</h4>
                         <p>${step.Description}</p>
