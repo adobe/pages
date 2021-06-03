@@ -216,7 +216,7 @@ async function decorateStep() {
     const $head_back = document.querySelector('.head-back');
     const $next_steps = document.querySelector('.next-steps');
 
-    
+
 
     const $video=createTag('div', {class: 'video-wrapper'});
     $content.appendChild($video);
@@ -224,8 +224,11 @@ async function decorateStep() {
     const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
     const steps=await fetchSteps();
     console.log(steps)
+    
     const currentStep=steps[stepIndex];
-
+    let has_single_thumbnail = currentStep.has_single_gallery_image;
+    console.log(has_single_thumbnail)
+    
     //fill content section
 
     const $h1=document.querySelector('main .content>h1');
@@ -235,9 +238,15 @@ async function decorateStep() {
     $h1.innerHTML=title;
     let iconParent = document.createElement("div");
     iconParent.setAttribute("class", "icons_parent");
-    iconParent.innerHTML = `
-    <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
-    <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
+    if(has_single_thumbnail) {
+        iconParent.innerHTML = `
+        <div class="icons_parent__item large"><img src="../../../../static/twp3/icons/${currentStep.has_single_gallery_image.toLowerCase()}.svg"></div>
+        `
+    } else {
+        iconParent.innerHTML = `
+        <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
+        <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
+    }
 
     $h1.id='';
 
