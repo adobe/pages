@@ -19,6 +19,14 @@ main h1 {
   padding: 20px;
 }
 
+.home main .default:first-of-type p:first-of-type {
+  padding: 0;
+}
+
+.home main .default:first-of-type img {
+  max-width: 170px;
+  margin-top: 50px;
+}
 
 .icons {
   display: flex;
