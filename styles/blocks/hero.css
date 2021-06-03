@@ -58,11 +58,11 @@
 }
 
 .video-placeholder {
-  height: 70%;
-  width: 70%;
+  height: 67%;
+  width: 67%;
   position: absolute;
   top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-51%, -49%);
   background-size: cover;
   background-position: center;
   cursor: pointer;

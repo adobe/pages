@@ -23,24 +23,23 @@ function styleNav() {
   parent.innerHTML = `
     <div class="section-wrapper">
       <div class="nav">
-      <div class="nav__section">
-        <div class="app-name-and-icon">
-          <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
-          <div class="app-icon desktop">
-            <a href="${appNameLink}" target="_blank">
-              <img src="${appIcon}" alt="${appName}">
-            </a>
+        <div class="nav__section">
+          <div class="app-name-and-icon">
+            <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
+            <div class="app-icon desktop">
+              <a href="${appNameLink}" target="_blank">
+                <img src="${appIcon}" alt="${appName}">
+              </a>
+            </div>
+            <div class="app-name mobile">
+              ${appName}
+            </div>
+            <div class="app-name desktop">
+              <a href="${appNameLink}" target="_blank">${appName}</a>
+            </div>
+            ${carrot}
           </div>
-          <div class="app-name mobile">
-            ${appName}
-          </div>
-          <div class="app-name desktop">
-            <a href="${appNameLink}" target="_blank">${appName}</a>
-          </div>
-          ${carrot}
-        </div>
-      </div>
-      
+        </div> 
         <nav>
           ${nav}
         </nav>

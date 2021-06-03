@@ -82,6 +82,15 @@ h5 {
 	font-size: 20px;
 }
 
+main .section-wrapper:first-of-type p {
+	font-size: 20px;
+	color: #747474;
+}
+
+main .section-wrapper p:last-of-type {
+	margin-bottom: 0em;	
+}
+
 main p {
 	font-size: 1em;
 }
