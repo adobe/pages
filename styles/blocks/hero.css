@@ -21,6 +21,10 @@
   line-height: 1.2;
 }
 
+.hero-container.dark p {
+  color: white !important;
+}
+
 .hero__content p {
   line-height: 1.5;
   font-size: 20px;
