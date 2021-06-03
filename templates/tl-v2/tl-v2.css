@@ -531,6 +531,11 @@ main svg {
   width: 48px;
 }
 
+.icons_parent__item.large {
+  width: 170px;
+  margin-left: 0px !important;
+}
+
 .icons_parent__item img {
   width: 100%;
 }
