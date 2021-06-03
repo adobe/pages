@@ -1,3 +1,7 @@
+main .card-container.fourstack > div {
+  max-width: 1200px !important; 
+}
+
 .card {
   display: flex;
   justify-content: space-between;
@@ -69,6 +73,9 @@
 
 
 @media(min-width: 968px) {
+  .fourstack .card > div {
+    width: 23%;
+  }
   .card > div {
     width: 31%;
     border-radius: 8px;
