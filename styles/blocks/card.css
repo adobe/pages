@@ -1,5 +1,5 @@
 main .card-container.fourstack > div {
-  max-width: 1200px !important; 
+  max-width: 1200px; 
 }
 
 .card {
@@ -76,6 +76,7 @@ main .card-container.fourstack > div {
   .fourstack .card > div {
     width: 23%;
   }
+  
   .card > div {
     width: 31%;
     border-radius: 8px;
