@@ -347,7 +347,7 @@ async function decorateStep() {
             li += `
                 <li class="icon-list__set">
                     <span><img src="${icon}"></span>
-                    ${line_item.split('-')[1]}
+                    <span>${line_item.split('-')[1]}</span>
                 </li>
             
             `
