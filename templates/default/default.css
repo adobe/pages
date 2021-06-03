@@ -15,6 +15,14 @@ img {
 	max-width: 100%;
 }
 
+header img {
+	opacity: 0;
+}
+
+.loaded header.appear img {
+	opacity: 1;
+}
+
 main > .section-wrapper > div {
 	max-width: 900px;
 	width: 80%;

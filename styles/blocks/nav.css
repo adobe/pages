@@ -28,13 +28,8 @@ header > div {
 	background: none;
 }
 
-.loaded .nav img {
-	opacity: 1;
-}
-
 .nav img {
 	width: 36px;
-	opacity: 0;
 	height: 36px;
 }
 
