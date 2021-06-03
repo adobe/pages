@@ -642,7 +642,6 @@ main svg {
 
 .tutorial__icon {
   width: 72px;
-  /* margin-right: 1em; */
   margin: auto;
   margin-bottom: 0.5em;
 }
@@ -679,6 +678,10 @@ main svg {
   align-items: center;
   font-size: 16px;
   margin-bottom: 20px;
+}
+
+.icon-list__set a {
+  color: #1473e6;
 }
 
 .icon-list__set:last-of-type {
