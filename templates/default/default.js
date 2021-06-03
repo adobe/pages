@@ -524,6 +524,7 @@ async function decoratePage() {
   })
 }
 
+window.addEventListener('load', () => document.body.classList.add('loaded'))
 
 if (document.readyState == 'loading') {
   window.addEventListener('DOMContentLoaded', (event) => {
