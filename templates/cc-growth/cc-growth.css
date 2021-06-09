@@ -20,6 +20,10 @@
   padding-top: 0.6em;
 }
 
+.icons input {
+  width: 100%;
+}
+
 .icons.dark h1{
   color: white;
   transition: all 200ms ease;
