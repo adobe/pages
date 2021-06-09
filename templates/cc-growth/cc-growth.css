@@ -1,0 +1,42 @@
+@import url("/styles/legacy/styles.css");
+
+body.dark {
+  background-color: #222;
+  color: white !important;
+}
+
+body.dark input {
+  background: #555555;
+  color: white;
+}
+.icons ul {
+  margin: 0; padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.icons li {
+  text-align: center;
+  width: 22%;
+  margin-bottom: 3em;
+}
+
+.icons img {
+  width: 30px;
+}
+
+.icons input {
+  width: 100%;
+  text-align: center;
+}
+.icons {
+  display: block;
+}
+
+.toggle_button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
