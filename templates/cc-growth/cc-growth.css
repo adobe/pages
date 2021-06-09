@@ -1,20 +1,52 @@
 @import url("/styles/legacy/styles.css");
 
-body.dark {
-  background-color: #222;
-  color: white !important;
+
+.icons main .section-wrapper:first-of-type {
+  padding: 7em 0em 4em 0em;
 }
 
-body.dark input {
+.icons.dark {
+  background-color: #222;
+  color: white !important;
+  transition: all 200ms ease;
+}
+
+.icons h1 {
+  margin: 0;
+}
+
+.icons p {
+  margin: 0;
+  padding-top: 0.6em;
+}
+
+.icons.dark h1{
+  color: white;
+  transition: all 200ms ease;
+}
+
+.icons.dark p {
+  color: white;
+  transition: all 200ms ease;
+}
+
+.icons.dark input {
   background: #555555;
   color: white;
+  transition: all 200ms ease;
 }
+
 .icons ul {
   margin: 0; padding: 0;
+  margin-top: 4em;
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.icons .group .name {
+  display: none;
 }
 
 .icons li {
@@ -23,8 +55,17 @@ body.dark input {
   margin-bottom: 3em;
 }
 
+.icons .copy {
+  color: #555555;
+}
+
+.icons.dark .copy {
+  color: #fff;
+}
+
 .icons img {
   width: 30px;
+  margin-bottom: 16px;
 }
 
 .icons input {
@@ -39,4 +80,29 @@ body.dark input {
   position: absolute;
   top: 30px;
   right: 30px;
+  width: 60px;
+  border-radius: 100px;
+  height: 30px;
+  background: #1473e6;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+
+.toggle_button span {
+  backface-visibility: hidden;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 0; left: 0;
+  display: block;
+  background: white;
+  border-radius: 100%;
+  transition: all 200ms ease;
+}
+
+
+.icons.dark .toggle_button span {
+  transform: translateX(100%);
 }
