@@ -224,25 +224,29 @@ function setSlider(count = 0) {
           }
         
           field.addEventListener('keyup', function(event) {
-  
             if(event.currentTarget.value.length > 1) {
               if(!values.includes(event.currentTarget.getAttribute('name'))) {
                 values.push(event.currentTarget.getAttribute('name'))
               }
             } 
-  
-            if(event.currentTarget.value.length <= 0) {
-              values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
-            }
-  
+          
+            // if(event.currentTarget.value.length <= 0) {
+            //   console.log('here')
+            //   values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
+            // }
+            
             let eachOptions = [];
+            
             
             for(let i = 0; i < values.length; i++) {
               if(!eachOptions.includes(values[i])) {
                 eachOptions.push(values[i]) 
               }
             }
+
+            console.log(eachOptions)
             if(eachOptions.length >= required_counter) {
+              console.log('here', required_counter)
               document.querySelector('.slide-btn.next').classList.add('completed');
             } else {
               document.querySelector('.slide-btn.next').classList.remove('completed');
