@@ -19,6 +19,8 @@ function styleNav() {
       `
     }
   }
+
+  console.log(appName, appIcon)
   
   parent.innerHTML = `
     <div class="section-wrapper">
@@ -364,6 +366,11 @@ async function decorateBlocks() {
       if(classes.includes('iframe') || classes.includes('missiontimeline') || classes.includes('missionbg')) {
         loadJSModule(`/templates/default/mission-series/iframe.js`);
         loadJSModule(`/templates/default/mission-series/background.js`);
+      }
+
+
+      if(classes.includes('list')) {
+        loadJSModule(`/templates/default/render_spectrum_icons.js`);
       }
 
 
