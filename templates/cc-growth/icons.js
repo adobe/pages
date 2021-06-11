@@ -9,7 +9,6 @@ const options = {
   ]
 };
 
-
 const run_lazy_loader = (images) => {
   let observer = new IntersectionObserver((element) => {
 
@@ -83,9 +82,8 @@ const write_input_field = () => {
 
 
 const rewrite_icons = ($data) => {
-  console.log($data, 'hi')
   document.querySelector('main ul').innerHTML = '';
-  const $color = document.body.classList.contains('dark') ? 'spectrum-icons-white': 'spectrum-icons-black';
+  const $color = document.body.classList.contains('dark') ? 'spectrum-icons-light': 'spectrum-icons-dark';
   let $list_item = ``;
   
   if($data.length > 0) {
@@ -112,7 +110,7 @@ const rewrite_icons = ($data) => {
 
 window.addEventListener('load' , () => {
   if(!document.body.classList.contains('icons')) return;
-  set_icon_layout('spectrum-icons-black');
+  set_icon_layout('spectrum-icons-dark');
   write_input_field();
 
   const fuse = new Fuse(items, options)
