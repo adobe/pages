@@ -11,7 +11,6 @@ const options = {
 
 const run_lazy_loader = (images) => {
   let observer = new IntersectionObserver((element) => {
-
     element.forEach((image) => {
       if(!image.isIntersecting) return;
       if (image.intersectionRatio > 0) {
@@ -28,10 +27,7 @@ const run_lazy_loader = (images) => {
     });
   }, options);
 
-
-  images.forEach((image) => {
-    observer.observe(image);
-  });
+  images.forEach((image) =>  observer.observe(image));
 };
 
 const set_icon_layout = ($color) => {
@@ -55,8 +51,6 @@ const set_icon_layout = ($color) => {
   run_lazy_loader(document.querySelectorAll('.icons img'))
 }
 
-
-
 const write_fuse_lib_to_head = () => {
   if(!document.body.classList.contains('icons')) return;
   const script = document.createElement('script');
@@ -65,17 +59,16 @@ const write_fuse_lib_to_head = () => {
   document.getElementsByTagName('head')[0].appendChild(script);
 }
 
-write_fuse_lib_to_head();
 
 const write_input_field = () => {
   const search = document.createElement('form');
   search.classList.add('search-field')
-
+  
   search.innerHTML = `
-    <input type="text" placeholder="Search icons">
-    <div>
-      <button>Search icons</button>
-    </div>
+  <input type="text" placeholder="Search icons">
+  <div>
+  <button>Search icons</button>
+  </div>
   `
   document.querySelector('main ul').insertAdjacentHTML('beforebegin', search.outerHTML); 
 }
@@ -90,13 +83,13 @@ const rewrite_icons = ($data) => {
     $data.forEach(($item) => {
       $list_item += `
       <li>
-        <span class="group">
-          <span class="icons"><img data-src="../../static/${$color}/${$item.item.name}.svg" src=""></span>
-          <div class="name">${$item.item.name}</div>
-          <span class="copy">Copy name below</span>
-          <br>
-          <input type="text" value="${$color}/${$item.item.name}">
-        </span>
+      <span class="group">
+      <span class="icons"><img data-src="../../static/${$color}/${$item.item.name}.svg" src=""></span>
+      <div class="name">${$item.item.name}</div>
+      <span class="copy">Copy name below</span>
+      <br>
+      <input type="text" value="${$color}/${$item.item.name}">
+      </span>
       </li>
       `
     })
@@ -107,6 +100,8 @@ const rewrite_icons = ($data) => {
   }
 }
 
+
+write_fuse_lib_to_head();
 
 window.addEventListener('load' , () => {
   if(!document.body.classList.contains('icons')) return;
