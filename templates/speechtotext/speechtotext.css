@@ -64,6 +64,7 @@ main h2 {
 	margin: 0 0 45px 0;
 }
 
+body.form main .default h1 + p,
 main .default > p {
 	max-width: 928px;
 	margin: 0 auto 20px auto;
@@ -78,7 +79,10 @@ main .default > p {
 }
 
 .default > p > a:only-child,
-.section-wrapper > p > a:only-child {
+.section-wrapper > p > a:only-child,
+.default > p > a + a,
+.section-wrapper > p > a + a,
+.default > p > strong:only-child > a {
 	display: inline-block;
 	color: #fff;
 	font-weight: bold;
@@ -92,14 +96,35 @@ main .default > p {
 	margin-top: 20px;
 }
 
+.default > p > a + a,
+.section-wrapper > p > a + a {
+	margin-left: 40px;
+}
+
+.default > p > a:first-child:not(:only-child), 
+.section-wrapper > p > a:first-child:not(:only-child) {
+	color: #1473E6;
+	background-color: none;
+}
+
 #beta-form input[type=submit]:hover,
 .default > p > a:only-child:hover,
 .section-wrapper > p > a:only-child:hover {
 	background: #0D66D0;
 }
 
+.default > p > a:first-child:not(:only-child):hover, 
+.section-wrapper > p > a:first-child:not(:only-child):hover {
+	color: #0D66D0;
+	background-color: none;	
+}
+
 
 /* white nav */
+
+header {
+	border-bottom: 1px solid #eee;
+}
 
 header .icon {
 	width: 25px;
@@ -135,15 +160,36 @@ header li a {
 
 /* video */
 
-.embed-adobe-tv {
+.video {
+  max-width: 640px;
+  margin: 40px auto 0 auto;	
+}
+
+.video > div > div {
+  overflow: hidden;
+  /* 16:9 aspect ratio */
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.video iframe {
+   border: 0;
+   height: 100%;
+   left: 0;
+   position: absolute;
+   top: 0;
+   width: 100%;
+}
+
+/*.embed-adobe-tv {
 	width: 100%;
 	max-width: 640px;
 	margin: 40px auto 0 auto;
-}
+}*/
 
 /* cards */
 
-main .card {
+main .cards > div {
   	width: 100%;
   	margin: 0 0 40px 0;
   	background: #fff;
@@ -155,17 +201,17 @@ main .card {
 	line-height: 20px;
 }
 
-main .card img {
+main .cards > div img {
 	display: block;
 	width: 100%;
 }
 
-main .card div:last-child {
+main .cards > div div:last-child {
 	border-top: 1px solid #EAEAEA;
 	padding: 40px;
 }
 
-main .card h3 {
+main .cards > div h3 {
   	font-size: 20px;
   	line-height: 25px;
   	margin: 0 0 10px 0;
@@ -192,7 +238,8 @@ main .card h3 {
 		font-size: 36px;
 		line-height: 45px;
 	}
-	
+
+	body.form main .default h1 + p,	
 	main .default > p {
 		max-width: 928px;
 		text-align: center;
@@ -212,18 +259,19 @@ main .card h3 {
 		padding: 60px 0;
 	}
 	
-	main .card {
+	main .cards > div {
 		width: 338px;
 		margin: 0 8px;
 		font-size: 22px;
 		line-height: 28px;
 	}
 
-	main .card h3 {
+	main .cards > div h3 {
   		font-size: 26px;
   		line-height: 32px;
   	}
-  	
+
+	body.form main .default h1 + p,  	
   	main .default > p:last-child {
 	  	margin-bottom: 0;
   	}
@@ -258,7 +306,7 @@ main .card h3 {
 }
 
 #beta-form select {
-	border: 1px solid #8E8E8E;
+	border: 1px solid #cacaca;
 	border-radius: 4px;
     -webkit-appearance: none;
     display: block;

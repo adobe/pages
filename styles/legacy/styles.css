@@ -264,13 +264,15 @@ main div.form-container .input-el > span {
 }
 
 main div.form-container select {
-	border: 1px solid #8E8E8E;
+	border: 1px solid #CACACA;
 	border-radius: 4px;
     -webkit-appearance: none;
     display: block;
     flex: none;
 	margin: 3px 0 0 0;
 	padding: 5px 15px;
+	background: #fff url('/static/global/select-caret.svg') calc(100% - 12px) center no-repeat;
+	background-size: 10px 10px;
 }
 
 main div.form-container input[type=radio],
