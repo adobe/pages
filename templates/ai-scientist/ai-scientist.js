@@ -293,9 +293,6 @@ function decorateHero() {
   // svg.innerHTML = `./assets/hero.svg`
   
   document.querySelector('.hero .container').prepend(svg)
-
-  
-
 }
 
 async function decorateHome() {
@@ -399,6 +396,8 @@ async function decoratePage() {
 
   window.pages.decorated = true;
   appearMain();
+
+  document.body.classList.add(window.pages.locale)
 }
 
 if (document.readyState == 'loading') {
