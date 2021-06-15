@@ -81,10 +81,10 @@ body.home .section-wrapper:last-child .default > h2 {
 	margin: 0 0 20px 0;
 }
 
-.default > p > a:only-child, 
-.section-wrapper > p > a:only-child,
+.default > p > strong:only-child a, 
+.section-wrapper > p > strong:only-child a,
 a.button.action,
-body.home .section-wrapper > p > a:only-child {
+body.home .section-wrapper > p > strong:only-child a {
 	display: inline-block;
 	color: #fff;
 	font-weight: bold;
@@ -100,10 +100,10 @@ body.home .section-wrapper > p > a:only-child {
 	-webkit-appearance: none;
 }
 
-.default > p > a:only-child:hover, 
-.section-wrapper > p > a:only-child:hover,
+.default > p > strong:only-child a:hover, 
+.section-wrapper > p > strong:only-child a:hover,
 a.button.action:hover,
-body.home .section-wrapper > p > a:only-child:hover {
+body.home .section-wrapper > p > strong:only-child a:hover {
 	background: #0D66D0;
 }
 
@@ -113,15 +113,17 @@ main a.button {
     border-radius: 20px;
     min-height: 40px;
     min-width: 90px;
-    padding: 5px 18px;
+/*    padding: 5px 18px;
     padding-bottom: 5.5px;
     padding-top: 4.5px;
+    padding-top: 6.5px;*/
+    padding: 0 18px;
+    line-height: 36px;
     font-size: 17px;
     font-weight: 700;
 	background-color: rgba(0, 0, 0, 0);
     border-color: rgb(110, 110, 110);
     color: rgb(110, 110, 110);
-    padding-top: 6.5px;
     font-size: 16px;
 	-webkit-appearance: none;
 }
@@ -136,6 +138,7 @@ main a.button:hover {
 
 /* white nav */
 
+header .icon,
 .default-nav .icon {
 	width: 25px;
 }
@@ -172,9 +175,13 @@ header .product-icon p {
 	font-size: 14px;
 }
 
+header p:first-of-type {
+	margin-left: 12px;
+}
+
 /* cards */
 
-main .card {
+main .cards > div {
   	width: 100%;
   	margin: 0 0 40px 0;
   	background: #fff;
@@ -186,34 +193,34 @@ main .card {
 	overflow: hidden;
 }
 
-main .card,
-main .card p a,
-main .card p a:hover {
+main .cards > div,
+main .cards > div p a,
+main .cards > div p a:hover {
 	color: #707070;
 }
 
-main .card img {
+main .cards > div img {
 	display: block;
 	width: 100%;
 }
 
-main .card > div:last-child {
+main .cards > div > div:last-child {
 	padding: 40px;
 }
 
-main .card h3 {
+main .cards > div h3 {
   	font-size: 20px;
   	line-height: 27px;
   	margin: 0 0 10px 0;
 }
 
-main .card h3,
-main .card h3 a,
-main .card h3 a:hover {
+main .cards > div h3,
+main .cards > div h3 a,
+main .cards > div h3 a:hover {
   	color: #2C2C2C;	
 }
 
-main .card a:hover {
+main .cards > div a:hover {
 	text-decoration: none;
 }
 
@@ -240,7 +247,7 @@ main .card.index-steps .text {
 }
 
 body.step main {
-	margin: 0 auto;
+	margin: 0 auto 60px auto;
 }
 
 .container {
@@ -389,7 +396,7 @@ body.step.loaded {
 		line-height: 25px;
 	}
 	
-	main .steps {
+	main .steps.cards {
 	  display: flex;
 	  flex-wrap: wrap;
 	  margin: auto;
@@ -409,12 +416,12 @@ body.step.loaded {
 	  max-width: 1416px;
 	}
 	
-	main .card {
+	.home main .cards > div {
 		max-width: 338px;
 		margin: 0 8px 16px 8px;
 	}
 	
-	main .card.index-steps {
+	.home.index main .card.index-steps {
 		max-width: 928px;
 		display: flex;
 		min-height: 240px;
