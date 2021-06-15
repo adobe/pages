@@ -72,33 +72,45 @@ function getThumbnail(step) {
 
 
 function addNavCarrot() {
-    if(document.querySelector('header svg') || document.querySelector('header img')) {
-        let svg = document.querySelector('header svg') || document.querySelector('header img');
-        let svgWithCarrot = document.createElement('div');
-        svgWithCarrot.classList.add('nav-logo');
-
-        svgWithCarrot.innerHTML = `
-        <span class="product-icon">
-            ${svg.outerHTML}
-        </span>
-
-        <span class="carrot">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </span>
-        `;
-        svg.remove();
-        document.querySelector('header div')
-        .prepend(svgWithCarrot);
-        document.querySelector('header').classList.add('default-nav')
-
     
 
-        if(document.querySelector('header .section-wrapper').children[1].firstElementChild.nodeName === "P") {
-            let productName = document.querySelector('header .section-wrapper').children[1].querySelector('p')
-            document.querySelector('.product-icon').appendChild(productName)            
-        }
+	    if(document.querySelector('header svg') || document.querySelector('header img')) {
+	        let svg = document.querySelector('header svg') || document.querySelector('header img');
+	        let svgWithCarrot = document.createElement('div');
+	        svgWithCarrot.classList.add('nav-logo');
+	
+			if (document.querySelector('header ul')) {
+		        svgWithCarrot.innerHTML = `
+		        <span class="product-icon">
+		            ${svg.outerHTML}
+		        </span>
+		
+		        <span class="carrot">
+		            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+		        </span>
+		        `;
+	        }
+	        else {
+		        svgWithCarrot.innerHTML = `
+		        <span class="product-icon">
+		            ${svg.outerHTML}
+		        </span>
+		        `;
+	        }
+	        svg.remove();
+	        document.querySelector('header div')
+	        .prepend(svgWithCarrot);
+	        document.querySelector('header').classList.add('default-nav')
+	
+	    
+	
+	        if(document.querySelector('header .section-wrapper p')) {
+	            let productName = document.querySelector('header .section-wrapper p')
+	            document.querySelector('.product-icon').appendChild(productName)            
+	        }
+	
+	    }
 
-    }
 }
 
 
@@ -106,6 +118,7 @@ function addNavCarrot() {
 async function insertSteps() {
     const $steps=document.querySelector('main div.steps');
     if ($steps) {
+	    $steps.classList.add('cards');
         const steps=await fetchSteps();
         let html='';
         steps.forEach((step, i) => {
@@ -142,13 +155,16 @@ function dropDownMenu() {
 
   if(window.outerWidth >= 768) return;
 
-  if(!$header.classList.contains('nav-showing')) {
-    $header.querySelector('ul').style.display = 'flex';
-    $header.classList.add('nav-showing')
-  } else {
-    $header.querySelector('ul').style.display = 'none';
-    $header.classList.remove('nav-showing')
+  if ($header.querySelector('ul')) {
+	 if(!$header.classList.contains('nav-showing')) {
+	    $header.querySelector('ul').style.display = 'flex';
+	    $header.classList.add('nav-showing')
+	  } else {
+	    $header.querySelector('ul').style.display = 'none';
+	    $header.classList.remove('nav-showing')
+	  } 
   }
+  
 }
 
 
