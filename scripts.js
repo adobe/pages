@@ -13,11 +13,11 @@ function addDefaultClass(element) {
 }
 
 function loadJSModule(src) {
-    const module = document.createElement('script');
-    module.setAttribute('type', 'module');
-    module.setAttribute('src', src);
-    document.head.appendChild(module);
-  };
+  const module = document.createElement('script');
+  module.setAttribute('type', 'module');
+  module.setAttribute('src', src);
+  document.head.appendChild(module);
+};
 
 
 /**
