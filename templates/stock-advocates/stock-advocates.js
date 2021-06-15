@@ -148,6 +148,12 @@ function decorateColumns() {
                   if (!!!$img.getAttribute('alt', '')) {
                     $img.setAttribute('alt','');
                   }
+                  const $p = $img.closest('p');
+                  if ($p) $p.classList.add('image-bleed');
+                  const $nextP = $p.nextElementSibling;
+                  if ($nextP && $nextP.tagName === 'P') {
+                    $nextP.classList.add('caption');
+                  }
               } else {
                   $cell.classList.add('text');
                   if ($cell.textContent=='') {
