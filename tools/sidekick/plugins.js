@@ -9,7 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-/* global window */
+/* global window fetch */
 
 // This file contains the pages-specific plugins for the sidekick.
 (() => {
@@ -18,12 +18,32 @@
 
   // CONTENT ROOT -----------------------------------------------------------------
   sk.add({
-    id: 'content-root',
+    id: 'folder',
     condition: (sidekick) => !sidekick.isEditor(),
     button: {
-      text: 'Content Root',
+      text: 'Parent Folder',
       action: () => {
-        window.open('https://drive.google.com/drive/u/0/folders/1DS-ZKyRuwZkMPIDeuKxNMQnKDrcw1_aw');
+        let folderURL;
+        let path = sk.location.pathname;
+        const { config: cfg } = sk;
+        const resp = await fetch(`https://admin.hlx3.page/preview/${cfg.owner}/${cfg.rep}/${cfg.ref}${path}`);
+        if (resp.ok) {
+          const json = await resp.json();
+          folderURL = json
+            && json.edit
+            && Array.isArray(json.edit.folders)
+            && json.edit.folders[json.edit.folders.length - 1]
+            && json.edit.folders[json.edit.folders.length - 1].url;
+        } else {
+          console.log('Failed to retrieve data', resp.status, await resp.text());
+        }
+        if (folderURL) {
+          window.open(folderURL);
+        } else {
+          if (window.confirm('Sorry, but finding the folder of this page has failed. Do you want to go to the root folder instead?')) {
+            window.open('https://drive.google.com/drive/u/0/folders/1DS-ZKyRuwZkMPIDeuKxNMQnKDrcw1_aw');
+          }
+        }
       },
     },
   });
