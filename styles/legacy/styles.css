@@ -496,6 +496,10 @@ footer p:after {
     font-size: 18px;
     color: black;
   }
+
+  .premiere header .product-icon p {
+    color: white;
+  }
   
   header>div:first-of-type {
     background-color: unset;

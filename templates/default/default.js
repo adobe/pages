@@ -19,8 +19,6 @@ function styleNav() {
       `
     }
   }
-
-  console.log(appName, appIcon)
   
   parent.innerHTML = `
     <div class="section-wrapper">
