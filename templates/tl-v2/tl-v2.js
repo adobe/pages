@@ -78,12 +78,7 @@ async function insertSteps() {
                             <h3>${stepsNest.title}</h3>
                         </div>
                 `
-                
-                if(step.Thumbnail.includes('http')) {
-                    console.log('has external link')
-                } else {
-                    console.log('does not contain external link')
-                }
+            
 
                 markup += `<div class="steps">`
                 
@@ -223,11 +218,11 @@ async function decorateStep() {
 
     const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
     const steps=await fetchSteps();
-    console.log(steps)
+    
     
     const currentStep=steps[stepIndex];
     let has_single_thumbnail = currentStep.has_single_gallery_image;
-    console.log(has_single_thumbnail)
+    
     
     //fill content section
 
@@ -286,7 +281,6 @@ async function decorateStep() {
         if($content.querySelector('a').getAttribute('href')==="#0") {
             $content.querySelector('a').addEventListener('click', function(event) {
                 event.preventDefault();
-                console.log(document.querySelector('.video-wrapper').offsetTop)
                 window.scrollTo(0, document.querySelector('.video-wrapper').offsetTop)
                 playVideo();
             })
@@ -423,7 +417,6 @@ async function decorateStep() {
         `
         counter=counter+1;
     }
-    console.log(stepIndex + 1 , steps.length)
     if(stepIndex + 1 < steps.length) {
         next_step += `
             <a href="step?${stepIndex + 2}" class="next">

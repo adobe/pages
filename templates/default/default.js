@@ -114,6 +114,26 @@ function equalizer($element) {
   }
 }
 
+
+function set_widths() {
+  const sections = document.querySelectorAll('main .section-wrapper >div')
+  sections.forEach((section) => {
+    const children = section.childNodes;
+    children.forEach((child) => {
+      if(child.innerHTML != undefined) {
+        if(child.innerHTML.includes('[!')) {
+          const width = child.innerHTML.split('[!')[1].split(']')[0]
+          const clean_up_text = child.innerHTML.split('[!')[0]
+          child.innerHTML = clean_up_text;
+          child.style.maxWidth = width + 'px';
+          child.style.marginLeft = 'auto';
+          child.style.marginRight = 'auto';
+        }
+      }
+    })
+  })
+}
+
 function decorateHero() {
   const heroRoot = document.querySelector('.hero > div')
   const heroParent = document.querySelector('.hero-container')
@@ -528,6 +548,7 @@ async function decoratePage() {
       })
     }
   })
+  set_widths();
 }
 
 window.addEventListener('load', () => document.body.classList.add('loaded'))
