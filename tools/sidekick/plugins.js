@@ -22,25 +22,33 @@
     condition: (sidekick) => !sidekick.isEditor(),
     button: {
       text: 'Parent Folder',
-      action: () => {
+      action: async (evt) => {
         let folderURL;
         let path = sk.location.pathname;
         const { config: cfg } = sk;
-        const resp = await fetch(`https://admin.hlx3.page/preview/${cfg.owner}/${cfg.rep}/${cfg.ref}${path}`);
-        if (resp.ok) {
-          const json = await resp.json();
-          folderURL = json
-            && json.edit
-            && Array.isArray(json.edit.folders)
-            && json.edit.folders[0]
-            && json.edit.folders[0].url;
-        } else {
-          console.log('Failed to retrieve data', resp.status, await resp.text());
+        try {
+          const resp = await fetch(`https://admin.hlx3.page/preview/${cfg.owner}/${cfg.repo}/${cfg.ref}${path}`);
+          if (resp.ok) {
+            const json = await resp.json();
+            folderURL = json
+              && json.edit
+              && Array.isArray(json.edit.folders)
+              && json.edit.folders[0]
+              && json.edit.folders[0].url;
+          } else {
+            console.log('Failed to retrieve data', resp.status, await resp.text());
+          }
+        } catch (e) {
+          console.log('Failed to connect to API host', e);
         }
         if (folderURL) {
-          window.open(folderURL);
+          if (evt.metaKey || evt.shiftKey || evt.which === 2) {
+            window.open(folderURL);
+          } else {
+            window.location.href = folderURL;
+          }
         } else {
-          if (window.confirm('Sorry, but finding the folder of this page has failed. Do you want to go to the root folder instead?')) {
+          if (window.confirm('Sorry, but finding the parent folder of this page\'s source document has failed. Do you want to go to the root folder instead?')) {
             window.open('https://drive.google.com/drive/u/0/folders/1DS-ZKyRuwZkMPIDeuKxNMQnKDrcw1_aw');
           }
         }
