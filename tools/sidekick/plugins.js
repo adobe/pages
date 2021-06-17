@@ -32,8 +32,8 @@
           folderURL = json
             && json.edit
             && Array.isArray(json.edit.folders)
-            && json.edit.folders[json.edit.folders.length - 1]
-            && json.edit.folders[json.edit.folders.length - 1].url;
+            && json.edit.folders[0]
+            && json.edit.folders[0].url;
         } else {
           console.log('Failed to retrieve data', resp.status, await resp.text());
         }
