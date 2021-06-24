@@ -20,6 +20,25 @@ function loadJSModule(src) {
 };
 
 
+function set_widths() {
+  const sections = document.querySelectorAll('main .default')
+  sections.forEach((section) => {
+    const children = section.childNodes;
+    children.forEach((child) => {
+      if(child.innerHTML != undefined) {
+        if(child.innerHTML.includes('[!')) {
+          const width = child.innerHTML.split('[!')[1].split(']')[0]
+          const clean_up_text = child.innerHTML.split('[!')[0]
+          child.innerHTML = clean_up_text;
+          child.style.maxWidth = width + 'px';
+          child.style.marginLeft = 'auto';
+          child.style.marginRight = 'auto';
+        }
+      }
+    })
+  })
+}
+
 /**
  * Creates a tag with the given name and attributes.
  * @param {string} name The tag name
@@ -135,6 +154,7 @@ function loadCSS(href) {
     link.onload = () => {
       window.pages.familyCssLoaded=true;
       appearMain();
+      // set_widths();
     }
     link.onerror = () => {
       window.pages.familyCssLoaded=true;
