@@ -1,47 +1,51 @@
 async function fetch_sheet() {
-  window.hlx.dependencies.push('content.json');
-  const resp=await fetch('content.json');
-  const json=await resp.json();
-  return (Array.isArray(json) ? json : json.data);
+    window.hlx.dependencies.push('content.json');
+    const resp=await fetch('content.json');
+    const json=await resp.json();
+    return (Array.isArray(json) ? json : json.data);
 }
 
 
-function create_iteration_array(data) {
-    console.log(data,' create iteration')
-    let number = 0;    
-    data.forEach((item, index) => {
-        const pop_last = item.split('_').pop();
-        if(pop_last > number) {
-            number = pop_last;
-            let nuindex = new Array();
-            nuindex.push(item)
-            console.log(nuindex)
+function send_data_off(data, types) {
+    let groups = []
+    let count = -0;
+
+    function update_count() {
+        count = count + 1;
+        return count;
+    }
+    
+
+    Object.keys(data[0]).forEach((item) => {
+        if(item.includes(types)) {
+            if(!groups.includes(item)) {
+                groups.push(item)
+            }
         }
+    })
+
+ 
+    
+    data.forEach((item,index) => {
+        console.log(groups[index])
+        if(groups[index].includes(types)) {
+            console.log(item[groups[index]])
+        }
+        // console.log(item[])
     })
 }
 
 async function decorateHome() {
     const data = await fetch_sheet();
     const children = document.querySelectorAll('main .default')
-    const object_types = Object.keys(data[0])
-    const has_multiple_columns = [];
     children.forEach(($child) => {
+        let container_type = '';
         if($child.innerText.includes('[#')) {
-            const container_type = $child.innerText.split('[#')[1].split(']')[0]
-            $child.classList.add(container_type.split(' ').join('-').toLowerCase()+'-container')
-            object_types.forEach((object_type) => {
-                if(object_type.includes(container_type)) {
-                    const last_underscore = object_type.split('_').pop();
-                    if(parseInt(last_underscore) > 0) {
-                        has_multiple_columns.push(object_type)
-                    }
-                    
-                }
-
-            })
+            container_type = $child.innerText.split('[#')[1].split(']')[0]+'s'
+            send_data_off(data,container_type)
         }
     })
-    has_multiple_columns.length > 0 ? create_iteration_array(has_multiple_columns) : null;
+    // has_multiple_columns.length > 0 ? create_iteration_array(has_multiple_columns) : null;
 }
 
 async function decoratePage() {
