@@ -5,35 +5,58 @@ async function fetch_sheet() {
     return (Array.isArray(json) ? json : json.data);
 }
 
+let properties = [];
 
-function send_data_off(data, types) {
-    let groups = []
-    let count = -0;
-
-    function update_count() {
-        count = count + 1;
-        return count;
-    }
-    
-
-    Object.keys(data[0]).forEach((item) => {
-        if(item.includes(types)) {
-            if(!groups.includes(item)) {
-                groups.push(item)
-            }
-        }
+function card_mark_up(data) {
+    let markup = '';
+    console.log(data)
+    data.forEach((row) => {
+        markup += `
+        <div>
+            <div>
+                <a href="https://adobe.com">
+                    <img src="https://images-tv.adobe.com/mpcv3/d6deec15-277b-4e1c-b56a-a0fb9e4f3c11/c5e171b7-83db-4aab-b08e-8839aea8019e/34a0baadbb264f6e9d3d9591804c20cd_1595549517-960x540.jpg">
+                </a>
+            </div>
+            <div>
+                <h3>${row['Cards_Title']}</h3>
+                <p>${row['Cards_Copy']}</p>
+                <p><a href="https://adobe.com" class="button secondary">${row['Cards_Cta']}</a></p>
+            </div>
+        </div>
+        `
     })
-
- 
-    
-    data.forEach((item,index) => {
-        console.log(groups[index])
-        if(groups[index].includes(types)) {
-            console.log(item[groups[index]])
-        }
-        // console.log(item[])
-    })
+    return markup;
 }
+
+
+function column_mark_up(data) {
+    let markup = '';
+    
+    data.forEach((row) => {
+        if(!row['Column_Title']) return;
+        let cta = '';
+        console.log(row['Column_Has_Cta'])
+        if(row['Column_Has_Cta']) {
+            cta = `<p><strong><a href="${row['Column_Cta_link']}" class="button primary">${row['Column_Cta_Text']}</a></strong></p>`
+        } else {
+            cta = '';
+        }
+        markup += `
+            <div>
+                <div><img src="${row['Column_Image']}"></div>
+                <div>
+                    <h5>${row['Column_Title']}</h5>
+                    <p>${row['Column_Copy']}</p>
+                    ${cta}
+                </div>
+            </div>
+        
+        `
+    })
+    return markup;
+}
+
 
 async function decorateHome() {
     const data = await fetch_sheet();
@@ -41,11 +64,30 @@ async function decorateHome() {
     children.forEach(($child) => {
         let container_type = '';
         if($child.innerText.includes('[#')) {
-            container_type = $child.innerText.split('[#')[1].split(']')[0]+'s'
-            send_data_off(data,container_type)
+            container_type = $child.innerText.split('[#')[1].split(']')[0]
+            console.log(container_type)
+            if(container_type === "cards") {
+                $child.classList.add('card-container')
+                loadCSS(`/styles/blocks/card.css`);
+                $child.innerHTML = `
+                    <div>
+                        <div class="card">${card_mark_up(data)}</div>
+                    </div>
+                `
+            }
+
+            if(container_type === "column") {
+                $child.classList.add('card-container')
+                $child.classList.add('two')
+                $child.innerHTML = `
+                    <div class="columns-two columns two">
+                        ${column_mark_up(data)}
+                    </div>
+                `
+                loadCSS(`/styles/blocks/columns.css`);
+            }
         }
     })
-    // has_multiple_columns.length > 0 ? create_iteration_array(has_multiple_columns) : null;
 }
 
 async function decoratePage() {
