@@ -94,8 +94,6 @@ function dropDownMenu() {
 }
 
 
-
-
 export function playVideo() {
     document.getElementById('placeholder').classList.add('hidden');
     const $video=document.getElementById('video');
@@ -103,8 +101,8 @@ export function playVideo() {
     $video.classList.remove('hidden');
     $video.play();
     $video.setAttribute('controls', true)
-
 }
+
 
 async function decorateStep() {
     document.body.classList.add('step');
