@@ -11,11 +11,11 @@
  */
 
 // This file contains the pages-specific configuration for the sidekick.
-const sk = window.hlx.initSidekick({
+window.hlx.initSidekick({
   project: 'Adobe Landing Pages',
   host: 'pages.adobe.com',
   plugins: [
-    // CONTENT ROOT -----------------------------------------------------------------
+    // PARENT FOLDER -----------------------------------------------------------------
     {
       id: 'folder',
       condition: (sidekick) => !sidekick.isEditor(),
