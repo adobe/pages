@@ -21,7 +21,7 @@ window.hlx.initSidekick({
       condition: (sidekick) => !sidekick.isEditor(),
       button: {
         text: 'Parent Folder',
-        action: async (evt) => {
+        action: async (evt, sk) => {
           let folderURL;
           let path = sk.location.pathname;
           const { config: cfg } = sk;
