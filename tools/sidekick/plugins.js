@@ -24,7 +24,7 @@
       text: 'Parent Folder',
       action: async (evt) => {
         let folderURL;
-        let path = sk.location.pathname;
+        const path = sk.location.pathname;
         const { config: cfg } = sk;
         try {
           const resp = await fetch(`https://admin.hlx3.page/preview/${cfg.owner}/${cfg.repo}/${cfg.ref}${path}`);
@@ -47,10 +47,8 @@
           } else {
             window.location.href = folderURL;
           }
-        } else {
-          if (window.confirm('Sorry, but finding the parent folder of this page\'s source document has failed. Do you want to go to the root folder instead?')) {
-            window.open('https://drive.google.com/drive/u/0/folders/1DS-ZKyRuwZkMPIDeuKxNMQnKDrcw1_aw');
-          }
+        } else if (window.confirm('Sorry, but finding the parent folder of this page\'s source document has failed. Do you want to go to the root folder instead?')) {
+          window.open('https://drive.google.com/drive/u/0/folders/1DS-ZKyRuwZkMPIDeuKxNMQnKDrcw1_aw');
         }
       },
     },

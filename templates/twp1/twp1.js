@@ -1,30 +1,40 @@
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
-  const resp=await fetch('steps.json');
-  const json=await resp.json();
+  const resp = await fetch('steps.json');
+  const json = await resp.json();
   return (Array.isArray(json) ? json : json.data);
 }
 
 function getThumbnail(step) {
-  let thumbnail=step.Thumbnail;
+  let thumbnail = step.Thumbnail;
   if (!thumbnail) {
-      if (step.Video.startsWith('https://www.youtube.com')) {
-          const yturl=new URL(step.Video);
-          const vid=yturl.searchParams.get('v');    
-          thumbnail=`https://img.youtube.com/vi/${vid}/0.jpg`;
-      }
+    if (step.Video.startsWith('https://www.youtube.com')) {
+      const yturl = new URL(step.Video);
+      const vid = yturl.searchParams.get('v');
+      thumbnail = `https://img.youtube.com/vi/${vid}/0.jpg`;
+    }
   }
   return (thumbnail);
 }
 
-
 function addNavCarrot() {
-  if(document.querySelector('header svg') || document.querySelector('header img')) {
-      let svg = document.querySelector('header svg') || document.querySelector('header img');
-      let svgWithCarrot = document.createElement('div');
-      svgWithCarrot.classList.add('nav-logo');
+  if (document.querySelector('header svg') || document.querySelector('header img')) {
+    const svg = document.querySelector('header svg') || document.querySelector('header img');
+    const svgWithCarrot = document.createElement('div');
+    svgWithCarrot.classList.add('nav-logo');
 
-      svgWithCarrot.innerHTML = `
+    svgWithCarrot.innerHTML = `
       <span class="product-icon">
           ${svg.outerHTML}
       </span>
@@ -33,32 +43,29 @@ function addNavCarrot() {
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </span>
       `;
-      svg.remove();
-      document.querySelector('header div')
+    svg.remove();
+    document.querySelector('header div')
       .prepend(svgWithCarrot);
-      document.querySelector('header').classList.add('default-nav')
+    document.querySelector('header').classList.add('default-nav');
 
-  
-
-      if(document.querySelector('header .section-wrapper').children[1].firstElementChild.nodeName === "P") {
-          let productName = document.querySelector('header .section-wrapper').children[1].querySelector('p')
-          document.querySelector('.product-icon').appendChild(productName)            
-      }
-
+    if (document.querySelector('header .section-wrapper').children[1].firstElementChild.nodeName === 'P') {
+      const productName = document.querySelector('header .section-wrapper').children[1].querySelector('p');
+      document.querySelector('.product-icon').appendChild(productName);
+    }
   }
 }
 
 async function insertSteps() {
-  const $steps=document.querySelector('main div.steps');
+  const $steps = document.querySelector('main div.steps');
   if ($steps) {
-      const steps=await fetchSteps();
-      const steps__inner = document.createElement('div');
-      steps__inner.classList.add('steps__inner')
-      let step_item = ``;
-  
-      steps.forEach((step, index) => {
-        console.log(index)
-        step_item += `
+    const steps = await fetchSteps();
+    const steps__inner = document.createElement('div');
+    steps__inner.classList.add('steps__inner');
+    let step_item = '';
+
+    steps.forEach((step, index) => {
+      console.log(index);
+      step_item += `
           <div class="steps__item">
             <a href="step?${index + 1}" class="steps__img">
               <img src="${step.Thumbnail}"/>
@@ -73,72 +80,67 @@ async function insertSteps() {
             <p>${step.Description}</p>
             <a href="step?${index + 1}">${step.CTA_text}</a>
           </div>
-        `
-      })
+        `;
+    });
 
-      steps__inner.innerHTML = step_item;
-      $steps.innerHTML = steps__inner.outerHTML
-      
+    steps__inner.innerHTML = step_item;
+    $steps.innerHTML = steps__inner.outerHTML;
   }
 }
-
-
 
 async function decorateStep() {
   document.body.classList.add('step');
 
-  const stepIndex=(+window.location.search.substring(1).split('&')[0])-1;
-  const steps=await fetchSteps();
+  const stepIndex = (+window.location.search.substring(1).split('&')[0]) - 1;
+  const steps = await fetchSteps();
   let next_video = '';
-  let next_video_index = stepIndex + 1;
+  const next_video_index = stepIndex + 1;
 
-
-  if(stepIndex + 1 < steps.length) {
-    next_video = `<a href="?${next_video_index + 1}">${steps[next_video_index].Title}</a> <span>|</span>`
+  if (stepIndex + 1 < steps.length) {
+    next_video = `<a href="?${next_video_index + 1}">${steps[next_video_index].Title}</a> <span>|</span>`;
   } else {
     next_video = '';
   }
   // if(stepIndex)
-  const currentStep=steps[stepIndex];
-  document.querySelector('main .default:first-of-type').classList.add('hero')
+  const currentStep = steps[stepIndex];
+  document.querySelector('main .default:first-of-type').classList.add('hero');
   decorateHero();
   const $hero = document.querySelector('main .hero');
-  const $step_1 = document.querySelector('main .default:nth-child(2)')
-  const $step_2 = document.querySelector('main .default:nth-child(3)')
-  const $step_3 = document.querySelector('main .default:nth-child(4)')
-  const last_row = document.querySelector('main .default:last-of-type')
-
+  const $step_1 = document.querySelector('main .default:nth-child(2)');
+  const $step_2 = document.querySelector('main .default:nth-child(3)');
+  const $step_3 = document.querySelector('main .default:nth-child(4)');
+  const last_row = document.querySelector('main .default:last-of-type');
 
   // set up hero
   $hero.querySelector('h4').innerText = currentStep.Milestone;
   $hero.querySelector('h1').innerText = currentStep.Title;
   $hero.querySelector('p').innerText = currentStep.Single_page_description;
 
-  let $step_one_link = ``;
+  let $step_one_link = '';
 
-  if(currentStep.Step_one_link) {
-    if(currentStep.Step_one_link.includes('http')) {
-      $step_one_link = `${currentStep.Step_one_link}`
+  if (currentStep.Step_one_link) {
+    if (currentStep.Step_one_link.includes('http')) {
+      $step_one_link = `${currentStep.Step_one_link}`;
     } else {
-      $step_one_link = `/templates/twp1/sample-images/${currentStep.Step_one_link}`
+      $step_one_link = `/templates/twp1/sample-images/${currentStep.Step_one_link}`;
     }
-    $step_one_link = `<a href="${$step_one_link}" class="cta">${currentStep.Step_one_cta_text}</a>`
+    $step_one_link = `<a href="${$step_one_link}" class="cta">${currentStep.Step_one_cta_text}</a>`;
   }
-  
+
   // set up step 1
-  if(currentStep.Step_one_title) {
+  if (currentStep.Step_one_title) {
     $step_1.innerHTML = `
       <div class="default__container step-1">
         <div class="default__content center">
           <h3>${currentStep.Step_one_mini_title}</h3>
           <h2>${currentStep.Step_one_title}</h2>
-          <p>${currentStep.Step_one_copy?currentStep.Step_one_copy:''}</p>
+          <p>${currentStep.Step_one_copy ? currentStep.Step_one_copy : ''}</p>
           ${$step_one_link}
         </div>
       </div>
-    `
+    `;
   } else {
-    $step_1.innerHTML = ``;
+    $step_1.innerHTML = '';
     $step_1.childElementCount < 1 ? $step_1.style.padding = '0px' : '';
   }
 
@@ -149,13 +151,12 @@ async function decorateStep() {
   const timestamp_parent = document.createElement('ul');
 
   timestamps_all.forEach((time) => {
-    if(time.length > 2) {
-      timestamps += `<li>${time}</li>`
+    if (time.length > 2) {
+      timestamps += `<li>${time}</li>`;
     }
-  })
+  });
 
-  timestamp_parent.innerHTML = timestamps
-
+  timestamp_parent.innerHTML = timestamps;
 
   $step_2.innerHTML = `
   <div class="default__container step-2">
@@ -196,47 +197,45 @@ async function decorateStep() {
     </div>
     
   </div>
-  `
+  `;
 
-  let $Step_three_link = ``;
-  
-  if(currentStep.Step_three_link) {
-    if(currentStep.Step_three_link.includes('http')) {
-      $Step_three_link = `${currentStep.Step_three_link}`
+  let $Step_three_link = '';
+
+  if (currentStep.Step_three_link) {
+    if (currentStep.Step_three_link.includes('http')) {
+      $Step_three_link = `${currentStep.Step_three_link}`;
     } else {
-      $Step_three_link = `/templates/twp1/practice-images/${currentStep.Step_one_link}`
+      $Step_three_link = `/templates/twp1/practice-images/${currentStep.Step_one_link}`;
     }
-    $Step_three_link = `<a href="${$Step_three_link}" class="cta">${currentStep.Step_three_cta_text}</a>`
+    $Step_three_link = `<a href="${$Step_three_link}" class="cta">${currentStep.Step_three_cta_text}</a>`;
   }
 
   // step 3
-  if(currentStep.Step_three_title) {
+  if (currentStep.Step_three_title) {
     $step_3.innerHTML = `
     <div class="default__container step-3">
       <div class="default__content center">
         <h3>${currentStep.Step_three_mini_title}</h3>
         <h2>${currentStep.Step_three_title}</h2>
-        <p>${currentStep.Step_three_copy?currentStep.Step_three_copy:''}</p>
+        <p>${currentStep.Step_three_copy ? currentStep.Step_three_copy : ''}</p>
         ${$Step_three_link}
       </div>
     </div>
-  `
+  `;
   } else {
-    $step_3.innerHTML = ``;
+    $step_3.innerHTML = '';
     $step_3.childElementCount < 1 ? $step_3.style.padding = '0px' : '';
   }
-
 
   // play video handler
   document.querySelector('.play-video').addEventListener('click', (event) => {
     document.querySelector('.video__el').play();
-    document.querySelector('.video__el').setAttribute('controls', true)
-    event.currentTarget.remove()
-  })
-  
+    document.querySelector('.video__el').setAttribute('controls', true);
+    event.currentTarget.remove();
+  });
 
   // style last row
-  last_row.firstElementChild.classList.add('row_title')
+  last_row.firstElementChild.classList.add('row_title');
   const last_row_links = last_row.querySelectorAll('a');
   const button_group = document.createElement('div');
   button_group.className = 'button_group';
@@ -244,28 +243,26 @@ async function decorateStep() {
 
   last_row_links.forEach((link, index) => {
     link.closest('p').remove();
-    let class_name = index >= 1 ? 'secondary' : 'cta'
-    links += `<a target="_BLANK" href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`
-  })
+    const class_name = index >= 1 ? 'secondary' : 'cta';
+    links += `<a target="_BLANK" href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`;
+  });
 
   button_group.innerHTML = links;
   last_row.append(button_group);
-  
 }
 
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
-      const $wrapper=createTag('div', { class: 'section-wrapper'});
-      $div.parentNode.appendChild($wrapper);
-      $wrapper.appendChild($div);
+    const $wrapper = createTag('div', { class: 'section-wrapper' });
+    $div.parentNode.appendChild($wrapper);
+    $wrapper.appendChild($div);
   });
 }
 
-
 function decorateHero() {
-  let hero_background = document.querySelector('.hero img');
-  let has_background = hero_background ? hero_background.closest('p').remove() : false;
-  let hero_content = document.querySelector('.hero').innerHTML;
+  const hero_background = document.querySelector('.hero img');
+  const has_background = hero_background ? hero_background.closest('p').remove() : false;
+  const hero_content = document.querySelector('.hero').innerHTML;
 
   document.querySelector('.hero').innerHTML = `
     <div class="hero__content-inner">
@@ -275,32 +272,28 @@ function decorateHero() {
     </div>
     
     <div class="hero__background" style="background-image: url(${has_background != false ? hero_background.getAttribute('src') : ''});"></div>
-  `
-
-
+  `;
 }
-
 
 async function decorateHome() {
   document.body.classList.add('home');
 
-  document.querySelector('main .default:first-of-type').classList.add('hero')
+  document.querySelector('main .default:first-of-type').classList.add('hero');
 
   decorateHero();
 
   document.querySelectorAll('main p').forEach(($e) => {
-      const inner=$e.innerHTML.toLowerCase().trim();
-      if (inner == "&lt;steps&gt;" || inner == '\\<steps></steps>') {
-              $e.parentNode.classList.add('steps');
-          $e.parentNode.innerHTML='';
-      }
-  })
+    const inner = $e.innerHTML.toLowerCase().trim();
+    if (inner == '&lt;steps&gt;' || inner == '\\<steps></steps>') {
+      $e.parentNode.classList.add('steps');
+      $e.parentNode.innerHTML = '';
+    }
+  });
   await insertSteps();
 
+  const last_row = document.querySelector('main .default:last-of-type');
 
-  const last_row = document.querySelector('main .default:last-of-type')
-
-  last_row.firstElementChild.classList.add('row_title')
+  last_row.firstElementChild.classList.add('row_title');
   const last_row_links = last_row.querySelectorAll('a');
   const button_group = document.createElement('div');
   button_group.className = 'button_group';
@@ -308,15 +301,14 @@ async function decorateHome() {
 
   last_row_links.forEach((link, index) => {
     link.closest('p').remove();
-    let class_name = index >= 1 ? 'secondary' : 'cta'
-    console.log(class_name)
-    links += `<a target="_blank" href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`
-  })
+    const class_name = index >= 1 ? 'secondary' : 'cta';
+    console.log(class_name);
+    links += `<a target="_blank" href="${link.getAttribute('href')}" class="${class_name}">${link.innerText}</a>`;
+  });
 
   button_group.innerHTML = links;
   last_row.append(button_group);
 }
-
 
 async function decoratePage() {
   addDefaultClass('main>div');
@@ -329,26 +321,25 @@ async function decoratePage() {
   // nav style/dropdown
   // addNavCarrot();
 
-
   // if(document.querySelector('.nav-logo')) {
   //   document.querySelector('.nav-logo').addEventListener('click', dropDownMenu)
   // }
 
   let pageType;
-  //find steps marker
+  // find steps marker
   if (document.location.pathname.endsWith('/step')) {
-      pageType = 'step';
+    pageType = 'step';
   } else {
-      pageType = 'home';
+    pageType = 'home';
   }
   window.pages.pageType = pageType;
 
   if (pageType == 'home') {
-      await decorateHome();
+    await decorateHome();
   }
 
   if (pageType == 'step') {
-      await decorateStep();
+    await decorateStep();
   }
 
   window.pages.decorated = true;
@@ -357,10 +348,8 @@ async function decoratePage() {
 
 if (document.readyState == 'loading') {
   window.addEventListener('DOMContentLoaded', (event) => {
-      decoratePage();
+    decoratePage();
   });
 } else {
   decoratePage();
 }
-
-

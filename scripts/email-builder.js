@@ -1,8 +1,17 @@
-// simple form submission
-
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 
 function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
-  let email = `<!DOCTYPE html>
+  const email = `<!DOCTYPE html>
   <%@ include view='adbePreProcess' %>
   <% var optOutLinkLabel = 'unsubscribe'; %>
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -226,26 +235,21 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
     </tr>
   </table>
   </body>
-  </html>`
+  </html>`;
 
   return email;
 }
 
-
 function createEmail() {
-  let headerContent = document.querySelector('main > div:first-of-type');
-  let mainImage = document.querySelector('main > div:last-of-type');
-  let mainImage_src = mainImage.querySelector('img').getAttribute('src')
-  let h1 = headerContent.querySelector('h1').innerHTML;
-  let hero_copy = headerContent.querySelector('p:first-of-type').innerText;
-  let cta_text = headerContent.querySelector('a').innerText;
-  let cta_link = headerContent.querySelector('a').getAttribute('href');
+  const headerContent = document.querySelector('main > div:first-of-type');
+  const mainImage = document.querySelector('main > div:last-of-type');
+  const mainImage_src = mainImage.querySelector('img').getAttribute('src');
+  const h1 = headerContent.querySelector('h1').innerHTML;
+  const hero_copy = headerContent.querySelector('p:first-of-type').innerText;
+  const cta_text = headerContent.querySelector('a').innerText;
+  const cta_link = headerContent.querySelector('a').getAttribute('href');
 
-
-
-
-
-  let inner = `
+  const inner = `
     <div class="preview-copy">
       <div class="preview-column">
         <h1>Copy your email</h1>
@@ -258,22 +262,20 @@ function createEmail() {
         </div>
       </div>
     </div>
-  `
+  `;
 
   document.querySelector('main').innerHTML = inner;
 }
-
 
 createEmail();
 
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
-      const $wrapper=createTag('div', { class: 'section-wrapper'});
-      $div.parentNode.appendChild($wrapper);
-      $wrapper.appendChild($div);
+    const $wrapper = createTag('div', { class: 'section-wrapper' });
+    $div.parentNode.appendChild($wrapper);
+    $wrapper.appendChild($div);
   });
 }
-
 
 async function decoratePage() {
   addDefaultClass('main>div');
@@ -281,10 +283,9 @@ async function decoratePage() {
   window.pages.decorated = true;
 }
 
-
 if (document.readyState == 'loading') {
   window.addEventListener('DOMContentLoaded', (event) => {
-      decoratePage();
+    decoratePage();
   });
 } else {
   decoratePage();

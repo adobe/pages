@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "description": "pages.adobe.com landing pages",
   "scripts": {
-    "test": "karma start karma.config.js",
-    "integration-test": "mocha integration/*.test.js",
     "lint": "eslint ."
   },
   "repository": {

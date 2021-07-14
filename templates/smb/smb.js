@@ -1,20 +1,28 @@
-
-
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
-    const $wrapper = createTag("div", { class: "section-wrapper" });
+    const $wrapper = createTag('div', { class: 'section-wrapper' });
     $div.parentNode.appendChild($wrapper);
     $wrapper.appendChild($div);
   });
 }
 
-
 function decorateNav() {
-  if (document.querySelector("header img")) {
-    console.log('nav initiated')
-    let svg = document.querySelector("header img");
-    let svgWithCarrot = document.createElement("div");
-    svgWithCarrot.classList.add("nav-logo");
+  if (document.querySelector('header img')) {
+    console.log('nav initiated');
+    const svg = document.querySelector('header img');
+    const svgWithCarrot = document.createElement('div');
+    svgWithCarrot.classList.add('nav-logo');
 
     svgWithCarrot.innerHTML = `
       <span class="product-icon">
@@ -26,52 +34,51 @@ function decorateNav() {
       </span>
       `;
     svg.remove();
-    document.querySelector("header div").prepend(svgWithCarrot);
-    document.querySelector("header").classList.add("default-nav");
+    document.querySelector('header div').prepend(svgWithCarrot);
+    document.querySelector('header').classList.add('default-nav');
 
-    if(document.querySelector('header .section-wrapper p')) {
-      let productName = document
-        .querySelector("header .section-wrapper")
-        .children[1].querySelector("p");
-      document.querySelector(".product-icon").appendChild(productName);
+    if (document.querySelector('header .section-wrapper p')) {
+      const productName = document
+        .querySelector('header .section-wrapper')
+        .children[1].querySelector('p');
+      document.querySelector('.product-icon').appendChild(productName);
     }
   }
 }
 
 function dropDownMenu() {
-  let $header = document.querySelector("header");
+  const $header = document.querySelector('header');
 
   if (window.outerWidth >= 768) return;
 
-  if (!$header.classList.contains("nav-showing")) {
-    $header.querySelector("ul").style.display = "flex";
-    $header.classList.add("nav-showing");
+  if (!$header.classList.contains('nav-showing')) {
+    $header.querySelector('ul').style.display = 'flex';
+    $header.classList.add('nav-showing');
   } else {
-    $header.querySelector("ul").style.display = "none";
-    $header.classList.remove("nav-showing");
+    $header.querySelector('ul').style.display = 'none';
+    $header.classList.remove('nav-showing');
   }
 }
 
 export function playVideo() {
-  document.getElementById("placeholder").classList.add("hidden");
-  const $video = document.getElementById("video");
-  $video.classList.remove("hidden");
-  $video.classList.remove("hidden");
+  document.getElementById('placeholder').classList.add('hidden');
+  const $video = document.getElementById('video');
+  $video.classList.remove('hidden');
+  $video.classList.remove('hidden');
   $video.play();
-  $video.setAttribute("controls", true);
+  $video.setAttribute('controls', true);
 }
 
-
-let debounce = function (func, wait, immediate) {
+const debounce = function (func, wait, immediate) {
   let timeout;
   return function () {
-    let context = this,
-      args = arguments;
-    let later = function () {
+    const context = this;
+    const args = arguments;
+    const later = function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };
-    let callNow = immediate && !timeout;
+    const callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
     if (callNow) func.apply(context, args);
@@ -81,77 +88,71 @@ let debounce = function (func, wait, immediate) {
 // set fixed height to cards to create a uniform UI
 function cardHeightEqualizer($el) {
   let initialHeight = 0;
-  let element = document.querySelectorAll($el);
+  const element = document.querySelectorAll($el);
 
   if (window.innerWidth >= 700 && element.length > 1) {
-    element.forEach(function (card_el) {
-      card_el.style.height = "auto";
+    element.forEach((card_el) => {
+      card_el.style.height = 'auto';
     });
 
-    element.forEach(function (card_text) {
+    element.forEach((card_text) => {
       if (initialHeight < card_text.offsetHeight) {
         initialHeight = card_text.offsetHeight;
       }
     });
 
-    element.forEach(function (card_el) {
-      card_el.style.height = initialHeight + "px";
+    element.forEach((card_el) => {
+      card_el.style.height = `${initialHeight}px`;
     });
   } else {
-    element.forEach(function (card_el) {
-      card_el.style.height = "auto";
+    element.forEach((card_el) => {
+      card_el.style.height = 'auto';
     });
   }
 }
 
-window.addEventListener("resize", debounce(function () {
-    // run resize events
-    cardHeightEqualizer(".card-content");
-  }, 250)
-);
-
+window.addEventListener('resize', debounce(() => {
+  // run resize events
+  cardHeightEqualizer('.card-content');
+}, 250));
 
 function styleCards() {
-  if(!document.getElementsByTagName('body')[0].classList.contains('inclusive')) {
-    if(document.querySelector('.thank-you-cards-')) {
-      document.querySelector('.thank-you-cards-').closest('.default').classList.add('thank-you-container')
-      document.getElementsByTagName('body')[0].classList.add('smb-thank-you')
+  if (!document.getElementsByTagName('body')[0].classList.contains('inclusive')) {
+    if (document.querySelector('.thank-you-cards-')) {
+      document.querySelector('.thank-you-cards-').closest('.default').classList.add('thank-you-container');
+      document.getElementsByTagName('body')[0].classList.add('smb-thank-you');
     }
-    
-    if(document.querySelector('form')) {
-      document.getElementsByTagName('body')[0].classList.add('smb-form')
+
+    if (document.querySelector('form')) {
+      document.getElementsByTagName('body')[0].classList.add('smb-form');
     }
   }
-  
 }
-
 
 async function decoratePage() {
   addDefaultClass('main>div');
   decorateTables();
   styleCards();
   await loadLocalHeader();
-  wrapSections("header>div");
-  externalLinks("header");
-  externalLinks("footer");
+  wrapSections('header>div');
+  externalLinks('header');
+  externalLinks('footer');
   setTabIndex();
 
   // nav style/dropdown
   decorateNav();
 
-  if (document.querySelector(".nav-logo")) {
-    document.querySelector(".nav-logo").addEventListener("click", dropDownMenu);
+  if (document.querySelector('.nav-logo')) {
+    document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);
   }
 
-
   window.pages.decorated = true;
-  wrapSections(".home > main > div");
+  wrapSections('.home > main > div');
   appearMain();
 }
 
-
-if (document.readyState == "loading") {
-  window.addEventListener("DOMContentLoaded", (event) => {
+if (document.readyState == 'loading') {
+  window.addEventListener('DOMContentLoaded', (event) => {
     decoratePage();
   });
 } else {
@@ -159,33 +160,27 @@ if (document.readyState == "loading") {
 }
 
 function toClassName(name) {
-  return name.toLowerCase().replace(/[^0-9a-z]/gi, "-");
+  return name.toLowerCase().replace(/[^0-9a-z]/gi, '-');
 }
-
 
 function setTabIndex() {
   const body = document.getElementsByTagName('body')[0];
 
-  if(body.classList.contains('smb-form')) {
-    let waitForForm = setInterval(function() {
-      if(document.querySelector('form')) {
-        setTimeout(function() {
-          let elements = document.querySelectorAll('.card');
-          elements.forEach(function(el) { el.setAttribute('tabindex', 0 )})
-        }, 100)
-        clearInterval(waitForForm)
+  if (body.classList.contains('smb-form')) {
+    const waitForForm = setInterval(() => {
+      if (document.querySelector('form')) {
+        setTimeout(() => {
+          const elements = document.querySelectorAll('.card');
+          elements.forEach((el) => { el.setAttribute('tabindex', 0); });
+        }, 100);
+        clearInterval(waitForForm);
       }
-    }, 100)
+    }, 100);
   }
 
-  if(body.classList.contains('smb-thank-you') && !body.classList.contains('smb-form')) {
-    let elements = document.querySelectorAll('.card');
+  if (body.classList.contains('smb-thank-you') && !body.classList.contains('smb-form')) {
+    const elements = document.querySelectorAll('.card');
 
-    elements.forEach(function(el) { el.setAttribute('tabindex', 0 )})
+    elements.forEach((el) => { el.setAttribute('tabindex', 0); });
   }
-
-  
 }
-
-
-
