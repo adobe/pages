@@ -30,6 +30,38 @@ main > .section-wrapper > div {
 	padding: 2em 0em;
 }
 
+.section-wrapper.lg > div {
+	max-width: 1240px;
+}
+
+.section-wrapper.md > div {
+	max-width: 1040px;
+}
+
+.section-wrapper.left > div h1 {
+	text-align: left;
+}
+
+.section-wrapper.left > div {
+	text-align: left;
+}
+
+
+.spacer-container.lg {
+	height: 180px;
+}
+
+.spacer-container.md {
+	height: 140px;
+}
+
+.spacer-container.sm {
+	height: 100px;
+}
+
+.spacer-container {
+	height: 60px;
+}
 main .section-wrapper {
 	color: #323232;
 }
@@ -46,7 +78,6 @@ main > .section-wrapper.dark {
 main > .section-wrapper.lightgray {
 	background: #eee;
 }
-
 
 main > .section-wrapper.dark .button.secondary {
 	border-color: white;
@@ -154,7 +185,6 @@ main ol, main ul {
 	margin: auto;
 	display: inline-block;
 }
-
 
 footer {
 	font-size: 14px;
@@ -310,7 +340,6 @@ footer li:after {
 		margin-right: 16px;
 	}
 }
-
 
 .documentation main {
 	text-align: left;
