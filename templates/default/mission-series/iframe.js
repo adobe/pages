@@ -9,6 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
 function generateVideo() {
   if (!document.querySelector('.iframe')) return;
   const videos = document.querySelectorAll('.iframe > div a');
@@ -27,7 +28,7 @@ function generateVideo() {
 
 function setUpTimeline() {
   if (!document.querySelector('.missiontimeline-container')) return;
-  let timelineCount = 0;
+  // let timelineCount = 0;
   let timelineGroup = '';
   const timelineParent = document.querySelector('.missiontimeline');
   const timelineItems = document.querySelectorAll('.missiontimeline > div');
@@ -39,7 +40,7 @@ function setUpTimeline() {
       item.firstChild.parentElement.className = `checklist-item ${item.firstChild.innerText.toLowerCase()}`;
       item.firstChild.remove();
       timelineGroup += item.outerHTML;
-      timelineCount = index + 1;
+      // timelineCount = index + 1;
       item.remove();
     }
   });

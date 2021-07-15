@@ -9,16 +9,21 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-async function fetch_sheet() {
+
+import {
+  addDefaultClass, appearMain, externalLinks, loadCSS, loadLocalHeader,
+} from '../../scripts.js';
+
+async function fetchSheet() {
   window.hlx.dependencies.push('content.json');
   const resp = await fetch('content.json');
   const json = await resp.json();
   return (Array.isArray(json) ? json : json.data);
 }
 
-const properties = [];
+// const properties = [];
 
-function card_mark_up(data) {
+function cardMarkUp(data) {
   let markup = '';
   console.log(data);
   data.forEach((row) => {
@@ -40,7 +45,7 @@ function card_mark_up(data) {
   return markup;
 }
 
-function column_mark_up(data) {
+function columnMarkUp(data) {
   let markup = '';
 
   data.forEach((row) => {
@@ -68,29 +73,29 @@ function column_mark_up(data) {
 }
 
 async function decorateHome() {
-  const data = await fetch_sheet();
+  const data = await fetchSheet();
   const children = document.querySelectorAll('main .default');
   children.forEach(($child) => {
-    let container_type = '';
+    let containerType = '';
     if ($child.innerText.includes('[#')) {
-      container_type = $child.innerText.split('[#')[1].split(']')[0];
-      console.log(container_type);
-      if (container_type === 'cards') {
+      containerType = $child.innerText.split('[#')[1].split(']')[0];
+      console.log(containerType);
+      if (containerType === 'cards') {
         $child.classList.add('card-container');
         loadCSS('/styles/blocks/card.css');
         $child.innerHTML = `
                     <div>
-                        <div class="card">${card_mark_up(data)}</div>
+                        <div class="card">${cardMarkUp(data)}</div>
                     </div>
                 `;
       }
 
-      if (container_type === 'column') {
+      if (containerType === 'column') {
         $child.classList.add('card-container');
         $child.classList.add('two');
         $child.innerHTML = `
                     <div class="columns-two columns two">
-                        ${column_mark_up(data)}
+                        ${columnMarkUp(data)}
                     </div>
                 `;
         loadCSS('/styles/blocks/columns.css');
@@ -107,7 +112,9 @@ async function decoratePage() {
   externalLinks('footer');
 
   if (document.querySelector('.nav-logo')) {
-    document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);
+    // 07/14/21 Max commented, undefined function
+    // TODO: is it a global from somewhere?
+    // document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);
   }
 
   let pageType;
@@ -120,11 +127,11 @@ async function decoratePage() {
 
   window.pages.pageType = pageType;
 
-  if (pageType == 'home') {
+  if (pageType === 'home') {
     // await decorateHome();
   }
 
-  if (pageType == 'step') {
+  if (pageType === 'step') {
     // await decorateStep();
   }
 
@@ -133,10 +140,8 @@ async function decoratePage() {
   decorateHome();
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

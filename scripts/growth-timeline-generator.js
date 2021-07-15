@@ -109,7 +109,8 @@ async function decorateStep() {
     }
     document.title=currentStep.Title;
     if (currentStep['Practice File']) {
-        document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
+        document.querySelector('main .content>p>a')
+            .setAttribute('href', currentStep['Practice File']);
     }
 
     if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
@@ -157,7 +158,8 @@ async function decorateStep() {
     const $progressbar=createTag('div',{class: 'progress-bar'});
     html='';
     steps.forEach((step,i) => {
-        html+=`<div onclick="window.location.href='step?${i+1}'" class="${i==stepIndex?'active':'inactive'}"></div>`
+        html+=`<div onclick="window.location.href='step?${i+1}'" `+
+            `class="${i==stepIndex?'active':'inactive'}"></div>`;
     })
     $progressbar.innerHTML=html;
     $progress.appendChild($progressbar);

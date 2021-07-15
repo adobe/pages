@@ -9,17 +9,74 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import { debounce } from '../../scripts.js';
+
 let formContainer = document.querySelector('.slide-form-container');
 let slideBtns = document.querySelectorAll('.slide-btn');
 let slideItems = document.querySelectorAll('.slide-form-item');
 let progressIndicator = document.querySelector('.progress-indicator span');
 let totalAnswers = document.querySelectorAll('.field');
-let otherOptionInput = document.querySelectorAll('.other-option-input');
-const header = '';
+// const otherOptionInput = document.querySelectorAll('.other-option-input');
+// const header = '';
 let currentSlide = 0;
 const allValues = [];
-const collectNames = [];
+// const collectNames = [];
 let totalQuestions = [];
+
+// animate form height
+function setFormContainHeight() {
+  slideItems.forEach((slide) => {
+    if (slide.classList.contains('active')) {
+      formContainer.style.height = `${slide.offsetHeight}px`;
+    }
+  });
+}
+
+// Add input value for "other" check
+function setOtherCheckboxValue(event) {
+  const input = event.currentTarget;
+  // const originalValue = input.getAttribute('value');
+  const parent = input.closest('.has-other');
+  const checkbox = parent.querySelector("input[type='checkbox']");
+
+  if (input.value.length > 0) {
+    if (!checkbox.checked) {
+      checkbox.click();
+    }
+    checkbox.setAttribute('value', input.value);
+  } else {
+    if (checkbox.checked) {
+      checkbox.click();
+    }
+    checkbox.setAttribute('value', 'other');
+  }
+}
+
+// Create input fields for "Other" checkboxes
+function addOtherInputField() {
+  const checkBoxes = document.querySelectorAll("input[type='checkbox']");
+
+  checkBoxes.forEach((checkbox) => {
+    if (checkbox.value.toLowerCase() === 'other') {
+      const parentElement = checkbox.closest('div');
+      parentElement.classList.add('has-other');
+      const parentHTML = parentElement.innerHTML;
+      const input = document.createElement('input');
+      input.setAttribute('type', 'text');
+      input.classList.add('other-input');
+      input.setAttribute('placeholder', 'Please explain');
+      parentElement.innerHTML = `
+        <div class="other-checkbox-element">${parentHTML}</div>
+        <div class="other-input-element">${input.outerHTML}</div>
+      `;
+    }
+  });
+
+  document.querySelectorAll('.other-input').forEach((input) => {
+    input.addEventListener('keyup', setOtherCheckboxValue);
+  });
+}
 
 const checkIfDomReady = setInterval(() => {
   if (document.querySelector('.slide-form-container')) {
@@ -28,19 +85,20 @@ const checkIfDomReady = setInterval(() => {
     slideItems = document.querySelectorAll('.slide-form-item');
     progressIndicator = document.querySelector('.progress-indicator span');
     totalAnswers = document.querySelectorAll('.question input');
-    otherOptionInput = document.querySelectorAll('.other-option-input');
+    // otherOptionInput = document.querySelectorAll('.other-option-input');
     setFormContainHeight();
     addOtherInputField();
     clearInterval(checkIfDomReady);
   }
 }, 200);
 
-function setHeader(content) {
-  const wrap = document.createElement('div');
-  wrap.innerHTML = `${content}<hr>`;
-  document.querySelectorAll('.slide-form-item')[0].prepend(wrap);
-  document.querySelector('main .default:first-of-type').remove();
-}
+// 07/14/21 Max commented out, unused
+// function setHeader(content) {
+//   const wrap = document.createElement('div');
+//   wrap.innerHTML = `${content}<hr>`;
+//   document.querySelectorAll('.slide-form-item')[0].prepend(wrap);
+//   document.querySelector('main .default:first-of-type').remove();
+// }
 
 // ----------------------------------------------
 // Store the values into array to manage progress
@@ -50,7 +108,7 @@ function setHeader(content) {
 // for progress tracking purposes.
 function getTotalQuestions(data) {
   totalQuestions = [];
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i += 1) {
     if (!totalQuestions.includes(data[i])) {
       totalQuestions.push(data[i]);
     }
@@ -62,27 +120,24 @@ function getTotalQuestions(data) {
 function valueStore(event) {
   const currentSelector = event.currentTarget;
 
-  if (currentSelector.getAttribute('type') == 'checkbox') {
-    if (currentSelector.checked == true) {
+  if (currentSelector.getAttribute('type') === 'checkbox') {
+    if (currentSelector.checked) {
       allValues.push(currentSelector.getAttribute('name'));
     } else {
       allValues.splice(allValues.indexOf(currentSelector.getAttribute('name')), 1);
     }
   }
 
-  if (currentSelector.getAttribute('type') == 'radio') {
+  if (currentSelector.getAttribute('type') === 'radio') {
     if (!allValues.includes(currentSelector.getAttribute('name'))) {
       allValues.push(currentSelector.getAttribute('name'));
     }
   }
 
-  if (currentSelector.nodeName == 'TEXTAREA') {
+  if (currentSelector.nodeName.toUpperCase() === 'TEXTAREA') {
     const textArea = event.currentTarget;
-    setTimeout(() => {
-      updateTextValue(textArea, textArea.value.length);
-    });
 
-    function updateTextValue(el, strlen) {
+    const updateTextValue = (el, strlen) => {
       if (strlen >= 5) {
         if (!allValues.includes(el.getAttribute('name'))) {
           allValues.push(el.getAttribute('name'));
@@ -94,7 +149,11 @@ function valueStore(event) {
           allValues.splice(allValues.indexOf(el.getAttribute('name')), 1);
         }
       }
-    }
+    };
+
+    setTimeout(() => {
+      updateTextValue(textArea, textArea.value.length);
+    });
   }
 
   setTimeout(() => getTotalQuestions(allValues));
@@ -106,35 +165,18 @@ function setIndicator() {
   document.querySelector('.indicator-total').innerHTML = slideItems.length;
 }
 
-// animate form height
-function setFormContainHeight() {
-  slideItems.forEach((slide) => {
-    if (slide.classList.contains('active')) {
-      formContainer.style.height = `${slide.offsetHeight}px`;
-    }
-  });
-}
-
-const debounce = function (func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
 // Readjust form container height on resize
 window.addEventListener('resize', debounce(() => {
   setFormContainHeight();
 }, 300));
+
+// Update progress counter and progress bar
+function progressBarUpdater() {
+  document.querySelector('.indicator-current').innerHTML = currentSlide + 1;
+  // const allRequiredQuestions = document.querySelectorAll('.is-required').length;
+  const percentageCompleted = `${`${(currentSlide + 1) * 100}` / slideItems.length}%`;
+  progressIndicator.style.transform = `translateX(${percentageCompleted})`;
+}
 
 // Set Sliders and disable/enable next button
 function setSlider(count = 0) {
@@ -151,23 +193,21 @@ function setSlider(count = 0) {
   const values = [];
 
   // Get all required input count
-  let required_counter = 0;
-  currentActiveRequired.forEach(($el, $in) => {
-    required_counter += 1;
-  });
+  let requiredCounter = 0;
+  requiredCounter = currentActiveRequired.length;
 
-  if (required_counter < 1) {
+  if (requiredCounter < 1) {
     document.querySelector('.slide-btn.next').classList.add('completed');
   }
 
-  currentActiveRequired.forEach((el, i) => {
-    el.querySelectorAll('input, textarea').forEach((field, index) => {
-      if (field.getAttribute('type') == 'checkbox' || field.getAttribute('type') == 'radio') {
-        if (field.checked == true) {
+  currentActiveRequired.forEach((el) => {
+    el.querySelectorAll('input, textarea').forEach((field) => {
+      if (field.getAttribute('type') === 'checkbox' || field.getAttribute('type') === 'radio') {
+        if (field.checked) {
           values.push(field.getAttribute('name'));
         }
 
-        if (values.length >= required_counter) {
+        if (values.length >= requiredCounter) {
           document.querySelector('.slide-btn.next').classList.add('completed');
         } else {
           document.querySelector('.slide-btn.next').classList.remove('completed');
@@ -181,12 +221,12 @@ function setSlider(count = 0) {
           }
 
           const eachOptions = [];
-          for (let i = 0; i < values.length; i++) {
+          for (let i = 0; i < values.length; i += 1) {
             if (!eachOptions.includes(values[i])) {
               eachOptions.push(values[i]);
             }
           }
-          if (eachOptions.length >= required_counter) {
+          if (eachOptions.length >= requiredCounter) {
             document.querySelector('.slide-btn.next').classList.add('completed');
           } else {
             document.querySelector('.slide-btn.next').classList.remove('completed');
@@ -194,13 +234,15 @@ function setSlider(count = 0) {
         });
       }
 
-      if (field.nodeName == 'TEXTAREA' || field.getAttribute('type') == 'text' || field.getAttribute('type') == 'email') {
+      if (field.nodeName.toUpperCase() === 'TEXTAREA'
+      || field.getAttribute('type') === 'text'
+      || field.getAttribute('type') === 'email') {
         if (!field.classList.contains('other-input')) {
           if (field.value.length > 1) {
-            values.push(fields.getAttribute('name'));
+            values.push(field.getAttribute('name'));
           }
 
-          if (values.length >= required_counter) {
+          if (values.length >= requiredCounter) {
             document.querySelector('.slide-btn.next').classList.add('completed');
           } else {
             document.querySelector('.slide-btn.next').classList.remove('completed');
@@ -219,12 +261,12 @@ function setSlider(count = 0) {
 
             const eachOptions = [];
 
-            for (let i = 0; i < values.length; i++) {
+            for (let i = 0; i < values.length; i += 1) {
               if (!eachOptions.includes(values[i])) {
                 eachOptions.push(values[i]);
               }
             }
-            if (eachOptions.length >= required_counter) {
+            if (eachOptions.length >= requiredCounter) {
               document.querySelector('.slide-btn.next').classList.add('completed');
             } else {
               document.querySelector('.slide-btn.next').classList.remove('completed');
@@ -259,59 +301,6 @@ function formSlider(event) {
   setFormContainHeight();
 }
 
-// Update progress counter and progress bar
-function progressBarUpdater() {
-  document.querySelector('.indicator-current').innerHTML = currentSlide + 1;
-  const allRequiredQuestions = document.querySelectorAll('.is-required').length;
-  const percentageCompleted = `${`${(currentSlide + 1) * 100}` / slideItems.length}%`;
-  progressIndicator.style.transform = `translateX(${percentageCompleted})`;
-}
-
-// Create input fields for "Other" checkboxes
-function addOtherInputField() {
-  const checkBoxes = document.querySelectorAll("input[type='checkbox']");
-
-  checkBoxes.forEach((checkbox) => {
-    if (checkbox.value.toLowerCase() == 'other') {
-      const parentElement = checkbox.closest('div');
-      parentElement.classList.add('has-other');
-      const parentHTML = parentElement.innerHTML;
-      const input = document.createElement('input');
-      input.setAttribute('type', 'text');
-      input.classList.add('other-input');
-      input.setAttribute('placeholder', 'Please explain');
-      parentElement.innerHTML = `
-				<div class="other-checkbox-element">${parentHTML}</div>
-				<div class="other-input-element">${input.outerHTML}</div>
-			`;
-    }
-  });
-
-  document.querySelectorAll('.other-input').forEach((input) => {
-    input.addEventListener('keyup', setOtherCheckboxValue);
-  });
-}
-
-// Add input value for "other" check
-function setOtherCheckboxValue(event) {
-  const input = event.currentTarget;
-  const originalValue = input.getAttribute('value');
-  const parent = input.closest('.has-other');
-  const checkbox = parent.querySelector("input[type='checkbox']");
-
-  if (input.value.length > 0) {
-    if (checkbox.checked != true) {
-      checkbox.click();
-    }
-    checkbox.setAttribute('value', input.value);
-  } else {
-    if (checkbox.checked == true) {
-      checkbox.click();
-    }
-    checkbox.setAttribute('value', 'other');
-  }
-}
-
 setSlider();
 setIndicator(currentSlide, totalAnswers.length);
 
@@ -320,11 +309,11 @@ slideBtns.forEach((btn) => {
 });
 
 document.querySelectorAll('.is-required input, .is-required textarea').forEach((input) => {
-  if (input.getAttribute('type') === 'checkbox' || input.getAttribute('type') == 'radio') {
+  if (input.getAttribute('type') === 'checkbox' || input.getAttribute('type') === 'radio') {
     input.addEventListener('change', valueStore);
   }
 
-  if (input.nodeName == 'TEXTAREA') {
+  if (input.nodeName.toUpperCase() === 'TEXTAREA') {
     input.addEventListener('keyup', valueStore);
   }
 });

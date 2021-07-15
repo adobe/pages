@@ -9,6 +9,14 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  createTag,
+  addDefaultClass,
+  loadLocalHeader,
+  appearMain,
+} from '../scripts.js';
+
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
     const $wrapper = createTag('div', { class: 'section-wrapper' });
@@ -16,22 +24,6 @@ function wrapSections(element) {
     $wrapper.appendChild($div);
   });
 }
-
-const debounce = function (func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this; const
-      args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
 
 function styleBackgrounds() {
   const backgrounds = document.querySelectorAll('.background');
@@ -83,71 +75,38 @@ function dropDownMenu() {
   }
 }
 
-function paramHelper() {
-  if (!window.location.search) return;
-  const query_type = new URLSearchParams(window.location.search);
+// 07/14/21 - Max commented, unused
+// function paramHelper() {
+//   if (!window.location.search) return;
+//   const queryType = new URLSearchParams(window.location.search);
 
-  // Set Main Video
-  // make sure video indicator is being requested
-  if (query_type.get('v')) {
-    const video_index = query_type.get('v') - 1;
-    const parent_wrapper = document.querySelector('.cards');
-    const mainVideo = document.createElement('div');
-    mainVideo.setAttribute('class', 'main-video');
-    mainVideo.innerHTML = document.querySelectorAll('.cards .card')[video_index].innerHTML;
-    parent_wrapper.prepend(mainVideo);
-  }
-}
+//   // Set Main Video
+//   // make sure video indicator is being requested
+//   if (queryType.get('v')) {
+//     const videoIndex = queryType.get('v') - 1;
+//     const parentWrapper = document.querySelector('.cards');
+//     const mainVideo = document.createElement('div');
+//     mainVideo.setAttribute('class', 'main-video');
+//     mainVideo.innerHTML = document.querySelectorAll('.cards .card')[videoIndex].innerHTML;
+//     parentWrapper.prepend(mainVideo);
+//   }
+// }
 
-async function decoratePage() {
-  addDefaultClass('main>div');
-  decorateTables();
-  wrapSections('main>div');
-  await loadLocalHeader();
-  wrapSections('header>div');
-  wrapSections('footer>div');
-  window.pages.decorated = true;
-  appearMain();
-  // nav style/dropdown
-  addNavCarrot();
-
-  if (document.querySelector('.nav-logo')) {
-    document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);
-  }
-  styleBackgrounds();
-}
-
-function turnListSectionIntoCards() {
-  document.querySelectorAll('main div.default>ul').forEach(($ul) => {
-    if ($ul == $ul.parentNode.firstElementChild) {
-      $ul.classList.remove('default');
-      $ul.classList.add('cards');
-      $ul.querySelectorAll('li').forEach(($li) => {
-        $li.innerHTML = formatListCard($li);
-      });
-    }
-  });
-}
+// 07/14/21 - Max commented, unused
+// function turnListSectionIntoCards() {
+//   document.querySelectorAll('main div.default>ul').forEach(($ul) => {
+//     if ($ul === $ul.parentNode.firstElementChild) {
+//       $ul.classList.remove('default');
+//       $ul.classList.add('cards');
+//       $ul.querySelectorAll('li').forEach(($li) => {
+//         $li.innerHTML = formatListCard($li);
+//       });
+//     }
+//   });
+// }
 
 function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
-}
-
-function decorateTables() {
-  document.querySelectorAll('main div.default>table').forEach(($table) => {
-    const $cols = $table.querySelectorAll('thead tr th');
-    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
-    const $rows = $table.querySelectorAll('tbody tr');
-    let $div = {};
-
-    if (cols.length == 1 && $rows.length == 1) {
-      $div = createTag('div', { class: `${cols[0]}` });
-      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
-    } else {
-      $div = turnTableSectionIntoCards($table, cols);
-    }
-    $table.parentNode.replaceChild($div, $table);
-  });
 }
 
 function turnTableSectionIntoCards($table, cols) {
@@ -172,14 +131,49 @@ function turnTableSectionIntoCards($table, cols) {
   return ($cards);
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
+function decorateTables() {
+  document.querySelectorAll('main div.default>table').forEach(($table) => {
+    const $cols = $table.querySelectorAll('thead tr th');
+    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
+    const $rows = $table.querySelectorAll('tbody tr');
+    let $div = {};
+
+    if (cols.length === 1 && $rows.length === 1) {
+      $div = createTag('div', { class: `${cols[0]}` });
+      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
+    } else {
+      $div = turnTableSectionIntoCards($table, cols);
+    }
+    $table.parentNode.replaceChild($div, $table);
   });
+}
+
+async function decoratePage() {
+  addDefaultClass('main>div');
+  decorateTables();
+  wrapSections('main>div');
+  await loadLocalHeader();
+  wrapSections('header>div');
+  wrapSections('footer>div');
+  window.pages.decorated = true;
+  appearMain();
+  // nav style/dropdown
+  addNavCarrot();
+
+  if (document.querySelector('.nav-logo')) {
+    document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);
+  }
+  styleBackgrounds();
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }
 
+// TODO: something with this; looks like it's transpiled then copied in? where did it come from?
+/* eslint-disable */
 (function (f) { if (typeof exports === 'object' && typeof module !== 'undefined') { module.exports = f(); } else if (typeof define === 'function' && define.amd) { define([], f); } else { let g; if (typeof window !== 'undefined') { g = window; } else if (typeof global !== 'undefined') { g = global; } else if (typeof self !== 'undefined') { g = self; } else { g = this; }g.protocolCheck = f(); } }(() => {
   let define; let module; let exports; return (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { const a = typeof require === 'function' && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); const f = new Error(`Cannot find module '${o}'`); throw f.code = 'MODULE_NOT_FOUND', f; } const l = n[o] = { exports: {} }; t[o][0].call(l.exports, (e) => { const n = t[o][1][e]; return s(n || e); }, l, l.exports, e, t, n, r); } return n[o].exports; }let i = typeof require === 'function' && require; for (let o = 0; o < r.length; o++)s(r[o]); return s; }({
     1: [function (require, module, exports) {

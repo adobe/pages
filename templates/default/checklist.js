@@ -9,8 +9,60 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import { debounce } from '../../scripts.js';
+
 const videoParent = document.querySelector('.clvideo > div');
 let hasPlayed = false;
+
+function setTranscript(index) {
+  const transcripts = document.querySelectorAll('.transcript > div');
+  transcripts.forEach((el) => {
+    el.style.display = 'none';
+  });
+  const newIndex = (index === 1 || index === 2) ? 0 : index - 2;
+  transcripts[newIndex].style.display = 'block';
+}
+
+function timeTracker() {
+  const svg = `
+  <svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 30">
+    <g id="Placement_Area" data-name="Placement Area" fill="red" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="30" height="30" stroke="none"/>
+      <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
+    </g>
+    <circle id="White_background" data-name="White background" cx="15" cy="15" r="15" fill="#fff"/>
+    <g id="Icon">
+      <g id="Canvas" fill="#747474" stroke="#747474" stroke-width="1" opacity="0">
+        <rect width="30" height="30" stroke="none"/>
+        <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
+      </g>
+      <path id="Path_104098" data-name="Path 104098" d="M15,1A14,14,0,1,0,29,15,14,14,0,0,0,15,1Zm9.333,7.945L13.266,23.173a1.055,1.055,0,0,1-.766.4h-.064a1.05,1.05,0,0,1-.743-.307L4.882,16.451a1.05,1.05,0,0,1,0-1.485l0,0L6.042,13.8a1.05,1.05,0,0,1,1.485,0l0,0,4.671,4.68,9.2-11.82a1.05,1.05,0,0,1,1.473-.185l0,0,1.273.995a1.05,1.05,0,0,1,.185,1.47Z" fill="#33ab84"/>
+    </g>
+  </svg>
+  `;
+
+  let checker;
+  if (hasPlayed) {
+    const runChecker = () => {
+      const timelineItems = document.querySelectorAll('.checklist-steps:nth-of-type(2) .checklist-info .step-info div:last-of-type');
+      timelineItems.forEach((item) => {
+        if (item.getAttribute('data-time') <= document.querySelector('.cl-video-el').currentTime) {
+          item.closest('.checklist-info').classList.add('complete');
+          item.closest('.checklist-info').querySelector('.step-count').innerHTML = svg;
+          setTranscript(item.closest('.checklist-info').getAttribute('data-index'));
+        }
+      });
+    };
+    document.querySelector('.cl-video-el').addEventListener('play', () => {
+      checker = setInterval(runChecker, 1000);
+    });
+  }
+  document.querySelector('.cl-video-el').addEventListener('pause', () => {
+    clearInterval(checker);
+  });
+}
+
 function layoutSetUp() {
   const videoEl = videoParent.querySelector('div:first-of-type');
   const backgroundImage = videoEl.querySelectorAll('img')[0];
@@ -93,16 +145,20 @@ function createCheckListLayout() {
     }
 
     if (index >= 1 && index < checklistElements.length - 1) {
-      wrapper += checklist.innerHTML = `
+      const html = `
       <div class="checklist-info" data-index=${index}>
         <div class="step-count"><span class="step-index">${index}</span></div>
         <div class="step-info">${checklist.innerHTML}</div>
       </div>`;
+      checklist.innerHTML = html;
+      wrapper += html;
     } else if (index >= 1 && index <= checklistElements.length) {
-      wrapper += checklist.innerHTML = `
+      const html = `
       <div class="get-help">
         <div class="get-help-info">${checklist.innerHTML}</div>
       </div>`;
+      checklist.innerHTML = html;
+      wrapper += html;
     }
 
     if (index >= checklistElements.length - 2) {
@@ -147,17 +203,10 @@ function createCheckListLayout() {
   });
   document.querySelector('.get-help').insertAdjacentHTML('beforebegin', launchInLr.outerHTML);
 
-  const buttonLink = document.querySelector('.checklist-steps a:first-of-type').getAttribute('href');
+  // const buttonLink = document
+  //   .querySelector('.checklist-steps a:first-of-type')
+  //   .getAttribute('href');
   // document.querySelector('.launch-btn').setAttribute('href', buttonLink)
-}
-
-function setTranscript(index) {
-  const transcripts = document.querySelectorAll('.transcript > div');
-  transcripts.forEach((el) => {
-    el.style.display = 'none';
-  });
-  const newIndex = index == 1 || index == 2 ? 0 : index - 2;
-  transcripts[newIndex].style.display = 'block';
 }
 
 function addState(evt) {
@@ -199,9 +248,10 @@ function addState(evt) {
 }
 
 function checklistStates() {
-  const timelineParents = document.querySelectorAll('.checklist-steps:last-of-type .checklist-info');
+  // const timelineParents = document
+  //  .querySelectorAll('.checklist-steps:last-of-type .checklist-info');
   const timelineItems = document.querySelectorAll('.checklist-steps .checklist-info .step-info > div:last-of-type');
-  timelineItems.forEach((item, index) => {
+  timelineItems.forEach((item) => {
     item.addEventListener('click', addState);
   });
 }
@@ -214,49 +264,10 @@ function setHeroBackground() {
   }
 }
 
-function timeTracker() {
-  const svg = `
-  <svg id="Single_icon" data-name="Single icon" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 30 30">
-    <g id="Placement_Area" data-name="Placement Area" fill="red" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
-      <rect width="30" height="30" stroke="none"/>
-      <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
-    </g>
-    <circle id="White_background" data-name="White background" cx="15" cy="15" r="15" fill="#fff"/>
-    <g id="Icon">
-      <g id="Canvas" fill="#747474" stroke="#747474" stroke-width="1" opacity="0">
-        <rect width="30" height="30" stroke="none"/>
-        <rect x="0.5" y="0.5" width="29" height="29" fill="none"/>
-      </g>
-      <path id="Path_104098" data-name="Path 104098" d="M15,1A14,14,0,1,0,29,15,14,14,0,0,0,15,1Zm9.333,7.945L13.266,23.173a1.055,1.055,0,0,1-.766.4h-.064a1.05,1.05,0,0,1-.743-.307L4.882,16.451a1.05,1.05,0,0,1,0-1.485l0,0L6.042,13.8a1.05,1.05,0,0,1,1.485,0l0,0,4.671,4.68,9.2-11.82a1.05,1.05,0,0,1,1.473-.185l0,0,1.273.995a1.05,1.05,0,0,1,.185,1.47Z" fill="#33ab84"/>
-    </g>
-  </svg>
-  `;
-
-  let checker;
-  if (hasPlayed) {
-    function runChecker() {
-      const timelineItems = document.querySelectorAll('.checklist-steps:nth-of-type(2) .checklist-info .step-info div:last-of-type');
-      timelineItems.forEach((item) => {
-        if (item.getAttribute('data-time') <= document.querySelector('.cl-video-el').currentTime) {
-          item.closest('.checklist-info').classList.add('complete');
-          item.closest('.checklist-info').querySelector('.step-count').innerHTML = svg;
-          setTranscript(item.closest('.checklist-info').getAttribute('data-index'));
-        }
-      });
-    }
-    document.querySelector('.cl-video-el').addEventListener('play', () => {
-      checker = setInterval(runChecker, 1000);
-    });
-  }
-  document.querySelector('.cl-video-el').addEventListener('pause', () => {
-    clearInterval(checker);
-  });
-}
-
 function setTimeAttribute() {
   const time = document.querySelectorAll('.checklist-steps .checklist-info .step-info > div:last-of-type strong');
-  time.forEach((time_item) => {
-    time_item.closest('.step-info > div:last-of-type').setAttribute('data-time', time_item.innerText);
+  time.forEach((timeItem) => {
+    timeItem.closest('.step-info > div:last-of-type').setAttribute('data-time', timeItem.innerText);
   });
   document.querySelector('.get-help a').setAttribute('target', '_blank');
 }
@@ -302,23 +313,9 @@ setHeroBackground();
 setTimeAttribute();
 addPlayIcon();
 
-const debounce = function (func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
-const resizer = debounce(() => { setDynamicHeight(); }, 1000);
+const resizer = debounce(() => {
+  setDynamicHeight();
+}, 1000);
 window.addEventListener('resize', resizer);
 
 setTimeout(() => {

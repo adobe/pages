@@ -9,6 +9,17 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  addDefaultClass,
+  appearMain,
+  createTag,
+  debounce,
+  decorateTables,
+  externalLinks,
+  loadLocalHeader,
+} from '../../scripts.js';
+
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
     const $wrapper = createTag('div', { class: 'section-wrapper' });
@@ -60,6 +71,7 @@ function dropDownMenu() {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
   const $video = document.getElementById('video');
@@ -69,44 +81,28 @@ export function playVideo() {
   $video.setAttribute('controls', true);
 }
 
-const debounce = function (func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
 // set fixed height to cards to create a uniform UI
 function cardHeightEqualizer($el) {
   let initialHeight = 0;
   const element = document.querySelectorAll($el);
 
   if (window.innerWidth >= 700 && element.length > 1) {
-    element.forEach((card_el) => {
-      card_el.style.height = 'auto';
+    element.forEach((cardEl) => {
+      cardEl.style.height = 'auto';
     });
 
-    element.forEach((card_text) => {
-      if (initialHeight < card_text.offsetHeight) {
-        initialHeight = card_text.offsetHeight;
+    element.forEach((cardText) => {
+      if (initialHeight < cardText.offsetHeight) {
+        initialHeight = cardText.offsetHeight;
       }
     });
 
-    element.forEach((card_el) => {
-      card_el.style.height = `${initialHeight}px`;
+    element.forEach((cardEl) => {
+      cardEl.style.height = `${initialHeight}px`;
     });
   } else {
-    element.forEach((card_el) => {
-      card_el.style.height = 'auto';
+    element.forEach((cardEl) => {
+      cardEl.style.height = 'auto';
     });
   }
 }
@@ -126,6 +122,32 @@ function styleCards() {
     if (document.querySelector('form')) {
       document.getElementsByTagName('body')[0].classList.add('smb-form');
     }
+  }
+}
+
+function setTabIndex() {
+  const body = document.getElementsByTagName('body')[0];
+
+  if (body.classList.contains('smb-form')) {
+    const waitForForm = setInterval(() => {
+      if (document.querySelector('form')) {
+        setTimeout(() => {
+          const elements = document.querySelectorAll('.card');
+          elements.forEach((el) => {
+            el.setAttribute('tabindex', 0);
+          });
+        }, 100);
+        clearInterval(waitForForm);
+      }
+    }, 100);
+  }
+
+  if (body.classList.contains('smb-thank-you') && !body.classList.contains('smb-form')) {
+    const elements = document.querySelectorAll('.card');
+
+    elements.forEach((el) => {
+      el.setAttribute('tabindex', 0);
+    });
   }
 }
 
@@ -151,36 +173,8 @@ async function decoratePage() {
   appearMain();
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
-}
-
-function toClassName(name) {
-  return name.toLowerCase().replace(/[^0-9a-z]/gi, '-');
-}
-
-function setTabIndex() {
-  const body = document.getElementsByTagName('body')[0];
-
-  if (body.classList.contains('smb-form')) {
-    const waitForForm = setInterval(() => {
-      if (document.querySelector('form')) {
-        setTimeout(() => {
-          const elements = document.querySelectorAll('.card');
-          elements.forEach((el) => { el.setAttribute('tabindex', 0); });
-        }, 100);
-        clearInterval(waitForForm);
-      }
-    }, 100);
-  }
-
-  if (body.classList.contains('smb-thank-you') && !body.classList.contains('smb-form')) {
-    const elements = document.querySelectorAll('.card');
-
-    elements.forEach((el) => { el.setAttribute('tabindex', 0); });
-  }
 }

@@ -13,12 +13,28 @@
 module.exports = {
   root: true,
   extends: '@adobe/helix',
+  env: {
+    browser: true,
+    es6: true,
+  },
   rules: {
     // allow reassigning param
     'no-param-reassign': [2, { props: false }],
     'linebreak-style': ['error', 'unix'],
     'import/extensions': ['error', {
       js: 'always',
+    }],
+    'prefer-destructuring': ['error', {
+      VariableDeclarator: {
+        array: false,
+        object: true,
+      },
+      AssignmentExpression: {
+        array: false,
+        object: true,
+      },
+    }, {
+      enforceForRenamedProperties: false,
     }],
   },
   parser: '@babel/eslint-parser',

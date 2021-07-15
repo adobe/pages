@@ -9,6 +9,17 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  appearMain,
+  createTag,
+  debounce,
+  loadCSS,
+  loadJSModule,
+  loadLocalHeader,
+  toClassName,
+} from '../../scripts.js';
+
 function styleNav() {
   const parent = document.querySelector('header');
   const $appIcon = parent.querySelector('img');
@@ -69,7 +80,7 @@ function styleNav() {
 function setExternalLinks() {
   if (!document.querySelectorAll('main a')) return;
   const links = document.querySelectorAll('main a');
-  links.forEach(($a, $i) => {
+  links.forEach(($a) => {
     const hasExternalLink = $a.innerText.includes('[!]');
     if (hasExternalLink) {
       $a.innerText = $a.innerText.split('[!]')[0];
@@ -85,10 +96,10 @@ function equalizer($element) {
       callOutParents.forEach(($callouts) => {
         let titleHeight = 0;
         let copyHeight = 0;
-        const $card_items = $callouts.querySelectorAll('.callout > div div:last-of-type');
+        const $cardItems = $callouts.querySelectorAll('.callout > div div:last-of-type');
 
         // reset applied on resizing
-        $card_items.forEach(($row) => {
+        $cardItems.forEach(($row) => {
           const title = $row.querySelector('h3');
           const copy = $row.querySelector('p:first-of-type');
           title.style.height = '';
@@ -96,7 +107,7 @@ function equalizer($element) {
         });
 
         // collects tallest heights of elements per row
-        $card_items.forEach((item) => {
+        $cardItems.forEach((item) => {
           const title = item.querySelector('h3');
           const copy = item.querySelector('p:first-of-type');
 
@@ -110,7 +121,7 @@ function equalizer($element) {
         });
 
         // Applies styles to each row (tallest title and copy)
-        $card_items.forEach(($row) => {
+        $cardItems.forEach(($row) => {
           const title = $row.querySelector('h3');
           const copy = $row.querySelector('p:first-of-type');
 
@@ -122,16 +133,16 @@ function equalizer($element) {
   }
 }
 
-function set_widths() {
+function setWidths() {
   const sections = document.querySelectorAll('main .section-wrapper >div');
   sections.forEach((section) => {
     const children = section.childNodes;
     children.forEach((child) => {
-      if (child.innerHTML != undefined) {
+      if (child.innerHTML != null) {
         if (child.innerHTML.includes('[!')) {
           const width = child.innerHTML.split('[!')[1].split(']')[0];
-          const clean_up_text = child.innerHTML.split('[!')[0];
-          child.innerHTML = clean_up_text;
+          const cleanUpText = child.innerHTML.split('[!')[0];
+          child.innerHTML = cleanUpText;
           child.style.maxWidth = `${width}px`;
           child.style.marginLeft = 'auto';
           child.style.marginRight = 'auto';
@@ -150,7 +161,7 @@ function decorateHero() {
   const videoPlaceholder = heroRoot.querySelector('div:first-of-type img').getAttribute('src');
   let videoBackgroundElement = '';
 
-  if (heroRoot.childNodes.length == 3) {
+  if (heroRoot.childNodes.length === 3) {
     videoBackgroundElement = heroRoot.querySelector('div:nth-child(3) img').getAttribute('src');
   }
 
@@ -196,22 +207,6 @@ function decorateHero() {
   document.querySelector('.video-placeholder').addEventListener('click', startVideo);
 }
 
-function debounce(func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this; const
-      args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
-
 function decorateNextStep() {
   const root = document.querySelector('.next');
   const link = root.querySelector('div:first-of-type a').getAttribute('href');
@@ -235,7 +230,7 @@ function decorateNextStep() {
   `;
 }
 
-function mobileDropDown(event) {
+function mobileDropDown() {
   // event.preventDefault();
   const body = document.getElementsByTagName('body')[0];
   if (!body.classList.contains('nav-showing')) {
@@ -255,7 +250,7 @@ function decorateEmbeds() {
 
       if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
         let vid = usp.get('v');
-        if (url.host == 'youtu.be') vid = url.pathname.substr(1);
+        if (url.host === 'youtu.be') vid = url.pathname.substr(1);
 
         type = 'youtube';
         embedHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
@@ -281,18 +276,6 @@ function linkInNewTab($el) {
   });
 }
 
-function decorateTables() {
-  document.querySelectorAll('main div>table').forEach(($table) => {
-    const $cols = $table.querySelectorAll('thead tr th');
-    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML)).filter((e) => (!!e));
-    const $rows = $table.querySelectorAll('tbody tr');
-    let $div = {};
-
-    $div = tableToDivs($table, cols);
-    $table.parentNode.replaceChild($div, $table);
-  });
-}
-
 function tableToDivs($table, cols) {
   const $rows = $table.querySelectorAll('tbody tr');
   const $cards = createTag('div', { class: `${cols.join('-')}` });
@@ -306,6 +289,18 @@ function tableToDivs($table, cols) {
     $cards.append($card);
   });
   return ($cards);
+}
+
+function decorateTables() {
+  document.querySelectorAll('main div>table').forEach(($table) => {
+    const $cols = $table.querySelectorAll('thead tr th');
+    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML)).filter((e) => (!!e));
+    // const $rows = $table.querySelectorAll('tbody tr');
+    let $div = {};
+
+    $div = tableToDivs($table, cols);
+    $table.parentNode.replaceChild($div, $table);
+  });
 }
 
 function readBlockConfig($block) {
@@ -333,7 +328,7 @@ function decorateBackgroundImageBlocks() {
       $section.style.backgroundImage = `url(${$lastImage.src})`;
       let $caption = $lastImage.nextElementSibling;
       if ($caption) {
-        if ($caption.textContent == '') $caption = $caption.nextElementSibling;
+        if ($caption.textContent === '') $caption = $caption.nextElementSibling;
         if ($caption) $caption.classList.add('background-image-caption');
       }
       $lastImage.remove();
@@ -354,7 +349,7 @@ async function decorateNav() {
 async function decorateBlocks() {
   document.querySelectorAll('main>div.section-wrapper>div>div').forEach(($block) => {
     const { length } = $block.classList;
-    if (length == 1) {
+    if (length === 1) {
       const classes = $block.className.split('-');
       const classHelpers = $block.className.split('-');
       classHelpers.shift();
@@ -398,7 +393,7 @@ async function decorateBlocks() {
       loadCSS(`/styles/blocks/${classes[0]}.css`);
     }
 
-    if (length == 2) {
+    if (length === 2) {
       loadCSS(`/styles/blocks/${$block.classList.item(0)}.css`);
     }
   });
@@ -408,11 +403,11 @@ function decorateButtons() {
   document.querySelectorAll('main a').forEach(($a) => {
     const $up = $a.parentElement;
     const $twoup = $a.parentElement.parentElement;
-    if ($up.childNodes.length == 1 && $up.tagName == 'P') {
+    if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'P') {
       $a.className = 'button secondary';
     }
-    if ($up.childNodes.length == 1 && $up.tagName == 'STRONG'
-      && $twoup.childNodes.length == 1 && $twoup.tagName == 'P') {
+    if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'STRONG'
+      && $twoup.childNodes.length === 1 && $twoup.tagName.toUpperCase() === 'P') {
       $a.className = 'button primary';
     }
   });
@@ -440,33 +435,33 @@ function decorateVideoBlocks() {
 function decorateLinkTexting() {
   const $linktexting = document.querySelector('main div.linktexting');
   if ($linktexting) {
-	    const $id = $linktexting.children[0].children[1].textContent;
+    const $id = $linktexting.children[0].children[1].textContent;
     // const $main = document.querySelector('main');
     document.querySelectorAll('main p').forEach(($p) => {
       if ($p.textContent.includes('<linktexting>')) {
         // let $p=$p.parentElement;
         const $widget = createTag('div', { id: 'linktexting-holder' });
-	    		$p.parentElement.replaceChild($widget, $p);
+        $p.parentElement.replaceChild($widget, $p);
 
-	    		const parent = document.getElementById('linktexting-holder');
+        const parent = document.getElementById('linktexting-holder');
 
-	    		parent.innerHTML = `
-						<div class="promptWrapper">
-				   <div class="linkTextingWidgetWrapper" style="">
-				       <div class="linkTextingWidget" style="">
-				           <div class="promptContent" style=""></div>
-				           <div class="linkTextingInner">
-				               <input type="hidden" class="linkID" value="${$id}">
-				               <div class="linkTextingInputWrapper">
-				                   <input class="linkTextingInput linkTextingInputFlagAdjust" type="tel" id="numberToText_linkTexting">
-				               </div>
-				               <button class="linkTextingButton localized-button localized-text-text_me_a_link" type="button" id="sendButton_linkTexting" style="background-color: #1473E6;color : #ffffff">Text me a link</button>
-				               <div class="linkTextingError" id="linkTextingError" style="display:none;"></div>
-				           </div>
-				       </div>
-				   </div>
-				</div>
-					`;
+        parent.innerHTML = `
+        <div class="promptWrapper">
+          <div class="linkTextingWidgetWrapper" style="">
+            <div class="linkTextingWidget" style="">
+              <div class="promptContent" style=""></div>
+              <div class="linkTextingInner">
+                <input type="hidden" class="linkID" value="${$id}">
+                  <div class="linkTextingInputWrapper">
+                    <input class="linkTextingInput linkTextingInputFlagAdjust" type="tel" id="numberToText_linkTexting">
+                  </div>
+                  <button class="linkTextingButton localized-button localized-text-text_me_a_link" type="button" id="sendButton_linkTexting" style="background-color: #1473E6;color : #ffffff">Text me a link</button>
+                  <div class="linkTextingError" id="linkTextingError" style="display:none;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        `;
 
         const $newHeadJS1 = createTag('script', { type: 'text/javascript' });
         $newHeadJS1.innerHTML = `
@@ -483,16 +478,14 @@ function decorateLinkTexting() {
   var linkTextingOnlyCountries = ["af","al","dz","as","ad","ao","ai","ag","ar","am","aw","au","at","az","bs","bh","bd","bb","by","be","bz","bj","bm","bt","bo","ba","bw","br","io","vg","bn","bg","bf","bi","kh","cm","ca","cv","bq","ky","cf","td","cl","cn","co","km","cd","cg","ck","cr","ci","hr","cu","cw","cy","cz","dk","dj","dm","do","ec","eg","sv","gq","er","ee","et","fk","fo","fj","fi","fr","gf","pf","ga","gm","ge","de","gh","gi","gr","gl","gd","gp","gu","gt","gn","gw","gy","ht","hn","hk","hu","is","in","id","ir","iq","ie","il","it","jm","jp","jo","kz","ke","ki","kw","kg","la","lv","lb","ls","lr","ly","li","lt","lu","mo","mk","mg","mw","my","mv","ml","mt","mh","mq","mr","mu","mx","fm","md","mc","mn","me","ms","ma","mz","mm","na","nr","np","nl","nc","nz","ni","ne","ng","nu","nf","kp","mp","no","om","pk","pw","ps","pa","pg","py","pe","ph","pl","pt","pr","qa","re","ro","ru","rw","bl","sh","kn","lc","mf","pm","vc","ws","sm","st","sa","sn","rs","sc","sl","sg","sx","sk","si","sb","so","za","kr","ss","es","lk","sd","sr","sz","se","ch","sy","tw","tj","tz","th","tl","tg","tk","to","tt","tn","tr","tm","tc","tv","vi","ug","ua","ae","gb","us","uy","uz","vu","va","ve","vn","wf","ye","zm","zw"];
   `;
 
-  				const $newHeadJS2 = createTag('script', { type: 'text/javascript', src: '//s3.amazonaws.com/linktexting-cdn/1.7/js/link_texting_gz.min.js' });
+        const $newHeadJS2 = createTag('script', { type: 'text/javascript', src: '//s3.amazonaws.com/linktexting-cdn/1.7/js/link_texting_gz.min.js' });
 
         document.head.appendChild($newHeadJS1);
         document.head.appendChild($newHeadJS2);
-		  	}
+      }
     });
 
     $linktexting.remove();
-  } else {
-
   }
 }
 
@@ -544,15 +537,13 @@ async function decoratePage() {
       });
     }
   });
-  set_widths();
+  setWidths();
 }
 
 window.addEventListener('load', () => document.body.classList.add('loaded'));
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

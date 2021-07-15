@@ -9,6 +9,18 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  addDefaultClass,
+  appearMain,
+  classify,
+  createTag,
+  debounce,
+  externalLinks,
+  loadLocalHeader,
+  turnTableSectionIntoCards,
+} from '../../scripts.js';
+
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
   const resp = await fetch('steps.json');
@@ -46,7 +58,7 @@ async function insertSteps() {
     const steps = await fetchSteps();
     steps.forEach((step, i) => {
       if (i % 3 === 0) {
-        count++;
+        count += 1;
         addToCategory += `<div class="section-title">${
           $sectionTitles.querySelectorAll('h3')[count].outerHTML
         }</div><div class="category-steps">`;
@@ -147,7 +159,7 @@ function dropDownMenu() {
   }
 }
 
-export function playVideo() {
+function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
   const $video = document.getElementById('video');
   $video.classList.remove('hidden');
@@ -163,7 +175,7 @@ async function decorateStep() {
 
   const $content = document.querySelector('.content');
   const $learn = document.querySelector('.learn');
-  const $progress = document.querySelector('.progress');
+  // const $progress = document.querySelector('.progress');
 
   const $video = createTag('div', { class: 'video-wrapper' });
   $content.appendChild($video);
@@ -227,7 +239,7 @@ async function decorateStep() {
       <source src="${currentStep.Video}" type="video/mpeg4">
       </video></div>`;
     $video.firstChild.style.backgroundImage = `url(../../../../static/ete/hero-posters/${currentStep.Thumbnail})`;
-    $video.firstChild.addEventListener('click', (e) => playVideo());
+    $video.firstChild.addEventListener('click', () => playVideo());
   }
 
   if (currentStep.Video.startsWith('https://www.youtube.com/')) {
@@ -282,7 +294,7 @@ async function decorateHome() {
   document.body.classList.add('home');
   document.querySelectorAll('main p').forEach(($e) => {
     const inner = $e.innerHTML.toLowerCase().trim();
-    if (inner == '&lt;steps&gt;' || inner == '\\<steps></steps>') {
+    if (inner === '&lt;steps&gt;' || inner === '\\<steps></steps>') {
       $e.parentNode.classList.add('steps');
       $e.parentNode.innerHTML = '';
     }
@@ -290,44 +302,28 @@ async function decorateHome() {
   await insertSteps();
 }
 
-const debounce = function (func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
 // set fixed height to cards to create a uniform UI
 function cardHeightEqualizer($el) {
   let initialHeight = 0;
   const element = document.querySelectorAll($el);
 
   if (window.innerWidth >= 700 && element.length > 1) {
-    element.forEach((card_el) => {
-      card_el.style.height = 'auto';
+    element.forEach((cardEl) => {
+      cardEl.style.height = 'auto';
     });
 
-    element.forEach((card_text) => {
-      if (initialHeight < card_text.offsetHeight) {
-        initialHeight = card_text.offsetHeight;
+    element.forEach((cardText) => {
+      if (initialHeight < cardText.offsetHeight) {
+        initialHeight = cardText.offsetHeight;
       }
     });
 
-    element.forEach((card_el) => {
-      card_el.style.height = `${initialHeight}px`;
+    element.forEach((cardEl) => {
+      cardEl.style.height = `${initialHeight}px`;
     });
   } else {
-    element.forEach((card_el) => {
-      card_el.style.height = 'auto';
+    element.forEach((cardEl) => {
+      cardEl.style.height = 'auto';
     });
   }
 }
@@ -336,77 +332,6 @@ window.addEventListener('resize', debounce(() => {
   // run resize events
   cardHeightEqualizer('.card-content');
 }, 250));
-
-async function decoratePage() {
-  addDefaultClass('main>div');
-  decorateTables();
-  await loadLocalHeader();
-  wrapSections('header>div');
-  externalLinks('header');
-  externalLinks('footer');
-  // nav style/dropdown
-  decorateNav();
-
-  if (document.querySelector('.nav-logo')) {
-    document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);
-  }
-
-  let pageType;
-  // find steps marker
-  if (document.location.pathname.endsWith('/step')) {
-    pageType = 'step';
-  } else {
-    pageType = 'home';
-  }
-
-  window.pages.pageType = pageType;
-
-  if (pageType == 'home') {
-    await decorateHome();
-  }
-
-  if (pageType == 'step') {
-    await decorateStep();
-    document.title = document.title.split('&nbsp;').join(' ');
-    document.title = document.title.split('<br>').join(' ');
-  }
-
-  window.pages.decorated = true;
-  wrapSections('.home > main > div');
-  await cleanUpBio();
-  appearMain();
-  externalLinks('main .section-wrapper:last-of-type');
-  cardHeightEqualizer('.card-content');
-}
-
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
-} else {
-  decoratePage();
-}
-
-function toClassName(name) {
-  return name.toLowerCase().replace(/[^0-9a-z]/gi, '-');
-}
-
-function decorateTables() {
-  document.querySelectorAll('main div.default>table').forEach(($table) => {
-    const $cols = $table.querySelectorAll('thead tr th');
-    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
-    const $rows = $table.querySelectorAll('tbody tr');
-    let $div = {};
-
-    if (cols.length == 1 && $rows.length == 1) {
-      $div = createTag('div', { class: `${cols[0]}` });
-      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
-    } else {
-      $div = turnTableSectionIntoCards($table, cols);
-    }
-    $table.parentNode.replaceChild($div, $table);
-  });
-}
 
 function cleanUpBio() {
   if (!document.querySelector('.about-bio')) return;
@@ -438,4 +363,73 @@ function cleanUpBio() {
         </div>
       </div>
   `;
+}
+
+function toClassName(name) {
+  return name.toLowerCase().replace(/[^0-9a-z]/gi, '-');
+}
+
+function decorateTables() {
+  document.querySelectorAll('main div.default>table').forEach(($table) => {
+    const $cols = $table.querySelectorAll('thead tr th');
+    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
+    const $rows = $table.querySelectorAll('tbody tr');
+    let $div = {};
+
+    if (cols.length === 1 && $rows.length === 1) {
+      $div = createTag('div', { class: `${cols[0]}` });
+      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
+    } else {
+      $div = turnTableSectionIntoCards($table, cols);
+    }
+    $table.parentNode.replaceChild($div, $table);
+  });
+}
+
+async function decoratePage() {
+  addDefaultClass('main>div');
+  decorateTables();
+  await loadLocalHeader();
+  wrapSections('header>div');
+  externalLinks('header');
+  externalLinks('footer');
+  // nav style/dropdown
+  decorateNav();
+
+  if (document.querySelector('.nav-logo')) {
+    document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);
+  }
+
+  let pageType;
+  // find steps marker
+  if (document.location.pathname.endsWith('/step')) {
+    pageType = 'step';
+  } else {
+    pageType = 'home';
+  }
+
+  window.pages.pageType = pageType;
+
+  if (pageType === 'home') {
+    await decorateHome();
+  }
+
+  if (pageType === 'step') {
+    await decorateStep();
+    document.title = document.title.split('&nbsp;').join(' ');
+    document.title = document.title.split('<br>').join(' ');
+  }
+
+  window.pages.decorated = true;
+  wrapSections('.home > main > div');
+  await cleanUpBio();
+  appearMain();
+  externalLinks('main .section-wrapper:last-of-type');
+  cardHeightEqualizer('.card-content');
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
+} else {
+  decoratePage();
 }

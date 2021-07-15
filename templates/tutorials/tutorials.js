@@ -9,38 +9,13 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-/*
- * Copyright 2021 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
+
+import {
+  addDefaultClass, appearMain, classify, createTag, externalLinks, insertLocalResource,
+} from '../../scripts.js';
+
 function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
-}
-
-function decorateTables() {
-  document.querySelectorAll('main div>table').forEach(($table) => {
-    const $cols = $table.querySelectorAll('thead tr th');
-    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
-    const $rows = $table.querySelectorAll('tbody tr');
-    let $div = {};
-
-    if (cols.length == 1 && $rows.length == 1) {
-      $div = createTag('div', { class: `${cols[0]}` });
-      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
-      $table.parentNode.replaceChild($div, $table);
-    } else {
-      $div = turnTableSectionIntoCards($table, cols);
-      $table.parentNode.replaceChild($div, $table);
-      $div.parentNode.classList.add('card-section');
-    }
-  });
 }
 
 function turnTableSectionIntoCards($table, cols) {
@@ -61,8 +36,8 @@ function turnTableSectionIntoCards($table, cols) {
                 </g>
                 </svg>
                 </div>`;
-        $div.addEventListener('click', (evt) => {
-          $div.innerHTML = $div.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+        $div.addEventListener('click', () => {
+          $div.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
         });
       } else {
         $div.innerHTML = $td.innerHTML;
@@ -74,6 +49,25 @@ function turnTableSectionIntoCards($table, cols) {
     $cards.append($card);
   });
   return ($cards);
+}
+
+function decorateTables() {
+  document.querySelectorAll('main div>table').forEach(($table) => {
+    const $cols = $table.querySelectorAll('thead tr th');
+    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
+    const $rows = $table.querySelectorAll('tbody tr');
+    let $div = {};
+
+    if (cols.length === 1 && $rows.length === 1) {
+      $div = createTag('div', { class: `${cols[0]}` });
+      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
+      $table.parentNode.replaceChild($div, $table);
+    } else {
+      $div = turnTableSectionIntoCards($table, cols);
+      $table.parentNode.replaceChild($div, $table);
+      $div.parentNode.classList.add('card-section');
+    }
+  });
 }
 
 async function fetchSteps() {
@@ -124,25 +118,26 @@ async function insertSteps() {
     const steps = await fetchSteps();
     let html = '';
     steps.forEach((step, i) => {
-	        console.log(i);
-	        const number = parseInt(i) + 1;
-	        if (number == steps.length) {
-		        var stepPrefix = `${number}. Wrapping up: `;
-		    } else if (number == 1) {
-			    var stepPrefix = `${number}. Intro: `;
-		    } else {
-	            var stepPrefix = `${number}. `;
-	        }
-	        html += `<div class="card index-steps" onclick="window.location='step?${i + 1}'">
-	                <div class='img' style="background-image: url(${getThumbnail(step)}); background-size: cover;">
-	
-	                </div>
-	                <div class='text'>
-	                    <div>
-	                    	<h3>${stepPrefix}${step.Title}</h3>
-	                    </div>
-	                </div>
-	            </div>`;
+      let stepPrefix;
+      console.log(i);
+      const number = parseInt(i, 10) + 1;
+      if (number === steps.length) {
+        stepPrefix = `${number}. Wrapping up: `;
+      } else if (number === 1) {
+        stepPrefix = `${number}. Intro: `;
+      } else {
+        stepPrefix = `${number}. `;
+      }
+      html += `
+      <div class="card index-steps" onclick="window.location='step?${i + 1}'">
+        <div class='img' style="background-image: url(${getThumbnail(step)}); background-size: cover;">
+        </div>
+        <div class='text'>
+          <div>
+            <h3>${stepPrefix}${step.Title}</h3>
+          </div>
+        </div>
+      </div>`;
     });
     $steps.innerHTML = html;
   }
@@ -154,13 +149,13 @@ async function loadLocalHeader() {
   if ($inlineHeader) {
     const $header = document.querySelector('header');
     $inlineHeader.childNodes.forEach((e, i) => {
-      if (e.nodeName == '#text' && !i) {
+      if (e.nodeName.toLowerCase() === '#text' && !i) {
         const $p = createTag('p');
         const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.nodeValue}`;
         $p.innerHTML = inner;
         e.parentNode.replaceChild($p, e);
       }
-      if (e.nodeName == 'P' && !i) {
+      if (e.nodeName.toUpperCase() === 'P' && !i) {
         const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
         e.innerHTML = inner;
       }
@@ -238,34 +233,37 @@ async function decorateStep() {
   $text.appendChild($tutnav);
 
   let title = currentStep.Title;
+  let end;
+  let metadata;
+  let trimmedDesc;
 
   const description = currentStep.Description.toString();
   if (description.indexOf('•') > 0) {
-	    if (description.indexOf('minutes') > 0) {
-		    var end = parseInt(description.indexOf('minutes')) + 7;
-		    var metadata = `<h3>${description.slice(0, end)}</h3>`;
-      var trimmedDesc = description.slice(end);
-	    } else if (description.indexOf('minute') > 0) {
-		    var end = parseInt(description.indexOf('minute')) + 6;
-		    var metadata = `<h3>${description.slice(0, end)}</h3>`;
-      var trimmedDesc = description.slice(end);
-	    } else {
-		    var metadata = '';
-		    var trimmedDesc = description;
-	    }
+    if (description.indexOf('minutes') > 0) {
+      end = parseInt(description.indexOf('minutes'), 10) + 7;
+      metadata = `<h3>${description.slice(0, end)}</h3>`;
+      trimmedDesc = description.slice(end);
+    } else if (description.indexOf('minute') > 0) {
+      end = parseInt(description.indexOf('minute'), 10) + 6;
+      metadata = `<h3>${description.slice(0, end)}</h3>`;
+      trimmedDesc = description.slice(end);
+    } else {
+      metadata = '';
+      trimmedDesc = description;
+    }
   } else {
-	    var metadata = '';
-    var trimmedDesc = description;
+    metadata = '';
+    trimmedDesc = description;
   }
 
-  const image = currentStep.thumbnail;
+  // const image = currentStep.thumbnail;
   if (currentStep.Heading) title = currentStep.Heading;
   // title=title.split(`\n`).join('<br>');
   $h1.innerHTML = title;
   $h1.id = '';
 
-  var trimmedDesc = trimmedDesc.trim();
-  const descContent = metadata + trimmedDesc.split(/[\.?!;]/).filter((sentence) => sentence).map((sentence) => `<p>${sentence}.</p>`).join('');
+  trimmedDesc = trimmedDesc.trim();
+  const descContent = metadata + trimmedDesc.split(/[.?!;]/).filter((sentence) => sentence).map((sentence) => `<p>${sentence}.</p>`).join('');
   $descHolder.innerHTML = descContent;
 
   // console.log(currentStep.Image)
@@ -288,7 +286,7 @@ async function decorateHome() {
   document.body.classList.add('home');
   document.querySelectorAll('main p').forEach(($e) => {
     const inner = $e.innerHTML.toLowerCase().trim();
-    if (inner == '&lt;steps&gt;' || inner == '\\<steps></steps>') {
+    if (inner === '&lt;steps&gt;' || inner === '\\<steps></steps>') {
       $e.parentNode.classList.add('steps');
       $e.parentNode.innerHTML = '';
     }
@@ -336,11 +334,11 @@ async function decoratePage() {
 
   window.pages.pageType = pageType;
 
-  if (pageType == 'home') {
+  if (pageType === 'home') {
     await decorateHome();
   }
 
-  if (pageType == 'step') {
+  if (pageType === 'step') {
     await decorateStep();
   }
 
@@ -349,10 +347,8 @@ async function decoratePage() {
   appearMain();
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

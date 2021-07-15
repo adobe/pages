@@ -9,6 +9,11 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  addDefaultClass, appearMain, classify, createTag, externalLinks, loadLocalHeader,
+} from '../../scripts.js';
+
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
   const resp = await fetch('steps.json');
@@ -36,18 +41,19 @@ function addNavCarrot() {
     let carrot = '';
 
     if (document.querySelector('header ul')) {
-      carrot = `<span class="carrot">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-		</span>`;
+      carrot = `
+      <span class="carrot">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </span>`;
     }
 
     svgWithCarrot.innerHTML = `
-				<span class="product-icon">
-					${svg.outerHTML}
-				</span>
+      <span class="product-icon">
+        ${svg.outerHTML}
+      </span>
 
-				${carrot}
-			`;
+      ${carrot}
+    `;
     svg.remove();
 
     document.querySelector('header div')
@@ -67,22 +73,23 @@ async function insertSteps() {
     const steps = await fetchSteps();
     let html = '';
     steps.forEach((step, i) => {
-      html += `<div class="card" onclick="window.location='step?${i + 1}'">
-							<div class='img' style="background-image: url(${getThumbnail(step)})">
-							<svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-							<g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-									<circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-									<path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-							</g>
-							</svg>
-							</div>
-							<div class='text'>
-									<div><h4>${step.Title}</h4>
-									<p>${step.Description}</p>
-									</div>
-									<a href="step?${i + 1}">${step.CTA}</a>
-							</div>
-					</div>`;
+      html += `
+      <div class="card" onclick="window.location='step?${i + 1}'">
+        <div class='img' style="background-image: url(${getThumbnail(step)})">
+          <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+            <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+              <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+              <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+            </g>
+          </svg>
+        </div>
+        <div class='text'>
+          <div><h4>${step.Title}</h4>
+            <p>${step.Description}</p>
+          </div>
+          <a href="step?${i + 1}">${step.CTA}</a>
+        </div>
+      </div>`;
     });
     $steps.innerHTML = html;
   }
@@ -102,6 +109,7 @@ function dropDownMenu() {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
   const $video = document.getElementById('video');
@@ -139,7 +147,7 @@ async function decorateStep() {
   $h1.innerHTML = title;
   $h1.id = '';
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 8; i += 1) {
     $h1.appendChild(createTag('span', { class: `grab-${i}` }));
   }
   document.title = currentStep.Title;
@@ -148,19 +156,22 @@ async function decorateStep() {
   }
 
   if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
-    $video.innerHTML = `<div class="video"><div id="placeholder" class="button">
-			<svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-							<g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-									<circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-									<path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-							</g>
-							</svg>
-			</div>
-			<video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
-			<source src="${currentStep.Video}" type="video/mpeg4">
-			</video></div>`;
+    $video.innerHTML = `
+    <div class="video">
+      <div id="placeholder" class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+          <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+            <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+            <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+          </g>
+        </svg>
+      </div>
+      <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
+        <source src="${currentStep.Video}" type="video/mpeg4">
+      </video>
+    </div>`;
     $video.firstChild.style.backgroundImage = `url(${currentStep.Thumbnail})`;
-    $video.firstChild.addEventListener('click', (e) => playVideo());
+    $video.firstChild.addEventListener('click', () => playVideo());
   }
 
   if (currentStep.Video.startsWith('https://www.youtube.com/')) {
@@ -182,8 +193,11 @@ async function decorateStep() {
   let html = '';
 
   skills.forEach((skill) => {
-    html += `<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
-					<p>${skill.title}</p></div>`;
+    html += `
+    <div class="skill">
+      <img src="/static/twp3/icons/${skill.icon}.svg">
+      <p>${skill.title}</p>
+    </div>`;
   });
   $skills.innerHTML = html;
   $learn.appendChild($skills);
@@ -196,7 +210,7 @@ async function decorateStep() {
   const $progressbar = createTag('div', { class: 'progress-bar' });
   html = '';
   steps.forEach((step, i) => {
-    html += `<div onclick="window.location.href='step?${i + 1}'" class="${i == stepIndex ? 'active' : 'inactive'}"></div>`;
+    html += `<div onclick="window.location.href='step?${i + 1}'" class="${i === stepIndex ? 'active' : 'inactive'}"></div>`;
   });
   $progressbar.innerHTML = html;
   $progress.appendChild($progressbar);
@@ -207,21 +221,22 @@ async function decorateStep() {
 
   const nextStep = steps[stepIndex + 1];
   if (nextStep) {
-    $upnext.innerHTML = ` <div class="upnext__inner">
-														<div class="window">
-															<img src="${getThumbnail(nextStep)}">
-														</div>
-														${upnext}
-														<h2>${nextStep.Title}</h2>
-														<p>${nextStep.Description}</p>
-													</div>
-			
-							`;
+    $upnext.innerHTML = `
+    <div class="upnext__inner">
+      <div class="window">
+        <img src="${getThumbnail(nextStep)}">
+      </div>
+      ${upnext}
+      <h2>${nextStep.Title}</h2>
+      <p>${nextStep.Description}</p>
+    </div>`;
   } else {
     $upnext.remove();
   }
 
-  $upnext.addEventListener('click', (e) => window.location.href = `step?${stepIndex + 2}`);
+  $upnext.addEventListener('click', () => {
+    window.location.href = `step?${stepIndex + 2}`;
+  });
 }
 
 function wrapSections(element) {
@@ -236,7 +251,7 @@ async function decorateHome() {
   document.body.classList.add('home');
   document.querySelectorAll('main p').forEach(($e) => {
     const inner = $e.innerHTML.toLowerCase().trim();
-    if (inner == '&lt;steps&gt;' || inner == '\\<steps></steps>') {
+    if (inner === '&lt;steps&gt;' || inner === '\\<steps></steps>') {
       $e.parentNode.classList.add('steps');
       $e.parentNode.innerHTML = '';
     }
@@ -269,11 +284,11 @@ async function decoratePage() {
 
   window.pages.pageType = pageType;
 
-  if (pageType == 'home') {
+  if (pageType === 'home') {
     await decorateHome();
   }
 
-  if (pageType == 'step') {
+  if (pageType === 'step') {
     await decorateStep();
   }
 
@@ -281,10 +296,8 @@ async function decoratePage() {
   appearMain();
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

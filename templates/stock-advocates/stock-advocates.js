@@ -9,18 +9,26 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  appearMain,
+  createTag,
+  insertLocalResource,
+  toClassName,
+} from '../../scripts.js';
+
 async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
   if ($inlineHeader) {
     const $header = document.querySelector('header');
     $inlineHeader.childNodes.forEach((e, i) => {
-      if (e.nodeName == '#text' && !i) {
+      if (e.nodeName.toLowerCase() === '#text' && !i) {
         const $p = createTag('p');
         const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.nodeValue}`;
         $p.innerHTML = inner;
         e.parentNode.replaceChild($p, e);
       }
-      if (e.nodeName == 'P' && !i) {
+      if (e.nodeName.toLowerCase() === 'p' && !i) {
         const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
         e.innerHTML = inner;
       }
@@ -49,7 +57,7 @@ function decorateHeroSection() {
     const $div = $firstSectionImage.closest('div');
     $section.classList.add('hero-section', 'white-text');
     $div.classList.add('text');
-    if ($div.children[1].children[0].tagName == 'IMG') {
+    if ($div.children[1].children[0].tagName.toUpperCase() === 'IMG') {
       $div.classList.add('image');
     } else {
       const $imgWrapper = createTag('div', { class: 'image' });
@@ -72,7 +80,7 @@ function decorateFaq() {
       $question.classList.add('question');
       $answer.classList.add('answer');
 
-      $question.addEventListener('click', (evt) => {
+      $question.addEventListener('click', () => {
         $row.classList.toggle('show');
       });
     });
@@ -94,7 +102,10 @@ function decorateColors() {
         const splits = line.split(',');
         const color = splits[0].trim();
         $row.style.backgroundColor = color;
-        const lightness = (parseInt(color.substr(1, 2), 16) + parseInt(color.substr(3, 2), 16) + parseInt(color.substr(5, 2), 16)) / 3;
+        const lightness = (
+          parseInt(color.substr(1, 2), 16)
+          + parseInt(color.substr(3, 2), 16)
+          + parseInt(color.substr(5, 2), 16)) / 3;
         if (lightness < 200) $row.classList.add('white-text');
         if (splits[1]) $row.classList.add(splits[1].trim());
       }
@@ -116,7 +127,7 @@ function decorateGrid() {
       const $a = cells[1].querySelector('a');
       if ($a) {
         const linkTarget = $a.href;
-        $row.addEventListener('click', (evt) => {
+        $row.addEventListener('click', () => {
           window.location.href = linkTarget;
         });
       }
@@ -128,11 +139,11 @@ function decorateButtons() {
   document.querySelectorAll('main a').forEach(($a) => {
     const $up = $a.parentElement;
     const $twoup = $a.parentElement.parentElement;
-    if ($up.childNodes.length == 1 && $up.tagName == 'P') {
+    if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'P') {
       $a.className = 'button secondary';
     }
-    if ($up.childNodes.length == 1 && $up.tagName == 'STRONG'
-        && $twoup.childNodes.length == 1 && $twoup.tagName == 'P') {
+    if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'STRONG'
+        && $twoup.childNodes.length === 1 && $twoup.tagName.toUpperCase() === 'P') {
       $a.className = 'button primary';
     }
   });
@@ -141,7 +152,9 @@ function decorateButtons() {
 function decorateColumns() {
   const isIndex = window.location.pathname.endsWith('/');
   document.querySelectorAll('main div>.columns').forEach(($columns) => {
-    if (!isIndex) { $columns.classList.add('left-justify'); }
+    if (!isIndex) {
+      $columns.classList.add('left-justify');
+    }
     $columns.closest('.section-wrapper').classList.add('full-width');
     const rows = Array.from($columns.children);
     rows.forEach(($row) => {
@@ -161,7 +174,7 @@ function decorateColumns() {
           }
         } else {
           $cell.classList.add('text');
-          if ($cell.textContent == '') {
+          if ($cell.textContent === '') {
             $cell.remove();
             arr[i - 1].classList.add('merged');
           }
@@ -183,13 +196,13 @@ function decorateParallax() {
     Array.from($parallax.children).forEach(($layer) => {
       $parallax.prepend($layer);
     });
-    document.addEventListener('scroll', (evt) => {
+    document.addEventListener('scroll', () => {
       const clientRect = $parallax.getBoundingClientRect();
       if (clientRect.y < window.innerHeight && clientRect.bottom > 0) {
         const maxExtent = window.innerHeight + clientRect.height;
         const offsetRatio = ((maxExtent) - (window.innerHeight - clientRect.y)) / maxExtent;
         Array.from($parallax.children).forEach(($layer, i, arr) => {
-          const translateY = (arr.length - 1 - i) * clientRect.height / 4 * offsetRatio;
+          const translateY = ((arr.length - 1 - i) * clientRect.height) / (4 * offsetRatio);
           if (translateY) {
             $layer.style.transform = `translate(0px,${translateY - 0}px)`;
           }
@@ -242,18 +255,6 @@ function decorateHeroCarousel() {
   });
 }
 
-function decorateTables() {
-  document.querySelectorAll('main>div>table,.embed>div>table').forEach(($table) => {
-    const $cols = $table.querySelectorAll(':scope>thead>tr>th');
-    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML)).filter((e) => (!!e));
-    const $rows = $table.querySelectorAll(':scope>tbody>tr');
-    let $div = {};
-
-    $div = tableToDivs($table, cols);
-    $table.parentNode.replaceChild($div, $table);
-  });
-}
-
 function tableToDivs($table, cols) {
   const $rows = $table.querySelectorAll(':scope>tbody>tr');
   const $cards = createTag('div', { class: `${cols.join('-')}` });
@@ -263,7 +264,7 @@ function tableToDivs($table, cols) {
       const $div = createTag('div', cols.length > 1 ? { class: cols[i] } : {});
       $div.innerHTML = $td.innerHTML;
       $div.childNodes.forEach(($child) => {
-        if ($child.nodeName == '#text' && $child.nodeValue.trim()) {
+        if ($child.nodeName.toLowerCase() === '#text' && $child.nodeValue.trim()) {
           const $p = createTag('p');
           $p.innerHTML = $child.nodeValue;
           $child.parentElement.replaceChild($p, $child);
@@ -276,19 +277,46 @@ function tableToDivs($table, cols) {
   return ($cards);
 }
 
-function readBlockConfig($block) {
-  const config = {};
-  $block.querySelectorAll(':scope>div').forEach(($row) => {
-    if ($row.children && $row.children[1]) {
-      const name = toClassName($row.children[0].textContent);
-      const $a = $row.children[1].querySelector('a');
-      let value = '';
-      if ($a) value = $a.href;
-      else value = $row.children[1].textContent;
-      config[name] = value;
-    }
+function decorateTables() {
+  document.querySelectorAll('main>div>table,.embed>div>table').forEach(($table) => {
+    const $cols = $table.querySelectorAll(':scope>thead>tr>th');
+    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML)).filter((e) => (!!e));
+    // const $rows = $table.querySelectorAll(':scope>tbody>tr');
+    let $div = {};
+
+    $div = tableToDivs($table, cols);
+    $table.parentNode.replaceChild($div, $table);
   });
-  return config;
+}
+
+// function readBlockConfig($block) {
+//   const config = {};
+//   $block.querySelectorAll(':scope>div').forEach(($row) => {
+//     if ($row.children && $row.children[1]) {
+//       const name = toClassName($row.children[0].textContent);
+//       const $a = $row.children[1].querySelector('a');
+//       let value = '';
+//       if ($a) value = $a.href;
+//       else value = $row.children[1].textContent;
+//       config[name] = value;
+//     }
+//   });
+//   return config;
+// }
+
+function decorateLogo() {
+  const $hero = document.querySelector('.hero-carousel');
+  if (!$hero) {
+    const $header = document.querySelector('header');
+    const $asaLogoDiv = createTag('div', { class: 'asa-logo handsy' });
+    $asaLogoDiv.innerHTML = '<img src="/templates/stock-advocates/advocates_logo_small.svg">';
+    // don't want to wrap with a tag, too many style selectors may break - kk
+    $asaLogoDiv.addEventListener('click', (() => {
+      // this won't work if we add more sub folders
+      window.location.pathname = `${window.location.pathname.split('/').slice(0, -1).join('/')}/`;
+    }));
+    $header.append($asaLogoDiv);
+  }
 }
 
 async function decorateHeader() {
@@ -309,7 +337,7 @@ async function decorateHeader() {
   $menu.classList.add('menu');
   $hamburger.classList.add('hamburger');
 
-  $hamburger.addEventListener('click', (evt) => {
+  $hamburger.addEventListener('click', () => {
     const added = $header.classList.toggle('expanded');
     if (added) {
       document.body.classList.add('noscroll');
@@ -326,30 +354,15 @@ function decorateContactUs() {
     const $parent = $contactus.parentElement;
     $contactus.remove();
     $parent.id = 'contact-us';
-    if (window.location.hash == '#contact-us') {
+    if (window.location.hash === '#contact-us') {
       $parent.scrollIntoView();
     }
   }
 }
 
-function decorateLogo() {
-  const $hero = document.querySelector('.hero-carousel');
-  if (!$hero) {
-    const $header = document.querySelector('header');
-    const $asaLogoDiv = createTag('div', { class: 'asa-logo handsy' });
-    $asaLogoDiv.innerHTML = '<img src="/templates/stock-advocates/advocates_logo_small.svg">';
-    // don't want to wrap with a tag, too many style selectors may break - kk
-    $asaLogoDiv.addEventListener('click', (() => {
-      // this won't work if we add more sub folders
-      window.location.pathname = `${window.location.pathname.split('/').slice(0, -1).join('/')}/`;
-    }));
-    $header.append($asaLogoDiv);
-  }
-}
-
 function addAccessibility() {
   try {
-    const url = location.pathname;
+    const url = window.location.pathname;
     const lang = url.split('/')[2];
     const htmlTag = document.querySelector('html');
     htmlTag.setAttribute('lang', lang);
@@ -467,10 +480,8 @@ async function decoratePage() {
   addAccessibility();
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

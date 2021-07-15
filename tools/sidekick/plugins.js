@@ -9,7 +9,6 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-/* global window fetch */
 
 // This file contains the pages-specific plugins for the sidekick.
 (() => {

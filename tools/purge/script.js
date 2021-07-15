@@ -9,6 +9,9 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+/* eslint-disable */
+
 async function purge() {
   const $test = document.getElementById('test_location');
   let loc = window.location.href;
@@ -17,7 +20,7 @@ async function purge() {
   const url = new URL(loc);
   let path = url.pathname;
 
-  $spinnerWrap = document.createElement('div');
+  const $spinnerWrap = document.createElement('div');
   $spinnerWrap.innerHTML = (`<style>
         .purge-spinner {
             position: fixed;

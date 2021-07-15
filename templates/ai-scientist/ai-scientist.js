@@ -9,6 +9,13 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  addDefaultClass, appearMain, createTag, externalLinks, loadLocalHeader,
+} from '../../scripts.js';
+
+// NOTE: lots of this looks reused from scripts/twp...js
+
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
   const resp = await fetch('steps.json');
@@ -17,63 +24,65 @@ async function fetchSteps() {
 }
 
 function decorateFooter() {
-  const create_footer_wave = document.createElement('div');
-  create_footer_wave.className = 'footer-wave';
-  create_footer_wave.innerHTML = `
+  const createFooterWave = document.createElement('div');
+  createFooterWave.className = 'footer-wave';
+  createFooterWave.innerHTML = `
     <img src="${window.location.origin}/templates/ai-scientist/assets/footer-wave.svg"/>
   `;
-  document.querySelector('main .default:last-of-type').append(create_footer_wave);
+  document.querySelector('main .default:last-of-type').append(createFooterWave);
 }
 
-function addNavCarrot() {
-  if (document.querySelector('header svg') || document.querySelector('header img')) {
-    const svg = document.querySelector('header svg') || document.querySelector('header img');
-    const svgWithCarrot = document.createElement('div');
-    svgWithCarrot.classList.add('nav-logo');
+// 07/14/21 Max commented out, unused
+// function addNavCarrot() {
+//   if (document.querySelector('header svg') || document.querySelector('header img')) {
+//     const svg = document.querySelector('header svg') || document.querySelector('header img');
+//     const svgWithCarrot = document.createElement('div');
+//     svgWithCarrot.classList.add('nav-logo');
 
-    svgWithCarrot.innerHTML = `
-      <span class="product-icon">
-          ${svg.outerHTML}
-      </span>
+//     svgWithCarrot.innerHTML = `
+//       <span class="product-icon">
+//           ${svg.outerHTML}
+//       </span>
 
-      <span class="carrot">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      </span>
-      `;
-    svg.remove();
-    document.querySelector('header div')
-      .prepend(svgWithCarrot);
-    document.querySelector('header').classList.add('default-nav');
+//       <span class="carrot">
+//           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+//       </span>
+//       `;
+//     svg.remove();
+//     document.querySelector('header div')
+//       .prepend(svgWithCarrot);
+//     document.querySelector('header').classList.add('default-nav');
 
-    if (document.querySelector('header .section-wrapper p')) {
-      const productName = document.querySelector('header .section-wrapper').children[1].querySelector('p');
-      document.querySelector('.product-icon').appendChild(productName);
-    }
-  }
-}
+//     if (document.querySelector('header .section-wrapper p')) {
+//       const productName = document.querySelector('header .section-wrapper')
+//         .children[1].querySelector('p');
+//       document.querySelector('.product-icon').appendChild(productName);
+//     }
+//   }
+// }
 
-const icon_cleanup = ($string) => {
+const iconCleanup = ($string) => {
   const original = $string.split('\n');
   let type = '';
   if (document.getElementsByTagName('body')[0].classList.contains('home')) {
-    original.forEach((icon_set) => {
-      if (icon_set.split('-')[1] != undefined) {
+    original.forEach((iconSet) => {
+      if (iconSet.split('-')[1] != null) {
         type += `
           <div class="great_for_icon_set">
-            <img src="${window.location.origin}/templates/ai-scientist/assets/${icon_set.split('-')[1].trim().toLowerCase()}.svg">
+            <img src="${window.location.origin}/templates/ai-scientist/assets/${iconSet.split('-')[1].trim().toLowerCase()}.svg">
           </div>
         `;
       }
     });
   } else {
-    original.forEach((icon_set) => {
-      if (icon_set.split('-')[1] != undefined) {
+    original.forEach((iconSet) => {
+      if (iconSet.split('-')[1] != null) {
         type += `
           <li class="great_for_icon_set">
             <span>
-              <img src="${window.location.origin}/templates/ai-scientist/assets/${icon_set.split('-')[1].trim().toLowerCase()}.svg">
+              <img src="${window.location.origin}/templates/ai-scientist/assets/${iconSet.split('-')[1].trim().toLowerCase()}.svg">
             </span>
-            <span>${icon_set.split('-')[0].trim()}</span>
+            <span>${iconSet.split('-')[0].trim()}</span>
           </li>
         `;
       }
@@ -87,11 +96,11 @@ async function insertSteps() {
   if ($steps) {
     const steps = await fetchSteps();
     console.table(steps);
-    let $step_item = '';
+    let $stepItem = '';
 
     steps.forEach((step, index) => {
-      const icons = icon_cleanup(step.Great_for);
-      $step_item += `
+      const icons = iconCleanup(step.Great_for);
+      $stepItem += `
           <div class="steps__item">
             <div class="steps__item--inner flex">
               <div class="steps__for">
@@ -116,25 +125,25 @@ async function insertSteps() {
         `;
     });
 
-    $steps.innerHTML = $step_item;
+    $steps.innerHTML = $stepItem;
   }
 }
 
-function style_timeline($string) {
+function styleTimeline($string) {
   const cleanup = $string.split('\n');
   let li = '';
-  cleanup.forEach((list_item) => {
-    li += `<li>${list_item}</li>`;
+  cleanup.forEach((listItem) => {
+    li += `<li>${listItem}</li>`;
   });
   return li;
 }
 
-function video_style($video_url) {
+function videoStyle($videoUrl) {
   const video = `
   <div class="video__wrapper">
     <div class="video__element">
-      <video src="${$video_url.Video}">
-        <source src="${$video_url.Video}">
+      <video src="${$videoUrl.Video}">
+        <source src="${$videoUrl.Video}">
       </video>
       <button class="video__play-button">
         <svg xmlns="http://www.w3.org/2000/svg" width="78.092" height="78.092" viewBox="0 0 78.092 78.092">
@@ -143,16 +152,27 @@ function video_style($video_url) {
       </button>
     </div>
     <div class="video-info-single">
-      <span><strong>${$video_url.Title}</strong></span>
+      <span><strong>${$videoUrl.Title}</strong></span>
       <span class="spacer">|</span>
-      <span>${$video_url.Duration}</span>
+      <span>${$videoUrl.Duration}</span>
     </div>
     <ul class="video-timeline">
-      ${style_timeline($video_url.Video_timeline)}
+      ${styleTimeline($videoUrl.Video_timeline)}
     </ul>
   </div>
   `;
   return video;
+}
+
+function decorateHero() {
+  const svg = document.createElement('div');
+  svg.className = 'hero-banner';
+  const svgPath = `${window.location.origin}/templates/ai-scientist/assets/hero.svg`;
+
+  svg.innerHTML = `<img src="${svgPath}">`;
+  // svg.innerHTML = `./assets/hero.svg`
+
+  document.querySelector('.hero .container').prepend(svg);
 }
 
 async function decorateStep() {
@@ -161,28 +181,28 @@ async function decorateStep() {
   decorateHero();
 
   const $intro = document.querySelector('main .default:nth-child(1)');
-  const $icon_set = document.querySelector('main .default:nth-child(2)');
-  const $step_two = document.querySelector('main .default:nth-child(3)');
-  const $step_three = document.querySelector('main .default:nth-child(4)');
+  const $iconSet = document.querySelector('main .default:nth-child(2)');
+  const $stepTwo = document.querySelector('main .default:nth-child(3)');
+  const $stepThree = document.querySelector('main .default:nth-child(4)');
 
-  $icon_set.className = 'icon-set';
-  $step_two.className = 'step-two';
-  $step_three.className = 'step-three';
+  $iconSet.className = 'icon-set';
+  $stepTwo.className = 'step-two';
+  $stepThree.className = 'step-three';
 
   const stepIndex = (+window.location.search.substring(1).split('&')[0]) - 1;
   const steps = await fetchSteps();
-  const next_video = '';
-  const next_video_index = stepIndex + 1;
+  // const nextVideo = '';
+  // const nextVideoIndex = stepIndex + 1;
   const currentStep = steps[stepIndex];
 
   console.table(currentStep);
 
   if (currentStep.Practice_file.length > 1) {
-    $step_two.querySelector('a').setAttribute('href', currentStep.Practice_file);
-    $step_two.querySelector('a').setAttribute('target', '_blank');
+    $stepTwo.querySelector('a').setAttribute('href', currentStep.Practice_file);
+    $stepTwo.querySelector('a').setAttribute('target', '_blank');
   } else {
-    $step_two.innerHTML = '';
-    $step_two.style.padding = '0px';
+    $stepTwo.innerHTML = '';
+    $stepTwo.style.padding = '0px';
   }
 
   // hero
@@ -190,26 +210,26 @@ async function decorateStep() {
   $intro.querySelector('p').innerText = currentStep.Description;
 
   // icon section
-  $icon_set.querySelector('p').remove();
-  const create_icon_row = document.createElement('ul');
-  create_icon_row.className = 'topic_icons';
-  create_icon_row.innerHTML = icon_cleanup(currentStep.Great_for);
-  $icon_set.querySelector('.container').append(create_icon_row);
+  $iconSet.querySelector('p').remove();
+  const createIconRow = document.createElement('ul');
+  createIconRow.className = 'topic_icons';
+  createIconRow.innerHTML = iconCleanup(currentStep.Great_for);
+  $iconSet.querySelector('.container').append(createIconRow);
 
   // step two - video section
-  const video_element = document.createElement('div');
-  video_element.className = 'step-video';
-  video_element.innerHTML = video_style(currentStep);
-  $step_three.querySelector('.container').append(video_element);
+  const videoElement = document.createElement('div');
+  videoElement.className = 'step-video';
+  videoElement.innerHTML = videoStyle(currentStep);
+  $stepThree.querySelector('.container').append(videoElement);
 
-  const nav = $step_three.querySelector('ul');
+  const nav = $stepThree.querySelector('ul');
   nav.className = 'mini-nav';
-  $step_three.querySelector('ul').remove();
+  $stepThree.querySelector('ul').remove();
 
   console.log(stepIndex);
-  if (stepIndex === 0) {
-
-  }
+  // 07/14/21 Max commented out, unused
+  // if (stepIndex === 0) {
+  // }
 
   document.querySelector('.video__wrapper').append(nav);
 
@@ -229,18 +249,18 @@ async function decorateStep() {
 
   // get oriented
   // set up video section on homepage
-  const $video_card = document.querySelector('main .default:nth-child(5) .container');
+  const $videoCard = document.querySelector('main .default:nth-child(5) .container');
   document.querySelector('main .default:nth-child(5)').classList.add('video_card');
-  const $video_url = $video_card.querySelector('a');
-  $video_url.parentElement.remove();
-  const $video_content = $video_card.innerHTML;
-  $video_card.innerHTML = '';
+  const $videoUrl = $videoCard.querySelector('a');
+  $videoUrl.parentElement.remove();
+  const $videoContent = $videoCard.innerHTML;
+  $videoCard.innerHTML = '';
 
-  $video_card.innerHTML = `
+  $videoCard.innerHTML = `
     <div class="video__wrapper">
       <div class="video__element">
-        <video src="${$video_url.getAttribute('href')}">
-          <source src="${$video_url.getAttribute('href')}">
+        <video src="${$videoUrl.getAttribute('href')}">
+          <source src="${$videoUrl.getAttribute('href')}">
           </video>
           <button class="video__play-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="78.092" height="78.092" viewBox="0 0 78.092 78.092">
@@ -251,7 +271,7 @@ async function decorateStep() {
 
       </div>
       <div class="video__content">
-        ${$video_content}
+        ${$videoContent}
       </div>
     </div>
   
@@ -281,54 +301,43 @@ function wrapSections(element) {
   });
 }
 
-function decorateHero() {
-  const svg = document.createElement('div');
-  svg.className = 'hero-banner';
-  const svg_path = `${window.location.origin}/templates/ai-scientist/assets/hero.svg`;
-
-  svg.innerHTML = `<img src="${svg_path}">`;
-  // svg.innerHTML = `./assets/hero.svg`
-
-  document.querySelector('.hero .container').prepend(svg);
-}
-
 async function decorateHome() {
   document.body.classList.add('home');
 
   document.querySelector('main .default:first-of-type').classList.add('hero');
   decorateHero();
 
-  const $section_two = document.querySelector('main .default:nth-child(2)');
+  const $sectionTwo = document.querySelector('main .default:nth-child(2)');
 
   let li = '';
 
   // icon set up on homepage
-  $section_two.querySelectorAll('li').forEach((list) => {
-    const icon_title = list.innerText.split('-')[0];
-    const icon_type = list.innerText.split('-')[1].trim();
+  $sectionTwo.querySelectorAll('li').forEach((list) => {
+    const iconTitle = list.innerText.split('-')[0];
+    const iconType = list.innerText.split('-')[1].trim();
     li += `
-      <li class="${icon_type}">
-        <span><img src="${window.location.origin}/templates/ai-scientist/assets/${icon_type}.svg"></span>
-        <span>${icon_title}</span>
+      <li class="${iconType}">
+        <span><img src="${window.location.origin}/templates/ai-scientist/assets/${iconType}.svg"></span>
+        <span>${iconTitle}</span>
       </li>
     `;
   });
 
-  $section_two.querySelector('ul').innerHTML = li;
-  $section_two.querySelector('ul').className = 'topic_icons';
+  $sectionTwo.querySelector('ul').innerHTML = li;
+  $sectionTwo.querySelector('ul').className = 'topic_icons';
 
   // set up video section on homepage
-  const $section_three = document.querySelector('main .default:nth-child(3) .container');
-  const $video_url = $section_three.querySelector('a');
-  $video_url.parentElement.remove();
-  const $video_content = $section_three.innerHTML;
-  $section_three.innerHTML = '';
+  const $sectionThree = document.querySelector('main .default:nth-child(3) .container');
+  const $videoUrl = $sectionThree.querySelector('a');
+  $videoUrl.parentElement.remove();
+  const $videoContent = $sectionThree.innerHTML;
+  $sectionThree.innerHTML = '';
 
-  $section_three.innerHTML = `
+  $sectionThree.innerHTML = `
     <div class="video__wrapper">
       <div class="video__element">
-        <video src="${$video_url.getAttribute('href')}">
-          <source src="${$video_url.getAttribute('href')}">
+        <video src="${$videoUrl.getAttribute('href')}">
+          <source src="${$videoUrl.getAttribute('href')}">
           </video>
           <button class="video__play-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="78.092" height="78.092" viewBox="0 0 78.092 78.092">
@@ -339,7 +348,7 @@ async function decorateHome() {
 
       </div>
       <div class="video__content">
-        ${$video_content}
+        ${$videoContent}
       </div>
     </div>
   
@@ -353,7 +362,7 @@ async function decorateHome() {
 
   document.querySelectorAll('main p').forEach(($e) => {
     const inner = $e.innerHTML.toLowerCase().trim();
-    if (inner == '&lt;steps&gt;' || inner == '\\<steps></steps>') {
+    if (inner === '&lt;steps&gt;' || inner === '\\<steps></steps>') {
       $e.parentNode.classList.add('steps');
       $e.parentNode.innerHTML = '';
     }
@@ -381,11 +390,11 @@ async function decoratePage() {
   }
   window.pages.pageType = pageType;
 
-  if (pageType == 'home') {
+  if (pageType === 'home') {
     await decorateHome();
   }
 
-  if (pageType == 'step') {
+  if (pageType === 'step') {
     await decorateStep();
   }
 
@@ -395,10 +404,8 @@ async function decoratePage() {
   document.body.classList.add(window.pages.locale);
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

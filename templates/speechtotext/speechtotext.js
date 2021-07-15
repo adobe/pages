@@ -9,15 +9,18 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import { createTag, loadJSModule } from '../../scripts.js';
+
 loadJSModule('/scripts/default.js');
 
 function helpxInNewWindow() {
   document.querySelectorAll('main a[href]').forEach(($a) => {
-	    const url = $a.href;
-	    const $link = $a;
-	    if (url.includes('helpx')) {
-	      $link.setAttribute('target', '_blank');
-	    }
+    const url = $a.href;
+    const $link = $a;
+    if (url.includes('helpx')) {
+      $link.setAttribute('target', '_blank');
+    }
   });
 }
 
@@ -34,8 +37,8 @@ function decorateVideoBlocks() {
 
 window.addEventListener('load', () => document.body.classList.add('loaded'));
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', () => {
     helpxInNewWindow();
     decorateVideoBlocks();
   });

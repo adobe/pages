@@ -10,7 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
-function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
+import { createTag, addDefaultClass } from '../scripts.js';
+
+function wrapUp(h1, heroCopy, ctaText, ctaLink, mainImageSrc) {
   const email = `<!DOCTYPE html>
   <%@ include view='adbePreProcess' %>
   <% var optOutLinkLabel = 'unsubscribe'; %>
@@ -128,7 +130,7 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
                 <td class="header" style="color:#000000; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:60px; line-height:65px; padding-top:65px;">${h1}</td>
                </tr>
                <tr>
-                <td style="color:#2C2C2C; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:18px; line-height:26px; padding-top:36px;">${hero_copy}</td>
+                <td style="color:#2C2C2C; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:18px; line-height:26px; padding-top:36px;">${heroCopy}</td>
                </tr>
                <tr>
                 <td style="color:#1473E6; font-family:adobe-clean, Arial, Helvetica, sans-serif; font-size:15px; line-height:20px; padding-top:40px; padding-bottom:60px;"><div><!--[if mso]>
@@ -137,8 +139,8 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
             <td height="40" valign="middle" style="background-color:#1473E6; font-family:Arial, Helvetica, sans-serif; height:40px;">
             <center>
             <![endif]-->
-            <a class="button" href="${cta_link}" target="_blank"
-            style="background-color:#1473E6;border-radius:20px;color:#ffffff;display:inline-block;font-size:16px;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;"><strong>${cta_text}</strong></a>
+            <a class="button" href="${ctaLink}" target="_blank"
+            style="background-color:#1473E6;border-radius:20px;color:#ffffff;display:inline-block;font-size:16px;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;"><strong>${ctaText}</strong></a>
             <!--[if mso]>
             </center>
             </td>
@@ -156,16 +158,16 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
                 <td style="color:#000000; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:22px; line-height:28px; padding-bottom:100px;"><a href="https://illustrator.adobelanding.com/thr-illustration-gradients/?trackingid=<%=getTagId('CTA1')%>&mv=email" target="_blank" style="color:#1473E6;">
           <img class="mobile-image" 
                   alt="Get creative with color."
-                   src="${mainImage_src}"
-          srcset="${mainImage_src} 621w,
-          ${mainImage_src} 1200w"
+                   src="${mainImageSrc}"
+          srcset="${mainImageSrc} 621w,
+          ${mainImageSrc} 1200w"
           sizes="(max-width: 480px) 50vw"
           width="500" height="360" 
           border="0" hspace="0" vspace="0" style="color:#000000; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:22px; line-height:28px; display:block; vertical-align:top;"/>
           </a></td>
                </tr>
               </table>
-              <!-- END pod1 marquee -->		
+              <!-- END pod1 marquee -->   
               
              <!-- END email content -->
              </td>
@@ -243,22 +245,22 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
 function createEmail() {
   const headerContent = document.querySelector('main > div:first-of-type');
   const mainImage = document.querySelector('main > div:last-of-type');
-  const mainImage_src = mainImage.querySelector('img').getAttribute('src');
+  const mainImageSrc = mainImage.querySelector('img').getAttribute('src');
   const h1 = headerContent.querySelector('h1').innerHTML;
-  const hero_copy = headerContent.querySelector('p:first-of-type').innerText;
-  const cta_text = headerContent.querySelector('a').innerText;
-  const cta_link = headerContent.querySelector('a').getAttribute('href');
+  const heroCopy = headerContent.querySelector('p:first-of-type').innerText;
+  const ctaText = headerContent.querySelector('a').innerText;
+  const ctaLink = headerContent.querySelector('a').getAttribute('href');
 
   const inner = `
     <div class="preview-copy">
       <div class="preview-column">
         <h1>Copy your email</h1>
-        <div><textarea>${wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src)}</textarea></div>
+        <div><textarea>${wrapUp(h1, heroCopy, ctaText, ctaLink, mainImageSrc)}</textarea></div>
       </div>
       <div>
         <div class="preview-column">
           <h1>Preview Your Email</h1>
-          ${wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src)}
+          ${wrapUp(h1, heroCopy, ctaText, ctaLink, mainImageSrc)}
         </div>
       </div>
     </div>
@@ -283,10 +285,8 @@ async function decoratePage() {
   window.pages.decorated = true;
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

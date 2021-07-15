@@ -9,6 +9,22 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+/* eslint-disable import/prefer-default-export */
+
+// TODO: Remove this, change to Promise.all in insertSteps()
+// first need to ask about the done condition.
+// Also, figure out the difference between each of the twp scripts, possibly share some code.
+/* eslint-disable no-await-in-loop */
+
+import {
+  addDefaultClass,
+  createTag,
+  loadLocalHeader,
+  classify,
+  appearMain,
+} from '../scripts.js';
+
 export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
   const $video = document.getElementById('video');
@@ -41,7 +57,7 @@ function decorateVideoSections() {
     $videoDiv.append($videoText);
 
     $videoDiv.firstChild.firstChild.style.backgroundImage = `url(${imgSrc})`;
-    $videoDiv.firstChild.addEventListener('click', (e) => playVideo());
+    $videoDiv.firstChild.addEventListener('click', () => playVideo());
   });
 }
 
@@ -55,7 +71,7 @@ async function insertSteps() {
       const url = `step-${i}.plain.html`;
       window.hlx.dependencies.push(url);
       const resp = await fetch(url);
-      if (resp.status == 200) {
+      if (resp.status === 200) {
         const text = await resp.text();
         const $html = createTag('div');
         $html.innerHTML = text;
@@ -96,7 +112,7 @@ async function insertSteps() {
       } else {
         done = true;
       }
-      i++;
+      i += 1;
     } while (!done);
 
     $steps.innerHTML = html;
@@ -118,7 +134,7 @@ async function decoratePage() {
 
   document.querySelectorAll('main p').forEach(($e) => {
     const inner = $e.innerHTML.toLowerCase().trim();
-    if (inner == '&lt;steps&gt;' || inner == '\\<steps></steps>') {
+    if (inner === '&lt;steps&gt;' || inner === '\\<steps></steps>') {
       $e.parentNode.classList.add('steps');
       $e.parentNode.classList.remove('default');
       $e.parentNode.innerHTML = '';
@@ -131,10 +147,8 @@ async function decoratePage() {
   appearMain();
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

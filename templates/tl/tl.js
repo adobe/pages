@@ -9,6 +9,11 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  addDefaultClass, appearMain, classify, createTag, externalLinks, loadLocalHeader,
+} from '../../scripts.js';
+
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
   const resp = await fetch('steps.json');
@@ -173,6 +178,7 @@ function dropDownMenu() {
 
 let videoHasPlayed = false;
 
+// eslint-disable-next-line import/prefer-default-export
 export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
   const $video = document.getElementById('video');
@@ -213,7 +219,7 @@ async function decorateStep() {
   $h1.innerHTML = title;
   $h1.id = '';
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 8; i += 1) {
     $h1.appendChild(createTag('span', { class: `grab-${i}` }));
   }
   document.title = currentStep.Title;
@@ -239,7 +245,7 @@ async function decorateStep() {
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
     $video.firstChild.style.backgroundImage = `url(${currentStep.Thumbnail})`;
-    $video.firstChild.addEventListener('click', (e) => playVideo());
+    $video.firstChild.addEventListener('click', () => playVideo());
   }
 
   if (currentStep.Video.startsWith('https://www.youtube.com/')) {
@@ -275,7 +281,7 @@ async function decorateStep() {
   const $progressbar = createTag('div', { class: 'progress-bar' });
   html = '';
   steps.forEach((step, i) => {
-    html += `<div onclick="window.location.href='step?${i + 1}'" class="${i == stepIndex ? 'active' : 'inactive'}"></div>`;
+    html += `<div onclick="window.location.href='step?${i + 1}'" class="${i === stepIndex ? 'active' : 'inactive'}"></div>`;
   });
   $progressbar.innerHTML = html;
   $progress.appendChild($progressbar);
@@ -287,7 +293,7 @@ async function decorateStep() {
   // check if it's a step or external link
   // set next step page if one is available
   // console.log(steps)
-  const internalSteps = [];
+  // const internalSteps = [];
   let hasNextSteps;
   let hasAddedFilter = false;
   const nextIndex = [];
@@ -297,7 +303,6 @@ async function decorateStep() {
       if (stepIndex + 1 < index) {
         nextIndex.push(index);
         hasNextSteps = true;
-        return false;
       } else {
         hasNextSteps = false;
       }
@@ -342,7 +347,9 @@ async function decorateStep() {
     }
   }
 
-  $upnext.addEventListener('click', (e) => window.location.href = `step?${stepIndex + 2}`);
+  $upnext.addEventListener('click', () => {
+    window.location.href = `step?${stepIndex + 2}`;
+  });
 }
 
 function wrapSections(element) {
@@ -357,7 +364,7 @@ async function decorateHome() {
   document.body.classList.add('home');
   document.querySelectorAll('main p').forEach(($e) => {
     const inner = $e.innerHTML.toLowerCase().trim();
-    if (inner == '&lt;steps&gt;' || inner == '\\<steps></steps>') {
+    if (inner === '&lt;steps&gt;' || inner === '\\<steps></steps>') {
       $e.parentNode.classList.add('steps');
       $e.parentNode.innerHTML = '';
     }
@@ -387,11 +394,11 @@ async function decoratePage() {
 
   window.pages.pageType = pageType;
 
-  if (pageType == 'home') {
+  if (pageType === 'home') {
     await decorateHome();
   }
 
-  if (pageType == 'step') {
+  if (pageType === 'step') {
     await decorateStep();
   }
 
@@ -402,10 +409,8 @@ async function decoratePage() {
   }
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

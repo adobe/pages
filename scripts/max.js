@@ -9,12 +9,23 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  addDefaultClass,
+  appearMain,
+  createTag,
+  debounce,
+  loadLocalHeader,
+} from '../scripts.js';
+
+// NOTE: lots of this looks repeated from default.js, could probably dry it up a bit
+
 async function submitSheetForm($form, sheetid, thankyou) {
   const formsink = 'https://script.google.com/macros/s/AKfycbxWFwI-qExw0Tg_LJvdisSYODFw35m3L8M5HdumPOufmArmRIEh/exec';
   const searchParams = new URLSearchParams(`?sheet-id=${sheetid}`);
   if ($form.reportValidity()) {
     $form.querySelectorAll('.form-field').forEach(($f) => {
-      if ($f.getAttribute('type') == 'radio') {
+      if ($f.getAttribute('type') === 'radio') {
         if ($f.checked) searchParams.append($f.name, $f.value);
       } else {
         searchParams.append($f.name, $f.value);
@@ -22,7 +33,7 @@ async function submitSheetForm($form, sheetid, thankyou) {
     });
     const resp = await fetch(`${formsink}?${searchParams.toString()}`);
     const json = await resp.json();
-    if (json.status == 'ok') {
+    if (json.status === 'ok') {
       window.location = thankyou;
     } else {
       alert('Form Submission failed.');
@@ -37,15 +48,15 @@ function getFieldHTML(name, type, options, attributes) {
   const r = attributes.mandatory ? 'required' : '';
   const ph = attributes.placeholder ? ` placeholder="${attributes.placeholder}"` : '';
 
-  if (type == 'text') {
+  if (type === 'text') {
     html += `<input class="form-field" type="text" id="${name}" name="${name}" ${r} ${ph}><br>`;
   }
 
-  if (type == 'textarea') {
+  if (type === 'textarea') {
     html += `<textarea class="form-field" id="${name}" name="${name}" rows=${attributes.rows} ${r} ${ph}>`;
   }
 
-  if (type == 'radio') {
+  if (type === 'radio') {
     options.forEach((o) => {
       html += `<input class="form-field" type="radio" id="${name}" name="${name}" value="${o}" ${r}>
             <label for="${name}">${o}</label><br>`;
@@ -62,18 +73,19 @@ function decorateForm() {
     const sheetid = $a.getAttribute('href').split('/')[5];
     const $div = $a.parentNode.parentNode;
     let thankyou = '';
-    $a.setAttribute('href', 'javascript:');
+    $div.classList.add('form');
+    const $form = createTag('form');
+
     $div.querySelectorAll('a').forEach(($diva) => {
-      if ($diva.innerHTML.toLowerCase().trim() == 'thank you') {
+      if ($diva.innerHTML.toLowerCase().trim() === 'thank you') {
         thankyou = $diva.getAttribute('href');
         $diva.parentNode.remove();
       }
     });
     $a.addEventListener('click', (e) => {
+      e.preventDefault();
       submitSheetForm($form, sheetid, thankyou);
     });
-    $div.classList.add('form');
-    const $form = createTag('form');
 
     $div.querySelectorAll(':scope > p').forEach(($f) => {
       const $anchor = $f.querySelector('a');
@@ -133,44 +145,28 @@ function unwrapEmbeds() {
   });
 }
 
-const debounce = function (func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this; const
-      args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
 // set fixed height to cards to create a uniform UI
 function cardHeightEqualizer($el) {
   let initialHeight = 0;
   const element = document.querySelectorAll($el);
 
   if (window.innerWidth >= 700 && element.length > 1) {
-    element.forEach((card_el) => {
-      card_el.style.height = 'auto';
+    element.forEach((cardEl) => {
+      cardEl.style.height = 'auto';
     });
 
-    element.forEach((card_text) => {
-      if (initialHeight < card_text.offsetHeight) {
-        initialHeight = card_text.offsetHeight;
+    element.forEach((cardText) => {
+      if (initialHeight < cardText.offsetHeight) {
+        initialHeight = cardText.offsetHeight;
       }
     });
 
-    element.forEach((card_el) => {
-      card_el.style.height = `${initialHeight}px`;
+    element.forEach((cardEl) => {
+      cardEl.style.height = `${initialHeight}px`;
     });
   } else {
-    element.forEach((card_el) => {
-      card_el.style.height = 'auto';
+    element.forEach((cardEl) => {
+      cardEl.style.height = 'auto';
     });
   }
 }
@@ -238,17 +234,103 @@ function dropDownMenu() {
 
 function paramHelper() {
   if (!window.location.search) return;
-  const query_type = new URLSearchParams(window.location.search);
+  const queryType = new URLSearchParams(window.location.search);
 
   // Set Main Video
   // make sure video indicator is being requested
-  if (query_type.get('v')) {
-    const v = query_type.get('v');
+  if (queryType.get('v')) {
+    const v = queryType.get('v');
     const $cards = document.querySelectorAll('.cards .card');
-    const $heroCard = $cards[v == 'last' ? $cards.length - 1 : +v - 1];
+    const $heroCard = $cards[v === 'last' ? $cards.length - 1 : +v - 1];
     $heroCard.className = 'main-video';
     $heroCard.parentNode.prepend($heroCard);
   }
+}
+
+function turnTableSectionIntoCards($table, cols) {
+  const $rows = $table.querySelectorAll('tbody tr');
+  const $cards = createTag('div', { class: `cards ${cols.join('-')}` });
+  $rows.forEach(($tr) => {
+    const $card = createTag('div', { class: 'card' });
+    $tr.querySelectorAll('td').forEach(($td, i) => {
+      const $div = createTag('div', { class: cols[i] });
+      const $a = $td.querySelector('a[href]');
+      if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
+        const yturl = new URL($a.getAttribute('href'));
+        const vid = yturl.searchParams.get('v');
+        $div.innerHTML = `<div class="video-thumb" style="background-image:url(https://img.youtube.com/vi/${vid}/0.jpg)"><svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+                </g>
+                </svg>
+                </div>`;
+        $div.addEventListener('click', () => {
+          $div.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+        });
+      } else {
+        $div.innerHTML = $td.innerHTML;
+      }
+      $card.append($div);
+    });
+    $cards.append($card);
+  });
+  return ($cards);
+}
+
+function formatListCard($li) {
+  const $p = $li.firstElementChild;
+  let headhtml = '';
+  let texthtml = '';
+  Array.from($p.childNodes).forEach((node) => {
+    if (node.nodeName.toLowerCase() === 'a') {
+      const href = node.getAttribute('href');
+      if (href.startsWith('https://www.youtube.com/')) {
+        const yturl = new URL(href);
+        const vid = yturl.searchParams.get('v');
+        headhtml += `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+      } else {
+        texthtml += `<a href=${node.getAttribute('href')}>${node.innerHTML}</a>`;
+      }
+    }
+    if (node.nodeName.toLowerCase() === '#text') {
+      texthtml += `<p>${node.textContent}</p>`;
+    }
+  });
+  return (`<div class="card-image">${headhtml}</div><div class="card-text">${texthtml}</div>`);
+}
+
+function turnListSectionIntoCards() {
+  document.querySelectorAll('main div.default>ul').forEach(($ul) => {
+    if ($ul === $ul.parentNode.firstElementChild) {
+      $ul.classList.remove('default');
+      $ul.classList.add('cards');
+      $ul.querySelectorAll('li').forEach(($li) => {
+        $li.innerHTML = formatListCard($li);
+      });
+    }
+  });
+}
+
+function toClassName(name) {
+  return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
+}
+
+function decorateTables() {
+  document.querySelectorAll('main div.default>table').forEach(($table) => {
+    const $cols = $table.querySelectorAll('thead tr th');
+    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
+    const $rows = $table.querySelectorAll('tbody tr');
+    let $div = {};
+
+    if (cols.length === 1 && $rows.length === 1) {
+      $div = createTag('div', { class: `${cols[0]}` });
+      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
+    } else {
+      $div = turnTableSectionIntoCards($table, cols);
+    }
+    $table.parentNode.replaceChild($div, $table);
+  });
 }
 
 async function decoratePage() {
@@ -273,96 +355,8 @@ async function decoratePage() {
   cardHeightEqualizer('.premiere .card .text');
 }
 
-function formatListCard($li) {
-  const $p = $li.firstElementChild;
-  let headhtml = '';
-  let texthtml = '';
-  Array.from($p.childNodes).forEach((node) => {
-    if (node.nodeName == 'A') {
-      const href = node.getAttribute('href');
-      if (href.startsWith('https://www.youtube.com/')) {
-        const yturl = new URL(href);
-        const vid = yturl.searchParams.get('v');
-        headhtml += `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
-      } else {
-        texthtml += `<a href=${node.getAttribute('href')}>${node.innerHTML}</a>`;
-      }
-    }
-    if (node.nodeName == '#text') {
-      texthtml += `<p>${node.textContent}</p>`;
-    }
-  });
-  return (`<div class="card-image">${headhtml}</div><div class="card-text">${texthtml}</div>`);
-}
-
-function turnListSectionIntoCards() {
-  document.querySelectorAll('main div.default>ul').forEach(($ul) => {
-    if ($ul == $ul.parentNode.firstElementChild) {
-      $ul.classList.remove('default');
-      $ul.classList.add('cards');
-      $ul.querySelectorAll('li').forEach(($li) => {
-        $li.innerHTML = formatListCard($li);
-      });
-    }
-  });
-}
-
-function toClassName(name) {
-  return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
-}
-
-function decorateTables() {
-  document.querySelectorAll('main div.default>table').forEach(($table) => {
-    const $cols = $table.querySelectorAll('thead tr th');
-    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
-    const $rows = $table.querySelectorAll('tbody tr');
-    let $div = {};
-
-    if (cols.length == 1 && $rows.length == 1) {
-      $div = createTag('div', { class: `${cols[0]}` });
-      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
-    } else {
-      $div = turnTableSectionIntoCards($table, cols);
-    }
-    $table.parentNode.replaceChild($div, $table);
-  });
-}
-
-function turnTableSectionIntoCards($table, cols) {
-  const $rows = $table.querySelectorAll('tbody tr');
-  const $cards = createTag('div', { class: `cards ${cols.join('-')}` });
-  $rows.forEach(($tr) => {
-    const $card = createTag('div', { class: 'card' });
-    $tr.querySelectorAll('td').forEach(($td, i) => {
-      const $div = createTag('div', { class: cols[i] });
-      const $a = $td.querySelector('a[href]');
-      if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
-        const yturl = new URL($a.getAttribute('href'));
-        const vid = yturl.searchParams.get('v');
-        $div.innerHTML = `<div class="video-thumb" style="background-image:url(https://img.youtube.com/vi/${vid}/0.jpg)"><svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                </g>
-                </svg>
-                </div>`;
-        $div.addEventListener('click', (evt) => {
-          $div.innerHTML = $div.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
-        });
-      } else {
-        $div.innerHTML = $td.innerHTML;
-      }
-      $card.append($div);
-    });
-    $cards.append($card);
-  });
-  return ($cards);
-}
-
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

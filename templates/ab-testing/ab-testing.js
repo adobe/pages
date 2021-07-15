@@ -9,25 +9,31 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-async function delegatePageDecoration() {
-  decorateABTests();
-  await loadJSModule('/templates/default/default.js');
-  // decorateTables();
-}
+
+import { loadJSModule } from '../../scripts.js';
 
 function decorateABTests() {
   let runTest = true;
   let reason = '';
 
-  if (window.location.host != 'pages.adobe.com') { runTest = false; reason = 'not prod host'; }
-  if (window.location.hash) { runTest = false; reason = 'suppressed by #'; }
-  if (window.location.search == '?test') runTest = true;
-  if (navigator.userAgent.match(/bot|crawl|spider/i)) { runTest = false; reason = 'bot detected'; }
+  if (window.location.host !== 'pages.adobe.com') {
+    runTest = false;
+    reason = 'not prod host';
+  }
+  if (window.location.hash) {
+    runTest = false;
+    reason = 'suppressed by #';
+  }
+  if (window.location.search === '?test') runTest = true;
+  if (navigator.userAgent.match(/bot|crawl|spider/i)) {
+    runTest = false;
+    reason = 'bot detected';
+  }
 
   if (runTest) {
     let $testTable;
     document.querySelectorAll('table th').forEach(($th) => {
-      if ($th.textContent.toLowerCase().trim() == 'a/b test') {
+      if ($th.textContent.toLowerCase().trim() === 'a/b test') {
         $testTable = $th.closest('table');
       }
     });
@@ -41,7 +47,10 @@ function decorateABTests() {
         const $a = $name.querySelector('a');
         if ($a) {
           const url = new URL($a.href);
-          testSetup.push({ url: url.pathname, traffic: parseFloat($percentage.textContent) / 100.0 });
+          testSetup.push({
+            url: url.pathname,
+            traffic: parseFloat($percentage.textContent) / 100.0,
+          });
         }
       });
     }
@@ -59,6 +68,12 @@ function decorateABTests() {
   } else {
     console.log(`Test is not run => ${reason}`);
   }
+}
+
+async function delegatePageDecoration() {
+  decorateABTests();
+  await loadJSModule('/templates/default/default.js');
+  // decorateTables();
 }
 
 delegatePageDecoration();

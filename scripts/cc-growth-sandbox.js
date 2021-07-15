@@ -9,6 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
 function createHeroElement($element) {
   const hero = $element;
   if (!$element) return;
@@ -26,8 +27,8 @@ function createHeroElement($element) {
     `;
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', () => {
     createHeroElement(document.querySelectorAll('.title')[0]);
   });
 } else {

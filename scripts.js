@@ -12,29 +12,29 @@
 
 document.title = document.title.split('<br>').join(' ');
 
-function addDefaultClass(element) {
+export function addDefaultClass(element) {
   document.querySelectorAll(element).forEach(($div) => {
     $div.classList.add('default');
   });
 }
 
-function loadJSModule(src) {
+export function loadJSModule(src) {
   const module = document.createElement('script');
   module.setAttribute('type', 'module');
   module.setAttribute('src', src);
   document.head.appendChild(module);
 }
 
-function set_widths() {
+export function setWidths() {
   const sections = document.querySelectorAll('main .default');
   sections.forEach((section) => {
     const children = section.childNodes;
     children.forEach((child) => {
-      if (child.innerHTML != undefined) {
+      if (child.innerHTML != null) {
         if (child.innerHTML.includes('[!')) {
           const width = child.innerHTML.split('[!')[1].split(']')[0];
-          const clean_up_text = child.innerHTML.split('[!')[0];
-          child.innerHTML = clean_up_text;
+          const cleanUpText = child.innerHTML.split('[!')[0];
+          child.innerHTML = cleanUpText;
           child.style.maxWidth = `${width}px`;
           child.style.marginLeft = 'auto';
           child.style.marginRight = 'auto';
@@ -50,7 +50,7 @@ function set_widths() {
  * @param {object} attrs An object containing the attributes
  * @returns The new tag
  */
-function createTag(name, attrs) {
+export function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
     for (const [key, value] of Object.entries(attrs)) {
@@ -60,7 +60,7 @@ function createTag(name, attrs) {
   return el;
 }
 
-async function insertLocalResource(type) {
+export async function insertLocalResource(type) {
   let url = '';
   if (window.pages.product && window.pages.locale) {
     url = `/${window.pages.product}/${window.pages.locale}/${type}.plain.html`;
@@ -73,7 +73,7 @@ async function insertLocalResource(type) {
   if (url) {
     window.hlx.dependencies.push(url);
     const resp = await fetch(url);
-    if (resp.status == 200) {
+    if (resp.status === 200) {
       const html = await resp.text();
       const inner = `<div> ${html} </div>`;
       document.querySelector(type).innerHTML = inner;
@@ -86,120 +86,17 @@ async function insertLocalResource(type) {
 
 /* link out to external links */
 // called inside decoratePage() twp3.js
-function externalLinks(selector) {
+export function externalLinks(selector) {
   const element = document.querySelector(selector);
   const links = element.querySelectorAll('a[href]');
 
-  links.forEach((link_item) => {
-    const linkValue = link_item.getAttribute('href');
+  links.forEach((linkItem) => {
+    const linkValue = linkItem.getAttribute('href');
 
     if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
-      link_item.setAttribute('target', '_blank');
+      linkItem.setAttribute('target', '_blank');
     }
   });
-}
-
-async function loadLocalHeader() {
-  decorateTables();
-  const $inlineHeader = document.querySelector('main div.header-block');
-  if ($inlineHeader) {
-    const $header = document.querySelector('header');
-    $inlineHeader.childNodes.forEach((e, i) => {
-      if (e.nodeName == 'DIV' && !i) {
-        const $p = createTag('div');
-        const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
-        $p.innerHTML = inner;
-        e.parentNode.replaceChild($p, e);
-      }
-      if (e.nodeName == 'P' && !i) {
-        const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
-        e.innerHTML = inner;
-      }
-    });
-    $header.innerHTML = `<div>${$inlineHeader.innerHTML}</div>`;
-    $inlineHeader.remove();
-    document.querySelector('header').classList.add('appear');
-  } else {
-    await insertLocalResource('header');
-  }
-}
-
-function toClassName(name) {
-  return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
-}
-
-/**
- * Checks if <main> is ready to appear
- */
-
-function appearMain() {
-  if (window.pages.familyCssLoaded && window.pages.decorated) {
-    const p = window.pages;
-    const pathSplits = window.location.pathname.split('/');
-    const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
-    const classes = [p.product, p.family, p.project, pageName];
-    classes.forEach((e) => (e ? document.body.classList.add(e) : false));
-    classify('main', 'appear');
-  }
-}
-
-/**
- * Loads a CSS file.
- * @param {string} href The path to the CSS file
- */
-function loadCSS(href) {
-  const link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('href', href);
-  link.onload = () => {
-    window.pages.familyCssLoaded = true;
-    appearMain();
-    // set_widths();
-  };
-  link.onerror = () => {
-    window.pages.familyCssLoaded = true;
-    appearMain();
-  };
-  document.head.appendChild(link);
-}
-
-/**
- * adds a class to an element.
- * @param {string} qs querySelector string
- * @param {string} cls css class to be added
- * @param {number} parent uplevel
- */
-
-function classify(qs, cls, parent) {
-  document.querySelectorAll(qs).forEach(($e) => {
-    for (let p = parent; p > 0; p--) {
-      $e = $e.parentNode;
-    }
-    $e.classList.add(cls);
-  });
-}
-
-function loadTemplate() {
-  document.querySelectorAll('table th').forEach(($th) => {
-    if ($th.textContent.toLowerCase().trim() == 'template') {
-      $table = $th.closest('table');
-      const template = $table.querySelector('td').textContent;
-      const $div = createTag('div', { class: 'template' });
-      $div.innerHTML = template;
-      $table.parentElement.replaceChild($div, $table);
-    }
-  });
-
-  let template = 'default';
-  $template = document.querySelector('.template');
-
-  if ($template) {
-    template = toClassName($template.textContent);
-    $template.remove();
-  }
-
-  loadJSModule(`/templates/${template}/${template}.js`);
-  loadCSS(`/templates/${template}/${template}.css`);
 }
 
 function externalizeImageSources($div) {
@@ -214,25 +111,11 @@ function externalizeImageSources($div) {
   });
 }
 
-function decorateTables() {
-  document.querySelectorAll('main div>table').forEach(($table) => {
-    const $cols = $table.querySelectorAll('thead tr th');
-    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
-    const $rows = $table.querySelectorAll('tbody tr');
-    let $div = {};
-
-    if (cols.length == 1 && $rows.length == 1) {
-      $div = createTag('div', { class: `${cols[0]}` });
-      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
-      externalizeImageSources($div);
-    } else {
-      $div = turnTableSectionIntoCards($table, cols);
-    }
-    $table.parentNode.replaceChild($div, $table);
-  });
+export function toClassName(name) {
+  return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
 }
 
-function turnTableSectionIntoCards($table, cols) {
+export function turnTableSectionIntoCards($table, cols) {
   const $rows = $table.querySelectorAll('tbody tr');
   const $cards = createTag('div', { class: `cards ${cols.join('-')}` });
   $rows.forEach(($tr) => {
@@ -250,13 +133,13 @@ function turnTableSectionIntoCards($table, cols) {
               </g>
               </svg>
               </div>`;
-        $div.addEventListener('click', (evt) => {
-          $div.innerHTML = $div.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+        $div.addEventListener('click', () => {
+          $div.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
         });
       } else {
         $div.innerHTML = $td.innerHTML;
         $div.childNodes.forEach(($child) => {
-          if ($child.nodeName == '#text') {
+          if ($child.nodeName === '#text') {
             const $p = createTag('p');
             $p.innerHTML = $child.nodeValue;
             $child.parentElement.replaceChild($p, $child);
@@ -268,6 +151,137 @@ function turnTableSectionIntoCards($table, cols) {
     $cards.append($card);
   });
   return ($cards);
+}
+
+export function decorateTables() {
+  document.querySelectorAll('main div>table').forEach(($table) => {
+    const $cols = $table.querySelectorAll('thead tr th');
+    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
+    const $rows = $table.querySelectorAll('tbody tr');
+    let $div = {};
+
+    if (cols.length === 1 && $rows.length === 1) {
+      $div = createTag('div', { class: `${cols[0]}` });
+      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
+      externalizeImageSources($div);
+    } else {
+      $div = turnTableSectionIntoCards($table, cols);
+    }
+    $table.parentNode.replaceChild($div, $table);
+  });
+}
+
+export async function loadLocalHeader() {
+  decorateTables();
+  const $inlineHeader = document.querySelector('main div.header-block');
+  if ($inlineHeader) {
+    const $header = document.querySelector('header');
+    $inlineHeader.childNodes.forEach((e, i) => {
+      // in a document, using uppercase and strict equal checks
+      if (e.nodeName === 'DIV' && !i) {
+        const $p = createTag('div');
+        const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
+        $p.innerHTML = inner;
+        e.parentNode.replaceChild($p, e);
+      }
+      if (e.nodeName === 'P' && !i) {
+        const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
+        e.innerHTML = inner;
+      }
+    });
+    $header.innerHTML = `<div>${$inlineHeader.innerHTML}</div>`;
+    $inlineHeader.remove();
+    document.querySelector('header').classList.add('appear');
+  } else {
+    await insertLocalResource('header');
+  }
+}
+
+/**
+ * adds a class to an element.
+ * @param {string} qs querySelector string
+ * @param {string} cls css class to be added
+ * @param {number} parent uplevel
+ */
+export function classify(qs, cls, parent) {
+  document.querySelectorAll(qs).forEach(($e) => {
+    let $root = $e;
+    for (let p = parent; p > 0; p -= 1) {
+      $root = $root.parentNode;
+    }
+    $root.classList.add(cls);
+  });
+}
+
+export const debounce = (func, wait, immediate) => {
+  let timeout;
+  return function debounced(...args) {
+    const later = () => {
+      timeout = null;
+      if (!immediate) func.apply(this, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(this, args);
+  };
+};
+
+/**
+ * Checks if <main> is ready to appear
+ */
+export function appearMain() {
+  if (window.pages.familyCssLoaded && window.pages.decorated) {
+    const p = window.pages;
+    const pathSplits = window.location.pathname.split('/');
+    const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
+    const classes = [p.product, p.family, p.project, pageName];
+    classes.forEach((e) => (e ? document.body.classList.add(e) : false));
+    classify('main', 'appear');
+  }
+}
+
+/**
+ * Loads a CSS file.
+ * @param {string} href The path to the CSS file
+ */
+export function loadCSS(href) {
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.setAttribute('href', href);
+  link.onload = () => {
+    window.pages.familyCssLoaded = true;
+    appearMain();
+    // set_widths();
+  };
+  link.onerror = () => {
+    window.pages.familyCssLoaded = true;
+    appearMain();
+  };
+  document.head.appendChild(link);
+}
+
+function loadTemplate() {
+  document.querySelectorAll('table th').forEach(($th) => {
+    if ($th.textContent.toLowerCase().trim() === 'template') {
+      const $table = $th.closest('table');
+      const template = $table.querySelector('td').textContent;
+      const $div = createTag('div', { class: 'template' });
+      $div.innerHTML = template;
+      $table.parentElement.replaceChild($div, $table);
+    }
+  });
+
+  let template = 'default';
+  const $template = document.querySelector('.template');
+
+  if ($template) {
+    template = toClassName($template.textContent);
+    $template.remove();
+  }
+
+  loadJSModule(`/templates/${template}/${template}.js`);
+  loadCSS(`/templates/${template}/${template}.css`);
 }
 
 function localizeFooter() {
@@ -325,7 +339,7 @@ function fixImages() {
             extension = splits[1].split('.')[1];
           }
 
-          if (contentHash && (extension == 'jpg' || extension == 'jpeg' || extension == 'png')) {
+          if (contentHash && (extension === 'jpg' || extension === 'jpeg' || extension === 'png')) {
             const loading = heroProcessed ? 'lazy' : 'eager';
             heroProcessed = true;
             node.setAttribute('src', `/hlx_${contentHash}.${extension}?width=${width}&auto=webp&format=pjpg&optimize=medium`);
@@ -334,14 +348,14 @@ function fixImages() {
         }
       });
     });
-    if (document.readyState == 'interactive' || document.readyState == 'complete') {
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
       observer.disconnect();
     }
   });
   observer.observe(document, { childList: true, subtree: true });
 }
 
-function style_buttons() {
+function styleButtons() {
   const links = document.querySelectorAll('main a');
   if (!document.querySelectorAll('main a')) return;
   links.forEach((link) => {
@@ -375,11 +389,11 @@ if (window.pages.product) {
   document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', () => {
     localizeFooter();
     loadTemplate();
-    style_buttons();
+    styleButtons();
   });
 } else {
   localizeFooter();

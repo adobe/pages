@@ -9,6 +9,17 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+import {
+  addDefaultClass,
+  appearMain,
+  classify,
+  createTag,
+  debounce,
+  externalLinks,
+  loadLocalHeader,
+} from '../../scripts.js';
+
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
   const resp = await fetch('steps.json');
@@ -115,10 +126,10 @@ async function insertSteps() {
       let html = '';
       steps.forEach((step, i) => {
         let setThumbnail;
-        let mini_thumb_nails = '';
+        let miniThumbNails = '';
 
         if (step.show_icons_on_card) {
-          mini_thumb_nails += `
+          miniThumbNails += `
                     <div class="icons">
                         <div class="icons__item">
                             <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
@@ -147,7 +158,7 @@ async function insertSteps() {
                     </svg>
                     </div>
                     <div class='text'>
-                      ${mini_thumb_nails}
+                      ${miniThumbNails}
                       <div class="card-content"> 
                         <h4>${step.Title}</h4>
                         <p>${step.Description}</p>
@@ -175,17 +186,18 @@ function dropDownMenu() {
   }
 }
 
-let is_video_playing = false;
+let isVideoPlaying = false;
 
+// eslint-disable-next-line import/prefer-default-export
 export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
   const $video = document.getElementById('video');
   $video.classList.remove('hidden');
   $video.classList.remove('hidden');
-  if (!is_video_playing) {
+  if (!isVideoPlaying) {
     $video.play();
     $video.setAttribute('controls', true);
-    is_video_playing = true;
+    isVideoPlaying = true;
   }
 }
 
@@ -200,10 +212,10 @@ async function decorateStep() {
 
   const $content = document.querySelector('.content');
   const $learn = document.querySelector('.learn');
-  const $learn_step_one = document.querySelector('.learn-in-illustrator');
-  const $learn_step_two = document.querySelector('.learn-in-photoshop');
-  const $head_back = document.querySelector('.head-back');
-  const $next_steps = document.querySelector('.next-steps');
+  const $learnStepOne = document.querySelector('.learn-in-illustrator');
+  const $learnStepTwo = document.querySelector('.learn-in-photoshop');
+  const $headBack = document.querySelector('.head-back');
+  const $nextSteps = document.querySelector('.next-steps');
 
   const $video = createTag('div', { class: 'video-wrapper' });
   $content.appendChild($video);
@@ -212,7 +224,7 @@ async function decorateStep() {
   const steps = await fetchSteps();
 
   const currentStep = steps[stepIndex];
-  const has_single_thumbnail = currentStep.has_single_gallery_image;
+  const hasSingleThumbnail = currentStep.has_single_gallery_image;
 
   // fill content section
 
@@ -223,10 +235,10 @@ async function decorateStep() {
   $h1.innerHTML = title;
   const iconParent = document.createElement('div');
   iconParent.setAttribute('class', 'icons_parent');
-  if (has_single_thumbnail) {
+  if (hasSingleThumbnail) {
     iconParent.innerHTML = `
-        <div class="icons_parent__item large"><img src="../../../../static/twp3/icons/${currentStep.has_single_gallery_image.toLowerCase()}.svg"></div>
-        `;
+      <div class="icons_parent__item large"><img src="../../../../static/twp3/icons/${currentStep.has_single_gallery_image.toLowerCase()}.svg"></div>
+      `;
   } else {
     iconParent.innerHTML = `
         <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
@@ -241,8 +253,8 @@ async function decorateStep() {
   if (currentStep['Practice File']) {
     document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
   }
-  const all_ctas = document.querySelectorAll('main .content>p>a');
-  if (all_ctas.length >= 2) {
+  const allCtas = document.querySelectorAll('main .content>p>a');
+  if (allCtas.length >= 2) {
     if (currentStep.Next_file) {
       document.querySelector('main .content>p>a:nth-of-type(2)').setAttribute('href', currentStep.Next_file);
       document.querySelector('main .content>p>a:nth-of-type(2)').classList.add('secondary');
@@ -264,7 +276,7 @@ async function decorateStep() {
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
     $video.firstChild.style.backgroundImage = `url(${currentStep.Thumbnail})`;
-    $video.firstChild.addEventListener('click', (e) => playVideo());
+    $video.firstChild.addEventListener('click', () => playVideo());
 
     if ($content.querySelector('a').getAttribute('href') === '#0') {
       $content.querySelector('a').addEventListener('click', (event) => {
@@ -282,12 +294,12 @@ async function decorateStep() {
   }
 
   // replace this with real checker
-  const has_tutorials = currentStep.Tutorial_must_haves;
-  const has_tutorials_one = currentStep.Tutorial_type_one;
-  const has_tutorials_two = currentStep.Tutorial_type_two;
+  const hasTutorials = currentStep.Tutorial_must_haves;
+  const hasTutorialsOne = currentStep.Tutorial_type_one;
+  const hasTutorialsTwo = currentStep.Tutorial_type_two;
   let tutorials = '';
 
-  if (has_tutorials_one) {
+  if (hasTutorialsOne) {
     tutorials += `
             <div class="tutorial__item">
                 <div class="tutorial__icon">
@@ -302,7 +314,7 @@ async function decorateStep() {
         `;
   }
 
-  if (has_tutorials_two) {
+  if (hasTutorialsTwo) {
     tutorials += `
             <div class="tutorial__item">
                 <div class="tutorial__icon">
@@ -317,7 +329,7 @@ async function decorateStep() {
         `;
   }
 
-  if (has_tutorials) {
+  if (hasTutorials) {
     $learn.innerHTML = `
         <div class="container">
             <h2>${currentStep.Tutorial_must_haves}</h2>
@@ -329,15 +341,15 @@ async function decorateStep() {
     $learn.remove();
   }
 
-  function clean_up_icons($string) {
-    const line_items = $string.split('\n');
+  function cleanUpIcons($string) {
+    const lineItems = $string.split('\n');
     let li = '';
-    line_items.forEach((line_item) => {
-      const icon = `../../../../static/twp3/icons/${line_item.split('-')[0].trim()}.svg`;
+    lineItems.forEach((lineItem) => {
+      const icon = `../../../../static/twp3/icons/${lineItem.split('-')[0].trim()}.svg`;
       li += `
                 <li class="icon-list__set">
                     <span><img src="${icon}"></span>
-                    <span>${line_item.split('-')[1]}</span>
+                    <span>${lineItem.split('-')[1]}</span>
                 </li>
             
             `;
@@ -346,54 +358,54 @@ async function decorateStep() {
   }
 
   if (currentStep.Icon_row_title_one) {
-    $learn_step_one.innerHTML = `
+    $learnStepOne.innerHTML = `
             <div class="container">
                 <h2><img class="title_icon" src="../../../../icons/${currentStep.Tutorial_type_one.toLowerCase()}.svg">${currentStep.Icon_row_title_one}</h2>
                 <ul class="icon-list">
-                    ${clean_up_icons(currentStep.Icon_row_one)}
+                    ${cleanUpIcons(currentStep.Icon_row_one)}
                 </ul>
             </div>
         
         `;
-  } else { $learn_step_one.remove(); }
+  } else { $learnStepOne.remove(); }
 
   if (currentStep.Icon_row_title_two) {
-    $learn_step_two.innerHTML = `
+    $learnStepTwo.innerHTML = `
             <div class="container">
                 <h2><img class="title_icon" src="../../../../icons/${currentStep.Tutorial_type_two.toLowerCase()}.svg">${currentStep.Icon_row_title_two}</h2>
                 <ul class="icon-list">
-                    ${clean_up_icons(currentStep.Icon_row_two)}
+                    ${cleanUpIcons(currentStep.Icon_row_two)}
                 </ul>
             </div>
         
         `;
-  } else { $learn_step_two.remove(); }
+  } else { $learnStepTwo.remove(); }
 
   if (currentStep.Icon_row_title_three) {
-    $head_back.innerHTML = `
+    $headBack.innerHTML = `
             <div class="container">
                 <h2><img class="title_icon" src="../../../../icons/${currentStep.Tutorial_type_one.toLowerCase()}.svg">${currentStep.Icon_row_title_three}</h2>
                 <ul class="icon-list">
-                    ${clean_up_icons(currentStep.Icon_row_three)}
+                    ${cleanUpIcons(currentStep.Icon_row_three)}
                 </ul>
             </div>
         
         `;
   } else {
-    $head_back.remove();
+    $headBack.remove();
   }
 
-  const next_step_row = document.createElement('div');
-  next_step_row.className = 'container lg';
-  let next_step = '';
+  const nextStepRow = document.createElement('div');
+  nextStepRow.className = 'container lg';
+  let nextStep = '';
   let counter = 0;
 
-  const see_all_tutorials = $next_steps.querySelector('a');
-  see_all_tutorials.parentNode.remove();
-  see_all_tutorials.className = 'see-all-cta';
+  const seeAllTutorials = $nextSteps.querySelector('a');
+  seeAllTutorials.parentNode.remove();
+  seeAllTutorials.className = 'see-all-cta';
 
   if (stepIndex >= 1) {
-    next_step += `
+    nextStep += `
             <a href="step?${stepIndex}" class="next">
                 <img src="${steps[stepIndex - 1].Thumbnail}">
                 <div>
@@ -405,7 +417,7 @@ async function decorateStep() {
     counter += 1;
   }
   if (stepIndex + 1 < steps.length) {
-    next_step += `
+    nextStep += `
             <a href="step?${stepIndex + 2}" class="next">
                 <img src="${steps[stepIndex + 1].Thumbnail}">
                 <div>
@@ -417,11 +429,11 @@ async function decorateStep() {
     counter += 1;
   }
 
-  next_step_row.innerHTML = next_step;
+  nextStepRow.innerHTML = nextStep;
 
-  $next_steps.append(next_step_row);
-  $next_steps.append(see_all_tutorials);
-  if (counter <= 1) $next_steps.classList.add('has-one');
+  $nextSteps.append(nextStepRow);
+  $nextSteps.append(seeAllTutorials);
+  if (counter <= 1) $nextSteps.classList.add('has-one');
 }
 
 function wrapSections(element) {
@@ -436,7 +448,7 @@ async function decorateHome() {
   document.body.classList.add('home');
   document.querySelectorAll('main p').forEach(($e) => {
     const inner = $e.innerHTML.toLowerCase().trim();
-    if (inner == '&lt;steps&gt;' || inner == '\\<steps></steps>') {
+    if (inner === '&lt;steps&gt;' || inner === '\\<steps></steps>') {
       $e.parentNode.classList.add('steps');
       $e.parentNode.innerHTML = '';
     }
@@ -444,44 +456,28 @@ async function decorateHome() {
   await insertSteps();
 }
 
-const debounce = function (func, wait, immediate) {
-  let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
-    const later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    const callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-
 // set fixed height to cards to create a uniform UI
 function cardHeightEqualizer($el) {
   let initialHeight = 0;
   const element = document.querySelectorAll($el);
 
   if (window.innerWidth >= 700 && element.length > 1) {
-    element.forEach((card_el) => {
-      card_el.style.height = 'auto';
+    element.forEach((cardEl) => {
+      cardEl.style.height = 'auto';
     });
 
-    element.forEach((card_text) => {
-      if (initialHeight < card_text.offsetHeight) {
-        initialHeight = card_text.offsetHeight;
+    element.forEach((cardText) => {
+      if (initialHeight < cardText.offsetHeight) {
+        initialHeight = cardText.offsetHeight;
       }
     });
 
-    element.forEach((card_el) => {
-      card_el.style.height = `${initialHeight}px`;
+    element.forEach((cardEl) => {
+      cardEl.style.height = `${initialHeight}px`;
     });
   } else {
-    element.forEach((card_el) => {
-      card_el.style.height = 'auto';
+    element.forEach((cardEl) => {
+      cardEl.style.height = 'auto';
     });
   }
 }
@@ -516,11 +512,11 @@ async function decoratePage() {
 
   window.pages.pageType = pageType;
 
-  if (pageType == 'home') {
+  if (pageType === 'home') {
     await decorateHome();
   }
 
-  if (pageType == 'step') {
+  if (pageType === 'step') {
     await decorateStep();
   }
 
@@ -529,10 +525,8 @@ async function decoratePage() {
   cardHeightEqualizer('.card-content');
 }
 
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-    decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

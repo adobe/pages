@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 const items = [];
-let has_searched = false;
+// let hasSearched = false;
 
 const options = {
   threshold: 0.99,
@@ -20,7 +20,7 @@ const options = {
   ],
 };
 
-const run_lazy_loader = (images) => {
+const runLazyLoader = (images) => {
   const observer = new IntersectionObserver((element) => {
     element.forEach((image) => {
       if (!image.isIntersecting) return;
@@ -41,13 +41,13 @@ const run_lazy_loader = (images) => {
   images.forEach((image) => observer.observe(image));
 };
 
-const set_icon_layout = ($color) => {
+const setIconLayout = ($color) => {
   const icons = document.querySelectorAll('main li');
-  icons.forEach((list_item) => {
-    list_item.classList.add(list_item.innerText);
-    items.push({ name: list_item.innerText });
-    const names = `${list_item.innerText}.svg`;
-    list_item.innerHTML = `
+  icons.forEach((listItem) => {
+    listItem.classList.add(listItem.innerText);
+    items.push({ name: listItem.innerText });
+    const names = `${listItem.innerText}.svg`;
+    listItem.innerHTML = `
       <span class="group">
         <span class="icons">
           <img data-src="../../static/${$color}/${names}" src="">
@@ -59,10 +59,10 @@ const set_icon_layout = ($color) => {
       </span>
     `;
   });
-  run_lazy_loader(document.querySelectorAll('.icons img'));
+  runLazyLoader(document.querySelectorAll('.icons img'));
 };
 
-const write_fuse_lib_to_head = () => {
+const writeFuseLibToHead = () => {
   if (!document.body.classList.contains('icons')) return;
   const script = document.createElement('script');
   script.type = 'text/javascript';
@@ -70,7 +70,7 @@ const write_fuse_lib_to_head = () => {
   document.getElementsByTagName('head')[0].appendChild(script);
 };
 
-const write_input_field = () => {
+const writeInputField = () => {
   const search = document.createElement('form');
   search.classList.add('search-field');
 
@@ -83,14 +83,14 @@ const write_input_field = () => {
   document.querySelector('main ul').insertAdjacentHTML('beforebegin', search.outerHTML);
 };
 
-const rewrite_icons = ($data) => {
+const rewriteIcons = ($data) => {
   document.querySelector('main ul').innerHTML = '';
   const $color = document.body.classList.contains('dark') ? 'spectrum-icons-light' : 'spectrum-icons-dark';
-  let $list_item = '';
+  let $listItem = '';
 
   if ($data.length > 0) {
     $data.forEach(($item) => {
-      $list_item += `
+      $listItem += `
       <li>
       <span class="group">
       <span class="icons"><img data-src="../../static/${$color}/${$item.item.name}.svg" src=""></span>
@@ -102,26 +102,27 @@ const rewrite_icons = ($data) => {
       </li>
       `;
     });
-    document.querySelector('main ul').innerHTML = $list_item;
-    run_lazy_loader(document.querySelectorAll('.icons img'));
+    document.querySelector('main ul').innerHTML = $listItem;
+    runLazyLoader(document.querySelectorAll('.icons img'));
   } else {
     document.querySelector('main ul').innerHTML = '<h1>No matches found.</h1>';
   }
 };
 
-write_fuse_lib_to_head();
+writeFuseLibToHead();
 
 window.addEventListener('load', () => {
   if (!document.body.classList.contains('icons')) return;
-  set_icon_layout('spectrum-icons-dark');
-  write_input_field();
+  setIconLayout('spectrum-icons-dark');
+  writeInputField();
 
+  // eslint-disable-next-line no-undef
   const fuse = new Fuse(items, options);
   document.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault();
-    has_searched = true;
+    // hasSearched = true;
     if (document.querySelector('input').value.length >= 1) {
-      rewrite_icons(fuse.search(document.querySelector('input').value));
+      rewriteIcons(fuse.search(document.querySelector('input').value));
     }
   });
 });
