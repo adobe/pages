@@ -9,17 +9,18 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-const image_type_checker = () => {
+
+const imageTypeChecker = () => {
   const rows = document.querySelectorAll('.list > div');
   rows.forEach(($row) => {
-    const image_column = $row.querySelector('div:first-of-type');
-    if (image_column.firstChild.nodeName != 'PICTURE') {
-      const icon_type = image_column.innerText;
-      image_column.innerHTML = `
-        <img src="../../static/${icon_type}.svg">
+    const imageColumn = $row.querySelector('div:first-of-type');
+    if (imageColumn.firstChild.nodeName.toUpperCase() !== 'PICTURE') {
+      const iconType = imageColumn.innerText;
+      imageColumn.innerHTML = `
+        <img src="../../static/${iconType}.svg">
       `;
     }
   });
 };
 
-image_type_checker();
+imageTypeChecker();

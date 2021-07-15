@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-const { toClassName } = require('../../scripts');
+import { toClassName } from '../../scripts.js';
 
 // TODO: Use import instead of assigning to window?
 /* global setupForm */

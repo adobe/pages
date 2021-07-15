@@ -25,14 +25,8 @@ module.exports = {
       js: 'always',
     }],
     'prefer-destructuring': ['error', {
-      VariableDeclarator: {
-        array: false,
-        object: true,
-      },
-      AssignmentExpression: {
-        array: false,
-        object: true,
-      },
+      array: false,
+      object: true,
     }, {
       enforceForRenamedProperties: false,
     }],
