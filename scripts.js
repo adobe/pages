@@ -18,6 +18,7 @@ export function addDefaultClass(element) {
   });
 }
 
+// TODO: replace with dynamic imports
 export function loadJSModule(src) {
   const module = document.createElement('script');
   module.setAttribute('type', 'module');
@@ -25,6 +26,7 @@ export function loadJSModule(src) {
   document.head.appendChild(module);
 }
 
+// TODO: dedupe this with default.js
 export function setWidths() {
   const sections = document.querySelectorAll('main .default');
   sections.forEach((section) => {
@@ -111,10 +113,12 @@ function externalizeImageSources($div) {
   });
 }
 
+// TODO: dedupe with in-app.js, max.js, ete.js, learn.js, on24.js, tutorials.js
 export function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
 }
 
+// TODO: dedupe with in-app.js, max.js, learn.js, tutorials.js
 export function turnTableSectionIntoCards($table, cols) {
   const $rows = $table.querySelectorAll('tbody tr');
   const $cards = createTag('div', { class: `cards ${cols.join('-')}` });
@@ -153,6 +157,9 @@ export function turnTableSectionIntoCards($table, cols) {
   return ($cards);
 }
 
+// TODO: dedupe with in-app.js, max.js,
+//    templates/default.js, learn.js, on24.js,
+//    stock-advocates.js, tutorials.js, xd.js
 export function decorateTables() {
   document.querySelectorAll('main div>table').forEach(($table) => {
     const $cols = $table.querySelectorAll('thead tr th');
@@ -171,6 +178,7 @@ export function decorateTables() {
   });
 }
 
+// TODO: dedupe with stock-advocates.js, tutorials.js
 export async function loadLocalHeader() {
   decorateTables();
   const $inlineHeader = document.querySelector('main div.header-block');
@@ -421,6 +429,7 @@ window.insertLocalResource = insertLocalResource;
 window.externalLinks = externalLinks;
 window.loadCSS = loadCSS;
 window.appearMain = appearMain;
+window.classify = classify;
 window.debounce = debounce;
 window.toClassName = toClassName;
 window.turnTableSectionIntoCards = turnTableSectionIntoCards;
