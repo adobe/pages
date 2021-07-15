@@ -10,12 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  appearMain,
-  createTag,
-  insertLocalResource,
-  toClassName,
-} from '../../scripts.js';
+// import {
+//   appearMain,
+//   createTag,
+//   insertLocalResource,
+//   toClassName,
+// } from '../../scripts.js';
+/* global appearMain, createTag, insertLocalResource, toClassName */
 
 async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');

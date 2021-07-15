@@ -10,9 +10,23 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  addDefaultClass, appearMain, classify, createTag, externalLinks, insertLocalResource,
-} from '../../scripts.js';
+// import {
+//   addDefaultClass,
+//   appearMain,
+//   classify,
+//   createTag,
+//   externalLinks,
+//   insertLocalResource,
+// } from '../../scripts.js';
+/*
+global
+  addDefaultClass,
+  appearMain,
+  classify,
+  createTag,
+  externalLinks,
+  insertLocalResource
+*/
 
 function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));

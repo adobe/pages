@@ -10,9 +10,23 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  addDefaultClass, appearMain, createTag, debounce, decorateTables, loadLocalHeader,
-} from '../../scripts.js';
+// import {
+//   addDefaultClass,
+//   appearMain,
+//   createTag,
+//   debounce,
+//   decorateTables,
+//   loadLocalHeader,
+// } from '../../scripts.js';
+/*
+global
+  addDefaultClass,
+  appearMain,
+  createTag,
+  debounce,
+  decorateTables,
+  loadLocalHeader
+*/
 
 async function submitSheetForm($form, sheetid, thankyou) {
   const formsink = 'https://script.google.com/macros/s/AKfycbxWFwI-qExw0Tg_LJvdisSYODFw35m3L8M5HdumPOufmArmRIEh/exec';

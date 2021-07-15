@@ -10,7 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import { loadJSModule } from '../../scripts.js';
+// import { loadJSModule } from '../../scripts.js';
+/* global loadJSModule */
 
 function decorateYouTube() {
   const $vids = document.querySelectorAll('main div a[href^="https://www.youtube.com/"]');

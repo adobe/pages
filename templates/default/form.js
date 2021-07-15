@@ -23,7 +23,7 @@
 
 // TODO: Unsnake the form global variables once found..
 /* eslint-disable camelcase */
-/* global form_sheet form_redirect */
+/* global form_sheet, form_redirect */
 
 window.setupForm = ({
   formId,

@@ -10,7 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import { debounce } from '../../scripts.js';
+// import { debounce } from '../../scripts.js';
+/* global debounce */
 
 let formContainer = document.querySelector('.slide-form-container');
 let slideBtns = document.querySelectorAll('.slide-btn');

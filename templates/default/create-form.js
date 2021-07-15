@@ -10,7 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import { toClassName } from '../../scripts.js';
+// import { toClassName } from '../../scripts.js';
+/* global toClassName */
 
 // TODO: Use import instead of assigning to window?
 /* global setupForm */

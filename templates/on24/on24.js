@@ -10,7 +10,18 @@
  * governing permissions and limitations under the License.
  */
 
-import {
+// import {
+//   addDefaultClass,
+//   appearMain,
+//   classify,
+//   createTag,
+//   debounce,
+//   externalLinks,
+//   loadLocalHeader,
+//   turnTableSectionIntoCards,
+// } from '../../scripts.js';
+/*
+global
   addDefaultClass,
   appearMain,
   classify,
@@ -18,8 +29,8 @@ import {
   debounce,
   externalLinks,
   loadLocalHeader,
-  turnTableSectionIntoCards,
-} from '../../scripts.js';
+  turnTableSectionIntoCards
+*/
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');

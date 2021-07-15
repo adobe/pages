@@ -10,15 +10,16 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  appearMain,
-  createTag,
-  debounce,
-  loadCSS,
-  loadJSModule,
-  loadLocalHeader,
-  toClassName,
-} from '../../scripts.js';
+// import {
+//   appearMain,
+//   createTag,
+//   debounce,
+//   loadCSS,
+//   loadJSModule,
+//   loadLocalHeader,
+//   toClassName,
+// } from '../../scripts.js';
+/* global appearMain, createTag, debounce, loadCSS, loadJSModule, loadLocalHeader, toClassName */
 
 function styleNav() {
   const parent = document.querySelector('header');

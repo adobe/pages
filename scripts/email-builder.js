@@ -10,7 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import { createTag, addDefaultClass } from '../scripts.js';
+// import { createTag, addDefaultClass } from '../scripts.js';
+/* global createTag, addDefaultClass */
 
 function wrapUp(h1, heroCopy, ctaText, ctaLink, mainImageSrc) {
   const email = `<!DOCTYPE html>

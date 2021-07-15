@@ -10,15 +10,25 @@
  * governing permissions and limitations under the License.
  */
 
-import {
+// import {
+//   addDefaultClass,
+//   appearMain,
+//   classify,
+//   createTag,
+//   debounce,
+//   externalLinks,
+//   loadLocalHeader,
+// } from '../../scripts.js';
+/*
+global
   addDefaultClass,
   appearMain,
   classify,
   createTag,
   debounce,
   externalLinks,
-  loadLocalHeader,
-} from '../../scripts.js';
+  loadLocalHeader
+*/
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');

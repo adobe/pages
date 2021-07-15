@@ -369,33 +369,64 @@ function styleButtons() {
   });
 }
 
-fixImages();
+function run() {
+  fixImages();
 
-const pathSegments = window.location.pathname.match(/[\w-]+(?=\/)/g);
+  const pathSegments = window.location.pathname.match(/[\w-]+(?=\/)/g);
 
-window.pages = {};
+  window.pages = {};
 
-if (pathSegments) {
-  const product = pathSegments[0];
-  const locale = pathSegments[1];
-  const project = pathSegments[2];
-  window.pages = { product, locale, project };
-}
+  if (pathSegments) {
+    const product = pathSegments[0];
+    const locale = pathSegments[1];
+    const project = pathSegments[2];
+    window.pages = { product, locale, project };
+  }
 
-window.hlx = window.hlx || {};
-window.hlx.dependencies = [];
+  window.hlx = window.hlx || {};
+  window.hlx.dependencies = [];
 
-if (window.pages.product) {
-  document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
-}
+  if (window.pages.product) {
+    document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
+  }
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', () => {
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', () => {
+      localizeFooter();
+      loadTemplate();
+      styleButtons();
+    });
+  } else {
     localizeFooter();
     loadTemplate();
-    styleButtons();
-  });
-} else {
-  localizeFooter();
-  loadTemplate();
+  }
 }
+
+/**
+ * TODO: remove this switch for modules.
+ * We can leave the functions on window until
+ * everything is moved over and tested.
+ *
+ * For now, this script is included as a module,
+ * but also writes to window.
+ * Gives us the ability to use both ways in the interrim.
+ */
+
+// non-module, explicitly add functions to global scope
+window.addDefaultClass = addDefaultClass;
+window.loadJSModule = loadJSModule;
+window.setWidths = setWidths;
+window.createTag = createTag;
+window.insertLocalResource = insertLocalResource;
+window.externalLinks = externalLinks;
+window.loadCSS = loadCSS;
+window.appearMain = appearMain;
+window.debounce = debounce;
+window.toClassName = toClassName;
+window.turnTableSectionIntoCards = turnTableSectionIntoCards;
+window.loadLocalHeader = loadLocalHeader;
+window.decorateTables = decorateTables;
+run();
+
+// module
+// export default run;

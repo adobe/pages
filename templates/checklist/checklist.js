@@ -10,6 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { loadJSModule } from '../../scripts.js';
+// import { loadJSModule } from '../../scripts.js';
+/* global loadJSModule */
 
 loadJSModule('/scripts/default.js');

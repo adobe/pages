@@ -10,15 +10,25 @@
  * governing permissions and limitations under the License.
  */
 
-import {
+// import {
+//   addDefaultClass,
+//   appearMain,
+//   createTag,
+//   debounce,
+//   decorateTables,
+//   externalLinks,
+//   loadLocalHeader,
+// } from '../../scripts.js';
+/*
+global
   addDefaultClass,
   appearMain,
   createTag,
   debounce,
   decorateTables,
   externalLinks,
-  loadLocalHeader,
-} from '../../scripts.js';
+  loadLocalHeader
+*/
 
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
