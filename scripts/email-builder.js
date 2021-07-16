@@ -1,8 +1,20 @@
-// simple form submission
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 
+// import { createTag, addDefaultClass } from '../scripts.js';
+/* global createTag, addDefaultClass */
 
-function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
-  let email = `<!DOCTYPE html>
+function wrapUp(h1, heroCopy, ctaText, ctaLink, mainImageSrc) {
+  const email = `<!DOCTYPE html>
   <%@ include view='adbePreProcess' %>
   <% var optOutLinkLabel = 'unsubscribe'; %>
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -119,7 +131,7 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
                 <td class="header" style="color:#000000; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:60px; line-height:65px; padding-top:65px;">${h1}</td>
                </tr>
                <tr>
-                <td style="color:#2C2C2C; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:18px; line-height:26px; padding-top:36px;">${hero_copy}</td>
+                <td style="color:#2C2C2C; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:18px; line-height:26px; padding-top:36px;">${heroCopy}</td>
                </tr>
                <tr>
                 <td style="color:#1473E6; font-family:adobe-clean, Arial, Helvetica, sans-serif; font-size:15px; line-height:20px; padding-top:40px; padding-bottom:60px;"><div><!--[if mso]>
@@ -128,8 +140,8 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
             <td height="40" valign="middle" style="background-color:#1473E6; font-family:Arial, Helvetica, sans-serif; height:40px;">
             <center>
             <![endif]-->
-            <a class="button" href="${cta_link}" target="_blank"
-            style="background-color:#1473E6;border-radius:20px;color:#ffffff;display:inline-block;font-size:16px;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;"><strong>${cta_text}</strong></a>
+            <a class="button" href="${ctaLink}" target="_blank"
+            style="background-color:#1473E6;border-radius:20px;color:#ffffff;display:inline-block;font-size:16px;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;"><strong>${ctaText}</strong></a>
             <!--[if mso]>
             </center>
             </td>
@@ -147,16 +159,16 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
                 <td style="color:#000000; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:22px; line-height:28px; padding-bottom:100px;"><a href="https://illustrator.adobelanding.com/thr-illustration-gradients/?trackingid=<%=getTagId('CTA1')%>&mv=email" target="_blank" style="color:#1473E6;">
           <img class="mobile-image" 
                   alt="Get creative with color."
-                   src="${mainImage_src}"
-          srcset="${mainImage_src} 621w,
-          ${mainImage_src} 1200w"
+                   src="${mainImageSrc}"
+          srcset="${mainImageSrc} 621w,
+          ${mainImageSrc} 1200w"
           sizes="(max-width: 480px) 50vw"
           width="500" height="360" 
           border="0" hspace="0" vspace="0" style="color:#000000; font-family:adobe-clean, Helvetica Neue, Helvetica, Verdana, Arial, sans-serif; font-size:22px; line-height:28px; display:block; vertical-align:top;"/>
           </a></td>
                </tr>
               </table>
-              <!-- END pod1 marquee -->		
+              <!-- END pod1 marquee -->   
               
              <!-- END email content -->
              </td>
@@ -226,54 +238,47 @@ function wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src) {
     </tr>
   </table>
   </body>
-  </html>`
+  </html>`;
 
   return email;
 }
 
-
 function createEmail() {
-  let headerContent = document.querySelector('main > div:first-of-type');
-  let mainImage = document.querySelector('main > div:last-of-type');
-  let mainImage_src = mainImage.querySelector('img').getAttribute('src')
-  let h1 = headerContent.querySelector('h1').innerHTML;
-  let hero_copy = headerContent.querySelector('p:first-of-type').innerText;
-  let cta_text = headerContent.querySelector('a').innerText;
-  let cta_link = headerContent.querySelector('a').getAttribute('href');
+  const headerContent = document.querySelector('main > div:first-of-type');
+  const mainImage = document.querySelector('main > div:last-of-type');
+  const mainImageSrc = mainImage.querySelector('img').getAttribute('src');
+  const h1 = headerContent.querySelector('h1').innerHTML;
+  const heroCopy = headerContent.querySelector('p:first-of-type').innerText;
+  const ctaText = headerContent.querySelector('a').innerText;
+  const ctaLink = headerContent.querySelector('a').getAttribute('href');
 
-
-
-
-
-  let inner = `
+  const inner = `
     <div class="preview-copy">
       <div class="preview-column">
         <h1>Copy your email</h1>
-        <div><textarea>${wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src)}</textarea></div>
+        <div><textarea>${wrapUp(h1, heroCopy, ctaText, ctaLink, mainImageSrc)}</textarea></div>
       </div>
       <div>
         <div class="preview-column">
           <h1>Preview Your Email</h1>
-          ${wrapUp(h1, hero_copy, cta_text, cta_link, mainImage_src)}
+          ${wrapUp(h1, heroCopy, ctaText, ctaLink, mainImageSrc)}
         </div>
       </div>
     </div>
-  `
+  `;
 
   document.querySelector('main').innerHTML = inner;
 }
-
 
 createEmail();
 
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
-      const $wrapper=createTag('div', { class: 'section-wrapper'});
-      $div.parentNode.appendChild($wrapper);
-      $wrapper.appendChild($div);
+    const $wrapper = createTag('div', { class: 'section-wrapper' });
+    $div.parentNode.appendChild($wrapper);
+    $wrapper.appendChild($div);
   });
 }
-
 
 async function decoratePage() {
   addDefaultClass('main>div');
@@ -281,11 +286,8 @@ async function decoratePage() {
   window.pages.decorated = true;
 }
 
-
-if (document.readyState == 'loading') {
-  window.addEventListener('DOMContentLoaded', (event) => {
-      decoratePage();
-  });
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
 } else {
   decoratePage();
 }

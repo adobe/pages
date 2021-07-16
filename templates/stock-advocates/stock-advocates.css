@@ -651,7 +651,7 @@ main .columns ul {
 .columns>div.padded>div.image img {
   padding: 40px 40px 80px 40px;
 }
-.columns>div.padded>div.image p {
+.columns>div.padded>div.image p.caption {
   color: black;
   text-align: left;
   font-size: 0.8rem;
@@ -666,7 +666,19 @@ main .columns ul {
     object-fit: cover;
 }
 
-.columns>div>div.image p {
+.columns>div>div.image p:empty {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.columns>div>div.image p.image-bleed {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.columns>div>div.image p.caption {
     position: absolute;
     color: white;
     bottom: 1em;

@@ -1,61 +1,71 @@
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+
 function generateVideo() {
-  if(!document.querySelector('.iframe')) return;
+  if (!document.querySelector('.iframe')) return;
   const videos = document.querySelectorAll('.iframe > div a');
-  videos.forEach(function(video){
+  videos.forEach((video) => {
     const videoParent = video.closest('div');
     videoParent.innerHTML = `
       <iframe src="${video.getAttribute('href')}" frameborder="0" id="video"></iframe>
-      `
-  })
+      `;
+  });
 
-  var base = document.createElement('base');
+  const base = document.createElement('base');
   base.target = '_parent';
   document.getElementsByTagName('head')[0].appendChild(base);
   document.querySelector('.iframe > div > div').classList.add('iframe-parent');
 }
 
-
 function setUpTimeline() {
-  if(!document.querySelector('.missiontimeline-container')) return;
-  let timelineCount = 0;
+  if (!document.querySelector('.missiontimeline-container')) return;
+  // let timelineCount = 0;
   let timelineGroup = '';
   const timelineParent = document.querySelector('.missiontimeline');
   const timelineItems = document.querySelectorAll('.missiontimeline > div');
   const timelineWrapper = document.createElement('div');
-  timelineWrapper.classList.add('timeline-items')
+  timelineWrapper.classList.add('timeline-items');
 
-
-  timelineItems.forEach(function(item, index) {
-    if(index < timelineItems.length - 1) {  
-      item.firstChild.parentElement.className=`checklist-item ${item.firstChild.innerText.toLowerCase()}`;
+  timelineItems.forEach((item, index) => {
+    if (index < timelineItems.length - 1) {
+      item.firstChild.parentElement.className = `checklist-item ${item.firstChild.innerText.toLowerCase()}`;
       item.firstChild.remove();
       timelineGroup += item.outerHTML;
-      timelineCount = index + 1
+      // timelineCount = index + 1;
       item.remove();
     }
-  })
+  });
 
   timelineWrapper.innerHTML = timelineGroup;
-  timelineParent.prepend(timelineWrapper)
+  timelineParent.prepend(timelineWrapper);
 
-  timelineWrapper.querySelectorAll('a').forEach(function(link) { 
-    link.setAttribute('target', '_blank')
-  })
+  timelineWrapper.querySelectorAll('a').forEach((link) => {
+    link.setAttribute('target', '_blank');
+  });
 }
 
 function setUpControllers() {
   const items = document.querySelectorAll('.iframecontrol > div');
   let element;
-  
-  items.forEach(function($row) {
+
+  items.forEach(($row) => {
     const type = $row.querySelector('div:first-of-type').innerText;
     let link = '';
-    
-    if($row.querySelector('a')) {
+
+    if ($row.querySelector('a')) {
       link = $row.querySelector('a').getAttribute('href');
     }
-    
-    if(type === "previous") {
+
+    if (type === 'previous') {
       element = document.createElement('div');
       element.className = 'btn previous';
       element.innerHTML = `
@@ -66,7 +76,7 @@ function setUpControllers() {
             </svg>
           </span>
         </a>
-      `
+      `;
     } else {
       element = document.createElement('div');
       element.className = 'btn next';
@@ -80,15 +90,15 @@ function setUpControllers() {
           
           </span>
         </a>
-      `
-    }  
-    document.querySelector('.iframe-parent').appendChild(element)
-  })
+      `;
+    }
+    document.querySelector('.iframe-parent').appendChild(element);
+  });
   document.querySelector('.iframecontrol-container').remove();
 }
 
 setUpTimeline();
 generateVideo();
-if(document.querySelector('.iframecontrol')) {
+if (document.querySelector('.iframecontrol')) {
   setUpControllers();
 }

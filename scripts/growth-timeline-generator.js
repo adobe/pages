@@ -1,4 +1,14 @@
-
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 
 /*
 async function fetchBacklog() {
@@ -41,7 +51,6 @@ function addNavCarrot() {
   }
 }
 
-
 function dropDownMenu() {
     console.log('here')
   let $header = document.querySelector('header');
@@ -56,9 +65,6 @@ function dropDownMenu() {
     $header.classList.remove('nav-showing')
   }
 }
-
-
-
 
 export function playVideo() {
     document.getElementById('placeholder').classList.add('hidden');
@@ -103,7 +109,8 @@ async function decorateStep() {
     }
     document.title=currentStep.Title;
     if (currentStep['Practice File']) {
-        document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
+        document.querySelector('main .content>p>a')
+            .setAttribute('href', currentStep['Practice File']);
     }
 
     if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
@@ -129,7 +136,7 @@ async function decorateStep() {
     let skills=[]
     while (currentStep['Skill '+(skills.length+1)]) {
         skills.push({
-            title: currentStep['Skill '+(skills.length+1)], 
+            title: currentStep['Skill '+(skills.length+1)],
             icon: currentStep['Skill '+(skills.length+1)+' Icon']
         });
     }
@@ -151,11 +158,11 @@ async function decorateStep() {
     const $progressbar=createTag('div',{class: 'progress-bar'});
     html='';
     steps.forEach((step,i) => {
-        html+=`<div onclick="window.location.href='step?${i+1}'" class="${i==stepIndex?'active':'inactive'}"></div>`
+        html+=`<div onclick="window.location.href='step?${i+1}'" `+
+            `class="${i==stepIndex?'active':'inactive'}"></div>`;
     })
     $progressbar.innerHTML=html;
     $progress.appendChild($progressbar);
-
 
     // fill up next
 
@@ -171,12 +178,12 @@ async function decorateStep() {
                               <h2>${nextStep.Title}</h2>
                               <p>${nextStep.Description}</p>
                             </div>
-        
+
                 `;
     } else {
         $upnext.remove();
     }
-    
+
     $upnext.addEventListener('click', (e) => window.location.href=`step?${stepIndex+2}`)
 
 }
