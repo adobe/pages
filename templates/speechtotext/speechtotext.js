@@ -10,7 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-// import { createTag, loadJSModule } from '../../scripts.js';
 /* global createTag, loadJSModule */
 
 loadJSModule('/scripts/default.js');

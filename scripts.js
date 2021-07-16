@@ -12,14 +12,14 @@
 
 document.title = document.title.split('<br>').join(' ');
 
-export function addDefaultClass(element) {
+function addDefaultClass(element) {
   document.querySelectorAll(element).forEach(($div) => {
     $div.classList.add('default');
   });
 }
 
 // TODO: replace with dynamic imports
-export function loadJSModule(src) {
+function loadJSModule(src) {
   const module = document.createElement('script');
   module.setAttribute('type', 'module');
   module.setAttribute('src', src);
@@ -27,7 +27,7 @@ export function loadJSModule(src) {
 }
 
 // TODO: dedupe this with default.js
-export function setWidths() {
+function setWidths() {
   const sections = document.querySelectorAll('main .default');
   sections.forEach((section) => {
     const children = section.childNodes;
@@ -52,7 +52,7 @@ export function setWidths() {
  * @param {object} attrs An object containing the attributes
  * @returns The new tag
  */
-export function createTag(name, attrs) {
+function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
     for (const [key, value] of Object.entries(attrs)) {
@@ -62,7 +62,7 @@ export function createTag(name, attrs) {
   return el;
 }
 
-export async function insertLocalResource(type) {
+async function insertLocalResource(type) {
   let url = '';
   if (window.pages.product && window.pages.locale) {
     url = `/${window.pages.product}/${window.pages.locale}/${type}.plain.html`;
@@ -88,7 +88,7 @@ export async function insertLocalResource(type) {
 
 /* link out to external links */
 // called inside decoratePage() twp3.js
-export function externalLinks(selector) {
+function externalLinks(selector) {
   const element = document.querySelector(selector);
   const links = element.querySelectorAll('a[href]');
 
@@ -114,12 +114,12 @@ function externalizeImageSources($div) {
 }
 
 // TODO: dedupe with in-app.js, max.js, ete.js, learn.js, on24.js, tutorials.js
-export function toClassName(name) {
+function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
 }
 
 // TODO: dedupe with in-app.js, max.js, learn.js, tutorials.js
-export function turnTableSectionIntoCards($table, cols) {
+function turnTableSectionIntoCards($table, cols) {
   const $rows = $table.querySelectorAll('tbody tr');
   const $cards = createTag('div', { class: `cards ${cols.join('-')}` });
   $rows.forEach(($tr) => {
@@ -160,7 +160,7 @@ export function turnTableSectionIntoCards($table, cols) {
 // TODO: dedupe with in-app.js, max.js,
 //    templates/default.js, learn.js, on24.js,
 //    stock-advocates.js, tutorials.js, xd.js
-export function decorateTables() {
+function decorateTables() {
   document.querySelectorAll('main div>table').forEach(($table) => {
     const $cols = $table.querySelectorAll('thead tr th');
     const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
@@ -179,7 +179,7 @@ export function decorateTables() {
 }
 
 // TODO: dedupe with stock-advocates.js, tutorials.js
-export async function loadLocalHeader() {
+async function loadLocalHeader() {
   decorateTables();
   const $inlineHeader = document.querySelector('main div.header-block');
   if ($inlineHeader) {
@@ -211,7 +211,7 @@ export async function loadLocalHeader() {
  * @param {string} cls css class to be added
  * @param {number} parent uplevel
  */
-export function classify(qs, cls, parent) {
+function classify(qs, cls, parent) {
   document.querySelectorAll(qs).forEach(($e) => {
     let $root = $e;
     for (let p = parent; p > 0; p -= 1) {
@@ -221,7 +221,7 @@ export function classify(qs, cls, parent) {
   });
 }
 
-export const debounce = (func, wait, immediate) => {
+const debounce = (func, wait, immediate) => {
   let timeout;
   return function debounced(...args) {
     const later = () => {
@@ -238,7 +238,7 @@ export const debounce = (func, wait, immediate) => {
 /**
  * Checks if <main> is ready to appear
  */
-export function appearMain() {
+function appearMain() {
   if (window.pages.familyCssLoaded && window.pages.decorated) {
     const p = window.pages;
     const pathSplits = window.location.pathname.split('/');
@@ -253,7 +253,7 @@ export function appearMain() {
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
  */
-export function loadCSS(href) {
+function loadCSS(href) {
   const link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');
   link.setAttribute('href', href);
