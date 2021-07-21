@@ -37,11 +37,11 @@ document.getElementsByTagName('body')[0].appendChild(tag);
 const $wgForm = document.getElementById('wg-form');
 let hasPageBreak = 0;
 
-// eslint-disable-next-line camelcase
-// const { form_redirect, form_sheet, form_to_use } = window.formConfig;
+// eslint-disable-next-line camelcase, no-unused-vars
+const { redirect: formRedirect, sheet: formSheet, definition: formToUse } = window.formConfig;
 
-// const formType = document.querySelectorAll('main p');
-const formToUse = '';
+// eslint-disable-next-line no-unused-vars
+const formType = document.querySelectorAll('main p');
 
 // Hide sheet and thank you link from page while loading...
 document.querySelector('main').style.opacity = '1';

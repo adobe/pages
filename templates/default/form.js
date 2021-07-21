@@ -21,10 +21,6 @@
  * governing permissions and limitations under the License.
  */
 
-// TODO: Unsnake the form global variables once found..
-/* eslint-disable camelcase */
-/* global form_sheet, form_redirect */
-
 window.setupForm = ({
   formId,
   containerClass = 'form-container',
@@ -71,8 +67,18 @@ window.setupForm = ({
   }
 
   // console.log(form_sheet ,'here')
-  const sheet = form_sheet;
-  const thankyou = form_redirect;
+
+  // TODO: Change these to arguments..
+
+  // NOTE: This assumes the script is loaded from inside a module that
+  // already has these variable defined locally.
+  // const sheet = form_sheet;
+  // const thankyou = form_redirect;
+
+  // VS: This doesn't make an assumption of order, only that the namespace
+  // has been configured before loading the script.
+  const { sheet, redirect: thankyou } = window.formConfig;
+
   // $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
   //   if ($a.textContent.toLowerCase() === 'sheet') {
   //     sheet = $a.href;

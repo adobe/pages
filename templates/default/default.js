@@ -367,9 +367,9 @@ async function decorateBlocks() {
         const config = readBlockConfig($block);
 
         window.formConfig = {
-          form_sheet: config['form-data-submission'],
-          form_redirect: config['form-redirect'] ? config['form-redirect'] : 'thank-you',
-          form_to_use: config['form-definition'],
+          sheet: config['form-data-submission'],
+          redirect: config['form-redirect'] ? config['form-redirect'] : 'thank-you',
+          definition: config['form-definition'],
         };
 
         const tag = document.createElement('script');
