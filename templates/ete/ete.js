@@ -38,9 +38,12 @@ async function fetchSteps() {
       steps.forEach((step, i) => {
         if (i % 3 === 0) {
           count++;
-          addToCategory += `<div class="section-title">${
-            $sectionTitles.querySelectorAll("h3")[count].outerHTML
-          }</div><div class="category-steps">`;
+          const headers = $sectionTitles.querySelectorAll('h3');
+          let current_header = '';
+          if(headers[count]) {
+            current_header = headers[count].outerHTML
+          }
+          addToCategory += `<div class="section-title">${current_header}</div><div class="category-steps">`;
         }
         addToCategory += `<div class="card" onclick="window.location='step?${
           i + 1
