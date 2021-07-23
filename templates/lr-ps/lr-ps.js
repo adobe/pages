@@ -48,7 +48,7 @@ async function fetchSteps() {
         addToCategory += `<div class="card" onclick="window.location='step?${
           i + 1
         }'">
-                <div class='img' style="background-image: url(../../../../static/ete/hero-posters/${getThumbnail(
+                <div class='img' style="background-image: url(../../../../static/lr-ps/hero-posters/${getThumbnail(
                   step
                 )})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
@@ -70,14 +70,6 @@ async function fetchSteps() {
                   </svg>
                 </div>
                 <div class='text'>
-                    <div class="icons">
-                      <div class="icons__item">
-                        <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
-                      </div>
-                      <div class="icons__item">
-                        <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
-                      </div>
-                    </div>
                     <div class="card-content"> 
                       <h4>${step.Title}</h4>
                       <p>${step.Description}</p>
@@ -164,7 +156,7 @@ async function fetchSteps() {
     const currentStep = steps[stepIndex];
   
     $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`;
-    $video.setAttribute('data-bg', `/static/ete/hero-posters/${currentStep.Thumbnail}`)
+    $video.setAttribute('data-bg', `/static/lr-ps/hero-posters/${currentStep.Thumbnail}`)
   
     //fill content section
   
@@ -218,7 +210,7 @@ async function fetchSteps() {
         <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
-      $video.firstChild.style.backgroundImage = `url(../../../../static/ete/hero-posters/${currentStep.Thumbnail})`;
+      $video.firstChild.style.backgroundImage = `url(../../../../static/lr-ps/hero-posters/${currentStep.Thumbnail})`;
       $video.firstChild.addEventListener("click", (e) => playVideo());
     }
   
@@ -258,7 +250,7 @@ async function fetchSteps() {
       
       html += `
       <div class="skill">
-        <img src="/static/you-will-learn/${skill.icon}.svg">
+        <img src="/static/spectrum-icons-dark/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
   
       </div>`;
