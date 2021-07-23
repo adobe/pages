@@ -57,16 +57,20 @@ export default function screenshot(options) {
   return {
     name: 'screenshot',
     async run(input) {
-      this.debug('run()', input);
-      const proms = [];
+      this.debug('run()');
+      let proms = [];
       for(let pageName in input) {
         const page = input[pageName];
         for(let versionName in page) {
           const url = page[versionName];
           proms.push(captureScreenshot(this, pageName, versionName, url, options));
+          if(proms.length > 4) {
+            // batch 5 concurrency
+            await Promise.all(proms);
+            proms = [];
+          }
         }
       }
-      return Promise.all(proms);
     }
   }
 }

@@ -16,8 +16,10 @@ import lighthousesdk from 'lighthouse';
 import chromeLauncher from 'chrome-launcher';
 
 /**
- * @typedef {Object} LighthouseOptions
- * @property {boolean} foo
+ * @typedef {import('lighthouse/types/externs')} LH
+ * @typedef {LH.Flags} LighthouseOptions
+ * @property {'info'|'debug'|'error'} [logLevel]
+ * @property {number} [port]
  */
 
 /**
@@ -32,18 +34,17 @@ import chromeLauncher from 'chrome-launcher';
  * @param {string} pageName - The page name, ie. "blog"
  * @param {string} versionName - The page version name, ie. base.html
  * @param {string} url 
- * @param {Object} [options]
+ * @param {LighthouseOptions} [options]
  * @returns {Promise<void>}
  */
 async function captureLighthouse(ctx, pageName, versionName, url, chrome, options = {}) {
-  const opts = Object.assign({
-    logLevel: 'info', 
+  /** @type {LighthouseOptions} */
+  const defaults = {
     output: 'html', 
     onlyCategories: ['performance'], 
     port: chrome.port
-  }, 
-    options
-  );
+  };
+  const opts = Object.assign(defaults, options);
   const result = await lighthousesdk(url, opts);
   // ctx.debug(`Lighthouse result for ${result.lhr.finalUrl}: `, result.lhr);
 

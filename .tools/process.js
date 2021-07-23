@@ -12,7 +12,7 @@
 
 // @ts-check
 
-import { exec } from 'node:child_process';
+import { exec } from 'child_process';
 
 /**
  * Get stdout produced from executing some command.

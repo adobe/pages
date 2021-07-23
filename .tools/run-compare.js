@@ -15,7 +15,7 @@
 import screenshot from './compare/plugins/screenshot.js';
 import lighthouse from './compare/plugins/lighthouse.js';
 import { compare } from './compare/index.js';
-import { getStdOutFrom } from './compare/process.js';
+import { getStdOutFrom } from './process.js';
 import * as path from 'path';
 import { cwd } from 'process';
 import pagelist from './pagelist.js';
@@ -78,7 +78,7 @@ function makeInputs(routes, domain, repoName, currentOwner, currentBranch, baseO
 
   const input = makeInputs(pagelist, domain, repoName, currentOwner, currentBranch, baseOwner, baseBranch);
 
-  console.log('input: ', input);
+  // console.debug(`===== Input ===== \n ${JSON.stringify(input, undefined, 2)} \n ================`)
 
   /** @type {import('./compare/index.js').CompareOptions} */
   const compareOptions = {

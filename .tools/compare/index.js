@@ -41,7 +41,7 @@ async function prepOutputDir(rootDir, input, plugins) {
 
   Object.keys(input).reduce((proms, page) => {
       return proms.concat(plugins.map((p) => {
-        mkdir(`${rootDir}/${page}/${p.name}`, { recursive: true })
+        mkdir(path.resolve(rootDir, page, p.name), { recursive: true })
       }));
     }, collector);
     return Promise.all(collector);

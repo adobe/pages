@@ -34,7 +34,7 @@ export interface ComparePlugin extends ComparePluginHooks {
   startTime: string;
   name: string;
   rootDir: string;
-  emitFile(filename: string, data: Buffer | string): Promise<void>;
+  emitFile(filename: string, data: Buffer | string | string[]): Promise<void>;
   log(...msgs: any[]): void;
   debug(...msgs: any[]): void;
   error(...msgs: any[]): void;
