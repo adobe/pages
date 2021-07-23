@@ -250,7 +250,7 @@ async function fetchSteps() {
       
       html += `
       <div class="skill">
-        <img src="/static/spectrum-icons-dark/${skill.icon}.svg">
+        <img src="/static/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
   
       </div>`;
