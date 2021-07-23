@@ -12,21 +12,21 @@
 
 // @ts-check
 
-import { exec } from 'node:child_process';
-
 /**
- * Get stdout produced from executing some command.
- * 
- * @param {string} cmd Command to execute
+ * List of paths to check.
+ * For now this is manually collected.
  */
-export function getStdOutFrom(cmd) {
-
-  return new Promise((resolve, reject) => {
-    exec(cmd, (err, stdout, stderr) => {
-      if(err) {
-        reject(`Error executing command: ${cmd} \n ${err} \n ${stderr}`);
-      }
-      resolve(stdout ? stdout.trim() : '');
-    });
-  });
-}
+export default [
+  '/creativecloud/en/ete/how-adobe-apps-work-together/',
+  '/illustrator/en/tl/thr-layout-home/',
+  '/stock/en/advocates/',
+  '/stock/en/advocates/artist-development-fund',
+  '/stock/en/advocates/celebration-of-self',
+  '/premiere/en/speechtotext/',
+  '/general/en/inclusive/feedback/',
+  '/photoshop/en/feedback',
+  '/character/en/body-tracker',
+  '/ihearttech/en/',
+  '/lightroom/en/wg/feedback-wg',
+  '/photoshop/en/prerelease-api/'
+]

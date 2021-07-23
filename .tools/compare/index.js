@@ -1,82 +1,103 @@
-// @ts-check
-
-/**
- * Simple script to compare each page in pagelist.js
- * between currently checked out branch and BASE_BRANCH
- * and save some output to the directory `/.comparisons/${now}/${step}/`
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 
-import pagelist from './pagelist.js';
-import { getStdOutFrom } from './process.js';
-import { Ctx } from './context.js';
+// @ts-check
+
 import { mkdir } from 'fs/promises';
 import * as path from 'path';
 import { cwd } from 'process';
-
-// TODO: could be parameterized
-const DOMAIN = 'hlx.page';
-// branch to compare current branch to
-const BASE_BRANCH = 'master';
-// root directory of output
-const ROOT_DIR = '.comparisons';
-// steps to run
-const STEPS = ['screenshot'];
-
+import { Lifecycle } from './plugins/Lifecycle.js';
 
 /**
- * Log error
- * 
- * @param {import('./context.js').Context} ctx
- * @param {any} err
+ * Aliases
+ * @typedef {import('./index').ComparePlugin} Plugin
+ * @typedef {import('./index').CompareOptions} Options
+ * @typedef {import('./index').CompareInput} Input
+ * @typedef {import('./plugins/plugin').PluginContext} PluginContext
  */
-function logError(ctx, err) {
-  console.error(`Error in ${ctx.step}: \n ${err} \n\n ${err.stack}`);
-}
 
 /**
  * Make output directory if not exist
  * Make subdirectory for current run if not exist
  * Make subdirectory for each step if not exist
  * 
- * @param {string} now - datetime string
- * @param {string[]} steps - steps to make subdirs for
- * @returns {Promise<any[]>}
+ * @param {string} rootDir - Output root, resolved to absolute
+ * @param {Input} input - Input object
  */
-async function prepOutputDir(rootDir, now, steps) {
-  await mkdir(`${rootDir}/${now}`, {recursive: true});
-  return Promise.all(steps.map((s) => mkdir(`${rootDir}/${now}/${s}`)));
+async function prepOutputDir(rootDir, input, plugins) {
+  await mkdir(rootDir, {recursive: true});
+
+  /** @type {Promise<void>[]} */
+  const collector = [];
+
+  Object.keys(input).reduce((proms, page) => {
+      return proms.concat(plugins.map((p) => {
+        mkdir(`${rootDir}/${page}/${p.name}`, { recursive: true })
+      }));
+    }, collector);
+    return Promise.all(collector);
 }
 
+/**
+ * Main tool entrypoint.
+ * 
+ * @example
+ * ```
+ * await compare({
+ *   plugins: [
+ *     lighthouse({
+ *       output: 'html'
+ *     })
+ *   ],
+ *   input: {
+ *     home: {
+ *       base: 'https://example.com/home',
+ *       source: 'https://localhost:1337/home'
+ *     },
+ *     blog: {
+ *       prod: 'https://example.com/blog',
+ *       stage: 'https://example-stage.com/blog',
+ *       dev: 'https://localhost:1337/blog'
+ *     }
+ *   },
+ *   output: {
+ *     root: './.compare'
+ *   }
+ * });
+ * 
+ * // output tree
+ * ./.compare
+ * ├── blog
+ * │   └── lighthouse
+ * │       ├── base.html
+ * │       └── source.html
+ * └── home
+ *     └── lighthouse
+ *         ├── dev.html
+ *         ├── prod.html
+ *         └── stage.html
+ * ```
+ * 
+ * @param {Options} options 
+ */
+export async function compare(options) {
+  const { output, input, plugins } = options;
+  const rootDir = path.resolve(cwd(), output.root);
 
-(async () => {
-  const now = new Date().toISOString();
+  await prepOutputDir(rootDir, input, plugins);
 
-  // TODO: parameterize things
-  const steps = STEPS;
-  const domain = DOMAIN;
-  const baseOwner = 'adobe';
-  const baseBranch = BASE_BRANCH;
-  const repoName = 'pages';
-  const rootDir = path.resolve(cwd(), ROOT_DIR);
-
-  // TODO: parse current branch and owner from the .git directory
-  const currentOwner = 'adobe';
-  const currentBranch = await getStdOutFrom('git branch --show-current');
-
-  const ctx = Ctx(steps, now, rootDir, domain, repoName, baseOwner, baseBranch, currentOwner, currentBranch);
-
-  await prepOutputDir(rootDir, now, steps);
-
-  const proms = steps.map(async (stepName) => {
-    const step = await import(`./${stepName}.js`);
-    const stepCtx = ctx.withStep(stepName);
-
-    return Promise.all(
-      pagelist.map(pagePath => {
-        return step.default(stepCtx, pagePath).catch((e) => logError(stepCtx, e));
-      })
-    );
-  });
-
-  await Promise.all(proms);
-})();
+  // TODO: create puppeteer browser here, pass thru context via lifecycle
+  const lifecycle = new Lifecycle(options, rootDir);
+  for(let hook of Lifecycle.hooks) {
+    await lifecycle.executeHook(hook, options);
+  }
+};
