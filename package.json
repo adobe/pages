@@ -13,6 +13,9 @@
   "keywords": [
     "helix"
   ],
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || ^15.14.0 || >=16.0.0"
+  },
   "author": "Adobe",
   "license": "Apache-2.0",
   "bugs": {
