@@ -18,13 +18,5 @@
  * In order for that to occur, use a default export in a js file.
  *
  * @example
- * ```js
- * // <REPO_ROOT>/pages/blocks/my-cool-block/my-cool-block.js
- *
- * \/** @type {import('../block.js').BlockDecorator} *\/
- * export default function decorate(blockEl, blockName, document) {
- *   blockEl.innerHtml = "<div>Very cool</div>";
- * }
- * ```
  */
 export type BlockDecorator = (blockEl: HTMLElement, blockName: string, document: Document) => any;
