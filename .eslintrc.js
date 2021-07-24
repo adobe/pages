@@ -10,17 +10,30 @@
  * governing permissions and limitations under the License.
  */
 
-const imageTypeChecker = () => {
-  const rows = document.querySelectorAll('.list > div');
-  rows.forEach(($row) => {
-    const imageColumn = $row.querySelector('div:first-of-type');
-    if (imageColumn.firstChild.nodeName.toUpperCase() !== 'PICTURE') {
-      const iconType = imageColumn.innerText;
-      imageColumn.innerHTML = `
-        <img src="../../static/${iconType}.svg">
-      `;
-    }
-  });
+module.exports = {
+  root: true,
+  extends: '@adobe/helix',
+  env: {
+    browser: true,
+  },
+  rules: {
+    // allow reassigning param
+    'no-param-reassign': [2, { props: false }],
+    'linebreak-style': ['error', 'unix'],
+    'import/extensions': ['error', {
+      js: 'always',
+    }],
+    'prefer-destructuring': ['error', {
+      array: false,
+      object: true,
+    }, {
+      enforceForRenamedProperties: false,
+    }],
+  },
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    allowImportExportEverywhere: true,
+    sourceType: 'module',
+    requireConfigFile: false,
+  },
 };
-
-imageTypeChecker();
