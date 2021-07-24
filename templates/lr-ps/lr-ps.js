@@ -10,27 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   debounce,
-//   decorateTables,
-//   externalLinks,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/*
-global
-  addDefaultClass,
-  appearMain,
-  classify,
-  createTag,
-  debounce,
-  decorateTables,
-  externalLinks,
-  loadLocalHeader
-*/
+/* global createTag classify debounce addDefaultClass decorateTables loadLocalHeader
+appearMain externalLinks */
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -80,7 +61,7 @@ async function insertSteps() {
       addToCategory += `<div class="card" onclick="window.location='step?${
         i + 1
       }'">
-                <div class='img' style="background-image: url(../../../../static/ete/hero-posters/${getThumbnail(
+                <div class='img' style="background-image: url(../../../../static/lr-ps/hero-posters/${getThumbnail(
     step,
   )})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
@@ -102,14 +83,6 @@ async function insertSteps() {
                   </svg>
                 </div>
                 <div class='text'>
-                    <div class="icons">
-                      <div class="icons__item">
-                        <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
-                      </div>
-                      <div class="icons__item">
-                        <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
-                      </div>
-                    </div>
                     <div class="card-content"> 
                       <h4>${step.Title}</h4>
                       <p>${step.Description}</p>
@@ -170,7 +143,8 @@ function dropDownMenu() {
   }
 }
 
-function playVideo() {
+// eslint-disable-next-line import/prefer-default-export
+export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
   const $video = document.getElementById('video');
   $video.classList.remove('hidden');
@@ -196,7 +170,7 @@ async function decorateStep() {
   const currentStep = steps[stepIndex];
 
   $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`;
-  $video.setAttribute('data-bg', `/static/ete/hero-posters/${currentStep.Thumbnail}`);
+  $video.setAttribute('data-bg', `/static/lr-ps/hero-posters/${currentStep.Thumbnail}`);
 
   // fill content section
 
@@ -249,7 +223,7 @@ async function decorateStep() {
         <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
-    $video.firstChild.style.backgroundImage = `url(../../../../static/ete/hero-posters/${currentStep.Thumbnail})`;
+    $video.firstChild.style.backgroundImage = `url(../../../../static/lr-ps/hero-posters/${currentStep.Thumbnail})`;
     $video.firstChild.addEventListener('click', () => playVideo());
   }
 
@@ -286,7 +260,7 @@ async function decorateStep() {
   skills.forEach((skill) => {
     html += `
       <div class="skill">
-        <img src="/static/you-will-learn/${skill.icon}.svg">
+        <img src="/static/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
   
       </div>`;
@@ -319,7 +293,6 @@ function cardHeightEqualizer($el) {
   const element = document.querySelectorAll($el);
 
   if (window.innerWidth >= 700 && element.length > 1) {
-    // TODO: remove these repeated loops?
     element.forEach((cardEl) => {
       cardEl.style.height = 'auto';
     });
@@ -339,11 +312,6 @@ function cardHeightEqualizer($el) {
     });
   }
 }
-
-window.addEventListener('resize', debounce(() => {
-  // run resize events
-  cardHeightEqualizer('.card-content');
-}, 250));
 
 function cleanUpBio() {
   if (!document.querySelector('.about-bio')) return;
@@ -419,12 +387,15 @@ async function decoratePage() {
   cardHeightEqualizer('.card-content');
 }
 
+window.addEventListener('resize', debounce(() => {
+  // run resize events
+  cardHeightEqualizer('.card-content');
+}, 250));
+
 if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
+  window.addEventListener('DOMContentLoaded', () => {
+    decoratePage();
+  });
 } else {
   decoratePage();
 }
-
-// function toClassName(name) {
-//   return name.toLowerCase().replace(/[^0-9a-z]/gi, '-');
-// }
