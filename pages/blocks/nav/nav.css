@@ -1,0 +1,189 @@
+.nav .nav__section:first-of-type {
+	display: inline-flex;
+	align-items: center;
+	line-height: 0px;
+	padding: 1em 0em;
+	justify-content: center;
+	cursor: pointer;
+}
+
+header > div {
+	display: block !important;
+}
+
+.nav-showing header ul {
+	display: block;
+}
+
+.nav .nav__section:first-of-type div {
+	display: flex;
+	align-items: center;
+	line-height: 0px;
+	justify-content: center;
+	color: #444;
+	text-decoration: none;
+}
+
+.nav nav li:hover {
+	background: none;
+}
+
+.nav img {
+	width: 36px;
+	height: 36px;
+}
+
+.app-icon.desktop {
+	display: none !important;
+}
+
+.app-name {
+	font-size: 15px;
+	font-weight: 700;
+	margin-left: 8px;
+	user-select: none;
+}
+
+.app-name.desktop {
+	display: none !important;
+}
+
+.app-name.desktop a {
+	color: #2c2c2c !important;
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: 800;
+}
+
+.menu-carrot {
+	width: 16px;
+	margin-left: 8px;
+}
+
+.nav-showing .nav {
+	background: #F5F5F5;
+}
+
+.nav-showing .nav nav {
+	display: block;
+}
+
+.nav nav {
+	padding-bottom: 1em;
+	display: none;
+}
+
+.nav nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+}
+
+.nav nav li {
+	margin-top: 0em;
+	padding: 0;
+	margin-bottom: 1em;
+}
+
+.nav nav li:last-of-type {
+	margin-bottom: 0em !important;
+}
+
+.nav nav a {
+	color: #2c2c2c;
+	font-weight: 800;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+@media (min-width: 768px) {
+	.nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1em 0em;
+		background: none !important;
+	}
+	.app-name.mobile {
+		display: none !important;
+	}
+	.app-name.desktop {
+		display: block !important;
+	}
+	.app-icon.desktop {
+		display: block !important;
+	}
+
+	.app-icon.mobile {
+		display: none !important;
+	}
+
+	.mobile-home {
+		display: none;
+	}
+
+	.nav .nav__section:first-of-type {
+		display: inline-flex;
+		align-items: center;
+		line-height: 0px;
+		padding: 0em 0em;
+		justify-content: center;
+	}
+
+	.nav .nav__section:first-of-type div {
+		display: flex;
+		align-items: center;
+		line-height: 0px;
+		justify-content: center;
+		color: #444;
+		text-decoration: none;
+	}
+
+	.nav img {
+		width: 36px;
+		height: 36px;
+	}
+
+	.app-name {
+		font-size: 15px;
+		font-weight: 700;
+		margin-left: 8px;
+	}
+
+	.menu-carrot {
+		display: none !important;
+	}
+
+	.nav-showing .nav nav {
+		display: block;
+	}
+
+	.nav nav {
+		padding-bottom: 0em;
+		margin-left: 32px;
+		display: block !important;
+	}
+
+	.nav nav ul {
+		display: flex;
+		font-size: 16px;
+	}
+
+	.nav nav li {
+		margin-bottom: 0em;
+		margin-right: 0 !important;
+	}
+
+	.nav nav li:last-of-type {
+		margin-right: 0px;
+	}
+
+	.nav nav a {
+		padding: 16px 24px;
+	}
+
+	.nav nav a:hover {
+		background: #F5F5F5;
+	}
+}
