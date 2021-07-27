@@ -18,6 +18,7 @@ module.exports = {
   },
   ignorePatterns: [
     '**/node_modules/**',
+    '!.tools/',
   ],
   rules: {
     // allow reassigning param
