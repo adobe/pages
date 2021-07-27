@@ -12,6 +12,12 @@
 
 /* eslint-disable no-console */
 
+import { initializeNamespaces, emit } from './namespace.js';
+
+/**
+ * Add dependency urls that should be published with Sidekick.
+ * @param {string | string[]} url
+ */
 export function addPublishDependencies(url) {
   if (!Array.isArray(url)) {
     // eslint-disable-next-line no-param-reassign
@@ -25,12 +31,79 @@ export function addPublishDependencies(url) {
   }
 }
 
-export function toClassName(name) {
-  return name && typeof name === 'string'
-    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
-    : '';
+/**
+ * Get debounced version of function.
+ *
+ * @param {Function} func Function to call
+ * @param {number} wait Wait
+ * @param {boolean} immediate Immedaite
+ * @returns {Function}
+ */
+export function debounce(func, wait, immediate) {
+  let timeout;
+  return function debounced(...args) {
+    const later = () => {
+      timeout = null;
+      if (!immediate) func.apply(this, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(this, args);
+  };
 }
 
+/**
+ * Add `default` to classList of elements matching selector
+ * @param {string} element selector
+ */
+export function addDefaultClass(element) {
+  document.querySelectorAll(element).forEach(($div) => {
+    $div.classList.add('default');
+  });
+}
+
+/**
+ * Fetch and inject JS payload
+ * @param {string} href path
+ */
+export function loadJSModule(href) {
+  emit('preLoadJs', { href });
+  const module = document.createElement('script');
+  module.setAttribute('type', 'module');
+  module.setAttribute('src', href);
+  document.head.appendChild(module);
+}
+
+// TODO: dedupe this with default.js
+/**
+ * setWidths
+ */
+export function setWidths() {
+  const sections = document.querySelectorAll('main .default');
+  sections.forEach((section) => {
+    const children = section.childNodes;
+    children.forEach((child) => {
+      if (child.innerHTML != null) {
+        if (child.innerHTML.includes('[!')) {
+          const width = child.innerHTML.split('[!')[1].split(']')[0];
+          const cleanUpText = child.innerHTML.split('[!')[0];
+          child.innerHTML = cleanUpText;
+          child.style.maxWidth = `${width}px`;
+          child.style.marginLeft = 'auto';
+          child.style.marginRight = 'auto';
+        }
+      }
+    });
+  });
+}
+
+/**
+ * Creates a tag with the given name and attributes.
+ * @param {string} name The tag name
+ * @param {Record<string,string>} attrs An object containing the attributes
+ * @returns The new tag
+ */
 export function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
@@ -41,382 +114,213 @@ export function createTag(name, attrs) {
   return el;
 }
 
-function getMeta(name) {
-  let value = '';
-  const nameLower = name.toLowerCase();
-  const $metas = [...document.querySelectorAll('meta')].filter(($m) => {
-    const nameAttr = $m.getAttribute('name');
-    const propertyAttr = $m.getAttribute('property');
-    return ((nameAttr && nameLower === nameAttr.toLowerCase())
-    || (propertyAttr && nameLower === propertyAttr.toLowerCase()));
-  });
-  if ($metas[0]) value = $metas[0].getAttribute('content');
-  return value;
-}
-
-export function getIcon(icon, alt = icon) {
-  const symbols = ['adobe', 'adobe-red', 'facebook', 'instagram', 'pinterest',
-    'linkedin', 'twitter', 'youtube', 'discord', 'behance',
-    'hamburger', 'adchoices', 'play', 'not-found', 'snapchat', 'learn', 'magicwand',
-    'upload', 'resize', 'download', 'creativecloud', 'shapes', 'users', 'color', 'stickers', 'landscape',
-    'globe', 'chevron'];
-  if (symbols.includes(icon)) {
-    return `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-${icon}">
-      <use href="/express/icons.svg#${icon}"></use>
-    </svg>`;
-  } else {
-    return (`<img class="icon icon-${icon}" src="/express/icons/${icon}.svg" alt="${alt}">`);
+/**
+ * insertLocalResource
+ * @param {string} type
+ */
+export async function insertLocalResource(type) {
+  let url = '';
+  if (window.pages.product && window.pages.locale) {
+    url = `/${window.pages.product}/${window.pages.locale}/${type}.plain.html`;
   }
-}
 
-export function getIconElement(icon) {
-  const $div = createTag('div');
-  $div.innerHTML = getIcon(icon);
-  return ($div.firstChild);
-}
+  if (window.pages.product && window.pages.project) {
+    url = `/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${type}.plain.html`;
+  }
 
-export function linkPicture($picture) {
-  const $nextSib = $picture.parentNode.nextElementSibling;
-  if ($nextSib) {
-    const $a = $nextSib.querySelector('a');
-    if ($a && $a.textContent.startsWith('https://')) {
-      $a.innerHTML = '';
-      $a.className = '';
-      $a.appendChild($picture);
+  if (url) {
+    window.hlx.dependencies.push(url);
+    const resp = await fetch(url);
+    if (resp.status === 200) {
+      const html = await resp.text();
+      const inner = `<div> ${html} </div>`;
+      document.querySelector(type).innerHTML = inner;
     }
   }
+
+  // temporary icon fix
+  document.querySelector(type).classList.add('appear');
 }
 
-export function linkImage($elem) {
-  const $a = $elem.querySelector('a');
-  if ($a) {
-    const $parent = $a.closest('div');
-    $a.remove();
-    $a.className = '';
-    $a.innerHTML = '';
-    $a.append(...$parent.childNodes);
-    $parent.append($a);
-  }
-}
+/**
+ * Link out to external links.
+ * Called inside decoratePage() twp3.js
+ *
+ * @param {string} selector
+ */
+export function externalLinks(selector) {
+  emit('externalLinks', { selector });
 
-function wrapSections($sections) {
-  $sections.forEach(($div) => {
-    if (!$div.id) {
-      const $wrapper = createTag('div', { class: 'section-wrapper' });
-      $div.parentNode.appendChild($wrapper);
-      $wrapper.appendChild($div);
+  const element = document.querySelector(selector);
+  if (!element) return;
+
+  const links = element.querySelectorAll('a[href]');
+
+  links.forEach((linkItem) => {
+    const linkValue = linkItem.getAttribute('href');
+
+    if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
+      linkItem.setAttribute('target', '_blank');
     }
   });
 }
 
-export function getLocale(url) {
-  const locale = url.pathname.split('/')[1];
-  if (/^[a-z]{2}$/.test(locale)) {
-    return locale;
-  }
-  return 'us';
-}
-
-function getCookie(cname) {
-  const name = `${cname}=`;
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(';');
-  for (let i = 0; i < ca.length; i += 1) {
-    let c = ca[i];
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1);
+/**
+ * Externalize image sources contained within some element
+ * @param {HTMLElement} $div element
+ */
+export function externalizeImageSources($div) {
+  $div.querySelectorAll('img').forEach(($img) => {
+    const { src } = $img;
+    if (src.startsWith('https://hlx.blob.core.windows.net/external/')) {
+      const url = new URL(src);
+      const id = url.pathname.split('/')[2];
+      const ext = url.hash.split('.')[1];
+      $img.src = `/hlx_${id}.${ext}`;
     }
-    if (c.indexOf(name) === 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return '';
+  });
 }
 
-function getCountry() {
-  let country = getCookie('international');
-  if (!country) {
-    country = getLocale(window.location);
-  }
-  if (country === 'uk') country = 'gb';
-  return (country.split('_')[0]);
+/**
+ * Create class name from string.
+ *
+ * @param {string} name
+ * @returns {string}
+ */
+export function toClassName(name) {
+  return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
 }
 
-export function getCurrency(locale) {
-  const loc = locale || getCountry();
-  const currencies = {
-    ar: 'ARS',
-    at: 'EUR',
-    au: 'AUD',
-    be: 'EUR',
-    bg: 'EUR',
-    br: 'BRL',
-    ca: 'CAD',
-    ch: 'CHF',
-    cl: 'CLP',
-    co: 'COP',
-    cr: 'USD',
-    cy: 'EUR',
-    cz: 'EUR',
-    de: 'EUR',
-    dk: 'DKK',
-    ec: 'USD',
-    ee: 'EUR',
-    es: 'EUR',
-    fi: 'EUR',
-    fr: 'EUR',
-    gb: 'GBP',
-    gr: 'EUR',
-    gt: 'USD',
-    hk: 'HKD',
-    hu: 'EUR',
-    id: 'IDR',
-    ie: 'EUR',
-    il: 'ILS',
-    in: 'INR',
-    it: 'EUR',
-    jp: 'JPY',
-    kr: 'KRW',
-    lt: 'EUR',
-    lu: 'EUR',
-    lv: 'EUR',
-    mt: 'EUR',
-    mx: 'MXN',
-    my: 'MYR',
-    nl: 'EUR',
-    no: 'NOK',
-    nz: 'AUD',
-    pe: 'PEN',
-    ph: 'PHP',
-    pl: 'EUR',
-    pt: 'EUR',
-    ro: 'EUR',
-    ru: 'RUB',
-    se: 'SEK',
-    sg: 'SGD',
-    si: 'EUR',
-    sk: 'EUR',
-    th: 'THB',
-    tw: 'TWD',
-    us: 'USD',
-    ve: 'USD',
-    za: 'USD',
-    ae: 'USD',
-    bh: 'BHD',
-    eg: 'EGP',
-    jo: 'JOD',
-    kw: 'KWD',
-    om: 'OMR',
-    qa: 'USD',
-    sa: 'SAR',
-    ua: 'USD',
-    dz: 'USD',
-    lb: 'LBP',
-    ma: 'USD',
-    tn: 'USD',
-    ye: 'USD',
-    am: 'USD',
-    az: 'USD',
-    ge: 'USD',
-    md: 'USD',
-    tm: 'USD',
-    by: 'USD',
-    kz: 'USD',
-    kg: 'USD',
-    tj: 'USD',
-    uz: 'USD',
-    bo: 'USD',
-    do: 'USD',
-    hr: 'EUR',
-    ke: 'USD',
-    lk: 'USD',
-    mo: 'HKD',
-    mu: 'USD',
-    ng: 'USD',
-    pa: 'USD',
-    py: 'USD',
-    sv: 'USD',
-    tt: 'USD',
-    uy: 'USD',
-    vn: 'USD',
-  };
-  return currencies[loc];
-}
-
-export function getLanguage(locale) {
-  const langs = {
-    us: 'en-US',
-    fr: 'fr-FR',
-    de: 'de-DE',
-    it: 'it-IT',
-    dk: 'da-DK',
-    es: 'es-ES',
-    fi: 'fi-FI',
-    jp: 'ja-JP',
-    kr: 'ko-KR',
-    no: 'nb-NO',
-    nl: 'nl-NL',
-    br: 'pt-BR',
-    se: 'sv-SE',
-    tw: 'zh-Hant-TW',
-    cn: 'zh-Hans-CN',
-  };
-
-  let language = langs[locale];
-  if (!language) language = 'en-US';
-
-  return language;
-}
-
-export function formatPrice(price, currency) {
-  return new Intl.NumberFormat(navigator.lang, { style: 'currency', currency })
-    .format(price);
-}
-
-export async function getOffer(offerId, countryOverride) {
-  let country = getCountry();
-  if (countryOverride) country = countryOverride;
-  console.log(country);
-  if (!country) country = 'us';
-  let currency = getCurrency(country);
-  if (!currency) {
-    country = 'us';
-    currency = 'USD';
-  }
-  const resp = await fetch('/express/system/offers.json');
-  const json = await resp.json();
-  const upperCountry = country.toUpperCase();
-  let offer = json.data.find((e) => (e.o === offerId) && (e.c === upperCountry));
-  if (!offer) offer = json.data.find((e) => (e.o === offerId) && (e.c === 'US'));
-
-  if (offer) {
-    const lang = getLanguage(getLocale(window.location)).split('-')[0];
-    const unitPrice = offer.p;
-    const unitPriceCurrencyFormatted = formatPrice(unitPrice, currency);
-    const commerceURL = `https://commerce.adobe.com/checkout?cli=spark&co=${country}&items%5B0%5D%5Bid%5D=${offerId}&items%5B0%5D%5Bcs%5D=0&rUrl=https%3A%2F%express.adobe.com%2Fsp%2F&lang=${lang}`;
-    return {
-      country, currency, unitPrice, unitPriceCurrencyFormatted, commerceURL, lang,
-    };
-  }
-  return {};
-}
-
-export function addBlockClasses($block, classNames) {
-  const $rows = Array.from($block.children);
-  $rows.forEach(($row) => {
-    classNames.forEach((className, i) => {
-      $row.children[i].className = className;
+// TODO: dedupe with in-app.js, max.js, learn.js, tutorials.js
+/**
+ * Convert table section into cards.
+ *
+ * @param {HTMLElement} $table element
+ * @param {string[]} cols
+ * @returns {HTMLElement}
+ */
+export function turnTableSectionIntoCards($table, cols) {
+  const $rows = $table.querySelectorAll('tbody tr');
+  const $cards = createTag('div', { class: `cards ${cols.join('-')}` });
+  $rows.forEach(($tr) => {
+    const $card = createTag('div', { class: 'card' });
+    $tr.querySelectorAll('td').forEach(($td, i) => {
+      const $div = createTag('div', { class: cols[i] });
+      const $a = $td.querySelector('a[href]');
+      if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
+        const yturl = new URL($a.getAttribute('href'));
+        const vid = yturl.searchParams.get('v');
+        $div.innerHTML = `<div class="video-thumb" style="background-image:url(https://img.youtube.com/vi/${vid}/0.jpg)"><svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+              <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                  <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                  <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+              </g>
+              </svg>
+              </div>`;
+        $div.addEventListener('click', () => {
+          $div.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+        });
+      } else {
+        $div.innerHTML = $td.innerHTML;
+        $div.childNodes.forEach(($child) => {
+          if ($child.nodeName === '#text') {
+            const $p = createTag('p');
+            $p.innerHTML = $child.nodeValue;
+            $child.parentElement.replaceChild($p, $child);
+          }
+        });
+      }
+      $card.append($div);
     });
+    $cards.append($card);
   });
+  return ($cards);
 }
 
-// function addDivClasses($element, selector, classes) {
-//   const $children = $element.querySelectorAll(selector);
-//   $children.forEach(($div, i) => {
-//     $div.classList.add(classes[i]);
-//   });
-// }
+// TODO: dedupe with in-app.js, max.js,
+//    templates/default.js, learn.js, on24.js,
+//    stock-advocates.js, tutorials.js, xd.js
+/**
+ * Decorate tables
+ */
+export function decorateTables() {
+  document.querySelectorAll('main div>table').forEach(($table) => {
+    const $cols = $table.querySelectorAll('thead tr th');
+    const cols = Array.from($cols).map((e) => toClassName(e.innerHTML));
+    const $rows = $table.querySelectorAll('tbody tr');
+    let $div = {};
 
-function getGnavPlaceholder(nav) {
-  let html = `<div id="feds-header">
-    </div>
-    <div id="header-placeholder" class="placeholder">
-    <div class="mobile">
-      <div class="hamburger"></div>
-      <div class="logo"><img src="/express/gnav-placeholder/adobe-logo.svg"></div>
-      <div class="signin"><a href="${nav.signInLink}">${nav.signIn}</a></div>
-    </div>
-    <div class="desktop">
-      <div class="top">
-        <div class="left">
-          <div class="logo"><img src="/express/gnav-placeholder/adobe-logo.svg"><span class="adobe">Adobe</span></div>
-          <div class="section">`;
-
-  nav.top.forEach((e) => {
-    const selected = e.selected ? 'selected' : '';
-    if (e.type === 'nodrop') {
-      html += `<span class="${selected}">${e.text}</span>`;
-    } else if (e.type === 'button') {
-      html += `<span><a href="#" class="button primary">${e.text}</a></span>`;
+    if (cols.length === 1 && $rows.length === 1) {
+      $div = createTag('div', { class: `${cols[0]}` });
+      $div.innerHTML = $rows[0].querySelector('td').innerHTML;
+      externalizeImageSources($div);
     } else {
-      html += `<span class="drop ${selected}">${e.text}</span>`;
+      $div = turnTableSectionIntoCards($table, cols);
     }
+    $table.parentNode.replaceChild($div, $table);
   });
-
-  html += `</div>
-        </div>
-        <div class="right">
-          <div class="search"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" focusable="false">
-          <path d="M14 2A8 8 0 0 0 7.4 14.5L2.4 19.4a1.5 1.5 0 0 0 2.1 2.1L9.5 16.6A8 8 0 1 0 14 2Zm0 14.1A6.1 6.1 0 1 1 20.1 10 6.1 6.1 0 0 1 14 16.1Z"></path>
-      </svg></div>
-          <div class="signin"><a href="${nav.signInLink}">${nav.signIn}</a></div>
-        </div>
-      </div>
-    </div>`;
-  return (html);
 }
 
-function decorateHeaderAndFooter() {
-  const $header = document.querySelector('header');
-
-  $header.addEventListener('click', (event) => {
-    if (event.target.id === 'feds-topnav') {
-      const root = window.location.href.split('/express/')[0];
-      window.location.href = `${root}/express/`;
-    }
-  });
-
-  /* init header */
-  const locale = getLocale(window.location);
-
-  if (locale === 'us') {
-    const nav = {
-      signIn: 'Sign In',
-      signInLink: 'https://express.adobe.com/sp/',
-      top: [
-        {
-          text: 'Adobe Creative Cloud Express',
-          type: 'nodrop',
-        },
-        {
-          text: 'Features',
-        },
-        {
-          text: 'Create',
-        },
-        {
-          text: 'Learn',
-        },
-        {
-          text: 'Compare plans',
-          type: 'nodrop',
-        },
-        {
-          text: 'Start now',
-          type: 'button',
-        },
-      ],
-    };
-    if (window.location.pathname === '/express/') nav.top[0].selected = true;
-    if (window.location.pathname.startsWith('/express/feature')) nav.top[1].selected = true;
-    if (window.location.pathname.startsWith('/express/create')) nav.top[2].selected = true;
-    // if (window.location.pathname.startsWith('/express/discover')) nav.top[3].selected = true;
-    if (window.location.pathname.startsWith('/express/learn')) nav.top[3].selected = true;
-    if (window.location.pathname.startsWith('/express/pricing')) nav.top[4].selected = true;
-    const html = getGnavPlaceholder(nav);
-    $header.innerHTML = html;
-  } else {
-    $header.innerHTML = getGnavPlaceholder({
-      signIn: 'Sign In',
-      signInLink: 'https://express.adobe.com/sp/',
-      top: [],
+// TODO: dedupe with stock-advocates.js, tutorials.js
+/**
+ * Load localized header
+ */
+export async function loadLocalHeader() {
+  decorateTables();
+  const $inlineHeader = document.querySelector('main div.header-block');
+  console.log('inlineHeader: ', document, $inlineHeader);
+  if ($inlineHeader) {
+    const $header = document.querySelector('header');
+    $inlineHeader.childNodes.forEach((e, i) => {
+      // in a document, using uppercase and strict equal checks
+      if (e.nodeName === 'DIV' && !i) {
+        const $p = createTag('div');
+        const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
+        $p.innerHTML = inner;
+        e.parentNode.replaceChild($p, e);
+      }
+      if (e.nodeName === 'P' && !i) {
+        const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
+        e.innerHTML = inner;
+      }
     });
+    $header.innerHTML = `<div>${$inlineHeader.innerHTML}</div>`;
+    $inlineHeader.remove();
+    document.querySelector('header').classList.add('appear');
+  } else {
+    await insertLocalResource('header');
   }
+}
 
-  document.querySelector('footer').innerHTML = `
-    <div id="feds-footer"></div>
-    <div class="evidon-notice-link"></div>
-  `;
+/**
+ * adds a class to an element.
+ * @param {string} qs querySelector string
+ * @param {string} cls css class to be added
+ * @param {number} parent uplevel
+ */
+export function classify(qs, cls, parent) {
+  document.querySelectorAll(qs).forEach(($e) => {
+    let $root = $e;
+    for (let p = parent; p > 0; p -= 1) {
+      $root = $root.parentNode;
+    }
+    $root.classList.add(cls);
+  });
+}
+
+/**
+ * Checks if <main> is ready to appear
+ */
+export function appearMain() {
+  if (window.pages.familyCssLoaded && window.pages.decorated) {
+    const pathSplits = window.location.pathname.split('/');
+    const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
+    const p = window.pages;
+    const classes = [p.product, p.family, p.project, pageName].filter((c) => !!c);
+    document.body.classList.add(...classes);
+    classify('main', 'appear');
+    emit('mainVisible');
+  }
 }
 
 /**
@@ -424,54 +328,21 @@ function decorateHeaderAndFooter() {
  * @param {string} href The path to the CSS file
  */
 export function loadCSS(href) {
-  if (!document.querySelector(`head > link[href="${href}"]`)) {
-    const link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', href);
-    link.onload = () => {
-    };
-    link.onerror = () => {
-    };
-    document.head.appendChild(link);
-  }
-}
+  emit('preLoadCss', { href });
 
-function resolveFragments() {
-  Array.from(document.querySelectorAll('main > div div'))
-    .filter(($cell) => $cell.childElementCount === 0)
-    .filter(($cell) => /^\[[A-Za-z0-9 -_—]+\]$/mg.test($cell.textContent))
-    .forEach(($cell) => {
-      const marker = $cell.textContent
-        .substring(1, $cell.textContent.length - 1)
-        .toLocaleLowerCase()
-        .trim();
-      // find the fragment with the marker
-      const $marker = Array.from(document.querySelectorAll('main > div h3'))
-        .find(($title) => $title.textContent.toLocaleLowerCase() === marker);
-      if (!$marker) {
-        console.log(`no fragment with marker "${marker}" found`);
-        return;
-      }
-      let $fragment = $marker.closest('main > div');
-      const $markerContainer = $marker.parentNode;
-      if ($markerContainer.children.length === 1) {
-        // empty section with marker, remove and use content from next section
-        const $emptyFragment = $markerContainer.parentNode;
-        $fragment = $emptyFragment.nextElementSibling;
-        $emptyFragment.remove();
-      }
-      if (!$fragment) {
-        console.log(`no content found for fragment "${marker}"`);
-        return;
-      }
-      setTimeout(() => {
-        $cell.innerHTML = '';
-        Array.from($fragment.children).forEach(($elem) => $cell.appendChild($elem));
-        $marker.remove();
-        $fragment.remove();
-        console.log(`fragment "${marker}" resolved`);
-      }, 500);
-    });
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.setAttribute('href', href);
+  link.onload = () => {
+    window.pages.familyCssLoaded = true;
+    appearMain();
+    // set_widths();
+  };
+  link.onerror = () => {
+    window.pages.familyCssLoaded = true;
+    appearMain();
+  };
+  document.head.appendChild(link);
 }
 
 export function decorateBlocks($main) {
@@ -500,7 +371,7 @@ export function decorateBlocks($main) {
 
 export function loadBlock($block) {
   const blockName = $block.getAttribute('data-block-name');
-  import(`/express/blocks/${blockName}/${blockName}.js`)
+  import(`/pages/blocks/${blockName}/${blockName}.js`)
     .then((mod) => {
       if (mod.default) {
         mod.default($block, blockName, document);
@@ -517,787 +388,201 @@ export function loadBlocks($main) {
     .forEach(async ($block) => loadBlock($block));
 }
 
-export function loadScript(url, callback, type) {
-  const $head = document.querySelector('head');
-  const $script = createTag('script', { src: url });
-  if (type) {
-    $script.setAttribute('type', type);
-  }
-  $head.append($script);
-  $script.onload = callback;
-  return $script;
-}
-
-// async function loadLazyFooter() {
-//   const resp = await fetch('/lazy-footer.plain.html');
-//   const inner = await resp.text();
-//   const $footer = document.querySelector('footer');
-//   $footer.innerHTML = inner;
-//   $footer.querySelectorAll('a').forEach(($a) => {
-//     const url = new URL($a.href);
-//     if (url.hostname === 'spark.adobe.com') {
-//       const slash = url.pathname.endsWith('/') ? 1 : 0;
-//       $a.href = url.pathname.substr(0, url.pathname.length - slash);
-//     }
-//   });
-//   wrapSections('footer>div');
-//   addDivClasses($footer, 'footer > div', ['dark', 'grey', 'grey']);
-//   const $div = createTag('div', { class: 'hidden' });
-//   const $dark = document.querySelector('footer .dark>div');
-
-//   Array.from($dark.children).forEach(($e, i) => {
-//     if (i) $div.append($e);
-//   });
-
-//   $dark.append($div);
-
-//   $dark.addEventListener('click', () => {
-//     $div.classList.toggle('hidden');
-//   });
-// }
-
-export function readBlockConfig($block) {
-  const config = {};
-  $block.querySelectorAll(':scope>div').forEach(($row) => {
-    if ($row.children) {
-      const $cols = [...$row.children];
-      if ($cols[1]) {
-        const $value = $cols[1];
-        const name = toClassName($cols[0].textContent);
-        let value = '';
-        if ($value.querySelector('a')) {
-          const $as = [...$value.querySelectorAll('a')];
-          if ($as.length === 1) {
-            value = $as[0].href;
-          } else {
-            value = $as.map(($a) => $a.href);
-          }
-        } else if ($value.querySelector('p')) {
-          const $ps = [...$value.querySelectorAll('p')];
-          if ($ps.length === 1) {
-            value = $ps[0].textContent;
-          } else {
-            value = $ps.map(($p) => $p.textContent);
-          }
-        } else value = $row.children[1].textContent;
-        config[name] = value;
-      }
-    }
-  });
-  return config;
-}
-
-async function loadFont(name, url, weight) {
-  const font = new FontFace(name, url, { weight });
-  const fontLoaded = await font.load();
-  return (fontLoaded);
-}
-
-async function loadFonts() {
-  try {
-    /* todo promise.All */
-    const f900 = await loadFont('adobe-clean', 'url("https://use.typekit.net/af/b0c5f5/00000000000000003b9b3f85/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3")', 400);
-    const f400 = await loadFont('adobe-clean', 'url("https://use.typekit.net/af/ad2a79/00000000000000003b9b3f8c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n9&v=3")', 900);
-    const f700 = await loadFont('adobe-clean', 'url("https://use.typekit.net/af/97fbd1/00000000000000003b9b3f88/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n7&v=3")', 700);
-    document.fonts.add(f900);
-    document.fonts.add(f400);
-    document.fonts.add(f700);
-    sessionStorage.setItem('helix-fonts', 'loaded');
-  } catch (err) {
-    /* something went wrong */
-    console.log(err);
-  }
-  document.body.classList.add('font-loaded');
-}
-
-function supportsWebp() {
-  return window.webpSupport;
-}
-
-// Google official webp detection
-function checkWebpFeature(callback) {
-  const webpSupport = sessionStorage.getItem('webpSupport');
-  if (!webpSupport) {
-    const kTestImages = 'UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA';
-    const img = new Image();
-    img.onload = () => {
-      const result = (img.width > 0) && (img.height > 0);
-      window.webpSupport = result;
-      sessionStorage.setItem('webpSupport', result);
-      callback();
-    };
-    img.onerror = () => {
-      sessionStorage.setItem('webpSupport', false);
-      window.webpSupport = false;
-      callback();
-    };
-    img.src = `data:image/webp;base64,${kTestImages}`;
-  } else {
-    window.webpSupport = (webpSupport === 'true');
-    callback();
-  }
-}
-
-export function getOptimizedImageURL(src) {
-  const url = new URL(src, window.location.href);
-  let result = src;
-  const { pathname, search } = url;
-  if (pathname.includes('media_')) {
-    const usp = new URLSearchParams(search);
-    usp.delete('auto');
-    if (!supportsWebp()) {
-      if (pathname.endsWith('.png')) {
-        usp.set('format', 'png');
-      } else if (pathname.endsWith('.gif')) {
-        usp.set('format', 'gif');
-      } else {
-        usp.set('format', 'pjpg');
-      }
-    } else {
-      usp.set('format', 'webply');
-    }
-    result = `${src.split('?')[0]}?${usp.toString()}`;
-  }
-  return (result);
-}
-
-function resetAttribute($elem, attrib) {
-  const src = $elem.getAttribute(attrib);
-  if (src) {
-    const oSrc = getOptimizedImageURL(src);
-    if (oSrc !== src) {
-      $elem.setAttribute(attrib, oSrc);
-    }
-  }
-}
-
-export function webpPolyfill(element) {
-  if (!supportsWebp()) {
-    element.querySelectorAll('img').forEach(($img) => {
-      resetAttribute($img, 'src');
-    });
-    element.querySelectorAll('picture source').forEach(($source) => {
-      resetAttribute($source, 'srcset');
-    });
-  }
-}
-
-export function getMetadata(name) {
-  const attr = name && name.includes(':') ? 'property' : 'name';
-  const $meta = document.head.querySelector(`meta[${attr}="${name}"]`);
-  return $meta && $meta.content;
-}
-
-function addPromotion() {
-  // check for existing promotion
-  if (!document.querySelector('main .promotion')) {
-    // extract category from metadata
-    const category = getMetadata('category');
-    if (category) {
-      const promos = {
-        photo: 'photoshop',
-        design: 'illustrator',
-        video: 'premiere',
-      };
-      // insert promotion at the bottom
-      if (promos[category]) {
-        const $promoSection = createTag('div', { class: 'section-wrapper' });
-        $promoSection.innerHTML = `<div class="promotion" data-block-name="promotion"><div><div>${promos[category]}</div></div></div>`;
-        document.querySelector('main').append($promoSection);
-        loadBlock($promoSection.querySelector(':scope .promotion'));
-      }
-    }
-  }
-}
-
-function postLCP() {
-  const $main = document.querySelector('main');
-  loadFonts();
-  const martechUrl = '/express/scripts/martech.js';
-  loadCSS('/express/styles/lazy-styles.css');
-  loadBlocks($main);
-  resolveFragments();
-  addPromotion();
-
-  const usp = new URLSearchParams(window.location.search);
-  const martech = usp.get('martech');
-
-  // loadLazyFooter();
-  if (!(martech === 'off' || document.querySelector(`head script[src="${martechUrl}"]`))) {
-    let ms = 2500;
-    const delay = usp.get('delay');
-    if (delay) ms = +delay;
-    setTimeout(() => {
-      loadScript(martechUrl, null, 'module');
-    }, ms);
-  }
-}
-
-async function fetchAuthorImage($image, author) {
-  const resp = await fetch(`/express/learn/blog/authors/${toClassName(author)}.plain.html`);
-  const main = await resp.text();
-  if (resp.status === 200) {
-    const $div = createTag('div');
-    $div.innerHTML = main;
-    const $img = $div.querySelector('img');
-    const src = $img.src.replace('width=2000', 'width=200');
-    $image.src = getOptimizedImageURL(src);
-  }
-}
-
-function decorateHero() {
-  const isBlog = document.documentElement.classList.contains('blog');
-  const $h1 = document.querySelector('main h1');
-  // check if h1 is inside a block
-
-  if ($h1 && !$h1.closest('.section-wrapper > div > div ')) {
-    const $heroPicture = $h1.parentElement.querySelector('picture');
-    let $heroSection;
-    const $main = document.querySelector('main');
-    if ($main.children.length === 1 || isBlog) {
-      $heroSection = createTag('div', { class: 'hero' });
-      const $div = createTag('div');
-      if (isBlog) {
-        $heroSection.append($div);
-        const $blogHeader = createTag('div', { class: 'blog-header' });
-        $div.append($blogHeader);
-        const $eyebrow = createTag('div', { class: 'eyebrow' });
-        const tagString = getMeta('article:tag');
-        // eslint-disable-next-line no-unused-vars
-        const tags = tagString.split(',');
-        $eyebrow.innerHTML = getMeta('category');
-        // $eyebrow.innerHTML = tags[0];
-        $blogHeader.append($eyebrow);
-        $blogHeader.append($h1);
-        const author = getMeta('author');
-        const date = getMeta('publication-date');
-        if (author) {
-          const $author = createTag('div', { class: 'author' });
-          $author.innerHTML = `<div class="image"><img src="/express/gnav-placeholder/adobe-logo.svg"/></div>
-          <div>
-            <div class="name">${author}</div>
-            <div class="date">${date}</div>
-          </div>`;
-          fetchAuthorImage($author.querySelector('img'), author);
-          $blogHeader.append($author);
-        }
-        $div.append($blogHeader);
-        if ($heroPicture) {
-          $div.append($heroPicture);
-        }
-      } else {
-        $heroSection.append($div);
-        if ($heroPicture) {
-          $div.append($heroPicture);
-        }
-        $div.append($h1);
-      }
-      $main.prepend($heroSection);
-    } else {
-      $heroSection = $h1.closest('.section-wrapper');
-      $heroSection.classList.add('hero');
-      $heroSection.classList.remove('section-wrapper');
-    }
-    if ($heroPicture) {
-      if (!isBlog) {
-        $heroPicture.classList.add('hero-bg');
-      }
-    } else {
-      $heroSection.classList.add('hero-noimage');
-    }
-  }
-}
-
-export function addSearchQueryToHref(href) {
-  const isCreateSeoPage = window.location.pathname.includes('/express/create/');
-  const isDiscoverSeoPage = window.location.pathname.includes('/express/discover/');
-
-  if (!isCreateSeoPage && !isDiscoverSeoPage) {
-    return href;
-  }
-
-  const templateSearchTag = getMetadata('short-title');
-  const url = new URL(href);
-  const params = url.searchParams;
-
-  if (templateSearchTag) {
-    params.set('search', templateSearchTag);
-  }
-  url.search = params.toString();
-
-  return url.toString();
-}
-
-export function decorateButtons(block = document) {
-  const noButtonBlocks = ['template-list', 'icon-list'];
-  block.querySelectorAll(':scope a').forEach(($a) => {
-    $a.href = addSearchQueryToHref($a.href);
-    $a.title = $a.title || $a.textContent;
-    const $block = $a.closest('div.section-wrapper > div > div');
-    let blockName;
-    if ($block) {
-      blockName = $block.className;
-    }
-    if (!noButtonBlocks.includes(blockName) && ($a.href !== $a.textContent)) {
-      const $up = $a.parentElement;
-      const $twoup = $a.parentElement.parentElement;
-      if (!$a.querySelector('img')) {
-        if ($up.childNodes.length === 1 && ($up.tagName === 'P' || $up.tagName === 'DIV')) {
-          $a.className = 'button accent'; // default
-          $up.classList.add('button-container');
-        }
-        if ($up.childNodes.length === 1 && $up.tagName === 'STRONG'
-            && $twoup.childNodes.length === 1 && $twoup.tagName === 'P') {
-          $a.className = 'button accent';
-          $twoup.classList.add('button-container');
-        }
-        if ($up.childNodes.length === 1 && $up.tagName === 'EM'
-            && $twoup.childNodes.length === 1 && $twoup.tagName === 'P') {
-          $a.className = 'button accent light';
-          $twoup.classList.add('button-container');
-        }
-      }
+/**
+ * Query for all p elements, replace ones that appear to be paths
+ * with their block counterpart. This is expensive, ideally we will
+ * rewrite the content to point to blocks directly, but this is for
+ * backwards compatibility until then.
+ */
+export function replaceEmbeds() {
+  const pEls = document.querySelectorAll('p');
+  pEls.forEach((pEl) => {
+    if (pEl.innerText.startsWith('/')) {
+      pEl.replaceWith();
     }
   });
 }
 
-// function decorateTemplate() {
-//   if (window.location.pathname.includes('/make/')) {
-//     document.body.classList.add('make-page');
-//   }
-//   const year = window.location.pathname.match(/\/20\d\d\//);
-//   if (year) {
-//     document.body.classList.add('blog-page');
-//   }
-// }
-
-// function decorateLegacyLinks() {
-//   const legacy = 'https://blog.adobespark.com/';
-//   document.querySelectorAll(`a[href^="${legacy}"]`).forEach(($a) => {
-//     // eslint-disable-next-line no-console
-//     console.log($a);
-//     $a.href = $a.href.substring(0, $a.href.length - 1).substring(legacy.length - 1);
-//   });
-// }
-
-async function checkTesting(url) {
-  const pathname = new URL(url).pathname.split('.')[0];
-  const resp = await fetch('/express/testing.json');
-  if (resp.ok) {
-    const json = await resp.json();
-    const matches = json.data.filter((test) => {
-      const testPath = new URL(test['Test URLs']).pathname.split('.')[0];
-      return testPath === pathname;
-    });
-    return (!!matches.length);
-  }
-
-  return false;
-}
-
-async function decorateTesting() {
-  let runTest = true;
-  // let reason = '';
-  const usp = new URLSearchParams(window.location.search);
-  const martech = usp.get('martech');
-  if ((await checkTesting(window.location.href) && (martech !== 'off') && (martech !== 'delay')) || martech === 'rush') {
-    // eslint-disable-next-line no-console
-    console.log('rushing martech');
-    loadScript('/express/scripts/martech.js', null, 'module');
-  }
-
-  if (!window.location.host.includes('adobe.com')) {
-    runTest = false;
-    // reason = 'not prod host';
-  }
-  if (window.location.hash) {
-    runTest = false;
-    // reason = 'suppressed by #';
-  }
-  if (window.location.search === '?test') {
-    runTest = true;
-  }
-  if (navigator.userAgent.match(/bot|crawl|spider/i)) {
-    runTest = false;
-    // reason = 'bot detected';
-  }
-
-  if (runTest) {
-    let $testTable;
-    document.querySelectorAll('table th').forEach(($th) => {
-      if ($th.textContent.toLowerCase().trim() === 'a/b test') {
-        $testTable = $th.closest('table');
-      }
-    });
-
-    const testSetup = [];
-
-    if ($testTable) {
-      $testTable.querySelectorAll('tr').forEach(($row) => {
-        const $name = $row.children[0];
-        const $percentage = $row.children[1];
-        const $a = $name.querySelector('a');
-        if ($a) {
-          const url = new URL($a.href);
-          testSetup.push({
-            url: url.pathname,
-            traffic: parseFloat($percentage.textContent) / 100.0,
-          });
-        }
-      });
+/**
+ * Load the template
+ */
+export async function loadTemplate() {
+  document.querySelectorAll('table th').forEach(($th) => {
+    if ($th.textContent.toLowerCase().trim() === 'template') {
+      const $table = $th.closest('table');
+      const template = $table.querySelector('td').textContent;
+      const $div = createTag('div', { class: 'template' });
+      $div.innerHTML = template;
+      $table.parentElement.replaceChild($div, $table);
     }
+  });
 
-    let test = Math.random();
-    let selectedUrl = '';
-    testSetup.forEach((e) => {
-      if (test >= 0 && test < e.traffic) {
-        selectedUrl = e.url;
-      }
-      test -= e.traffic;
-    });
-
-    if (selectedUrl) {
-      // eslint-disable-next-line no-console
-      console.log(selectedUrl);
-      const plainUrl = `${selectedUrl.replace('.html', '')}.plain.html`;
-      const resp = await fetch(plainUrl);
-      const html = await resp.text();
-      document.querySelector('main').innerHTML = html;
-    }
-  } else {
-    // eslint-disable-next-line no-console
-    // console.log(`Test is not run => ${reason}`);
-  }
-}
-function setTemplate() {
-  const path = window.location.pathname;
   let template = 'default';
-  if (path.includes('/make/')) {
-    template = 'make';
-  } else if (path.includes('/blog/')) {
-    template = 'blog';
-  }
-  // todo: read template from page metadata
-  document.documentElement.classList.add(template);
-}
+  const $template = document.querySelector('.template');
 
-function setLCPTrigger() {
-  const $lcpCandidate = document.querySelector('main > div:first-of-type img');
-  if ($lcpCandidate) {
-    if ($lcpCandidate.complete) {
-      postLCP();
-    } else {
-      $lcpCandidate.addEventListener('load', () => {
-        postLCP();
-      });
-      $lcpCandidate.addEventListener('error', () => {
-        postLCP();
-      });
-    }
+  if ($template) {
+    template = toClassName($template.textContent);
+    $template.remove();
+  }
+
+  // For now, special handle the default template
+  // in the future, combine this script with ./default.js
+  // to avoid chained requests.
+  if ($template === 'default') {
+    const basePath = '/pages/scripts/default';
+    // eslint-disable-next-line import/no-cycle
+    import(`${basePath}.js`).then(({ default: run }) => {
+      emit('postLoadTemplate', { basePath });
+      run();
+      emit('postRunTemplate', { basePath });
+    });
   } else {
-    postLCP();
-  }
-}
+    const basePath = `/templates/${template}/${template}`;
+    emit('preLoadTemplate', { basePath });
 
-export function fixIcons(block = document) {
-  /* backwards compatible icon handling, deprecated */
-  block.querySelectorAll('svg use[href^="./_icons_"]').forEach(($use) => {
-    $use.setAttribute('href', `/express/icons.svg#${$use.getAttribute('href').split('#')[1]}`);
-  });
-
-  /* new icons handling */
-  block.querySelectorAll('img').forEach(($img) => {
-    const alt = $img.getAttribute('alt');
-    if (alt) {
-      const lowerAlt = alt.toLowerCase();
-      if (lowerAlt.includes('icon:')) {
-        const icon = lowerAlt.split('icon:')[1].trim().replace(/\s/gm, '-');
-        const $picture = $img.closest('picture');
-        $picture.parentElement.replaceChild(getIconElement(icon), $picture);
-      }
-    }
-  });
-}
-
-export function unwrapBlock($block) {
-  const $section = $block.parentNode;
-  const $elems = [...$section.children];
-  const $blockSection = createTag('div');
-  const $postBlockSection = createTag('div');
-  const $nextSection = $section.nextSibling;
-  $section.parentNode.insertBefore($blockSection, $nextSection);
-  $section.parentNode.insertBefore($postBlockSection, $nextSection);
-
-  let $appendTo;
-  $elems.forEach(($e) => {
-    if ($e === $block) $appendTo = $blockSection;
-    if ($appendTo) {
-      $appendTo.appendChild($e);
-      $appendTo = $postBlockSection;
-    }
-  });
-
-  if (!$postBlockSection.hasChildNodes()) {
-    $postBlockSection.remove();
-  }
-}
-
-export function normalizeHeadings(block, allowedHeadings) {
-  const allowed = allowedHeadings.map((h) => h.toLowerCase());
-  block.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((tag) => {
-    const h = tag.tagName.toLowerCase();
-    if (allowed.indexOf(h) === -1) {
-      // current heading is not in the allowed list -> try first to "promote" the heading
-      let level = parseInt(h.charAt(1), 10) - 1;
-      while (allowed.indexOf(`h${level}`) === -1 && level > 0) {
-        level -= 1;
-      }
-      if (level === 0) {
-        // did not find a match -> try to "downgrade" the heading
-        while (allowed.indexOf(`h${level}`) === -1 && level < 7) {
-          level += 1;
-        }
-      }
-      if (level !== 7) {
-        tag.outerHTML = `<h${level}>${tag.textContent}</h${level}>`;
-      }
-    }
-  });
-}
-
-function splitSections($main) {
-  $main.querySelectorAll(':scope > div > div').forEach(($block) => {
-    const blocksToSplit = ['template-list', 'layouts', 'blog-posts', 'banner', 'faq', 'promotion', 'fragment'];
-
-    if (blocksToSplit.includes($block.className)) {
-      unwrapBlock($block);
-    }
-  });
-}
-
-function setTheme() {
-  const theme = getMeta('theme');
-  if (theme) {
-    const themeClass = toClassName(theme);
-    const $body = document.body;
-    $body.classList.add(themeClass);
-  }
-}
-
-function decorateLinkedPictures($main) {
-  /* thanks to word online */
-  $main.querySelectorAll(':scope > picture').forEach(($picture) => {
-    if (!$picture.closest('div.block')) {
-      linkPicture($picture);
-    }
-  });
-}
-
-function decorateSocialIcons($main) {
-  $main.querySelectorAll(':scope a').forEach(($a) => {
-    if ($a.href === $a.textContent) {
-      let icon = '';
-      if ($a.href.startsWith('https://www.instagram.com')) {
-        icon = 'instagram';
-      }
-      if ($a.href.startsWith('https://twitter.com')) {
-        icon = 'twitter';
-      }
-      if ($a.href.startsWith('https://www.pinterest.')) {
-        icon = 'pinterest';
-      }
-      if ($a.href.startsWith('https://www.facebook.')) {
-        icon = 'facebook';
-      }
-      if ($a.href.startsWith('https://www.linkedin.com')) {
-        icon = 'linkedin';
-      }
-      if ($a.href.startsWith('https://www.youtube.com')) {
-        icon = 'youtube';
-      }
-      const $parent = $a.parentElement;
-      if (!icon && $parent.previousElementSibling && $parent.previousElementSibling.classList.contains('social-links')) {
-        icon = 'globe';
-      }
-
-      if (icon) {
-        $a.innerHTML = '';
-        const $icon = getIconElement(icon);
-        $icon.classList.add('social');
-        $a.appendChild($icon);
-        if ($parent.previousElementSibling && $parent.previousElementSibling.classList.contains('social-links')) {
-          $parent.previousElementSibling.appendChild($a);
-          $parent.remove();
-        } else {
-          $parent.classList.add('social-links');
-        }
-      }
-    }
-  });
-}
-
-function makeRelativeLinks($main) {
-  $main.querySelectorAll(':scope > a').forEach(($a) => {
-    if (!$a.href) return;
-    try {
-      const url = new URL($a.href);
-      if (['www.adobe.com', 'www.stage.adobe.com'].includes(url.hostname)) {
-        // make link relative
-        $a.href = `${url.pathname}${url.search}${url.hash}`;
-      }
-    } catch (e) {
-      // invalid url
-    }
-  });
-}
-
-export function getHelixEnv() {
-  let envName = sessionStorage.getItem('helix-env');
-  if (!envName) envName = 'prod';
-  const envs = {
-    stage: {
-      commerce: 'commerce-stg.adobe.com',
-      adminconsole: 'stage.adminconsole.adobe.com',
-      spark: 'express-stage.adobeprojectm.com',
-    },
-    prod: {
-
-    },
-  };
-  const env = envs[envName];
-
-  const overrideItem = sessionStorage.getItem('helix-env-overrides');
-  if (overrideItem) {
-    const overrides = JSON.parse(overrideItem);
-    const keys = Object.keys(overrides);
-    env.overrides = keys;
-
-    for (const a of keys) {
-      env[a] = overrides[a];
-    }
-  }
-
-  if (env) {
-    env.name = envName;
-  }
-  return env;
-}
-
-function displayOldLinkWarning() {
-  if (window.location.hostname.includes('localhost') || window.location.hostname.includes('.hlx.page')) {
-    document.querySelectorAll('main a[href^="https://spark.adobe.com/"]').forEach(($a) => {
-      const url = new URL($a.href);
-      console.log(`old link: ${url}`);
-      $a.style.border = '10px solid red';
+    console.log(`load template ${basePath}`);
+    loadCSS(`${basePath}.css`);
+    import(`${basePath}.js`).then(({ default: run }) => {
+      emit('postLoadTemplate', { basePath });
+      run();
+      emit('postRunTemplate', { basePath });
     });
   }
+
+  // In tandem, check for any p elements containing a string
+  // starting with a slash. We assume that will be an embed component
+  // and load it from blocks instead.
+  replaceEmbeds();
 }
 
-function setHelixEnv(name, overrides) {
-  if (name) {
-    sessionStorage.setItem('helix-env', name);
-    if (overrides) {
-      sessionStorage.setItem('helix-env-overrides', JSON.stringify(overrides));
-    } else {
-      sessionStorage.removeItem('helix-env-overrides');
-    }
-  } else {
-    sessionStorage.removeItem('helix-env');
-    sessionStorage.removeItem('helix-env-overrides');
+/**
+ * Insert localized footer
+ */
+function localizeFooter() {
+  const lang = window.pages.locale;
+
+  const footers = {
+    de: `<div>
+    <p>Copyright © 2020 Adobe. All rights reserved.</p>
+    <ul>
+    <li><a href="https://www.adobe.com/de/privacy.html">Richtlinien f&uuml;r den Datenschutz</a></li>
+    <li><a href="https://www.adobe.com/de/legal/terms.html">Nutzungsbedingungen</a></li>
+    <li><a href="https://www.adobe.com/de/privacy/ca-rights.html">Daten zu meiner Person nicht verkaufen</a></li>
+    <li><a href="https://www.adobe.com/de/privacy/opt-out.html#interest-based-ads"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdAuswahl</a></li>
+    </ul>
+    </div>
+    <div>
+    <div class="privacy" style="display: block;">
+      <a href="#" class="openPrivacyModal">Einstellungen</a>
+      <div id="feds-footer"></div>
+    </div>
+    </div>`,
+  };
+
+  if (footers[lang]) {
+    const $footer = document.querySelector('body>footer');
+    $footer.innerHTML = footers[lang];
   }
 }
 
-function displayEnv() {
-  try {
-    /* setup based on URL Params */
-    const usp = new URLSearchParams(window.location.search);
-    if (usp.has('helix-env')) {
-      const env = usp.get('helix-env');
-      setHelixEnv(env);
-    }
+/**
+ * Resize images according to screen width.
+ */
+function fixImages() {
+  const screenWidth = window.screen.availWidth;
+  const imgSizes = [375, 768, 1000];
+  const fitting = imgSizes.filter((s) => s <= screenWidth);
+  const width = fitting.length ? fitting[fitting.length - 1] * 2 : imgSizes[0] * 2;
+  let heroProcessed = false;
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        // only handle images with src=/hlx_*
+        // console.log(node.tagName +':'+node.src);
+        if (node.tagName === 'IMG' && !node.src.includes('?')) {
+          let contentHash;
+          let extension;
+          if (node.src.includes('/hlx_')) {
+            const filename = node.src.split('/hlx_')[1];
+            const splits = filename.split('.');
+            contentHash = splits[0];
+            extension = splits[1];
+          }
 
-    /* setup based on referrer */
-    if (document.referrer) {
-      const url = new URL(document.referrer);
-      const expressEnvs = ['express-stage.adobe.com', 'express-qa.adobe.com'];
-      if (url.hostname.endsWith('.adobeprojectm.com') || expressEnvs.includes(url.hostname)) {
-        setHelixEnv('stage', { spark: url.host });
-      }
-      if (window.location.hostname !== url.hostname) {
-        console.log(`external referrer detected: ${document.referrer}`);
-      }
-    }
+          if (node.src.startsWith('https://hlx.blob.core.windows.net/external/')) {
+            const filename = node.src.substring(43);
+            const splits = filename.split('#');
+            contentHash = splits[0];
+            extension = splits[1].split('.')[1];
+          }
 
-    const env = sessionStorage.getItem('helix-env');
-    if (env) {
-      const $helixEnv = createTag('div', { class: 'helix-env' });
-      $helixEnv.innerHTML = env + (getHelixEnv() ? '' : ' [not found]');
-      document.body.appendChild($helixEnv);
+          if (contentHash && (extension === 'jpg' || extension === 'jpeg' || extension === 'png')) {
+            const loading = heroProcessed ? 'lazy' : 'eager';
+            heroProcessed = true;
+            node.setAttribute('src', `/hlx_${contentHash}.${extension}?width=${width}&auto=webp&format=pjpg&optimize=medium`);
+            node.setAttribute('loading', loading);
+          }
+        }
+      });
+    });
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      observer.disconnect();
     }
-  } catch (e) {
-    console.log(`display env failed: ${e.message}`);
-  }
-}
-
-export function decorateMain($main) {
-  splitSections($main);
-  wrapSections($main.querySelectorAll(':scope > div'));
-  decorateButtons($main);
-  fixIcons($main);
-  checkWebpFeature(() => {
-    webpPolyfill($main);
   });
-  decorateBlocks($main);
-  decorateLinkedPictures($main);
-  decorateSocialIcons($main);
-  makeRelativeLinks($main);
+  observer.observe(document, { childList: true, subtree: true });
+}
+
+/**
+ * Style all elements matching selector `main a`.
+ * Set class tokens to `button primary`.
+ *
+ * @returns {void}
+ */
+export function styleButtons() {
+  const links = document.querySelectorAll('main a');
+  if (!document.querySelectorAll('main a')) return;
+  links.forEach((link) => {
+    if (
+      link.parentElement.parentNode.nodeName === 'P'
+      && link.parentElement.parentNode.childElementCount === 1
+      && link.parentElement.parentNode.firstChild.nodeName === 'STRONG'
+    ) {
+      link.className = 'button primary';
+    }
+  });
+}
+
+function setupTestMode() {
+  if (window.location.search.indexOf('test') === -1) {
+    return;
+  }
+  // do whatever for testing mode..
+  // right now just logging junk
+  window.pages.on(undefined, console.debug);
 }
 
 async function decoratePage() {
-  setTemplate();
-  setTheme();
-  await decorateTesting();
-  if (sessionStorage.getItem('helix-font') === 'loaded') {
-    loadFonts();
+  // import('./lazy.js').then((m) => {
+  //   m.default();
+  // });
+
+  initializeNamespaces();
+  setupTestMode();
+  loadTemplate();
+
+  document.title = document.title.split('<br>').join(' ');
+
+  fixImages();
+
+  const mainEl = document.querySelector('main');
+  loadBlocks(mainEl);
+
+  if (window.pages.product) {
+    document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
   }
 
-  const $main = document.querySelector('main');
-  decorateMain($main);
-  decorateHeaderAndFooter();
-  decorateHero();
-  setLCPTrigger();
-  displayEnv();
-  displayOldLinkWarning();
-  document.body.classList.add('appear');
+  localizeFooter();
 }
 
-window.spark = {};
+console.log('script index');
 decoratePage();
-
-/* performance instrumentation */
-
-function stamp(message) {
-  console.log(`${new Date() - performance.timing.navigationStart}ms: ${message}`);
-}
-
-function registerPerformanceLogger() {
-  try {
-    const polcp = new PerformanceObserver((entryList) => {
-      const entries = entryList.getEntries();
-      stamp(JSON.stringify(entries));
-    });
-    polcp.observe({ type: 'largest-contentful-paint', buffered: true });
-    const pores = new PerformanceObserver((entryList) => {
-      const entries = entryList.getEntries();
-      entries.forEach((entry) => {
-        stamp(`resource loaded: ${entry.name} - [${Math.round(entry.startTime + entry.duration)}]`);
-      });
-    });
-
-    pores.observe({ type: 'resource', buffered: true });
-  } catch (e) {
-    // no output
-  }
-}
-
-if (window.name.includes('performance')) registerPerformanceLogger();

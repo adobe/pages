@@ -10,23 +10,14 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   externalLinks,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/*
-global
+import {
   addDefaultClass,
   appearMain,
   classify,
   createTag,
   externalLinks,
-  loadLocalHeader
-*/
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -386,7 +377,7 @@ async function decorateHome() {
   await insertSteps();
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
   await loadLocalHeader();
   externalLinks('header');
@@ -423,8 +414,8 @@ async function decoratePage() {
   }
 }
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
-}
+// if (document.readyState === 'loading') {
+//   window.addEventListener('DOMContentLoaded', decoratePage);
+// } else {
+//   decoratePage();
+// }
