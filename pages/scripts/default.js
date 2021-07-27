@@ -10,17 +10,18 @@
  * governing permissions and limitations under the License.
  */
 
+/* eslint-disable import/no-cycle */
+
 import {
   appearMain,
   createTag,
   debounce,
   loadCSS,
-  loadJSModule,
   loadLocalHeader,
   toClassName,
 } from './scripts.js';
 
-function styleNav() {
+export function styleNav() {
   const parent = document.querySelector('header');
   const $appIcon = parent.querySelector('img');
   if (!$appIcon) return;
@@ -77,7 +78,7 @@ function styleNav() {
   }
 }
 
-function setExternalLinks() {
+export function setExternalLinks() {
   if (!document.querySelectorAll('main a')) return;
   const links = document.querySelectorAll('main a');
   links.forEach(($a) => {
@@ -89,7 +90,7 @@ function setExternalLinks() {
   });
 }
 
-function equalizer($element) {
+export function equalizer($element) {
   if (document.querySelector($element)) {
     if (document.querySelectorAll($element)[0].className.includes('callout')) {
       const callOutParents = document.querySelectorAll('.callout-container');
@@ -133,7 +134,7 @@ function equalizer($element) {
   }
 }
 
-function setWidths() {
+export function setWidths() {
   const sections = document.querySelectorAll('main .section-wrapper >div');
   sections.forEach((section) => {
     const children = section.childNodes;
@@ -152,7 +153,7 @@ function setWidths() {
   });
 }
 
-function decorateHero() {
+export function decorateHero() {
   const heroRoot = document.querySelector('.hero > div');
   const heroParent = document.querySelector('.hero-container');
   const heroContent = heroRoot.querySelector('div:nth-child(2)').innerHTML;
@@ -207,7 +208,7 @@ function decorateHero() {
   document.querySelector('.video-placeholder').addEventListener('click', startVideo);
 }
 
-function decorateNextStep() {
+export function decorateNextStep() {
   const root = document.querySelector('.next');
   const link = root.querySelector('div:first-of-type a').getAttribute('href');
   const thumbnail = root.querySelector('div:first-of-type img').getAttribute('src');
@@ -230,7 +231,7 @@ function decorateNextStep() {
   `;
 }
 
-function mobileDropDown() {
+export function mobileDropDown() {
   // event.preventDefault();
   const body = document.getElementsByTagName('body')[0];
   if (!body.classList.contains('nav-showing')) {
@@ -240,7 +241,7 @@ function mobileDropDown() {
   }
 }
 
-function decorateEmbeds() {
+export function decorateEmbeds() {
   document.querySelectorAll('a[href]').forEach(($a) => {
     if ($a.textContent.startsWith('https://')) {
       const url = new URL($a.href);
@@ -269,14 +270,14 @@ function decorateEmbeds() {
   });
 }
 
-function linkInNewTab($el) {
+export function linkInNewTab($el) {
   const links = $el.querySelectorAll('a');
   links.forEach(($link) => {
     $link.setAttribute('target', '_blank');
   });
 }
 
-function tableToDivs($table, cols) {
+export function tableToDivs($table, cols) {
   const $rows = $table.querySelectorAll('tbody tr');
   const $cards = createTag('div', { class: `${cols.join('-')}` });
   $rows.forEach(($tr) => {
@@ -291,7 +292,7 @@ function tableToDivs($table, cols) {
   return ($cards);
 }
 
-function decorateTables() {
+export function decorateTables() {
   document.querySelectorAll('main div>table').forEach(($table) => {
     const $cols = $table.querySelectorAll('thead tr th');
     const cols = Array.from($cols).map((e) => toClassName(e.innerHTML)).filter((e) => (!!e));
@@ -303,22 +304,22 @@ function decorateTables() {
   });
 }
 
-function readBlockConfig($block) {
-  const config = {};
-  $block.querySelectorAll(':scope>div').forEach(($row) => {
-    if ($row.children && $row.children[1]) {
-      const name = toClassName($row.children[0].textContent);
-      const $a = $row.children[1].querySelector('a');
-      let value = '';
-      if ($a) value = $a.href;
-      else value = $row.children[1].textContent;
-      config[name] = value;
-    }
-  });
-  return config;
-}
+// function readBlockConfig($block) {
+//   const config = {};
+//   $block.querySelectorAll(':scope>div').forEach(($row) => {
+//     if ($row.children && $row.children[1]) {
+//       const name = toClassName($row.children[0].textContent);
+//       const $a = $row.children[1].querySelector('a');
+//       let value = '';
+//       if ($a) value = $a.href;
+//       else value = $row.children[1].textContent;
+//       config[name] = value;
+//     }
+//   });
+//   return config;
+// }
 
-function decorateBackgroundImageBlocks() {
+export function decorateBackgroundImageBlocks() {
   document.querySelectorAll('main div.background-image').forEach(($bgImgDiv) => {
     const $images = $bgImgDiv.querySelectorAll('img');
     const $lastImage = $images[$images.length - 1];
@@ -336,7 +337,7 @@ function decorateBackgroundImageBlocks() {
   });
 }
 
-async function decorateNav() {
+export async function decorateNav() {
   await loadLocalHeader();
   styleNav();
   if (document.querySelector('.nav')) {
@@ -346,60 +347,7 @@ async function decorateNav() {
   loadCSS('/styles/blocks/nav.css');
 }
 
-async function decorateBlocks() {
-  document.querySelectorAll('main>div.section-wrapper>div>div').forEach(($block) => {
-    const { length } = $block.classList;
-    if (length === 1) {
-      const classes = $block.className.split('-');
-      const classHelpers = $block.className.split('-');
-      classHelpers.shift();
-
-      $block.closest('.section-wrapper').classList.add(`${classes[0]}-container`);
-      $block.closest('.section-wrapper').classList.add(...classHelpers);
-      $block.classList.add(...classes);
-
-      if (classes.includes('nav')) {
-        $block.classList.add('header-block');
-      }
-
-      if (classes.includes('form')) {
-        const config = readBlockConfig($block);
-
-        window.formConfig = {
-          sheet: config['form-data-submission'],
-          redirect: config['form-redirect'] ? config['form-redirect'] : 'thank-you',
-          definition: config['form-definition'],
-        };
-
-        const tag = document.createElement('script');
-        tag.src = '/templates/default/create-form.js';
-        document.getElementsByTagName('body')[0].appendChild(tag);
-      }
-
-      if (classes.includes('checklist')) {
-        loadJSModule('/templates/default/checklist.js');
-        document.getElementsByTagName('body')[0].classList.add('checklist-page');
-      }
-
-      if (classes.includes('iframe') || classes.includes('missiontimeline') || classes.includes('missionbg')) {
-        loadJSModule('/templates/default/mission-series/iframe.js');
-        loadJSModule('/templates/default/mission-series/background.js');
-      }
-
-      if (classes.includes('list')) {
-        loadJSModule('/templates/default/render_spectrum_icons.js');
-      }
-
-      loadCSS(`/styles/blocks/${classes[0]}.css`);
-    }
-
-    if (length === 2) {
-      loadCSS(`/styles/blocks/${$block.classList.item(0)}.css`);
-    }
-  });
-}
-
-function decorateButtons() {
+export function decorateButtons() {
   document.querySelectorAll('main a').forEach(($a) => {
     const $up = $a.parentElement;
     const $twoup = $a.parentElement.parentElement;
@@ -413,7 +361,7 @@ function decorateButtons() {
   });
 }
 
-function wrapSections(element) {
+export function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
     const $wrapper = createTag('div', { class: 'section-wrapper' });
     $div.parentNode.appendChild($wrapper);
@@ -421,7 +369,7 @@ function wrapSections(element) {
   });
 }
 
-function decorateVideoBlocks() {
+export function decorateVideoBlocks() {
   document.querySelectorAll('main .video a[href]').forEach(($a) => {
     const videoLink = $a.href;
     let $video = $a;
@@ -432,7 +380,7 @@ function decorateVideoBlocks() {
   });
 }
 
-function decorateLinkTexting() {
+export function decorateLinkTexting() {
   const $linktexting = document.querySelector('main div.linktexting');
   if ($linktexting) {
     const $id = $linktexting.children[0].children[1].textContent;
@@ -492,7 +440,7 @@ function decorateLinkTexting() {
 export default async function decoratePage() {
   decorateTables();
   wrapSections('main>div');
-  decorateBlocks();
+  // decorateBlocks();
 
   if (document.querySelector('.hero-container')) {
     decorateHero();
@@ -539,8 +487,6 @@ export default async function decoratePage() {
   });
   setWidths();
 }
-
-window.addEventListener('load', () => document.body.classList.add('loaded'));
 
 // if (document.readyState === 'loading') {
 //   window.addEventListener('DOMContentLoaded', decoratePage);

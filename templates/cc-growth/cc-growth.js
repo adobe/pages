@@ -14,15 +14,14 @@
 // First figure out what script is loaded at the end, and whether it's using these locals
 /* eslint-disable no-unused-vars */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   createTag,
-//   debounce,
-//   loadJSModule,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/* global addDefaultClass, appearMain, createTag, debounce, loadJSModule, loadLocalHeader */
+import {
+  addDefaultClass,
+  appearMain,
+  createTag,
+  debounce,
+  loadJSModule,
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 async function submitSheetForm($form, sheetid, thankyou) {
   const formsink = 'https://script.google.com/macros/s/AKfycbxWFwI-qExw0Tg_LJvdisSYODFw35m3L8M5HdumPOufmArmRIEh/exec';

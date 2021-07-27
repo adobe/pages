@@ -10,8 +10,22 @@
  * governing permissions and limitations under the License.
  */
 
-/* eslint-disable no-console */
+/* eslint-disable no-console, import/no-cycle  */
 
+import {
+  decorateBackgroundImageBlocks,
+  decorateButtons,
+  decorateEmbeds,
+  decorateHero,
+  decorateLinkTexting,
+  decorateNav,
+  decorateNextStep,
+  decorateVideoBlocks,
+  equalizer,
+  linkInNewTab,
+  setExternalLinks,
+  wrapSections,
+} from './default.js';
 import { initializeNamespaces, emit } from './namespace.js';
 
 /**
@@ -345,27 +359,98 @@ export function loadCSS(href) {
   document.head.appendChild(link);
 }
 
-export function decorateBlocks($main) {
-  $main.querySelectorAll('div.section-wrapper > div > div').forEach(($block) => {
-    const classes = Array.from($block.classList.values());
-    let blockName = classes[0];
-    if (!blockName) return;
-    const $section = $block.closest('.section-wrapper');
-    if ($section) {
-      $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+// export function decorateBlocks($main) {
+//   $main.querySelectorAll('div.section-wrapper > div > div').forEach(($block) => {
+//     const classes = Array.from($block.classList.values());
+//     let blockName = classes[0];
+//     if (!blockName) return;
+//     const $section = $block.closest('.section-wrapper');
+//     if ($section) {
+//       $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+//     }
+//     const blocksWithOptions = [
+//        'checker-board', 'template-list', 'steps', 'cards',
+//        'quotes', 'page-list', 'columns', 'show-section-only',
+//        'image-list', 'feature-list', 'icon-list', 'table-of-contents'
+//     ];
+//     blocksWithOptions.forEach((b) => {
+//       if (blockName.startsWith(`${b}-`)) {
+//         const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
+//         blockName = b;
+//         $block.classList.add(b);
+//         $block.classList.add(...options);
+//       }
+//     });
+//     $block.classList.add('block');
+//     $block.setAttribute('data-block-name', blockName);
+//   });
+// }
+
+function readBlockConfig($block) {
+  const config = {};
+  $block.querySelectorAll(':scope>div').forEach(($row) => {
+    if ($row.children && $row.children[1]) {
+      const name = toClassName($row.children[0].textContent);
+      const $a = $row.children[1].querySelector('a');
+      let value = '';
+      if ($a) value = $a.href;
+      else value = $row.children[1].textContent;
+      config[name] = value;
     }
-    const blocksWithOptions = ['checker-board', 'template-list', 'steps', 'cards', 'quotes', 'page-list',
-      'columns', 'show-section-only', 'image-list', 'feature-list', 'icon-list', 'table-of-contents'];
-    blocksWithOptions.forEach((b) => {
-      if (blockName.startsWith(`${b}-`)) {
-        const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
-        blockName = b;
-        $block.classList.add(b);
-        $block.classList.add(...options);
+  });
+  return config;
+}
+
+async function decorateBlocks() {
+  document.querySelectorAll('main>div.section-wrapper>div>div').forEach(($block) => {
+    const { length } = $block.classList;
+    if (length === 1) {
+      const classes = $block.className.split('-');
+      const classHelpers = $block.className.split('-');
+      classHelpers.shift();
+
+      $block.closest('.section-wrapper').classList.add(`${classes[0]}-container`);
+      $block.closest('.section-wrapper').classList.add(...classHelpers);
+      $block.classList.add(...classes);
+
+      if (classes.includes('nav')) {
+        $block.classList.add('header-block');
       }
-    });
-    $block.classList.add('block');
-    $block.setAttribute('data-block-name', blockName);
+
+      if (classes.includes('form')) {
+        const config = readBlockConfig($block);
+
+        window.formConfig = {
+          sheet: config['form-data-submission'],
+          redirect: config['form-redirect'] ? config['form-redirect'] : 'thank-you',
+          definition: config['form-definition'],
+        };
+
+        const tag = document.createElement('script');
+        tag.src = '/templates/default/create-form.js';
+        document.getElementsByTagName('body')[0].appendChild(tag);
+      }
+
+      if (classes.includes('checklist')) {
+        loadJSModule('/templates/default/checklist.js');
+        document.getElementsByTagName('body')[0].classList.add('checklist-page');
+      }
+
+      if (classes.includes('iframe') || classes.includes('missiontimeline') || classes.includes('missionbg')) {
+        loadJSModule('/templates/default/mission-series/iframe.js');
+        loadJSModule('/templates/default/mission-series/background.js');
+      }
+
+      if (classes.includes('list')) {
+        loadJSModule('/templates/default/render_spectrum_icons.js');
+      }
+
+      loadCSS(`/styles/blocks/${classes[0]}.css`);
+    }
+
+    if (length === 2) {
+      loadCSS(`/styles/blocks/${$block.classList.item(0)}.css`);
+    }
   });
 }
 
@@ -404,9 +489,10 @@ export function replaceEmbeds() {
 }
 
 /**
- * Load the template
+ * Get the template name, or undefined if none.
+ * @returns {string|void}
  */
-export async function loadTemplate() {
+export function getTemplateName() {
   document.querySelectorAll('table th').forEach(($th) => {
     if ($th.textContent.toLowerCase().trim() === 'template') {
       const $table = $th.closest('table');
@@ -417,42 +503,30 @@ export async function loadTemplate() {
     }
   });
 
-  let template = 'default';
   const $template = document.querySelector('.template');
-
-  if ($template) {
-    template = toClassName($template.textContent);
-    $template.remove();
+  if (!$template) {
+    return undefined;
   }
 
-  // For now, special handle the default template
-  // in the future, combine this script with ./default.js
-  // to avoid chained requests.
-  if ($template === 'default') {
-    const basePath = '/pages/scripts/default';
-    // eslint-disable-next-line import/no-cycle
-    import(`${basePath}.js`).then(({ default: run }) => {
-      emit('postLoadTemplate', { basePath });
-      run();
-      emit('postRunTemplate', { basePath });
-    });
-  } else {
-    const basePath = `/templates/${template}/${template}`;
-    emit('preLoadTemplate', { basePath });
+  const template = toClassName($template.textContent);
+  $template.remove();
+  return template;
+}
 
-    console.log(`load template ${basePath}`);
-    loadCSS(`${basePath}.css`);
-    import(`${basePath}.js`).then(({ default: run }) => {
-      emit('postLoadTemplate', { basePath });
-      run();
-      emit('postRunTemplate', { basePath });
-    });
-  }
+/**
+ * Load the template
+ */
+export async function loadTemplate(template) {
+  const basePath = `/templates/${template}/${template}`;
+  emit('preLoadTemplate', { basePath });
 
-  // In tandem, check for any p elements containing a string
-  // starting with a slash. We assume that will be an embed component
-  // and load it from blocks instead.
-  replaceEmbeds();
+  console.log(`load template ${basePath}`);
+  loadCSS(`${basePath}.css`);
+  import(`${basePath}.js`).then(({ default: run }) => {
+    emit('postLoadTemplate', { basePath });
+    run();
+    emit('postRunTemplate', { basePath });
+  });
 }
 
 /**
@@ -561,6 +635,63 @@ function setupTestMode() {
   window.pages.on(undefined, console.debug);
 }
 
+export async function decorateDefault() {
+  decorateTables();
+  wrapSections('main>div');
+  decorateBlocks();
+
+  if (document.querySelector('.hero-container')) {
+    decorateHero();
+  }
+
+  if (document.querySelector('.next')) {
+    decorateNextStep();
+  }
+
+  decorateNav();
+
+  decorateBackgroundImageBlocks();
+  decorateVideoBlocks();
+
+  decorateButtons();
+  setExternalLinks();
+  decorateLinkTexting();
+
+  window.pages.decorated = true;
+  appearMain();
+  decorateEmbeds();
+  wrapSections('header>div, footer>div');
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      if (document.querySelector('.callout-container')) {
+        equalizer('.eq');
+      }
+    }, 1000);
+  });
+
+  const runResizerFunctions = debounce(() => {
+    if (document.querySelector('.callout-container')) {
+      equalizer('.eq');
+    }
+  }, 250);
+
+  window.addEventListener('resize', runResizerFunctions);
+  window.addEventListener('load', () => {
+    if (document.querySelector('.eq')) {
+      document.querySelectorAll('.eq').forEach(($element) => {
+        linkInNewTab($element);
+      });
+    }
+  });
+  setWidths();
+
+  if (document.readyState === 'complete') {
+    document.body.classList.add('loaded');
+  } else {
+    window.addEventListener('load', () => document.body.classList.add('loaded'));
+  }
+}
+
 async function decoratePage() {
   // import('./lazy.js').then((m) => {
   //   m.default();
@@ -568,7 +699,13 @@ async function decoratePage() {
 
   initializeNamespaces();
   setupTestMode();
-  loadTemplate();
+
+  const template = getTemplateName();
+  if (template) {
+    loadTemplate(template);
+  } else {
+    decorateDefault();
+  }
 
   document.title = document.title.split('<br>').join(' ');
 

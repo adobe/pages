@@ -10,13 +10,12 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   createTag,
-//   addDefaultClass,
-//   loadLocalHeader,
-//   appearMain,
-// } from '../scripts.js';
-/* global createTag, addDefaultClass, loadLocalHeader, appearMain */
+import {
+  createTag,
+  addDefaultClass,
+  loadLocalHeader,
+  appearMain,
+} from '../pages/scripts/scripts.js';
 
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {

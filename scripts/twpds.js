@@ -10,14 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   loadLocalHeader,
-// } from '../scripts.js';
-/* global addDefaultClass, appearMain, classify, createTag, loadLocalHeader, */
+import {
+  addDefaultClass,
+  appearMain,
+  classify,
+  createTag,
+  loadLocalHeader,
+} from '../pages/scripts/scripts.js';
 
 /* eslint-disable import/prefer-default-export */
 

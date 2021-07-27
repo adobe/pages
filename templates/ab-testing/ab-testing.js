@@ -10,8 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-// import { loadJSModule } from '../../scripts.js';
-/* global loadJSModule */
+import { loadJSModule } from '../../pages/scripts/scripts.js';
 
 function decorateABTests() {
   let runTest = true;

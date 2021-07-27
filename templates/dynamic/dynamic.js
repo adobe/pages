@@ -10,14 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   externalLinks,
-//   loadCSS,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/* global addDefaultClass, appearMain, externalLinks, loadCSS, loadLocalHeader */
+import {
+  addDefaultClass,
+  appearMain,
+  externalLinks,
+  loadCSS,
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 async function fetchSheet() {
   window.hlx.dependencies.push('content.json');
