@@ -18,6 +18,7 @@ import {
   externalLinks,
   loadLocalHeader,
 } from '../../pages/scripts/scripts.js';
+import { setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -378,6 +379,7 @@ async function decorateHome() {
 }
 
 export default async function decoratePage() {
+  setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-bg.png');
   addDefaultClass('main>div');
   await loadLocalHeader();
   externalLinks('header');

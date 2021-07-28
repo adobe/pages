@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { loadJSModule } from '../../pages/scripts/scripts.js';
+import { decorateDefault } from '../../pages/scripts/scripts.js';
 
 function decorateABTests() {
   let runTest = true;
@@ -72,7 +72,7 @@ function decorateABTests() {
 
 async function delegatePageDecoration() {
   decorateABTests();
-  await loadJSModule('/templates/default/default.js');
+  await decorateDefault();
   // decorateTables();
 }
 

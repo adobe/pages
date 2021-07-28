@@ -70,9 +70,14 @@ export interface FailedResponse {
   status: number;
   url: string;
   headers: Headers;
+  path: string;
+}
+export interface SuccessEntry {
+  path: string;
 }
 export type LocalSyncResolution = {
   failed?: FailedResponse[];
+  synced: SuccessEntry[];
 };
 
 export type LocalSync = Promise<LocalSyncResolution> & _LocalSync;

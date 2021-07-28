@@ -105,9 +105,11 @@ export function LocalSync(options) {
   opts.branch = opts.branch || 'main';
 
   let running = true;
-  const progressCbs = [];
+  let progressCbs = [];
   /** @type {import('./content-sync').FailedResponse[]} */
   const failed = [];
+  /** @type {import('./content-sync').SuccessEntry[]} */
+  const synced = [];
   /** @type {() => void} */
   let resolve;
   /** @type {(reason: string|Error) => void} */
@@ -116,18 +118,26 @@ export function LocalSync(options) {
   /** @type {import("./content-sync").LocalSync} */
   // @ts-ignore
   const prom = new Promise((res, rej) => {
-    resolve = () => {
-      res({ failed });
+    const cleanup = () => {
+      running = false;
+      progressCbs = [];
     };
+
+    resolve = () => {
+      cleanup();
+      res({ failed, synced });
+    };
+
     reject = (reason) => {
+      cleanup();
       /** @type {any} */
       const err = typeof reason === 'object' ? reason : new Error(reason);
       err.failed = failed;
+      err.synced = synced;
       rej(err);
     };
   });
   prom.cancel = (reason) => {
-    running = false;
     reject(reason || 'Aborted');
   };
   prom.onprogress = (cb) => {
@@ -162,12 +172,15 @@ export function LocalSync(options) {
         fetch(url, { method: 'POST' }).then((res) => {
           if (!res.ok) {
             failed.push({
+              path: p,
               status: res.status,
               url: res.url,
               headers: res.headers,
             });
+          } else {
+            synced.push({ path: p });
           }
-        }),
+        }).catch(reject),
       );
 
       if (proms.length >= BATCH) {
@@ -178,8 +191,7 @@ export function LocalSync(options) {
       }
       i += 1;
     }
-
-    if (running) resolve();
+    if (running) Promise.all(proms).then(resolve);
   })();
 
   // @ts-ignore
