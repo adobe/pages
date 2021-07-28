@@ -380,6 +380,9 @@ async function decorateHome() {
 
 export default async function decoratePage() {
   setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-bg.png');
+  setBackgroundImage('.step main .upnext .window', '/static/twp3/window.jpg');
+  setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-desktop-bg-ai.jpg', 'min-width:900px');
+
   addDefaultClass('main>div');
   await loadLocalHeader();
   externalLinks('header');

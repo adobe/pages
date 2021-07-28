@@ -282,7 +282,6 @@ export function decorateTables() {
 export async function loadLocalHeader() {
   decorateTables();
   const $inlineHeader = document.querySelector('main div.header-block');
-  console.log('inlineHeader: ', document, $inlineHeader);
   if ($inlineHeader) {
     const $header = document.querySelector('header');
     $inlineHeader.childNodes.forEach((e, i) => {
@@ -357,6 +356,17 @@ export function loadCSS(href) {
     appearMain();
   };
   document.head.appendChild(link);
+}
+
+/**
+ * Inject style text to node
+ * @param {string} txt
+ * @param {HTMLElement} [parent] - if not set, injects to head
+ */
+export function injectCSSText(txt, parent) {
+  const s = document.createElement('style');
+  (parent || document.head).appendChild(s);
+  s.appendChild(document.createTextNode(txt));
 }
 
 // export function decorateBlocks($main) {
@@ -520,7 +530,6 @@ export async function loadTemplate(template) {
   const basePath = `/templates/${template}/${template}`;
   emit('preLoadTemplate', { basePath });
 
-  console.log(`load template ${basePath}`);
   loadCSS(`${basePath}.css`);
   import(`${basePath}.js`).then(({ default: run }) => {
     emit('postLoadTemplate', { basePath });
@@ -721,5 +730,4 @@ async function decoratePage() {
   localizeFooter();
 }
 
-console.log('script index');
 decoratePage();

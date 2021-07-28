@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+import { injectCSSText } from './scripts.js';
+
 let pathmap;
 
 export async function getMediaPathMap() {
@@ -21,7 +23,7 @@ export async function getMediaPathMap() {
         cltr[item.path] = item.hashpath;
         return cltr;
       }, {});
-      return j;
+      return pathmap;
     });
 }
 
@@ -29,19 +31,21 @@ export async function getMediaPathMap() {
  * Returns a media bus path if staticPath exists in
  * the path map (ie. `./media_<hash>.<ext>`)
  * @param {string} staticPath
- * @returns {string}
+ * @returns {Promise<string>}
  */
 export async function hashPathOf(staticPath) {
   const map = await getMediaPathMap();
-  console.log('hashpath map: ', map);
   if (staticPath in map) {
     return map[staticPath];
   }
   return staticPath;
 }
 
-export async function setBackgroundImage(selector, href, parent = document) {
-  const el = parent.querySelector(selector);
-  if (!el) return;
-  el.style.backgroundImage = `url(${hashPathOf(href)})`;
+export async function setBackgroundImage(selector, href, mediaQuery, parent) {
+  const url = await hashPathOf(href);
+  let txt = `${selector}{background-image:url(${url});}`;
+  if (mediaQuery) {
+    txt = `@media (${mediaQuery}){${txt}}`;
+  }
+  injectCSSText(txt, parent);
 }
