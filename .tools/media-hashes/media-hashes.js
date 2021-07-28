@@ -13,14 +13,11 @@
 // @ts-check
 /* eslint-disable import/no-extraneous-dependencies */
 
-import fetchAPI from '@adobe/helix-fetch';
+// @ts-ignore
+import { fetch, reset as resetContext } from '@adobe/helix-fetch';
 import { JSDOM } from 'jsdom';
 import { spawn } from 'child_process';
 import { join } from 'path';
-
-/** @type {Window} */
-// @ts-ignore
-const { fetch } = fetchAPI;
 
 /**
  * @typedef {Object} MediaHashmapOptions
@@ -112,5 +109,6 @@ export default function fetchMediaHashmap(path, options = {}) {
     .then((o) => (opts.copy ? osxClipboard(o) : o))
     .catch((e) => {
       console.error('Failed to fetch: ', e);
-    });
+    })
+    .finally(resetContext);
 }

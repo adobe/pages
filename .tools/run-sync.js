@@ -93,6 +93,5 @@ function getOpt(opt, required = true, type = 'string') {
 
     const dur = Date.now() - startTime;
     console.log(`✨ Synced ${sLen} files in ${dur / 1000}s`);
-    process.exit(0);
   });
 })();

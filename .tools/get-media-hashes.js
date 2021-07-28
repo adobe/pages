@@ -22,12 +22,12 @@ import fetchMediaHashmap from './media-hashes/media-hashes.js';
  * Or it could be an existing document other than an index (not ending with /)
  *
  * List of paths mapped from static dir as of 07/27/21:
- * /static/ete/hero-posters
- * /static/internal
- * /static/lightroom-classic
- * /static/twp3
- * /static/twp3/background-elements
- * /static/templates/stock-advocates
+ * /static/ete/hero-posters/
+ * /static/internal/
+ * /static/lightroom-classic/
+ * /static/twp3/
+ * /static/twp3/background-elements/
+ * /static/templates/stock-advocates/
  *
  * @example
  * ```js
@@ -48,5 +48,4 @@ const { argv } = yargs(process.argv);
   const { format, copy } = argv;
   const map = await fetchMediaHashmap(docPath, { format, copy });
   console.log(map);
-  process.exit(0);
 })();

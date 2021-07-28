@@ -474,13 +474,27 @@ export function loadBlock($block) {
     })
     .catch((err) => console.log(`failed to load module for ${blockName}`, err));
 
-  loadCSS(`/express/blocks/${blockName}/${blockName}.css`);
+  loadCSS(`/pages/blocks/${blockName}/${blockName}.css`);
 }
 
 export function loadBlocks($main) {
   $main
     .querySelectorAll('div.section-wrapper > div > .block')
     .forEach(async ($block) => loadBlock($block));
+}
+
+function getEmbedName(pEl) {
+  const spl = pEl.textContent.split('/');
+  const name = spl[spl.length - 1];
+  const lastDot = name.lastIndexOf('.');
+  return lastDot < 0 ? name : name.substr(0, lastDot);
+}
+
+function makeBlockEl(name) {
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('section-wrapper');
+  wrapper.innerHTML = `<div><section data-block-name="${name}"></section></div>`;
+  return wrapper;
 }
 
 /**
@@ -493,7 +507,12 @@ export function replaceEmbeds() {
   const pEls = document.querySelectorAll('p');
   pEls.forEach((pEl) => {
     if (pEl.innerText.startsWith('/')) {
-      pEl.replaceWith();
+      emit('replaceEmbed', pEl);
+      const name = getEmbedName(pEl);
+      console.log('name: ', name);
+      const blockWrap = makeBlockEl(name);
+      pEl.replaceWith(blockWrap);
+      loadBlock(blockWrap.firstChild.firstChild);
     }
   });
 }
@@ -715,6 +734,8 @@ async function decoratePage() {
   } else {
     decorateDefault();
   }
+
+  replaceEmbeds();
 
   document.title = document.title.split('<br>').join(' ');
 

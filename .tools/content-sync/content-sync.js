@@ -13,14 +13,11 @@
 // @ts-check
 /* eslint-disable no-await-in-loop, import/no-extraneous-dependencies */
 
-import fetchAPI from '@adobe/helix-fetch';
+// @ts-ignore
+import { fetch, reset as resetContext } from '@adobe/helix-fetch';
 import path from 'path';
 import glob from 'glob-promise';
 import { cwd } from 'process';
-
-/** @type {Window} */
-// @ts-ignore
-const { fetch } = fetchAPI;
 
 const BATCH = 5; // # reqs to make per batch
 const THROTTLE = 1000; // ms to wait between batches
@@ -121,6 +118,7 @@ export function LocalSync(options) {
     const cleanup = () => {
       running = false;
       progressCbs = [];
+      resetContext();
     };
 
     resolve = () => {
