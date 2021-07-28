@@ -16,6 +16,10 @@ module.exports = {
   env: {
     browser: true,
   },
+  ignorePatterns: [
+    '**/node_modules/**',
+    '!.tools/',
+  ],
   rules: {
     // allow reassigning param
     'no-param-reassign': [2, { props: false }],
@@ -30,10 +34,19 @@ module.exports = {
       enforceForRenamedProperties: false,
     }],
   },
-  parser: '@babel/eslint-parser',
+  plugins: ['@typescript-eslint'],
+  overrides: [
+    {
+      files: ['**/*.d.ts'],
+      rules: {
+        'no-unused-expressions': 'off',
+        'no-unused-vars': 'off',
+      },
+    },
+  ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     allowImportExportEverywhere: true,
     sourceType: 'module',
-    requireConfigFile: false,
   },
 };

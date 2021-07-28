@@ -12,14 +12,13 @@
     "source.fixAll.eslint": true,
   },
   "eslint.format.enable": true,
+  "eslint.debug": true,
   "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
   },
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "editor.formatOnSave": false
-  },
-  "typescript.format.enable": false,
-  "javascript.format.enable": false,
+    "editor.formatOnSave": true
+  }
 }
