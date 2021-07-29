@@ -10,11 +10,22 @@
  * governing permissions and limitations under the License.
  */
 
+function canvasTest() {
+  /** @type {HTMLCanvasElement} */
+  const canvas = document.querySelector('#glCanvas');
+  // Initialize the GL context
+  const gl = canvas.getContext('webgl');
+  const img = document.getElementById('corsImage');
+  gl.drawImage(img, 0, 0);
+}
+
 /** @type {import("../block").BlockDecorator} */
 export default function decorate($block, name, doc) {
   $block.innerHTML = `<div id="container" class="flexy">
     <svg id="icon" class="flexy"xmlns="http://www.w3.org/2000/svg" class="icon icon-notfound"><use href="/icons.svg#not-found"></use></svg>
     <div id="heading" class="flexy">welcome to pages.adobe.com</div>
+    <div><canvas id="glCanvas" width="640" height="480"></canvas></div>
+    <img src="https://blog.adobe.com/en/publish/2021/04/14/media_1d77a080a9c0518f610d1667f17ba529844aa391c.png?width=1200&format=pjpg&optimize=medium"></img>
     <div id="description" class="flexy">we will redirect you to one of our favorite landing pages<br></div>
   </div>`;
 
@@ -32,12 +43,13 @@ export default function decorate($block, name, doc) {
       if (window.location.hostname === 'localhost') {
         $description.innerHTML = `<a href='${href}'>take me to a landing page</a>`;
       } else {
-        window.location.href = href;
+        // window.location.href = href;
       }
     } else {
       setTimeout(countdown, 300);
     }
   }
 
+  canvasTest();
   countdown();
 }
