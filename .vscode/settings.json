@@ -12,7 +12,7 @@
     "source.fixAll.eslint": true,
   },
   "eslint.format.enable": true,
-  "eslint.debug": true,
+  "eslint.debug": false,
   "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": true

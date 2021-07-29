@@ -4,6 +4,7 @@
   "description": "pages.adobe.com landing pages",
   "scripts": {
     "lint": "eslint .",
+    "compare": "node ./.tools/run-compare.js",
     "sync:content": "node ./.tools/run-sync.js"
   },
   "repository": {
@@ -13,6 +14,9 @@
   "keywords": [
     "helix"
   ],
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || ^15.14.0 || >=16.0.0"
+  },
   "author": "Adobe",
   "license": "Apache-2.0",
   "bugs": {
@@ -26,12 +30,16 @@
     "@babel/eslint-parser": "7.13.10",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
+    "capture-website": "^2.0.2",
+    "chrome-launcher": "^0.14.0",
     "eslint": "7.30.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-header": "3.1.1",
     "eslint-plugin-import": "2.23.4",
     "ghooks": "2.0.4",
     "glob-promise": "^4.2.0",
     "jsdom": "^16.6.0",
+    "lighthouse": "^8.1.0",
     "lint-staged": "11.0.1",
     "typescript": "^4.3.5",
     "yargs": "^17.0.1"

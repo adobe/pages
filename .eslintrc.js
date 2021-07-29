@@ -35,6 +35,15 @@ module.exports = {
     }],
   },
   plugins: ['@typescript-eslint'],
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts'],
+    },
+    'import/resolver': {
+      typescript: {
+      },
+    },
+  },
   overrides: [
     {
       files: ['**/*.d.ts'],
