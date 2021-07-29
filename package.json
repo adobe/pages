@@ -45,7 +45,8 @@
     "yargs": "^17.0.1"
   },
   "lint-staged": {
-    "*.js": "eslint"
+    "*.js": "eslint",
+    "*.!(js|css|ts|json|md|html|txt|svg|yaml)": "node ./.tools/prevent-media-push.js"
   },
   "config": {
     "ghooks": {

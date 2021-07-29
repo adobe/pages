@@ -271,7 +271,7 @@ main div.form-container select {
     flex: none;
 	margin: 3px 0 0 0;
 	padding: 5px 15px;
-	background: #fff url('/static/global/select-caret.svg') calc(100% - 12px) center no-repeat;
+	background: #fff url('/icons/select-caret.svg') calc(100% - 12px) center no-repeat;
 	background-size: 10px 10px;
 }
 

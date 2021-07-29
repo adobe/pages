@@ -752,14 +752,14 @@ async function decoratePage() {
   initializeNamespaces();
   setupTestMode();
 
+  replaceEmbeds();
+
   const template = getTemplateName();
   if (template) {
     loadTemplate(template);
   } else {
     decorateDefault();
   }
-
-  replaceEmbeds();
 
   document.title = document.title.split('<br>').join(' ');
 
