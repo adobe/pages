@@ -12,8 +12,6 @@
 
 import { decorateDefault, createTag } from '../../pages/scripts/scripts.js';
 
-decorateDefault();
-
 function helpxInNewWindow() {
   document.querySelectorAll('main a[href]').forEach(($a) => {
     const url = $a.href;
@@ -37,12 +35,8 @@ function decorateVideoBlocks() {
 
 window.addEventListener('load', () => document.body.classList.add('loaded'));
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', () => {
-    helpxInNewWindow();
-    decorateVideoBlocks();
-  });
-} else {
+export default async function decoratePage() {
+  decorateDefault();
   helpxInNewWindow();
   decorateVideoBlocks();
 }

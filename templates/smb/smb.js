@@ -151,7 +151,7 @@ function setTabIndex() {
   }
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
   decorateTables();
   styleCards();
@@ -171,10 +171,4 @@ async function decoratePage() {
   window.pages.decorated = true;
   wrapSections('.home > main > div');
   appearMain();
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

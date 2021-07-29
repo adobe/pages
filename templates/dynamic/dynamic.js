@@ -108,7 +108,7 @@ async function decorateHome() {
   });
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
 
   await loadLocalHeader();
@@ -142,10 +142,4 @@ async function decoratePage() {
   window.pages.decorated = true;
   appearMain();
   decorateHome();
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

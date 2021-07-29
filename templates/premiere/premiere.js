@@ -45,7 +45,8 @@ function decorateVideoText() {
   });
 }
 
-decorateYouTube();
-decorateVideoText();
-
-decorateDefault();
+export default async function decoratePage() {
+  decorateYouTube();
+  decorateVideoText();
+  decorateDefault();
+}

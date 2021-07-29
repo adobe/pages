@@ -13,10 +13,12 @@
 import { injectCSSText } from './scripts.js';
 
 let pathmap;
+let pending;
 
 export async function getMediaPathMap() {
   if (pathmap) return pathmap;
-  return fetch('/static/pathmap.json')
+  if (pending) return pending;
+  pending = fetch('/static/pathmap.json')
     .then((resp) => resp.json())
     .then((j) => {
       pathmap = j.data.reduce((cltr, item) => {
@@ -25,6 +27,7 @@ export async function getMediaPathMap() {
       }, {});
       return pathmap;
     });
+  return pending;
 }
 
 /**

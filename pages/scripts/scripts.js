@@ -493,7 +493,7 @@ function getEmbedName(pEl) {
 function makeBlockEl(name) {
   const wrapper = document.createElement('div');
   wrapper.classList.add('section-wrapper');
-  wrapper.innerHTML = `<div><section data-block-name="${name}"></section></div>`;
+  wrapper.innerHTML = `<div><section class="block" data-block-name="${name}"></section></div>`;
   return wrapper;
 }
 
@@ -552,7 +552,7 @@ export async function loadTemplate(template) {
   loadCSS(`${basePath}.css`);
   import(`${basePath}.js`).then(({ default: run }) => {
     emit('postLoadTemplate', { basePath });
-    run();
+    if (run) run();
     emit('postRunTemplate', { basePath });
   });
 }
@@ -663,6 +663,30 @@ function setupTestMode() {
   window.pages.on(undefined, console.debug);
 }
 
+/**
+ * Sets the trigger for the LCP (Largest Contentful Paint) event.
+ * @see https://web.dev/lcp/
+ * @param {Document} doc The document
+ * @param {Function} postLCP The callback function
+ */
+function setLCPTrigger(doc, postLCP) {
+  const $lcpCandidate = doc.querySelector('main > div:first-of-type img');
+  if ($lcpCandidate) {
+    if ($lcpCandidate.complete) {
+      postLCP();
+    } else {
+      $lcpCandidate.addEventListener('load', () => {
+        postLCP();
+      });
+      $lcpCandidate.addEventListener('error', () => {
+        postLCP();
+      });
+    }
+  } else {
+    postLCP();
+  }
+}
+
 export async function decorateDefault() {
   decorateTables();
   wrapSections('main>div');
@@ -743,6 +767,14 @@ async function decoratePage() {
 
   const mainEl = document.querySelector('main');
   loadBlocks(mainEl);
+
+  setLCPTrigger(document, async () => {
+    // post LCP actions go here
+    // for now just explicitly lazy styles
+    // but ideally would have placeholder styles for blocks
+    // and then load the actual blocks to replace them after LCP
+    loadCSS('/pages/styles/lazy-styles.css');
+  });
 
   if (window.pages.product) {
     document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;

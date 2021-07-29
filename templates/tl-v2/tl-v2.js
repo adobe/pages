@@ -487,7 +487,7 @@ window.addEventListener('resize', debounce(() => {
   cardHeightEqualizer('.card-content');
 }, 250));
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
 
   await loadLocalHeader();
@@ -523,10 +523,4 @@ async function decoratePage() {
   window.pages.decorated = true;
   appearMain();
   cardHeightEqualizer('.card-content');
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

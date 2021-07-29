@@ -16,6 +16,7 @@ import {
   insertLocalResource,
   toClassName,
 } from '../../pages/scripts/scripts.js';
+import { setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
@@ -456,7 +457,8 @@ export function webpPolyfill(element) {
   }
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
+  setBackgroundImage('.embed-internal-submitandgetfunded', '/static/templates/stock-advocates/footer_bg.jpg');
   decorateTables();
   checkWebpFeature(() => {
     webpPolyfill(document);
@@ -478,10 +480,4 @@ async function decoratePage() {
   appearMain();
   decorateContactUs();
   addAccessibility();
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

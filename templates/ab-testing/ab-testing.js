@@ -70,10 +70,8 @@ function decorateABTests() {
   }
 }
 
-async function delegatePageDecoration() {
+export default async function delegatePageDecoration() {
   decorateABTests();
   await decorateDefault();
   // decorateTables();
 }
-
-delegatePageDecoration();

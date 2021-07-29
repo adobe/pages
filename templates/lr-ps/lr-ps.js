@@ -10,8 +10,16 @@
  * governing permissions and limitations under the License.
  */
 
-/* global createTag classify debounce addDefaultClass decorateTables loadLocalHeader
-appearMain externalLinks */
+import {
+  addDefaultClass,
+  appearMain,
+  classify,
+  createTag,
+  debounce,
+  decorateTables,
+  externalLinks,
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -345,7 +353,7 @@ function cleanUpBio() {
     `;
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
   decorateTables();
   await loadLocalHeader();
@@ -391,11 +399,3 @@ window.addEventListener('resize', debounce(() => {
   // run resize events
   cardHeightEqualizer('.card-content');
 }, 250));
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', () => {
-    decoratePage();
-  });
-} else {
-  decoratePage();
-}

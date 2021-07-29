@@ -257,7 +257,7 @@ function paramHelper() {
   }
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
   wrapSections('main>div');
   await loadLocalHeader();
@@ -266,12 +266,13 @@ async function decoratePage() {
   window.pages.decorated = true;
   paramHelper();
   appearMain();
+  loadJSModule('../../templates/cc-growth/icons.js');
 }
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
-}
+// if (document.readyState === 'loading') {
+//   window.addEventListener('DOMContentLoaded', decoratePage);
+// } else {
+//   decoratePage();
+// }
 
-loadJSModule('../../templates/cc-growth/icons.js');
+// loadJSModule('../../templates/cc-growth/icons.js');
