@@ -112,7 +112,7 @@ async function insertSteps() {
       return segment;
     });
     // let markup = `${addToCategory}`
-    Promise.all(stepProms).then((segments) => {
+    await Promise.all(stepProms).then((segments) => {
       const addToCategory = segments.join('');
       $sectionTitles.innerHTML = '';
       $steps.innerHTML = addToCategory;
@@ -281,20 +281,16 @@ async function decorateStep() {
   }
   const $skills = createTag('div', { class: 'skills' });
 
-  const proms = skills.map(async (skill) => `
+  const segments = skills.map(async (skill) => `
       <div class="skill">
-        <img src="${await hashPathOf(`/static/you-will-learn/${skill.icon}.svg`)}">
+        <img src="$/icon/you-will-learn/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
-  
       </div>`);
 
   const $skillsTitle = document.querySelector('.learn h2');
-  Promise.all(proms).then((segments) => {
-    const html = segments.join('');
-    $skills.innerHTML = html;
-    $learn.appendChild($skills);
-    $skills.prepend($skillsTitle);
-  });
+  $skills.innerHTML = segments.join('');
+  $learn.appendChild($skills);
+  $skills.prepend($skillsTitle);
 
   // fill up next
 }

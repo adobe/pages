@@ -20,38 +20,34 @@ async function fetchSteps() {
 
 async function filterSteps() {
   const steps = await fetchSteps();
-  const currentIndex = window.location.search.split('?')[1].split('&')[0];
-  const index = currentIndex - 1;
-  let stepItem = '';
 
-  // const currentTag = steps[index].Tag;
-  // const filteredData = [];
-  for (let i = 0; i < steps.length; i += 1) {
-    if (i !== index && steps[i].Tag === steps[index].Tag) {
-      const {
-        Title,
-        Description,
-        Thumbnail,
-        // Product_icon_1: icon1,
-        // Product_icon_2: icon2,
-      } = steps[i];
-      const url = `${window.location.href.split('?')[0]}?${i + 1}`;
-      stepItem += `
-          <a class="more-content--ete-item" href="${url}">
-            <div class="more-content--ete-image">
-              <div style="position: relative;">
-                <img src="${hashPathOf(`/static/lr-ps/hero-posters/${Thumbnail}`)}">
-              </div>
-            </div>
-            <div class="more-content--ete-details">
-              <h4>${Title.split('&nbsp;').join('')}</h4>
-              <p>${Description}</p>
-            </div>
-          </a>
-        `;
-    }
-  }
-  document.querySelector('.more-content--ete-inner').innerHTML = stepItem;
+  const currentIndex = window.location.search.split('?')[1].split('&')[0] - 1;
+  const currentTag = steps[currentIndex].Tag;
+  const urlBase = `${window.location.href.split('?')[0]}`;
+
+  steps
+    .filter(({ Tag }, i) => Tag === currentTag && i !== currentIndex)
+    .map(async ({
+      Title,
+      Description,
+      Thumbnail,
+    }, i) => `
+      <a class="more-content--ete-item" href="${urlBase}?${i + 1}">
+        <div class="more-content--ete-image">
+          <div style="position: relative;">
+            <img src="${await hashPathOf(`/static/lr-ps/hero-posters/${Thumbnail}`)}">
+          </div>
+        </div>
+        <div class="more-content--ete-details">
+          <h4>${Title.split('&nbsp;').join('')}</h4>
+          <p>${Description}</p>
+        </div>
+      </a>
+    `)
+    .then(Promise.all)
+    .then((segments) => {
+      document.querySelector('.more-content--ete-inner').innerHTML = segments.join('');
+    });
 }
 
 async function setUpFiles() {

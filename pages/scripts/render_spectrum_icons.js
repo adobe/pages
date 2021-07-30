@@ -17,7 +17,7 @@ const imageTypeChecker = () => {
     if (imageColumn.firstChild.nodeName.toUpperCase() !== 'PICTURE') {
       const iconType = imageColumn.innerText;
       imageColumn.innerHTML = `
-        <img src="../../static/${iconType}.svg">
+        <img src="/icons/${iconType}.svg">
       `;
     }
   });

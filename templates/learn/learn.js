@@ -18,6 +18,7 @@ import {
   externalLinks,
   loadLocalHeader,
 } from '../../pages/scripts/scripts.js';
+import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
@@ -192,7 +193,11 @@ async function decorateStep() {
   $image.setAttribute('class', 'image');
   const $placeholder = document.createElement('img');
   $image.appendChild($placeholder);
-  $placeholder.setAttribute('src', '/static/lightroom-classic/gif-placeholder.png');
+  // TODO: make the placeholder an svg
+  // OR, even better, make it css and loaded with the template
+  hashPathOf('/static/lightroom-classic/gif-placeholder.png').then((href) => {
+    $placeholder.setAttribute('src', href);
+  });
 
   // $main.setAttribute('class', 'appear');
   const $content = document.createElement('div');
@@ -287,6 +292,7 @@ async function decorateHome() {
 
 export default async function decoratePage() {
   addDefaultClass('main>div');
+  setBackgroundImage('body.step', '/static/lightroom-classic/progress-circle.gif');
 
   await loadLocalHeader();
 

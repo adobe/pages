@@ -18,7 +18,7 @@ import {
   externalLinks,
   loadLocalHeader,
 } from '../../pages/scripts/scripts.js';
-import { setBackgroundImage } from '../../pages/scripts/static-media.js';
+import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -234,7 +234,9 @@ async function decorateStep() {
       document.querySelector('main .content>p>a').setAttribute('href', `${currentStep['Practice File']}`);
       document.querySelector('main .content>p>a').setAttribute('target', '_blank');
     } else {
-      document.querySelector('main .content>p>a').setAttribute('href', `/static/twp3/practice-files/${currentStep['Practice File']}`);
+      hashPathOf(`/static/twp3/practice-files/${currentStep['Practice File']}`).then((href) => {
+        document.querySelector('main .content>p>a').setAttribute('href', href);
+      });
     }
   }
 
@@ -273,7 +275,7 @@ async function decorateStep() {
   let html = '';
 
   skills.forEach((skill) => {
-    html += `<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
+    html += `<div class="skill"><img src="/icons/twp3/${skill.icon}.svg">
             <p>${skill.title.replace('\n', '<br>')}</p></div>`;
   });
   $skills.innerHTML = html;
@@ -346,7 +348,6 @@ async function decorateStep() {
                     <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
                     <p>${nextStep.Description.replace('\n', '<br>')}</p>
                 </div>
-            
                     `;
     } else {
       $upnext.remove();

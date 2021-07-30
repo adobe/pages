@@ -10,20 +10,18 @@
  * governing permissions and limitations under the License.
  */
 
-/* eslint-disable import/prefer-default-export */
-
-// TODO: Remove this, change to Promise.all in insertSteps()
-// first need to ask about the done condition.
-// Also, figure out the difference between each of the twp scripts, possibly share some code.
-/* eslint-disable no-await-in-loop */
-
 import {
   addDefaultClass,
+  appearMain,
+  classify,
   createTag,
   loadLocalHeader,
-  classify,
-  appearMain,
 } from '../pages/scripts/scripts.js';
+
+/* eslint-disable import/prefer-default-export */
+
+// TODO: Remove this, see twp.js comment
+/* eslint-disable no-await-in-loop */
 
 export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
@@ -49,11 +47,11 @@ function decorateVideoSections() {
     });
 
     $videoDiv.innerHTML = `<div class="video"><div id="placeholder" class="button">
-            <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
-            </div>
-            <video id='video' class="hidden" preload="metadata" src="${href}" tabindex="0">
-            <source src="${href}" type="video/mpeg4">
-            </video></div>`;
+          <svg xmlns="http://www.w3.org/2000/svg"><use href="/icons/twp3/play.svg#icon"></use></svg>
+          </div>
+          <video id='video' class="hidden" preload="metadata" src="${href}" tabindex="0">
+          <source src="${href}" type="video/mpeg4">
+          </video></div>`;
     $videoDiv.append($videoText);
 
     $videoDiv.firstChild.firstChild.style.backgroundImage = `url(${imgSrc})`;
@@ -90,25 +88,20 @@ async function insertSteps() {
         const src = $img ? $img.getAttribute('src') : '';
 
         html += `<div class="card" onclick="window.location='step-${i}'">
-                <div class="card-header">
-                    <span class="card-duration">${duration} | Great for</span>
-                    <div class="card-greatfor"><ul>${greatfor}</ul></div>
-                </div>
-                <div class="card-img" style="background-image: url(${src})">
-                <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                </g>
-                </svg>
-                </div>
-                <div class="card-text">
-                    <div><h4>${title}</h4>
-                    <p>${desc}</p>
-                    </div>
-                    <a href="step-${i}">Watch now</a>
-                </div>
-                </div>`;
+              <div class="card-header">
+                  <span class="card-duration">${duration} | Great for</span>
+                  <div class="card-greatfor"><ul>${greatfor}</ul></div>
+              </div>
+              <div class="card-img" style="background-image: url(${src})">
+              <svg xmlns="http://www.w3.org/2000/svg"><use href="/icons/twp3/play.svg#icon"></use></svg>
+              </div>
+              <div class="card-text">
+                  <div><h4>${title}</h4>
+                  <p>${desc}</p>
+                  </div>
+                  <a href="step-${i}">Watch now</a>
+              </div>
+              </div>`;
       } else {
         done = true;
       }

@@ -50,7 +50,7 @@ const setIconLayout = ($color) => {
     listItem.innerHTML = `
       <span class="group">
         <span class="icons">
-          <img data-src="../../static/${$color}/${names}" src="">
+          <img data-src="/icons/${$color}/${names}" src="">
         </span>
         <div class="name">${names}</div>
         <span class="copy">Copy name below</span>
@@ -93,7 +93,7 @@ const rewriteIcons = ($data) => {
       $listItem += `
       <li>
       <span class="group">
-      <span class="icons"><img data-src="../../static/${$color}/${$item.item.name}.svg" src=""></span>
+      <span class="icons"><img data-src="/icons/${$color}/${$item.item.name}.svg" src=""></span>
       <div class="name">${$item.item.name}</div>
       <span class="copy">Copy name below</span>
       <br>

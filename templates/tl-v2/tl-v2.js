@@ -19,6 +19,7 @@ import {
   externalLinks,
   loadLocalHeader,
 } from '../../pages/scripts/scripts.js';
+import { setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -237,12 +238,12 @@ async function decorateStep() {
   iconParent.setAttribute('class', 'icons_parent');
   if (hasSingleThumbnail) {
     iconParent.innerHTML = `
-      <div class="icons_parent__item large"><img src="../../../../static/twp3/icons/${currentStep.has_single_gallery_image.toLowerCase()}.svg"></div>
+      <div class="icons_parent__item large"><img src="/icons/twp3/${currentStep.has_single_gallery_image.toLowerCase()}.svg"></div>
       `;
   } else {
     iconParent.innerHTML = `
-        <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
-        <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
+        <div class="icons_parent__item"><img src="/icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
+        <div class="icons_parent__item"><img src="/icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
   }
 
   $h1.id = '';
@@ -488,6 +489,10 @@ window.addEventListener('resize', debounce(() => {
 }, 250));
 
 export default async function decoratePage() {
+  setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-bg.png');
+  setBackgroundImage('.step main .upnext .window', '/static/twp3/window.jpg');
+  setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-desktop-bg-ai.jpg', 'min-width:900px');
+
   addDefaultClass('main>div');
 
   await loadLocalHeader();

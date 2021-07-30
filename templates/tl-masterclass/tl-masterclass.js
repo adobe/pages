@@ -187,7 +187,7 @@ async function decorateStep() {
   let html = '';
 
   skills.forEach((skill) => {
-    html += `<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
+    html += `<div class="skill"><img src="/icons/twp3/${skill.icon}.svg">
             <p>${skill.title}</p></div>`;
   });
   $skills.innerHTML = html;

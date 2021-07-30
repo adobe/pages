@@ -11,11 +11,34 @@
  */
 
 /* eslint-disable no-console */
+import path from 'path';
 
 /**
  * Precommit hook script to prevent certain file types from being pushed.
  * Just logs a message and exits.
  */
 
-console.error("❌ Attempting to push media that doesn't belong in git");
+const allowed = ['.js', '.css', '.ts', '.json', '.md', '.html', '.txt', '.svg', '.yaml'];
+const maxDetails = 10;
+
+function isHidden(p) {
+  return (/(^|\/)\.[^/.]/g).test(p);
+}
+
+const badFiles = process.argv.filter(
+  (f, i) => i > 1
+    && !allowed.includes(path.extname(f))
+    && !isHidden(f),
+);
+const len = badFiles.length;
+if (len === 0) process.exit(0);
+
+let listMsg = '';
+for (let i = 0; i < maxDetails && i < len; i += 1) {
+  listMsg += `\n${badFiles[i]}`;
+}
+if (len > maxDetails) {
+  listMsg += `\n... and ${len - maxDetails} others.`;
+}
+console.error(`❌ Attempting to push media that doesn't belong in git: ${listMsg}`);
 process.exit(1);

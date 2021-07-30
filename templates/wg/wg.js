@@ -200,7 +200,7 @@ async function decorateStep() {
   skills.forEach((skill) => {
     html += `
     <div class="skill">
-      <img src="/static/twp3/icons/${skill.icon}.svg">
+      <img src="/icons/twp3/${skill.icon}.svg">
       <p>${skill.title}</p>
     </div>`;
   });

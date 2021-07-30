@@ -43,10 +43,10 @@ async function filterSteps() {
                 <img src="${await hashPathOf(`/static/ete/hero-posters/${Thumbnail}`)}">
                 <div class="icon-set">
                   <div class="icon-set__item">
-                    <img src="../../../../icons/${icon1.toLowerCase()}.svg" alt="">
+                    <img src="/icons/${icon1.toLowerCase()}.svg" alt="">
                   </div>
                   <div class="icon-set__item">
-                    <img src="../../../../icons/${icon2.toLowerCase()}.svg" alt="">
+                    <img src="/icons/${icon2.toLowerCase()}.svg" alt="">
                   </div>
                 </div>
               </div>

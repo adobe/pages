@@ -20,7 +20,12 @@ const { argv } = yargs(process.argv);
 /**
  * @example
  * ```sh
- * npm run sync:content -- "/Volumes/GoogleDrive/My Drive/pages" [--glob="*.*"]
+ * npm run sync:content -- "/Volumes/GoogleDrive/My Drive/pages" \
+ *  [--glob="*.*"] \
+ *  [--branch="main"] \
+ *  [--env="preview"] \
+ *  [--owner="adobe"] \
+ *  [--repo="pages"]
  * ```
  */
 

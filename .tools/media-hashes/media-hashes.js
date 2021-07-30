@@ -13,7 +13,6 @@
 // @ts-check
 /* eslint-disable import/no-extraneous-dependencies */
 
-// @ts-ignore
 import { fetch, reset as resetContext } from '@adobe/helix-fetch';
 import { JSDOM } from 'jsdom';
 import { spawn } from 'child_process';
@@ -48,7 +47,7 @@ function parseMediaTable(str, basePath) {
     const valEl = valCell.querySelector('p > picture > source');
     if (!keyEl || !valEl) return;
 
-    const key = join(basePath, keyEl.innerText || keyEl.innerHTML);
+    const key = join(basePath, keyEl.innerHTML);
     const value = valEl.getAttribute('srcset').split('?')[0];
 
     mapped[key.trim()] = value.trim();

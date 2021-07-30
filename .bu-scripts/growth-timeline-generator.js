@@ -25,7 +25,7 @@ async function insertSteps() {
         steps.forEach((step, i) => {
             html+=`<div class="card" onclick="window.location='step?${i+1}'">
                 <div class='img' style="background-image: url(${getThumbnail(step)})">
-                <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
+                <svg xmlns="http://www.w3.org/2000/svg"><use href="/icons/twp3/play.svg#icon"></use></svg>
                 </div>
                 <div class='text'>
                     <div><h4>${step.Title}</h4>
@@ -115,7 +115,7 @@ async function decorateStep() {
 
     if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
         $video.innerHTML=`<div class="video"><div id="placeholder" class="button">
-        <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
+        <svg xmlns="http://www.w3.org/2000/svg"><use href="/icons/twp3/play.svg#icon"></use></svg>
         </div>
         <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
@@ -144,7 +144,7 @@ async function decorateStep() {
     let html='';
 
     skills.forEach((skill) => {
-        html+=`<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
+        html+=`<div class="skill"><img src="/icons/twp3/${skill.icon}.svg">
             <p>${skill.title}</p></div>`;
     })
     $skills.innerHTML=html;
