@@ -16,6 +16,7 @@ window.hlx.initSidekick({
   host: 'pages.adobe.com',
   hlx3: true,
   compatMode: true,
+  devMode: true,
   plugins: [
     // PARENT FOLDER -----------------------------------------------------------------
     {
