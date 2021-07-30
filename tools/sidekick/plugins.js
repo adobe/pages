@@ -52,4 +52,39 @@
       },
     },
   });
+
+  // TEST -----------------------------------------------------------------
+  /** temp, for testing locally */
+  window.testPlugin = window.testPlugin || {};
+  const { elements, callback, config } = window.testPlugin;
+
+  /**
+   * @type {Object} plugin
+   * @description The plugin configuration.
+   * @prop {string}       id        The plugin ID (mandatory)
+   * @prop {pluginButton} button    A button configuration object (optional)
+   * @prop {boolean}      override=false  True to replace an existing plugin (optional)
+   * @prop {elemConfig[]} elements  An array of elements to add (optional)
+   * @prop {Function}     condition Determines whether to show this plugin (optional).
+   * This function is expected to return a boolean when called with the sidekick as argument.
+   * @prop {Function}     callback  A function called after adding the plugin (optional).
+   * This function is called with the sidekick and the newly added plugin as arguments.
+   */
+  const testPlugin = config || {
+    id: 'test',
+    condition: (sidekick) => sidekick.isEditor(),
+    elements,
+    callback,
+    button: {
+      text: 'Test',
+      action: async (evt, _sk) => {
+        console.debug('evt, _sk: ', evt, _sk);
+        if (window.testPlugin.action) {
+          window.testPlugin.action(evt, _sk);
+        }
+      },
+    },
+  };
+
+  sk.add(testPlugin);
 })();
