@@ -402,9 +402,10 @@ main .hero-section + .section-wrapper a.button {
 }
 
 .embed-internal-fundsection>div:first-of-type img {
-  object-fit: cover;
+  object-fit: fill;
   width: 100%;
 }
+
 
 .embed-internal-fundsection>div:first-of-type>p:first-of-type {
   height: 100%;
@@ -413,7 +414,7 @@ main .hero-section + .section-wrapper a.button {
 
 .embed-internal-fundsection>div:first-of-type>p:nth-of-type(2) {
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   left: 20px;
 }
 
@@ -421,8 +422,16 @@ main .hero-section + .section-wrapper a.button {
   padding: 32px;
   margin: auto;
   max-width: 800px;
-  padding-top: 64px;
-  padding-bottom: 64px;
+}
+
+@media (max-width: 599px) {
+  .embed-internal-fundsection>div:nth-of-type(2) {
+    padding: 0px;
+    margin: auto;
+    max-width: 800px;
+    padding-top: 0px;
+    padding-bottom: 64px;
+  }    
 }
 
 .embed-internal-fundsection a.button.primary {
@@ -442,6 +451,18 @@ main .hero-section + .section-wrapper a.button {
 
 .embed-internal-submitandgetfunded h3#contact-us {
   display: none;
+}
+
+.embed-internal-submitandgetfunded #contact-us > p {
+  color: black;
+  font-size: 11px;
+  line-height: 16px;
+  max-width: 600px;
+  margin: auto;
+}
+.embed-internal-submitandgetfunded #contact-us > p a:any-link {
+  display: inline;
+  color: black;
 }
 
 .embed-internal-submitandgetfunded {
@@ -496,7 +517,14 @@ main .hero-section + .section-wrapper a.button {
   max-width: 400px;
 }
 
+main .section-wrapper:first-of-type p {
+  font-size: 20px;
+  color: #fff;
+}
 
+header img {
+  opacity: 1;
+}
 
 /* Grid */
 
@@ -1008,6 +1036,7 @@ main .columns ul {
     transform: scaleX(-1);
 
   }
+
 
 
 @keyframes hero-carousel-tonext {
