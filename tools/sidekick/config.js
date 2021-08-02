@@ -14,6 +14,8 @@
 window.hlx.initSidekick({
   project: 'Adobe Landing Pages',
   host: 'pages.adobe.com',
+  hlx3: false,
+  ref: 'master',
   plugins: [
     // PARENT FOLDER -----------------------------------------------------------------
     {
