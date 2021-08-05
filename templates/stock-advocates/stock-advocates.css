@@ -938,10 +938,12 @@ main .columns ul {
   
   @media (hover: hover) {
     .hero-carousel-snapper {
-      animation-name: hero-carousel-tonext, hero-carousel-snap;
+      animation-name: none;
+      /* animation-name: hero-carousel-tonext, hero-carousel-snap;
       animation-timing-function: ease;
       animation-duration: 4s;
       animation-iteration-count: infinite;
+      */
     }
   
     .hero-carousel-slide:last-child .hero-carousel-snapper {

@@ -479,6 +479,8 @@ async function decoratePage() {
   appearMain();
   decorateContactUs();
   addAccessibility();
+
+  document.getElementById('favicon').href = "https://stock.adobe.com/favicon.ico";
 }
 
 if (document.readyState === 'loading') {
