@@ -1,4 +1,18 @@
-<div class="wg-form-container">
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+
+/** @type {import("../block").BlockDecorator} */
+export default function decorate(blockEl) {
+  blockEl.innerHTML = `<div class="wg-form-container">
   <form id="wg-form">
     <div class="input-el">
       <label for="name"> First and Last Name </label>
@@ -63,61 +77,57 @@
       <button type="submit">Submit</button>
     </div>
   </form>
-</div>
+</div>`;
 
-<script>
-
-
-function setupForm() {
+  function setupForm() {
     const $formContainer = document.querySelector('.wg-form-container');
     const $form = document.getElementById('wg-form');
 
-    const formsink = 'https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE'
+    const formsink = 'https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE';
 
-    
-    
-    let sheet, thankyou;
+    let sheet;
+    let thankyou;
     $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
-      
-      if ($a.textContent.toLowerCase()=='sheet') {
-        sheet=$a.href;
+      if ($a.textContent.toLowerCase() === 'sheet') {
+        sheet = $a.href;
         $a.parentElement.remove();
       }
 
-      if ($a.textContent.toLowerCase()=='thank you') {
-        thankyou=$a.href;
+      if ($a.textContent.toLowerCase() === 'thank you') {
+        thankyou = $a.href;
         $a.parentElement.remove();
       }
     });
 
-    const values=[{name: 'timestamp', value: new Date().toISOString().replace(/[TZ]/g,' ').split('.')[0].trim()}];
-  
+    const values = [{ name: 'timestamp', value: new Date().toISOString().replace(/[TZ]/g, ' ').split('.')[0].trim() }];
+
     $form.addEventListener('submit', async (evt) => {
       evt.preventDefault();
       if ($form.reportValidity()) {
         $form.querySelectorAll('input, textarea').forEach(($f) => {
-            if (($f.getAttribute('type') != 'radio') || $f.checked) {
-              values.push({name: $f.name, value: $f.value});
-            }
-        })
+          if (($f.getAttribute('type') !== 'radio') || $f.checked) {
+            values.push({ name: $f.name, value: $f.value });
+          }
+        });
 
-        const body={sheet, data: values};
-        const resp=await fetch(formsink, {
+        const body = { sheet, data: values };
+        const resp = await fetch(formsink, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(body) // body data type must match "Content-Type" header
+          body: JSON.stringify(body), // body data type must match "Content-Type" header
         });
-        const text=await resp.text();        
-        window.location=thankyou;
+        // eslint-disable-next-line no-unused-vars
+        const text = await resp.text();
+        window.location = thankyou;
       }
 
       return false;
-    })
+    });
   }
 
-  document.getElementsByTagName("body")[0].classList.add("has-wg-form");
+  document.getElementsByTagName('body')[0].classList.add('has-wg-form');
 
   setupForm();
-</script>
+}

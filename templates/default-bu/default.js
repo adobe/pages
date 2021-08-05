@@ -31,6 +31,18 @@ function styleNav() {
   let nav = '';
   let carrot = '';
 
+  function getImageName() {
+    let iconName = '';
+    if (appName.toLowerCase().includes('adobe')) {
+      iconName = appName.toLowerCase().split('adobe')[1];
+    } else {
+      iconName = appName.toLowerCase();
+    }
+    return `/icons/${iconName.split(' ').join('')}`;
+  }
+
+  console.log(getImageName());
+
   if (listItems) {
     if (listItems.length >= 1) {
       nav = parent.querySelector('ul').outerHTML;
@@ -43,14 +55,14 @@ function styleNav() {
   }
 
   parent.innerHTML = `
-    <div class="section-wrapper">
+    <div class="section-wrapper blocks-nav">
       <div class="nav">
         <div class="nav__section">
           <div class="app-name-and-icon">
             <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
             <div class="app-icon desktop">
               <a href="${appNameLink}" target="_blank">
-                <img src="${appIcon}" alt="${appName}">
+                <img src="${getImageName()}.svg" alt="${appName}">
               </a>
             </div>
             <div class="app-name mobile">
@@ -338,12 +350,12 @@ function decorateBackgroundImageBlocks() {
 
 async function decorateNav() {
   await loadLocalHeader();
-  styleNav();
   if (document.querySelector('.nav')) {
     document.querySelector('.app-name-and-icon').addEventListener('click', mobileDropDown);
   }
   document.querySelector('header').classList.add('appear');
   loadCSS('/styles/blocks/nav.css');
+  styleNav();
 }
 
 async function decorateBlocks() {
@@ -503,7 +515,6 @@ async function decoratePage() {
   }
 
   decorateNav();
-
   decorateBackgroundImageBlocks();
   decorateVideoBlocks();
 

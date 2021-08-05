@@ -12,7 +12,7 @@
 
 import { toClassName } from '../../scripts/scripts.js';
 
-function setupForm({
+export function setupForm({
   formId,
   containerClass = 'form-container',
   preValidation = () => true,

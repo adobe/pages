@@ -1,0 +1,43 @@
+.three-cards-lr {
+  display: flex;
+  padding: 2em 0;
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.three-cards-lr__el img {
+  width: 100%;
+}
+
+.three-cards-lr__el {
+  color: #323232 !important;
+}
+
+.three-cards-lr__el {
+  width: 100% !important;
+  display: inline-block !important;
+  color: #323232;
+  margin-bottom: 3em;
+  text-decoration: none !important;
+}
+
+.three-cards-lr__content {
+  padding: 0.5em 1em;
+  text-align: center;
+  border-right: 1px solid #DEDEDE;
+  border-bottom: 1px solid #DEDEDE;
+  border-left: 1px solid #DEDEDE;
+}
+
+.three-cards-lr__content h4 {
+  font-size: 0.8em !important;
+}
+
+@media(min-width: 800px) {
+  .three-cards-lr__el {
+    width: 31% !important;
+    margin-bottom: 0em;
+  }
+}
