@@ -477,23 +477,22 @@ export async function loadBlock($block) {
         mod.default($block, blockName, document);
       }
     })
-    .catch((e) => e));
+    .catch((e) => console.error(`failed to load module for ${blockName}`, e)));
 
-  proms.push(loadCSS(`/pages/blocks/${blockName}/${blockName}.css`).catch((e) => e));
+  proms.push(loadCSS(`/pages/blocks/${blockName}/${blockName}.css`).catch((e) => console.error(`failed to load css for ${blockName}`, e)));
 
-  Promise.all(proms).then(([jsErr, cssErr]) => {
-    if (jsErr) console.log(`failed to load module for ${blockName}`, jsErr);
-    if (cssErr) console.log(`failed to load css for ${blockName}`, cssErr);
-    if (jsErr && cssErr) {
-      // Both failed, try getting as HTML and insert the body as the block
-      // this workaround is not ideal, but there are some embeds being
-      // sourced from docs directly. Once those are changed, remove this.
-      fetch(`./${blockName}.html`).then((res) => res.text()).then((html) => {
-        const divText = html.split('<main>')[1].split('</main>')[0];
-        $block.innerHTML = divText;
-      });
-    }
-  });
+  // Promise.all(proms).then(([jsErr, cssErr]) => {
+  //   if (jsErr) console.log(`failed to load module for ${blockName}`, jsErr);
+  //   if (cssErr) console.log(`failed to load css for ${blockName}`, cssErr);
+  //   if (jsErr && cssErr) {
+  //     fetch(`./${blockName}`).then((res) => res.text()).then((html) => {
+  //       const divText = html.split('<main>')[1].split('</main>')[0];
+  //       $block.innerHTML = divText;
+  //       $block.firstChild.classList.add(`embed-internal-
+  //          ${toClassName(blockName).replaceAll('-', '')}`);
+  //     });
+  //   }
+  // });
 }
 
 export function loadBlocks($main) {
