@@ -340,22 +340,25 @@ export function appearMain() {
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
  */
-export function loadCSS(href) {
+export async function loadCSS(href) {
   emit('preLoadCss', { href });
-
-  const link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('href', href);
-  link.onload = () => {
-    window.pages.familyCssLoaded = true;
-    appearMain();
-    // set_widths();
-  };
-  link.onerror = () => {
-    window.pages.familyCssLoaded = true;
-    appearMain();
-  };
-  document.head.appendChild(link);
+  return new Promise((resolve, reject) => {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', href);
+    link.onload = () => {
+      window.pages.familyCssLoaded = true;
+      appearMain();
+      // set_widths();
+      resolve();
+    };
+    link.onerror = (e) => {
+      window.pages.familyCssLoaded = true;
+      appearMain();
+      reject(e);
+    };
+    document.head.appendChild(link);
+  });
 }
 
 /**
@@ -464,17 +467,33 @@ async function decorateBlocks() {
   });
 }
 
-export function loadBlock($block) {
+export async function loadBlock($block) {
   const blockName = $block.getAttribute('data-block-name');
-  import(`/pages/blocks/${blockName}/${blockName}.js`)
+
+  const proms = [];
+  proms.push(import(`/pages/blocks/${blockName}/${blockName}.js`)
     .then((mod) => {
       if (mod.default) {
         mod.default($block, blockName, document);
       }
     })
-    .catch((err) => console.log(`failed to load module for ${blockName}`, err));
+    .catch((e) => e));
 
-  loadCSS(`/pages/blocks/${blockName}/${blockName}.css`);
+  proms.push(loadCSS(`/pages/blocks/${blockName}/${blockName}.css`).catch((e) => e));
+
+  Promise.all(proms).then(([jsErr, cssErr]) => {
+    if (jsErr) console.log(`failed to load module for ${blockName}`, jsErr);
+    if (cssErr) console.log(`failed to load css for ${blockName}`, cssErr);
+    if (jsErr && cssErr) {
+      // Both failed, try getting as HTML and insert the body as the block
+      // this workaround is not ideal, but there are some embeds being
+      // sourced from docs directly. Once those are changed, remove this.
+      fetch(`./${blockName}.html`).then((res) => res.text()).then((html) => {
+        const divText = html.split('<main>')[1].split('</main>')[0];
+        $block.innerHTML = divText;
+      });
+    }
+  });
 }
 
 export function loadBlocks($main) {

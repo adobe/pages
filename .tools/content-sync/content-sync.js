@@ -28,6 +28,7 @@ const EXT_MAP = {
   gsheet: 'json',
   gdoc: 'md',
 };
+const ENVS = ['preview', 'publish', 'code'];
 
 /**
  * Get a promise that resolves in some duration
@@ -92,8 +93,8 @@ export function LocalSync(options) {
       throw new Error(`${o} missing or invalid, expected string.`);
     }
   });
-  if (opts.env !== 'preview' && opts.env !== 'publish') {
-    throw new Error("Invalid env, must be either 'preview' or 'publish'.");
+  if (!(ENVS.includes(opts.env))) {
+    throw new Error(`Invalid env, must be one of: ${ENVS.join(', ')}`);
   }
 
   // clean up options
@@ -166,6 +167,7 @@ export function LocalSync(options) {
       if (!running) return;
 
       const url = `https://admin.hlx3.page/${opts.env}/${opts.owner}/${opts.repo}/${opts.branch}/${p}`;
+      console.debug(`POST ${url}`);
       proms.push(
         fetch(url, { method: 'POST' }).then((res) => {
           if (!res.ok) {
