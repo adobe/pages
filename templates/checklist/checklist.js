@@ -10,6 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-import { decorateDefault } from '../../pages/scripts/scripts.js';
+import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
 
-decorateDefault();
+decorateDefaultTemplate();

@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { decorateDefault } from '../../pages/scripts/scripts.js';
+import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
 
 function decorateABTests() {
   let runTest = true;
@@ -72,6 +72,6 @@ function decorateABTests() {
 
 export default async function delegatePageDecoration() {
   decorateABTests();
-  await decorateDefault();
+  await decorateDefaultTemplate();
   // decorateTables();
 }

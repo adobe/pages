@@ -25,7 +25,7 @@ import {
   linkInNewTab,
   setExternalLinks,
   wrapSections,
-} from './default.js';
+} from './default-blocks.js';
 import { initializeNamespaces, emit } from './namespace.js';
 
 /**
@@ -89,12 +89,12 @@ export function loadJSModule(href) {
   document.head.appendChild(module);
 }
 
-// TODO: dedupe this with default.js
 /**
  * setWidths
+ * @param {string} [selector] containing sections
  */
-export function setWidths() {
-  const sections = document.querySelectorAll('main .default');
+export function setWidths(selector = 'main .default') {
+  const sections = document.querySelectorAll(selector);
   sections.forEach((section) => {
     const children = section.childNodes;
     children.forEach((child) => {
@@ -285,14 +285,13 @@ export async function loadLocalHeader() {
   if ($inlineHeader) {
     const $header = document.querySelector('header');
     $inlineHeader.childNodes.forEach((e, i) => {
-      // in a document, using uppercase and strict equal checks
-      if (e.nodeName === 'DIV' && !i) {
+      if (e.nodeName.toUpperCase() === 'DIV' && !i) {
         const $p = createTag('div');
         const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
         $p.innerHTML = inner;
         e.parentNode.replaceChild($p, e);
       }
-      if (e.nodeName === 'P' && !i) {
+      if (e.nodeName.toUpperCase() === 'P' && !i) {
         const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
         e.innerHTML = inner;
       }
@@ -340,25 +339,21 @@ export function appearMain() {
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
  */
-export async function loadCSS(href) {
+export function loadCSS(href) {
   emit('preLoadCss', { href });
-  return new Promise((resolve, reject) => {
-    const link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', href);
-    link.onload = () => {
-      window.pages.familyCssLoaded = true;
-      appearMain();
-      // set_widths();
-      resolve();
-    };
-    link.onerror = (e) => {
-      window.pages.familyCssLoaded = true;
-      appearMain();
-      reject(e);
-    };
-    document.head.appendChild(link);
-  });
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.setAttribute('href', href);
+  link.onload = () => {
+    window.pages.familyCssLoaded = true;
+    appearMain();
+    // set_widths();
+  };
+  link.onerror = () => {
+    window.pages.familyCssLoaded = true;
+    appearMain();
+  };
+  document.head.appendChild(link);
 }
 
 /**
@@ -470,29 +465,15 @@ async function decorateBlocks() {
 export async function loadBlock($block) {
   const blockName = $block.getAttribute('data-block-name');
 
-  const proms = [];
-  proms.push(import(`/pages/blocks/${blockName}/${blockName}.js`)
+  import(`/pages/blocks/${blockName}/${blockName}.js`)
     .then((mod) => {
       if (mod.default) {
         mod.default($block, blockName, document);
       }
     })
-    .catch((e) => console.error(`failed to load module for ${blockName}`, e)));
+    .catch((e) => console.error(`failed to load module for ${blockName}`, e));
 
-  proms.push(loadCSS(`/pages/blocks/${blockName}/${blockName}.css`).catch((e) => console.error(`failed to load css for ${blockName}`, e)));
-
-  // Promise.all(proms).then(([jsErr, cssErr]) => {
-  //   if (jsErr) console.log(`failed to load module for ${blockName}`, jsErr);
-  //   if (cssErr) console.log(`failed to load css for ${blockName}`, cssErr);
-  //   if (jsErr && cssErr) {
-  //     fetch(`./${blockName}`).then((res) => res.text()).then((html) => {
-  //       const divText = html.split('<main>')[1].split('</main>')[0];
-  //       $block.innerHTML = divText;
-  //       $block.firstChild.classList.add(`embed-internal-
-  //          ${toClassName(blockName).replaceAll('-', '')}`);
-  //     });
-  //   }
-  // });
+  loadCSS(`/pages/blocks/${blockName}/${blockName}.css`);
 }
 
 export function loadBlocks($main) {
@@ -527,7 +508,6 @@ export function replaceEmbeds() {
     if (pEl.innerText.startsWith('/')) {
       emit('replaceEmbed', pEl);
       const name = getEmbedName(pEl);
-      console.log('name: ', name);
       const blockWrap = makeBlockEl(name);
       pEl.replaceWith(blockWrap);
       loadBlock(blockWrap.firstChild.firstChild);
@@ -572,6 +552,8 @@ export async function loadTemplate(template) {
     emit('postLoadTemplate', { basePath });
     if (run) run();
     emit('postRunTemplate', { basePath });
+  }).catch((e) => {
+    console.error(`Error loading template module: ${e}`);
   });
 }
 
@@ -755,18 +737,10 @@ export async function decorateDefault() {
   });
   setWidths();
 
-  if (document.readyState === 'complete') {
-    document.body.classList.add('loaded');
-  } else {
-    window.addEventListener('load', () => document.body.classList.add('loaded'));
-  }
+  document.body.classList.add('loaded');
 }
 
 async function decoratePage() {
-  // import('./lazy.js').then((m) => {
-  //   m.default();
-  // });
-
   initializeNamespaces();
   setupTestMode();
 

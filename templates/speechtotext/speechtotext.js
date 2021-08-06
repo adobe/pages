@@ -10,7 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import { decorateDefault, createTag } from '../../pages/scripts/scripts.js';
+import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
+import { createTag } from '../../pages/scripts/scripts.js';
 
 function helpxInNewWindow() {
   document.querySelectorAll('main a[href]').forEach(($a) => {
@@ -36,7 +37,7 @@ function decorateVideoBlocks() {
 window.addEventListener('load', () => document.body.classList.add('loaded'));
 
 export default async function decoratePage() {
-  decorateDefault();
+  decorateDefaultTemplate();
   helpxInNewWindow();
   decorateVideoBlocks();
 }

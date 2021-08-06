@@ -10,7 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import { decorateDefault } from '../../pages/scripts/scripts.js';
+import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
+// import { decorateDefault } from '../../pages/scripts/scripts.js';
 
 function decorateYouTube() {
   const $vids = document.querySelectorAll('main div a[href^="https://www.youtube.com/"]');
@@ -48,5 +49,5 @@ function decorateVideoText() {
 export default async function decoratePage() {
   decorateYouTube();
   decorateVideoText();
-  decorateDefault();
+  decorateDefaultTemplate();
 }

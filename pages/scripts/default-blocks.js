@@ -13,9 +13,7 @@
 /* eslint-disable import/no-cycle */
 
 import {
-  appearMain,
   createTag,
-  debounce,
   loadCSS,
   loadLocalHeader,
   toClassName,
@@ -132,25 +130,6 @@ export function equalizer($element) {
       });
     }
   }
-}
-
-export function setWidths() {
-  const sections = document.querySelectorAll('main .section-wrapper >div');
-  sections.forEach((section) => {
-    const children = section.childNodes;
-    children.forEach((child) => {
-      if (child.innerHTML != null) {
-        if (child.innerHTML.includes('[!')) {
-          const width = child.innerHTML.split('[!')[1].split(']')[0];
-          const cleanUpText = child.innerHTML.split('[!')[0];
-          child.innerHTML = cleanUpText;
-          child.style.maxWidth = `${width}px`;
-          child.style.marginLeft = 'auto';
-          child.style.marginRight = 'auto';
-        }
-      }
-    });
-  });
 }
 
 export function decorateHero() {
@@ -436,60 +415,3 @@ export function decorateLinkTexting() {
     $linktexting.remove();
   }
 }
-
-export default async function decoratePage() {
-  decorateTables();
-  wrapSections('main>div');
-  // decorateBlocks();
-
-  if (document.querySelector('.hero-container')) {
-    decorateHero();
-  }
-
-  if (document.querySelector('.next')) {
-    decorateNextStep();
-  }
-
-  decorateNav();
-
-  decorateBackgroundImageBlocks();
-  decorateVideoBlocks();
-
-  decorateButtons();
-  setExternalLinks();
-  decorateLinkTexting();
-
-  window.pages.decorated = true;
-  appearMain();
-  decorateEmbeds();
-  wrapSections('header>div, footer>div');
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      if (document.querySelector('.callout-container')) {
-        equalizer('.eq');
-      }
-    }, 1000);
-  });
-
-  const runResizerFunctions = debounce(() => {
-    if (document.querySelector('.callout-container')) {
-      equalizer('.eq');
-    }
-  }, 250);
-
-  window.addEventListener('resize', runResizerFunctions);
-  window.addEventListener('load', () => {
-    if (document.querySelector('.eq')) {
-      document.querySelectorAll('.eq').forEach(($element) => {
-        linkInNewTab($element);
-      });
-    }
-  });
-  setWidths();
-}
-
-// if (document.readyState === 'loading') {
-//   window.addEventListener('DOMContentLoaded', decoratePage);
-// } else {
-//   decoratePage();
-// }
