@@ -338,8 +338,9 @@ export function appearMain() {
 /**
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
+ * @param {boolean} [prepend=false] Whether to prepend style to head, otherwise append
  */
-export function loadCSS(href) {
+export function loadCSS(href, prepend) {
   emit('preLoadCss', { href });
   const link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');
@@ -353,7 +354,11 @@ export function loadCSS(href) {
     window.pages.familyCssLoaded = true;
     appearMain();
   };
-  document.head.appendChild(link);
+  if (prepend) {
+    document.head.prepend(link);
+  } else {
+    document.head.appendChild(link);
+  }
 }
 
 /**
@@ -394,8 +399,9 @@ export function injectCSSText(txt, parent) {
 //   });
 // }
 
-function readBlockConfig($block) {
+export function readBlockConfig($block) {
   const config = {};
+  console.log('readBlockConfig: ', $block);
   $block.querySelectorAll(':scope>div').forEach(($row) => {
     if ($row.children && $row.children[1]) {
       const name = toClassName($row.children[0].textContent);
@@ -409,9 +415,12 @@ function readBlockConfig($block) {
   return config;
 }
 
-async function decorateBlocks() {
+export async function decorateBlocks() {
+  console.log('decorateBlocks');
+
   document.querySelectorAll('main>div.section-wrapper>div>div').forEach(($block) => {
     const { length } = $block.classList;
+    console.log('length: ', length, $block);
     if (length === 1) {
       const classes = $block.className.split('-');
       const classHelpers = $block.className.split('-');
@@ -426,31 +435,33 @@ async function decorateBlocks() {
       }
 
       if (classes.includes('form')) {
-        const config = readBlockConfig($block);
+        // const config = readBlockConfig($block);
+        // console.log('other config: ', config);
 
-        window.formConfig = {
-          sheet: config['form-data-submission'],
-          redirect: config['form-redirect'] ? config['form-redirect'] : 'thank-you',
-          definition: config['form-definition'],
-        };
+        // emit('set formConfig');
+        // window.formConfig = {
+        //   sheet: config['form-data-submission'],
+        //   redirect: config['form-redirect'] ? config['form-redirect'] : 'thank-you',
+        //   definition: config['form-definition'],
+        // };
 
-        const tag = document.createElement('script');
-        tag.src = '/templates/default/create-form.js';
-        document.getElementsByTagName('body')[0].appendChild(tag);
+        // const tag = document.createElement('script');
+        // tag.src = '/pages/blocks/form/create-form.js';
+        // document.getElementsByTagName('body')[0].appendChild(tag);
       }
 
       if (classes.includes('checklist')) {
-        loadJSModule('/templates/default/checklist.js');
+        loadJSModule('/pages/blocks/checklist/checklist.js');
         document.getElementsByTagName('body')[0].classList.add('checklist-page');
       }
 
       if (classes.includes('iframe') || classes.includes('missiontimeline') || classes.includes('missionbg')) {
-        loadJSModule('/templates/default/mission-series/iframe.js');
-        loadJSModule('/templates/default/mission-series/background.js');
+        loadJSModule('/pages/blocks/mission-series/iframe.js');
+        loadJSModule('/pages/blocks/mission-series/background.js');
       }
 
       if (classes.includes('list')) {
-        loadJSModule('/templates/default/render_spectrum_icons.js');
+        loadJSModule('/pages/scripts/render_spectrum_icons.js');
       }
 
       loadCSS(`/styles/blocks/${classes[0]}.css`);
@@ -468,12 +479,13 @@ export async function loadBlock($block) {
   import(`/pages/blocks/${blockName}/${blockName}.js`)
     .then((mod) => {
       if (mod.default) {
-        mod.default($block, blockName, document);
+        return mod.default($block, blockName, document);
       }
+      return undefined;
     })
     .catch((e) => console.error(`failed to load module for ${blockName}`, e));
 
-  loadCSS(`/pages/blocks/${blockName}/${blockName}.css`);
+  loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, true);
 }
 
 export function loadBlocks($main) {
@@ -510,7 +522,7 @@ export function replaceEmbeds() {
       const name = getEmbedName(pEl);
       const blockWrap = makeBlockEl(name);
       pEl.replaceWith(blockWrap);
-      loadBlock(blockWrap.firstChild.firstChild);
+      // loadBlock(blockWrap.firstChild.firstChild);
     }
   });
 }
@@ -548,7 +560,7 @@ export async function loadTemplate(template) {
   emit('preLoadTemplate', { basePath });
 
   loadCSS(`${basePath}.css`);
-  import(`${basePath}.js`).then(({ default: run }) => {
+  return import(`${basePath}.js`).then(({ default: run }) => {
     emit('postLoadTemplate', { basePath });
     if (run) run();
     emit('postRunTemplate', { basePath });
@@ -688,6 +700,7 @@ function setLCPTrigger(doc, postLCP) {
 }
 
 export async function decorateDefault() {
+  emit('decorate default');
   decorateTables();
   wrapSections('main>div');
   decorateBlocks();
@@ -741,6 +754,7 @@ export async function decorateDefault() {
 }
 
 async function decoratePage() {
+  emit('decorating page..');
   initializeNamespaces();
   setupTestMode();
 
@@ -748,8 +762,12 @@ async function decoratePage() {
 
   const template = getTemplateName();
   if (template) {
-    loadTemplate(template);
+    emit('loading template..');
+
+    await loadTemplate(template);
   } else {
+    emit('decorating default..');
+
     decorateDefault();
   }
 
@@ -758,6 +776,8 @@ async function decoratePage() {
   fixImages();
 
   const mainEl = document.querySelector('main');
+  emit('loading blocks..');
+
   loadBlocks(mainEl);
 
   setLCPTrigger(document, async () => {

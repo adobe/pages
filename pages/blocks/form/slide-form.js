@@ -19,6 +19,7 @@ let progressIndicator = document.querySelector('.progress-indicator span');
 let totalAnswers = document.querySelectorAll('.field');
 // const otherOptionInput = document.querySelectorAll('.other-option-input');
 // const header = '';
+
 let currentSlide = 0;
 const allValues = [];
 // const collectNames = [];

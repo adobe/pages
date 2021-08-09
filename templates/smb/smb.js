@@ -15,6 +15,7 @@ import {
   appearMain,
   createTag,
   debounce,
+  decorateBlocks,
   decorateTables,
   externalLinks,
   loadLocalHeader,
@@ -152,6 +153,8 @@ function setTabIndex() {
 }
 
 export default async function decoratePage() {
+  // decorateDefault();
+  decorateBlocks();
   addDefaultClass('main>div');
   decorateTables();
   styleCards();

@@ -10,13 +10,15 @@
  * governing permissions and limitations under the License.
  */
 
-import { toClassName } from '../../scripts/scripts.js';
+import { readBlockConfig, toClassName } from '../../scripts/scripts.js';
 
 export function setupForm({
   formId,
+  formConfig,
   containerClass = 'form-container',
   preValidation = () => true,
 }) {
+  const { sheet, redirect: thankyou } = formConfig;
   const $formContainer = document.querySelector(`.${containerClass}`);
   const $form = document.getElementById(formId);
 
@@ -56,19 +58,6 @@ export function setupForm({
       });
     });
   }
-
-  // console.log(form_sheet ,'here')
-
-  // TODO: Change these to arguments..
-
-  // NOTE: This assumes the script is loaded from inside a module that
-  // already has these variable defined locally.
-  // const sheet = form_sheet;
-  // const thankyou = form_redirect;
-
-  // VS: This doesn't make an assumption of order, only that the namespace
-  // has been configured before loading the script.
-  const { sheet, redirect: thankyou } = window.formConfig;
 
   // $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
   //   if ($a.textContent.toLowerCase() === 'sheet') {
@@ -238,44 +227,75 @@ export function setupForm({
   }
 }
 
+function readEmbeddedFormConfig($block) {
+  const config = {};
+
+  // contains the block and any other sibling elements
+  const $commonRoot = $block.parentNode.parentNode.parentNode;
+  $commonRoot.querySelectorAll(':scope>p').forEach(($p) => {
+    let name;
+    let value;
+    if ($p.textContent.includes('<Form:') || $p.textContent.includes('<form:')) {
+      name = 'form-config';
+      value = ($p.textContent || $p.querySelector(':scope>strong')).split(':')[1].split('>')[0].trim();
+    } else {
+      const $a = $p.querySelector(':scope>a');
+      if ($a) {
+        name = toClassName($a.textContent);
+        value = $a.href;
+      }
+    }
+    config[name] = value;
+    $p.remove();
+  });
+  return config;
+}
+
+function readFormConfig($block) {
+  let config = readBlockConfig($block);
+  if (Object.keys(config).length === 0) {
+    // If that didn't work, try loading it
+    // as component that was converted to a block
+    config = readEmbeddedFormConfig($block);
+  }
+
+  return {
+    sheet: config['form-data-submission'],
+    redirect: config['form-redirect'] || 'thank-you',
+    definition: config['form-definition'] || 'default',
+  };
+}
+
+/** @type {import('../block.js').BlockDecorator} */
 export default async function decorate($block) {
-  const formMarkup = document.createElement('div');
-  formMarkup.className = 'wg-form-container form-container';
+  $block.innerHTML = `
+  <div class="wg-form-container form-container">
+    <form id="wg-form">
+      <div class="wg-form-loader">
+        <div class="wg-form-loader__indicator"></div>
+      <div>
+    </form>
+  </div>`;
 
-  formMarkup.innerHTML = `
-  <form id="wg-form">
-    <div class="wg-form-loader">
-      <div class="wg-form-loader__indicator"></div>  
-    <div>
-  </form>
-`;
-
-  $block.innerHTML = formMarkup.outerHTML;
-
-  // const $formContainer = document.querySelector('.wg-form-container');
-  const $wgForm = document.getElementById('wg-form');
+  const formConfig = readFormConfig($block);
+  const { definition } = formConfig;
+  const $form = document.getElementById('wg-form');
   let hasPageBreak = 0;
-
-  // eslint-disable-next-line no-unused-vars
-  const { redirect: formRedirect, sheet: formSheet, definition: formToUse } = window.formConfig;
-
-  // eslint-disable-next-line no-unused-vars
-  const formType = document.querySelectorAll('main p');
 
   // Hide sheet and thank you link from page while loading...
   document.querySelector('main').style.opacity = '1';
 
   async function formData() {
-    const resp = await fetch(`${formToUse}.json`);
+    const resp = await fetch(`${definition}.json`);
     const json = await resp.json();
-    window.hlx.dependencies.push(`${formToUse}.json`);
+    window.hlx.dependencies.push(`${definition}.json`);
     return json;
   }
 
   /**
-    * @param {string} label
-    * label = string of form input
-    */
+   * @param {string} label
+   * label = string of form input
+   */
   function inputSettings(label) {
     const visibleLabel = label;
     let cleanLabel = label;
@@ -298,7 +318,7 @@ export default async function decorate($block) {
     }
   }
 
-  function hideConditionals($inputs, formDefinition, $form) {
+  function hideConditionals($inputs, formDefinition) {
     const values = $inputs.map(($i) => {
       if (($i.type === 'checkbox' || $i.type === 'radio') && !$i.checked) return null;
       return $i.value;
@@ -322,27 +342,26 @@ export default async function decorate($block) {
     let formField = '';
     let formSubmitPresent = false;
     let output = await formData();
+    let progressLabel = '';
     document.querySelectorAll('main')[0].style.opacity = '1';
     output = output.data;
 
-    const checkIfSlider = () => {
-    // TODO: ??
-    // eslint-disable-next-line array-callback-return
-      output.find((pageBreak) => {
-        if (pageBreak.type === 'page-break') {
-          hasPageBreak += 1;
-          hasPageBreak = hasPageBreak > 0;
-        }
-      });
-    };
-
-    checkIfSlider();
-
+    // check if slider
+    for (const item of output) {
+      if (item.type === 'page-break') {
+        hasPageBreak = true;
+        break;
+      }
+    }
     output.forEach((item, index) => {
       const setup = inputSettings(item.label);
       const name = item.name ? item.name : setup.label_clean;
       const required = item.required ? item.required : setup.required;
-      const description = hasPageBreak && item.description.length > 0 ? `<span class="description-title">${item.description}</span>` : '';
+      const description = hasPageBreak && item.description.length > 0 ? `<span class="description-title" tabindex="0">${item.description}</span>` : '';
+
+      if (item.type === 'indicator') {
+        progressLabel = item.label;
+      }
 
       let placeholder = !!item.placeholder;
 
@@ -358,22 +377,22 @@ export default async function decorate($block) {
 
       if (index === 0 && hasPageBreak) {
         formField += `
-      <div class="slide-form-container">
-        <div class="slide-form-item active">
-            `;
+        <div class="slide-form-container">
+          <div class="slide-form-item active">
+              `;
       }
 
       // INPUT TEXT || EMAIL
       if (item.type === 'text' || item.type === 'email') {
         formField += `
-      <div class="input-el question is-${required}">
-        <div class="title-el">
-          <label class="label-title" for="${name}">${setup.label}</label>
+        <div class="input-el question is-${required}">
+          <div class="title-el">
+            <label class="label-title" for="${name}" tabindex="0">${setup.label}</label>
             ${description}
+          </div>
+          <input type="${item.type}" name="${name}" placeholder="${placeholder}" ${required}/>
         </div>
-        <input type="${item.type}" name="${name}" placeholder="${placeholder}" ${required}/>
-      </div>
-      `;
+        `;
       }
 
       // RADIO INPUTS
@@ -387,23 +406,23 @@ export default async function decorate($block) {
           const value = option.replace('"', '');
 
           radioOption += `
-        <div class="radio-option">
-          <input type="radio" id="${id}" name="${name}" value="${value}" ${required}/>
-          <label for="${id}">${option}</label>
-        </div>
-      `;
+          <div class="radio-option">
+            <input type="radio" id="${id}" name="${name}" value="${value}" ${required}/>
+            <label for="${id}">${option}</label>
+          </div>
+        `;
         });
         formField += `
-        <div class="radio-el question is-${required}">
-          <div class="title-el">
-            <span class="label-title">${item.label}</span>
-            ${description}
+          <div class="radio-el question is-${required}">
+            <div class="title-el">
+              <span class="label-title" tabindex="0">${item.label}</span>
+              ${description}
+            </div>
+            <div class="radio-options-parent">
+              ${radioOption}
+            </div>
           </div>
-          <div class="radio-options-parent">
-            ${radioOption}
-          </div>
-        </div>
-      `;
+        `;
       }
 
       // CHECKBOXES
@@ -416,26 +435,26 @@ export default async function decorate($block) {
           const value = option.replace('"', '');
 
           options += `
-        <div class="radio-option">
-            <input type="checkbox" 
-              id="${id}" 
-              name="${name}"
-              value="${value}"
-            />
-          <label for="${id}">${option}</label>
-        </div>
-        
-        `;
+            <div class="radio-option">
+              <input type="checkbox" 
+                id="${id}" 
+                name="${name}"
+                value="${value}"
+              />
+              <label for="${id}">${option}</label>
+            </div>
+          
+          `;
         });
         formField += `
-        <div class="input-el checkboxes ${required} question is-${required}">
-          <div class="title-el">
-            <span class="label-title">${item.label}</span>
-            ${description}
+          <div class="input-el checkboxes ${required} question is-${required}">
+            <div class="title-el">
+              <span class="label-title" tabindex="0">${item.label}</span>
+              ${description}
+            </div>
+            ${options}
           </div>
-          ${options}
-        </div>
-      `;
+        `;
       }
 
       // SELECT
@@ -444,52 +463,52 @@ export default async function decorate($block) {
         let options = '';
         selectOptions.forEach((option) => {
           options += `
-          <option>${option}</option>
-        `;
+            <option>${option}</option>
+          `;
         });
         formField += `
-        <div class="select-el question is-${required}">
-          <div class="title-el">
-            <label class="label-title" for="${name}">${item.label}</label>
-            ${description}  
+          <div class="select-el question is-${required}">
+            <div class="title-el">
+              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
+              ${description}  
+            </div>
+            <select name="${name}" id="${name}">
+              ${options}
+            </select>
           </div>
-          <select name="${name}" id="${name}">
-            ${options}
-          </select>
-        </div>
-      `;
+        `;
       }
 
       // TEXTAREA
       if (item.type === 'textarea') {
         formField += `
-        <div class="text-el question is-${required}">
-          <div class="title-el">
-            <label class="label-title" for="${name}">${item.label}</label>
-            ${description}
+          <div class="text-el question is-${required}">
+            <div class="title-el">
+              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
+              ${description}
+            </div>
+            <textarea
+              name="${name}"
+              cols="30"
+              rows="5"
+              placeholder="${placeholder}"
+              ${required}
+            ></textarea>
           </div>
-          <textarea
-            name="${name}"
-            cols="30"
-            rows="5"
-            placeholder="${placeholder}"
-            ${required}
-          ></textarea>
-        </div>
-      `;
+        `;
       }
 
       // TEXTAREA
       if (item.type === 'title') {
         formField += `
-        <div class="text-el question is-${required}">
-          <div class="title-el">
-            <label class="label-title" for="${name}">${item.label}</label>
-            ${description}
+          <div class="text-el question is-${required}">
+            <div class="title-el">
+              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
+              ${description}
+            </div>
+            <hr>
           </div>
-          <hr>
-        </div>
-      `;
+        `;
       }
 
       if (item.type === 'page-break' && hasPageBreak) {
@@ -503,48 +522,60 @@ export default async function decorate($block) {
       // Submit Button
       if (item.type === 'submit' && !hasPageBreak) {
         formField += `
-        <div class="submit-el">
-          <button type="submit">${item.label}</button>
-        </div>
-      `;
+          <div class="submit-el">
+            <button type="submit">${item.label}</button>
+          </div>
+        `;
         formSubmitPresent = true;
       }
     });
 
     if (!formSubmitPresent && !hasPageBreak) {
       formField += `
-    <div class="submit-el">
-      <button type="submit">Submit</button>
-    </div>`;
+      <div class="submit-el">
+        <button type="submit">Submit</button>
+      </div>`;
     }
-    const $form = document.getElementById(formId);
+    // const $form = document.getElementById(formId);
     $form.innerHTML = formField;
 
     if (hasPageBreak) {
       const slidePanelParent = document.createElement('div');
-      slidePanelParent.classList.add('panel');
+      const buttonParent = document.createElement('div');
+      buttonParent.className = 'panel button-panel';
+      slidePanelParent.className = 'panel progress-indicator-group';
 
       slidePanelParent.innerHTML = `
-      <div class="panel__item">
-        <div class="form-sliders-btns">
-          <button class="slide-btn prev" type="button">Back</button>
-          <button class="slide-btn next" type="button">Next</button>
-          <button type="submit" class="submit" style='display: none;'>Submit</button>
-        </div>
-      </div>
-      <div class="panel__item">
-        <div class="indicator">
-          <div class="indicator-crumb">
-            <span class="indicator-current">1</span>
-            <span>/</span>
-            <span class="indicator-total">0</span>
+        <div class="panel__item panel-tab" tabindex="0">
+          <div class="indicator">
+            <div class="progress-label">
+              <div class="progress-name">
+                ${progressLabel}
+              </div>
+              <div class="indicator-crumb">
+                <span class="indicator-current">Page 1</span>
+                <span>/</span>
+                <span class="indicator-total">0</span>
+              </div>
+            </div>
+            <div class="progress-indicator">
+              <span></span>
+            </div>  
           </div>
-          <div class="progress-indicator">
-            <span></span>
-          </div>  
+        </div>`;
+
+      buttonParent.innerHTML = `
+        <div class="panel__item">
+          <div class="form-sliders-btns">
+            <button class="slide-btn prev" type="button">Back</button>
+            <button class="slide-btn next" type="button">Next</button>
+            <button type="submit" class="submit" style='display: none;'>Submit</button>
+          </div>
         </div>
-      </div>`;
-      $form.appendChild(slidePanelParent);
+        
+        `;
+      $form.prepend(slidePanelParent);
+      $form.appendChild(buttonParent);
     }
 
     // show_if
@@ -561,17 +592,15 @@ export default async function decorate($block) {
 
   function customValidate() {
     const qs = '.radio-el.hidden, .select-el.hidden, .input-el.hidden';
-    const $hiddenEls = $wgForm.querySelectorAll(qs);
+    const $hiddenEls = $form.querySelectorAll(qs);
     $hiddenEls.forEach(($div) => {
       $div.querySelectorAll('[required]').forEach(($r) => {
-        console.log($r);
         $r.removeAttribute('required');
       });
     });
 
-    const $requiredCheckboxes = $wgForm.querySelectorAll('.checkboxes.required');
+    const $requiredCheckboxes = $form.querySelectorAll('.checkboxes.required');
     $requiredCheckboxes.forEach(($div) => {
-      console.log($div);
       console.log(`hidden:${$div.classList.contains('hidden')} checked:${$div.querySelector('input:checked')}`);
       if (!$div.classList.contains('hidden') && !$div.querySelector('input:checked')) {
       // needs to be filled in
@@ -586,13 +615,13 @@ export default async function decorate($block) {
     const formId = 'wg-form';
     await createForm(formId);
     if (hasPageBreak) {
-      const aTag = document.createElement('script');
-      aTag.src = '/templates/default/slider-form.js';
-      document.getElementsByTagName('body')[0].appendChild(aTag);
+      await import('./slide-form.js');
     }
 
     setupForm({
-      formId, preValidation: customValidate,
+      formId,
+      formConfig,
+      preValidation: customValidate,
     });
   }
 
