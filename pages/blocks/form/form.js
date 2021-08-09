@@ -10,6 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
+import { emit } from '../../scripts/namespace.js';
 import { readBlockConfig, toClassName } from '../../scripts/scripts.js';
 
 export function setupForm({
@@ -18,7 +19,7 @@ export function setupForm({
   containerClass = 'form-container',
   preValidation = () => true,
 }) {
-  const { sheet, redirect: thankyou } = formConfig;
+  const { sheet, redirect } = formConfig;
   const $formContainer = document.querySelector(`.${containerClass}`);
   const $form = document.getElementById(formId);
 
@@ -124,7 +125,7 @@ export function setupForm({
   }
 
   async function submit(uri = postURL, counter) {
-    preValidation();
+    preValidation({ formEl: $form });
     if (!$form.reportValidity()) {
       return false;
     }
@@ -183,7 +184,7 @@ export function setupForm({
   $form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     if (await submit()) {
-      window.location = thankyou;
+      window.location = redirect;
     }
   });
 
@@ -227,164 +228,94 @@ export function setupForm({
   }
 }
 
-function readEmbeddedFormConfig($block) {
-  const config = {};
-
-  // contains the block and any other sibling elements
-  const $commonRoot = $block.parentNode.parentNode.parentNode;
-  $commonRoot.querySelectorAll(':scope>p').forEach(($p) => {
-    let name;
-    let value;
-    if ($p.textContent.includes('<Form:') || $p.textContent.includes('<form:')) {
-      name = 'form-config';
-      value = ($p.textContent || $p.querySelector(':scope>strong')).split(':')[1].split('>')[0].trim();
-    } else {
-      const $a = $p.querySelector(':scope>a');
-      if ($a) {
-        name = toClassName($a.textContent);
-        value = $a.href;
-      }
-    }
-    config[name] = value;
-    $p.remove();
-  });
-  return config;
-}
-
-function readFormConfig($block) {
-  let config = readBlockConfig($block);
-  if (Object.keys(config).length === 0) {
-    // If that didn't work, try loading it
-    // as component that was converted to a block
-    config = readEmbeddedFormConfig($block);
-  }
-
-  return {
-    sheet: config['form-data-submission'],
-    redirect: config['form-redirect'] || 'thank-you',
-    definition: config['form-definition'] || 'default',
-  };
-}
-
-/** @type {import('../block.js').BlockDecorator} */
-export default async function decorate($block) {
-  $block.innerHTML = `
-  <div class="wg-form-container form-container">
-    <form id="wg-form">
-      <div class="wg-form-loader">
-        <div class="wg-form-loader__indicator"></div>
-      <div>
-    </form>
-  </div>`;
-
-  const formConfig = readFormConfig($block);
-  const { definition } = formConfig;
-  const $form = document.getElementById('wg-form');
-  let hasPageBreak = 0;
-
-  // Hide sheet and thank you link from page while loading...
-  document.querySelector('main').style.opacity = '1';
-
-  async function formData() {
-    const resp = await fetch(`${definition}.json`);
-    const json = await resp.json();
-    window.hlx.dependencies.push(`${definition}.json`);
-    return json;
-  }
-
-  /**
+/**
    * @param {string} label
    * label = string of form input
    */
-  function inputSettings(label) {
-    const visibleLabel = label;
-    let cleanLabel = label;
-    cleanLabel = label.indexOf(' ') >= 0 ? label.split(' ').join('-').toLowerCase() : label.toLowerCase();
-    cleanLabel = label.indexOf('-*') >= 0 ? label.split('*')[0] : label;
-    cleanLabel = label.indexOf('-(') >= 0 ? label.split('(')[0] : label;
-    const settings = {
-      label: visibleLabel,
-      label_clean: cleanLabel,
-      required: visibleLabel.indexOf('*') >= 0 ? 'required' : '',
-    };
-    return settings;
-  }
+function inputSettings(label) {
+  const visibleLabel = label;
+  let cleanLabel = label;
+  cleanLabel = label.indexOf(' ') >= 0 ? label.split(' ').join('-').toLowerCase() : label.toLowerCase();
+  cleanLabel = label.indexOf('-*') >= 0 ? label.split('*')[0] : label;
+  cleanLabel = label.indexOf('-(') >= 0 ? label.split('(')[0] : label;
+  const settings = {
+    label: visibleLabel,
+    label_clean: cleanLabel,
+    required: visibleLabel.indexOf('*') >= 0 ? 'required' : '',
+  };
+  return settings;
+}
 
-  function csvOrLinesToArray(input) {
-    if (input.includes('\n')) {
-      return input.split('\n').map((o) => o.trim());
-    } else {
-      return input.split(',').map((o) => o.trim());
+function csvOrLinesToArray(input) {
+  if (input.includes('\n')) {
+    return input.split('\n').map((o) => o.trim());
+  } else {
+    return input.split(',').map((o) => o.trim());
+  }
+}
+
+function hideConditionals($form, $inputs, formData) {
+  const values = $inputs.map(($i) => {
+    if (($i.type === 'checkbox' || $i.type === 'radio') && !$i.checked) return null;
+    return $i.value;
+  });
+  formData.forEach((item) => {
+    if (item.show_if) {
+      const showIfValues = csvOrLinesToArray(item.show_if);
+      let match = false;
+      showIfValues.forEach((val) => {
+        if (values.includes(val)) match = true;
+      });
+      const qs = '.radio-el, .select-el, .input-el';
+      const $div = $form.querySelector(`[name="${item.name}"]`).closest(qs);
+      if (match) $div.classList.remove('hidden');
+      else $div.classList.add('hidden');
     }
-  }
+  });
+}
 
-  function hideConditionals($inputs, formDefinition) {
-    const values = $inputs.map(($i) => {
-      if (($i.type === 'checkbox' || $i.type === 'radio') && !$i.checked) return null;
-      return $i.value;
-    });
-    formDefinition.forEach((item) => {
-      if (item.show_if) {
-        const showIfValues = csvOrLinesToArray(item.show_if);
-        let match = false;
-        showIfValues.forEach((val) => {
-          if (values.includes(val)) match = true;
-        });
-        const qs = '.radio-el, .select-el, .input-el';
-        const $div = $form.querySelector(`[name="${item.name}"]`).closest(qs);
-        if (match) $div.classList.remove('hidden');
-        else $div.classList.add('hidden');
-      }
-    });
-  }
+async function createForm({
+  formEl,
+  formId,
+  formData,
+  hasPageBreak,
+}) {
+  let formField = '';
+  let formSubmitPresent = false;
+  let progressLabel = '';
 
-  async function createForm(formId) {
-    let formField = '';
-    let formSubmitPresent = false;
-    let output = await formData();
-    let progressLabel = '';
-    document.querySelectorAll('main')[0].style.opacity = '1';
-    output = output.data;
+  formData.forEach((item, index) => {
+    const setup = inputSettings(item.label);
+    const name = item.name ? item.name : setup.label_clean;
+    const required = item.required ? item.required : setup.required;
+    const description = hasPageBreak && item.description.length > 0 ? `<span class="description-title" tabindex="0">${item.description}</span>` : '';
 
-    // check if slider
-    for (const item of output) {
-      if (item.type === 'page-break') {
-        hasPageBreak = true;
-        break;
-      }
+    if (item.type === 'indicator') {
+      progressLabel = item.label;
     }
-    output.forEach((item, index) => {
-      const setup = inputSettings(item.label);
-      const name = item.name ? item.name : setup.label_clean;
-      const required = item.required ? item.required : setup.required;
-      const description = hasPageBreak && item.description.length > 0 ? `<span class="description-title" tabindex="0">${item.description}</span>` : '';
 
-      if (item.type === 'indicator') {
-        progressLabel = item.label;
-      }
+    let placeholder = !!item.placeholder;
 
-      let placeholder = !!item.placeholder;
-
-      if (placeholder) {
-        if (item.placeholder.length > 3) {
-          placeholder = `${item.placeholder}`;
-        } else {
-          placeholder = '';
-        }
+    if (placeholder) {
+      if (item.placeholder.length > 3) {
+        placeholder = `${item.placeholder}`;
       } else {
         placeholder = '';
       }
+    } else {
+      placeholder = '';
+    }
 
-      if (index === 0 && hasPageBreak) {
-        formField += `
+    if (index === 0 && hasPageBreak) {
+      formField += `
         <div class="slide-form-container">
           <div class="slide-form-item active">
               `;
-      }
+    }
 
-      // INPUT TEXT || EMAIL
-      if (item.type === 'text' || item.type === 'email') {
-        formField += `
+    // INPUT TEXT || EMAIL
+    if (item.type === 'text' || item.type === 'email') {
+      formField += `
         <div class="input-el question is-${required}">
           <div class="title-el">
             <label class="label-title" for="${name}" tabindex="0">${setup.label}</label>
@@ -393,26 +324,26 @@ export default async function decorate($block) {
           <input type="${item.type}" name="${name}" placeholder="${placeholder}" ${required}/>
         </div>
         `;
-      }
+    }
 
-      // RADIO INPUTS
-      if (item.type.includes('radio')) {
-        const optionsAll = csvOrLinesToArray(item.options);
-        let radioOption = '';
+    // RADIO INPUTS
+    if (item.type.includes('radio')) {
+      const optionsAll = csvOrLinesToArray(item.options);
+      let radioOption = '';
 
-        optionsAll.forEach((option) => {
-          const cleanOptionName = toClassName(option);
-          const id = `${name}-${cleanOptionName}`;
-          const value = option.replace('"', '');
+      optionsAll.forEach((option) => {
+        const cleanOptionName = toClassName(option);
+        const id = `${name}-${cleanOptionName}`;
+        const value = option.replace('"', '');
 
-          radioOption += `
+        radioOption += `
           <div class="radio-option">
             <input type="radio" id="${id}" name="${name}" value="${value}" ${required}/>
             <label for="${id}">${option}</label>
           </div>
         `;
-        });
-        formField += `
+      });
+      formField += `
           <div class="radio-el question is-${required}">
             <div class="title-el">
               <span class="label-title" tabindex="0">${item.label}</span>
@@ -423,18 +354,18 @@ export default async function decorate($block) {
             </div>
           </div>
         `;
-      }
+    }
 
-      // CHECKBOXES
-      if (item.type === 'checkbox') {
-        const checkboxOptions = csvOrLinesToArray(item.options);
-        let options = '';
-        checkboxOptions.forEach((option) => {
-          const cleanOptionName = toClassName(option);
-          const id = `${name}-${cleanOptionName}`;
-          const value = option.replace('"', '');
+    // CHECKBOXES
+    if (item.type === 'checkbox') {
+      const checkboxOptions = csvOrLinesToArray(item.options);
+      let options = '';
+      checkboxOptions.forEach((option) => {
+        const cleanOptionName = toClassName(option);
+        const id = `${name}-${cleanOptionName}`;
+        const value = option.replace('"', '');
 
-          options += `
+        options += `
             <div class="radio-option">
               <input type="checkbox" 
                 id="${id}" 
@@ -445,8 +376,8 @@ export default async function decorate($block) {
             </div>
           
           `;
-        });
-        formField += `
+      });
+      formField += `
           <div class="input-el checkboxes ${required} question is-${required}">
             <div class="title-el">
               <span class="label-title" tabindex="0">${item.label}</span>
@@ -455,18 +386,18 @@ export default async function decorate($block) {
             ${options}
           </div>
         `;
-      }
+    }
 
-      // SELECT
-      if (item.type === 'select') {
-        const selectOptions = csvOrLinesToArray(item.options);
-        let options = '';
-        selectOptions.forEach((option) => {
-          options += `
+    // SELECT
+    if (item.type === 'select') {
+      const selectOptions = csvOrLinesToArray(item.options);
+      let options = '';
+      selectOptions.forEach((option) => {
+        options += `
             <option>${option}</option>
           `;
-        });
-        formField += `
+      });
+      formField += `
           <div class="select-el question is-${required}">
             <div class="title-el">
               <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
@@ -477,11 +408,11 @@ export default async function decorate($block) {
             </select>
           </div>
         `;
-      }
+    }
 
-      // TEXTAREA
-      if (item.type === 'textarea') {
-        formField += `
+    // TEXTAREA
+    if (item.type === 'textarea') {
+      formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
               <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
@@ -496,11 +427,11 @@ export default async function decorate($block) {
             ></textarea>
           </div>
         `;
-      }
+    }
 
-      // TEXTAREA
-      if (item.type === 'title') {
-        formField += `
+    // TEXTAREA
+    if (item.type === 'title') {
+      formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
               <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
@@ -509,43 +440,42 @@ export default async function decorate($block) {
             <hr>
           </div>
         `;
-      }
+    }
 
-      if (item.type === 'page-break' && hasPageBreak) {
-        formField += '</div> <div class=\'slide-form-item\'>';
-      }
+    if (item.type === 'page-break' && hasPageBreak) {
+      formField += '</div> <div class=\'slide-form-item\'>';
+    }
 
-      if (index === output.length - 1 && hasPageBreak) {
-        formField += '</div></div>';
-      }
+    if (index === formData.length - 1 && hasPageBreak) {
+      formField += '</div></div>';
+    }
 
-      // Submit Button
-      if (item.type === 'submit' && !hasPageBreak) {
-        formField += `
+    // Submit Button
+    if (item.type === 'submit' && !hasPageBreak) {
+      formField += `
           <div class="submit-el">
             <button type="submit">${item.label}</button>
           </div>
         `;
-        formSubmitPresent = true;
-      }
-    });
+      formSubmitPresent = true;
+    }
+  });
 
-    if (!formSubmitPresent && !hasPageBreak) {
-      formField += `
+  if (!formSubmitPresent && !hasPageBreak) {
+    formField += `
       <div class="submit-el">
         <button type="submit">Submit</button>
       </div>`;
-    }
-    // const $form = document.getElementById(formId);
-    $form.innerHTML = formField;
+  }
+  formEl.innerHTML = formField;
 
-    if (hasPageBreak) {
-      const slidePanelParent = document.createElement('div');
-      const buttonParent = document.createElement('div');
-      buttonParent.className = 'panel button-panel';
-      slidePanelParent.className = 'panel progress-indicator-group';
+  if (hasPageBreak) {
+    const slidePanelParent = document.createElement('div');
+    const buttonParent = document.createElement('div');
+    buttonParent.className = 'panel button-panel';
+    slidePanelParent.className = 'panel progress-indicator-group';
 
-      slidePanelParent.innerHTML = `
+    slidePanelParent.innerHTML = `
         <div class="panel__item panel-tab" tabindex="0">
           <div class="indicator">
             <div class="progress-label">
@@ -564,7 +494,7 @@ export default async function decorate($block) {
           </div>
         </div>`;
 
-      buttonParent.innerHTML = `
+    buttonParent.innerHTML = `
         <div class="panel__item">
           <div class="form-sliders-btns">
             <button class="slide-btn prev" type="button">Back</button>
@@ -574,56 +504,143 @@ export default async function decorate($block) {
         </div>
         
         `;
-      $form.prepend(slidePanelParent);
-      $form.appendChild(buttonParent);
-    }
-
-    // show_if
-    const showIfTypes = ['select', 'input[type=radio]', 'input[type=checkbox]'];
-    const qs = showIfTypes.map((t) => `#${formId} ${t}`).join(',');
-    const $inputs = Array.from(document.querySelectorAll(qs));
-    $inputs.forEach(($input) => {
-      $input.addEventListener('change', () => {
-        hideConditionals($inputs, output, $form);
-      });
-    });
-    hideConditionals($inputs, output, $form);
+    formEl.prepend(slidePanelParent);
+    formEl.appendChild(buttonParent);
   }
 
-  function customValidate() {
-    const qs = '.radio-el.hidden, .select-el.hidden, .input-el.hidden';
-    const $hiddenEls = $form.querySelectorAll(qs);
-    $hiddenEls.forEach(($div) => {
-      $div.querySelectorAll('[required]').forEach(($r) => {
-        $r.removeAttribute('required');
-      });
+  // show_if
+  const showIfTypes = ['select', 'input[type=radio]', 'input[type=checkbox]'];
+  const qs = showIfTypes.map((t) => `#${formId} ${t}`).join(',');
+  const $inputs = Array.from(document.querySelectorAll(qs));
+  $inputs.forEach(($input) => {
+    $input.addEventListener('change', () => {
+      hideConditionals(formEl, $inputs, formData);
     });
+  });
+  hideConditionals(formEl, $inputs, formData);
+}
 
-    const $requiredCheckboxes = $form.querySelectorAll('.checkboxes.required');
-    $requiredCheckboxes.forEach(($div) => {
-      console.log(`hidden:${$div.classList.contains('hidden')} checked:${$div.querySelector('input:checked')}`);
-      if (!$div.classList.contains('hidden') && !$div.querySelector('input:checked')) {
+function customValidate({ formEl }) {
+  const qs = '.radio-el.hidden, .select-el.hidden, .input-el.hidden';
+  const $hiddenEls = formEl.querySelectorAll(qs);
+  $hiddenEls.forEach(($div) => {
+    $div.querySelectorAll('[required]').forEach(($r) => {
+      $r.removeAttribute('required');
+    });
+  });
+
+  const $requiredCheckboxes = formEl.querySelectorAll('.checkboxes.required');
+  $requiredCheckboxes.forEach(($div) => {
+    if (!$div.classList.contains('hidden') && !$div.querySelector('input:checked')) {
       // needs to be filled in
-        $div.querySelector('input[type=checkbox]').setCustomValidity('Please select at least one checkbox.');
-      } else {
-        $div.querySelector('input[type=checkbox]').setCustomValidity('');
-      }
-    });
-  }
-
-  async function instructor() {
-    const formId = 'wg-form';
-    await createForm(formId);
-    if (hasPageBreak) {
-      await import('./slide-form.js');
+      $div.querySelector('input[type=checkbox]').setCustomValidity('Please select at least one checkbox.');
+    } else {
+      $div.querySelector('input[type=checkbox]').setCustomValidity('');
     }
+  });
+}
 
-    setupForm({
-      formId,
-      formConfig,
-      preValidation: customValidate,
-    });
+async function fetchFormData(definition) {
+  const resp = await fetch(`${definition}.json`);
+  const json = await resp.json();
+  window.hlx.dependencies.push(`${definition}.json`);
+  emit('form:fetchData', json);
+  return json;
+}
+
+function readEmbeddedFormConfig($block) {
+  const config = {};
+
+  // contains the block and any other sibling elements
+  const $commonRoot = $block.parentNode.parentNode.parentNode;
+  $commonRoot.querySelectorAll(':scope>p').forEach(($p) => {
+    let name;
+    let value;
+    const text = $p.textContent.toLowerCase();
+    if (text.includes('<form:')) {
+      // <form: TYPE>
+      name = 'form-definition';
+      value = text.split('<form: ')[1].split('>')[0].trim();
+    } else {
+      // <a href=URL>Sheet OR Thank You</a>
+      const $a = $p.querySelector(':scope>a');
+      if ($a) {
+        name = toClassName(text);
+        value = $a.href;
+      }
+    }
+    config[name] = value;
+    $p.remove();
+  });
+  return config;
+}
+
+function readFormConfig($block) {
+  let config = readBlockConfig($block);
+  if (Object.keys(config).length === 0) {
+    // If that didn't work, try loading it
+    // as component that was converted to a block
+    config = readEmbeddedFormConfig($block);
   }
 
-  instructor();
+  config = {
+    sheet: config['form-data-submission'] || config.sheet,
+    redirect: config['form-redirect'] || config['thank-you'] || 'thank-you',
+    definition: config['form-definition'] || 'default',
+  };
+  emit('form:readConfig', config);
+  return config;
+}
+
+/** @type {import('../block.js').BlockDecorator} */
+export default async function decorate($block) {
+  $block.innerHTML = `
+  <div class="wg-form-container form-container">
+    <form id="wg-form">
+      <div class="wg-form-loader">
+        <div class="wg-form-loader__indicator"></div>
+      <div>
+    </form>
+  </div>`;
+
+  const formId = 'wg-form';
+
+  const mainEl = document.querySelector('main');
+  const formEl = document.getElementById(formId);
+
+  const formConfig = readFormConfig($block);
+  const { definition } = formConfig;
+  let hasPageBreak = false;
+
+  // Hide sheet and thank you link from page while loading...
+  mainEl.style.opacity = '0';
+
+  const formData = (await fetchFormData(definition)).data;
+  // check if slider
+  for (const item of formData) {
+    if (item.type === 'page-break') {
+      hasPageBreak = true;
+      break;
+    }
+  }
+
+  await createForm({
+    ...formConfig,
+    formId,
+    formEl,
+    formData,
+    hasPageBreak,
+  });
+  mainEl.style.opacity = '1';
+  document.querySelectorAll('main')[0].style.opacity = '1';
+
+  if (hasPageBreak) {
+    await import('./slide-form.js');
+  }
+
+  setupForm({
+    formId,
+    formConfig,
+    preValidation: customValidate,
+  });
 }
