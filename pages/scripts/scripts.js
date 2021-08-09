@@ -401,7 +401,6 @@ export function injectCSSText(txt, parent) {
 
 export function readBlockConfig($block) {
   const config = {};
-  console.log('readBlockConfig: ', $block);
   $block.querySelectorAll(':scope>div').forEach(($row) => {
     if ($row.children && $row.children[1]) {
       const name = toClassName($row.children[0].textContent);
@@ -416,11 +415,8 @@ export function readBlockConfig($block) {
 }
 
 export async function decorateBlocks() {
-  console.log('decorateBlocks');
-
   document.querySelectorAll('main>div.section-wrapper>div>div').forEach(($block) => {
     const { length } = $block.classList;
-    console.log('length: ', length, $block);
     if (length === 1) {
       const classes = $block.className.split('-');
       const classHelpers = $block.className.split('-');
@@ -434,24 +430,8 @@ export async function decorateBlocks() {
         $block.classList.add('header-block');
       }
 
-      if (classes.includes('form')) {
-        // const config = readBlockConfig($block);
-        // console.log('other config: ', config);
-
-        // emit('set formConfig');
-        // window.formConfig = {
-        //   sheet: config['form-data-submission'],
-        //   redirect: config['form-redirect'] ? config['form-redirect'] : 'thank-you',
-        //   definition: config['form-definition'],
-        // };
-
-        // const tag = document.createElement('script');
-        // tag.src = '/pages/blocks/form/create-form.js';
-        // document.getElementsByTagName('body')[0].appendChild(tag);
-      }
-
       if (classes.includes('checklist')) {
-        loadJSModule('/pages/blocks/checklist/checklist.js');
+        // loadJSModule('/pages/blocks/checklist/checklist.js');
         document.getElementsByTagName('body')[0].classList.add('checklist-page');
       }
 
@@ -464,11 +444,13 @@ export async function decorateBlocks() {
         loadJSModule('/pages/scripts/render_spectrum_icons.js');
       }
 
-      loadCSS(`/styles/blocks/${classes[0]}.css`);
+      const cls = classes[0];
+      loadCSS(`/pages/blocks/${cls}/${cls}.css`);
     }
 
     if (length === 2) {
-      loadCSS(`/styles/blocks/${$block.classList.item(0)}.css`);
+      const cls = $block.classList.item(0);
+      loadCSS(`/pages/blocks/${cls}/${cls}.css`);
     }
   });
 }

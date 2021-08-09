@@ -18,12 +18,19 @@ let slideItems = document.querySelectorAll('.slide-form-item');
 let progressIndicator = document.querySelector('.progress-indicator span');
 let totalAnswers = document.querySelectorAll('.field');
 // const otherOptionInput = document.querySelectorAll('.other-option-input');
-// const header = '';
-
+let header = '';
 let currentSlide = 0;
 const allValues = [];
 // const collectNames = [];
 let totalQuestions = [];
+
+function setHeader(content) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `${content}<hr>`;
+  document.querySelectorAll('.slide-form-item')[0].prepend(wrap);
+  wrap.setAttribute('tabindex', 0);
+  document.querySelector('main .default:first-of-type').remove();
+}
 
 // animate form height
 function setFormContainHeight() {
@@ -42,14 +49,11 @@ function setOtherCheckboxValue(event) {
   const checkbox = parent.querySelector("input[type='checkbox']");
 
   if (input.value.length > 0) {
-    if (!checkbox.checked) {
+    if (checkbox.checked !== true) {
       checkbox.click();
     }
     checkbox.setAttribute('value', input.value);
   } else {
-    if (checkbox.checked) {
-      checkbox.click();
-    }
     checkbox.setAttribute('value', 'other');
   }
 }
@@ -59,7 +63,8 @@ function addOtherInputField() {
   const checkBoxes = document.querySelectorAll("input[type='checkbox']");
 
   checkBoxes.forEach((checkbox) => {
-    if (checkbox.value.toLowerCase() === 'other') {
+    if (checkbox.value.toLowerCase() === 'other'
+    || checkbox.value.toLowerCase() === 'prefer to self describe') {
       const parentElement = checkbox.closest('div');
       parentElement.classList.add('has-other');
       const parentHTML = parentElement.innerHTML;
@@ -87,19 +92,21 @@ const checkIfDomReady = setInterval(() => {
     progressIndicator = document.querySelector('.progress-indicator span');
     totalAnswers = document.querySelectorAll('.question input');
     // otherOptionInput = document.querySelectorAll('.other-option-input');
+    header = document.querySelector('main .default:first-of-type').innerHTML;
+    setHeader(header);
     setFormContainHeight();
     addOtherInputField();
     clearInterval(checkIfDomReady);
   }
 }, 200);
 
-// 07/14/21 Max commented out, unused
-// function setHeader(content) {
-//   const wrap = document.createElement('div');
-//   wrap.innerHTML = `${content}<hr>`;
-//   document.querySelectorAll('.slide-form-item')[0].prepend(wrap);
-//   document.querySelector('main .default:first-of-type').remove();
-// }
+function scrollBackUp() {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth',
+  });
+}
 
 // ----------------------------------------------
 // Store the values into array to manage progress
@@ -109,7 +116,7 @@ const checkIfDomReady = setInterval(() => {
 // for progress tracking purposes.
 function getTotalQuestions(data) {
   totalQuestions = [];
-  for (let i = 0; i < data.length; i += 1) {
+  for (let i = 0, len = data.length; i < len; i += 1) {
     if (!totalQuestions.includes(data[i])) {
       totalQuestions.push(data[i]);
     }
@@ -122,7 +129,7 @@ function valueStore(event) {
   const currentSelector = event.currentTarget;
 
   if (currentSelector.getAttribute('type') === 'checkbox') {
-    if (currentSelector.checked) {
+    if (currentSelector.checked === true) {
       allValues.push(currentSelector.getAttribute('name'));
     } else {
       allValues.splice(allValues.indexOf(currentSelector.getAttribute('name')), 1);
@@ -135,9 +142,8 @@ function valueStore(event) {
     }
   }
 
-  if (currentSelector.nodeName.toUpperCase() === 'TEXTAREA') {
+  if (currentSelector.nodeName === 'TEXTAREA') {
     const textArea = event.currentTarget;
-
     const updateTextValue = (el, strlen) => {
       if (strlen >= 5) {
         if (!allValues.includes(el.getAttribute('name'))) {
@@ -151,7 +157,6 @@ function valueStore(event) {
         }
       }
     };
-
     setTimeout(() => {
       updateTextValue(textArea, textArea.value.length);
     });
@@ -162,7 +167,7 @@ function valueStore(event) {
 
 // Set Indicator Counter
 function setIndicator() {
-  document.querySelector('.indicator-current').innerHTML = 1;
+  document.querySelector('.indicator-current').innerHTML = `Page ${1}`;
   document.querySelector('.indicator-total').innerHTML = slideItems.length;
 }
 
@@ -173,7 +178,7 @@ window.addEventListener('resize', debounce(() => {
 
 // Update progress counter and progress bar
 function progressBarUpdater() {
-  document.querySelector('.indicator-current').innerHTML = currentSlide + 1;
+  document.querySelector('.indicator-current').innerHTML = `Page ${currentSlide + 1}`;
   // const allRequiredQuestions = document.querySelectorAll('.is-required').length;
   const percentageCompleted = `${`${(currentSlide + 1) * 100}` / slideItems.length}%`;
   progressIndicator.style.transform = `translateX(${percentageCompleted})`;
@@ -181,6 +186,13 @@ function progressBarUpdater() {
 
 // Set Sliders and disable/enable next button
 function setSlider(count = 0) {
+  // Hide back button on first page.
+  if (count >= 1) {
+    document.querySelector('.prev').style.display = 'inline-block';
+  } else {
+    document.querySelector('.prev').style.display = 'none';
+  }
+
   document.querySelector('.slide-btn.next').classList.remove('completed');
   slideItems.forEach((slide, index) => {
     slide.classList.remove('active');
@@ -194,8 +206,7 @@ function setSlider(count = 0) {
   const values = [];
 
   // Get all required input count
-  let requiredCounter = 0;
-  requiredCounter = currentActiveRequired.length;
+  const requiredCounter = currentActiveRequired.length;
 
   if (requiredCounter < 1) {
     document.querySelector('.slide-btn.next').classList.add('completed');
@@ -204,7 +215,7 @@ function setSlider(count = 0) {
   currentActiveRequired.forEach((el) => {
     el.querySelectorAll('input, textarea').forEach((field) => {
       if (field.getAttribute('type') === 'checkbox' || field.getAttribute('type') === 'radio') {
-        if (field.checked) {
+        if (field.checked === true) {
           values.push(field.getAttribute('name'));
         }
 
@@ -235,7 +246,7 @@ function setSlider(count = 0) {
         });
       }
 
-      if (field.nodeName.toUpperCase() === 'TEXTAREA'
+      if (field.nodeName === 'TEXTAREA'
       || field.getAttribute('type') === 'text'
       || field.getAttribute('type') === 'email') {
         if (!field.classList.contains('other-input')) {
@@ -256,9 +267,10 @@ function setSlider(count = 0) {
               }
             }
 
-            if (event.currentTarget.value.length <= 0) {
-              values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1);
-            }
+            // if(event.currentTarget.value.length <= 0) {
+            //   console.log('here')
+            //   values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
+            // }
 
             const eachOptions = [];
 
@@ -267,7 +279,10 @@ function setSlider(count = 0) {
                 eachOptions.push(values[i]);
               }
             }
+
+            console.log(eachOptions);
             if (eachOptions.length >= requiredCounter) {
+              console.log('here', requiredCounter);
               document.querySelector('.slide-btn.next').classList.add('completed');
             } else {
               document.querySelector('.slide-btn.next').classList.remove('completed');
@@ -277,6 +292,7 @@ function setSlider(count = 0) {
       }
     });
   });
+  scrollBackUp();
 }
 
 // Handler to slide through forms
@@ -300,6 +316,7 @@ function formSlider(event) {
   }
   setSlider(currentSlide);
   setFormContainHeight();
+  document.querySelector('.panel-tab').focus();
 }
 
 setSlider();
@@ -314,7 +331,7 @@ document.querySelectorAll('.is-required input, .is-required textarea').forEach((
     input.addEventListener('change', valueStore);
   }
 
-  if (input.nodeName.toUpperCase() === 'TEXTAREA') {
+  if (input.nodeName === 'TEXTAREA') {
     input.addEventListener('keyup', valueStore);
   }
 });
