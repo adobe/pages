@@ -21,9 +21,15 @@ import { getStdOutFrom } from './util.js';
 import pagelist from './pagelist.js';
 
 // TODO: could be parameterized
-const DOMAIN = 'hlx.page';
-// branch to compare current branch to
+const CURRENT_DOMAIN = 'hlx3.page';
+
+// if defined, uses this for base URL construction
+const BASE_ROOT_URL = 'https://pages.adobe.com';
+// if root URL not defined, use branch and domain
+// to construct base to compare against
 const BASE_BRANCH = 'master';
+const BASE_DOMAIN = 'hlx.page';
+
 // root directory of output
 const ROOT_DIR = '.comparisons';
 
@@ -31,15 +37,28 @@ const ROOT_DIR = '.comparisons';
  * Make inputs object
  *
  * @param {string[]} routes
- * @param {string} domain
+ * @param {string} currentDomain
  * @param {string} repoName
  * @param {string} currentOwner
  * @param {string} currentBranch
- * @param {string} baseOwner
- * @param {string} baseBranch
+ * @param {string} [baseRootUrl] - If not defined, all 3 proceeding arguments must be defined
+ * @param {string} [baseDomain]
+ * @param {string} [baseOwner]
+ * @param {string} [baseBranch]
+ *
  * @returns {import('./compare/index.js').CompareInput}
  */
-function makeInputs(routes, domain, repoName, currentOwner, currentBranch, baseOwner, baseBranch) {
+function makeInputs(
+  routes,
+  repoName,
+  currentDomain,
+  currentOwner,
+  currentBranch,
+  baseRootUrl,
+  baseDomain,
+  baseOwner,
+  baseBranch,
+) {
   /**
    *
    * @param {string} route
@@ -47,7 +66,12 @@ function makeInputs(routes, domain, repoName, currentOwner, currentBranch, baseO
    *
    * @returns {string}
    */
-  const templateRoute = (route, isCurrent) => `https://${isCurrent ? currentBranch : baseBranch}--${repoName}--${isCurrent ? currentOwner : baseOwner}.${domain}/${route}`;
+  const templateRoute = (route, isCurrent) => {
+    if (isCurrent) {
+      return `https://${currentBranch}--${repoName}--${currentOwner}.${currentDomain}/${route}`;
+    }
+    return baseRootUrl ? `${baseRootUrl}/${route}` : `https://${baseBranch}--${repoName}--${baseOwner}.${baseDomain}/${route}`;
+  };
 
   return routes.reduce((prev, curr) => {
     let route = curr;
@@ -66,22 +90,27 @@ function makeInputs(routes, domain, repoName, currentOwner, currentBranch, baseO
 
 (async () => {
   // TODO: get these from CLI params
-  const domain = DOMAIN;
+  const baseDomain = BASE_DOMAIN;
   const baseOwner = 'adobe';
   const baseBranch = BASE_BRANCH;
+  const baseRootUrl = BASE_ROOT_URL;
+
   const repoName = 'pages';
   const rootDir = path.resolve(cwd(), ROOT_DIR);
 
   // TODO: parse current branch and owner from the .git directory
+  const currentDomain = CURRENT_DOMAIN;
   const currentOwner = 'adobe';
   const currentBranch = await getStdOutFrom('git branch --show-current');
 
   const input = makeInputs(
     pagelist,
-    domain,
     repoName,
+    currentDomain,
     currentOwner,
     currentBranch,
+    baseRootUrl,
+    baseDomain,
     baseOwner,
     baseBranch,
   );

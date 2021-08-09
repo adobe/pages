@@ -23,9 +23,9 @@ form label {
 	line-height: 20px;
 }
 
-form label + textarea {
+/* form label + textarea {
 	margin: 
-}
+} */
 main div.form button,
 main div.form input,
 main div.form select,

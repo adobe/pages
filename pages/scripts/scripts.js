@@ -378,33 +378,6 @@ export function injectCSSText(txt, parent) {
   s.appendChild(document.createTextNode(txt));
 }
 
-// export function decorateBlocks($main) {
-//   $main.querySelectorAll('div.section-wrapper > div > div').forEach(($block) => {
-//     const classes = Array.from($block.classList.values());
-//     let blockName = classes[0];
-//     if (!blockName) return;
-//     const $section = $block.closest('.section-wrapper');
-//     if ($section) {
-//       $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
-//     }
-//     const blocksWithOptions = [
-//        'checker-board', 'template-list', 'steps', 'cards',
-//        'quotes', 'page-list', 'columns', 'show-section-only',
-//        'image-list', 'feature-list', 'icon-list', 'table-of-contents'
-//     ];
-//     blocksWithOptions.forEach((b) => {
-//       if (blockName.startsWith(`${b}-`)) {
-//         const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
-//         blockName = b;
-//         $block.classList.add(b);
-//         $block.classList.add(...options);
-//       }
-//     });
-//     $block.classList.add('block');
-//     $block.setAttribute('data-block-name', blockName);
-//   });
-// }
-
 export function readBlockConfig($block) {
   const config = {};
   $block.querySelectorAll(':scope>div').forEach(($row) => {
@@ -558,33 +531,56 @@ export async function loadTemplate(template) {
 }
 
 /**
- * Insert localized footer
+ * Get localized footer
+ *
+ * @param {string} locale
  */
-function localizeFooter() {
-  const lang = window.pages.locale;
+export function getLocalizedFooter(locale) {
+  const template = ({
+    links,
+    cookies,
+  }) => `
+  <div>
+    <p>Copyright © 2021 Adobe. All rights reserved.</p>
+    <ul>
+      ${links}
+    </ul>
+  </div>
+  <div>
+    <div class="privacy" style="display: block;">
+      <a href="#" class="openPrivacyModal ot-sdk-show-settings">${cookies}</a>
+      <div id="feds-footer"></div>
+    </div>
+  </div>`;
 
   const footers = {
-    de: `<div>
-    <p>Copyright © 2020 Adobe. All rights reserved.</p>
-    <ul>
+    default: {
+      links: `<li><a href="https://www.adobe.com/privacy.html" target="_blank">Privacy</a></li>
+      <li><a href="https://www.adobe.com/legal/terms.html" target="_blank">Terms of Use</a></li>
+      <li><a href="https://www.adobe.com/privacy/ca-rights.html" target="_blank">Do not sell my personal information</a></li>
+      <li><a href="https://www.adobe.com/privacy/opt-out.html#interest-based-ads" target="_blank"><svg class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdChoices</a></li>`,
+      cookies: 'Cookie preferences',
+    },
+    de: {
+      links: `
     <li><a href="https://www.adobe.com/de/privacy.html">Richtlinien f&uuml;r den Datenschutz</a></li>
     <li><a href="https://www.adobe.com/de/legal/terms.html">Nutzungsbedingungen</a></li>
     <li><a href="https://www.adobe.com/de/privacy/ca-rights.html">Daten zu meiner Person nicht verkaufen</a></li>
-    <li><a href="https://www.adobe.com/de/privacy/opt-out.html#interest-based-ads"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdAuswahl</a></li>
-    </ul>
-    </div>
-    <div>
-    <div class="privacy" style="display: block;">
-      <a href="#" class="openPrivacyModal">Einstellungen</a>
-      <div id="feds-footer"></div>
-    </div>
-    </div>`,
+    <li><a href="https://www.adobe.com/de/privacy/opt-out.html#interest-based-ads"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdAuswahl</a></li>`,
+      cookies: 'Einstellungen',
+    },
+
   };
 
-  if (footers[lang]) {
-    const $footer = document.querySelector('body>footer');
-    $footer.innerHTML = footers[lang];
-  }
+  return template({
+    ...footers.default,
+    ...(footers[locale] || {}),
+  });
+}
+
+export function insertFooter() {
+  const html = getLocalizedFooter(window.pages.locale);
+  document.querySelector('footer').innerHTML = html;
 }
 
 /**
@@ -781,7 +777,7 @@ async function decoratePage() {
     document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
   }
 
-  localizeFooter();
+  insertFooter();
 }
 
 decoratePage();

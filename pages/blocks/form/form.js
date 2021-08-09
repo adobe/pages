@@ -11,7 +11,7 @@
  */
 
 import { emit } from '../../scripts/namespace.js';
-import { readBlockConfig, toClassName } from '../../scripts/scripts.js';
+import { loadCSS, readBlockConfig, toClassName } from '../../scripts/scripts.js';
 
 export function setupForm({
   formId,
@@ -636,6 +636,7 @@ export default async function decorate($block) {
 
   if (hasPageBreak) {
     await import('./slide-form.js');
+    loadCSS('./slide-form.css');
   }
 
   setupForm({
