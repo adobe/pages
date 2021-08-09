@@ -28,6 +28,8 @@ import {
 } from './default-blocks.js';
 import { initializeNamespaces, emit } from './namespace.js';
 
+const cssLoaded = [];
+
 /**
  * Add dependency urls that should be published with Sidekick.
  * @param {string | string[]} url
@@ -342,6 +344,10 @@ export function appearMain() {
  */
 export function loadCSS(href, prepend) {
   emit('preLoadCss', { href });
+
+  if (cssLoaded.includes(href)) return;
+  cssLoaded.push(href);
+
   const link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');
   link.setAttribute('href', href);
@@ -683,6 +689,7 @@ function setLCPTrigger(doc, postLCP) {
 
 export async function decorateDefault() {
   emit('decorate default');
+  loadCSS('/pages/styles/default.css');
   decorateTables();
   wrapSections('main>div');
   decorateBlocks();
