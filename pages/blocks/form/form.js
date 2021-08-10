@@ -596,11 +596,14 @@ function readFormConfig($block) {
   if (Object.keys(config).length === 0) {
     // If that didn't work, try loading it
     // as component that was converted to a block
-    // also load the styles that were associated
     config = readEmbeddedFormConfig($block);
+    // also load the styles that were associated
     loadCSS('/pages/blocks/form/form.embed.css');
-  } else {
-    loadCSS('/pages/blocks/form/form.blocks.css');
+    // and remove the default (blocks) styles.
+    document.querySelectorAll('head > link')
+      .forEach((l) => {
+        if (l.href.endsWith('pages/blocks/form/form.css')) l.remove();
+      });
   }
 
   config = {

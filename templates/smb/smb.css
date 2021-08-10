@@ -2,7 +2,7 @@
 @import url("thank-you.css");
 
 /* Page specifics */
-.smb-form .default-nav .section-wrapper {
+header.default-nav .section-wrapper {
   border-bottom: 1px solid #EAEAEA;
 }
 
