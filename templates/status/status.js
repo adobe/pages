@@ -21,14 +21,45 @@ async function fetchPages() {
   return (Array.isArray(json) ? json : json.data);
 }
 
-const checkEachPages = async () => {
-  const urls = await fetchPages();
-  urls.forEach((url) => {
-    fetch(url.URL)
-      .then((res) => res.json())
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  });
+const writeStatusToPage = (data) => {
+  const statusEl = document.querySelector('main .section-wrapper:nth-child(2)');
+  let listItem = '';
+  if (data.length > 0) {
+    data.forEach((item) => {
+      if (item.status !== 200) {
+        listItem += `<div>⛔️ <strong>URL: <a href="${item.url}" target="_blank">${item.url}</a></strong> <strong>Status:</strong>${item.status}</div>`;
+      }
+    });
+  } else {
+    listItem += '<h1>All pages are good 🎉</h1>';
+  }
+  statusEl.innerHTML = `<div class="container">${listItem}</div>`;
 };
 
-checkEachPages();
+const checkEachPages = async () => {
+  const urls = await fetchPages();
+  const allRequests = [];
+  const items = [];
+  urls.forEach(async (url) => {
+    allRequests.push(
+      fetch(`${window.location.origin}${url.URL}`)
+        .then((res) => items.push(res))
+        .catch((err) => err),
+    );
+  });
+  const data = await Promise.all(allRequests).then(() => items);
+  writeStatusToPage(data);
+};
+
+const createRefreshButton = () => {
+  const buttonSection = document.querySelector('main .section-wrapper:last-of-type');
+  buttonSection.innerHTML = `
+    <button id="refresh">Refresh</button>
+  `;
+  document.querySelector('#refresh').addEventListener('click', checkEachPages);
+};
+
+window.addEventListener('load', () => {
+  checkEachPages();
+  createRefreshButton();
+});
