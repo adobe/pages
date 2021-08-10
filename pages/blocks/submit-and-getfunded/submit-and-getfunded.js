@@ -12,43 +12,37 @@
 
 /** @type {import("../block").BlockDecorator} */
 export default function decorate(blockEl) {
-  blockEl.innerHTML = `
+  blockEl.parentNode.parentNode.parentNode.innerHTML = `
   <div class="embed embed-internal embed-internal-submitandgetfunded embed-internal-advocates">
-    <div>
-      <h3 id="contact-us">Contact Us</h3>
+    <div id="contact-us">
       <h2 id="adobe-stock-advocates">Adobe Stock Advocates</h2>
-      <div class="columns">
+      <div class="columns left-justify">
         <div>
-          <div>
+          <div class="text">
             <p></p>
-            <p><strong><a
-                  href="https://contributor.stock.adobe.com/?as_channel=microsite&amp;as_camptype=acquisition&amp;as_campclass=brand&amp;as_audience=contributors&amp;as_campaign=advocates&amp;as_source=lp">Submit
-                  your work to Adobe Stock</a></strong></p>
+            <p><strong>
+              <a href="https://contributor.stock.adobe.com/?as_channel=microsite&amp;as_camptype=acquisition&amp;as_campclass=brand&amp;as_audience=contributors&amp;as_campaign=advocates&amp;as_source=lp" class="button primary">Submit your work to Adobe Stock</a></strong></p>
             <p></p>
           </div>
-          <div>
+          <div class="text">
             <p></p>
-            <p><strong><a href="https://adobe.smapply.io/prog/adobe_stock_artist_development_fund/">Apply to get
-                  funded</a></strong></p>
+            <p><strong><a href="https://adobe.smapply.io/prog/adobe_stock_artist_development_fund/" class="button primary">Apply to get funded</a></strong></p>
             <p></p>
           </div>
         </div>
         <div>
-          <div>
-            <h3>Contact us</h3>
-            <p></p>
-            <p>allies@adobe.com</p>
-          </div>
-          <div>
-            <h3>Follow us</h3>
-            <p><a href="https://adobe.ly/2UaaI9M"><svg class="icon icon-adobe">
-                  <use href="/icons.svg#adobe"></use>
-                </svg></a> <a href="https://adobe.ly/35eUT84"><svg class="icon icon-instagram">
-                  <use href="/icons.svg#instagram"></use>
-                </svg></a> <a href="https://www.pinterest.co.uk/adobestock"><svg class="icon icon-pinterest">
-                  <use href="/icons.svg#pinterest"></use>
-                </svg></a></p>
-          </div>
+        <div class="text">
+          <h3>Contact us</h3>
+          <p></p>
+          <p>allies@adobe.com</p>
+        </div>
+        <div class="text">
+          <h3>Follow us</h3>
+          <p>
+            <a href="https://adobe.ly/2UaaI9M" aria-label="adobe"><svg class="icon icon-adobe"><use href="/icons.svg#adobe"></use></svg></a> 
+            <a href="https://adobe.ly/35eUT84" aria-label="instagram"><svg class="icon icon-instagram"><use href="/icons.svg#instagram"></use></svg></a> 
+            <a href="https://www.pinterest.co.uk/adobestock" aria-label="pinterest"><svg class="icon icon-pinterest"><use href="/icons.svg#pinterest"></use></svg></a>
+          </p>
         </div>
       </div>
     </div>

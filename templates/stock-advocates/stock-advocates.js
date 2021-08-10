@@ -16,7 +16,6 @@ import {
   insertLocalResource,
   toClassName,
 } from '../../pages/scripts/scripts.js';
-import { setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
@@ -213,8 +212,18 @@ function decorateParallax() {
   });
 }
 
-function decorateInternalAdvocates() {
-  document.querySelectorAll('main div>.embed-internal-advocates').forEach(($embed) => {
+function decorateInternalAdvocates(retry = 0) {
+  const nodes = document.querySelectorAll('main .section-wrapper div > .embed-internal-advocates');
+  if (nodes.length === 0) {
+    if (retry < 10) {
+      setTimeout(() => {
+        decorateInternalAdvocates(retry + 1);
+      }, 10);
+    }
+    return;
+  }
+  nodes.forEach(($embed) => {
+    $embed.parentNode.parentNode.classList.add('full-width');
     $embed.innerHTML = $embed.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">');
   });
 }
@@ -458,7 +467,6 @@ export function webpPolyfill(element) {
 }
 
 export default async function decoratePage() {
-  setBackgroundImage('.embed-internal-submitandgetfunded', '/static/templates/stock-advocates/footer_bg.jpg');
   decorateTables();
   checkWebpFeature(() => {
     webpPolyfill(document);
@@ -466,11 +474,11 @@ export default async function decoratePage() {
   decorateHeader();
   wrapSections('main>div');
   wrapSections('footer>div');
+  decorateInternalAdvocates();
   decorateHeroCarousel();
   decorateHeroSection();
   decorateParallax();
   decorateOverlay();
-  decorateInternalAdvocates();
   decorateColumns();
   decorateGrid();
   decorateColors();

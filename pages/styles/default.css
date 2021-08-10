@@ -213,7 +213,7 @@ footer a:hover {
 	color: #999999;
 }
 
-footer .section-wrapper > div {
+footer > div {
 	display: flex;
 	align-items: center;
 	flex-direction: column;

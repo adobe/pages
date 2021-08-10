@@ -1,4 +1,4 @@
-@import url("/templates/default/default.css");
+@import url("/pages/styles/default.css");
 
 
 main > .section-wrapper > div {
@@ -471,7 +471,7 @@ main .hero-section + .section-wrapper a.button {
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
-    /* background-image: url(/templates/stock-advocates/footer_bg.jpg); */
+    background-image: url(./media_129787ec36518fdc9519e56bfad5abecdff569bf7.jpeg);
 }
 
 .embed-internal-submitandgetfunded a:any-link {
