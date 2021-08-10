@@ -215,10 +215,10 @@ function decorateParallax() {
 function decorateInternalAdvocates(retry = 0) {
   const nodes = document.querySelectorAll('main .section-wrapper div > .embed-internal-advocates');
   if (nodes.length === 0) {
-    if (retry < 10) {
+    if (retry < 15) {
       setTimeout(() => {
         decorateInternalAdvocates(retry + 1);
-      }, 10);
+      }, 25);
     }
     return;
   }
