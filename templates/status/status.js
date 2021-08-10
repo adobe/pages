@@ -24,15 +24,19 @@ async function fetchPages() {
 const writeStatusToPage = (data) => {
   const statusEl = document.querySelector('main .section-wrapper:nth-child(2)');
   let listItem = '';
-  if (data.length > 0) {
-    data.forEach((item) => {
-      if (item.status !== 200) {
-        listItem += `<div>⛔️ <strong>URL: <a href="${item.url}" target="_blank">${item.url}</a></strong> <strong>Status:</strong>${item.status}</div>`;
-      }
-    });
-  } else {
+  let allPagesWorking;
+
+  data.forEach((item) => {
+    if (item.status !== 200) {
+      allPagesWorking = false;
+      listItem += `<div>⛔️ <strong>URL: <a href="${item.url}" target="_blank">${item.url}</a></strong> <strong>Status:</strong>${item.status}</div>`;
+    }
+  });
+
+  if (allPagesWorking !== false) {
     listItem += '<h1>All pages are good 🎉</h1>';
   }
+
   statusEl.innerHTML = `<div class="container">${listItem}</div>`;
 };
 
