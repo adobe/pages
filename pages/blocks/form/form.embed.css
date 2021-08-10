@@ -79,6 +79,10 @@ main div.form-container {
 	margin: auto;
 }
 
+main div.form-container {
+	margin-bottom: unset;
+}
+
 main div.form-container .input-el, 
 main div.form-container .select-el,
 main div.form-container .radio-el {

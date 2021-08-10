@@ -323,7 +323,7 @@ export async function decorateNav() {
     document.querySelector('.app-name-and-icon').addEventListener('click', mobileDropDown);
   }
   document.querySelector('header').classList.add('appear');
-  loadCSS('/styles/blocks/nav.css');
+  loadCSS('/pages/blocks/nav/nav.css');
 }
 
 export function decorateButtons() {

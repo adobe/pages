@@ -66,7 +66,7 @@ function decorateABTests() {
 
     if (selectedUrl) window.location.href = selectedUrl;
   } else {
-    console.log(`Test is not run => ${reason}`);
+    console.warn(`Test is not run => ${reason}`);
   }
 }
 

@@ -300,7 +300,6 @@ async function decorateStep() {
 
   // check if it's a step or external link
   // set next step page if one is available
-  // console.log(steps)
   // const internalSteps = [];
   let hasNextSteps;
   let hasAddedFilter = false;

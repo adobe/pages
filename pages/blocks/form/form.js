@@ -11,26 +11,33 @@
  */
 
 import { emit } from '../../scripts/namespace.js';
-import { loadCSS, readBlockConfig, toClassName } from '../../scripts/scripts.js';
+import {
+  hideElements,
+  loadCSS,
+  readBlockConfig,
+  showElements,
+  toClassName,
+} from '../../scripts/scripts.js';
 
 export function setupForm({
+  doc,
   formId,
   formConfig,
   containerClass = 'form-container',
   preValidation = () => true,
 }) {
   const { sheet, redirect } = formConfig;
-  const $formContainer = document.querySelector(`.${containerClass}`);
-  const $form = document.getElementById(formId);
+  const $formContainer = doc.querySelector(`.${containerClass}`);
+  const $form = doc.getElementById(formId);
 
-  const emails = document.getElementsByClassName('emails');
+  const emails = doc.getElementsByClassName('emails');
   if (emails.length) {
   // legacy email checker
     for (let i = 0; i < emails.length; i += 1) {
       emails[i].addEventListener('change', () => {
-        const email1 = document.getElementById('email');
-        const email2 = document.getElementById('email2');
-        const elements = document.getElementsByClassName('emailerror');
+        const email1 = doc.getElementById('email');
+        const email2 = doc.getElementById('email2');
+        const elements = doc.getElementsByClassName('emailerror');
         if (email1.value !== email2.value) {
         // this tells the form to fail validation
           email1.setCustomValidity('Email fields must match.');
@@ -165,8 +172,6 @@ export function setupForm({
     });
 
     const body = { sheet, data: values };
-    console.log('invoking', uri);
-
     const resp = await fetch(uri, {
       method: 'POST',
       headers: {
@@ -177,7 +182,7 @@ export function setupForm({
     });
     const text = await resp.text();
 
-    console.log(values[0].value, `${counter}`, resp.status, text, body);
+    console.debug(values[0].value, `${counter}`, resp.status, text, body);
     return resp.status;
   }
 
@@ -196,7 +201,7 @@ export function setupForm({
       // eslint-disable-next-line no-await-in-loop
       const status = await submit(postURL, i + OFFSET);
       if (status === 429) {
-        console.log('sleeping for 5 seconds');
+        console.debug('sleeping for 5 seconds');
         // eslint-disable-next-line no-await-in-loop
         await sleep(5000);
         i -= 1;
@@ -208,18 +213,18 @@ export function setupForm({
     if (testURL) {
       await submit(testURL, 0);
     } else {
-      console.log('no test url configured');
+      console.error('no test url configured');
     }
   }
 
-  if (window.location.hash === '#formtools' && !document.getElementById('formtools')) {
+  if (window.location.hash === '#formtools' && !doc.getElementById('formtools')) {
     const createButton = (text, onClick) => {
-      const $btn = document.createElement('button');
+      const $btn = doc.createElement('button');
       $btn.addEventListener('click', onClick);
-      $btn.append(document.createTextNode(text));
+      $btn.append(doc.createTextNode(text));
       return $btn;
     };
-    const $tools = document.createElement('div');
+    const $tools = doc.createElement('div');
     $tools.setAttribute('id', 'formtools');
     $tools.append(createButton('Randomize', randomize));
     $tools.append(createButton('Load Test', loadtest));
@@ -274,7 +279,8 @@ function hideConditionals($form, $inputs, formData) {
   });
 }
 
-async function createForm({
+function createForm({
+  doc,
   formEl,
   formId,
   formData,
@@ -335,7 +341,7 @@ async function createForm({
         const cleanOptionName = toClassName(option);
         const id = `${name}-${cleanOptionName}`;
         const value = option.replace('"', '');
-
+        /* html */
         radioOption += `
           <div class="radio-option">
             <input type="radio" id="${id}" name="${name}" value="${value}" ${required}/>
@@ -343,6 +349,7 @@ async function createForm({
           </div>
         `;
       });
+      /* html */
       formField += `
           <div class="radio-el question is-${required}">
             <div class="title-el">
@@ -364,7 +371,7 @@ async function createForm({
         const cleanOptionName = toClassName(option);
         const id = `${name}-${cleanOptionName}`;
         const value = option.replace('"', '');
-
+        /* html */
         options += `
             <div class="radio-option">
               <input type="checkbox" 
@@ -377,6 +384,7 @@ async function createForm({
           
           `;
       });
+      /* html */
       formField += `
           <div class="input-el checkboxes ${required} question is-${required}">
             <div class="title-el">
@@ -393,10 +401,12 @@ async function createForm({
       const selectOptions = csvOrLinesToArray(item.options);
       let options = '';
       selectOptions.forEach((option) => {
+        /* html */
         options += `
             <option>${option}</option>
           `;
       });
+      /* html */
       formField += `
           <div class="select-el question is-${required}">
             <div class="title-el">
@@ -412,6 +422,7 @@ async function createForm({
 
     // TEXTAREA
     if (item.type === 'textarea') {
+      /* html */
       formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
@@ -431,6 +442,7 @@ async function createForm({
 
     // TEXTAREA
     if (item.type === 'title') {
+      /* html */
       formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
@@ -452,6 +464,7 @@ async function createForm({
 
     // Submit Button
     if (item.type === 'submit' && !hasPageBreak) {
+      /* html */
       formField += `
           <div class="submit-el">
             <button type="submit">${item.label}</button>
@@ -462,6 +475,7 @@ async function createForm({
   });
 
   if (!formSubmitPresent && !hasPageBreak) {
+    /* html */
     formField += `
       <div class="submit-el">
         <button type="submit">Submit</button>
@@ -470,11 +484,12 @@ async function createForm({
   formEl.innerHTML = formField;
 
   if (hasPageBreak) {
-    const slidePanelParent = document.createElement('div');
-    const buttonParent = document.createElement('div');
+    const slidePanelParent = doc.createElement('div');
+    const buttonParent = doc.createElement('div');
     buttonParent.className = 'panel button-panel';
     slidePanelParent.className = 'panel progress-indicator-group';
 
+    /* html */
     slidePanelParent.innerHTML = `
         <div class="panel__item panel-tab" tabindex="0">
           <div class="indicator">
@@ -493,7 +508,7 @@ async function createForm({
             </div>  
           </div>
         </div>`;
-
+    /* html */
     buttonParent.innerHTML = `
         <div class="panel__item">
           <div class="form-sliders-btns">
@@ -511,7 +526,7 @@ async function createForm({
   // show_if
   const showIfTypes = ['select', 'input[type=radio]', 'input[type=checkbox]'];
   const qs = showIfTypes.map((t) => `#${formId} ${t}`).join(',');
-  const $inputs = Array.from(document.querySelectorAll(qs));
+  const $inputs = Array.from(doc.querySelectorAll(qs));
   $inputs.forEach(($input) => {
     $input.addEventListener('change', () => {
       hideConditionals(formEl, $inputs, formData);
@@ -544,7 +559,7 @@ async function fetchFormData(definition) {
   const resp = await fetch(`${definition}.json`);
   const json = await resp.json();
   window.hlx.dependencies.push(`${definition}.json`);
-  emit('form:fetchData', json);
+  emit('form:data', json);
   return json;
 }
 
@@ -572,6 +587,7 @@ function readEmbeddedFormConfig($block) {
     config[name] = value;
     $p.remove();
   });
+  emit('form:embedConfig', config);
   return config;
 }
 
@@ -580,7 +596,11 @@ function readFormConfig($block) {
   if (Object.keys(config).length === 0) {
     // If that didn't work, try loading it
     // as component that was converted to a block
+    // also load the styles that were associated
     config = readEmbeddedFormConfig($block);
+    loadCSS('/pages/blocks/form/form.embed.css');
+  } else {
+    loadCSS('/pages/blocks/form/form.blocks.css');
   }
 
   config = {
@@ -593,7 +613,13 @@ function readFormConfig($block) {
 }
 
 /** @type {import('../block.js').BlockDecorator} */
-export default async function decorate($block) {
+export default async function decorate($block, _, doc) {
+  const formId = 'wg-form';
+  // Hide sheet, thank you, footer while loading
+  hideElements('main', 'footer');
+
+  const formConfig = readFormConfig($block);
+  /* html */
   $block.innerHTML = `
   <div class="wg-form-container form-container">
     <form id="wg-form">
@@ -603,17 +629,9 @@ export default async function decorate($block) {
     </form>
   </div>`;
 
-  const formId = 'wg-form';
-
-  const mainEl = document.querySelector('main');
-  const formEl = document.getElementById(formId);
-
-  const formConfig = readFormConfig($block);
+  const formEl = doc.getElementById(formId);
   const { definition } = formConfig;
   let hasPageBreak = false;
-
-  // Hide sheet and thank you link from page while loading...
-  mainEl.style.opacity = '0';
 
   const formData = (await fetchFormData(definition)).data;
   // check if slider
@@ -624,24 +642,26 @@ export default async function decorate($block) {
     }
   }
 
-  await createForm({
+  createForm({
     ...formConfig,
+    doc,
     formId,
     formEl,
     formData,
     hasPageBreak,
   });
-  mainEl.style.opacity = '1';
-  document.querySelectorAll('main')[0].style.opacity = '1';
 
   if (hasPageBreak) {
     await import('./slide-form.js');
-    loadCSS('./slide-form.css');
+    // loadCSS('./slide-form.css');
   }
 
   setupForm({
+    doc,
     formId,
     formConfig,
     preValidation: customValidate,
   });
+
+  showElements('main', 'footer');
 }

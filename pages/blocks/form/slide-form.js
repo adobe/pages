@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { debounce } from '../../scripts/scripts.js';
+import { debounce, isAttr, isNodeName } from '../../scripts/scripts.js';
 
 let formContainer = document.querySelector('.slide-form-container');
 let slideBtns = document.querySelectorAll('.slide-btn');
@@ -72,6 +72,7 @@ function addOtherInputField() {
       input.setAttribute('type', 'text');
       input.classList.add('other-input');
       input.setAttribute('placeholder', 'Please explain');
+      /* html */
       parentElement.innerHTML = `
         <div class="other-checkbox-element">${parentHTML}</div>
         <div class="other-input-element">${input.outerHTML}</div>
@@ -98,7 +99,7 @@ const checkIfDomReady = setInterval(() => {
     addOtherInputField();
     clearInterval(checkIfDomReady);
   }
-}, 200);
+}, 20);
 
 function scrollBackUp() {
   window.scrollTo({
@@ -127,34 +128,34 @@ function getTotalQuestions(data) {
 // goes through getTotalQuestions() to remove duplicates
 function valueStore(event) {
   const currentSelector = event.currentTarget;
+  const csName = currentSelector.getAttribute('name');
 
-  if (currentSelector.getAttribute('type') === 'checkbox') {
+  if (isAttr(currentSelector, 'type', 'checkbox')) {
     if (currentSelector.checked === true) {
-      allValues.push(currentSelector.getAttribute('name'));
+      allValues.push();
     } else {
-      allValues.splice(allValues.indexOf(currentSelector.getAttribute('name')), 1);
+      allValues.splice(allValues.indexOf(csName), 1);
     }
   }
 
-  if (currentSelector.getAttribute('type') === 'radio') {
-    if (!allValues.includes(currentSelector.getAttribute('name'))) {
-      allValues.push(currentSelector.getAttribute('name'));
+  if (isAttr(currentSelector, 'type', 'radio')) {
+    if (!allValues.includes(csName)) {
+      allValues.push(csName);
     }
   }
 
-  if (currentSelector.nodeName === 'TEXTAREA') {
+  if (isNodeName(currentSelector, 'TEXTAREA')) {
     const textArea = event.currentTarget;
-    const updateTextValue = (el, strlen) => {
-      if (strlen >= 5) {
-        if (!allValues.includes(el.getAttribute('name'))) {
-          allValues.push(el.getAttribute('name'));
-        }
-      }
 
-      if (strlen <= 4) {
-        if (allValues.includes(el.getAttribute('name'))) {
-          allValues.splice(allValues.indexOf(el.getAttribute('name')), 1);
+    const updateTextValue = (el, strlen) => {
+      const elName = el.getAttribute('name');
+
+      if (strlen >= 5) {
+        if (!allValues.includes(elName)) {
+          allValues.push(elName);
         }
+      } else if (allValues.includes(elName)) {
+        allValues.splice(allValues.indexOf(elName), 1);
       }
     };
     setTimeout(() => {
@@ -186,14 +187,17 @@ function progressBarUpdater() {
 
 // Set Sliders and disable/enable next button
 function setSlider(count = 0) {
+  const nextBtnEl = document.querySelector('.slide-btn.next');
+  const prevEl = document.querySelector('.prev');
+
   // Hide back button on first page.
   if (count >= 1) {
-    document.querySelector('.prev').style.display = 'inline-block';
+    prevEl.style.display = 'inline-block';
   } else {
-    document.querySelector('.prev').style.display = 'none';
+    prevEl.style.display = 'none';
   }
 
-  document.querySelector('.slide-btn.next').classList.remove('completed');
+  nextBtnEl.classList.remove('completed');
   slideItems.forEach((slide, index) => {
     slide.classList.remove('active');
     slide.style.transform = `translateX(${index - count}00%)`;
@@ -209,20 +213,20 @@ function setSlider(count = 0) {
   const requiredCounter = currentActiveRequired.length;
 
   if (requiredCounter < 1) {
-    document.querySelector('.slide-btn.next').classList.add('completed');
+    nextBtnEl.classList.add('completed');
   }
 
   currentActiveRequired.forEach((el) => {
     el.querySelectorAll('input, textarea').forEach((field) => {
-      if (field.getAttribute('type') === 'checkbox' || field.getAttribute('type') === 'radio') {
+      if (isAttr(field, 'type', 'checkbox') || isAttr(field, 'type', 'radio')) {
         if (field.checked === true) {
           values.push(field.getAttribute('name'));
         }
 
         if (values.length >= requiredCounter) {
-          document.querySelector('.slide-btn.next').classList.add('completed');
+          nextBtnEl.classList.add('completed');
         } else {
-          document.querySelector('.slide-btn.next').classList.remove('completed');
+          nextBtnEl.classList.remove('completed');
         }
 
         field.addEventListener('change', (event) => {
@@ -239,25 +243,25 @@ function setSlider(count = 0) {
             }
           }
           if (eachOptions.length >= requiredCounter) {
-            document.querySelector('.slide-btn.next').classList.add('completed');
+            nextBtnEl.classList.add('completed');
           } else {
-            document.querySelector('.slide-btn.next').classList.remove('completed');
+            nextBtnEl.classList.remove('completed');
           }
         });
       }
 
-      if (field.nodeName === 'TEXTAREA'
-      || field.getAttribute('type') === 'text'
-      || field.getAttribute('type') === 'email') {
+      if (isNodeName(field, 'TEXTAREA')
+      || isAttr(field, 'type', 'text')
+      || isAttr(field, 'type', 'email')) {
         if (!field.classList.contains('other-input')) {
           if (field.value.length > 1) {
             values.push(field.getAttribute('name'));
           }
 
           if (values.length >= requiredCounter) {
-            document.querySelector('.slide-btn.next').classList.add('completed');
+            nextBtnEl.classList.add('completed');
           } else {
-            document.querySelector('.slide-btn.next').classList.remove('completed');
+            nextBtnEl.classList.remove('completed');
           }
 
           field.addEventListener('keyup', (event) => {
@@ -268,7 +272,6 @@ function setSlider(count = 0) {
             }
 
             // if(event.currentTarget.value.length <= 0) {
-            //   console.log('here')
             //   values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
             // }
 
@@ -280,12 +283,10 @@ function setSlider(count = 0) {
               }
             }
 
-            console.log(eachOptions);
             if (eachOptions.length >= requiredCounter) {
-              console.log('here', requiredCounter);
-              document.querySelector('.slide-btn.next').classList.add('completed');
+              nextBtnEl.classList.add('completed');
             } else {
-              document.querySelector('.slide-btn.next').classList.remove('completed');
+              nextBtnEl.classList.remove('completed');
             }
           });
         }
@@ -307,13 +308,11 @@ function formSlider(event) {
       currentSlide += 1;
     }
   }
-  if (currentSlide >= slideItems.length - 1) {
-    document.querySelector('.next').style.display = 'none';
-    document.querySelector('.submit').style.display = 'inline';
-  } else {
-    document.querySelector('.next').style.display = 'inline';
-    document.querySelector('.submit').style.display = 'none';
-  }
+
+  const noMoreSlides = currentSlide >= slideItems.length - 1;
+  document.querySelector('.next').style.display = noMoreSlides ? 'none' : 'inline';
+  document.querySelector('.submit').style.display = noMoreSlides ? 'inline' : 'none';
+
   setSlider(currentSlide);
   setFormContainHeight();
   document.querySelector('.panel-tab').focus();
@@ -327,11 +326,11 @@ slideBtns.forEach((btn) => {
 });
 
 document.querySelectorAll('.is-required input, .is-required textarea').forEach((input) => {
-  if (input.getAttribute('type') === 'checkbox' || input.getAttribute('type') === 'radio') {
+  if (isAttr(input, 'type', 'checkbox') || isAttr(input, 'type', 'radio')) {
     input.addEventListener('change', valueStore);
   }
 
-  if (input.nodeName === 'TEXTAREA') {
+  if (isNodeName(input, 'TEXTAREA')) {
     input.addEventListener('keyup', valueStore);
   }
 });

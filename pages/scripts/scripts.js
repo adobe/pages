@@ -91,6 +91,16 @@ export function loadJSModule(href) {
   document.head.appendChild(module);
 }
 
+export function isNodeName(node, name) {
+  if (!node || typeof node !== 'object') return false;
+  return node.nodeName.toLowerCase() === name.toLowerCase();
+}
+
+export function isAttr(node, attr, val) {
+  if (!node || typeof node !== 'object') return false;
+  return node.getAttribute(attr) === val;
+}
+
 /**
  * setWidths
  * @param {string} [selector] containing sections
@@ -226,6 +236,7 @@ export function turnTableSectionIntoCards($table, cols) {
       if ($a && $a.getAttribute('href').startsWith('https://www.youtube.com/')) {
         const yturl = new URL($a.getAttribute('href'));
         const vid = yturl.searchParams.get('v');
+        /* html */
         $div.innerHTML = `<div class="video-thumb" style="background-image:url(https://img.youtube.com/vi/${vid}/0.jpg)"><svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
               <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
                   <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
@@ -234,12 +245,13 @@ export function turnTableSectionIntoCards($table, cols) {
               </svg>
               </div>`;
         $div.addEventListener('click', () => {
+          /* html */
           $div.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0&autoplay=1" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
         });
       } else {
         $div.innerHTML = $td.innerHTML;
         $div.childNodes.forEach(($child) => {
-          if ($child.nodeName === '#text') {
+          if (isNodeName($child, '#text')) {
             const $p = createTag('p');
             $p.innerHTML = $child.nodeValue;
             $child.parentElement.replaceChild($p, $child);
@@ -253,9 +265,6 @@ export function turnTableSectionIntoCards($table, cols) {
   return ($cards);
 }
 
-// TODO: dedupe with in-app.js, max.js,
-//    templates/default.js, learn.js, on24.js,
-//    stock-advocates.js, tutorials.js, xd.js
 /**
  * Decorate tables
  */
@@ -277,7 +286,6 @@ export function decorateTables() {
   });
 }
 
-// TODO: dedupe with stock-advocates.js, tutorials.js
 /**
  * Load localized header
  */
@@ -287,13 +295,15 @@ export async function loadLocalHeader() {
   if ($inlineHeader) {
     const $header = document.querySelector('header');
     $inlineHeader.childNodes.forEach((e, i) => {
-      if (e.nodeName.toUpperCase() === 'DIV' && !i) {
+      if (isNodeName(e, 'DIV') && !i) {
         const $p = createTag('div');
+        /* html */
         const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
         $p.innerHTML = inner;
         e.parentNode.replaceChild($p, e);
       }
-      if (e.nodeName.toUpperCase() === 'P' && !i) {
+      if (isNodeName(e, 'P') && !i) {
+        /* html */
         const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
         e.innerHTML = inner;
       }
@@ -378,6 +388,35 @@ export function injectCSSText(txt, parent) {
   s.appendChild(document.createTextNode(txt));
 }
 
+/**
+ *
+ * @param {boolean} show -
+ * @param  {...(string|HTMLElement)} sels
+ */
+function tEV(show, ...sels) {
+  sels.forEach((s) => {
+    if (typeof s === 'string') {
+      tEV(show, ...document.querySelectorAll(s));
+    } else {
+      s.style.opacity = show ? '1' : '0';
+    }
+  });
+}
+/**
+ * Hide elements or selectors
+ * @param  {...(string|HTMLElement)} sels
+ */
+export function hideElements(...sels) {
+  tEV(false, ...sels);
+}
+/**
+ * Show elements or selectors
+ * @param  {...(string|HTMLElement)} sels
+ */
+export function showElements(...sels) {
+  tEV(true, ...sels);
+}
+
 export function readBlockConfig($block) {
   const config = {};
   $block.querySelectorAll(':scope>div').forEach(($row) => {
@@ -393,8 +432,31 @@ export function readBlockConfig($block) {
   return config;
 }
 
+export async function loadBlock($block) {
+  const blockName = $block.getAttribute('data-block-name');
+
+  import(`/pages/blocks/${blockName}/${blockName}.js`)
+    .then((mod) => {
+      if (mod.default) {
+        return mod.default($block, blockName, document);
+      }
+      return undefined;
+    })
+    .catch((e) => console.error(`failed to load module for ${blockName}`, e));
+
+  loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, true);
+}
+
+export function loadBlocks($main) {
+  $main
+    .querySelectorAll('div.section-wrapper > div > .block')
+    .forEach(async ($block) => loadBlock($block));
+}
+
 export async function decorateBlocks() {
   document.querySelectorAll('main>div.section-wrapper>div>div').forEach(($block) => {
+    const blockName = Array.from($block.classList.values())[0];
+
     const { length } = $block.classList;
     if (length === 1) {
       const classes = $block.className.split('-');
@@ -425,34 +487,20 @@ export async function decorateBlocks() {
 
       const cls = classes[0];
       loadCSS(`/pages/blocks/${cls}/${cls}.css`);
-    }
-
-    if (length === 2) {
+    } else if (length === 2) {
       const cls = $block.classList.item(0);
       loadCSS(`/pages/blocks/${cls}/${cls}.css`);
     }
+
+    const $section = $block.closest('.section-wrapper');
+    if ($section) {
+      $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+    }
+
+    $block.classList.add('block');
+    $block.setAttribute('data-block-name', blockName);
   });
-}
-
-export async function loadBlock($block) {
-  const blockName = $block.getAttribute('data-block-name');
-
-  import(`/pages/blocks/${blockName}/${blockName}.js`)
-    .then((mod) => {
-      if (mod.default) {
-        return mod.default($block, blockName, document);
-      }
-      return undefined;
-    })
-    .catch((e) => console.error(`failed to load module for ${blockName}`, e));
-
-  loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, true);
-}
-
-export function loadBlocks($main) {
-  $main
-    .querySelectorAll('div.section-wrapper > div > .block')
-    .forEach(async ($block) => loadBlock($block));
+  // loadBlocks(document.querySelector('main'));
 }
 
 function getEmbedName(pEl) {
@@ -596,7 +644,6 @@ function fixImages() {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         // only handle images with src=/hlx_*
-        // console.log(node.tagName +':'+node.src);
         if (node.tagName === 'IMG' && !node.src.includes('?')) {
           let contentHash;
           let extension;
@@ -641,9 +688,9 @@ export function styleButtons() {
   if (!document.querySelectorAll('main a')) return;
   links.forEach((link) => {
     if (
-      link.parentElement.parentNode.nodeName === 'P'
+      isNodeName(link.parentElement.parentNode, 'P')
       && link.parentElement.parentNode.childElementCount === 1
-      && link.parentElement.parentNode.firstChild.nodeName === 'STRONG'
+      && isNodeName(link.parentElement.parentNode.firstChild, 'STRONG')
     ) {
       link.className = 'button primary';
     }
@@ -760,16 +807,16 @@ async function decoratePage() {
 
   fixImages();
 
-  const mainEl = document.querySelector('main');
-  emit('loading blocks..');
-
-  loadBlocks(mainEl);
+  // loadBlocks(mainEl);
 
   setLCPTrigger(document, async () => {
+    const mainEl = document.querySelector('main');
+    emit('scripts:postLCP');
     // post LCP actions go here
     // for now just explicitly lazy styles
     // but ideally would have placeholder styles for blocks
     // and then load the actual blocks to replace them after LCP
+    loadBlocks(mainEl);
     loadCSS('/pages/styles/lazy-styles.css');
   });
 

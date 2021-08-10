@@ -118,7 +118,6 @@ async function insertSteps() {
 
 function decorateNav() {
   if (document.querySelector('header img')) {
-    console.log('nav initiated');
     const svg = document.querySelector('header img');
     const svgWithCarrot = document.createElement('div');
     svgWithCarrot.classList.add('nav-logo');

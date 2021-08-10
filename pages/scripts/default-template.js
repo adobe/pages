@@ -17,6 +17,7 @@ import {
   loadLocalHeader,
   appearMain,
   debounce,
+  isNodeName,
 } from './scripts.js';
 
 async function submitSheetForm($form, sheetid, thankyou) {
@@ -185,7 +186,7 @@ function styleBackgrounds() {
 
   backgrounds.forEach((background) => {
     if (!background.childNodes[0]) return;
-    if (background.childNodes[0].nodeName === 'IMG') {
+    if (isNodeName(background.childNodes[0], 'IMG')) {
       const src = background.childNodes[0].getAttribute('src');
       background.style.backgroundImage = `url(${src})`;
       background.innerHTML = '';
@@ -254,7 +255,7 @@ function formatListCard($li) {
   let headhtml = '';
   let texthtml = '';
   Array.from($p.childNodes).forEach((node) => {
-    if (node.nodeName === 'A') {
+    if (isNodeName(node, 'A')) {
       const href = node.getAttribute('href');
       if (href.startsWith('https://www.youtube.com/')) {
         const yturl = new URL(href);
@@ -264,7 +265,7 @@ function formatListCard($li) {
         texthtml += `<a href=${node.getAttribute('href')}>${node.innerHTML}</a>`;
       }
     }
-    if (node.nodeName === '#text') {
+    if (isNodeName(node, '#text')) {
       texthtml += `<p>${node.textContent}</p>`;
     }
   });

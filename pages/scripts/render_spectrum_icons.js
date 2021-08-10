@@ -10,11 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
+import { isNodeName } from './scripts.js';
+
 const imageTypeChecker = () => {
   const rows = document.querySelectorAll('.list > div');
   rows.forEach(($row) => {
     const imageColumn = $row.querySelector('div:first-of-type');
-    if (imageColumn.firstChild.nodeName.toUpperCase() !== 'PICTURE') {
+    if (isNodeName(imageColumn.firstChild, 'PICTURE')) {
       const iconType = imageColumn.innerText;
       imageColumn.innerHTML = `
         <img src="/icons/${iconType}.svg">

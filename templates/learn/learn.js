@@ -131,7 +131,6 @@ async function insertSteps() {
     const steps = await fetchSteps();
     let html = '';
     steps.forEach((step, i) => {
-      console.log(i);
       let stepPrefix;
       const number = parseInt(i, 10) + 1;
       if (number === steps.length) {
@@ -262,7 +261,6 @@ async function decorateStep() {
   const descContent = metadata + trimmedDesc.split(/[.?!;]/).filter((sentence) => sentence).map((sentence) => `<p>${sentence}.</p>`).join('');
   $descHolder.innerHTML = descContent;
 
-  // console.log(currentStep.Image)
   const $img = document.createElement('img');
   $image.appendChild($img);
   $img.setAttribute('src', currentStep.Image);

@@ -46,6 +46,7 @@ function addNavCarrot() {
     const svgWithCarrot = document.createElement('div');
     svgWithCarrot.classList.add('nav-logo');
 
+    /* html */
     svgWithCarrot.innerHTML = `
         <span class="product-icon">
             ${svg.outerHTML}
@@ -86,6 +87,7 @@ async function insertSteps() {
       });
 
       stepGroups.forEach((stepsNest) => {
+        /* html */
         markup += `
                     <div class="row">
                         <div class="row-title">
@@ -97,32 +99,33 @@ async function insertSteps() {
 
         steps.forEach((step, i) => {
           if (step.Category === stepsNest.Category) {
+            /* html */
             markup += `
-                        <div class="card" onclick="window.location='step?${i + 1}'">
-                    <div class='img' style="background-image: url(../../../static/ete/${step.Thumbnail})">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
-                    <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
-                        <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
-                        <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
-                    </g>
-                    </svg>
-                    </div>
-                    <div class='text'>
-                        <div><h4>${step.Title.replace('\n', '<br>')}</h4>
-                        <p>${step.Description.replace('\n', '<br>')}</p>
-                        </div>
-                        <a href="step?${i + 1}">${step.CTA}</a>
-                    </div>
+            <div class="card" onclick="window.location='step?${i + 1}'">
+              <div class='img' style="background-image: url(../../../static/ete/${step.Thumbnail})">
+                <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
+                  <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
+                    <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>
+                    <path id="Polygon_3" data-name="Polygon 3" d="M87.5,0,175,152H0Z" transform="translate(992.5 829.5) rotate(90)" fill="#fff"/>
+                  </g>
+                </svg>
+              </div>
+              <div class='text'>
+                <div>
+                  <h4>${step.Title.replace('\n', '<br>')}</h4>
+                  <p>${step.Description.replace('\n', '<br>')}</p>
                 </div>
-                        
-                        `;
+                <a href="step?${i + 1}">${step.CTA}</a>
+              </div>
+            </div>
+            
+            `;
           }
         });
         markup += '</div> </div>';
       });
 
       $steps.innerHTML = markup;
-      // console.log(markup)
     } else {
       let html = '';
       steps.forEach((step, i) => {
@@ -130,16 +133,17 @@ async function insertSteps() {
         let miniThumbNails = '';
 
         if (step.show_icons_on_card) {
+          /* html */
           miniThumbNails += `
-                    <div class="icons">
-                        <div class="icons__item">
-                            <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
-                        </div>
-                        <div class="icons__item">
-                            <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
-                        </div>
-                    </div>
-                    
+            <div class="icons">
+              <div class="icons__item">
+                <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
+              </div>
+              <div class="icons__item">
+                <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
+              </div>
+            </div>
+
                     `;
         }
 
@@ -148,6 +152,7 @@ async function insertSteps() {
         } else {
           setThumbnail = ` ../../../../static/ete/hero-posters/${getThumbnail(step)}`;
         }
+        /* html */
         html += `<div class="card" onclick="window.location='step?${i + 1}'">
                     <div class='img'>
                     <img src="${setThumbnail}">

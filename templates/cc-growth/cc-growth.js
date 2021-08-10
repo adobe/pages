@@ -10,8 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-// TODO: Possibly remove this, along with the unused functions
-// First figure out what script is loaded at the end, and whether it's using these locals
+// TODO: remove unused functions
 /* eslint-disable no-unused-vars */
 
 import {
@@ -40,7 +39,7 @@ async function submitSheetForm($form, sheetid, thankyou) {
       window.location = thankyou;
     } else {
       alert('Form Submission failed.');
-      console.log(`form submission error: ${json.description}`);
+      console.error(`form submission error: ${json.description}`);
     }
   }
 }
@@ -51,7 +50,6 @@ function createButtonCta(element) {
   button.forEach(($link) => {
     if ($link.innerText.includes('[cta')) {
       const ctaStrings = $link.innerText.split('[')[1].split(']')[0];
-      console.log(ctaStrings);
       $link.setAttribute('class', `button ${ctaStrings}`);
       $link.innerText = $link.innerText.split('[')[0];
     }
