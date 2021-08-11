@@ -27,7 +27,7 @@ const writeStatusToPage = (data) => {
   let allPagesWorking;
 
   data.forEach((item) => {
-    if (item.status !== 200) {
+    if (item.status === 404) {
       allPagesWorking = false;
       listItem += `<div>⛔️ <strong>URL: <a href="${item.url}" target="_blank">${item.url}</a></strong> <strong>Status:</strong>${item.status}</div>`;
     }
