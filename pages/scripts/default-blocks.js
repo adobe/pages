@@ -319,8 +319,12 @@ export function decorateBackgroundImageBlocks() {
 export async function decorateNav() {
   await loadLocalHeader();
   styleNav();
-  if (document.querySelector('.nav')) {
-    document.querySelector('.app-name-and-icon').addEventListener('click', mobileDropDown);
+  const navEl = document.querySelector('.nav');
+  if (navEl) {
+    const iconEl = document.querySelector('.app-name-and-icon');
+    if (iconEl) {
+      iconEl.addEventListener('click', mobileDropDown);
+    }
   }
   document.querySelector('header').classList.add('appear');
   loadCSS('/pages/blocks/nav/nav.css');

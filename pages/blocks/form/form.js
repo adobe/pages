@@ -602,7 +602,7 @@ function readFormConfig($block) {
     // and remove the default (blocks) styles.
     document.querySelectorAll('head > link')
       .forEach((l) => {
-        if (l.href.endsWith('pages/blocks/form/form.css')) l.remove();
+        if (l.href.endsWith('/pages/blocks/form/form.css')) l.remove();
       });
   }
 

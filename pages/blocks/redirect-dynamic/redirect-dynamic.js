@@ -10,25 +10,25 @@
  * governing permissions and limitations under the License.
  */
 
-function initScript() {
-  const body = document.getElementsByTagName('body')[0];
-  const redirectParent = document.querySelector('.redirect').closest('.default');
+/** @type {import("../block").BlockDecorator} */
+export default function decorate(blockEl, _, doc) {
+  const body = doc.getElementsByTagName('body')[0];
+  const redirectParent = blockEl.parentNode;
+  const redirectUrl = redirectParent.querySelector('a').getAttribute('href');
+
   if (body.className.includes('home')) {
-    const redirectUrl = redirectParent.querySelector('a').getAttribute('href');
     const pageUrl = window.location.origin;
     window.location.replace(pageUrl + redirectUrl.split('.com')[1]);
   }
+
   if (body.className.includes('step')) {
-    const redirectUrl = redirectParent.querySelector('a').getAttribute('href');
     const step = window.location.search.split('?')[1];
     window.location.replace(`${redirectUrl}step?${step}`);
   }
-  redirectParent.remove();
-}
-window.addEventListener('load', initScript);
 
-/** @type {import("../block").BlockDecorator} */
-export default function decorate(blockEl) {
-  blockEl.innerHTML = '<div class="redirect"></div>';
-  initScript();
+  if (redirectUrl) {
+    window.location.replace(redirectUrl);
+  }
+
+  redirectParent.remove();
 }

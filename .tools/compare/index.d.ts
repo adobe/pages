@@ -10,9 +10,11 @@
  * governing permissions and limitations under the License.
  */
 
-// eslint-disable-next-line import/no-cycle
+/* eslint-disable import/no-cycle, import/no-extraneous-dependencies */
+
+import { PuppeteerNodeLaunchOptions } from 'puppeteer';
 import { ComparePlugin } from './plugins/plugin';
-// eslint-disable-next-line import/no-cycle
+
 export * from './plugins/plugin';
 
 /**
@@ -49,6 +51,7 @@ export interface CompareOptions {
   plugins?: ComparePlugin[];
   input: CompareInput;
   output?: CompareOutput;
+  launchOptions?: PuppeteerNodeLaunchOptions;
 }
 
 /**

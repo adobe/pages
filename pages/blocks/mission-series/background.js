@@ -10,20 +10,24 @@
  * governing permissions and limitations under the License.
  */
 function setUpBackground() {
-  if (!document.querySelector('.missionbg-container')) return;
-  const backgroundParent = document.querySelector('.missionbg-container');
+  const blockEl = document.querySelector('.missionbg');
+  const containerEl = document.querySelector('.missionbg-container');
 
-  if (backgroundParent.classList.contains('tall')) {
-    document.querySelector('main').classList.add('tall-bg');
+  if (!blockEl || !containerEl) return;
+  const mainEl = document.querySelector('main');
+  if (blockEl.classList.contains('tall')) {
+    mainEl.classList.add('tall-bg');
+    containerEl.classList.add('tall');
   }
 
-  if (backgroundParent.classList.contains('tallest')) {
-    document.querySelector('main').classList.add('tallest-bg');
+  if (blockEl.classList.contains('tallest')) {
+    mainEl.classList.add('tallest-bg');
+    containerEl.classList.add('tallest');
   }
 
-  const backgroundImage = backgroundParent.querySelector('img').getAttribute('src');
-  backgroundParent.style.backgroundImage = `url(${backgroundImage})`;
-  backgroundParent.innerHTML = '';
+  const backgroundImage = containerEl.querySelector('img').getAttribute('src');
+  containerEl.style.backgroundImage = `url(${backgroundImage})`;
+  containerEl.innerHTML = '';
 }
 
 setUpBackground();

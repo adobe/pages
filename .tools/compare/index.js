@@ -12,6 +12,9 @@
 
 // @ts-check
 
+/* eslint-disable import/no-extraneous-dependencies */
+
+import puppeteer from 'puppeteer';
 import { mkdir } from 'fs/promises';
 import * as path from 'path';
 import { cwd } from 'process';
@@ -97,8 +100,9 @@ export async function compare(options) {
 
   await prepOutputDir(rootDir, input, plugins);
 
-  // TODO: create puppeteer browser here, pass thru context via lifecycle
-  const lifecycle = new Lifecycle(options, rootDir);
+  const browser = await puppeteer.launch(options.launchOptions || {});
+  const lifecycle = new Lifecycle(options, rootDir, browser);
+
   for (const hook of Lifecycle.hooks) {
     // eslint-disable-next-line no-await-in-loop
     await lifecycle.executeHook(hook);

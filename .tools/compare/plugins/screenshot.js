@@ -37,10 +37,12 @@ async function captureScreenshot(ctx, pageName, versionName, url, options = {}) 
   /** @type {ScreenshotOptions} */
   const opts = { type: 'png', ...options };
 
-  // TODO: make this screenshot logic using only puppeteer
-  // and only spawn one instance, reusing for each URL.
-
-  return captureWebsite.buffer(url, opts).then((buf) => {
+  return captureWebsite.buffer(url, {
+    ...opts,
+    // @ts-ignore
+    _browser: ctx.browser,
+    debug: true,
+  }).then((buf) => {
     const filename = `${pageName}/${ctx.name}/${versionName}.${opts.type}`;
     ctx.info('Emitting file ', filename);
     return ctx.emitFile(filename, buf);

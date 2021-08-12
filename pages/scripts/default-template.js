@@ -43,12 +43,11 @@ async function submitSheetForm($form, sheetid, thankyou) {
 }
 
 function createButtonCta(element) {
-  if (!document.querySelectorAll(element).length > 0) return;
   const button = document.querySelectorAll(element);
+  if (button.length < 1) return;
   button.forEach(($link) => {
     if ($link.innerText.includes('[cta')) {
       const ctaStrings = $link.innerText.split('[')[1].split(']')[0];
-      console.log(ctaStrings);
       $link.setAttribute('class', `button ${ctaStrings}`);
       // eslint-disable-next-line prefer-destructuring
       $link.innerText = $link.innerText.split('[')[0];

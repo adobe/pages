@@ -80,13 +80,14 @@ async function decorateHome() {
   const data = await fetchSheet();
   const children = document.querySelectorAll('main .default');
   children.forEach(($child) => {
+    console.log('child: ', $child, $child.innerText);
     let containerType = '';
     if ($child.innerText.includes('[#')) {
       containerType = $child.innerText.split('[#')[1].split(']')[0];
       console.debug(containerType);
       if (containerType === 'cards') {
         $child.classList.add('card-container');
-        loadCSS('/styles/blocks/card.css');
+        loadCSS('/pages/blocks/card/card.css');
         $child.innerHTML = `
                     <div>
                         <div class="card">${cardMarkUp(data)}</div>
@@ -102,7 +103,7 @@ async function decorateHome() {
                         ${columnMarkUp(data)}
                     </div>
                 `;
-        loadCSS('/styles/blocks/columns.css');
+        loadCSS('/pages/blocks/columns/columns.css');
       }
     }
   });

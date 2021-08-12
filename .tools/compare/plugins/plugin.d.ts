@@ -18,6 +18,7 @@ export interface PluginContext {
   startTime: string;
   name: string;
   rootDir: string;
+  browser: any;
   emitFile(filename: string, data: Buffer | string | string[]): Promise<void>;
   log(...msgs: any[]): void;
   debug(...msgs: any[]): void;

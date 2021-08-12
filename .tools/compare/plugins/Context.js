@@ -28,53 +28,61 @@ export class ContextFactory {
    */
    #rootDir;
 
-   /**
+  /**
    * @type {string}
    */
-    #startTime;
+  #startTime;
 
-    /**
+  /**
+   * @type {any}
+   */
+  #browser;
+
+  /**
    *
    * @param {CompareOptions} options
    * @param {string} rootDir
+   * @param {any} browser
    */
-    constructor(options, rootDir) {
-      this.#startTime = new Date().toISOString();
-      this.#rootDir = rootDir;
-      this.options = options;
-    }
+  constructor(options, rootDir, browser) {
+    this.#startTime = new Date().toISOString();
+    this.#rootDir = rootDir;
+    this.#browser = browser;
+    this.options = options;
+  }
 
-    /**
+  /**
    * Make plugin context for specific plugin.
    *
    * @param {Plugin} plugin - Plugin option entry
    * @returns {Context}
    */
-    makeContext(plugin) {
+  makeContext(plugin) {
     /**
      *
      * @param {string} filename
      * @param {string | Buffer} data
      * @returns {Promise<any>}
      */
-      const emitFile = async (filename, data) => {
-        writeFile(path.resolve(this.#rootDir, filename), data);
-      };
+    const emitFile = async (filename, data) => {
+      writeFile(path.resolve(this.#rootDir, filename), data);
+    };
 
-      const loggerPrefix = `[${plugin.name}]`;
-      return {
-        options: this.options,
-        startTime: this.#startTime,
-        rootDir: this.#rootDir,
-        name: plugin.name,
-        emitFile,
-        log: console.log.bind(console, loggerPrefix),
-        debug: console.debug.bind(console, loggerPrefix),
-        error: console.error.bind(console, loggerPrefix),
-        warn: console.warn.bind(console, loggerPrefix),
-        info: console.info.bind(console, loggerPrefix),
-      };
-    }
+    const loggerPrefix = `[${plugin.name}]`;
+    return {
+      options: this.options,
+      startTime: this.#startTime,
+      rootDir: this.#rootDir,
+      name: plugin.name,
+      emitFile,
+      browser: this.#browser,
+      log: console.log.bind(console, loggerPrefix),
+      debug: console.debug.bind(console, loggerPrefix),
+      error: console.error.bind(console, loggerPrefix),
+      warn: console.warn.bind(console, loggerPrefix),
+      info: console.info.bind(console, loggerPrefix),
+    };
+  }
 }
 
 export default ContextFactory;

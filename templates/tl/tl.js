@@ -415,7 +415,8 @@ export default async function decoratePage() {
   window.pages.decorated = true;
   appearMain();
   if (document.getElementsByTagName('body')[0].classList.contains('photography-plan')) {
-    document.querySelector('.progress').innerHTML = '';
+    const progEl = document.querySelector('.progress');
+    if (progEl) progEl.innerHTML = '';
   }
 }
 

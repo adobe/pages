@@ -10,13 +10,21 @@
  * governing permissions and limitations under the License.
  */
 
+import { isNodeName } from '../../scripts/scripts.js';
+
 /** @type {import("../block").BlockDecorator} */
 export default function decorate(blockEl) {
-  blockEl.innerHTML = '<div class="inner three-cards-lr"></div>';
+  let images = document.querySelectorAll('.image-third img');
 
-  // const parentEl = document.querySelector('.three-cards-lr')
-  // .parentElement.classList.add('image-third');
-  const images = document.querySelectorAll('.image-third img');
+  if (images.length < 1) {
+    const parentEl = blockEl.parentNode.parentNode.parentNode;
+    const sibPEl = parentEl.querySelector(':scope p');
+    if (isNodeName(parentEl, 'div') && sibPEl) {
+      images = sibPEl.querySelectorAll(':scope picture img');
+      sibPEl.remove();
+    }
+  }
+
   const markUp = `
   <a class="three-cards-lr__el" href="https://pages.adobe.com/creativecloud/en/photography-plan/photoshop/" target="_blank">
     <img src="${images[0].getAttribute('src')}">
@@ -38,6 +46,5 @@ export default function decorate(blockEl) {
   </a>
   
   `;
-  document.querySelector('.three-cards-lr').innerHTML = markUp;
-  document.querySelector('.image-third p').remove();
+  blockEl.innerHTML = `<div class="inner three-cards-lr">${markUp}</div>`;
 }

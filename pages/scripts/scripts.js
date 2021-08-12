@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-/* eslint-disable no-console, import/no-cycle  */
+/* eslint-disable no-console, import/no-cycle, consistent-return  */
 
 import {
   decorateBackgroundImageBlocks,
@@ -29,6 +29,7 @@ import {
 import { initializeNamespaces, emit } from './namespace.js';
 
 const cssLoaded = [];
+const jsLoaded = [];
 
 /**
  * Add dependency urls that should be published with Sidekick.
@@ -81,14 +82,32 @@ export function addDefaultClass(element) {
 
 /**
  * Fetch and inject JS payload
- * @param {string} href path
+ * @param {string} href to load
+ * @param {boolean} [useImport = true] use dynamic import
+ * @returns {Promise<any>}
  */
-export function loadJSModule(href) {
-  emit('preLoadJs', { href });
-  const module = document.createElement('script');
-  module.setAttribute('type', 'module');
-  module.setAttribute('src', href);
-  document.head.appendChild(module);
+export function loadJSModule(href, useImport = true) {
+  emit('scripts:loadJS', { href });
+
+  if (jsLoaded.includes(href)) return Promise.resolve();
+  jsLoaded.push(href);
+
+  if (useImport) {
+    return import(href).then(({ default: run }) => {
+      if (typeof run === 'function') {
+        return run();
+      }
+    });
+  } else {
+    return new Promise((resolve, reject) => {
+      const module = document.createElement('script');
+      module.setAttribute('type', 'module');
+      module.setAttribute('src', href);
+      document.head.appendChild(module);
+      module.onerror = reject;
+      module.onload = resolve;
+    });
+  }
 }
 
 export function isNodeName(node, name) {
@@ -175,7 +194,7 @@ export async function insertLocalResource(type) {
  * @param {string} selector
  */
 export function externalLinks(selector) {
-  emit('externalLinks', { selector });
+  emit('scripts:extLinks', { selector });
 
   const element = document.querySelector(selector);
   if (!element) return;
@@ -343,7 +362,7 @@ export function appearMain() {
     const classes = [p.product, p.family, p.project, pageName].filter((c) => !!c);
     document.body.classList.add(...classes);
     classify('main', 'appear');
-    emit('mainVisible');
+    emit('scripts:mainVisible');
   }
 }
 
@@ -353,7 +372,7 @@ export function appearMain() {
  * @param {boolean} [prepend=false] Whether to prepend style to head, otherwise append
  */
 export function loadCSS(href, prepend) {
-  emit('preLoadCss', { href });
+  emit('scripts:loadCSS', { href });
 
   if (cssLoaded.includes(href)) return;
   cssLoaded.push(href);
@@ -417,6 +436,14 @@ export function showElements(...sels) {
   tEV(true, ...sels);
 }
 
+/**
+ * Read config from a block that is a table.
+ * Treats each row of the table as an entry in
+ * the output config.
+ *
+ * @param {HTMLElement} $block
+ * @returns {Object}
+ */
 export function readBlockConfig($block) {
   const config = {};
   $block.querySelectorAll(':scope>div').forEach(($row) => {
@@ -434,6 +461,9 @@ export function readBlockConfig($block) {
 
 export async function loadBlock($block) {
   const blockName = $block.getAttribute('data-block-name');
+
+  const ignoredBlocks = ['iframe', 'missionbg'];
+  if (ignoredBlocks.includes(blockName)) return;
 
   import(`/pages/blocks/${blockName}/${blockName}.js`)
     .then((mod) => {
@@ -453,68 +483,99 @@ export function loadBlocks($main) {
     .forEach(async ($block) => loadBlock($block));
 }
 
-export async function decorateBlocks() {
-  document.querySelectorAll('main>div.section-wrapper>div>div').forEach(($block) => {
-    const blockName = Array.from($block.classList.values())[0];
+function handleSpecialBlock(blockName, ogBlockName) {
+  emit('scripts:hSB', { blockName, ogBlockName });
 
-    const { length } = $block.classList;
-    if (length === 1) {
-      const classes = $block.className.split('-');
-      const classHelpers = $block.className.split('-');
-      classHelpers.shift();
+  const options = [blockName];
 
-      $block.closest('.section-wrapper').classList.add(`${classes[0]}-container`);
-      $block.closest('.section-wrapper').classList.add(...classHelpers);
-      $block.classList.add(...classes);
+  if (ogBlockName.includes('nav')) {
+    options.push('header-block');
+  }
 
-      if (classes.includes('nav')) {
-        $block.classList.add('header-block');
-      }
+  if (ogBlockName.includes('checklist')) {
+    // loadJSModule('/pages/blocks/checklist/checklist.js');
+    document.getElementsByTagName('body')[0].classList.add('checklist-page');
+  }
 
-      if (classes.includes('checklist')) {
-        // loadJSModule('/pages/blocks/checklist/checklist.js');
-        document.getElementsByTagName('body')[0].classList.add('checklist-page');
-      }
+  if (blockName === 'iframe'
+  || blockName === 'missiontimeline'
+  || blockName === 'missionbg') {
+    const missionPath = '/pages/blocks/mission-series/';
 
-      if (classes.includes('iframe') || classes.includes('missiontimeline') || classes.includes('missionbg')) {
-        loadJSModule('/pages/blocks/mission-series/iframe.js');
-        loadJSModule('/pages/blocks/mission-series/background.js');
-      }
+    loadJSModule(`${missionPath}/background.js`);
+    loadJSModule(`${missionPath}/iframe.js`);
 
-      if (classes.includes('list')) {
-        loadJSModule('/pages/scripts/render_spectrum_icons.js');
-      }
+    loadCSS(`${missionPath}/iframe.css`);
+    loadCSS(`${missionPath}/background.css`);
+    loadCSS(`${missionPath}/missiontimeline.css`);
+  }
 
-      const cls = classes[0];
-      loadCSS(`/pages/blocks/${cls}/${cls}.css`);
-    } else if (length === 2) {
+  if (ogBlockName.includes('list')) {
+    loadJSModule('/pages/scripts/render_spectrum_icons.js');
+  }
+
+  return { options, blockName };
+}
+
+export function decorateBlocks($main, query = ':scope div.section-wrapper > div > div') {
+  const blocksWithOptions = ['columns', 'missionbg'];
+  const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg', 'list'];
+
+  $main.querySelectorAll(query).forEach(($block) => {
+    const classes = Array.from($block.classList.values());
+    emit('scripts:decorateBlock', { classes });
+    let blockName = classes[0];
+    if (!blockName) return;
+
+    if (classes.length > 1) {
       const cls = $block.classList.item(0);
       loadCSS(`/pages/blocks/${cls}/${cls}.css`);
+      return;
     }
+
+    blocksWithOptions.forEach((b) => {
+      if (blockName.startsWith(`${b}-`)) {
+        const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
+        blockName = b;
+        $block.classList.add(b);
+        $block.classList.add(...options);
+      }
+    });
+
+    blocksWithSpecialCases.forEach((sBlockName) => {
+      if (blockName.indexOf(`${sBlockName}`) >= 0) {
+        const {
+          blockName: b,
+          options,
+        } = handleSpecialBlock(sBlockName, blockName, $block);
+        blockName = b || sBlockName;
+        $block.classList.add(...(options || []));
+      }
+    });
 
     const $section = $block.closest('.section-wrapper');
     if ($section) {
       $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
     }
-
     $block.classList.add('block');
     $block.setAttribute('data-block-name', blockName);
   });
-  // loadBlocks(document.querySelector('main'));
 }
 
-function getEmbedName(pEl) {
-  const spl = pEl.textContent.split('/');
+function getEmbedName(path) {
+  const spl = path.split('/');
   const name = spl[spl.length - 1];
   const lastDot = name.lastIndexOf('.');
   return lastDot < 0 ? name : name.substr(0, lastDot);
 }
 
 function makeBlockEl(name) {
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('section-wrapper');
-  wrapper.innerHTML = `<div><section class="block" data-block-name="${name}"></section></div>`;
-  return wrapper;
+  const block = document.createElement('div');
+  block.classList.add(name);
+  // wrapper.classList.add('section-wrapper');
+  // wrapper.innerHTML = `
+  //   <div class="${name}"></div>`;
+  return block;
 }
 
 /**
@@ -523,15 +584,22 @@ function makeBlockEl(name) {
  * rewrite the content to point to blocks directly, but this is for
  * backwards compatibility until then.
  */
-export function replaceEmbeds() {
+export function replaceEmbeds(usingTemplate) {
   const pEls = document.querySelectorAll('p');
-  pEls.forEach((pEl) => {
-    if (pEl.innerText.startsWith('/')) {
-      emit('replaceEmbed', pEl);
-      const name = getEmbedName(pEl);
-      const blockWrap = makeBlockEl(name);
-      pEl.replaceWith(blockWrap);
-      // loadBlock(blockWrap.firstChild.firstChild);
+  pEls.forEach(($p) => {
+    const path = $p.innerText;
+    if (path.startsWith('/')) {
+      emit('scripts:replaceEmbed', { path });
+      const name = getEmbedName(path);
+      const $block = makeBlockEl(name);
+      $p.replaceWith($block);
+
+      if (usingTemplate) {
+        // when using a template, the decorateBlocks() method may not be called
+        // call it explicitly and then load the block immediately
+        decorateBlocks($block.parentNode, `:scope .${name}`);
+        loadBlock($block);
+      }
     }
   });
 }
@@ -566,13 +634,11 @@ export function getTemplateName() {
  */
 export async function loadTemplate(template) {
   const basePath = `/templates/${template}/${template}`;
-  emit('preLoadTemplate', { basePath });
+  emit('scripts:loadTemplate', { basePath });
 
   loadCSS(`${basePath}.css`);
   return import(`${basePath}.js`).then(({ default: run }) => {
-    emit('postLoadTemplate', { basePath });
     if (run) run();
-    emit('postRunTemplate', { basePath });
   }).catch((e) => {
     console.error(`Error loading template module: ${e}`);
   });
@@ -698,11 +764,9 @@ export function styleButtons() {
 }
 
 function setupTestMode() {
-  if (window.location.search.indexOf('test') === -1) {
+  if (window.location.hash.indexOf('test') === -1) {
     return;
   }
-  // do whatever for testing mode..
-  // right now just logging junk
   window.pages.on(undefined, console.debug);
 }
 
@@ -731,11 +795,12 @@ function setLCPTrigger(doc, postLCP) {
 }
 
 export async function decorateDefault() {
-  emit('decorate default');
+  const $main = document.querySelector('main');
+
   loadCSS('/pages/styles/default.css');
   decorateTables();
   wrapSections('main>div');
-  decorateBlocks();
+  decorateBlocks($main);
 
   if (document.querySelector('.hero-container')) {
     decorateHero();
@@ -780,43 +845,40 @@ export async function decorateDefault() {
       });
     }
   });
-  setWidths();
+  setWidths('main .section-wrapper >div');
 
   document.body.classList.add('loaded');
 }
 
 async function decoratePage() {
-  emit('decorating page..');
+  emit('scripts:decorate');
   initializeNamespaces();
   setupTestMode();
 
-  replaceEmbeds();
-
+  // wrapSections('main>div');
   const template = getTemplateName();
-  if (template) {
-    emit('loading template..');
+  replaceEmbeds(!!template);
+  // wrapSections('main>div');
 
+  if (template) {
+    emit('scripts:template', { template });
     await loadTemplate(template);
   } else {
-    emit('decorating default..');
-
+    emit('scripts:default');
     decorateDefault();
   }
 
   document.title = document.title.split('<br>').join(' ');
-
   fixImages();
 
-  // loadBlocks(mainEl);
-
   setLCPTrigger(document, async () => {
-    const mainEl = document.querySelector('main');
     emit('scripts:postLCP');
-    // post LCP actions go here
-    // for now just explicitly lazy styles
-    // but ideally would have placeholder styles for blocks
-    // and then load the actual blocks to replace them after LCP
+
+    // if (!template) {
+    const mainEl = document.querySelector('main');
     loadBlocks(mainEl);
+    // }
+
     loadCSS('/pages/styles/lazy-styles.css');
   });
 

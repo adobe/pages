@@ -10,15 +10,23 @@
  * governing permissions and limitations under the License.
  */
 
+/* eslint-disable no-underscore-dangle */
+
 // @ts-check
 
 import * as path from 'path';
 import { cwd } from 'process';
+import { rm } from 'fs/promises';
+import { fileURLToPath } from 'url';
 import screenshot from './compare/plugins/screenshot.js';
-import lighthouse from './compare/plugins/lighthouse.js';
+// import lighthouse from './compare/plugins/lighthouse.js';
 import { compare } from './compare/index.js';
 import { getStdOutFrom } from './util.js';
 import pagelist from './pagelist.js';
+
+// @ts-ignore
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // TODO: could be parameterized
 const CURRENT_DOMAIN = 'hlx3.page';
@@ -119,6 +127,9 @@ function makeInputs(
   // + `${JSON.stringify(input, undefined, 2)} \n`
   // + '================');
 
+  // @ts-ignore
+  const userDataDir = path.resolve(__dirname, '.compare-env');
+
   /** @type {import('./compare/index.js').CompareOptions} */
   const compareOptions = {
     input,
@@ -128,13 +139,17 @@ function makeInputs(
     plugins: [
       screenshot({
         fullPage: true,
-        delay: 20,
-        timeout: 180,
+        delay: 45,
+        timeout: 260,
         removeElements: ['#onetrust-banner-sdk'],
+        launchOptions: {
+          userDataDir,
+        },
       }),
-      lighthouse(),
+      // lighthouse(),
     ],
   };
 
   await compare(compareOptions);
+  await rm(userDataDir, { recursive: true, force: true });
 })();
