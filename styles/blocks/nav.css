@@ -7,6 +7,10 @@
 	cursor: pointer;
 }
 
+.general.blog .app-name.desktop a {
+	color: #FA0F00 !important;
+}
+
 header > div {
 	display: block !important;
 }
