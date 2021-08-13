@@ -100,7 +100,7 @@ export async function compare(options) {
 
   await prepOutputDir(rootDir, input, plugins);
 
-  const browser = await puppeteer.launch(options.launchOptions || {});
+  const browser = await puppeteer.launch({});
   const lifecycle = new Lifecycle(options, rootDir, browser);
 
   for (const hook of Lifecycle.hooks) {

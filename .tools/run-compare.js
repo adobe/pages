@@ -85,7 +85,7 @@ function makeInputs(
     let route = curr;
     if (route.startsWith('/')) route = route.substr(1);
 
-    let pageName = route.replace(/\//g, '-');
+    let pageName = route.replace(/\//g, '--');
     if (pageName.endsWith('-')) pageName = pageName.substr(0, pageName.length - 1);
 
     prev[pageName] = {
@@ -139,7 +139,7 @@ function makeInputs(
     plugins: [
       screenshot({
         fullPage: true,
-        delay: 45,
+        delay: 15,
         timeout: 260,
         removeElements: ['#onetrust-banner-sdk'],
         launchOptions: {

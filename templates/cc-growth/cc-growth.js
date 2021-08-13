@@ -264,13 +264,5 @@ export default async function decoratePage() {
   window.pages.decorated = true;
   paramHelper();
   appearMain();
-  loadJSModule('../../templates/cc-growth/icons.js');
+  loadJSModule('/templates/cc-growth/icons.js');
 }
-
-// if (document.readyState === 'loading') {
-//   window.addEventListener('DOMContentLoaded', decoratePage);
-// } else {
-//   decoratePage();
-// }
-
-// loadJSModule('../../templates/cc-growth/icons.js');

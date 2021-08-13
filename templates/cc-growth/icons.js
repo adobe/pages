@@ -9,6 +9,19 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import { loadJSModule } from '../../pages/scripts/scripts.js';
+
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 const items = [];
 // let hasSearched = false;
 
@@ -62,12 +75,13 @@ const setIconLayout = ($color) => {
   runLazyLoader(document.querySelectorAll('.icons img'));
 };
 
-const writeFuseLibToHead = () => {
-  if (!document.body.classList.contains('icons')) return;
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@6.4.6';
-  document.getElementsByTagName('head')[0].appendChild(script);
+const writeFuseLibToHead = async () => {
+  if (!document.body.classList.contains('icons')) return undefined;
+  return loadJSModule('https://cdn.jsdelivr.net/npm/fuse.js@6.4.6');
+  // const script = document.createElement('script');
+  // script.type = 'text/javascript';
+  // script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@6.4.6';
+  // document.getElementsByTagName('head')[0].appendChild(script);
 };
 
 const writeInputField = () => {
@@ -109,20 +123,21 @@ const rewriteIcons = ($data) => {
   }
 };
 
-writeFuseLibToHead();
+(async () => {
+  await writeFuseLibToHead();
 
-window.addEventListener('load', () => {
-  if (!document.body.classList.contains('icons')) return;
-  setIconLayout('spectrum-icons-dark');
-  writeInputField();
+  if (document.body.classList.contains('icons')) {
+    setIconLayout('spectrum-icons-dark');
+    writeInputField();
 
-  // eslint-disable-next-line no-undef
-  const fuse = new Fuse(items, options);
-  document.querySelector('form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    // hasSearched = true;
-    if (document.querySelector('input').value.length >= 1) {
-      rewriteIcons(fuse.search(document.querySelector('input').value));
-    }
-  });
-});
+    // eslint-disable-next-line no-undef
+    const fuse = new Fuse(items, options);
+    document.querySelector('form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      // hasSearched = true;
+      if (document.querySelector('input').value.length >= 1) {
+        rewriteIcons(fuse.search(document.querySelector('input').value));
+      }
+    });
+  }
+})();

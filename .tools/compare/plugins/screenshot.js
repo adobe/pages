@@ -41,7 +41,7 @@ async function captureScreenshot(ctx, pageName, versionName, url, options = {}) 
     ...opts,
     // @ts-ignore
     _browser: ctx.browser,
-    debug: true,
+    _keepAlive: true,
   }).then((buf) => {
     const filename = `${pageName}/${ctx.name}/${versionName}.${opts.type}`;
     ctx.info('Emitting file ', filename);
