@@ -567,7 +567,7 @@ function readEmbeddedFormConfig($block) {
   const config = {};
 
   // contains the block and any other sibling elements
-  const $commonRoot = $block.parentNode.parentNode.parentNode;
+  const $commonRoot = $block.parentNode;
   $commonRoot.querySelectorAll(':scope>p').forEach(($p) => {
     let name;
     let value;
@@ -641,6 +641,7 @@ export default async function decorate($block, _, doc) {
   for (const item of formData) {
     if (item.type === 'page-break') {
       hasPageBreak = true;
+      $block.classList.add('slide-form');
       break;
     }
   }

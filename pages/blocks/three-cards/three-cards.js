@@ -15,9 +15,8 @@ import { isNodeName } from '../../scripts/scripts.js';
 /** @type {import("../block").BlockDecorator} */
 export default function decorate(blockEl) {
   let images = document.querySelectorAll('.image-third img');
-
   if (images.length < 1) {
-    const parentEl = blockEl.parentNode.parentNode.parentNode;
+    const parentEl = blockEl.parentNode;
     const sibPEl = parentEl.querySelector(':scope p');
     if (isNodeName(parentEl, 'div') && sibPEl) {
       images = sibPEl.querySelectorAll(':scope picture img');

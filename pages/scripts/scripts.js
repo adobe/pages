@@ -517,7 +517,10 @@ function handleSpecialBlock(blockName, ogBlockName) {
   return { options, blockName };
 }
 
-export function decorateBlocks($main, query = ':scope div.section-wrapper > div > div') {
+export function decorateBlocks(
+  $main,
+  query = ':scope div.section-wrapper > div > div',
+) {
   const blocksWithOptions = ['card', 'columns', 'missionbg'];
   const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg', 'list'];
 

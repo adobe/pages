@@ -73,7 +73,7 @@ main .card-container.fourstack > div {
 
 
 @media(min-width: 968px) {
-  .fourstack .card > div {
+  .fourstack.card > div {
     width: 23%;
   }
   

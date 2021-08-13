@@ -63,7 +63,6 @@ main div.form a:any-link {
 		min-width: 180px;
 }
 	
-	
 main div.form form {
 		max-width: 600px;
 		margin: auto;
@@ -72,6 +71,10 @@ main div.form form {
 
 main div.form label {
 	color: #6E6E6E;
+}
+
+.block.slide-form form {
+	max-width: unset;
 }
 
 main div.form-container {
