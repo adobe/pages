@@ -213,8 +213,8 @@ function decorateParallax() {
 }
 
 function decorateInternalAdvocates(retry = 0) {
-  const nodes = document.querySelectorAll('main .section-wrapper div > .embed-internal-advocates');
-  if (nodes.length === 0) {
+  const $embed = document.querySelector('main .section-wrapper div > .embed-internal-advocates');
+  if (!$embed) {
     if (retry < 15) {
       setTimeout(() => {
         decorateInternalAdvocates(retry + 1);
@@ -222,10 +222,11 @@ function decorateInternalAdvocates(retry = 0) {
     }
     return;
   }
-  nodes.forEach(($embed) => {
-    $embed.parentNode.parentNode.classList.add('full-width');
-    $embed.innerHTML = $embed.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">');
-  });
+  $embed.parentNode.parentNode.classList.add('full-width');
+
+  // change title to image
+  const title = $embed.querySelector(':scope div > h2');
+  title.innerHTML = '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">';
 }
 
 function decorateHeroCarousel() {

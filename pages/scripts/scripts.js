@@ -29,6 +29,7 @@ import {
 
 const cssLoaded = [];
 const jsLoaded = [];
+const blocksLoaded = [];
 const handlers = {};
 
 /**
@@ -512,6 +513,10 @@ export function readBlockConfig($block) {
 
 export async function loadBlock($block) {
   const blockName = $block.getAttribute('data-block-name');
+  if (blocksLoaded.includes(blockName)) return;
+
+  emit('scripts:loadblock', { blockName });
+  blocksLoaded.push(blockName);
 
   const ignoredBlocks = ['iframe', 'missionbg'];
   if (ignoredBlocks.includes(blockName)) return;
@@ -644,17 +649,18 @@ export function replaceEmbeds(usingTemplate) {
   const pEls = document.querySelectorAll('p');
   pEls.forEach(($p) => {
     const path = $p.innerText;
+    const parent = $p.parentNode;
     if (path.startsWith('/')) {
       emit('scripts:replaceEmbed', { path });
       const name = getEmbedName(path);
       const $block = makeBlockEl(name);
-      $p.replaceWith($block);
+      parent.replaceChild($block, $p);
 
       if (usingTemplate) {
         // when using a template, the decorateBlocks() method may not be called
         // call it explicitly and then load the block immediately
         decorateBlocks($block.parentNode, `:scope .${name}`);
-        loadBlock($block);
+        // loadBlock($block);
       }
     }
   });
