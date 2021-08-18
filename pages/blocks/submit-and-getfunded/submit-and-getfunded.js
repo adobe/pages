@@ -12,7 +12,7 @@
 
 /** @type {import("../block").BlockDecorator} */
 export default function decorate(blockEl) {
-  blockEl.parentNode.parentNode.parentNode.innerHTML = `
+  blockEl.innerHTML = `
   <div class="embed embed-internal embed-internal-submitandgetfunded embed-internal-advocates">
     <div id="contact-us">
       <h2 id="adobe-stock-advocates">Adobe Stock Advocates</h2>

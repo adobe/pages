@@ -26,10 +26,61 @@ import {
   setExternalLinks,
   wrapSections,
 } from './default-blocks.js';
-import { initializeNamespaces, emit } from './namespace.js';
 
 const cssLoaded = [];
 const jsLoaded = [];
+const handlers = {};
+
+/**
+ * Register callback for when event occurs.
+ * `undefined` event name is called for every event.
+ *
+ * @param {string}    event name
+ * @param {Function}  handler to call
+ * @returns {Function} to remove handler, for deconstructing
+ */
+function registerListener(event, handler) {
+  // eslint-disable-next-line no-multi-assign
+  const hs = (handlers[event] = handlers[event] || []);
+  const ind = hs.push(handler) - 1;
+  return () => {
+    delete hs[ind];
+  };
+}
+
+/**
+ * Emit event.
+ *
+ * @param {string} event
+ * @param {Object} data
+ * @returns {void}
+ */
+export function emit(event, data) {
+  const hs = handlers[event];
+  const allHs = handlers[undefined];
+
+  if (hs) hs.forEach((h) => h && h.call(undefined, data));
+  if (allHs) allHs.forEach((h) => h && h.call(undefined, event, data));
+}
+
+/**
+ * Initialize global namespaces
+ */
+export function initializeNamespaces() {
+  window.hlx = window.hlx || {};
+  window.hlx.dependencies = window.hlx.dependencies || [];
+
+  // eslint-disable-next-line no-multi-assign
+  const ns = (window.pages = window.pages || {});
+
+  if (!ns.on) ns.on = registerListener;
+
+  const pathSegments = window.location.pathname.match(/[\w-]+(?=\/)/g);
+  if (pathSegments) {
+    const [product, locale, project] = pathSegments;
+    Object.assign(ns, { product, locale, project });
+  }
+}
 
 /**
  * Add dependency urls that should be published with Sidekick.
@@ -521,7 +572,7 @@ export function decorateBlocks(
   $main,
   query = ':scope div.section-wrapper > div > div',
 ) {
-  const blocksWithOptions = ['card', 'columns', 'missionbg'];
+  const blocksWithOptions = ['card', 'columns', 'missionbg', 'callout'];
   const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg', 'list'];
 
   $main.querySelectorAll(query).forEach(($block) => {
@@ -536,9 +587,10 @@ export function decorateBlocks(
       return;
     }
 
+    let options = [];
     blocksWithOptions.forEach((b) => {
       if (blockName.startsWith(`${b}-`)) {
-        const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
+        options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
         blockName = b;
         $block.classList.add(b);
         $block.classList.add(...options);
@@ -549,16 +601,17 @@ export function decorateBlocks(
       if (blockName.indexOf(`${sBlockName}`) >= 0) {
         const {
           blockName: b,
-          options,
+          options: o,
         } = handleSpecialBlock(sBlockName, blockName, $block);
         blockName = b || sBlockName;
-        $block.classList.add(...(options || []));
+        $block.classList.add(...(o || []));
       }
     });
 
     const $section = $block.closest('.section-wrapper');
     if ($section) {
       $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+      $section.classList.add(...options);
     }
     $block.classList.add('block');
     $block.setAttribute('data-block-name', blockName);

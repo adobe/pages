@@ -18,7 +18,6 @@ import {
   decorateBlocks,
   decorateTables,
   externalLinks,
-  loadBlocks,
   loadLocalHeader,
 } from '../../pages/scripts/scripts.js';
 
@@ -153,10 +152,8 @@ function setTabIndex() {
 }
 
 export default async function decoratePage() {
-  // decorateDefault();
   const $main = document.querySelector('main');
   decorateBlocks($main);
-  loadBlocks($main);
 
   addDefaultClass('main>div');
   decorateTables();
