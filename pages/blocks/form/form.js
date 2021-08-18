@@ -10,8 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import { emit } from '../../scripts/namespace.js';
 import {
+  emit,
   hideElements,
   loadCSS,
   readBlockConfig,
