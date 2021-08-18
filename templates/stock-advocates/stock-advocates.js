@@ -362,10 +362,8 @@ async function decorateHeader() {
 function decorateContactUs() {
   const $contactus = document.getElementById('contact-us');
   if ($contactus) {
+    // now loading from embed, just scroll to view
     const $parent = $contactus.parentElement;
-    // now loading from embed
-    // $contactus.remove();
-    $parent.id = 'contact-us';
     if (window.location.hash === '#contact-us') {
       $parent.scrollIntoView();
     }

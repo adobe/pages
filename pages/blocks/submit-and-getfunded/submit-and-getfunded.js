@@ -17,6 +17,7 @@ export default function decorate(blockEl) {
   <div class="embed embed-internal embed-internal-submitandgetfunded embed-internal-advocates">
     <div id="contact-us">
       <h2 id="adobe-stock-advocates">Adobe Stock Advocates</h2>
+      <p>Adobe Stock is committed to ensuring digital accessibility for people with disabilities. We continually work to improve the user experience for everyone and we seek to meet WCAG 2.1 AA compliance. If any part of this website or funding application process presents accessibility barriers, please let us know and we will make every reasonable effort to accommodate requests. Please send us an email at: <a href="mailto:allies@adobe.com">allies@adobe.com</a>.</p>
       <div class="columns left-justify">
         <div>
           <div class="text">
@@ -34,7 +35,7 @@ export default function decorate(blockEl) {
         <div>
         <div class="text">
           <h3>Contact us</h3>
-          <p>Adobe Stock is committed to ensuring digital accessibility for people with disabilities. We continually work to improve the user experience for everyone and we seek to meet WCAG 2.1 AA compliance. If any part of this website or funding application process presents accessibility barriers, please let us know and we will make every reasonable effort to accommodate requests. Please send us an email at: <a href="mailto:allies@adobe.com">allies@adobe.com</a>.</p>
+          <p></p>
           <p>allies@adobe.com</p>
         </div>
         <div class="text">
