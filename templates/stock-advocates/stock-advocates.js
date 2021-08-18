@@ -212,21 +212,21 @@ function decorateParallax() {
   });
 }
 
-function decorateInternalAdvocates(retry = 0) {
-  const $embed = document.querySelector('main .section-wrapper div > .embed-internal-advocates');
-  if (!$embed) {
-    if (retry < 15) {
-      setTimeout(() => {
-        decorateInternalAdvocates(retry + 1);
-      }, 25);
-    }
-    return;
-  }
-  $embed.parentNode.parentNode.classList.add('full-width');
+function decorateInternalAdvocates() {
+  const $embeds = document.querySelectorAll('main .section-wrapper div > .embed-internal-advocates');
 
-  // change title to image
-  const title = $embed.querySelector(':scope div > h2');
-  title.innerHTML = '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">';
+  [...$embeds].forEach(($embed) => {
+    const $wrapper = $embed.closest('.section-wrapper');
+    if ($wrapper) {
+      $wrapper.classList.add('full-width');
+    }
+
+    // change title to image
+    const title = $embed.querySelector(':scope div > h2');
+    if (title.textContent === 'Adobe Stock Advocates') {
+      title.innerHTML = '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">';
+    }
+  });
 }
 
 function decorateHeroCarousel() {
@@ -363,7 +363,8 @@ function decorateContactUs() {
   const $contactus = document.getElementById('contact-us');
   if ($contactus) {
     const $parent = $contactus.parentElement;
-    $contactus.remove();
+    // now loading from embed
+    // $contactus.remove();
     $parent.id = 'contact-us';
     if (window.location.hash === '#contact-us') {
       $parent.scrollIntoView();

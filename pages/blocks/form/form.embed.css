@@ -73,7 +73,7 @@ main div.form label {
 	color: #6E6E6E;
 }
 
-.block.slide-form form {
+main div > div.slide-form form {
 	max-width: unset;
 }
 

@@ -398,7 +398,7 @@ main .hero-section + .section-wrapper a.button {
 }
 
 .embed-internal-fundsection>div:first-of-type>p:first-of-type {
-    display: flex;
+    /* display: flex; */
 }
 
 .embed-internal-fundsection>div:first-of-type img {

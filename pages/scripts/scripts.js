@@ -515,13 +515,14 @@ export async function loadBlock($block) {
   const blockName = $block.getAttribute('data-block-name');
   if (blocksLoaded.includes(blockName)) return;
 
-  emit('scripts:loadblock', { blockName });
+  emit('scripts:loadBlock', { blockName });
   blocksLoaded.push(blockName);
 
   const ignoredBlocks = ['iframe', 'missionbg'];
   if (ignoredBlocks.includes(blockName)) return;
 
-  import(`/pages/blocks/${blockName}/${blockName}.js`)
+  queueMicrotask(() => loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, true));
+  return import(`/pages/blocks/${blockName}/${blockName}.js`)
     .then((mod) => {
       if (mod.default) {
         return mod.default($block, blockName, document);
@@ -529,8 +530,6 @@ export async function loadBlock($block) {
       return undefined;
     })
     .catch((e) => console.error(`failed to load module for ${blockName}`, e));
-
-  loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, true);
 }
 
 export function loadBlocks($main) {
@@ -645,25 +644,26 @@ function makeBlockEl(name) {
  * rewrite the content to point to blocks directly, but this is for
  * backwards compatibility until then.
  */
-export function replaceEmbeds(usingTemplate) {
+export async function replaceEmbeds() {
   const pEls = document.querySelectorAll('p');
-  pEls.forEach(($p) => {
+  const proms = ([...pEls]).map(async ($p) => {
     const path = $p.innerText;
     const parent = $p.parentNode;
-    if (path.startsWith('/')) {
-      emit('scripts:replaceEmbed', { path });
-      const name = getEmbedName(path);
-      const $block = makeBlockEl(name);
-      parent.replaceChild($block, $p);
-
-      if (usingTemplate) {
-        // when using a template, the decorateBlocks() method may not be called
-        // call it explicitly and then load the block immediately
-        decorateBlocks($block.parentNode, `:scope .${name}`);
-        // loadBlock($block);
-      }
+    if (!path.startsWith('/')) {
+      return;
     }
+    emit('scripts:replaceEmbed', { path });
+    const name = getEmbedName(path);
+    const $block = makeBlockEl(name);
+    parent.replaceChild($block, $p);
+
+    // decorate then load it like a block
+    // then remove the block class to avoid colliding with existing styles
+    decorateBlocks($block.parentNode, `:scope .${name}`);
+    $block.classList.remove('block');
+    await loadBlock($block);
   });
+  await Promise.all(proms);
 }
 
 /**
@@ -917,10 +917,8 @@ async function decoratePage() {
   initializeNamespaces();
   setupTestMode();
 
-  // wrapSections('main>div');
   const template = getTemplateName();
-  replaceEmbeds(!!template);
-  // wrapSections('main>div');
+  await replaceEmbeds(!!template);
 
   if (template) {
     emit('scripts:template', { template });
@@ -936,11 +934,8 @@ async function decoratePage() {
   setLCPTrigger(document, async () => {
     emit('scripts:postLCP');
 
-    // if (!template) {
     const mainEl = document.querySelector('main');
     loadBlocks(mainEl);
-    // }
-
     loadCSS('/pages/styles/lazy-styles.css');
   });
 

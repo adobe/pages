@@ -26,7 +26,6 @@ export default function decorate(blockEl) {
   const $form = document.getElementById('wg-form');
 
   function clearButtons() {
-    console.log('clear');
     const formType = document.querySelectorAll('main p');
     const buttons = document.querySelectorAll('main p a');
 

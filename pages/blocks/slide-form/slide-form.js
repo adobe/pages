@@ -405,7 +405,6 @@ export default function decorate(blockEl) {
               }
 
               // if(event.currentTarget.value.length <= 0) {
-              //   console.log('here')
               //   values.splice(values.indexOf(event.currentTarget.getAttribute('name')), 1)
               // }
 
@@ -417,9 +416,7 @@ export default function decorate(blockEl) {
                 }
               }
 
-              console.log(eachOptions);
               if (eachOptions.length >= requiredCounter) {
-                console.log('here', requiredCounter);
                 document.querySelector('.slide-btn.next').classList.add('completed');
               } else {
                 document.querySelector('.slide-btn.next').classList.remove('completed');
