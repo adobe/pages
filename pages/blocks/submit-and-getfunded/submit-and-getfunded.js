@@ -12,10 +12,8 @@
 
 /** @type {import("../block").BlockDecorator} */
 export default function decorate(blockEl) {
-  console.log('submit and get funded: ', blockEl);
-  const pp = blockEl.parentNode.parentNode;
   /* html */
-  blockEl.parentNode.innerHTML = `
+  blockEl.innerHTML = `
   <div class="embed embed-internal embed-internal-submitandgetfunded embed-internal-advocates">
     <div id="contact-us">
       <h2 id="adobe-stock-advocates">Adobe Stock Advocates</h2>
@@ -50,5 +48,4 @@ export default function decorate(blockEl) {
       </div>
     </div>
   </div>`;
-  console.log('after submit and get funded: ', pp);
 }
