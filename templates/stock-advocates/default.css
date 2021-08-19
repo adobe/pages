@@ -30,38 +30,6 @@ main > .section-wrapper > div {
 	padding: 2em 0em;
 }
 
-.section-wrapper.lg > div {
-	max-width: 1240px;
-}
-
-.section-wrapper.md > div {
-	max-width: 1040px;
-}
-
-.section-wrapper.left > div h1 {
-	text-align: left;
-}
-
-.section-wrapper.left > div {
-	text-align: left;
-}
-
-
-.spacer-container.lg {
-	height: 180px;
-}
-
-.spacer-container.md {
-	height: 140px;
-}
-
-.spacer-container.sm {
-	height: 100px;
-}
-
-.spacer-container {
-	height: 60px;
-}
 main .section-wrapper {
 	color: #323232;
 }
@@ -111,15 +79,6 @@ h4 {
 
 h5 {
 	font-size: 20px;
-}
-
-main .section-wrapper:first-of-type p {
-	font-size: 20px;
-	color: #747474;
-}
-
-main .section-wrapper p:last-of-type {
-	margin-bottom: 0em;	
 }
 
 main p {

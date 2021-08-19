@@ -65,7 +65,7 @@ function decorateHeroSection() {
       $section.append($imgWrapper);
       const $p = $firstSectionImage.parentNode.nextElementSibling;
       $imgWrapper.append($firstSectionImage.parentNode);
-      $imgWrapper.append($p);
+      if ($p) $imgWrapper.append($p);
     }
   }
 }
