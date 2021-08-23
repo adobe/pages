@@ -36,7 +36,9 @@ function setHeader(content) {
 function setFormContainHeight() {
   slideItems.forEach((slide) => {
     if (slide.classList.contains('active')) {
-      formContainer.style.height = `${slide.offsetHeight}px`;
+      setTimeout(() => {
+        formContainer.style.height = `${slide.offsetHeight}px`;
+      });
     }
   });
 }
