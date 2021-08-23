@@ -619,7 +619,7 @@ function readFormConfig($block) {
 export default async function decorate($block, _, doc) {
   const formId = 'wg-form';
   // Hide sheet, thank you, footer while loading
-  hideElements('main', 'footer');
+  hideElements('.form-container', 'footer');
 
   const formConfig = readFormConfig($block);
   /* html */
@@ -667,5 +667,5 @@ export default async function decorate($block, _, doc) {
     preValidation: customValidate,
   });
 
-  showElements('main', 'footer');
+  showElements('.form-container', 'footer');
 }

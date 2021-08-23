@@ -423,29 +423,29 @@ export function appearMain() {
  * @param {string} href The path to the CSS file
  * @param {boolean} [prepend=false] Whether to prepend style to head, otherwise append
  */
-export function loadCSS(href, prepend) {
+export async function loadCSS(href, prepend, appear) {
   emit('scripts:loadCSS', { href });
 
   if (cssLoaded.includes(href)) return;
   cssLoaded.push(href);
 
-  const link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('href', href);
-  link.onload = () => {
-    window.pages.familyCssLoaded = true;
-    appearMain();
-    // set_widths();
-  };
-  link.onerror = () => {
-    window.pages.familyCssLoaded = true;
-    appearMain();
-  };
-  if (prepend) {
-    document.head.prepend(link);
-  } else {
-    document.head.appendChild(link);
-  }
+  return new Promise((resolve) => {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', href);
+    const after = () => {
+      window.pages.familyCssLoaded = true;
+      if (appear)appearMain();
+      resolve();
+    };
+    link.onload = after;
+    link.onerror = after;
+    if (prepend) {
+      document.head.prepend(link);
+    } else {
+      document.head.appendChild(link);
+    }
+  });
 }
 
 /**
