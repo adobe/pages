@@ -43,6 +43,11 @@ async function createNextStepsComponent(steps, currentIndex) {
   const nextStepsTitle = lastContainer.querySelector('h5').innerText;
   const nextStepsCta = lastContainer.querySelector('a');
 
+  const scratchRandomGdoc = document.querySelector('main .default:nth-child(4)');
+  document.querySelector('.must-haves__title').innerText = scratchRandomGdoc.querySelector('h1').innerText;
+  document.querySelector('.must-haves__copy').innerText = scratchRandomGdoc.querySelector('p').innerText;
+  scratchRandomGdoc.remove();
+
   // Checking indexes
   // If you're on the first step (0)
   // It will just grab the next step
