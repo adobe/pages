@@ -27,9 +27,19 @@ import {
   wrapSections,
 } from './default-blocks.js';
 
-const cssLoaded = [];
-const jsLoaded = [];
-const blocksLoaded = [];
+/**
+ * Resources included by type
+ * map from href/name -> required, promise
+ * @type {Record<string, {req: boolean; prom: Promise<void>;}>}
+ */
+const cssIncluded = {};
+const jsIncluded = {};
+const blocksIncluded = {};
+
+/**
+ * Emitter handlers
+ * @type {Record<string, Function[]>}
+ */
 const handlers = {};
 
 /**
@@ -135,23 +145,25 @@ export function addDefaultClass(element) {
 /**
  * Fetch and inject JS payload
  * @param {string} href to load
+ * @param {boolean} [required = false] Required to load before appearing main
  * @param {boolean} [useImport = true] use dynamic import
+ *
  * @returns {Promise<any>}
  */
-export function loadJSModule(href, useImport = true) {
+export function loadJSModule(href, required, useImport = false) {
   emit('scripts:loadJS', { href });
 
-  if (jsLoaded.includes(href)) return Promise.resolve();
-  jsLoaded.push(href);
+  if (href in jsIncluded) return Promise.resolve();
 
+  let prom;
   if (useImport) {
-    return import(href).then(({ default: run }) => {
+    prom = import(href).then(({ default: run }) => {
       if (typeof run === 'function') {
         return run();
       }
     });
   } else {
-    return new Promise((resolve, reject) => {
+    prom = new Promise((resolve, reject) => {
       const module = document.createElement('script');
       module.setAttribute('type', 'module');
       module.setAttribute('src', href);
@@ -160,6 +172,9 @@ export function loadJSModule(href, useImport = true) {
       module.onload = resolve;
     });
   }
+  jsIncluded[href] = { prom, req: !!required };
+
+  return prom;
 }
 
 export function isNodeName(node, name) {
@@ -288,7 +303,6 @@ export function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
 }
 
-// TODO: dedupe with in-app.js, max.js, learn.js, tutorials.js
 /**
  * Convert table section into cards.
  *
@@ -406,8 +420,10 @@ export function classify(qs, cls, parent) {
 /**
  * Checks if <main> is ready to appear
  */
-export function appearMain() {
-  if (window.pages.familyCssLoaded && window.pages.decorated) {
+export async function appearMain() {
+  if (window.pages.decorated) {
+    // wait for required css to load
+    await Promise.all(Object.values(cssIncluded).filter((c) => c.req));
     const pathSplits = window.location.pathname.split('/');
     const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
     const p = window.pages;
@@ -420,22 +436,23 @@ export function appearMain() {
 
 /**
  * Loads a CSS file.
- * @param {string} href The path to the CSS file
- * @param {boolean} [prepend=false] Whether to prepend style to head, otherwise append
+ * @param {string} href The path to the CSS file.
+ * @param {boolean} [required=false] If required, appearMain() will wait until the style is loaded.
+ *                                   All required CSS should be defined in the first tick,
+ *                                   or before the first call to appearMain.
+ * @param {boolean} [prepend=false] Whether to prepend style to head, otherwise append.
  */
-export async function loadCSS(href, prepend, appear) {
+export async function loadCSS(href, required, prepend) {
   emit('scripts:loadCSS', { href });
 
-  if (cssLoaded.includes(href)) return;
-  cssLoaded.push(href);
+  if (href in cssIncluded) return;
 
-  return new Promise((resolve) => {
+  const prom = new Promise((resolve) => {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', href);
     const after = () => {
-      window.pages.familyCssLoaded = true;
-      if (appear)appearMain();
+      appearMain();
       resolve();
     };
     link.onload = after;
@@ -446,6 +463,9 @@ export async function loadCSS(href, prepend, appear) {
       document.head.appendChild(link);
     }
   });
+
+  cssIncluded[href] = { prom, req: !!required };
+  return prom;
 }
 
 /**
@@ -511,18 +531,21 @@ export function readBlockConfig($block) {
   return config;
 }
 
-export async function loadBlock($block) {
+/**
+ * Load a block
+ * @param {HTMLElement} $block
+ * @param {boolean} [required=false] Load block before appear main
+ * @returns {Promise<void>}
+ */
+export async function loadBlock($block, required) {
+  const ignoredBlocks = ['iframe', 'missionbg'];
   const blockName = $block.getAttribute('data-block-name');
-  if (blocksLoaded.includes(blockName)) return;
+
+  if (blockName in blocksIncluded || ignoredBlocks.includes(blockName)) return;
 
   emit('scripts:loadBlock', { blockName });
-  blocksLoaded.push(blockName);
-
-  const ignoredBlocks = ['iframe', 'missionbg'];
-  if (ignoredBlocks.includes(blockName)) return;
-
-  queueMicrotask(() => loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, true));
-  return import(`/pages/blocks/${blockName}/${blockName}.js`)
+  queueMicrotask(() => loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, false, true));
+  const prom = import(`/pages/blocks/${blockName}/${blockName}.js`)
     .then((mod) => {
       if (mod.default) {
         return mod.default($block, blockName, document);
@@ -530,6 +553,9 @@ export async function loadBlock($block) {
       return undefined;
     })
     .catch((e) => console.error(`failed to load module for ${blockName}`, e));
+
+  blocksIncluded[blockName] = { req: !!required, prom };
+  return prom;
 }
 
 export function loadBlocks($main) {
@@ -698,7 +724,7 @@ export async function loadTemplate(template) {
   const basePath = `/templates/${template}/${template}`;
   emit('scripts:loadTemplate', { basePath });
 
-  loadCSS(`${basePath}.css`);
+  loadCSS(`${basePath}.css`, true);
   return import(`${basePath}.js`).then(({ default: run }) => {
     if (run) run();
   }).catch((e) => {
@@ -931,13 +957,15 @@ async function decoratePage() {
   document.title = document.title.split('<br>').join(' ');
   fixImages();
 
-  setLCPTrigger(document, async () => {
-    emit('scripts:postLCP');
+  if (!template) {
+    setLCPTrigger(document, async () => {
+      emit('scripts:postLCP');
 
-    const mainEl = document.querySelector('main');
-    loadBlocks(mainEl);
-    loadCSS('/pages/styles/lazy-styles.css');
-  });
+      const mainEl = document.querySelector('main');
+      loadBlocks(mainEl);
+      loadCSS('/pages/styles/lazy-styles.css');
+    });
+  }
 
   if (window.pages.product) {
     document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
