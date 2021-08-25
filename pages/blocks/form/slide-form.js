@@ -88,20 +88,23 @@ function addOtherInputField() {
 }
 
 const checkIfDomReady = setInterval(() => {
-  if (document.querySelector('.slide-form-container')) {
-    formContainer = document.querySelector('.slide-form-container');
+  formContainer = document.querySelector('.slide-form-container');
+  if (formContainer) {
     slideBtns = document.querySelectorAll('.slide-btn');
     slideItems = document.querySelectorAll('.slide-form-item');
     progressIndicator = document.querySelector('.progress-indicator span');
     totalAnswers = document.querySelectorAll('.question input');
     // otherOptionInput = document.querySelectorAll('.other-option-input');
-    header = document.querySelector('main .default:first-of-type').innerHTML;
-    setHeader(header);
-    setFormContainHeight();
-    addOtherInputField();
-    clearInterval(checkIfDomReady);
+    const headerEl = document.querySelector('main .default:first-of-type');
+    if (headerEl) {
+      header = headerEl.innerHTML;
+      setHeader(header);
+      setFormContainHeight();
+      addOtherInputField();
+      clearInterval(checkIfDomReady);
+    }
   }
-}, 20);
+}, 10);
 
 function scrollBackUp() {
   window.scrollTo({
