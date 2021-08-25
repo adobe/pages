@@ -39,6 +39,10 @@ async function createNextStepsComponent(steps, currentIndex) {
     document.querySelectorAll('.more-content--ete')[0].remove();
   }
 
+  const lastContainer = document.querySelector('main .default:last-of-type');
+  const nextStepsTitle = lastContainer.querySelector('h5').innerText;
+  const nextStepsCta = lastContainer.querySelector('a');
+
   // Checking indexes
   // If you're on the first step (0)
   // It will just grab the next step
@@ -79,14 +83,14 @@ async function createNextStepsComponent(steps, currentIndex) {
     `;
   });
 
-  document.querySelector('main .default:last-of-type').innerHTML = `
+  lastContainer.innerHTML = `
     <div class="more-content--ete">
-      <h3 class="section-title--ete-more">Let's keep creating.</h3>
+      <h3 class="section-title--ete-more">${nextStepsTitle}</h3>
       <div class="more-content--ete-inner">
         ${moreContentElement}
       </div>
       <div class="see-all-tutorials--ete">
-        <a href="https://pages.adobe.com/creativecloud/en/lr-and-ps-together/">Sea all tutorials</a>
+        <a href="${nextStepsCta.getAttribute('href')}">${nextStepsCta.innerText}</a>
       </div>
     </div>
   `;
