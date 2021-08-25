@@ -33,9 +33,18 @@ function getThumbnail(step) {
 }
 
 async function createNextStepsComponent(steps, currentIndex) {
+  // removing the markup that's being added
+  // by the 'lr-ps-show-more' component
   if (document.querySelectorAll('.more-content--ete').length >= 1) {
     document.querySelectorAll('.more-content--ete')[0].remove();
   }
+
+  // Checking indexes
+  // If you're on the first step (0)
+  // It will just grab the next step
+  // (else) if you're on the last index (steps.length - 1)
+  // It will just grab the previous step
+  // (else) will grab both the previous and next steps index
   const nextSteps = [];
   const urls = [];
   let moreContentElement = '';
@@ -52,6 +61,8 @@ async function createNextStepsComponent(steps, currentIndex) {
     urls.push(currentIndex + 2);
   }
 
+  // iterating through all the collected steps
+  // and creating the markup
   nextSteps.forEach((nextStep, index) => {
     moreContentElement += `
       <a class="more-content--ete-item" href="step?${urls[index]}">
@@ -151,7 +162,6 @@ async function insertSteps() {
 
 function decorateNav() {
   if (document.querySelector('header img')) {
-    console.log('nav initiated');
     const svg = document.querySelector('header img');
     const svgWithCarrot = document.createElement('div');
     svgWithCarrot.classList.add('nav-logo');
@@ -226,7 +236,7 @@ async function decorateStep() {
   const $h1 = document.querySelector('main .content > h1');
   let title = currentStep.Title;
   if (currentStep.Heading) title = currentStep.Heading;
-  // title=title.split(`\n`).join('<br>');
+  title = title.split('\n').join('<br>');
   title = title.split('&nbsp;').join('<br>');
   $h1.innerHTML = `${title}`;
 
