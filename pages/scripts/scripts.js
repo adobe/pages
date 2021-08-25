@@ -544,8 +544,8 @@ export async function loadBlock($block, required) {
   if (blockName in blocksIncluded || ignoredBlocks.includes(blockName)) return;
 
   emit('scripts:loadBlock', { blockName });
-  queueMicrotask(() => loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, false, true));
-  const prom = import(`/pages/blocks/${blockName}/${blockName}.js`)
+  const cssProm = loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, false, true);
+  const jsProm = import(`/pages/blocks/${blockName}/${blockName}.js`)
     .then((mod) => {
       if (mod.default) {
         return mod.default($block, blockName, document);
@@ -554,6 +554,7 @@ export async function loadBlock($block, required) {
     })
     .catch((e) => console.error(`failed to load module for ${blockName}`, e));
 
+  const prom = Promise.all([jsProm, cssProm]);
   blocksIncluded[blockName] = { req: !!required, prom };
   return prom;
 }

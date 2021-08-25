@@ -591,14 +591,24 @@ function readEmbeddedFormConfig($block) {
   return config;
 }
 
+/**
+ * Reads a form config, returns config & a promise
+ * If using an embedded form syntax, the promise resolves
+ * when the required CSS is done loading. Otherwise immediate.
+ *
+ * @param {HTMLElement} $block
+ * @returns {import('./index').FormConfig & { prom: Promise<void> }}
+ */
 function readFormConfig($block) {
   let config = readBlockConfig($block);
+  let prom = Promise.resolve();
+
   if (Object.keys(config).length === 0) {
     // If that didn't work, try loading it
     // as component that was converted to a block
     config = readEmbeddedFormConfig($block);
     // also load the styles that were associated
-    loadCSS('/pages/blocks/form/form.embed.css');
+    prom = loadCSS('/pages/blocks/form/form.embed.css');
     // and remove the default (blocks) styles.
     document.querySelectorAll('head > link')
       .forEach((l) => {
@@ -611,8 +621,12 @@ function readFormConfig($block) {
     redirect: config['form-redirect'] || config['thank-you'] || 'thank-you',
     definition: config['form-definition'] || 'default',
   };
+
   emit('form:readConfig', config);
-  return config;
+  return {
+    config,
+    prom,
+  };
 }
 
 /** @type {import('../block.js').BlockDecorator} */
@@ -655,9 +669,11 @@ export default async function decorate($block, _, doc) {
     hasPageBreak,
   });
 
+  // wait for embedded styles (if needed) before loading slide
+  await formConfig.prom;
+
   if (hasPageBreak) {
     await import('./slide-form.js');
-    // loadCSS('./slide-form.css');
   }
 
   setupForm({

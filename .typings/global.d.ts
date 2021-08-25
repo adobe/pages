@@ -25,19 +25,4 @@ interface PagesNamespace {
   project: string;
 }
 
-interface FormConfig {
-  /**
-   * Form sheet destination URL
-   */
-  sheet: string;
-  /**
-   * Redirect path
-   */
-  redirect: string;
-  /**
-   * Form definition object
-   */
-  definition: string;
-}
-
 export {};
