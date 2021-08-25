@@ -34,12 +34,14 @@ function setHeader(content) {
 
 // animate form height
 function setFormContainHeight() {
-  slideItems.forEach((slide) => {
+  for (let i = 0, len = slideItems.length; i < len; i += 1) {
+    const slide = slideItems[i];
     if (slide.classList.contains('active')) {
-      console.log('set active height');
+      console.log('set active height: ', slide);
       formContainer.style.height = `${slide.offsetHeight}px`;
+      break;
     }
-  });
+  }
 }
 
 // Add input value for "other" check
