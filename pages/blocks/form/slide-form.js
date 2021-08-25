@@ -36,9 +36,8 @@ function setHeader(content) {
 function setFormContainHeight() {
   slideItems.forEach((slide) => {
     if (slide.classList.contains('active')) {
-      setTimeout(() => {
-        formContainer.style.height = `${slide.offsetHeight}px`;
-      });
+      console.log('set active height');
+      formContainer.style.height = `${slide.offsetHeight}px`;
     }
   });
 }
@@ -96,6 +95,7 @@ const checkIfDomReady = setInterval(() => {
     totalAnswers = document.querySelectorAll('.question input');
     // otherOptionInput = document.querySelectorAll('.other-option-input');
     const headerEl = document.querySelector('main .default:first-of-type');
+    console.log('headerEl: ', headerEl);
     if (headerEl) {
       header = headerEl.innerHTML;
       setHeader(header);
