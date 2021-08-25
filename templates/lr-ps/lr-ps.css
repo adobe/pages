@@ -622,7 +622,6 @@ main .card a:any-link {
     width: 45%;
     text-align: left;
     justify-content: space-between;
-    color: white;
     text-decoration: none;
     max-width: 400px;
   }
@@ -630,6 +629,10 @@ main .card a:any-link {
   .home .about-bio__inner {
     align-items: flex-start;
   }
+}
+
+.more-content--ete a {
+  color: white !important;
 }
 
 .home .about-bio {

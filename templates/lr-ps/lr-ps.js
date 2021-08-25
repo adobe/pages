@@ -32,6 +32,55 @@ function getThumbnail(step) {
   return thumbnail;
 }
 
+async function createNextStepsComponent(steps, currentIndex) {
+  if (document.querySelectorAll('.more-content--ete').length >= 1) {
+    document.querySelectorAll('.more-content--ete')[0].remove();
+  }
+  const nextSteps = [];
+  const urls = [];
+  let moreContentElement = '';
+  if (currentIndex === 0) {
+    nextSteps.push(steps[currentIndex + 1]);
+    urls.push(currentIndex + 2);
+  } else if (currentIndex === steps.length - 1) {
+    nextSteps.push(steps[currentIndex]);
+    urls.push(currentIndex);
+  } else {
+    nextSteps.push(steps[currentIndex - 1]);
+    nextSteps.push(steps[currentIndex + 1]);
+    urls.push(currentIndex);
+    urls.push(currentIndex + 2);
+  }
+
+  nextSteps.forEach((nextStep, index) => {
+    moreContentElement += `
+      <a class="more-content--ete-item" href="step?${urls[index]}">
+        <div class="more-content--ete-image">
+          <div style="position: relative;">
+            <img src="../../../../static/lr-ps/hero-posters/${nextStep.Thumbnail}">
+          </div>
+        </div>
+        <div class="more-content--ete-details">
+          <h4>${nextStep.Title.split('&nbsp;').join('')}</h4>
+          <p>${nextStep.Description}</p>
+        </div>
+      </a>
+    `;
+  });
+
+  document.querySelector('main .default:last-of-type').innerHTML = `
+    <div class="more-content--ete">
+      <h3 class="section-title--ete-more">Let's keep creating.</h3>
+      <div class="more-content--ete-inner">
+        ${moreContentElement}
+      </div>
+      <div class="see-all-tutorials--ete">
+        <a href="https://pages.adobe.com/creativecloud/en/lr-and-ps-together/">Sea all tutorials</a>
+      </div>
+    </div>
+  `;
+}
+
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
     const $wrapper = createTag('div', { class: 'section-wrapper' });
@@ -272,7 +321,7 @@ async function decorateStep() {
 
   $skills.prepend($skillsTitle);
 
-  // fill up next
+  createNextStepsComponent(steps, stepIndex);
 }
 
 async function decorateHome() {
