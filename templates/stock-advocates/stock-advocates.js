@@ -70,6 +70,26 @@ function decorateHeroSection() {
   }
 }
 
+function decorateArtistBioHeroSection() {
+  const $firstSectionImage = document.querySelector('main div.section-wrapper>div>p img');
+  if ($firstSectionImage) {
+    const $section = $firstSectionImage.closest('.section-wrapper');
+    $section.classList.add('full-width');
+    const $div = $firstSectionImage.closest('div');
+    $section.classList.add('hero-section', 'artist-bio-hero-section','white-text');
+    $div.classList.add('text');
+    if ($div.children[1].children[0].tagName.toUpperCase() === 'IMG') {
+      $div.classList.add('image');
+    } else {
+      const $imgWrapper = createTag('div', { class: 'image' });
+      $section.append($imgWrapper);
+      const $p = $firstSectionImage.parentElement.nextElementSibling;
+      $imgWrapper.append($firstSectionImage.parentNode);
+      if ($p) $imgWrapper.append($p);
+    }
+  }
+}
+
 function decorateFaq() {
   const $faq = document.querySelector('main .faq');
   if ($faq) {
@@ -129,6 +149,7 @@ function decorateGrid() {
     const rows = Array.from($grid.children);
     rows.forEach(($row) => {
       const cells = Array.from($row.children);
+      console.log(cells);
       cells[0].classList.add('image');
       cells[1].classList.add('text');
       if (!meetGrids.includes($grid)) {
@@ -467,6 +488,10 @@ export function webpPolyfill(element) {
   }
 }
 
+function searchPath(pathPart) {
+  const ps = location.pathname.split('/');
+  return ps.includes(pathPart);
+}
 async function decoratePage() {
   decorateTables();
   checkWebpFeature(() => {
@@ -476,7 +501,12 @@ async function decoratePage() {
   wrapSections('main>div');
   wrapSections('footer>div');
   decorateHeroCarousel();
-  decorateHeroSection();
+  if (searchPath("artists")) {
+    decorateArtistBioHeroSection();
+  } else {
+    decorateHeroSection();
+  }
+
   decorateParallax();
   decorateOverlay();
   decorateInternalAdvocates();

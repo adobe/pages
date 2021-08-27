@@ -270,9 +270,9 @@ header .icon.icon-stock-logo {
 
 /* hero section */
 
-.hero-section {
-    display: flex;
-    width: 100%;
+.hero-section:not(.artist-bio-hero-section) {
+  display: flex;
+  width: 100%;
     flex-direction: column;
     align-items: center;
 }
@@ -282,6 +282,34 @@ main>div.hero-section>div {
     position: relative;
 }
 
+@media (min-width:600px) {
+  .artist-bio-hero-section .text {
+    position: absolute;  
+    left: 50%;
+    width: 50vw;                        /* horizontal alignment */
+    top: 50%;                         /* vertical alignment */
+    transform: translate(-90%, -75%);
+    z-index: 2;
+    text-align: left;/* precise centering; see link below */
+  }
+}
+
+.artist-bio-hero-section .text p {
+  padding: 0;
+}
+.artist-bio-hero-section .text h1 {
+  font-size: 46px;
+}
+
+.artist-bio-hero-section .text strong {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.artist-bio-hero-section .text h4 {
+  font-size: 13px;
+  line-height: 17px;
+}
 
 
 .hero-section>div.image img {
@@ -369,7 +397,7 @@ main.appear #call-for-content + .columns .text p {
 }
 
 @media (min-width:600px) {
-    main>div.hero-section>div {
+    main>div.hero-section:not(.artist-bio-hero-section)>div {
         width: 50%;
     }
 
@@ -627,7 +655,8 @@ header img {
 .grid.meetgrid div.text {
   color: white;
   font-size: 15px;
-  line-height: 24px;  
+  line-height: 24px;
+  cursor: pointer;
 }
 .grid.meetgrid div.text h4 {
   font-size: 19px;
@@ -654,6 +683,7 @@ header img {
 
 .grid.meetgrid img {
   padding: 10px;
+  cursor: pointer;
 }
 .grid.meetgrid .text {
   padding: 10px;
