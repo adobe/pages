@@ -1,4 +1,4 @@
-@import url("/pages/styles/default.css");
+@import url("/templates/stock-advocates/default.css");
 
 
 main > .section-wrapper > div {
@@ -127,9 +127,7 @@ main h2 {
   padding: 0 16px;
 }
 
-.artist-development-fund main h2 {
-  margin-top: 0;
-}
+
 /* overlay */
 
 main div.overlay {
@@ -327,11 +325,19 @@ body.artist-development-fund main>div.hero-section>div.text.image h1 {
   top: inherit;
 }
 
+body.artist-development-fund main h1
+{
+  font-size: 42px;
+}
 
 @media (min-width:600px) {
   body.artist-development-fund main>div.hero-section>div.text.image h1 {
     bottom: 22vh;
   }
+}
+
+.artist-development-fund main h2 {
+  margin-top: 0;
 }
 
 /* alignment rules for specific pages */
@@ -394,7 +400,7 @@ main .hero-section + .section-wrapper a.button {
   position: relative;
 }
 .embed-internal-fundsection h2 {
-  margin-top: 0;
+  margin-top: 1em;
 }
 
 .embed-internal-fundsection>div:first-of-type>p:first-of-type {
@@ -424,14 +430,46 @@ main .hero-section + .section-wrapper a.button {
   max-width: 800px;
 }
 
-@media (max-width: 599px) {
+#call-for-content +.columns .caption {
+  position: relative;
+  margin-top: -2em;
+  text-align: left;
+}
+
+@media (min-width: 600px) {
+  #call-for-content +.columns .text,
+  #call-for-content +.columns .text p
+  {
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
   .embed-internal-fundsection>div:nth-of-type(2) {
     padding: 0px;
     margin: auto;
     max-width: 800px;
     padding-top: 0px;
     padding-bottom: 64px;
-  }    
+  }
+
+  .embed-internal-fundsection h2 {
+    font-size: 24px;
+  }
+  .embed-internal-fundsection >div:nth-of-type(2) p {
+    font-size: 14px;
+    line-height: 18px;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+  }
+  .embed-internal-fundsection>div:first-of-type>p:nth-of-type(2) {
+    font-size: 14px;
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+  }
 }
 
 .embed-internal-fundsection a.button.primary {
@@ -686,6 +724,7 @@ main .columns ul {
   left: 40px;
   padding-right: 40px;
   line-height: 1.2em;
+  padding-bottom: 0.4em;
 }
 
 .columns>div>div.image img {
@@ -938,10 +977,12 @@ main .columns ul {
   
   @media (hover: hover) {
     .hero-carousel-snapper {
-      animation-name: hero-carousel-tonext, hero-carousel-snap;
+      animation-name: none;
+      /* animation-name: hero-carousel-tonext, hero-carousel-snap;
       animation-timing-function: ease;
       animation-duration: 4s;
       animation-iteration-count: infinite;
+      */
     }
   
     .hero-carousel-slide:last-child .hero-carousel-snapper {

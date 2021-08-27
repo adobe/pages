@@ -1,0 +1,132 @@
+<div class="must-haves">
+  <div class="must-haves__inner">
+    <h3 class="must-haves__title">Tutorials must-haves</h3>
+    <p class="must-haves__copy">Follow along with the tutorial workflow on your desktop.</p>
+    <div class="files-ete">
+      <!-- Files here -->
+    </div>
+  </div>
+</div>
+
+
+<div class="more-content--ete">
+  <h3 class="section-title--ete-more">Let's keep creating.</h3>
+  <div class="more-content--ete-inner">
+    <!-- mark up -->
+  </div>
+
+  <div class="see-all-tutorials--ete">
+    <a href="https://pages.adobe.com/creativecloud/en/lr-and-ps-together/">Sea all tutorials</a>
+  </div>
+</div>
+
+
+<script>
+  async function fetchSteps() {
+    window.hlx.dependencies.push('steps.json');
+    const resp=await fetch('steps.json');
+    const json=await resp.json();
+    return (Array.isArray(json) ? json : json.data);
+  }
+
+  async function filterSteps() {
+    const steps = await fetchSteps();
+    const currentIndex = window.location.search.split("?")[1].split("&")[0];
+    let index = currentIndex - 1;
+    let step_item = '';
+
+    const currentTag = steps[index].Tag
+    let filteredData = [];
+    for(let i = 0; i < steps.length; i++) {
+      if(i != index && steps[i].Tag === steps[index].Tag) {
+          let {Title, Description, Thumbnail, Product_icon_1, Product_icon_2} = steps[i];
+          let url = window.location.href.split('?')[0] + '?' + (i + 1);
+          step_item += `
+          <a class="more-content--ete-item" href="${url}">
+            <div class="more-content--ete-image">
+              <div style="position: relative;">
+                <img src="../../../../static/lr-ps/hero-posters/${Thumbnail}">
+              </div>
+            </div>
+            <div class="more-content--ete-details">
+              <h4>${Title.split('&nbsp;').join('')}</h4>
+              <p>${Description}</p>
+            </div>
+          </a>
+        `
+      }
+    }
+    document.querySelector('.more-content--ete-inner').innerHTML = step_item;
+  }
+
+
+  async function setUpFiles() {
+    const steps = await fetchSteps();
+    const currentIndex = window.location.search.split("?")[1].split("&")[0];
+    let index = currentIndex - 1;
+    const currentData = steps[index];
+    let file = '';
+    const allFiles = [
+      {
+        fileType: currentData.Practice_File_Title,
+        fileDownload: currentData.Practice_File_File
+      },
+      {
+        fileType: currentData.File_Title_One,
+        fileDownload: currentData.File_Title_Url_One
+      },
+      {
+        fileType: currentData.File_Title_Two,
+        fileDownload: currentData.File_Title_Url_Two
+      },
+      {
+        fileType: currentData.File_Title_Three,
+        fileDownload: currentData.File_Title_Url_Three
+      },
+      {
+        fileType: currentData.File_Title_Four,
+        fileDownload: currentData.File_Title_Url_Four
+      }
+    ]
+
+    
+    for(let i = 0; i < allFiles.length; i++) {
+      let buttonText = i < 1 ? "Download" : "Open"
+      if(allFiles[i].fileType.length > 2) {
+        let svg = allFiles[i].fileType.toLowerCase().split(' ').join('');
+
+        if(svg === "premierepro") {
+          svg = "premiere"
+        }
+
+        if(svg === "adobefonts") {
+          svg = "fonts"
+        }
+
+        if(svg === "adobelive") {
+          svg = "behance"
+        }
+        
+        file += `
+          <div class="file-ete--item">
+            <div class="file_image-ete">
+              <img src="/icons/${svg}.svg">
+            </div>
+            <div class="file_name-ete">
+              <h4>${allFiles[i].fileType}</h4>
+              <div class="download--ete">
+                <a href="${allFiles[i].fileDownload}" target="_blank">${buttonText}</a>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    }
+
+    document.querySelector('.files-ete').innerHTML = file;
+
+  }
+
+  filterSteps();
+  setUpFiles();
+</script>

@@ -41,4 +41,5 @@ if (len > maxDetails) {
   listMsg += `\n... and ${len - maxDetails} others.`;
 }
 console.error(`❌ Attempting to push media that doesn't belong in git: ${listMsg}`);
+console.error('Media should be pushed to the media-bus (tip: you can use the SlackBot)');
 process.exit(1);

@@ -13,20 +13,24 @@
 import {
   emit,
   hideElements,
-  loadCSS,
   readBlockConfig,
   showElements,
   toClassName,
 } from '../../scripts/scripts.js';
 
+/**
+ * Setup form elements and actions
+ *
+ * @param {import('./index.d.ts').SetupFormOptions} opts
+ */
 export function setupForm({
   doc,
   formId,
-  formConfig,
+  config,
   containerClass = 'form-container',
   preValidation = () => true,
 }) {
-  const { sheet, redirect } = formConfig;
+  const { sheet, redirect } = config;
   const $formContainer = doc.querySelector(`.${containerClass}`);
   const $form = doc.getElementById(formId);
 
@@ -279,6 +283,10 @@ function hideConditionals($form, $inputs, formData) {
   });
 }
 
+/**
+ * Create form elements from data.
+ * @param {import('./index.d.ts').CreateFormOptions} opts
+ */
 function createForm({
   doc,
   formEl,
@@ -563,58 +571,14 @@ async function fetchFormData(definition) {
   return json;
 }
 
-function readEmbeddedFormConfig($block) {
-  const config = {};
-
-  // contains the block and any other sibling elements
-  const $commonRoot = $block.parentNode;
-  $commonRoot.querySelectorAll(':scope>p').forEach(($p) => {
-    let name;
-    let value;
-    const text = $p.textContent.toLowerCase();
-    if (text.includes('<form:')) {
-      // <form: TYPE>
-      name = 'form-definition';
-      value = text.split('<form: ')[1].split('>')[0].trim();
-    } else {
-      // <a href=URL>Sheet OR Thank You</a>
-      const $a = $p.querySelector(':scope>a');
-      if ($a) {
-        name = toClassName(text);
-        value = $a.href;
-      }
-    }
-    config[name] = value;
-    $p.remove();
-  });
-  emit('form:embedConfig', config);
-  return config;
-}
-
 /**
- * Reads a form config, returns config & a promise
- * If using an embedded form syntax, the promise resolves
- * when the required CSS is done loading. Otherwise immediate.
+ * Reads a form config from a block table.
  *
  * @param {HTMLElement} $block
- * @returns {import('./index').FormConfig & { prom: Promise<void> }}
+ * @returns {import('./index').FormConfig}
  */
 function readFormConfig($block) {
   let config = readBlockConfig($block);
-  let prom = Promise.resolve();
-
-  if (Object.keys(config).length === 0) {
-    // If that didn't work, try loading it
-    // as component that was converted to a block
-    config = readEmbeddedFormConfig($block);
-    // also load the styles that were associated
-    prom = loadCSS('/pages/blocks/form/form.embed.css');
-    // and remove the default (blocks) styles.
-    document.querySelectorAll('head > link')
-      .forEach((l) => {
-        if (l.href.endsWith('/pages/blocks/form/form.css')) l.remove();
-      });
-  }
 
   config = {
     sheet: config['form-data-submission'] || config.sheet,
@@ -623,19 +587,10 @@ function readFormConfig($block) {
   };
 
   emit('form:readConfig', config);
-  return {
-    config,
-    prom,
-  };
+  return config;
 }
 
-/** @type {import('../block.js').BlockDecorator} */
-export default async function decorate($block, _, doc) {
-  const formId = 'wg-form';
-  // Hide sheet, thank you, footer while loading
-  hideElements('.form-container', 'footer');
-
-  const formConfig = readFormConfig($block);
+export async function decorateForm($block, formId, config) {
   /* html */
   $block.innerHTML = `
   <div class="wg-form-container form-container">
@@ -646,8 +601,8 @@ export default async function decorate($block, _, doc) {
     </form>
   </div>`;
 
-  const formEl = doc.getElementById(formId);
-  const { definition } = formConfig;
+  const formEl = document.getElementById(formId);
+  const { definition } = config;
   let hasPageBreak = false;
 
   const formData = (await fetchFormData(definition)).data;
@@ -661,27 +616,34 @@ export default async function decorate($block, _, doc) {
   }
 
   createForm({
-    ...formConfig,
-    doc,
+    ...config,
+    doc: document,
     formId,
     formEl,
     formData,
     hasPageBreak,
   });
 
-  // wait for embedded styles (if needed) before loading slide
-  await formConfig.prom;
-
   if (hasPageBreak) {
     await import('./slide-form.js');
   }
 
   setupForm({
-    doc,
+    doc: document,
     formId,
-    formConfig,
+    config,
     preValidation: customValidate,
   });
+}
+
+/** @type {import('../block.js').BlockDecorator} */
+export default async function decorate($block) {
+  const formId = 'wg-form';
+  // Hide sheet, thank you, footer while loading
+  hideElements('.form-container', 'footer');
+
+  const config = readFormConfig($block);
+  await decorateForm($block, formId, config);
 
   showElements('.form-container', 'footer');
 }

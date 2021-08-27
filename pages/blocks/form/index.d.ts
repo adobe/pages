@@ -24,3 +24,21 @@ export interface FormConfig {
    */
   definition: string;
 }
+
+export type PreValidationHook = ({ formEl }: {formEl: HTMLFormElement}) => boolean;
+
+export interface SetupFormOptions {
+  doc: Document;
+  formId: string;
+  config: FormConfig;
+  containerClass: string;
+  preValidation: PreValidationHook;
+}
+
+export interface CreateFormOptions {
+  doc: Document;
+  formEl: HTMLFormElement;
+  formId: string;
+  formData: any;
+  hasPageBreak: boolean;
+}

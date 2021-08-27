@@ -41,6 +41,75 @@ function getThumbnail(step) {
   return thumbnail;
 }
 
+async function createNextStepsComponent(steps, currentIndex) {
+  // removing the markup that's being added
+  // by the 'lr-ps-show-more' component
+  if (document.querySelectorAll('.more-content--ete').length >= 1) {
+    document.querySelectorAll('.more-content--ete')[0].remove();
+  }
+
+  const lastContainer = document.querySelector('main .default:last-of-type');
+  const nextStepsTitle = lastContainer.querySelector('h5').innerText;
+  const nextStepsCta = lastContainer.querySelector('a');
+
+  const scratchRandomGdoc = document.querySelector('main .default:nth-child(4)');
+  document.querySelector('.must-haves__title').innerText = scratchRandomGdoc.querySelector('h1').innerText;
+  document.querySelector('.must-haves__copy').innerText = scratchRandomGdoc.querySelector('p').innerText;
+  scratchRandomGdoc.remove();
+
+  // Checking indexes
+  // If you're on the first step (0)
+  // It will just grab the next step
+  // (else) if you're on the last index (steps.length - 1)
+  // It will just grab the previous step
+  // (else) will grab both the previous and next steps index
+  const nextSteps = [];
+  const urls = [];
+  let moreContentElement = '';
+  if (currentIndex === 0) {
+    nextSteps.push(steps[currentIndex + 1]);
+    urls.push(currentIndex + 2);
+  } else if (currentIndex === steps.length - 1) {
+    nextSteps.push(steps[currentIndex]);
+    urls.push(currentIndex);
+  } else {
+    nextSteps.push(steps[currentIndex - 1]);
+    nextSteps.push(steps[currentIndex + 1]);
+    urls.push(currentIndex);
+    urls.push(currentIndex + 2);
+  }
+
+  // iterating through all the collected steps
+  // and creating the markup
+  nextSteps.forEach((nextStep, index) => {
+    moreContentElement += `
+      <a class="more-content--ete-item" href="step?${urls[index]}">
+        <div class="more-content--ete-image">
+          <div style="position: relative;">
+            <img src="../../../../static/lr-ps/hero-posters/${nextStep.Thumbnail}">
+          </div>
+        </div>
+        <div class="more-content--ete-details">
+          <h4>${nextStep.Title.split('&nbsp;').join('')}</h4>
+          <p>${nextStep.Description}</p>
+        </div>
+      </a>
+    `;
+  });
+
+  lastContainer.innerHTML = `
+    <div class="more-content--ete">
+      <h3 class="section-title--ete-more">${nextStepsTitle}</h3>
+      <div class="more-content--ete-inner">
+        ${moreContentElement}
+      </div>
+      <div class="see-all-tutorials--ete">
+        <a href="${nextStepsCta.getAttribute('href')}">${nextStepsCta.innerText}</a>
+      </div>
+    </div>
+  `;
+}
+
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
     const $wrapper = createTag('div', { class: 'section-wrapper' });
@@ -191,7 +260,7 @@ async function decorateStep() {
   const $h1 = document.querySelector('main .content > h1');
   let title = currentStep.Title;
   if (currentStep.Heading) title = currentStep.Heading;
-  // title=title.split(`\n`).join('<br>');
+  title = title.split('\n').join('<br>');
   title = title.split('&nbsp;').join('<br>');
   $h1.innerHTML = `${title}`;
 
@@ -288,7 +357,7 @@ async function decorateStep() {
 
   $skills.prepend($skillsTitle);
 
-  // fill up next
+  createNextStepsComponent(steps, stepIndex);
 }
 
 async function decorateHome() {

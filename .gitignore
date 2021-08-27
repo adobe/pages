@@ -9,3 +9,4 @@ hlx
 .env
 .comparisons
 .tools/.compare-env/
+yarn.lock

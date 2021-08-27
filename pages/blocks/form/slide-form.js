@@ -105,6 +105,7 @@ const checkIfDomReady = setInterval(() => {
       addOtherInputField();
       clearInterval(checkIfDomReady);
     }
+    // }
   }
 }, 10);
 

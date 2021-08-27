@@ -7,3 +7,6 @@ package.json
 README.md
 .gitignore
 .eslintrc.js
+test/
+yarn.lock
+karma.conf.js

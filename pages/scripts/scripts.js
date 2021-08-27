@@ -34,13 +34,15 @@ import {
  */
 const cssIncluded = {};
 const jsIncluded = {};
-const blocksIncluded = {};
 
 /**
  * Emitter handlers
  * @type {Record<string, Function[]>}
  */
 const handlers = {};
+
+// namespace initialized
+let nsInit = false;
 
 /**
  * Register callback for when event occurs.
@@ -78,6 +80,8 @@ export function emit(event, data) {
  * Initialize global namespaces
  */
 export function initializeNamespaces() {
+  if (nsInit) return;
+
   window.hlx = window.hlx || {};
   window.hlx.dependencies = window.hlx.dependencies || [];
 
@@ -91,6 +95,7 @@ export function initializeNamespaces() {
     const [product, locale, project] = pathSegments;
     Object.assign(ns, { product, locale, project });
   }
+  nsInit = true;
 }
 
 /**
@@ -532,31 +537,51 @@ export function readBlockConfig($block) {
 }
 
 /**
- * Load a block
- * @param {HTMLElement} $block
- * @param {boolean} [required=false] Load block before appear main
- * @returns {Promise<void>}
+ * Load a block-like module directory
+ * Contains optional .js and .css files.
+ * @param {HTMLElement} $el - The element passed to the decorator
+ * @param {string} path - to the module directory, ending with `/`
+ * @param {string} name - of module, used for name of .js and .css files loaded
+ * @returns {{jsProm: Promise, cssProm: Promise}}
  */
-export async function loadBlock($block, required) {
-  const ignoredBlocks = ['iframe', 'missionbg'];
-  const blockName = $block.getAttribute('data-block-name');
-
-  if (blockName in blocksIncluded || ignoredBlocks.includes(blockName)) return;
-
-  emit('scripts:loadBlock', { blockName });
-  const cssProm = loadCSS(`/pages/blocks/${blockName}/${blockName}.css`, false, true);
-  const jsProm = import(`/pages/blocks/${blockName}/${blockName}.js`)
+export function loadModuleDir($el, path, name) {
+  emit('scripts:loadModuleDir', { name, path });
+  const basePath = `${path}${name}`;
+  const cssProm = loadCSS(`${basePath}.css`, false, true);
+  const jsProm = import(`${basePath}.js`)
     .then((mod) => {
       if (mod.default) {
-        return mod.default($block, blockName, document);
+        return mod.default($el, name, document);
       }
       return undefined;
     })
-    .catch((e) => console.error(`failed to load module for ${blockName}`, e));
+    .catch((e) => console.error(`failed to load module for ${basePath}`, e));
 
-  const prom = Promise.all([jsProm, cssProm]);
-  blocksIncluded[blockName] = { req: !!required, prom };
-  return prom;
+  return { jsProm, cssProm };
+}
+
+/**
+ * Load a component embed
+ */
+export async function loadComponent($component, embedData) {
+  const { fileNoExt: componentName, path } = embedData;
+  emit('scripts:loadComponent', embedData);
+  const promObj = loadModuleDir($component, path, componentName);
+  return Promise.all(Object.values(promObj));
+}
+
+/**
+ * Load a block
+ */
+export async function loadBlock($block) {
+  const ignoredBlocks = ['iframe', 'missionbg'];
+  const blockName = $block.getAttribute('data-block-name');
+
+  if (ignoredBlocks.includes(blockName)) return;
+
+  emit('scripts:loadBlock', { blockName });
+  const { jsProm } = loadModuleDir($block, `/pages/blocks/${blockName}/`, blockName);
+  return jsProm;
 }
 
 export function loadBlocks($main) {
@@ -649,47 +674,100 @@ export function decorateBlocks(
   });
 }
 
-function getEmbedName(path) {
-  const spl = path.split('/');
-  const name = spl[spl.length - 1];
-  const lastDot = name.lastIndexOf('.');
-  return lastDot < 0 ? name : name.substr(0, lastDot);
+/**
+ * Parse embed path
+ *
+ * @param {string} path
+ * @returns {import('./index.d.ts').EmbedData}
+ */
+export function parseEmbedPath(path) {
+  let cleanPath = path.toLowerCase().replace(/([^:]\/)\/+/g, '$1').trim();
+  const segs = cleanPath.split('/').filter((s) => !!s);
+
+  const indexDirEmbed = cleanPath.endsWith('/');
+  const componentEmbed = segs.length > 0 && segs[0] === 'components';
+  const type = componentEmbed ? 'component' : 'content';
+
+  let lastSeg = segs.pop();
+  const filename = lastSeg || '';
+  const dir = segs[segs.length - 1] || '';
+  const fileNoExt = (indexDirEmbed ? lastSeg : filename.split('.')[0]) || '';
+
+  if (componentEmbed && indexDirEmbed) {
+    lastSeg += '/'; // end with /
+  } else if (componentEmbed && !indexDirEmbed) {
+    // ie. /components/name.html
+    segs.push(fileNoExt);
+    lastSeg = ''; // end with /
+  } else if (!componentEmbed && indexDirEmbed) {
+    // ie. /content/thing/
+    segs.push(lastSeg);
+    lastSeg = 'index.plain.html';
+  } else if (!componentEmbed) {
+    // ie. /content/thing.html
+    lastSeg = `${fileNoExt}.plain.html`;
+  }
+
+  cleanPath = `/${segs.join('/')}/${lastSeg}`;
+  return {
+    filename,
+    fileNoExt,
+    path: cleanPath,
+    type,
+    dirname: dir.replace(/[^a-z0-9]/g, ''),
+    basename: fileNoExt.replace(/[^a-z0-9]/g, ''),
+  };
 }
 
-function makeBlockEl(name) {
-  const block = document.createElement('div');
-  block.classList.add(name);
-  // wrapper.classList.add('section-wrapper');
-  // wrapper.innerHTML = `
-  //   <div class="${name}"></div>`;
-  return block;
+async function insertContentEmbed(el, data) {
+  const { path, basename, dirname } = data;
+  const r = await fetch(path);
+  if (!r.ok) {
+    console.error('Failed to fetch content embed: ', data);
+    return;
+  }
+
+  const text = await r.text();
+  const wrap = createTag('div', { class: `embed embed-internal embed-internal-${basename} embed-internal-${dirname}` });
+  wrap.innerHTML = text;
+  el.replaceWith(wrap);
 }
 
 /**
  * Query for all p elements, replace ones that appear to be paths
- * with their block counterpart. This is expensive, ideally we will
- * rewrite the content to point to blocks directly, but this is for
- * backwards compatibility until then.
+ * with their block/component counterpart.
+ *
+ * Treat blocks starting with /components/ as sourced from code,
+ * treat all other embed paths as content and fetched as plain.html
  */
 export async function replaceEmbeds() {
+  // matches "/some/path/", "/some/file.ext", "/some/path 2/file.html", etc.
+  // but not "/some/file", "./some/file.ext"
+  const embedRE = /^(\/[^/]+)+([/]|\.{1}[\w]+)$/;
   const pEls = document.querySelectorAll('p');
-  const proms = ([...pEls]).map(async ($p) => {
-    const path = $p.innerText;
-    const parent = $p.parentNode;
-    if (!path.startsWith('/')) {
-      return;
-    }
-    emit('scripts:replaceEmbed', { path });
-    const name = getEmbedName(path);
-    const $block = makeBlockEl(name);
-    parent.replaceChild($block, $p);
+  const proms = ([...pEls])
+    .filter(($p) => {
+      const txt = $p.innerText;
+      return embedRE.test(txt);
+    })
+    .map(async ($p) => {
+      const ogPath = $p.innerText;
+      const embedData = parseEmbedPath(ogPath);
+      const { path, type, filename } = embedData;
 
-    // decorate then load it like a block
-    // then remove the block class to avoid colliding with existing styles
-    decorateBlocks($block.parentNode, `:scope .${name}`);
-    $block.classList.remove('block');
-    await loadBlock($block);
-  });
+      emit('scripts:replaceEmbed', {
+        ogPath, path, type, filename,
+      });
+
+      if (type === 'content') {
+        await insertContentEmbed($p, embedData);
+      } else {
+        // for component embeds, filename is a directory (no extension)
+        const $component = createTag('div', { 'data-component-name': filename });
+        $p.parentNode.replaceChild($component, $p);
+        await loadComponent($component, embedData);
+      }
+    });
   await Promise.all(proms);
 }
 
@@ -886,7 +964,7 @@ function setLCPTrigger(doc, postLCP) {
 export async function decorateDefault() {
   const $main = document.querySelector('main');
 
-  loadCSS('/pages/styles/default.css');
+  loadCSS('/pages/styles/default.css', true);
   decorateTables();
   wrapSections('main>div');
   decorateBlocks($main);

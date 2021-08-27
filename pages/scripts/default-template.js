@@ -18,6 +18,7 @@ import {
   appearMain,
   debounce,
   isNodeName,
+  initializeNamespaces,
 } from './scripts.js';
 
 async function submitSheetForm($form, sheetid, thankyou) {
@@ -288,6 +289,7 @@ export default async function decorateDefaultTemplate() {
     cardHeightEqualizer('.premiere .card .text');
   }, 250));
 
+  initializeNamespaces();
   addDefaultClass('main>div');
   turnListSectionIntoCards();
   decorateTables();
