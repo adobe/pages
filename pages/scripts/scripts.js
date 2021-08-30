@@ -1083,6 +1083,7 @@ async function decoratePage() {
   emit('scripts:decorate');
   initializeNamespaces();
   setupTestMode();
+  insertFooter();
 
   const template = getTemplateName();
   await replaceEmbeds();
@@ -1111,8 +1112,6 @@ async function decoratePage() {
   if (window.pages.product) {
     document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
   }
-
-  insertFooter();
 }
 
 decoratePage();
