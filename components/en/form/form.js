@@ -57,11 +57,11 @@ function readFormConfig($component) {
 export default async function decorate($component) {
   const formId = 'wg-form';
   // Hide sheet, thank you, footer while loading
-  hideElements('.form-container', 'footer');
+  hideElements('.form-container');
 
   const config = readFormConfig($component);
   emit('components/en/form:config', config);
   await decorateForm($component, formId, config);
 
-  showElements('.form-container', 'footer');
+  showElements('.form-container');
 }

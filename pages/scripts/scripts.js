@@ -603,12 +603,6 @@ export async function loadComponent($component, embedData) {
   const { fileNoExt: componentName, path } = embedData;
   emit('scripts:loadComponent', embedData);
   const { cssProm, jsProm } = loadModuleDir($component, path, componentName);
-  cssProm.then(() => {
-    console.log('css done for ', componentName);
-  });
-  jsProm.then(() => {
-    console.log('js done for ', componentName);
-  });
   return Promise.all([cssProm, jsProm]);
 }
 
@@ -918,8 +912,18 @@ export function getLocalizedFooter(locale) {
 }
 
 export function insertFooter() {
+  hideElements('footer');
+  const localFooter = createTag('footer');
   const html = getLocalizedFooter(window.pages.locale);
-  document.querySelector('footer').innerHTML = html;
+  localFooter.innerHTML = html;
+
+  const svg = localFooter.querySelector(':scope svg');
+  svg.addEventListener('load', () => {
+    showElements('footer');
+  });
+
+  const footer = document.querySelector('footer');
+  footer.replaceWith(localFooter);
 }
 
 /**

@@ -640,10 +640,10 @@ export async function decorateForm($block, formId, config) {
 export default async function decorate($block) {
   const formId = 'wg-form';
   // Hide sheet, thank you, footer while loading
-  hideElements('.form-container', 'footer');
+  hideElements('.form-container');
 
   const config = readFormConfig($block);
   await decorateForm($block, formId, config);
 
-  showElements('.form-container', 'footer');
+  showElements('.form-container');
 }
