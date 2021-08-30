@@ -159,16 +159,26 @@ function setIndicator() {
   document.querySelector('.indicator-total').innerHTML = slideItems.length;
 }
 
-const mo = new MutationObserver((e) => {
-  e.forEach((rec) => {
-    rec.addedNodes.forEach((node) => {
-      if (isNodeName(node, 'LINK') || isNodeName(node, 'STYLE')) {
-        node.addEventListener('load', setFormContainHeight);
-        // setFormContainHeight();
-      }
-    });
-  });
-});
+// const mo = new MutationObserver((e) => {
+//   e.forEach((rec) => {
+//     rec.addedNodes.forEach((node) => {
+//       if (isNodeName(node, 'LINK') || isNodeName(node, 'STYLE')) {
+//         node.addEventListener('load', setFormContainHeight);
+//         // setFormContainHeight();
+//       }
+//     });
+//   });
+// });
+
+// Readjust form container height on new style loads
+// mo.observe(document.head, {
+//   childList: true,
+// });
+
+// and resize
+window.addEventListener('resize', debounce(() => {
+  setFormContainHeight();
+}, 300));
 
 const checkIfDomReady = setInterval(() => {
   formContainer = document.querySelector('.slide-form-container');
@@ -178,22 +188,15 @@ const checkIfDomReady = setInterval(() => {
     progressIndicator = document.querySelector('.progress-indicator span');
     totalAnswers = document.querySelectorAll('.question input');
     // otherOptionInput = document.querySelectorAll('.other-option-input');
+
+    const mainAppeared = document.querySelector('main').classList.contains('appear');
     const headerEl = document.querySelector('main .default:first-of-type');
-    if (headerEl) {
+    if (headerEl && mainAppeared) {
       header = headerEl.innerHTML;
       setHeader(header);
       setFormContainHeight();
       addOtherInputField();
       clearInterval(checkIfDomReady);
-
-      // Readjust form container height on new style loads
-      mo.observe(document.head, {
-        childList: true,
-      });
-      // and resize
-      window.addEventListener('resize', debounce(() => {
-        setFormContainHeight();
-      }, 300));
     }
   }
 }, 10);
