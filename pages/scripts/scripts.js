@@ -583,7 +583,7 @@ export function readBlockConfig($block) {
 export function loadModuleDir($el, path, name) {
   emit('scripts:loadModuleDir', { name, path });
   const basePath = `${path}${name}`;
-  const cssProm = loadCSS(`${basePath}.css`, false, true);
+  const cssProm = loadCSS(`${basePath}.css`, false, false);
   const jsProm = import(`${basePath}.js`)
     .then((mod) => {
       if (mod.default) {
@@ -912,17 +912,18 @@ export function getLocalizedFooter(locale) {
 }
 
 export function insertFooter() {
-  hideElements('footer');
+  const footer = document.querySelector('body>footer');
+  hideElements(footer);
+
   const localFooter = createTag('footer');
   const html = getLocalizedFooter(window.pages.locale);
   localFooter.innerHTML = html;
 
   const svg = localFooter.querySelector(':scope svg');
   svg.addEventListener('load', () => {
-    showElements('footer');
+    showElements(footer);
   });
 
-  const footer = document.querySelector('footer');
   footer.replaceWith(localFooter);
 }
 
@@ -1026,7 +1027,7 @@ function setLCPTrigger(doc, postLCP) {
 export async function decorateDefault() {
   const $main = document.querySelector('main');
 
-  loadCSS('/pages/styles/default.css', true);
+  loadCSS('/pages/styles/default.css', true, true);
   decorateTables();
   wrapSections('main>div');
   decorateBlocks($main);
@@ -1086,6 +1087,9 @@ async function decoratePage() {
   insertFooter();
 
   const template = getTemplateName();
+  if (window.pages.product) {
+    document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
+  }
   await replaceEmbeds();
 
   if (template) {
@@ -1108,10 +1112,6 @@ async function decoratePage() {
     }
     loadCSS('/pages/styles/lazy-styles.css');
   });
-
-  if (window.pages.product) {
-    document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
-  }
 }
 
 decoratePage();
