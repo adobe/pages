@@ -392,6 +392,18 @@ function decorateContactUs() {
   }
 }
 
+function decorateVideoBlocks() {
+  document.querySelectorAll('main .video a[href]').forEach(($a) => {
+    const videoLink = $a.href;
+    let $video = $a;
+    if (videoLink.includes('tv.adobe.com')) {
+      $video = createTag('iframe', { src: videoLink, class: 'embed tv-adobe' });
+    }
+    $a.parentElement.replaceChild($video, $a);
+  });
+}
+
+
 function addAccessibility() {
   try {
     const url = window.location.pathname;
@@ -488,6 +500,9 @@ export function webpPolyfill(element) {
   }
 }
 
+function decorateArtistBioBody() {
+  document.querySelector("body").classList.add("artist-bio");
+}
 function searchPath(pathPart) {
   const ps = location.pathname.split('/');
   return ps.includes(pathPart);
@@ -503,10 +518,11 @@ async function decoratePage() {
   decorateHeroCarousel();
   if (searchPath("artists")) {
     decorateArtistBioHeroSection();
+    decorateArtistBioBody();
   } else {
     decorateHeroSection();
   }
-
+  decorateVideoBlocks();
   decorateParallax();
   decorateOverlay();
   decorateInternalAdvocates();

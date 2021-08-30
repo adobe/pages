@@ -270,6 +270,19 @@ header .icon.icon-stock-logo {
 
 /* hero section */
 
+body.artist-bio main .video {
+  max-width: 900px;
+  width: 80%;
+  margin: 0em auto;
+  padding: 2em 0em;
+  background: white;
+}
+
+body.artist-bio main .video iframe {
+  width: 100%;
+  height: 34vw;  
+}
+
 .hero-section:not(.artist-bio-hero-section) {
   display: flex;
   width: 100%;
