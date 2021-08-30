@@ -93,3 +93,27 @@ export interface EmbedData {
    */
   type: 'content' | 'component';
 }
+
+/**
+ * An included JS or CSS item.
+ */
+export interface IncludedItem {
+  /**
+   * Whether the item is required or optional.
+   * All promises of included modules/css marked as required
+   * must resolve before appearMain() will complete.
+   */
+  req: boolean;
+
+  /**
+   * Promise that resolves when the JS module is loaded and finishes executing
+   * (ie. after script runs and default exported function completes, if encountered).
+   * This promise will reject if any error is thrown during loading or executing the module.
+   *
+   * OR
+   *
+   * Promise that resolves when the CSS file has been loaded or has failed; this promise
+   * always resolves, unless the stylesheet is removed from DOM before completing.
+   */
+  prom: Promise<void>;
+}

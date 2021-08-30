@@ -1,28 +1,43 @@
 declare global {
   interface Window { 
-
     /**
      * Common, always available namespace
      */
     pages: PagesNamespace; 
-
-    /**
-     * Current form configuration object
-     */
-    formConfig: FormConfig;
-
-    /**
-     * Loads a CSS file.
-     * @param {string} href The path to the CSS file
-     */
-    loadCSS(href: string): void;
   }
 }
 
 interface PagesNamespace {
+  /**
+   * Product subpath
+   * ie. `stock`
+   */
   product: string;
-  locale: string; 
-  project: string;
+  /**
+   * Locale subpath
+   * ie. `en`
+   */
+  locale?: string; 
+  /**
+   * Family subpath
+   */
+  family?: string;
+  /**
+   * Project subpath
+   * ie. `advocates`
+   */
+  project?: string;
+
+  /**
+   * Whether current page is using a template.
+   */
+  usingTemplate: boolean;
+
+  /**
+   * Whether page has completed decorating.
+   * Must be true before appearMain() will complete.
+   */
+  decorated?: boolean;
 }
 
 export {};

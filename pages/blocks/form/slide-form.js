@@ -37,7 +37,7 @@ function setFormContainHeight() {
   for (let i = 0, len = slideItems.length; i < len; i += 1) {
     const slide = slideItems[i];
     if (slide.classList.contains('active')) {
-      console.log('set active height: ', slide);
+      console.log('set active height: ', slide, slide.offsetHeight);
       formContainer.style.height = `${slide.offsetHeight}px`;
       break;
     }
@@ -87,27 +87,6 @@ function addOtherInputField() {
     input.addEventListener('keyup', setOtherCheckboxValue);
   });
 }
-
-const checkIfDomReady = setInterval(() => {
-  formContainer = document.querySelector('.slide-form-container');
-  if (formContainer) {
-    slideBtns = document.querySelectorAll('.slide-btn');
-    slideItems = document.querySelectorAll('.slide-form-item');
-    progressIndicator = document.querySelector('.progress-indicator span');
-    totalAnswers = document.querySelectorAll('.question input');
-    // otherOptionInput = document.querySelectorAll('.other-option-input');
-    const headerEl = document.querySelector('main .default:first-of-type');
-    console.log('headerEl: ', headerEl);
-    if (headerEl) {
-      header = headerEl.innerHTML;
-      setHeader(header);
-      setFormContainHeight();
-      addOtherInputField();
-      clearInterval(checkIfDomReady);
-    }
-    // }
-  }
-}, 10);
 
 function scrollBackUp() {
   window.scrollTo({
@@ -180,10 +159,44 @@ function setIndicator() {
   document.querySelector('.indicator-total').innerHTML = slideItems.length;
 }
 
-// Readjust form container height on resize
-window.addEventListener('resize', debounce(() => {
-  setFormContainHeight();
-}, 300));
+const mo = new MutationObserver((e) => {
+  e.forEach((rec) => {
+    rec.addedNodes.forEach((node) => {
+      if (isNodeName(node, 'LINK') || isNodeName(node, 'STYLE')) {
+        node.addEventListener('load', setFormContainHeight);
+        // setFormContainHeight();
+      }
+    });
+  });
+});
+
+const checkIfDomReady = setInterval(() => {
+  formContainer = document.querySelector('.slide-form-container');
+  if (formContainer) {
+    slideBtns = document.querySelectorAll('.slide-btn');
+    slideItems = document.querySelectorAll('.slide-form-item');
+    progressIndicator = document.querySelector('.progress-indicator span');
+    totalAnswers = document.querySelectorAll('.question input');
+    // otherOptionInput = document.querySelectorAll('.other-option-input');
+    const headerEl = document.querySelector('main .default:first-of-type');
+    if (headerEl) {
+      header = headerEl.innerHTML;
+      setHeader(header);
+      setFormContainHeight();
+      addOtherInputField();
+      clearInterval(checkIfDomReady);
+
+      // Readjust form container height on new style loads
+      mo.observe(document.head, {
+        childList: true,
+      });
+      // and resize
+      window.addEventListener('resize', debounce(() => {
+        setFormContainHeight();
+      }, 300));
+    }
+  }
+}, 10);
 
 // Update progress counter and progress bar
 function progressBarUpdater() {

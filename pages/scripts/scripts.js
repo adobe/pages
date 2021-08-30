@@ -30,9 +30,12 @@ import {
 /**
  * Resources included by type
  * map from href/name -> required, promise
- * @type {Record<string, {req: boolean; prom: Promise<void>;}>}
+ * @type {Record<string, import('./index').IncludedItem>}
  */
 const cssIncluded = {};
+/**
+ * @type {Record<string, import('./index').IncludedItem>}
+ */
 const jsIncluded = {};
 
 /**
@@ -41,8 +44,24 @@ const jsIncluded = {};
  */
 const handlers = {};
 
-// namespace initialized
+/**
+ * Whether namespace has been initialized
+ */
 let nsInit = false;
+/**
+ * @type {Promise<void>}
+ */
+let decoratedProm = null;
+
+/**
+ * Get an included CSS item,
+ * or undefined if not included [yet].
+ * @param {string} href
+ * @returns {import('./index').IncludedItem}
+ */
+export function getCSSIncluded(href) {
+  return cssIncluded[href];
+}
 
 /**
  * Register callback for when event occurs.
@@ -95,6 +114,20 @@ export function initializeNamespaces() {
     const [product, locale, project] = pathSegments;
     Object.assign(ns, { product, locale, project });
   }
+
+  // set decoratedProm, and add setter that resolves it
+  let resolve;
+  let decorated = false;
+  decoratedProm = new Promise((res) => {
+    resolve = res;
+  });
+  Object.defineProperty(ns, 'decorated', {
+    set: (val) => {
+      decorated = val;
+      if (val) resolve();
+    },
+    get: () => decorated,
+  });
   nsInit = true;
 }
 
@@ -155,7 +188,7 @@ export function addDefaultClass(element) {
  *
  * @returns {Promise<any>}
  */
-export function loadJSModule(href, required, useImport = false) {
+export function loadJSModule(href, required = false, useImport = true) {
   emit('scripts:loadJS', { href });
 
   if (href in jsIncluded) return Promise.resolve();
@@ -426,17 +459,20 @@ export function classify(qs, cls, parent) {
  * Checks if <main> is ready to appear
  */
 export async function appearMain() {
-  if (window.pages.decorated) {
-    // wait for required css to load
-    await Promise.all(Object.values(cssIncluded).filter((c) => c.req));
-    const pathSplits = window.location.pathname.split('/');
-    const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
-    const p = window.pages;
-    const classes = [p.product, p.family, p.project, pageName].filter((c) => !!c);
-    document.body.classList.add(...classes);
-    classify('main', 'appear');
-    emit('scripts:mainVisible');
-  }
+  emit('scripts:appearMain');
+
+  // wait for page to be decorated
+  await decoratedProm;
+  // and all required css to load
+  await Promise.all(Object.values(cssIncluded).filter((c) => c.req));
+
+  const pathSplits = window.location.pathname.split('/');
+  const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
+  const { product, family, project } = window.pages;
+  const classes = [product, family, project, pageName].filter((c) => !!c);
+  document.body.classList.add(...classes);
+  classify('main', 'appear');
+  emit('scripts:mainVisible');
 }
 
 /**
@@ -566,8 +602,14 @@ export function loadModuleDir($el, path, name) {
 export async function loadComponent($component, embedData) {
   const { fileNoExt: componentName, path } = embedData;
   emit('scripts:loadComponent', embedData);
-  const promObj = loadModuleDir($component, path, componentName);
-  return Promise.all(Object.values(promObj));
+  const { cssProm, jsProm } = loadModuleDir($component, path, componentName);
+  cssProm.then(() => {
+    console.log('css done for ', componentName);
+  });
+  jsProm.then(() => {
+    console.log('js done for ', componentName);
+  });
+  return Promise.all([cssProm, jsProm]);
 }
 
 /**
@@ -719,6 +761,12 @@ export function parseEmbedPath(path) {
   };
 }
 
+/**
+ * Insert content embed
+ * @param {HTMLElement} el
+ * @param {import('./index').EmbedData} data
+ * @returns {Promise<void>}
+ */
 async function insertContentEmbed(el, data) {
   const { path, basename, dirname } = data;
   const r = await fetch(path);
@@ -731,6 +779,19 @@ async function insertContentEmbed(el, data) {
   const wrap = createTag('div', { class: `embed embed-internal embed-internal-${basename} embed-internal-${dirname}` });
   wrap.innerHTML = text;
   el.replaceWith(wrap);
+}
+
+/**
+ * Insert component embed
+ * @param {HTMLElement} el
+ * @param {import('./index').EmbedData} data
+ * @returns {Promise<void>}
+ */
+async function insertComponentEmbed(el, data) {
+  const { fileNoExt } = data;
+  const $component = createTag('div', { 'data-component-name': fileNoExt });
+  el.parentNode.replaceChild($component, el);
+  await loadComponent($component, data);
 }
 
 /**
@@ -753,19 +814,16 @@ export async function replaceEmbeds() {
     .map(async ($p) => {
       const ogPath = $p.innerText;
       const embedData = parseEmbedPath(ogPath);
-      const { path, type, filename } = embedData;
+      const { type } = embedData;
 
       emit('scripts:replaceEmbed', {
-        ogPath, path, type, filename,
+        ogPath, embedData,
       });
 
       if (type === 'content') {
         await insertContentEmbed($p, embedData);
       } else {
-        // for component embeds, filename is a directory (no extension)
-        const $component = createTag('div', { 'data-component-name': filename });
-        $p.parentNode.replaceChild($component, $p);
-        await loadComponent($component, embedData);
+        await insertComponentEmbed($p, embedData);
       }
     });
   await Promise.all(proms);
@@ -773,7 +831,7 @@ export async function replaceEmbeds() {
 
 /**
  * Get the template name, or undefined if none.
- * @returns {string|void}
+ * @returns {string|undefined}
  */
 export function getTemplateName() {
   document.querySelectorAll('table th').forEach(($th) => {
@@ -1023,7 +1081,7 @@ async function decoratePage() {
   setupTestMode();
 
   const template = getTemplateName();
-  await replaceEmbeds(!!template);
+  await replaceEmbeds();
 
   if (template) {
     emit('scripts:template', { template });
@@ -1036,15 +1094,15 @@ async function decoratePage() {
   document.title = document.title.split('<br>').join(' ');
   fixImages();
 
-  if (!template) {
-    setLCPTrigger(document, async () => {
-      emit('scripts:postLCP');
+  setLCPTrigger(document, async () => {
+    emit('scripts:postLCP');
 
+    if (!template) {
       const mainEl = document.querySelector('main');
       loadBlocks(mainEl);
-      loadCSS('/pages/styles/lazy-styles.css');
-    });
-  }
+    }
+    loadCSS('/pages/styles/lazy-styles.css');
+  });
 
   if (window.pages.product) {
     document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;

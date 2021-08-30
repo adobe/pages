@@ -69,6 +69,26 @@ function decorateHeroSection() {
   }
 }
 
+function decorateArtistBioHeroSection() {
+  const $firstSectionImage = document.querySelector('main div.section-wrapper>div>p img');
+  if ($firstSectionImage) {
+    const $section = $firstSectionImage.closest('.section-wrapper');
+    $section.classList.add('full-width');
+    const $div = $firstSectionImage.closest('div');
+    $section.classList.add('hero-section', 'artist-bio-hero-section', 'white-text');
+    $div.classList.add('text');
+    if ($div.children[1].children[0].tagName.toUpperCase() === 'IMG') {
+      $div.classList.add('image');
+    } else {
+      const $imgWrapper = createTag('div', { class: 'image' });
+      $section.append($imgWrapper);
+      const $p = $firstSectionImage.parentElement.nextElementSibling;
+      $imgWrapper.append($firstSectionImage.parentNode);
+      if ($p) $imgWrapper.append($p);
+    }
+  }
+}
+
 function decorateFaq() {
   const $faq = document.querySelector('main .faq');
   if ($faq) {
@@ -114,15 +134,23 @@ function decorateColors() {
 }
 
 function decorateGrid() {
+  const meetGrids = Array.from(document.querySelectorAll('.embed-internal-meettheartists .grid'));
   document.querySelectorAll('main div>.grid').forEach(($grid) => {
     $grid.closest('.section-wrapper').classList.add('full-width');
+
+    if (meetGrids.includes($grid)) {
+      $grid.classList.add('meetgrid');
+    }
 
     const rows = Array.from($grid.children);
     rows.forEach(($row) => {
       const cells = Array.from($row.children);
+      console.log(cells);
       cells[0].classList.add('image');
       cells[1].classList.add('text');
-      cells[1].style.backgroundColor = `${cells[2].textContent}80`;
+      if (!meetGrids.includes($grid)) {
+        cells[1].style.backgroundColor = `${cells[2].textContent}80`;
+      }
       cells[2].remove();
       const $a = cells[1].querySelector('a');
       if ($a) {
@@ -158,8 +186,11 @@ function decorateColumns() {
     $columns.closest('.section-wrapper').classList.add('full-width');
     const rows = Array.from($columns.children);
     rows.forEach(($row) => {
+      console.log('$row: ', $row);
       const cells = Array.from($row.children);
       cells.forEach(($cell, i, arr) => {
+        console.log('$cell: ', $cell);
+
         const $img = $cell.querySelector('img');
         if ($img) {
           $cell.classList.add('image');
@@ -176,6 +207,11 @@ function decorateColumns() {
           $cell.classList.add('text');
           if ($cell.textContent === '') {
             $cell.remove();
+            console.log('[i]: ', i);
+
+            console.log('arr[i]: ', arr[i]);
+            console.log('arr[i-1]: ', arr[i - 1]);
+
             arr[i - 1].classList.add('merged');
           }
         }
@@ -213,19 +249,8 @@ function decorateParallax() {
 }
 
 function decorateInternalAdvocates() {
-  const $embeds = document.querySelectorAll('main .section-wrapper div > .embed-internal-advocates');
-
-  [...$embeds].forEach(($embed) => {
-    const $wrapper = $embed.closest('.section-wrapper');
-    if ($wrapper) {
-      $wrapper.classList.add('full-width');
-    }
-
-    // change title to image
-    const title = $embed.querySelector(':scope div > h2');
-    if (title.textContent === 'Adobe Stock Advocates') {
-      title.innerHTML = '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">';
-    }
+  document.querySelectorAll('main div>.embed-internal-advocates').forEach(($embed) => {
+    $embed.innerHTML = $embed.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates-purple.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">');
   });
 }
 
@@ -362,8 +387,9 @@ async function decorateHeader() {
 function decorateContactUs() {
   const $contactus = document.getElementById('contact-us');
   if ($contactus) {
-    // now loading from embed, just scroll to view
     const $parent = $contactus.parentElement;
+    $contactus.remove();
+    $parent.id = 'contact-us';
     if (window.location.hash === '#contact-us') {
       $parent.scrollIntoView();
     }
@@ -466,7 +492,11 @@ export function webpPolyfill(element) {
   }
 }
 
-export default async function decoratePage() {
+function searchPath(pathPart) {
+  const ps = window.location.pathname.split('/');
+  return ps.includes(pathPart);
+}
+async function decoratePage() {
   decorateTables();
   checkWebpFeature(() => {
     webpPolyfill(document);
@@ -474,11 +504,16 @@ export default async function decoratePage() {
   decorateHeader();
   wrapSections('main>div');
   wrapSections('footer>div');
-  decorateInternalAdvocates();
   decorateHeroCarousel();
-  decorateHeroSection();
+  if (searchPath('artists')) {
+    decorateArtistBioHeroSection();
+  } else {
+    decorateHeroSection();
+  }
+
   decorateParallax();
   decorateOverlay();
+  decorateInternalAdvocates();
   decorateColumns();
   decorateGrid();
   decorateColors();
@@ -490,4 +525,10 @@ export default async function decoratePage() {
   addAccessibility();
 
   document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', decoratePage);
+} else {
+  decoratePage();
 }

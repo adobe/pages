@@ -9,4 +9,6 @@ hlx
 .env
 .comparisons
 .tools/.compare-env/
+
+# other lockfiles
 yarn.lock
