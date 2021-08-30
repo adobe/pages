@@ -270,9 +270,22 @@ header .icon.icon-stock-logo {
 
 /* hero section */
 
-.hero-section {
-    display: flex;
-    width: 100%;
+body.artist-bio main .video {
+  max-width: 900px;
+  width: 80%;
+  margin: 0em auto;
+  padding: 2em 0em;
+  background: white;
+}
+
+body.artist-bio main .video iframe {
+  width: 100%;
+  height: 34vw;  
+}
+
+.hero-section:not(.artist-bio-hero-section) {
+  display: flex;
+  width: 100%;
     flex-direction: column;
     align-items: center;
 }
@@ -282,6 +295,34 @@ main>div.hero-section>div {
     position: relative;
 }
 
+@media (min-width:600px) {
+  .artist-bio-hero-section .text {
+    position: absolute;  
+    left: 50%;
+    width: 50vw;                        /* horizontal alignment */
+    top: 50%;                         /* vertical alignment */
+    transform: translate(-90%, -75%);
+    z-index: 2;
+    text-align: left;/* precise centering; see link below */
+  }
+}
+
+.artist-bio-hero-section .text p {
+  padding: 0;
+}
+.artist-bio-hero-section .text h1 {
+  font-size: 46px;
+}
+
+.artist-bio-hero-section .text strong {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.artist-bio-hero-section .text h4 {
+  font-size: 13px;
+  line-height: 17px;
+}
 
 
 .hero-section>div.image img {
@@ -369,7 +410,7 @@ main.appear #call-for-content + .columns .text p {
 }
 
 @media (min-width:600px) {
-    main>div.hero-section>div {
+    main>div.hero-section:not(.artist-bio-hero-section)>div {
         width: 50%;
     }
 
@@ -404,12 +445,13 @@ main .hero-section + .section-wrapper a.button {
 }
 
 .embed-internal-fundsection>div:first-of-type>p:first-of-type {
-    /* display: flex; */
+    display: flex;
 }
 
 .embed-internal-fundsection>div:first-of-type img {
   object-fit: fill;
   width: 100%;
+  height: 100%;
 }
 
 
@@ -509,7 +551,7 @@ main .hero-section + .section-wrapper a.button {
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
-    background-image: url(./media_129787ec36518fdc9519e56bfad5abecdff569bf7.jpeg);
+    background-image: url(/templates/stock-advocates/footer_bg.jpg);
 }
 
 .embed-internal-submitandgetfunded a:any-link {
@@ -555,6 +597,16 @@ main .hero-section + .section-wrapper a.button {
   max-width: 400px;
 }
 
+.embed-internal-meettheartists {
+  background-color: #2D0A4D;  
+  color: white;
+  padding-bottom: 3em;
+}
+
+.embed-internal-meettheartists h2 {
+
+  padding-top: 2em; margin-top: 0;
+}
 main .section-wrapper:first-of-type p {
   font-size: 20px;
   color: #fff;
@@ -578,17 +630,17 @@ header img {
 }
 
 .grid > div {
-    width: 50%;
-    position: relative;
+  width: 50%;
+  position: relative;
 }
 
-.grid > div:after {
+.grid:not(.meetgrid) > div:after {
     content: "";
     padding-bottom: 100%;
     display: block;
 }
 
-.grid > div > div {
+.grid:not(.meetgrid) > div > div {
     top: 0;
     left: 0;
     bottom: 0;
@@ -598,7 +650,12 @@ header img {
     cursor: pointer;
 }
 
-.grid div.text {
+.grid.meetgrid {
+  text-align: left;
+  padding: 10px;
+}
+
+.grid:not(.meetgrid) div.text {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -607,7 +664,20 @@ header img {
     color: white;
 }
 
-.grid div.text h4 {
+
+.grid.meetgrid div.text {
+  color: white;
+  font-size: 15px;
+  line-height: 24px;
+  cursor: pointer;
+}
+.grid.meetgrid div.text h4 {
+  font-size: 19px;
+  line-height: 34px;
+}
+
+
+.grid:not(.meetgrid) div.text h4 {
     line-height: 1em;
     font-style: italic;
     padding: 3px;
@@ -618,28 +688,42 @@ header img {
     color: white;
 }
 
-.grid img {
+.grid:not(.meetgrid) img {
     object-fit: cover;
     height: 100%;
     width: 100%;
 }
 
+.grid.meetgrid img {
+  padding: 10px;
+  cursor: pointer;
+}
+.grid.meetgrid .text {
+  padding: 10px;
+  font-size: smaller;
+}
+
+.grid.meetgrid > div {
+  width: 100%;
+  padding-bottom: 2em;
+}
+
 @media (min-width:600px) {
-    .grid>div {
+    .grid>div, .grid.meetgrid>div {
         width: calc(100%/3);
     }
 }
 
 @media (min-width:900px) {
-    .grid>div {
+    .grid>div, .grid.meetgrid>div {
         width: calc(100%/4);
     }
 
-    .grid div.text {
+    .grid:not(.meetgrid) div.text {
         opacity: 0;
     }
 
-    .grid div.text:hover, .grid div.text:focus-within {
+    .grid:not(.meetgrid) div.text:hover, .grid div.text:focus-within {
         opacity: 1;
     }
 

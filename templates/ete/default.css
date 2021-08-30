@@ -1,0 +1,36 @@
+main {
+    text-align: center;
+}
+
+
+
+main .par-wrapper {
+    max-width: 700px;
+    margin: auto;
+    padding: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+main .par-wrapper div {
+    max-width: 500px;
+    width: 90%;
+    margin: auto;
+}
+
+main .banner {
+    background-color: #1E1E1E;
+    color: white;
+}
+
+main .banner a:any-link{
+    color: #1473E6;
+    text-decoration: none;
+    font-weight: 900;
+}
+
+main .embed {
+    padding: 48px 24px;
+}
+

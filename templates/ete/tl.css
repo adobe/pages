@@ -1,4 +1,4 @@
-@import url("./styles.css");
+@import url("/templates/tl/styles.css");
 
 main {
   text-align: center;
@@ -17,29 +17,6 @@ main h1 {
   width: 95%;
   margin: auto;
   padding: 20px;
-}
-
-.home main .default:first-of-type p:first-of-type {
-  padding: 0;
-}
-
-.home main .default:first-of-type img {
-  max-width: 170px;
-  margin-top: 50px;
-}
-
-.icons {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.icons__item {
-  max-width: 28px;
-  width: 100%;
-}
-
-.icons__item:first-of-type {
-  margin-right: 10px;
 }
 
 .row-title {
@@ -68,22 +45,6 @@ main .default:first-of-type p {
   padding-bottom: 1.5em;
 }
 
-.step .content p {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-
-.step .content a:first-of-type {
-  border: 2px solid #1473e6;
-}
-
-.step .content .secondary {
-  border: 2px solid white;
-  background: transparent !important;
-}
-
 main .steps {
   display: flex;
   flex-wrap: wrap;
@@ -92,19 +53,27 @@ main .steps {
   max-width: 1100px;
 }
 
+.photography-plan main .default.steps {
+  display: block;
+}
 
 main .card {
   width: 315px;
-  margin: 25px 15px;
+  margin: 15px;
   cursor: pointer;
-  overflow: hidden;
-  border: 1px solid #DEDEDE;
-  border-radius: 10px !important;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.ext-link {
+  color: #323232;
 }
 
 main .card .text {
+  border: 1px solid #DEDEDE;
+  border-radius: 5px;
   border-top: 0;
-  padding: 12px 32px;
+  padding: 24px 32px;
   text-align: left;
   box-sizing: border-box;
 }
@@ -127,10 +96,10 @@ main .card .text>div {
 } 
 
 main .card .img {
+  height: 140px;
   background-size: cover;
   box-sizing: border-box;
   position: relative;
-  width: 100%;
 }
 
 main .card .img svg {
@@ -152,7 +121,6 @@ main .card a:any-link {
   border: 2px solid currentColor;
   border-radius: 20px;
   padding: 7px 20px;
-  margin-bottom: 2em !important;
   text-decoration: none;
   color: currentColor;
   font-weight: 800;
@@ -168,10 +136,27 @@ main .card a:any-link:hover {
 
 .step main .content h1 {
   position: relative;
-  /* border: 1px dashed lightgrey; */
+  border: 1px dashed lightgrey;
   margin: 50px auto 0.4em auto;
   padding: 0px 10px 0px 10px;
   display: inline-block;
+}
+
+.card-cta {
+  border: 2px solid currentColor;
+  border-radius: 20px;
+  padding: 7px 20px;
+  text-decoration: none;
+  color: currentColor;
+  font-weight: 800;
+  display: inline-block;
+  font-size: 14px;
+  transition: background .3s ease;
+}
+
+.card-cta:hover {
+  background-color: #C8C8C8;
+  border-color: #C8C8C8;
 }
 
 
@@ -239,7 +224,6 @@ main .card a:any-link:hover {
   max-width: 854px;
   margin: auto;
   line-height: 0;
-  background-position: center;
   background-size: cover;
 }
 
@@ -257,12 +241,12 @@ main .card a:any-link:hover {
   height: 100px;
   position: absolute;
   margin: auto;
-  left: 50%;
-  transform: translateX(-50%);
+  left: -25px;
   right: 0;
   top: 0;
   bottom: 0;
   cursor: pointer;
+  
 }
 
 .step main .video-wrapper {
@@ -271,9 +255,22 @@ main .card a:any-link:hover {
   background-repeat: no-repeat;
   padding: 26px;
   margin: auto;
-
 }
 
+/* .step main .video-wrapper .video {
+  position: relative;
+  /* padding-bottom: 56.25%; 
+} */
+
+.step main .video-wrapper video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.step .learn {
+  padding-top: 2em;
+}
 
 .step main .skills {
   display: flex;
@@ -295,6 +292,7 @@ main .card a:any-link:hover {
 .step main .skill {
   margin: 12px;
   max-width: 220px;
+  width: 48%;
 }
 
 .step main .skills img {
@@ -400,12 +398,6 @@ main svg {
   fill: currentColor;
 }
 
-.text a {
-  margin-top: 20px !important; 
-  margin-bottom: 20px;
-  display: inline-block !important;
-} 
-
 
 @media (min-width:900px) {
   main h1 {
@@ -439,6 +431,10 @@ main svg {
   main .card p {
     padding-bottom: 0em;
   }
+  
+  main .card .text>div {
+    height: 210px;
+  } 
 }
 
 
@@ -525,30 +521,6 @@ main svg {
   font-size: 21px !important;
 }
 
-.icons_parent {
-  display: flex;
-  justify-content: center;
-  padding-top: 51px;
-}
-
-.icons_parent__item {
-  /* width: 64px; */
-  width: 48px;
-}
-
-.icons_parent__item.large {
-  width: 170px;
-  margin-left: 0px !important;
-}
-
-.icons_parent__item img {
-  width: 100%;
-}
-
-.icons_parent__item:last-of-type {
-  /* margin-left: 20px; */
-  margin-left: 10px;
-}
 
 @media(min-width: 650px) {
   
@@ -579,285 +551,10 @@ main svg {
     width: 100%;
   }
 
-  .icons_parent__item {
-    width: 64px;
-    /* width: 48px; */
-  }
-
-  .icons_parent__item img {
-    width: 100%;
-  }
-
-  .icons_parent__item:last-of-type {
-    margin-left: 20px;
-    /* margin-left: 10px; */
-  }
-
-
-  .step .content p {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .step .content a.secondary {
-    margin-left: 32px;
-  }
-  
-
-}
-
-.container {
-  text-align: left;
-  width: 95%;
-  max-width: 650px;
-  margin: auto;
-  color: #505050;
-  padding: 1.5em 0em 2em 0em;
-}
-
-.container h2 {
-  font-size: 22px;
-  text-align: center;
-}
-
-.container p {
-  font-size: 16px;
-  text-align: center;
 }
 
 
-.learn .container, 
-.learn-in-illustrator .container,
-.learn-in-photoshop .container {
-  border-bottom: 1px solid #ddd;
-
-}
-
-.tutorial {
-  display: flex;
-  justify-content: center;
-  padding-top: 1.5em;
-}
-
-.tutorial__item {
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.tutorial__item:first-of-type {
-  margin-right: 2em;
-}
-
-.tutorial__icon {
-  width: 72px;
-  margin: auto;
-  margin-bottom: 0.5em;
-}
-
-.tutorial__icon img {
-  width: 100%;
-}
-
-.tutorial p {
-  margin: 0;
-  font-weight: 500;
-}
-
-.tutorial .cta {
-  background: #1473e6;
-  font-size: 15px;
-  padding: 6px 15px;  
-  display: inline-block;
-  margin-top: 12px;
-  text-decoration: none;
-  border-radius: 30px;
-  color: white;
-  font-weight: bolder;
-}
-
-.icon-list {
-  list-style-type: none;
-  margin: 0; padding: 0;
-  margin-top: 1.5em;
-}
-
-.icon-list__set {
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.icon-list__set a {
-  color: #1473e6;
-}
-
-.icon-list__set:last-of-type {
-  margin-bottom: 0;
-}
-
-.icon-list__set span {
-  margin-right: 1em;
-}
-
-.icon-list__set img {
-  width: 18px;
-  height: 18px;
-}
-
-
-.next-steps {
-  background: #282828;
-  color: white;
-}
-
-.next-steps h2 {
-  padding: 2.5em 0em;
-  margin: 0;
-}
-
-.next {
-  display: flex;
-  color: white;
-  flex-direction: column;
-  align-items: flex-start;
-  text-decoration: none;
-  margin-bottom: 4em;
-}
-
-.next:last-of-type {
-  margin-bottom: 0em;
-}
-
-
-.next-steps .container {
-  padding: 0em !important;
-  padding-bottom: 3em !important;
-}
-
-.next h3 {
-  font-size: 24px;
-  margin: 0.6em 0em;
-}
-
-.next p {
-  font-size: 18px;
-  line-height: 1.5;
-  margin: 0;
-  text-align: left !important;
-}
-
-.next img {
-  width: 100%;
-}
-
-.title_icon {
-  width: 30px;
-  display: inline;
-  margin-right: 0.5em;
-  position: relative;
-  top: 6px;
-  left: -7px;
-}
-
-.see-all-cta {
-  color: white;
-  border: 2px solid currentColor;
-  padding: 7px 20px;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 14px;
-  border-radius: 20px;
-  display: inline-block;
-  margin-bottom: 4em;
-}
-
-@media(min-width: 650px) {
-
-  .next-steps .container.lg {
-    max-width: 1250px;
-  }
-
-  .next-steps.has-one .container {
-    justify-content: center;
-    max-width: 580px;
-  }
-
-  .next-steps.has-one .container .next {
-    width: 100%;
-  }
-
-  .next-steps .container {
-    display: flex;
-    justify-content: space-between;
-  }
-  .next {
-    width: 48%;
-    margin-bottom: 0;
-  }
-
-  .container h2 {
-    font-size: 22px;
-    text-align: left;
-  }
-
-  .container p {
-    font-size: 16px;
-    text-align: left;
-  }
-
-  .tutorial {
-    text-align: left;
-    justify-content: flex-start;
-  }
-
-  .tutorial__item {
-    display: flex;
-    text-align: left;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-
-  .tutorial__icon {
-    width: 72px;
-    margin: auto;
-    margin: 0;
-    margin-right: 1em;
-    margin-bottom: 0em;
-  }
-}
-
-@media(min-width: 1200px) {
-
-  .next-steps .container.lg {
-    max-width: 1250px;
-  }
-
-  .next-steps.has-one .container {
-    justify-content: center;
-    max-width: 580px;
-  }
-
-  .next-steps.has-one .container .next {
-    width: 100%;
-  }
-
-  .next-steps .container {
-    display: flex;
-    justify-content: space-between;
-  }
-  .next {
-    width: 48%;
-    margin-bottom: 0;
-    flex-direction: row;
-  }
-
-  .next img {
-    width: 320px;
-    margin-right: 1em;
-  }
+@media(min-width: 1100px) {
   
   .more-cards {
     display: flex;
