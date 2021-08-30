@@ -186,11 +186,8 @@ function decorateColumns() {
     $columns.closest('.section-wrapper').classList.add('full-width');
     const rows = Array.from($columns.children);
     rows.forEach(($row) => {
-      console.log('$row: ', $row);
       const cells = Array.from($row.children);
       cells.forEach(($cell, i, arr) => {
-        console.log('$cell: ', $cell);
-
         const $img = $cell.querySelector('img');
         if ($img) {
           $cell.classList.add('image');
@@ -207,12 +204,10 @@ function decorateColumns() {
           $cell.classList.add('text');
           if ($cell.textContent === '') {
             $cell.remove();
-            console.log('[i]: ', i);
-
-            console.log('arr[i]: ', arr[i]);
-            console.log('arr[i-1]: ', arr[i - 1]);
-
-            arr[i - 1].classList.add('merged');
+            const prev = arr[i - 1];
+            if (prev) {
+              prev.classList.add('merged');
+            }
           }
         }
       });
