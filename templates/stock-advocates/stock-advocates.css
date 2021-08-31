@@ -729,6 +729,14 @@ header img {
     color: white;
 }
 
+body.artist-bio .grid a:any-link {
+  opacity: 0;
+}
+
+body.artist-bio .grid a:hover  {
+  opacity: 0;
+}
+
 .grid:not(.meetgrid) img {
     object-fit: cover;
     height: 100%;
@@ -749,16 +757,28 @@ header img {
   padding-bottom: 2em;
 }
 
+body.artist-bio  .grid>div, .grid.meetgrid>div {
+  width: calc(100%);
+}
+
 @media (min-width:600px) {
     .grid>div, .grid.meetgrid>div {
         width: calc(100%/3);
     }
+
+    body.artist-bio  .grid>div, .grid.meetgrid>div {
+      width: calc(100%/3);
+   }
 }
 
 @media (min-width:900px) {
     .grid>div, .grid.meetgrid>div {
         width: calc(100%/4);
     }
+
+    body.artist-bio  .grid>div, .grid.meetgrid>div {
+      width: calc(100%/3);
+   }
 
     .grid:not(.meetgrid) div.text {
         opacity: 0;
