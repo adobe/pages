@@ -176,6 +176,10 @@ header .asa-logo {
   }
 }
 
+body.artist-bio header .asa-logo {
+  display: none;
+}
+
 
 header div.expanded div.logo {
   display: none;
