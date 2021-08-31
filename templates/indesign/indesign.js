@@ -12,4 +12,6 @@
 
 import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
 
-decorateDefaultTemplate();
+export default async function decorate() {
+  await decorateDefaultTemplate();
+}

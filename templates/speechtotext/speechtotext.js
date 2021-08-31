@@ -37,7 +37,7 @@ function decorateVideoBlocks() {
 window.addEventListener('load', () => document.body.classList.add('loaded'));
 
 export default async function decoratePage() {
-  decorateDefaultTemplate();
+  await decorateDefaultTemplate();
   helpxInNewWindow();
   decorateVideoBlocks();
 }

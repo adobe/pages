@@ -275,10 +275,15 @@ function hideConditionals($form, $inputs, formData) {
       showIfValues.forEach((val) => {
         if (values.includes(val)) match = true;
       });
-      const qs = '.radio-el, .select-el, .input-el';
+
+      const qs = '.radio-el, .select-el, .input-el, .text-el';
       const $div = $form.querySelector(`[name="${item.name}"]`).closest(qs);
-      if (match) $div.classList.remove('hidden');
-      else $div.classList.add('hidden');
+      if (!$div) return;
+      if (match) {
+        $div.classList.remove('hidden');
+      } else {
+        $div.classList.add('hidden');
+      }
     }
   });
 }
@@ -330,7 +335,7 @@ function createForm({
     // INPUT TEXT || EMAIL
     if (item.type === 'text' || item.type === 'email') {
       formField += `
-        <div class="input-el question is-${required}">
+        <div class="input-el question ${required ? 'is-required' : ''}">
           <div class="title-el">
             <label class="label-title" for="${name}" tabindex="0">${setup.label}</label>
             ${description}

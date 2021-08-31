@@ -19,7 +19,7 @@ import {
   externalLinks,
   loadLocalHeader,
 } from '../../pages/scripts/scripts.js';
-import { setBackgroundImage } from '../../pages/scripts/static-media.js';
+import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -102,7 +102,7 @@ async function insertSteps() {
             /* html */
             markup += `
             <div class="card" onclick="window.location='step?${i + 1}'">
-              <div class='img' style="background-image: url(../../../static/ete/${step.Thumbnail})">
+              <div class='img' style="background-image: url(${await hashPathOf(`/static/ete/${step.Thumbnail}`)})">
                 <svg xmlns="http://www.w3.org/2000/svg" width="731" height="731" viewBox="0 0 731 731">
                   <g id="Group_23" data-name="Group 23" transform="translate(-551 -551)">
                     <circle id="Ellipse_14" data-name="Ellipse 14" cx="365.5" cy="365.5" r="365.5" transform="translate(551 551)" fill="#1473e6"/>

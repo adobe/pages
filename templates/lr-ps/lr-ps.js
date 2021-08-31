@@ -139,7 +139,7 @@ async function insertSteps() {
       segment += `<div class="card" onclick="window.location='step?${
         i + 1
       }'">
-                <div class='img' style="background-image: ${await hashPathOf(`/static/lr-ps/hero-posters/${getThumbnail(step)}`)})">
+                <div class='img' style="background-image: url(${await hashPathOf(`/static/lr-ps/hero-posters/${getThumbnail(step)}`)})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
                     <defs>
                       <style>
