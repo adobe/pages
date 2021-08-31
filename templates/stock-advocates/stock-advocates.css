@@ -757,7 +757,7 @@ body.artist-bio .grid a:hover  {
   padding-bottom: 2em;
 }
 
-body.artist-bio  .grid>div, .grid.meetgrid>div {
+body.artist-bio  .grid:not(.meetgrid)>div {
   width: calc(100%);
 }
 
@@ -765,10 +765,6 @@ body.artist-bio  .grid>div, .grid.meetgrid>div {
     .grid>div, .grid.meetgrid>div {
         width: calc(100%/3);
     }
-
-    body.artist-bio  .grid>div, .grid.meetgrid>div {
-      width: calc(100%/3);
-   }
 }
 
 @media (min-width:900px) {
@@ -776,7 +772,7 @@ body.artist-bio  .grid>div, .grid.meetgrid>div {
         width: calc(100%/4);
     }
 
-    body.artist-bio  .grid>div, .grid.meetgrid>div {
+    body.artist-bio  .grid:not(.meetgrid)>div {
       width: calc(100%/3);
    }
 
