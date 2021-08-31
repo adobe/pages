@@ -43,7 +43,7 @@ export default [
   '/creativecloud/en/photography-plan/photoshop/edit/index',
   '/creativecloud/en/photography-plan/ps-lr/index',
   '/creativecloud/en/photography-plan/ps-lrc/index',
-  '/creativecloud/en/status-page/index',
+  // '/creativecloud/en/status-page/index', // causes 429s on hlx2
   '/creativecloud/en/ste/ai-and-ps-together/index',
   '/creativecloud/en/youtube-ps/index',
   '/documentation/en/form-example/index',
