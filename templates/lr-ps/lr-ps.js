@@ -233,7 +233,8 @@ async function decorateStep() {
   const steps = await fetchSteps();
   const currentStep = steps[stepIndex];
 
-  $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`;
+  const returnCorrectBg = (url) => (url.includes('http') ? url : `../../../../static/twp3/background-elements/${currentStep.Background_element}`);
+  $video.style.backgroundImage = `url(${returnCorrectBg(currentStep.Background_element)})`;
   $video.setAttribute('data-bg', imageUrlFetcher(currentStep.Thumbnail));
 
   // fill content section
