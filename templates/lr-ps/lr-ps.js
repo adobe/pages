@@ -86,6 +86,10 @@ async function createNextStepsComponent(steps, currentIndex) {
     `;
   });
 
+  if (window.location.pathname.includes('sticker-mule')) {
+    document.querySelector('main .default:nth-child(3)').remove();
+  }
+
   lastContainer.innerHTML = `
     <div class="more-content--ete">
       <h3 class="section-title--ete-more">${nextStepsTitle}</h3>
@@ -377,11 +381,12 @@ function cleanUpBio() {
   if (document.getElementsByTagName('body')[0].classList.contains('home')) {
     $bio.closest('.section-wrapper').classList.add('bio-section');
   }
+
   const bio = {
     $avatar: $bio.querySelectorAll('img')[0].getAttribute('src'),
     $name: $bio.querySelector('h2').innerText,
     $bioSummary: $bio.querySelector('h4').innerText,
-    $behanceLogo: $bio.querySelectorAll('img')[1].getAttribute('src'),
+    $behanceLogo: window.location.pathname.includes('sticker-mule') ? '' : $bio.querySelectorAll('img')[1].getAttribute('src'),
     $link: $bio.querySelector('a:last-of-type').getAttribute('href'),
   };
 
@@ -400,6 +405,10 @@ function cleanUpBio() {
           </div>
         </div>
     `;
+
+  if (window.location.pathname.includes('sticker-mule') && document.querySelector('.bio-section')) {
+    document.querySelector('.bio-section').remove();
+  }
 }
 
 async function decoratePage() {
