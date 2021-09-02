@@ -86,10 +86,6 @@ async function createNextStepsComponent(steps, currentIndex) {
     `;
   });
 
-  if (window.location.pathname.includes('sticker-mule')) {
-    document.querySelector('main .default:nth-child(3)').remove();
-  }
-
   lastContainer.innerHTML = `
     <div class="more-content--ete">
       <h3 class="section-title--ete-more">${nextStepsTitle}</h3>
