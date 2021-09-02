@@ -1,0 +1,35 @@
+.videocontent > div {
+  /* display: flex; */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.videocontent > div div:first-of-type {
+  text-align: left;
+  /* max-width: 400px; */
+}
+
+.videocontent > div div:first-of-type h1 {
+  font-size: 36px;
+  color: var(--blue);
+}
+
+.videocontent > div div {
+  width: 100%;
+}
+
+.videocontent > div div {
+  /* width: 60%; */
+}
+
+.videocontent video {
+  width: 100%;
+}
+
+@media(min-width: 1200px ) {
+  .videocontent > div {
+    display: flex;
+
+  }
+  
+}

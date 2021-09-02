@@ -20,16 +20,14 @@ async function fetchSteps() {
   return Array.isArray(json) ? json : json.data;
 }
 
-function getThumbnail(step) {
-  let thumbnail = step.Thumbnail;
-  if (!thumbnail) {
-    if (step.Video.startsWith('https://www.youtube.com')) {
-      const yturl = new URL(step.Video);
-      const vid = yturl.searchParams.get('v');
-      thumbnail = `https://img.youtube.com/vi/${vid}/0.jpg`;
-    }
+function imageUrlFetcher(image) {
+  let url = '';
+  if (image.includes('https:') || image.includes('http:')) {
+    url = image;
+  } else {
+    url = `/static/lr-ps/hero-posters/${image}`;
   }
-  return thumbnail;
+  return url;
 }
 
 async function createNextStepsComponent(steps, currentIndex) {
@@ -77,7 +75,7 @@ async function createNextStepsComponent(steps, currentIndex) {
       <a class="more-content--ete-item" href="step?${urls[index]}">
         <div class="more-content--ete-image">
           <div style="position: relative;">
-            <img src="../../../../static/lr-ps/hero-posters/${nextStep.Thumbnail}">
+            <img src="${imageUrlFetcher(nextStep.Thumbnail)}">
           </div>
         </div>
         <div class="more-content--ete-details">
@@ -127,12 +125,8 @@ async function insertSteps() {
         }
         addToCategory += `<div class="section-title">${currentHeader}</div><div class="category-steps">`;
       }
-      addToCategory += `<div class="card" onclick="window.location='step?${
-        i + 1
-      }'">
-                <div class='img' style="background-image: url(../../../../static/lr-ps/hero-posters/${getThumbnail(
-    step,
-  )})">
+      addToCategory += `<div class="card" onclick="window.location='step?${i + 1}'">
+                <div class='img' style="background-image: url(${imageUrlFetcher(step.Thumbnail)})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
                     <defs>
                       <style>
@@ -189,9 +183,7 @@ function decorateNav() {
     document.querySelector('header').classList.add('default-nav');
 
     if (document.querySelector('header .section-wrapper p')) {
-      const productName = document
-        .querySelector('header .section-wrapper')
-        .children[1].querySelector('p');
+      const productName = document.querySelector('header .section-wrapper').children[1].querySelector('p');
       document.querySelector('.product-icon').appendChild(productName);
     }
   }
@@ -238,7 +230,7 @@ async function decorateStep() {
   const currentStep = steps[stepIndex];
 
   $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`;
-  $video.setAttribute('data-bg', `/static/lr-ps/hero-posters/${currentStep.Thumbnail}`);
+  $video.setAttribute('data-bg', imageUrlFetcher(currentStep.Thumbnail));
 
   // fill content section
 
@@ -260,11 +252,8 @@ async function decorateStep() {
 
   document.title = currentStep.Title;
   if (currentStep['Practice File']) {
-    document
-      .querySelector('main .content>p>a')
-      .setAttribute('href', currentStep['Practice File']);
-    document
-      .querySelector('main .content>p>a').classList.add('video-trigger-btn');
+    document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
+    document.querySelector('main .content>p>a').classList.add('video-trigger-btn');
   }
 
   if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
@@ -291,7 +280,7 @@ async function decorateStep() {
         <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
-    $video.firstChild.style.backgroundImage = `url(../../../../static/lr-ps/hero-posters/${currentStep.Thumbnail})`;
+    document.querySelector('.video').style.backgroundImage = `url(${imageUrlFetcher(currentStep.Thumbnail)})`;
     $video.firstChild.addEventListener('click', () => playVideo());
   }
 
@@ -418,8 +407,8 @@ async function decoratePage() {
   decorateTables();
   await loadLocalHeader();
   wrapSections('header>div');
-  externalLinks('header');
-  externalLinks('footer');
+  // externalLinks('header');
+  // externalLinks('footer');
   // nav style/dropdown
   decorateNav();
 
@@ -455,10 +444,13 @@ async function decoratePage() {
   cardHeightEqualizer('.card-content');
 }
 
-window.addEventListener('resize', debounce(() => {
-  // run resize events
-  cardHeightEqualizer('.card-content');
-}, 250));
+window.addEventListener(
+  'resize',
+  debounce(() => {
+    // run resize events
+    cardHeightEqualizer('.card-content');
+  }, 250),
+);
 
 if (document.readyState === 'loading') {
   window.addEventListener('DOMContentLoaded', () => {

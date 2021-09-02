@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+import contentAsset from './content-asset.js';
+
 // import {
 //   appearMain,
 //   createTag,
@@ -32,17 +34,15 @@ function styleNav() {
   let nav = '';
   let carrot = '';
 
-  function get_image_name() {
-    let icon_name = '';
-    if(appName.toLowerCase().includes('adobe')) {
-      icon_name = appName.toLowerCase().split('adobe')[1]
+  function getImageName() {
+    let iconName = '';
+    if (appName.toLowerCase().includes('adobe')) {
+      iconName = appName.toLowerCase().split('adobe')[1];
     } else {
-      icon_name = appName.toLowerCase()
+      iconName = appName.toLowerCase();
     }
-    return `/icons/${icon_name.split(' ').join('')}`
+    return `/icons/${iconName.split(' ').join('')}`;
   }
-
-  console.log(get_image_name())
 
   if (listItems) {
     if (listItems.length >= 1) {
@@ -63,7 +63,7 @@ function styleNav() {
             <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
             <div class="app-icon desktop">
               <a href="${appNameLink}" target="_blank">
-                <img src="${get_image_name()}.svg" alt="${appName}">
+                <img src="${getImageName()}.svg" alt="${appName}">
               </a>
             </div>
             <div class="app-name mobile">
@@ -522,6 +522,10 @@ async function decoratePage() {
   decorateButtons();
   setExternalLinks();
   decorateLinkTexting();
+
+  if (document.querySelector('.videocontent')) {
+    contentAsset();
+  }
 
   window.pages.decorated = true;
   appearMain();

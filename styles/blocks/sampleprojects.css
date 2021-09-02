@@ -1,0 +1,23 @@
+.sampleprojects {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2em;
+  max-width: 80%;
+  display: none;
+  margin: auto;
+}
+
+.sampleprojects > div  {
+  width: 45%;
+}
+
+.sampleprojects img {
+  max-width: 48px;
+}
+
+.sampleprojects > div div:last-of-type a {
+  width: 80%;
+  color: #1473E6;
+  display: inline-block;
+  text-decoration: underline;
+}
