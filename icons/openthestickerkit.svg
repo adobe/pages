@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="74" height="74" viewBox="0 0 74 74">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #efefef;
+      }
+
+      .cls-2 {
+        fill: #ff13dc;
+        opacity: 0;
+      }
+
+      .cls-3 {
+        fill: #6e6e6e;
+      }
+    </style>
+  </defs>
+  <g id="Starter_Files" data-name="Starter Files" transform="translate(-175 -1638)">
+    <rect id="Rectangle_151083" data-name="Rectangle 151083" class="cls-1" width="74" height="74" rx="13" transform="translate(175 1638)"/>
+    <g id="Smock_FileZip_18_N" transform="translate(188 1651)">
+      <rect id="Canvas" class="cls-2" width="49" height="49"/>
+      <path id="Path_104058" data-name="Path 104058" class="cls-3" d="M10,1V14.518H23.518Z" transform="translate(17.036 1.704)"/>
+      <path id="Path_104059" data-name="Path 104059" class="cls-3" d="M20.573,17.221a1.352,1.352,0,0,1-1.352-1.352V1H13.814V21.953a.676.676,0,0,1-.676.676H11.787a.676.676,0,0,1-.676-.676V1H4.352A1.352,1.352,0,0,0,3,2.352V42.905a1.352,1.352,0,0,0,1.352,1.352h6.759V39.526a.676.676,0,0,1,.676-.676h1.352a.676.676,0,0,1,.676.676v4.731H34.091a1.352,1.352,0,0,0,1.352-1.352V17.221ZM19.221,34.795a1.352,1.352,0,0,1-1.352,1.352H7.055A1.352,1.352,0,0,1,5.7,34.795V21.277a1.352,1.352,0,0,1,1.352-1.352H8.407v5.407h8.111V19.925H17.87a1.352,1.352,0,0,1,1.352,1.352Z" transform="translate(5.111 1.704)"/>
+      <circle id="Ellipse_120" data-name="Ellipse 120" class="cls-3" cx="2.955" cy="2.955" r="2.955" transform="translate(14.618 29.488)"/>
+    </g>
+  </g>
+</svg>
