@@ -254,11 +254,11 @@ async function decorateStep() {
   document.title = currentStep.Title;
   if (currentStep['Practice File']) {
     if (currentStep['Pactice File'] !== '#0') {
-      document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
       document.querySelector('main .content>p>a').setAttribute('target', '_blank');
     } else {
       document.querySelector('main .content>p>a').classList.add('video-trigger-btn');
     }
+    document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
   }
 
   if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
