@@ -102,3 +102,9 @@ generateVideo();
 if (document.querySelector('.iframecontrol')) {
   setUpControllers();
 }
+
+// one off
+if (document.querySelector('.sampleprojects')) {
+  const sampleLinks = document.querySelectorAll('.sampleprojects a');
+  sampleLinks.forEach((a) => a.setAttribute('target', '_blank'));
+}
