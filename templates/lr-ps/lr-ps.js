@@ -253,8 +253,12 @@ async function decorateStep() {
 
   document.title = currentStep.Title;
   if (currentStep['Practice File']) {
-    document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
-    document.querySelector('main .content>p>a').classList.add('video-trigger-btn');
+    if (currentStep['Pactice File'] !== '#0') {
+      document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
+      document.querySelector('main .content>p>a').setAttribute('target', '_blank');
+    } else {
+      document.querySelector('main .content>p>a').classList.add('video-trigger-btn');
+    }
   }
 
   if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
@@ -298,7 +302,9 @@ async function decorateStep() {
     document.querySelector('.button').click();
   }
 
-  document.querySelector('.video-trigger-btn').addEventListener('click', scrollPage);
+  if (currentStep['Practice File'] === '#0') {
+    document.querySelector('.video-trigger-btn').addEventListener('click', scrollPage);
+  }
 
   // fill learn section
 
