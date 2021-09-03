@@ -1,14 +1,16 @@
 .sampleprojects {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   padding-bottom: 2em;
   max-width: 80%;
-  display: none;
   margin: auto;
 }
 
-.sampleprojects > div  {
-  width: 45%;
+
+
+.sampleprojects > div:first-of-type {
+  margin-bottom: 1em;
 }
 
 .sampleprojects img {
@@ -20,4 +22,19 @@
   color: #1473E6;
   display: inline-block;
   text-decoration: underline;
+  line-height: 1.4;
+}
+
+@media(min-width: 480px) {
+  .sampleprojects {
+    flex-direction: row;
+  }
+
+  .sampleprojects > div  {
+    width: 45%;
+  }
+
+  .sampleprojects > div:first-of-type {
+    margin-bottom: 0em;
+  }
 }
