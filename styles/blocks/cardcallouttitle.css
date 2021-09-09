@@ -1,0 +1,47 @@
+.cardcallouttitle img {
+  width: 70px;
+  margin-bottom: 26px;
+}
+
+.cardcallouttitle a {
+  border: none;
+  color: #1473E6 !important;
+  background: transparent !important;
+  margin: 2em;
+  font-size: 18px;
+  display: inline-block;
+}
+
+.cardcallouttitle p {
+  font-size: 18px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.cardcallouttitle > div div:last-of-type {
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.cardcallouttitle > div div:last-of-type:after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0;
+  width: 100%;
+  height: 2px;
+  background: #A0A0A0;
+}
+
+.cardcallouttitle > div div:last-of-type h4 {
+  position: relative;
+  z-index: 5;
+  margin: 0;
+  display: inline-block;
+  padding: 0em 2em;
+  font-weight: 100;
+  background: white;
+}
+
+.lightgray .cardcallouttitle > div div:last-of-type h4 {
+  background: var(--light_grey);
+}

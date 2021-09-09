@@ -11,21 +11,25 @@
  */
 
 const createVideoMarkUp = (videoUrl) => (
-  `  
+  `
   <video preload="metadata" src="${videoUrl}" controls="true">
     <source src="${videoUrl}" type="video/mpeg4>
   </video> 
-
   `
 );
 
 const contentAsset = () => {
   const parent = document.querySelector('.videocontent div');
   const videoParent = parent.querySelector('div:last-of-type');
-  if (videoParent.childNodes[0].nodeName === 'A') {
-    const videoUrl = videoParent.querySelector('a').getAttribute('href');
-    videoParent.innerHTML = createVideoMarkUp(videoUrl);
-  }
+
+  videoParent.querySelectorAll('p').forEach(($el) => {
+    if ($el.childNodes[0].nodeName === 'A') {
+      const linkText = $el.childNodes[0].innerText.toLowerCase();
+      if (linkText === 'video') {
+        $el.innerHTML = createVideoMarkUp($el.childNodes[0].getAttribute('href'));
+      }
+    }
+  });
 };
 
 export default contentAsset;
