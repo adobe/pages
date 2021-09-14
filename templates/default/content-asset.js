@@ -10,25 +10,29 @@
  * governing permissions and limitations under the License.
  */
 
-const createVideoMarkUp = (videoUrl) => (
+const createVideoMarkUp = (videoAssets) => (
   `
-  <video preload="metadata" src="${videoUrl}" controls="true">
-    <source src="${videoUrl}" type="video/mpeg4>
-  </video> 
+    <div class="video">
+      <div class="video_thumbnail" style="background-image: url(${videoAssets.thumbnail})"></div>
+      <video preload="metadata" src="${videoAssets.video_url}" controls="true">
+        <source src="${videoAssets.video_url}" type="video/mpeg4>
+      </video>
+    </div>
   `
 );
 
 const contentAsset = () => {
   const parent = document.querySelector('.videocontent div');
   const videoParent = parent.querySelector('div:last-of-type');
+  const videoAssets = {
+    thumbnail: videoParent.querySelector('img').getAttribute('src'),
+    video_url: videoParent.querySelector('a').getAttribute('href'),
+  };
+  videoParent.querySelector('p:first-of-type').innerHTML = createVideoMarkUp(videoAssets);
 
-  videoParent.querySelectorAll('p').forEach(($el) => {
-    if ($el.childNodes[0].nodeName === 'A') {
-      const linkText = $el.childNodes[0].innerText.toLowerCase();
-      if (linkText === 'video') {
-        $el.innerHTML = createVideoMarkUp($el.childNodes[0].getAttribute('href'));
-      }
-    }
+  document.querySelector('.video_thumbnail').addEventListener('click', () => {
+    document.body.classList.add('video-showing');
+    document.querySelector('.video video').play();
   });
 };
 

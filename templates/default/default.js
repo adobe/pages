@@ -11,6 +11,7 @@
  */
 
 import contentAsset from './content-asset.js';
+import scrollElement from './scrollto.js';
 
 // import {
 //   appearMain,
@@ -366,7 +367,6 @@ async function decorateBlocks() {
       const classes = $block.className.split('-');
       const classHelpers = $block.className.split('-');
       classHelpers.shift();
-
       $block.closest('.section-wrapper').classList.add(`${classes[0]}-container`);
       $block.closest('.section-wrapper').classList.add(...classHelpers);
       $block.classList.add(...classes);
@@ -525,6 +525,10 @@ async function decoratePage() {
 
   if (document.querySelector('.videocontent')) {
     contentAsset();
+  }
+
+  if (document.querySelector('.scrollto-container')) {
+    scrollElement();
   }
 
   window.pages.decorated = true;
