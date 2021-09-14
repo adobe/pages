@@ -29,16 +29,14 @@ async function fetchSteps() {
   return Array.isArray(json) ? json : json.data;
 }
 
-function getThumbnail(step) {
-  let thumbnail = step.Thumbnail;
-  if (!thumbnail) {
-    if (step.Video.startsWith('https://www.youtube.com')) {
-      const yturl = new URL(step.Video);
-      const vid = yturl.searchParams.get('v');
-      thumbnail = `https://img.youtube.com/vi/${vid}/0.jpg`;
-    }
+async function imageUrlFetcher(image) {
+  let url = '';
+  if (image.includes('https:') || image.includes('http:')) {
+    url = image;
+  } else {
+    url = await hashPathOf(`/static/lr-ps/hero-posters/${image}`);
   }
-  return thumbnail;
+  return url;
 }
 
 async function createNextStepsComponent(steps, currentIndex) {
@@ -81,12 +79,11 @@ async function createNextStepsComponent(steps, currentIndex) {
 
   // iterating through all the collected steps
   // and creating the markup
-  nextSteps.forEach((nextStep, index) => {
-    moreContentElement += `
+  const ps = nextSteps.map(async (nextStep, index) => `
       <a class="more-content--ete-item" href="step?${urls[index]}">
         <div class="more-content--ete-image">
           <div style="position: relative;">
-            <img src="../../../../static/lr-ps/hero-posters/${nextStep.Thumbnail}">
+            <img src="${await imageUrlFetcher(nextStep.Thumbnail)}">
           </div>
         </div>
         <div class="more-content--ete-details">
@@ -94,8 +91,8 @@ async function createNextStepsComponent(steps, currentIndex) {
           <p>${nextStep.Description}</p>
         </div>
       </a>
-    `;
-  });
+    `);
+  moreContentElement = (await Promise.all(ps)).join('');
 
   lastContainer.innerHTML = `
     <div class="more-content--ete">
@@ -124,6 +121,7 @@ async function insertSteps() {
 
   if ($steps) {
     let count = -1;
+    let addToCategory = '';
     const steps = await fetchSteps();
     const stepProms = steps.map(async (step, i) => {
       let segment = '';
@@ -136,10 +134,8 @@ async function insertSteps() {
         }
         segment += `<div class="section-title">${currentHeader}</div><div class="category-steps">`;
       }
-      segment += `<div class="card" onclick="window.location='step?${
-        i + 1
-      }'">
-                <div class='img' style="background-image: url(${await hashPathOf(`/static/lr-ps/hero-posters/${getThumbnail(step)}`)})">
+      addToCategory += `<div class="card" onclick="window.location='step?${i + 1}'">
+                <div class='img' style="background-image: url(${imageUrlFetcher(step.Thumbnail)})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
                     <defs>
                       <style>
@@ -173,7 +169,7 @@ async function insertSteps() {
     });
     // let markup = `${addToCategory}`
     await Promise.all(stepProms).then((segments) => {
-      const addToCategory = segments.join('');
+      addToCategory += segments.join('');
       $sectionTitles.innerHTML = '';
       $steps.innerHTML = addToCategory;
     });
@@ -200,9 +196,7 @@ function decorateNav() {
     document.querySelector('header').classList.add('default-nav');
 
     if (document.querySelector('header .section-wrapper p')) {
-      const productName = document
-        .querySelector('header .section-wrapper')
-        .children[1].querySelector('p');
+      const productName = document.querySelector('header .section-wrapper').children[1].querySelector('p');
       document.querySelector('.product-icon').appendChild(productName);
     }
   }
@@ -248,12 +242,9 @@ async function decorateStep() {
   const steps = await fetchSteps();
   const currentStep = steps[stepIndex];
 
-  hashPathOf(`/static/twp3/background-elements/${currentStep.Background_element}`).then((src) => {
-    $video.style.backgroundImage = `url(${src})`;
-  });
-  hashPathOf(`/static/lr-ps/hero-posters/${currentStep.Thumbnail}`).then((src) => {
-    $video.setAttribute('data-bg', src);
-  });
+  const returnCorrectBg = async (url) => (url.includes('http') ? url : hashPathOf(`/static/twp3/background-elements/${currentStep.Background_element}`));
+  $video.style.backgroundImage = `url(${await returnCorrectBg(currentStep.Background_element)})`;
+  $video.setAttribute('data-bg', await imageUrlFetcher(currentStep.Thumbnail));
 
   // fill content section
 
@@ -275,11 +266,12 @@ async function decorateStep() {
 
   document.title = currentStep.Title;
   if (currentStep['Practice File']) {
-    document
-      .querySelector('main .content>p>a')
-      .setAttribute('href', currentStep['Practice File']);
-    document
-      .querySelector('main .content>p>a').classList.add('video-trigger-btn');
+    if (currentStep['Pactice File'] !== '#0') {
+      document.querySelector('main .content>p>a').setAttribute('target', '_blank');
+    } else {
+      document.querySelector('main .content>p>a').classList.add('video-trigger-btn');
+    }
+    document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
   }
 
   if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
@@ -306,9 +298,10 @@ async function decorateStep() {
         <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
-    hashPathOf(`/static/lr-ps/hero-posters/${currentStep.Thumbnail}`).then((href) => {
-      $video.firstChild.style.backgroundImage = `url(${href})`;
-    });
+    // hashPathOf(`/static/lr-ps/hero-posters/${currentStep.Thumbnail}`).then((href) => {
+    //   $video.firstChild.style.backgroundImage = `url(${href})`;
+    // });
+    document.querySelector('.video').style.backgroundImage = `url(${await imageUrlFetcher(currentStep.Thumbnail)})`;
     $video.firstChild.addEventListener('click', () => playVideo());
   }
 
@@ -325,7 +318,9 @@ async function decorateStep() {
     document.querySelector('.button').click();
   }
 
-  document.querySelector('.video-trigger-btn').addEventListener('click', scrollPage);
+  if (currentStep['Practice File'] === '#0') {
+    document.querySelector('.video-trigger-btn').addEventListener('click', scrollPage);
+  }
 
   // fill learn section
 
@@ -405,11 +400,12 @@ function cleanUpBio() {
   if (document.getElementsByTagName('body')[0].classList.contains('home')) {
     $bio.closest('.section-wrapper').classList.add('bio-section');
   }
+
   const bio = {
     $avatar: $bio.querySelectorAll('img')[0].getAttribute('src'),
     $name: $bio.querySelector('h2').innerText,
     $bioSummary: $bio.querySelector('h4').innerText,
-    $behanceLogo: $bio.querySelectorAll('img')[1].getAttribute('src'),
+    $behanceLogo: window.location.pathname.includes('sticker-mule') ? '' : $bio.querySelectorAll('img')[1].getAttribute('src'),
     $link: $bio.querySelector('a:last-of-type').getAttribute('href'),
   };
 
@@ -428,6 +424,10 @@ function cleanUpBio() {
           </div>
         </div>
     `;
+
+  if (window.location.pathname.includes('sticker-mule') && document.querySelector('.bio-section')) {
+    document.querySelector('.bio-section').remove();
+  }
 }
 
 export default async function decoratePage() {
@@ -435,8 +435,8 @@ export default async function decoratePage() {
   decorateTables();
   await loadLocalHeader();
   wrapSections('header>div');
-  externalLinks('header');
-  externalLinks('footer');
+  // externalLinks('header');
+  // externalLinks('footer');
   // nav style/dropdown
   decorateNav();
 
@@ -472,7 +472,10 @@ export default async function decoratePage() {
   cardHeightEqualizer('.card-content');
 }
 
-window.addEventListener('resize', debounce(() => {
-  // run resize events
-  cardHeightEqualizer('.card-content');
-}, 250));
+window.addEventListener(
+  'resize',
+  debounce(() => {
+    // run resize events
+    cardHeightEqualizer('.card-content');
+  }, 250),
+);

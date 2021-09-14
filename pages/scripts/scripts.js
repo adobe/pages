@@ -13,6 +13,7 @@
 /* eslint-disable no-console, import/no-cycle, consistent-return  */
 
 import {
+  contentAsset,
   decorateBackgroundImageBlocks,
   decorateButtons,
   decorateEmbeds,
@@ -1041,13 +1042,16 @@ export async function decorateDefault() {
   }
 
   decorateNav();
-
   decorateBackgroundImageBlocks();
   decorateVideoBlocks();
 
   decorateButtons();
   setExternalLinks();
   decorateLinkTexting();
+
+  if (document.querySelector('.videocontent')) {
+    contentAsset();
+  }
 
   window.pages.decorated = true;
   appearMain();

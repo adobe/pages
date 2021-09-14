@@ -176,6 +176,10 @@ header .asa-logo {
   }
 }
 
+body.artist-bio header .asa-logo {
+  display: none;
+}
+
 
 header div.expanded div.logo {
   display: none;
@@ -286,8 +290,7 @@ body.artist-bio main .video iframe {
 .hero-section:not(.artist-bio-hero-section) {
   display: flex;
   width: 100%;
-    flex-direction: column;
-    align-items: center;
+  align-items: center;
 }
 
 main>div.hero-section>div {
@@ -396,6 +399,44 @@ main.appear #call-for-content + .columns .text p {
   text-align: center;
 }
 
+.embed-internal-accessibility {
+  background-color: #3E1BB2;
+  color: white;
+  padding-top: 59px;
+  padding-bottom: 90px;
+}
+
+
+.embed-internal-accessibility>div {
+  max-width: 80%;
+  margin: auto;
+}
+
+main .embed-internal-accessibility a {
+  color: white;
+}
+
+@media (min-width:600px) {
+  .embed-internal-accessibility {
+    padding: 100px;
+  }
+  .embed-internal-accessibility>div {
+    max-width: 1180px;
+    margin: auto;
+  }
+}
+
+.embed-internal-accessibility p {
+  text-align: center;
+  font-size: 19px;
+  line-height: 25px;
+  letter-spacing: 0px;
+}
+
+.embed-internal-accessibility h4 {
+  font-size: 25px;
+  line-height: 31px;
+}
 
 .hero-section h1 {
   font-size: 4em;
@@ -688,6 +729,14 @@ header img {
     color: white;
 }
 
+body.artist-bio .grid a:any-link {
+  opacity: 0;
+}
+
+body.artist-bio .grid a:hover  {
+  opacity: 0;
+}
+
 .grid:not(.meetgrid) img {
     object-fit: cover;
     height: 100%;
@@ -708,6 +757,10 @@ header img {
   padding-bottom: 2em;
 }
 
+body.artist-bio  .grid:not(.meetgrid)>div {
+  width: calc(100%);
+}
+
 @media (min-width:600px) {
     .grid>div, .grid.meetgrid>div {
         width: calc(100%/3);
@@ -718,6 +771,10 @@ header img {
     .grid>div, .grid.meetgrid>div {
         width: calc(100%/4);
     }
+
+    body.artist-bio  .grid:not(.meetgrid)>div {
+      width: calc(100%/3);
+   }
 
     .grid:not(.meetgrid) div.text {
         opacity: 0;

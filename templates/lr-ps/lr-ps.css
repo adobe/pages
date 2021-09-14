@@ -285,6 +285,22 @@ main .card a:any-link {
   color: #505050;
 }
 
+.step.adobe-and-sticker-mule .about-bio {
+  display: none;
+}
+
+.step.adobe-and-sticker-mule .learn {
+  display: block;
+}
+
+.step.adobe-and-sticker-mule .skills {
+  width: 100%;
+}
+
+.adobe-and-sticker-mule .steps .category-steps {
+  margin-bottom: 0em !important;
+}
+
 .step main .skills {
   color: #505050;
 }

@@ -1,0 +1,31 @@
+.cardcallouts {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.cardcallouts > div {
+  width: 100%;
+  margin-bottom: 2em;
+}
+
+.cardcallouts > div img {
+  width: 100%;
+}
+
+.cardcallouts > div h5 {
+  margin: 0;
+  font-size: 18px;
+  margin-top: 1em;
+}
+
+.cardcallouts > div p {
+  font-size: 18px;
+  margin-top: 0.5em;
+}
+
+@media (min-width: 1024px) {
+  .cardcallouts > div {
+    width: 30%;
+  }
+}

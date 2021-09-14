@@ -1,0 +1,48 @@
+.videocontent > div {
+  justify-content: space-between;
+}
+
+.videocontent > div div:first-of-type {
+  text-align: left;
+}
+
+.videocontent > div div:first-of-type h1 {
+  font-size: 36px;
+  max-width: 400px;
+}
+
+.videocontent > div div {
+  width: 100%;
+}
+
+.videocontent > div div:last-of-type p {
+  text-align: left;
+  font-size: 18px;
+}
+
+.videocontent > div div:last-of-type a {
+  border: none;
+  padding: 0;
+  border-bottom: 1px solid #505050;
+  border-radius: 0px;
+  font-weight: 500;
+  color: #505050 !important;
+  background-color: transparent !important;
+}
+
+.videocontent video {
+  width: 100%;
+}
+
+@media(min-width: 1200px ) {
+  .videocontent > div {
+    display: flex;
+  }
+  .videocontent > div div {
+    width: 60%;
+  }
+
+  .videocontent > div div:first-of-type h1 {
+    margin-top: 3em;
+  }
+}

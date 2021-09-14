@@ -19,6 +19,38 @@ import {
   toClassName,
 } from './scripts.js';
 
+const createVideoMarkUp = (videoUrl) => (
+  `
+  <video preload="metadata" src="${videoUrl}" controls="true">
+    <source src="${videoUrl}" type="video/mpeg4>
+  </video> 
+  `
+);
+
+export function contentAsset() {
+  const parent = document.querySelector('.videocontent div');
+  const videoParent = parent.querySelector('div:last-of-type');
+
+  videoParent.querySelectorAll('p').forEach(($el) => {
+    if ($el.childNodes[0].nodeName === 'A') {
+      const linkText = $el.childNodes[0].innerText.toLowerCase();
+      if (linkText === 'video') {
+        $el.innerHTML = createVideoMarkUp($el.childNodes[0].getAttribute('href'));
+      }
+    }
+  });
+}
+
+function getImageName(appName) {
+  let iconName = '';
+  if (appName.toLowerCase().includes('adobe')) {
+    iconName = appName.toLowerCase().split('adobe')[1];
+  } else {
+    iconName = appName.toLowerCase();
+  }
+  return `/icons/${iconName.split(' ').join('')}`;
+}
+
 export function styleNav() {
   const parent = document.querySelector('header');
   const $appIcon = parent.querySelector('img');
@@ -49,7 +81,7 @@ export function styleNav() {
             <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
             <div class="app-icon desktop">
               <a href="${appNameLink}" target="_blank">
-                <img src="${appIcon}" alt="${appName}">
+                <img src="${getImageName(appName)}.svg" alt="${appName}">
               </a>
             </div>
             <div class="app-name mobile">
