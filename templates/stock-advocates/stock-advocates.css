@@ -592,7 +592,7 @@ main .hero-section + .section-wrapper a.button {
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
-    background-image: url(/media_129787ec36518fdc9519e56bfad5abecdff569bf7.jpeg);
+    background-image: url(./media_129787ec36518fdc9519e56bfad5abecdff569bf7.jpeg);
 }
 
 .embed-internal-submitandgetfunded a:any-link {

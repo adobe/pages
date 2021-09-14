@@ -665,7 +665,13 @@ export function decorateBlocks(
   $main,
   query = ':scope div.section-wrapper > div > div',
 ) {
-  const blocksWithOptions = ['card', 'columns', 'missionbg', 'callout', 'background'];
+  const blocksWithOptions = [
+    'card', 'columns', 'missionbg',
+    'callout', 'background', 'spacer',
+    'scrollto', 'sectiontitle', 'hr',
+    'downloadcallouts', 'cardcallouttitle',
+    'cardcallouts', 'videocontent',
+  ];
   const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg', 'list'];
 
   $main.querySelectorAll(query).forEach(($block) => {
