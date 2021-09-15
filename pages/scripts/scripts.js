@@ -14,14 +14,14 @@
 
 import {
   contentAsset,
-  decorateBackgroundImageBlocks,
+  // decorateBackgroundImageBlocks,
   decorateButtons,
   decorateEmbeds,
   decorateHero,
-  decorateLinkTexting,
-  decorateNav,
+  // decorateLinkTexting,
+  // decorateNav,
   decorateNextStep,
-  decorateVideoBlocks,
+  // decorateVideoBlocks,
   equalizer,
   linkInNewTab,
   setExternalLinks,
@@ -1080,13 +1080,13 @@ export async function decorateDefault() {
     decorateNextStep();
   }
 
-  decorateNav();
-  decorateBackgroundImageBlocks();
-  decorateVideoBlocks();
+  // decorateNav();
+  // decorateBackgroundImageBlocks();
+  // decorateVideoBlocks();
 
   decorateButtons();
   setExternalLinks();
-  decorateLinkTexting();
+  // decorateLinkTexting();
 
   if (document.querySelector('.videocontent')) {
     contentAsset();
@@ -1131,7 +1131,7 @@ async function decoratePage() {
 
   const template = getTemplateName();
   if (window.pages.product) {
-    document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
+    document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
   }
   await replaceEmbeds();
 
