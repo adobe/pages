@@ -145,7 +145,6 @@ function decorateGrid() {
     const rows = Array.from($grid.children);
     rows.forEach(($row) => {
       const cells = Array.from($row.children);
-      console.log(cells);
       cells[0].classList.add('image');
       cells[1].classList.add('text');
       if (!meetGrids.includes($grid)) {
@@ -501,11 +500,13 @@ export function webpPolyfill(element) {
 function decorateArtistBioBody() {
   document.querySelector('body').classList.add('artist-bio');
 }
+
 function searchPath(pathPart) {
   const ps = window.location.pathname.split('/');
   return ps.includes(pathPart);
 }
-async function decoratePage() {
+
+export default async function decoratePage() {
   decorateTables();
   checkWebpFeature(() => {
     webpPolyfill(document);
@@ -537,10 +538,4 @@ async function decoratePage() {
   addAccessibility();
 
   document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }
