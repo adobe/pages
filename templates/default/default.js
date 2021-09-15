@@ -12,6 +12,7 @@
 
 import contentAsset from './content-asset.js';
 import scrollElement from './scrollto.js';
+import calloutcardstitle from './calloutcardstitle.js';
 
 // import {
 //   appearMain,
@@ -529,6 +530,10 @@ async function decoratePage() {
 
   if (document.querySelector('.scrollto-container')) {
     scrollElement();
+  }
+
+  if (document.querySelector('.cardcallouttitle-container')) {
+    calloutcardstitle();
   }
 
   window.pages.decorated = true;
