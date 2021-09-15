@@ -12,8 +12,10 @@
 
 import { decorateForm } from '../../../pages/blocks/form/form.js';
 import {
-  emit, hideElements, showElements, toClassName,
+  hideElements, makeLogger, showElements, toClassName,
 } from '../../../pages/scripts/scripts.js';
+
+const lgr = makeLogger('components:en:form');
 
 /**
  * Reads a form config, returns config & a promise.
@@ -60,7 +62,7 @@ export default async function decorate($component) {
   hideElements('.form-container');
 
   const config = readFormConfig($component);
-  emit('components/en/form:config', config);
+  lgr.debug('config', config);
   await decorateForm($component, formId, config);
 
   showElements('.form-container');

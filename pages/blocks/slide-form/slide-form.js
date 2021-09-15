@@ -10,6 +10,15 @@
  * governing permissions and limitations under the License.
  */
 
+/**
+ * This is not being used as far as I can tell.
+ * All forms seem to be going through the regular `form` block,
+ * including the form components.
+ *
+ * Leaving this in for now, just in case.
+ * Max - 09/15/21
+ */
+
 import { debounce } from '../../scripts/scripts.js';
 
 export default function decorate(blockEl) {

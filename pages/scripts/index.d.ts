@@ -117,3 +117,9 @@ export interface IncludedItem {
    */
   prom: Promise<void>;
 }
+
+export interface Logger {
+  log: () => void;
+  debug: () => void;
+  error: () => void;
+}

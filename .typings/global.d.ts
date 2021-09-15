@@ -38,6 +38,11 @@ interface PagesNamespace {
    * Must be true before appearMain() will complete.
    */
   decorated?: boolean;
+
+  /**
+   * Register an event listener on the namespace.
+   */
+  on: (type: string | undefined, handler: (...p: any[]) => any) => (() => void);
 }
 
 export {};

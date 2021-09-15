@@ -28,6 +28,9 @@ import {
   wrapSections,
 } from './default-blocks.js';
 
+// eslint-disable-next-line no-use-before-define
+const lgr = makeLogger('scripts');
+
 /**
  * Resources included by type
  * map from href/name -> required, promise
@@ -55,33 +58,6 @@ let nsInit = false;
 let decoratedProm = null;
 
 /**
- * Get an included CSS item,
- * or undefined if not included [yet].
- * @param {string} href
- * @returns {import('./index').IncludedItem}
- */
-export function getCSSIncluded(href) {
-  return cssIncluded[href];
-}
-
-/**
- * Register callback for when event occurs.
- * `undefined` event name is called for every event.
- *
- * @param {string}    event name
- * @param {Function}  handler to call
- * @returns {Function} to remove handler, for deconstructing
- */
-function registerListener(event, handler) {
-  // eslint-disable-next-line no-multi-assign
-  const hs = (handlers[event] = handlers[event] || []);
-  const ind = hs.push(handler) - 1;
-  return () => {
-    delete hs[ind];
-  };
-}
-
-/**
  * Emit event.
  *
  * @param {string} event
@@ -94,6 +70,39 @@ export function emit(event, data) {
 
   if (hs) hs.forEach((h) => h && h.call(undefined, data));
   if (allHs) allHs.forEach((h) => h && h.call(undefined, event, data));
+}
+
+/**
+ * Create a logger
+ * @param {string} ns - namespace
+ * @returns {import('./index').Logger}
+ */
+export function makeLogger(ns) {
+  const l = (lvl, msgs) => {
+    emit('log', { lvl, ns, msgs });
+  };
+  return {
+    log: (...msgs) => l('LOG', msgs),
+    debug: (...msgs) => l('DEBUG', msgs),
+    error: (...msgs) => l('ERROR', msgs),
+  };
+}
+
+/**
+ * Register callback for when event occurs.
+ * `undefined` event name is called for every event.
+ *
+ * @param {string}    event name
+ * @param {Function}  handler to call
+ * @returns {Function} to remove handler, for deconstructing
+ */
+export function registerListener(event, handler) {
+  // eslint-disable-next-line no-multi-assign
+  const hs = (handlers[event] = handlers[event] || []);
+  const ind = hs.push(handler) - 1;
+  return () => {
+    delete hs[ind];
+  };
 }
 
 /**
@@ -130,6 +139,16 @@ export function initializeNamespaces() {
     get: () => decorated,
   });
   nsInit = true;
+}
+
+/**
+ * Get an included CSS item,
+ * or undefined if not included [yet].
+ * @param {string} href
+ * @returns {import('./index').IncludedItem}
+ */
+export function getCSSIncluded(href) {
+  return cssIncluded[href];
 }
 
 /**
@@ -190,7 +209,7 @@ export function addDefaultClass(element) {
  * @returns {Promise<any>}
  */
 export function loadJSModule(href, required = false, useImport = true) {
-  emit('scripts:loadJS', { href });
+  lgr.debug('loadJS', { href });
 
   if (href in jsIncluded) return Promise.resolve();
 
@@ -300,7 +319,7 @@ export async function insertLocalResource(type) {
  * @param {string} selector
  */
 export function externalLinks(selector) {
-  emit('scripts:extLinks', { selector });
+  lgr.debug('externalLinks', { selector });
 
   const element = document.querySelector(selector);
   if (!element) return;
@@ -459,14 +478,19 @@ export function classify(qs, cls, parent) {
 /**
  * Checks if <main> is ready to appear
  */
+let aMD = false;
 export async function appearMain() {
-  emit('scripts:appearMain');
+  // only happens once
+  if (aMD) return;
+  aMD = true;
+
+  lgr.debug('appearMain');
 
   // wait for page to be decorated
   await decoratedProm;
   // and all required css to load
   const req = Object.values(cssIncluded).filter((c) => c.req);
-  emit('scripts:appearMain:wait', { req });
+  lgr.debug('appearMain:wait', { req });
   await Promise.all(req);
 
   const pathSplits = window.location.pathname.split('/');
@@ -475,7 +499,8 @@ export async function appearMain() {
   const classes = [product, family, project, pageName].filter((c) => !!c);
   document.body.classList.add(...classes);
   classify('main', 'appear');
-  emit('scripts:mainVisible');
+
+  emit('mainVisible');
 }
 
 /**
@@ -487,7 +512,7 @@ export async function appearMain() {
  * @param {boolean} [prepend=false] Whether to prepend style to head, otherwise append.
  */
 export async function loadCSS(href, required, prepend) {
-  emit('scripts:loadCSS', { href });
+  lgr.debug('loadCSS', { href });
 
   if (href in cssIncluded) return;
 
@@ -496,7 +521,7 @@ export async function loadCSS(href, required, prepend) {
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', href);
     const after = () => {
-      emit('scripts:cssLoaded', { href });
+      emit('cssLoaded', { href });
       appearMain();
       resolve();
     };
@@ -582,12 +607,13 @@ export function readBlockConfig($block) {
  * @param {HTMLElement} $el - The element passed to the decorator
  * @param {string} path - to the module directory, ending with `/`
  * @param {string} name - of module, used for name of .js and .css files loaded
+ * @param {boolean} [reqCss=false] - whether CSS is required before appearMain
  * @returns {{jsProm: Promise, cssProm: Promise}}
  */
-export function loadModuleDir($el, path, name) {
-  emit('scripts:loadModuleDir', { name, path });
+export function loadModuleDir($el, path, name, reqCss = false) {
+  lgr.debug('loadModuleDir', { name, path });
   const basePath = `${path}${name}`;
-  const cssProm = loadCSS(`${basePath}.css`, false, false);
+  const cssProm = loadCSS(`${basePath}.css`, reqCss, false);
   const jsProm = import(`${basePath}.js`)
     .then((mod) => {
       if (mod.default) {
@@ -605,8 +631,8 @@ export function loadModuleDir($el, path, name) {
  */
 export async function loadComponent($component, embedData) {
   const { fileNoExt: componentName, path } = embedData;
-  emit('scripts:loadComponent', embedData);
-  const { cssProm, jsProm } = loadModuleDir($component, path, componentName);
+  lgr.debug('loadComponent', embedData);
+  const { cssProm, jsProm } = loadModuleDir($component, path, componentName, true);
   return Promise.all([cssProm, jsProm]);
 }
 
@@ -614,13 +640,15 @@ export async function loadComponent($component, embedData) {
  * Load a block
  */
 export async function loadBlock($block) {
+  const reqCSSBlocks = ['form'];
   const ignoredBlocks = ['iframe', 'missionbg'];
   const blockName = $block.getAttribute('data-block-name');
 
   if (ignoredBlocks.includes(blockName)) return;
 
-  emit('scripts:loadBlock', { blockName });
-  const { jsProm } = loadModuleDir($block, `/pages/blocks/${blockName}/`, blockName);
+  const reqCSS = reqCSSBlocks.includes(blockName);
+  lgr.debug('loadBlock', { blockName });
+  const { jsProm } = loadModuleDir($block, `/pages/blocks/${blockName}/`, blockName, reqCSS);
   return jsProm;
 }
 
@@ -631,7 +659,7 @@ export function loadBlocks($main) {
 }
 
 function handleSpecialBlock(blockName, ogBlockName) {
-  emit('scripts:hSB', { blockName, ogBlockName });
+  lgr.debug('handleSpecialBlock', { blockName, ogBlockName });
 
   const options = [blockName];
 
@@ -679,7 +707,7 @@ export function decorateBlocks(
 
   $main.querySelectorAll(query).forEach(($block) => {
     const classes = Array.from($block.classList.values());
-    emit('scripts:decorateBlock', { classes });
+    lgr.debug('decorateBlock', { classes });
     let blockName = classes[0];
     if (!blockName) return;
 
@@ -820,7 +848,7 @@ export async function replaceEmbeds() {
       const embedData = parseEmbedPath(ogPath);
       const { type } = embedData;
 
-      emit('scripts:replaceEmbed', {
+      lgr.debug('replaceEmbed', {
         ogPath, embedData,
       });
 
@@ -863,7 +891,7 @@ export function getTemplateName() {
  */
 export async function loadTemplate(template) {
   const basePath = `/templates/${template}/${template}`;
-  emit('scripts:loadTemplate', { basePath });
+  lgr.debug('loadTemplate', { basePath });
 
   loadCSS(`${basePath}.css`, true);
   return import(`${basePath}.js`).then(({ default: run }) => {
@@ -1007,7 +1035,9 @@ function setupTestMode() {
   if (window.location.hash.indexOf('test') === -1) {
     return;
   }
-  window.pages.on(undefined, console.debug);
+  window.pages.on('log', ({ lvl, ns, msgs }) => {
+    console.debug(`[${lvl}] ${ns}`, ...msgs);
+  });
 }
 
 /**
@@ -1094,7 +1124,7 @@ export async function decorateDefault() {
 }
 
 async function decoratePage() {
-  emit('scripts:decorate');
+  lgr.debug('decorate');
   initializeNamespaces();
   setupTestMode();
   insertFooter();
@@ -1106,10 +1136,10 @@ async function decoratePage() {
   await replaceEmbeds();
 
   if (template) {
-    emit('scripts:template', { template });
+    lgr.debug('use:template', { template });
     await loadTemplate(template);
   } else {
-    emit('scripts:default');
+    lgr.debug('use:default');
     decorateDefault();
   }
 
@@ -1117,7 +1147,7 @@ async function decoratePage() {
   fixImages();
 
   setLCPTrigger(document, async () => {
-    emit('scripts:postLCP');
+    emit('postLCP');
 
     if (!template) {
       const mainEl = document.querySelector('main');

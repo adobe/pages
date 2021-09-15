@@ -11,13 +11,14 @@
  */
 
 import {
-  emit,
   hideElements,
   readBlockConfig,
   showElements,
   toClassName,
+  makeLogger,
 } from '../../scripts/scripts.js';
 
+const lgr = makeLogger('blocks:form');
 /**
  * Setup form elements and actions
  *
@@ -572,7 +573,7 @@ async function fetchFormData(definition) {
   const resp = await fetch(`${definition}.json`);
   const json = await resp.json();
   window.hlx.dependencies.push(`${definition}.json`);
-  emit('form:data', json);
+  lgr.debug('formData', json);
   return json;
 }
 
@@ -591,7 +592,7 @@ function readFormConfig($block) {
     definition: config['form-definition'] || 'default',
   };
 
-  emit('form:readConfig', config);
+  lgr.debug('readConfig', config);
   return config;
 }
 

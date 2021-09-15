@@ -10,7 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
-import { debounce, isAttr, isNodeName } from '../../scripts/scripts.js';
+import {
+  debounce, isAttr, isNodeName, registerListener,
+} from '../../scripts/scripts.js';
 
 let formContainer = document.querySelector('.slide-form-container');
 let slideBtns = document.querySelectorAll('.slide-btn');
@@ -37,7 +39,6 @@ function setFormContainHeight() {
   for (let i = 0, len = slideItems.length; i < len; i += 1) {
     const slide = slideItems[i];
     if (slide.classList.contains('active')) {
-      console.log('set active height: ', slide, slide.offsetHeight);
       formContainer.style.height = `${slide.offsetHeight}px`;
       break;
     }
@@ -159,26 +160,15 @@ function setIndicator() {
   document.querySelector('.indicator-total').innerHTML = slideItems.length;
 }
 
-// const mo = new MutationObserver((e) => {
-//   e.forEach((rec) => {
-//     rec.addedNodes.forEach((node) => {
-//       if (isNodeName(node, 'LINK') || isNodeName(node, 'STYLE')) {
-//         node.addEventListener('load', setFormContainHeight);
-//         // setFormContainHeight();
-//       }
-//     });
-//   });
-// });
-
-// Readjust form container height on new style loads
-// mo.observe(document.head, {
-//   childList: true,
-// });
-
-// and resize
+// readjust container height on resize
 window.addEventListener('resize', debounce(() => {
   setFormContainHeight();
 }, 300));
+
+// and when new css is loaded
+registerListener('cssLoaded', () => {
+  setFormContainHeight();
+});
 
 const checkIfDomReady = setInterval(() => {
   formContainer = document.querySelector('.slide-form-container');
