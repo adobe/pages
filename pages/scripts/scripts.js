@@ -465,7 +465,9 @@ export async function appearMain() {
   // wait for page to be decorated
   await decoratedProm;
   // and all required css to load
-  await Promise.all(Object.values(cssIncluded).filter((c) => c.req));
+  const req = Object.values(cssIncluded).filter((c) => c.req);
+  emit('scripts:appearMain:wait', { req });
+  await Promise.all(req);
 
   const pathSplits = window.location.pathname.split('/');
   const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
@@ -494,6 +496,7 @@ export async function loadCSS(href, required, prepend) {
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', href);
     const after = () => {
+      emit('scripts:cssLoaded', { href });
       appearMain();
       resolve();
     };

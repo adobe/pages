@@ -11,7 +11,6 @@
  */
 
 import {
-  appearMain,
   createTag,
   insertLocalResource,
   toClassName,
@@ -533,7 +532,7 @@ export default async function decoratePage() {
   decorateButtons();
   decorateFaq();
   window.pages.decorated = true;
-  appearMain();
+  // appearMain();
   decorateContactUs();
   addAccessibility();
 
