@@ -17,25 +17,25 @@ function getImageName(appName) {
   if (appName.toLowerCase().includes('adobe')) {
     iconName = appName.toLowerCase().split('adobe')[1];
   } else {
-    iconName = appName.toLowerCase();
+    // iconName = appName.toLowerCase();
+    iconName = window.pages.product || appName.toLowerCase();
   }
   return `/icons/${iconName.split(' ').join('')}`;
 }
 
-function styleNav() {
-  const parent = document.querySelector('header');
-  const $appIcon = parent.querySelector('img');
+function styleNav($header) {
+  const $appIcon = $header.querySelector(':scope img');
   if (!$appIcon) return;
   const appIcon = $appIcon.src;
-  const appName = parent.querySelector('a').innerHTML;
-  const appNameLink = parent.querySelector('a').getAttribute('href');
-  const listItems = parent.querySelectorAll('ul li');
+  const appName = $header.querySelector(':scope a').innerHTML;
+  const appNameLink = $header.querySelector(':scope a').getAttribute('href');
+  const listItems = $header.querySelectorAll(':scope ul li');
   let nav = '';
   let carrot = '';
 
   if (listItems) {
     if (listItems.length >= 1) {
-      nav = parent.querySelector('ul').outerHTML;
+      nav = $header.querySelector(':scope ul').outerHTML;
       carrot = `
         <div class="menu-carrot">
           <img src='/icons/carrot.svg'>
@@ -44,7 +44,7 @@ function styleNav() {
     }
   }
 
-  parent.innerHTML = `
+  $header.innerHTML = `
     <div class="section-wrapper">
       <div class="nav">
         <div class="nav__section">
@@ -71,10 +71,10 @@ function styleNav() {
     </div>
   `;
 
-  if (document.querySelector('.nav-container')) {
-    const $nav = document.querySelector('.nav-container');
-    if ($nav.querySelector('div').children.length === 0) {
-      $nav.remove();
+  const $navContainer = document.querySelector('.nav-container');
+  if ($navContainer) {
+    if ($navContainer.querySelector(':scope div').children.length === 0) {
+      $navContainer.remove();
     }
   }
 }
@@ -89,21 +89,17 @@ function mobileDropDown() {
   }
 }
 
-async function decorateNav() {
-  await loadLocalHeader();
-  styleNav();
-  const navEl = document.querySelector('.nav');
-  if (navEl) {
-    const iconEl = document.querySelector('.app-name-and-icon');
-    if (iconEl) {
-      iconEl.addEventListener('click', mobileDropDown);
-    }
-  }
-  document.querySelector('header').classList.add('appear');
-  // loadCSS('/pages/blocks/nav/nav.css');
-}
-
 /** @type {import('../block').BlockDecorator} */
-export default async function decorate($block) {
-  await decorateNav($block);
+export default async function decorate($block, _, doc) {
+  await loadLocalHeader();
+
+  const $header = doc.querySelector('header');
+  styleNav($header);
+
+  const iconEl = doc.querySelector('.app-name-and-icon');
+  if (iconEl) {
+    iconEl.addEventListener('click', mobileDropDown);
+  }
+
+  doc.querySelector('header').classList.add('appear');
 }

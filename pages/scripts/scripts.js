@@ -440,18 +440,16 @@ export async function loadLocalHeader() {
     $inlineHeader.childNodes.forEach((e, i) => {
       if (isNodeName(e, 'DIV') && !i) {
         const $p = createTag('div');
-        /* html */
-        const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
+        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
         $p.innerHTML = inner;
         e.parentNode.replaceChild($p, e);
       }
       if (isNodeName(e, 'P') && !i) {
-        /* html */
-        const inner = `<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
+        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
         e.innerHTML = inner;
       }
     });
-    $header.innerHTML = `<div>${$inlineHeader.innerHTML}</div>`;
+    $header.innerHTML = /* html */`<div>${$inlineHeader.innerHTML}</div>`;
     $inlineHeader.remove();
     document.querySelector('header').classList.add('appear');
   } else {
@@ -672,22 +670,20 @@ function handleSpecialBlock(blockName, ogBlockName) {
     document.getElementsByTagName('body')[0].classList.add('checklist-page');
   }
 
-  if (blockName === 'iframe'
-  || blockName === 'missiontimeline'
-  || blockName === 'missionbg') {
-    const missionPath = '/pages/blocks/mission-series/';
+  if (['iframe', 'missiontimeline', 'missionbg'].includes(blockName)) {
+    const msnPath = '/pages/blocks/mission-series/';
 
-    loadJSModule(`${missionPath}/background.js`);
-    loadJSModule(`${missionPath}/iframe.js`);
+    loadJSModule(`${msnPath}/background.js`);
+    loadJSModule(`${msnPath}/iframe.js`);
 
-    loadCSS(`${missionPath}/iframe.css`);
-    loadCSS(`${missionPath}/background.css`);
-    loadCSS(`${missionPath}/missiontimeline.css`);
+    loadCSS(`${msnPath}/iframe.css`);
+    loadCSS(`${msnPath}/background.css`);
+    loadCSS(`${msnPath}/missiontimeline.css`);
   }
 
-  if (ogBlockName.includes('list')) {
-    loadJSModule('/pages/scripts/render_spectrum_icons.js');
-  }
+  // if (ogBlockName.includes('list')) {
+  //   loadJSModule('/pages/scripts/render_spectrum_icons.js');
+  // }
 
   return { options, blockName };
 }
@@ -703,7 +699,7 @@ export function decorateBlocks(
     'downloadcallouts', 'cardcallouttitle',
     'cardcallouts', 'videocontent',
   ];
-  const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg', 'list'];
+  const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg'];
 
   $main.querySelectorAll(query).forEach(($block) => {
     const classes = Array.from($block.classList.values());
@@ -1064,9 +1060,7 @@ function setLCPTrigger(doc, postLCP) {
   }
 }
 
-export async function decorateDefault() {
-  const $main = document.querySelector('main');
-
+export async function decorateDefault($main) {
   loadCSS('/pages/styles/default.css', true, true);
   decorateTables();
   wrapSections('main>div');
@@ -1125,6 +1119,9 @@ export async function decorateDefault() {
 
 async function decoratePage() {
   lgr.debug('decorate');
+
+  const mainEl = document.querySelector('main');
+
   initializeNamespaces();
   setupTestMode();
   insertFooter();
@@ -1140,7 +1137,7 @@ async function decoratePage() {
     await loadTemplate(template);
   } else {
     lgr.debug('use:default');
-    decorateDefault();
+    decorateDefault(mainEl);
   }
 
   document.title = document.title.split('<br>').join(' ');
@@ -1150,7 +1147,6 @@ async function decoratePage() {
     emit('postLCP');
 
     if (!template) {
-      const mainEl = document.querySelector('main');
       loadBlocks(mainEl);
     }
     loadCSS('/pages/styles/lazy-styles.css');
