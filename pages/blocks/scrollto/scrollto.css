@@ -1,3 +1,7 @@
+main div.block.scrollto {
+	visibility: unset;
+}
+
 .scrollto-container > div {
   padding-top: 0 !important;
   padding-bottom: 3em !important;

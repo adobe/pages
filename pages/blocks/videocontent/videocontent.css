@@ -1,3 +1,7 @@
+main div.block.videocontent {
+	visibility: unset;
+}
+
 .videocontent > div {
   justify-content: space-between;
 }

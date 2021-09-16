@@ -1,3 +1,7 @@
+header .nav {
+	visibility: unset;
+}
+
 .nav .nav__section:first-of-type {
 	display: inline-flex;
 	align-items: center;

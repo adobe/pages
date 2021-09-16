@@ -1,3 +1,7 @@
+main div.block.sampleprojects {
+	visibility: unset;
+}
+
 .sampleprojects {
   display: flex;
   justify-content: space-between;
@@ -6,8 +10,6 @@
   max-width: 80%;
   margin: auto;
 }
-
-
 
 .sampleprojects > div:first-of-type {
   margin-bottom: 1em;

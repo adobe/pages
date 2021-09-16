@@ -1,3 +1,6 @@
+main div.block.callout {
+	visibility: unset;
+}
 
 .callout-container {
 	background: #F4F4F4;

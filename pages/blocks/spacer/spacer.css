@@ -1,3 +1,7 @@
+main div.block.spacer {
+	visibility: unset;
+}
+
 .spacer-container.lg {
 	height: 80px;
 }

@@ -1,3 +1,7 @@
+main div.block.clvideo {
+	visibility: unset;
+}
+
 .checklist-page main > .section-wrapper > div {
   max-width: 1400px;
   position: relative;

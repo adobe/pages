@@ -1,3 +1,7 @@
+main div.block.checklist {
+	visibility: unset;
+}
+
 .checklist-timeline {
   top: 50px;
   right: 0;

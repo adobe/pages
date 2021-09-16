@@ -1,5 +1,9 @@
 @import "//d22hhoe037sl7u.cloudfront.net/1.7/css/link_texting_gz.min.css";
 
+main div.block.linktexting {
+	visibility: unset;
+}
+
 .promptWrapper .linkTextingButton,
 .linkTextingWidget .linkTextingInput {
 	font-family: "adobe-clean",sans-serif !important;

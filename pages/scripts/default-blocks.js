@@ -17,32 +17,6 @@ import {
   toClassName,
 } from './scripts.js';
 
-const createVideoMarkUp = (videoAssets) => (
-  `
-    <div class="video">
-      <div class="video_thumbnail" style="background-image: url(${videoAssets.thumbnail})"></div>
-      <video preload="metadata" src="${videoAssets.video_url}" controls="true">
-        <source src="${videoAssets.video_url}" type="video/mpeg4>
-      </video>
-    </div>
-  `
-);
-
-export function contentAsset() {
-  const parent = document.querySelector('.videocontent div');
-  const videoParent = parent.querySelector('div:last-of-type');
-  const videoAssets = {
-    thumbnail: videoParent.querySelector('img').getAttribute('src'),
-    video_url: videoParent.querySelector('a').getAttribute('href'),
-  };
-  videoParent.querySelector('p:first-of-type').innerHTML = createVideoMarkUp(videoAssets);
-
-  document.querySelector('.video_thumbnail').addEventListener('click', () => {
-    document.body.classList.add('video-showing');
-    document.querySelector('.video video').play();
-  });
-}
-
 export function setExternalLinks() {
   if (!document.querySelectorAll('main a')) return;
   const links = document.querySelectorAll('main a');
@@ -97,61 +71,6 @@ export function equalizer($element) {
       });
     }
   }
-}
-
-export function decorateHero() {
-  const heroRoot = document.querySelector('.hero > div');
-  const heroParent = document.querySelector('.hero-container');
-  const heroContent = heroRoot.querySelector('div:nth-child(2)').innerHTML;
-  const videoEmbed = heroRoot.querySelector('div:first-of-type a').getAttribute('href');
-  let videoPlaying = false;
-  const videoPlaceholder = heroRoot.querySelector('div:first-of-type img').getAttribute('src');
-  let videoBackgroundElement = '';
-
-  if (heroRoot.childNodes.length === 3) {
-    videoBackgroundElement = heroRoot.querySelector('div:nth-child(3) img').getAttribute('src');
-  }
-
-  heroParent.innerHTML = '';
-
-  heroParent.innerHTML = `
-    <div>
-      <div class="hero__inner">
-        <div class="hero__content">
-          ${heroContent}
-        </div>
-
-        <div class="video" style="background-image: url(${videoBackgroundElement})";>
-          <div class="video-placeholder" style="background-image: url(${videoPlaceholder});">
-            <div class="video-playbtn">
-              <img src="/icons/playbutton.svg">
-            </div>
-
-            <video class="hero-video" src="${videoEmbed}" preload="metadata>
-              <source src="${videoEmbed}" type="video/mpeg4">
-            </video>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  function startVideo() {
-    const heroVideo = document.querySelector('.hero-video');
-    if (!videoPlaying) {
-      heroVideo.style.display = 'block';
-      heroVideo.setAttribute('controls', true);
-      setTimeout(() => {
-        heroVideo.play();
-      });
-    } else {
-      setTimeout(() => {
-        heroVideo.pause();
-      });
-    }
-    videoPlaying = !videoPlaying;
-  }
-  document.querySelector('.video-placeholder').addEventListener('click', startVideo);
 }
 
 export function decorateNextStep() {

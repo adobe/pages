@@ -1,3 +1,7 @@
+main div.block.transcript {
+	visibility: unset;
+}
+
 .transcript > div{
   display: none;
 }

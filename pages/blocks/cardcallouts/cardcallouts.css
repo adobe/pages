@@ -1,3 +1,7 @@
+main div.block.cardcallouts {
+	visibility: unset;
+}
+
 .cardcallouts {
   display: flex;
   justify-content: space-between;

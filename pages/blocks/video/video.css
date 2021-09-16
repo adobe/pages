@@ -1,3 +1,7 @@
+main div.block.video {
+	visibility: unset;
+}
+
 .video-container .video div div {
     position: relative;
     padding-bottom: 56.25%;

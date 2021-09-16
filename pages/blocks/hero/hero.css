@@ -1,3 +1,7 @@
+main div.block.hero {
+	visibility: unset;
+}
+
 .hero__inner {
   max-width: 100% !important;
   margin: auto;

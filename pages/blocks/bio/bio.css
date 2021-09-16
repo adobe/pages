@@ -1,3 +1,7 @@
+main div.block.bio {
+	visibility: unset;
+}
+
 main div.bio-container {
 	background-color: #eee;
 }

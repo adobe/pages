@@ -1,3 +1,7 @@
+main div.block.background {
+	visibility: unset;
+}
+
 main div.background-container {
     position: relative;
     background-position: center center;

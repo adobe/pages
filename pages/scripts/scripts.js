@@ -13,10 +13,8 @@
 /* eslint-disable no-console, import/no-cycle, consistent-return  */
 
 import {
-  contentAsset,
   decorateButtons,
   decorateEmbeds,
-  decorateHero,
   decorateNextStep,
   equalizer,
   linkInNewTab,
@@ -689,6 +687,7 @@ export function decorateBlocks(
     'scrollto', 'sectiontitle', 'hr',
     'downloadcallouts', 'cardcallouttitle',
     'cardcallouts', 'videocontent', 'scrolltop',
+    'hero', 'tutorials', 'list',
   ];
   const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg'];
 
@@ -1057,20 +1056,12 @@ export async function decorateDefault($main) {
   wrapSections('main>div');
   decorateBlocks($main);
 
-  if (document.querySelector('.hero-container')) {
-    decorateHero();
-  }
-
   if (document.querySelector('.next')) {
     decorateNextStep();
   }
 
   decorateButtons();
   setExternalLinks();
-
-  if (document.querySelector('.videocontent')) {
-    contentAsset();
-  }
 
   window.pages.decorated = true;
   appearMain();

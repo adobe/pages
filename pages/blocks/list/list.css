@@ -1,3 +1,7 @@
+main div.block.list {
+	visibility: unset;
+}
+
 .list-container.column p:first-of-type {
   margin-bottom: 2.5em;
 }

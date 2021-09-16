@@ -1,5 +1,9 @@
 @import url("/styles/legacy/styles.css");
 
+main div.block.form {
+	visibility: unset;
+}
+
 .form-container #wg-form {
 	max-width: 100%;
 }

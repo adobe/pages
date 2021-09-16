@@ -1,3 +1,7 @@
+main div.block.card {
+	visibility: unset;
+}
+
 main .card-container.fourstack > div {
   max-width: 1200px; 
 }

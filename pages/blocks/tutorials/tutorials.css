@@ -1,8 +1,11 @@
+main div.block.tutorials {
+	visibility: unset;
+}
+
 main .tutorials-container > div {
   max-width: 1200px;
   padding: 5em 0em;
 }
-
 
 .tutorials p {
   margin: 0;
