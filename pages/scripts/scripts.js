@@ -14,14 +14,10 @@
 
 import {
   contentAsset,
-  // decorateBackgroundImageBlocks,
   decorateButtons,
   decorateEmbeds,
   decorateHero,
-  // decorateLinkTexting,
-  // decorateNav,
   decorateNextStep,
-  // decorateVideoBlocks,
   equalizer,
   linkInNewTab,
   setExternalLinks,
@@ -666,7 +662,6 @@ function handleSpecialBlock(blockName, ogBlockName) {
   }
 
   if (ogBlockName.includes('checklist')) {
-    // loadJSModule('/pages/blocks/checklist/checklist.js');
     document.getElementsByTagName('body')[0].classList.add('checklist-page');
   }
 
@@ -681,10 +676,6 @@ function handleSpecialBlock(blockName, ogBlockName) {
     loadCSS(`${msnPath}/missiontimeline.css`);
   }
 
-  // if (ogBlockName.includes('list')) {
-  //   loadJSModule('/pages/scripts/render_spectrum_icons.js');
-  // }
-
   return { options, blockName };
 }
 
@@ -697,7 +688,7 @@ export function decorateBlocks(
     'callout', 'background', 'spacer',
     'scrollto', 'sectiontitle', 'hr',
     'downloadcallouts', 'cardcallouttitle',
-    'cardcallouts', 'videocontent',
+    'cardcallouts', 'videocontent', 'scrolltop',
   ];
   const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg'];
 
@@ -1074,13 +1065,8 @@ export async function decorateDefault($main) {
     decorateNextStep();
   }
 
-  // decorateNav();
-  // decorateBackgroundImageBlocks();
-  // decorateVideoBlocks();
-
   decorateButtons();
   setExternalLinks();
-  // decorateLinkTexting();
 
   if (document.querySelector('.videocontent')) {
     contentAsset();

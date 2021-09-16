@@ -14,8 +14,6 @@
 
 import {
   createTag,
-  // loadCSS,
-  // loadLocalHeader,
   toClassName,
 } from './scripts.js';
 
@@ -44,73 +42,6 @@ export function contentAsset() {
     document.querySelector('.video video').play();
   });
 }
-
-// function getImageName(appName) {
-//   let iconName = '';
-//   if (appName.toLowerCase().includes('adobe')) {
-//     iconName = appName.toLowerCase().split('adobe')[1];
-//   } else {
-//     iconName = appName.toLowerCase();
-//   }
-//   return `/icons/${iconName.split(' ').join('')}`;
-// }
-
-// export function styleNav() {
-//   const parent = document.querySelector('header');
-//   const $appIcon = parent.querySelector('img');
-//   if (!$appIcon) return;
-//   const appIcon = $appIcon.src;
-//   const appName = parent.querySelector('a').innerHTML;
-//   const appNameLink = parent.querySelector('a').getAttribute('href');
-//   const listItems = parent.querySelectorAll('ul li');
-//   let nav = '';
-//   let carrot = '';
-
-//   if (listItems) {
-//     if (listItems.length >= 1) {
-//       nav = parent.querySelector('ul').outerHTML;
-//       carrot = `
-//         <div class="menu-carrot">
-//           <img src='/icons/carrot.svg'>
-//         </div>
-//       `;
-//     }
-//   }
-
-//   parent.innerHTML = `
-//     <div class="section-wrapper">
-//       <div class="nav">
-//         <div class="nav__section">
-//           <div class="app-name-and-icon">
-//             <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
-//             <div class="app-icon desktop">
-//               <a href="${appNameLink}" target="_blank">
-//                 <img src="${getImageName(appName)}.svg" alt="${appName}">
-//               </a>
-//             </div>
-//             <div class="app-name mobile">
-//               ${appName}
-//             </div>
-//             <div class="app-name desktop">
-//               <a href="${appNameLink}" target="_blank">${appName}</a>
-//             </div>
-//             ${carrot}
-//           </div>
-//         </div>
-//         <nav>
-//           ${nav}
-//         </nav>
-//       </div>
-//     </div>
-//   `;
-
-//   if (document.querySelector('.nav-container')) {
-//     const $nav = document.querySelector('.nav-container');
-//     if ($nav.querySelector('div').children.length === 0) {
-//       $nav.remove();
-//     }
-//   }
-// }
 
 export function setExternalLinks() {
   if (!document.querySelectorAll('main a')) return;
@@ -246,16 +177,6 @@ export function decorateNextStep() {
   `;
 }
 
-// export function mobileDropDown() {
-//   // event.preventDefault();
-//   const body = document.getElementsByTagName('body')[0];
-//   if (!body.classList.contains('nav-showing')) {
-//     body.classList.add('nav-showing');
-//   } else {
-//     body.classList.remove('nav-showing');
-//   }
-// }
-
 export function decorateEmbeds() {
   document.querySelectorAll('a[href]').forEach(($a) => {
     if ($a.textContent.startsWith('https://')) {
@@ -318,53 +239,6 @@ export function decorateTables() {
     $table.parentNode.replaceChild($div, $table);
   });
 }
-
-// function readBlockConfig($block) {
-//   const config = {};
-//   $block.querySelectorAll(':scope>div').forEach(($row) => {
-//     if ($row.children && $row.children[1]) {
-//       const name = toClassName($row.children[0].textContent);
-//       const $a = $row.children[1].querySelector('a');
-//       let value = '';
-//       if ($a) value = $a.href;
-//       else value = $row.children[1].textContent;
-//       config[name] = value;
-//     }
-//   });
-//   return config;
-// }
-
-// export function decorateBackgroundImageBlocks() {
-//   document.querySelectorAll('main div.background-image').forEach(($bgImgDiv) => {
-//     const $images = $bgImgDiv.querySelectorAll('img');
-//     const $lastImage = $images[$images.length - 1];
-
-//     const $section = $bgImgDiv.closest('.section-wrapper');
-//     if ($section && $lastImage) {
-//       $section.style.backgroundImage = `url(${$lastImage.src})`;
-//       let $caption = $lastImage.nextElementSibling;
-//       if ($caption) {
-//         if ($caption.textContent === '') $caption = $caption.nextElementSibling;
-//         if ($caption) $caption.classList.add('background-image-caption');
-//       }
-//       $lastImage.remove();
-//     }
-//   });
-// }
-
-// export async function decorateNav() {
-//   await loadLocalHeader();
-//   styleNav();
-//   const navEl = document.querySelector('.nav');
-//   if (navEl) {
-//     const iconEl = document.querySelector('.app-name-and-icon');
-//     if (iconEl) {
-//       iconEl.addEventListener('click', mobileDropDown);
-//     }
-//   }
-//   document.querySelector('header').classList.add('appear');
-//   loadCSS('/pages/blocks/nav/nav.css');
-// }
 
 export function decorateButtons() {
   document.querySelectorAll('main a').forEach(($a) => {
