@@ -12,15 +12,55 @@
 
 import { loadLocalHeader } from '../../scripts/scripts.js';
 
-function getImageName(appName) {
+const productIcons = [
+  'adobe',
+  'characteranimator',
+  'illustrator',
+  'photoshopcamera',
+  'adobelive',
+  'indesign',
+  'photoshopexpress',
+  'aero',
+  'creativecloud',
+  'lightroom-classic',
+  'aftereffects',
+  'lightroom',
+  'dimension',
+  'premiere',
+  'behance',
+  'experiencecloud',
+  'modeler',
+  'premiererush',
+  'stock',
+  'rush',
+  'fresco',
+  'xd',
+  'character',
+  'general',
+  'photoshop',
+];
+
+/**
+ * Try to determine a valid icon to use,
+ * from the provided block data, and known existing icons.
+ */
+function getImageName(pAppName) {
+  const appName = pAppName.toLowerCase();
+  const parsedAppName = appName.split(' ').join('');
   let iconName = '';
-  if (appName.toLowerCase().includes('adobe')) {
-    iconName = appName.toLowerCase().split('adobe')[1];
+  if (appName.includes('adobe')) {
+    iconName = appName.split('adobe')[1];
   } else {
-    // iconName = appName.toLowerCase();
-    iconName = window.pages.product || appName.toLowerCase();
+    for (const icon of productIcons) {
+      if (icon === appName || icon === parsedAppName) {
+        iconName = appName;
+        break;
+      }
+    }
+    iconName = iconName !== '' ? iconName : window.pages.product;
   }
-  return `/icons/${iconName.split(' ').join('')}`;
+
+  return `/icons/${iconName.split(' ').join('')}.svg`;
 }
 
 function styleNav($header) {
@@ -30,6 +70,13 @@ function styleNav($header) {
   const appName = $header.querySelector(':scope a').innerHTML;
   const appNameLink = $header.querySelector(':scope a').getAttribute('href');
   const listItems = $header.querySelectorAll(':scope ul li');
+  const $favicon = document.getElementById('favicon');
+  const iconPath = getImageName(appName);
+
+  if (iconPath && iconPath !== $favicon.href) {
+    $favicon.href = iconPath;
+  }
+
   let nav = '';
   let carrot = '';
 
@@ -52,7 +99,7 @@ function styleNav($header) {
             <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
             <div class="app-icon desktop">
               <a href="${appNameLink}" target="_blank">
-                <img src="${getImageName(appName)}.svg" alt="${appName}">
+                <img src="${iconPath}" alt="${appName}">
               </a>
             </div>
             <div class="app-name mobile">
