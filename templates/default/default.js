@@ -13,7 +13,7 @@
 import contentAsset from './content-asset.js';
 import scrollElement from './scrollto.js';
 import calloutcardstitle from './calloutcardstitle.js';
-
+import { scrollToTop, styleScrollTopButton } from './scrollTop.js';
 // import {
 //   appearMain,
 //   createTag,
@@ -534,6 +534,11 @@ async function decoratePage() {
 
   if (document.querySelector('.cardcallouttitle-container')) {
     calloutcardstitle();
+  }
+
+  if (document.querySelector('.scrolltop')) {
+    styleScrollTopButton();
+    document.querySelector('.scrolltop').addEventListener('click', scrollToTop);
   }
 
   window.pages.decorated = true;
