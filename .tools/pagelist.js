@@ -139,6 +139,6 @@ export default [
   '/static/twp3/background-elements/index',
   '/stock/en/artisthub/index',
   '/stock/en/advocates/index',
-  '/xd/en/xd-plugin-download/index',
-  '/xd/en/xd-file-download/index',
+  // '/xd/en/xd-plugin-download/index', // redirect
+  // '/xd/en/xd-file-download/index', // redirect
 ];

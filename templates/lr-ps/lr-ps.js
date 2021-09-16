@@ -121,7 +121,6 @@ async function insertSteps() {
 
   if ($steps) {
     let count = -1;
-    let addToCategory = '';
     const steps = await fetchSteps();
     const stepProms = steps.map(async (step, i) => {
       let segment = '';
@@ -134,8 +133,8 @@ async function insertSteps() {
         }
         segment += `<div class="section-title">${currentHeader}</div><div class="category-steps">`;
       }
-      addToCategory += `<div class="card" onclick="window.location='step?${i + 1}'">
-                <div class='img' style="background-image: url(${imageUrlFetcher(step.Thumbnail)})">
+      segment += `<div class="card" onclick="window.location='step?${i + 1}'">
+                <div class='img' style="background-image: url(${await imageUrlFetcher(step.Thumbnail)})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
                     <defs>
                       <style>
@@ -169,7 +168,7 @@ async function insertSteps() {
     });
     // let markup = `${addToCategory}`
     await Promise.all(stepProms).then((segments) => {
-      addToCategory += segments.join('');
+      const addToCategory = segments.join('');
       $sectionTitles.innerHTML = '';
       $steps.innerHTML = addToCategory;
     });
