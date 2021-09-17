@@ -1,0 +1,289 @@
+/* all forms with class .form */
+.has-wg-form .submit-el button,
+button[type=submit],
+input[type=submit] {
+	font-family: "Adobe Clean", adobe-clean, sans-serif;
+	color: #fff;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: #1473E6;
+	border: none;
+	padding: 0 20px;
+	margin-top: 40px;
+	font-size: 16px;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+form label {
+	color: #6E6E6E;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+/* form label + textarea {
+	margin: 
+} */
+main div.form button,
+main div.form input,
+main div.form select,
+main div.form textarea {
+	font-family: "Adobe Clean", adobe-clean, sans-serif;
+}
+
+main .section-wrapper div.form {
+		background-color: #fafafa;
+		padding: 20px;
+		margin: auto;
+		width: 100%;
+		max-width: none;
+		margin: 50px 0;
+}
+	
+main div.form p {
+		margin: 30px 0;
+}
+	
+main div.form a:any-link {
+		border-radius: 20px;
+		background-color: #1473e6;
+		padding: 0px 20px;
+		text-decoration: none;
+		color: white;
+		font-weight: 800;
+		display: inline-block;
+		font-size: 16px;
+		line-height: 40px;
+		margin: auto;
+		display: inline-block;
+		text-align: center;
+		cursor: pointer;
+		min-width: 180px;
+}
+	
+main div.form form {
+		max-width: 600px;
+		margin: auto;
+		text-align: left;
+}
+
+main div.form label {
+	color: #6E6E6E;
+}
+
+main div > div.slide-form form {
+	max-width: unset;
+}
+
+main div.form-container {
+	max-width: 692px;
+	margin: auto;
+}
+
+main div.form-container {
+	margin-bottom: unset;
+}
+
+main div.form-container .input-el, 
+main div.form-container .select-el,
+main div.form-container .radio-el {
+	margin-bottom: 40px;
+}
+
+main div.form-container label,
+main div.form-container .radio-el > span,
+main div.form-container .input-el > span {
+	display: block;
+	color: #6E6E6E;
+	font-size: 16px;
+	line-height: 20px;
+}
+
+main div.form-container select {
+	border: 1px solid #8E8E8E;
+	border-radius: 4px;
+		-webkit-appearance: none;
+		display: block;
+		flex: none;
+	margin: 3px 0 0 0;
+	padding: 5px 15px;
+}
+
+main div.form-container input[type=radio],
+main div.form-container input[type=checkbox] {
+	border: 2px solid #8E8E8E;
+		appearance: none;
+		width: 16px;
+		height: 16px;
+		display: block;
+		flex: none;
+	margin: 3px 0 0 0;
+}
+
+main div.form-container input[type=checkbox] {
+	border-radius: 2px;
+	position: relative;
+}
+
+main div.form-container input[type=radio] {
+		border-radius: 100%;
+}
+
+main div.form-container input[type=checkbox]:focus,
+main div.form-container input[type=radio]:focus {
+	outline: none;
+}
+
+main div.form-container input[type=checkbox]:checked {
+	outline: none;
+	border-color: transparent;
+	background: #1473E6;
+}
+
+main div.form-container input[type=checkbox]:checked:before {
+	content: " ";
+	background: url(/icons/checkbox.svg) center center no-repeat;
+	background-size: 12px 12px;
+	top: -2px;
+		left: -2px;
+		width: 16px;
+		height: 16px;
+		display: block;
+		position: relative;
+}
+
+main div.form-container input[type=radio]:checked {
+	outline: none;
+	border: 5px solid #1473E6;
+}
+
+main div.form-container .radio-option {
+	display: flex;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+main div.form-container .radio-option label {
+	margin-left: 12px;
+	color: #4B4B4B;
+}
+
+main div.form-container .radio-header {
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+main div.form-container button[type=submit] {
+	margin: auto;
+	font-family: "Adobe Clean", adobe-clean, sans-serif;
+	color: #fff;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 20px;
+	background-color: #1473E6;
+	border: none;
+	padding: 0 20px;
+	margin-top: 40px;
+	display: block;
+}
+
+
+main input,
+main textarea,
+main select {
+		font-family: "Adobe Clean", "adobe-clean", sans-serif;
+		font-size: 16px;
+		line-height: 24px;	
+		box-sizing: border-box;
+}
+	
+main input[type=text],
+main textarea,
+main input[type=email] {
+		width: 100%;
+		padding: 5px;
+		border-radius: 4px;
+		border: 1px solid #CACACA;
+		margin: 5px 0;
+		color: #4B4B4B;
+}
+
+main input[type=text]::placeholder, main textarea::placeholder {
+	color: #8E8E8E;
+}
+
+main input[type=text]:hover::placeholder, main textarea:hover::placeholder {
+	color: #2C2C2C;
+}
+
+main input[type=text]:hover, main textarea:hover {
+	border-color: rgb(179,179,179);
+}
+	
+main input[type=radio] {
+		margin: 5px 0;
+}
+
+
+.wg-form-container {
+	padding-top: 1em;
+	padding-bottom: 2em;
+	max-width: 900px;
+	margin: auto;
+	text-align: left;
+}
+
+.input-el,
+.text-el,
+.radio-el {
+	margin-bottom: 1em;
+}
+
+.input-el input[type="text"],
+.input-el input[type="email"],
+.text-el textarea {
+	width: calc(100% - 10px);
+}
+
+.radio-options-parent {
+	padding: 1em 0em 1em 0em;
+}
+
+.radio-option {
+	margin-bottom: 0.6em;
+}
+
+.radio-option:last-of-type {
+	margin-bottom: 0em;
+}
+
+.submit-el {
+	text-align: center;
+}
+
+.submit-el button {
+	cursor: pointer;
+	outline: none;
+	border: none;
+	border-radius: 16px;
+	-webkit-appearance: none;
+	border: 2px solid #1473e6;
+	background: #1473e6;
+	color: white;
+	padding: 4px 14px;
+	min-width: 72px;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.submit-el button:hover {
+	background: #0d66d0;
+	border-color: #0d66d0;
+}
+
+.has-wg-form main .section-wrapper:first-of-type {
+	padding: 2em 0em;
+}

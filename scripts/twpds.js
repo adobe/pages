@@ -10,14 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   loadLocalHeader,
-// } from '../scripts.js';
-/* global addDefaultClass, appearMain, classify, createTag, loadLocalHeader, */
+import {
+  addDefaultClass,
+  appearMain,
+  classify,
+  createTag,
+  loadLocalHeader,
+} from '../pages/scripts/scripts.js';
 
 /* eslint-disable import/prefer-default-export */
 
@@ -48,7 +47,7 @@ function decorateVideoSections() {
     });
 
     $videoDiv.innerHTML = `<div class="video"><div id="placeholder" class="button">
-          <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
+          <svg xmlns="http://www.w3.org/2000/svg"><use href="/icons/twp3/play.svg#icon"></use></svg>
           </div>
           <video id='video' class="hidden" preload="metadata" src="${href}" tabindex="0">
           <source src="${href}" type="video/mpeg4">
@@ -94,7 +93,7 @@ async function insertSteps() {
                   <div class="card-greatfor"><ul>${greatfor}</ul></div>
               </div>
               <div class="card-img" style="background-image: url(${src})">
-              <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
+              <svg xmlns="http://www.w3.org/2000/svg"><use href="/icons/twp3/play.svg#icon"></use></svg>
               </div>
               <div class="card-text">
                   <div><h4>${title}</h4>

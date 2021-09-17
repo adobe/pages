@@ -10,25 +10,15 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   appearMain,
-//   createTag,
-//   debounce,
-//   loadCSS,
-//   loadJSModule,
-//   loadLocalHeader,
-//   toClassName,
-// } from '../../scripts.js';
-/*
-global
+import {
   appearMain,
   createTag,
   debounce,
   loadCSS,
   loadJSModule,
   loadLocalHeader,
-  toClassName
-*/
+  toClassName,
+} from '../../pages/scripts/scripts.js';
 
 function styleNav() {
   const parent = document.querySelector('header');
@@ -393,7 +383,7 @@ function decorateVideoBlocks() {
   });
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   decorateTables();
   wrapSections('main>div');
   decorateBlocks();
@@ -439,10 +429,4 @@ async function decoratePage() {
       });
     }
   });
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

@@ -1,0 +1,12 @@
+*.d.ts
+.*
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+package-lock.json
+package.json
+README.md
+.gitignore
+.eslintrc.js
+test/
+yarn.lock
+karma.conf.js

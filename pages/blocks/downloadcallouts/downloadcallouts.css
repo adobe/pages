@@ -1,0 +1,66 @@
+main div.block.downloadcallouts {
+	visibility: unset;
+}
+
+.downloadcallouts {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.downloadcallouts > div {
+  text-align: left;
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.downloadcallouts h3 {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.downloadcallouts p {
+  font-size: 16px;
+}
+
+.downloadcallouts > div div:last-of-type {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.downloadcallouts > div div:last-of-type img {
+  width: 36px;
+  margin-right: 10px;
+}
+
+.downloadcallouts > div div:last-of-type a {
+  border: none;
+  background: transparent !important;
+  color: #1473E6 !important;
+  padding: 0;
+}
+
+.downloadcallouts > div div:last-of-type a:last-of-type {
+  position: relative;
+  top: -4px;
+}
+
+@media(min-width: 568px) {
+  .downloadcallouts {
+    flex-wrap: wrap;
+  }
+  
+  .downloadcallouts > div {
+    margin-bottom: 32px;
+    width: 45%;
+  }
+  
+}
+
+@media (min-width: 1024px) {
+  .downloadcallouts > div {
+    margin-bottom: 32px;
+    width: 22%;
+  } 
+}

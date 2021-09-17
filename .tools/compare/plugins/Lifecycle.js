@@ -12,7 +12,7 @@
 
 // @ts-check
 
-import { ContextFactory } from "./context.js";
+import { ContextFactory } from './Context.js';
 
 /**
  * Aliases
@@ -35,45 +35,59 @@ export class Lifecycle {
   #contexts;
 
   /**
-   * @param {CompareOptions} options 
-   * @param {string} rootDir
+   * @type {CompareOptions}
    */
-  constructor(options, rootDir) {
-    this.#factory = new ContextFactory(options, rootDir);
+  #options;
+
+  /**
+   * @type {any}
+   */
+  #browser;
+
+  /**
+   * @param {CompareOptions} options
+   * @param {string} rootDir
+   * @param {any} browser
+   */
+  constructor(options, rootDir, browser) {
+    this.#options = options;
+    this.#browser = browser;
+    this.#factory = new ContextFactory(options, rootDir, browser);
     this.#contexts = {};
   }
 
   /**
    * Get arguments array for lifecycle hook.
-   * 
-   * @param {PluginContext} ctx 
-   * @param {string} hook 
-   * @param {CompareOptions} options 
+   *
+   * @param {PluginContext} ctx
+   * @param {string} hook
    * @returns {any[]}
    */
-  argsForHook(ctx, hook, options) {
-    switch(hook) {
-      case 'run': return [options.input];
+  argsForHook(ctx, hook) {
+    switch (hook) {
+      case 'run': return [this.#options.input];
       default: return [];
     }
   }
 
   /**
    * Execute a lifecycle hook.
-   * 
+   *
    * @param {string} hook
-   * @param {CompareOptions} options 
    */
-  async executeHook(hook, options) {
-    for (let plugin of options.plugins) {
-      if(hook in plugin) {
+  async executeHook(hook) {
+    for (const plugin of this.#options.plugins) {
+      if (hook in plugin) {
         let ctx = this.#contexts[plugin.name];
-        if(!ctx) {
+        if (!ctx) {
           ctx = this.#factory.makeContext(plugin);
           this.#contexts[plugin.name] = ctx;
         }
-        await plugin[hook].call(ctx, ...this.argsForHook(ctx, hook, options));
+        // eslint-disable-next-line no-await-in-loop
+        await plugin[hook].call(ctx, ...this.argsForHook(ctx, hook));
       }
     }
   }
 }
+
+export default Lifecycle;

@@ -10,19 +10,17 @@
  * governing permissions and limitations under the License.
  */
 
-// TODO: Possibly remove this, along with the unused functions
-// First figure out what script is loaded at the end, and whether it's using these locals
+// TODO: remove unused functions
 /* eslint-disable no-unused-vars */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   createTag,
-//   debounce,
-//   loadJSModule,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/* global addDefaultClass, appearMain, createTag, debounce, loadJSModule, loadLocalHeader */
+import {
+  addDefaultClass,
+  appearMain,
+  createTag,
+  debounce,
+  loadJSModule,
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 async function submitSheetForm($form, sheetid, thankyou) {
   const formsink = 'https://script.google.com/macros/s/AKfycbxWFwI-qExw0Tg_LJvdisSYODFw35m3L8M5HdumPOufmArmRIEh/exec';
@@ -41,7 +39,7 @@ async function submitSheetForm($form, sheetid, thankyou) {
       window.location = thankyou;
     } else {
       alert('Form Submission failed.');
-      console.log(`form submission error: ${json.description}`);
+      console.error(`form submission error: ${json.description}`);
     }
   }
 }
@@ -52,7 +50,6 @@ function createButtonCta(element) {
   button.forEach(($link) => {
     if ($link.innerText.includes('[cta')) {
       const ctaStrings = $link.innerText.split('[')[1].split(']')[0];
-      console.log(ctaStrings);
       $link.setAttribute('class', `button ${ctaStrings}`);
       $link.innerText = $link.innerText.split('[')[0];
     }
@@ -258,7 +255,7 @@ function paramHelper() {
   }
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
   wrapSections('main>div');
   await loadLocalHeader();
@@ -267,12 +264,5 @@ async function decoratePage() {
   window.pages.decorated = true;
   paramHelper();
   appearMain();
+  loadJSModule('/templates/cc-growth/icons.js');
 }
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
-}
-
-loadJSModule('../../templates/cc-growth/icons.js');

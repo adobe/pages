@@ -1,0 +1,11 @@
+main div.block.transcript {
+	visibility: unset;
+}
+
+.transcript > div{
+  display: none;
+}
+
+.transcript > div:first-of-type {
+  display: block;
+}

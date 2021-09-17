@@ -10,13 +10,11 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   appearMain,
-//   createTag,
-//   insertLocalResource,
-//   toClassName,
-// } from '../../scripts.js';
-/* global appearMain, createTag, insertLocalResource, toClassName */
+import {
+  createTag,
+  insertLocalResource,
+  toClassName,
+} from '../../pages/scripts/scripts.js';
 
 async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
@@ -65,7 +63,27 @@ function decorateHeroSection() {
       $section.append($imgWrapper);
       const $p = $firstSectionImage.parentNode.nextElementSibling;
       $imgWrapper.append($firstSectionImage.parentNode);
-      $imgWrapper.append($p);
+      if ($p) $imgWrapper.append($p);
+    }
+  }
+}
+
+function decorateArtistBioHeroSection() {
+  const $firstSectionImage = document.querySelector('main div.section-wrapper>div>p img');
+  if ($firstSectionImage) {
+    const $section = $firstSectionImage.closest('.section-wrapper');
+    $section.classList.add('full-width');
+    const $div = $firstSectionImage.closest('div');
+    $section.classList.add('hero-section', 'artist-bio-hero-section', 'white-text');
+    $div.classList.add('text');
+    if ($div.children[1].children[0].tagName.toUpperCase() === 'IMG') {
+      $div.classList.add('image');
+    } else {
+      const $imgWrapper = createTag('div', { class: 'image' });
+      $section.append($imgWrapper);
+      const $p = $firstSectionImage.parentElement.nextElementSibling;
+      $imgWrapper.append($firstSectionImage.parentNode);
+      if ($p) $imgWrapper.append($p);
     }
   }
 }
@@ -115,15 +133,22 @@ function decorateColors() {
 }
 
 function decorateGrid() {
+  const meetGrids = Array.from(document.querySelectorAll('.embed-internal-meettheartists .grid'));
   document.querySelectorAll('main div>.grid').forEach(($grid) => {
     $grid.closest('.section-wrapper').classList.add('full-width');
+
+    if (meetGrids.includes($grid)) {
+      $grid.classList.add('meetgrid');
+    }
 
     const rows = Array.from($grid.children);
     rows.forEach(($row) => {
       const cells = Array.from($row.children);
       cells[0].classList.add('image');
       cells[1].classList.add('text');
-      cells[1].style.backgroundColor = `${cells[2].textContent}80`;
+      if (!meetGrids.includes($grid)) {
+        cells[1].style.backgroundColor = `${cells[2].textContent}80`;
+      }
       cells[2].remove();
       const $a = cells[1].querySelector('a');
       if ($a) {
@@ -177,7 +202,10 @@ function decorateColumns() {
           $cell.classList.add('text');
           if ($cell.textContent === '') {
             $cell.remove();
-            arr[i - 1].classList.add('merged');
+            const prev = arr[i - 1];
+            if (prev) {
+              prev.classList.add('merged');
+            }
           }
         }
       });
@@ -361,6 +389,17 @@ function decorateContactUs() {
   }
 }
 
+function decorateVideoBlocks() {
+  document.querySelectorAll('main .video a[href]').forEach(($a) => {
+    const videoLink = $a.href;
+    let $video = $a;
+    if (videoLink.includes('tv.adobe.com')) {
+      $video = createTag('iframe', { src: videoLink, class: 'embed tv-adobe' });
+    }
+    $a.parentElement.replaceChild($video, $a);
+  });
+}
+
 function addAccessibility() {
   try {
     const url = window.location.pathname;
@@ -457,7 +496,16 @@ export function webpPolyfill(element) {
   }
 }
 
-async function decoratePage() {
+function decorateArtistBioBody() {
+  document.querySelector('body').classList.add('artist-bio');
+}
+
+function searchPath(pathPart) {
+  const ps = window.location.pathname.split('/');
+  return ps.includes(pathPart);
+}
+
+export default async function decoratePage() {
   decorateTables();
   checkWebpFeature(() => {
     webpPolyfill(document);
@@ -466,7 +514,15 @@ async function decoratePage() {
   wrapSections('main>div');
   wrapSections('footer>div');
   decorateHeroCarousel();
-  decorateHeroSection();
+
+  if (searchPath('artists')) {
+    decorateArtistBioHeroSection();
+    decorateArtistBioBody();
+  } else {
+    decorateHeroSection();
+  }
+
+  decorateVideoBlocks();
   decorateParallax();
   decorateOverlay();
   decorateInternalAdvocates();
@@ -476,13 +532,9 @@ async function decoratePage() {
   decorateButtons();
   decorateFaq();
   window.pages.decorated = true;
-  appearMain();
+  // appearMain();
   decorateContactUs();
   addAccessibility();
-}
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
+  document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
 }

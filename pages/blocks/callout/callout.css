@@ -1,0 +1,115 @@
+main div.block.callout {
+	visibility: unset;
+}
+
+.callout-container {
+	background: #F4F4F4;
+}
+
+.callout {
+	padding: 55px 0px;
+	max-width: 560px;
+	width: 90%;
+	margin: auto;
+  display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.callout img {
+	width: 100%;
+}
+
+.callout > div {
+	background: #ffffff;
+	font-size: 15px;
+	line-height: 1.6;
+	color: #505050;
+	width: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+	border: 1px solid #EAEAEA;
+  box-sizing: border-box;
+	text-align: left;
+  margin-bottom: 2em;
+}
+
+.callout > div > div:first-of-type {
+	margin-bottom: 24px;
+}
+
+.callout > div > div:last-of-type {
+	padding: 18px 24px;
+}
+
+.callout > div h3 {
+	font-size: 19px;
+	margin: 0px 0px 8px 0px;
+}
+
+.callout p:last-of-type {
+	border-top: 1px solid #ddd;
+	text-align: right;
+}
+
+.callout p:last-of-type a {
+	margin-top: 16px;
+	display: inline-block;
+	font-size: 17px;
+	color: #505050;
+	border: 2px solid #505050;
+	border-radius: 40px;
+	padding: 6px 14px;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.callout p a {
+	border: none;
+	padding: 0;
+	display: inline;
+}
+
+@media(min-width: 590px) {
+
+	.callout > div > div:first-of-type {
+    margin-bottom: 0px;
+	}
+	
+	.callout-container.three .callout > div {
+		width: 31%;
+	}
+
+	.callout-container.three .callout {
+		max-width: 900px;
+	}
+	
+	.callout {
+		padding: 55px 0px;
+		width: 90%;
+		margin: auto;
+		display: flex;
+		flex-direction: row;	
+	}
+	
+	.callout > div {
+		width: 48%;
+    max-width: 260px;
+		align-items: center;
+	}
+	
+	.callout > div h3 {
+		font-size: 16px;	
+	}
+	
+	.callout > div p  {
+		font-size: 14px;
+	}
+	
+	.callout > div p:last-of-type a {
+		font-size: 14px;
+	}
+	
+}

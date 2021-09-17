@@ -10,23 +10,15 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   externalLinks,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/*
-global
+import {
   addDefaultClass,
   appearMain,
   classify,
   createTag,
   externalLinks,
-  loadLocalHeader
-*/
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
+import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
@@ -139,7 +131,6 @@ async function insertSteps() {
     const steps = await fetchSteps();
     let html = '';
     steps.forEach((step, i) => {
-      console.log(i);
       let stepPrefix;
       const number = parseInt(i, 10) + 1;
       if (number === steps.length) {
@@ -201,7 +192,11 @@ async function decorateStep() {
   $image.setAttribute('class', 'image');
   const $placeholder = document.createElement('img');
   $image.appendChild($placeholder);
-  $placeholder.setAttribute('src', '/static/lightroom-classic/gif-placeholder.png');
+  // TODO: make the placeholder an svg
+  // OR, even better, make it css and loaded with the template
+  hashPathOf('/static/lightroom-classic/gif-placeholder.png').then((href) => {
+    $placeholder.setAttribute('src', href);
+  });
 
   // $main.setAttribute('class', 'appear');
   const $content = document.createElement('div');
@@ -266,7 +261,6 @@ async function decorateStep() {
   const descContent = metadata + trimmedDesc.split(/[.?!;]/).filter((sentence) => sentence).map((sentence) => `<p>${sentence}.</p>`).join('');
   $descHolder.innerHTML = descContent;
 
-  // console.log(currentStep.Image)
   const $img = document.createElement('img');
   $image.appendChild($img);
   $img.setAttribute('src', currentStep.Image);
@@ -294,8 +288,9 @@ async function decorateHome() {
   await insertSteps();
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
+  setBackgroundImage('body.step', '/static/lightroom-classic/progress-circle.gif');
 
   await loadLocalHeader();
 
@@ -332,10 +327,4 @@ async function decoratePage() {
   window.pages.decorated = true;
   document.body.classList.add('loaded');
   appearMain();
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

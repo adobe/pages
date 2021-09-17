@@ -13,14 +13,19 @@
 /* eslint-disable import/no-extraneous-dependencies, no-console */
 
 import yargs from 'yargs';
-import { LocalSync } from './content-sync/index.js';
+import { LocalSync } from './content-sync/content-sync.js';
 
 const { argv } = yargs(process.argv);
 
 /**
  * @example
  * ```sh
- * npm run sync:content -- "/Volumes/GoogleDrive/My Drive/pages" [--glob="*.*"]
+ * npm run sync:content -- "/Volumes/GoogleDrive/My Drive/pages" \
+ *  [--glob="*.*"] \
+ *  [--branch="main"] \
+ *  [--env="preview"] \
+ *  [--owner="adobe"] \
+ *  [--repo="pages"]
  * ```
  */
 
@@ -48,7 +53,7 @@ function getOpt(opt, required = true, type = 'string') {
   const startTime = Date.now();
 
   // positional
-  const rootPath = argv._[0];
+  const rootPath = argv._[2];
   if (typeof rootPath !== 'string') {
     console.error('Invalid root path.');
     process.exit(1);
@@ -81,14 +86,17 @@ function getOpt(opt, required = true, type = 'string') {
     process.stdout.write('.');
   });
 
-  sync.then(({ failed }) => {
+  return sync.then(({ failed, synced }) => {
     process.stdout.write('\n');
+    const fLen = failed.length;
+    const sLen = synced.length;
+
     if (failed && failed.length > 0) {
-      console.error(`❌ ${failed.length} requests failed: \n ${JSON.stringify(failed, undefined, 2)}`);
+      console.error(`❌ ${fLen}/${sLen + fLen} requests failed: \n ${JSON.stringify(failed, undefined, 2)}`);
       process.exit(1);
     }
 
     const dur = Date.now() - startTime;
-    console.log(`✨ Done in ${dur / 1000}s`);
+    console.log(`✨ Synced ${sLen} files in ${dur / 1000}s`);
   });
 })();

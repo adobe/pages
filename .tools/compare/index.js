@@ -12,6 +12,9 @@
 
 // @ts-check
 
+/* eslint-disable import/no-extraneous-dependencies */
+
+import puppeteer from 'puppeteer';
 import { mkdir } from 'fs/promises';
 import * as path from 'path';
 import { cwd } from 'process';
@@ -29,27 +32,29 @@ import { Lifecycle } from './plugins/Lifecycle.js';
  * Make output directory if not exist
  * Make subdirectory for current run if not exist
  * Make subdirectory for each step if not exist
- * 
+ *
  * @param {string} rootDir - Output root, resolved to absolute
  * @param {Input} input - Input object
  */
 async function prepOutputDir(rootDir, input, plugins) {
-  await mkdir(rootDir, {recursive: true});
+  await mkdir(rootDir, { recursive: true });
 
   /** @type {Promise<void>[]} */
   const collector = [];
 
   Object.keys(input).reduce((proms, page) => {
-      return proms.concat(plugins.map((p) => {
-        mkdir(path.resolve(rootDir, page, p.name), { recursive: true })
-      }));
-    }, collector);
-    return Promise.all(collector);
+    proms.concat(plugins.map((p) => {
+      const pPath = path.resolve(rootDir, page, p.name);
+      return mkdir(pPath, { recursive: true });
+    }));
+    return proms;
+  }, collector);
+  return Promise.all(collector);
 }
 
 /**
  * Main tool entrypoint.
- * 
+ *
  * @example
  * ```
  * await compare({
@@ -73,7 +78,7 @@ async function prepOutputDir(rootDir, input, plugins) {
  *     root: './.compare'
  *   }
  * });
- * 
+ *
  * // output tree
  * ./.compare
  * ├── blog
@@ -86,8 +91,8 @@ async function prepOutputDir(rootDir, input, plugins) {
  *         ├── prod.html
  *         └── stage.html
  * ```
- * 
- * @param {Options} options 
+ *
+ * @param {Options} options
  */
 export async function compare(options) {
   const { output, input, plugins } = options;
@@ -95,9 +100,13 @@ export async function compare(options) {
 
   await prepOutputDir(rootDir, input, plugins);
 
-  // TODO: create puppeteer browser here, pass thru context via lifecycle
-  const lifecycle = new Lifecycle(options, rootDir);
-  for(let hook of Lifecycle.hooks) {
-    await lifecycle.executeHook(hook, options);
+  const browser = await puppeteer.launch({});
+  const lifecycle = new Lifecycle(options, rootDir, browser);
+
+  for (const hook of Lifecycle.hooks) {
+    // eslint-disable-next-line no-await-in-loop
+    await lifecycle.executeHook(hook);
   }
-};
+}
+
+export default compare;

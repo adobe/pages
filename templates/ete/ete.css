@@ -1,7 +1,6 @@
-@import url("/styles/legacy/styles.css");
-@import url("/styles/legacy/default.css");
-@import url("/templates/tl/tl.css");
-@import url("/hlx_fonts/pnv6nym.css");
+@import url("./styles.css");
+@import url("./default.css");
+@import url("./tl.css");
 
 
 .home header {

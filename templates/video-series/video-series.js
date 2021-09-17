@@ -10,23 +10,14 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   createTag,
-//   debounce,
-//   decorateTables,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/*
-global
+import {
   addDefaultClass,
   appearMain,
   createTag,
   debounce,
   decorateTables,
-  loadLocalHeader
-*/
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 async function submitSheetForm($form, sheetid, thankyou) {
   const formsink = 'https://script.google.com/macros/s/AKfycbxWFwI-qExw0Tg_LJvdisSYODFw35m3L8M5HdumPOufmArmRIEh/exec';
@@ -309,7 +300,7 @@ function turnListSectionIntoCards() {
   });
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
   turnListSectionIntoCards();
   decorateTables();
@@ -329,10 +320,4 @@ async function decoratePage() {
   }
   styleBackgrounds();
   cardHeightEqualizer('.premiere .card .text');
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

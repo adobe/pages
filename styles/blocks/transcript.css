@@ -1,7 +1,0 @@
-.transcript > div{
-  display: none;
-}
-
-.transcript > div:first-of-type {
-  display: block;
-}

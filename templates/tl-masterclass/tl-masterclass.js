@@ -10,15 +10,14 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   externalLinks,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/* global addDefaultClass, appearMain, classify, createTag, externalLinks, loadLocalHeader, */
+import {
+  addDefaultClass,
+  appearMain,
+  classify,
+  createTag,
+  externalLinks,
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -188,7 +187,7 @@ async function decorateStep() {
   let html = '';
 
   skills.forEach((skill) => {
-    html += `<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
+    html += `<div class="skill"><img src="/icons/twp3/${skill.icon}.svg">
             <p>${skill.title}</p></div>`;
   });
   $skills.innerHTML = html;
@@ -252,7 +251,7 @@ async function decorateHome() {
   await insertSteps();
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
 
   await loadLocalHeader();
@@ -287,10 +286,4 @@ async function decoratePage() {
 
   window.pages.decorated = true;
   appearMain();
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

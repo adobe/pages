@@ -1,7 +1,6 @@
-@import url("/styles/legacy/styles.css");
-@import url("/styles/legacy/default.css");
-@import url("/templates/tl/tl.css");
-@import url("/hlx_fonts/pnv6nym.css");
+@import url("./styles.css");
+@import url("./default.css");
+@import url("./tl.css");
 
 .home main .default:first-of-type img {
     max-width: 170px;
@@ -284,6 +283,22 @@ main .card a:any-link {
   border-bottom: 1px solid #ddd;
   padding-bottom: 1.2em;
   color: #505050;
+}
+
+.step.adobe-and-sticker-mule .about-bio {
+  display: none;
+}
+
+.step.adobe-and-sticker-mule .learn {
+  display: block;
+}
+
+.step.adobe-and-sticker-mule .skills {
+  width: 100%;
+}
+
+.adobe-and-sticker-mule .steps .category-steps {
+  margin-bottom: 0em !important;
 }
 
 .step main .skills {
@@ -622,7 +637,6 @@ main .card a:any-link {
     width: 45%;
     text-align: left;
     justify-content: space-between;
-    color: white;
     text-decoration: none;
     max-width: 400px;
   }
@@ -630,6 +644,10 @@ main .card a:any-link {
   .home .about-bio__inner {
     align-items: flex-start;
   }
+}
+
+.more-content--ete a {
+  color: white !important;
 }
 
 .home .about-bio {
@@ -836,3 +854,4 @@ main .card a:any-link {
   }
   
 }
+

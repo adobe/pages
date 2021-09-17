@@ -10,14 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   externalLinks,
-//   loadCSS,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/* global addDefaultClass, appearMain, externalLinks, loadCSS, loadLocalHeader */
+import {
+  addDefaultClass,
+  appearMain,
+  externalLinks,
+  loadCSS,
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 async function fetchSheet() {
   window.hlx.dependencies.push('content.json');
@@ -30,7 +29,7 @@ async function fetchSheet() {
 
 function cardMarkUp(data) {
   let markup = '';
-  console.log(data);
+  console.debug(data);
   data.forEach((row) => {
     markup += `
         <div>
@@ -56,7 +55,7 @@ function columnMarkUp(data) {
   data.forEach((row) => {
     if (!row.Column_Title) return;
     let cta = '';
-    console.log(row.Column_Has_Cta);
+    console.debug(row.Column_Has_Cta);
     if (row.Column_Has_Cta) {
       cta = `<p><strong><a href="${row.Column_Cta_link}" class="button primary">${row.Column_Cta_Text}</a></strong></p>`;
     } else {
@@ -81,13 +80,14 @@ async function decorateHome() {
   const data = await fetchSheet();
   const children = document.querySelectorAll('main .default');
   children.forEach(($child) => {
+    console.log('child: ', $child, $child.innerText);
     let containerType = '';
     if ($child.innerText.includes('[#')) {
       containerType = $child.innerText.split('[#')[1].split(']')[0];
-      console.log(containerType);
+      console.debug(containerType);
       if (containerType === 'cards') {
         $child.classList.add('card-container');
-        loadCSS('/styles/blocks/card.css');
+        loadCSS('/pages/blocks/card/card.css');
         $child.innerHTML = `
                     <div>
                         <div class="card">${cardMarkUp(data)}</div>
@@ -103,13 +103,13 @@ async function decorateHome() {
                         ${columnMarkUp(data)}
                     </div>
                 `;
-        loadCSS('/styles/blocks/columns.css');
+        loadCSS('/pages/blocks/columns/columns.css');
       }
     }
   });
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
 
   await loadLocalHeader();
@@ -143,10 +143,4 @@ async function decoratePage() {
   window.pages.decorated = true;
   appearMain();
   decorateHome();
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

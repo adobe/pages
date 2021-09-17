@@ -102,39 +102,39 @@ form ul li {
 	padding-top: 5vw;
 }
 form ul li#ccd-banner {
-	background: url('/static/internal/ccd-banner.jpg') top center no-repeat;
+	background: url('/media_168cf87767374ef7ad04462717c706979052f8458.jpeg') top center no-repeat;
 	background-size: contain;
 }
 form ul li#email {
-	background: url(/static/internal/email.jpg) top center no-repeat;
+	background: url(/media_172ba161acf3850703de423dfbf5920106b963262.jpeg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#web-landing-page {
-	background: url(/static/internal/web-landing-page.jpg) top center no-repeat;
+	background: url(/media_1b27edd857bb9b54f263863fc9ff2cca4e57cdd88.jpeg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#in-app-home-banner {
-	background: url(/static/internal/in-app-home-banner.jpg) top center no-repeat;
+	background: url(/media_107a9ae4274b89689b7ab12f348dc8176a7210c55.jpeg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#in-app-launchpad {
-	background: url(/static/internal/in-app-launchpad.jpg) top center no-repeat;
+	background: url(/media_18ee574ca3de198aa81d18e61491582ce087c5dab.jpeg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#in-app-pancake {
-	background: url(/static/internal/in-app-pancake.jpg) top center no-repeat;
+	background: url(/media_1ba4d23168a22dbf2743aa9efe11ba8eac5bfcc5e.jpeg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#dtn {
-	background: url(/static/internal/dtn.jpg) top center no-repeat;
+	background: url(/media_1505c82f0eb046ec1a66e6881a06d2aa28529b17e.jpeg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#paid-social {
-	background: url(/static/internal/paid-social.jpg) top center no-repeat;
+	background: url(/media_17c5fc6b11e99b3b10c3617c5e9591af6ed38bd62.jpeg) top center no-repeat;
 	background-size: contain;
 }
 form ul li#other {
-	background: url(/static/internal/other.jpg) top center no-repeat;
+	background: url(/media_1022b9ad9f1a9d61946ba934e01987cdfd711cec9.jpeg) top center no-repeat;
 	background-size: contain;
 }
 form ul li:hover {

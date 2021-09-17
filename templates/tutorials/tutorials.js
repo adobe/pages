@@ -10,23 +10,14 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   externalLinks,
-//   insertLocalResource,
-// } from '../../scripts.js';
-/*
-global
+import {
   addDefaultClass,
   appearMain,
   classify,
   createTag,
   externalLinks,
-  insertLocalResource
-*/
+  insertLocalResource,
+} from '../../pages/scripts/scripts.js';
 
 function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
@@ -319,7 +310,7 @@ function decorateVideoBlocks() {
   });
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
 
   await loadLocalHeader();
@@ -359,10 +350,4 @@ async function decoratePage() {
   window.pages.decorated = true;
   document.body.classList.add('loaded');
   appearMain();
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

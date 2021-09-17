@@ -1,0 +1,90 @@
+main div.block.list {
+	visibility: unset;
+}
+
+.list-container.column p:first-of-type {
+  margin-bottom: 2.5em;
+}
+
+.list.row {
+  display: flex;
+  justify-content: center;;
+  flex-wrap: wrap;
+}
+
+.list.row p {
+  font-size: 22px;
+  font-weight: 700;
+  width: 80%;
+  line-height: 1.4;
+  margin: auto;
+  padding-top: 16px;
+}
+
+.list.row  >  div {
+  width: 100%;
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.list.row > div > div:last-of-type {
+  max-width: 75%;
+  margin: auto;
+  font-size: 18px;
+  line-height: 24px;
+  padding-top: 16px;
+}
+
+.list.row img {
+  width: 48px;
+}
+
+.list-container.column {
+  text-align: left;
+}
+
+.list-container.column h1 {
+  text-align: left;
+}
+
+.list.column img {
+  width: 28px;
+}
+
+.list.column > div {
+  display: flex;
+  margin-bottom: 2em;
+}
+
+.list a {
+  color: #1473e6;
+}
+
+.list.column > div > div:first-of-type {
+  margin-right: 14px;
+}
+
+.list.column p {
+  margin: 0;
+}
+
+@media(min-width: 768px) {
+  .list.row > div {
+    width: 48%;
+  }
+
+  .list.row > div:nth-child(2n) {
+    margin-right: 0;
+  }
+}
+
+
+@media(min-width: 900px) {
+  .list.row {
+    align-items: baseline;
+  }
+  .list.row > div {
+    width: 24%;
+  }
+}

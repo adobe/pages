@@ -10,9 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-/* global createTag, loadJSModule */
-
-loadJSModule('/scripts/default.js');
+import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
+import { createTag } from '../../pages/scripts/scripts.js';
 
 function helpxInNewWindow() {
   document.querySelectorAll('main a[href]').forEach(($a) => {
@@ -37,12 +36,8 @@ function decorateVideoBlocks() {
 
 window.addEventListener('load', () => document.body.classList.add('loaded'));
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', () => {
-    helpxInNewWindow();
-    decorateVideoBlocks();
-  });
-} else {
+export default async function decoratePage() {
+  await decorateDefaultTemplate();
   helpxInNewWindow();
   decorateVideoBlocks();
 }

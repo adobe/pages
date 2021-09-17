@@ -10,7 +10,22 @@
  * governing permissions and limitations under the License.
  */
 
-import { CompareInput, CompareOptions } from "..";
+// eslint-disable-next-line import/no-cycle
+import { CompareInput, CompareOptions } from '..';
+
+export interface PluginContext {
+  options: CompareOptions;
+  startTime: string;
+  name: string;
+  rootDir: string;
+  browser: any;
+  emitFile(filename: string, data: Buffer | string | string[]): Promise<void>;
+  log(...msgs: any[]): void;
+  debug(...msgs: any[]): void;
+  error(...msgs: any[]): void;
+  info(...msgs: any[]): void;
+  warn(...msgs: any[]): void;
+}
 
 export type StartHook = (this: PluginContext, options: CompareOptions) => any | Promise<any>;
 
@@ -23,21 +38,4 @@ export interface ComparePluginHooks {
 
 export interface ComparePlugin extends ComparePluginHooks {
   name: string;
-}
-
-/**
- * Context object available as `this` to plugins.
- * Provides common options, properties, and some convenience APIs.
- */
- export interface PluginContext {
-  options: CompareOptions;
-  startTime: string;
-  name: string;
-  rootDir: string;
-  emitFile(filename: string, data: Buffer | string | string[]): Promise<void>;
-  log(...msgs: any[]): void;
-  debug(...msgs: any[]): void;
-  error(...msgs: any[]): void;
-  info(...msgs: any[]): void;
-  warn(...msgs: any[]): void;
 }

@@ -1,0 +1,23 @@
+main div.block.spacer {
+	visibility: unset;
+}
+
+.spacer-container.lg {
+	height: 80px;
+}
+
+.spacer-container.md {
+	height: 60px;
+}
+
+.spacer-container.sm {
+	height: 40px;
+}
+
+.spacer-container {
+	height: 60px;
+}
+
+.spacer-container.grey {
+  background: var(--light_grey);
+}

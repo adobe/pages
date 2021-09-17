@@ -10,7 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-// import { loadJSModule } from '../../scripts.js';
-/* global loadJSModule */
+import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
 
-loadJSModule('/scripts/default.js');
+export default async function decorate() {
+  await decorateDefaultTemplate();
+}

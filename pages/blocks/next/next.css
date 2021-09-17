@@ -1,0 +1,63 @@
+main div.block.next {
+	visibility: unset;
+}
+
+.next-container {
+  /* margin-top: 3em; */
+  position: relative;
+}
+
+.next-container:before {
+  content: '';
+  background: #f5f5f5;
+  /* background: red; */
+  height: 70%;
+  width: 100%;
+  position: absolute;
+  top: 30%; left: 0;
+}
+
+.next {
+  max-width: 500px;
+  margin: auto;
+}
+
+.next-element-container {
+  color: #444 !important;
+  position: relative;
+  z-index: 999;
+}
+
+.next-element-container h5 {
+  margin-bottom: 0;
+}
+
+.next-bg-element {
+  padding-bottom: 84.3%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.next-img-element {
+  width: 95%;
+  height: 92%;
+  position: absolute;
+  top: 6%; left: 2.5%;
+  background-size: cover;
+  background-position: center;
+}
+
+.next-content {
+  padding: 2em 0em;
+}
+
+.next-content p:first-of-type {
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.next a {
+  position: relative;
+  z-index: 99;
+}

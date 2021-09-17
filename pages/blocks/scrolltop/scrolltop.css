@@ -1,0 +1,10 @@
+main div.block.scrolltop {
+	visibility: unset;
+}
+
+.scrolltop button {
+  border: none;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+  margin: 0; padding: 0;
+}

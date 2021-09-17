@@ -23,7 +23,7 @@ import {
   loadLocalHeader,
   classify,
   appearMain,
-} from '../scripts.js';
+} from '../pages/scripts/scripts.js';
 
 export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');
@@ -49,7 +49,7 @@ function decorateVideoSections() {
     });
 
     $videoDiv.innerHTML = `<div class="video"><div id="placeholder" class="button">
-            <svg xmlns="http://www.w3.org/2000/svg"><use href="/static/twp3/icons/play.svg#icon"></use></svg>
+            <svg xmlns="http://www.w3.org/2000/svg"><use href="/icons/twp3/play.svg#icon"></use></svg>
             </div>
             <video id='video' class="hidden" preload="metadata" src="${href}" tabindex="0">
             <source src="${href}" type="video/mpeg4">

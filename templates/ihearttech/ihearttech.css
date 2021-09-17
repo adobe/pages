@@ -1,5 +1,5 @@
-@import url("/styles/legacy/styles.css");
-@import url("/styles/legacy/default.css");
+@import url("./styles.css");
+@import url("./default.css");
 
 main {
     text-align: center;

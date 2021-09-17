@@ -10,8 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-// import { loadJSModule } from '../../scripts.js';
-/* global loadJSModule */
+import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
 
 function decorateABTests() {
   let runTest = true;
@@ -67,14 +66,12 @@ function decorateABTests() {
 
     if (selectedUrl) window.location.href = selectedUrl;
   } else {
-    console.log(`Test is not run => ${reason}`);
+    console.warn(`Test is not run => ${reason}`);
   }
 }
 
-async function delegatePageDecoration() {
+export default async function delegatePageDecoration() {
   decorateABTests();
-  await loadJSModule('/templates/default/default.js');
+  await decorateDefaultTemplate();
   // decorateTables();
 }
-
-delegatePageDecoration();

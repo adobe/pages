@@ -1,0 +1,33 @@
+main div.block.instructions {
+	visibility: unset;
+}
+
+.instructions-container {
+  max-width: 450px;
+  margin: auto;
+  margin-top: 3em;
+  border: 4px solid #CCCCCC;
+  border-radius: 10px;
+  background: white;
+}
+.instructions {
+  box-sizing: content-box;
+}
+
+.instructions > div {
+  padding: 0em 0em 1.5em 0em;
+}
+
+.instructions strong {
+  color: #CCCCCC;
+  margin: 0px 6px;
+}
+
+.instructions > div > div:first-of-type {
+  color: #FF9A00;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  margin-top: 0;
+  padding-bottom: 0.5em;
+}

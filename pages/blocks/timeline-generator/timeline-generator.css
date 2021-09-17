@@ -1,0 +1,5 @@
+@import url('/styles/internal/default.css');
+
+main div.block.timeline-generator {
+	visibility: unset;
+}

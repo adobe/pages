@@ -1,0 +1,74 @@
+<div class="icons">
+  Loading Icons...
+</div>
+
+<script>
+  const url = window.location.origin + '/icons/twp3/';
+  const icons = [
+    "adjust",
+    "align",
+    "arrange",
+    "bandaid",
+    "blend-modes",
+    "brightness",
+    "color-picker",
+    "content-aware",
+    "create",
+    "crop",
+    "curved",
+    "distribute",
+    "document",
+    "draw",
+    "dropshadow",
+    "duplicate",
+    "export",
+    "find",
+    "image",
+    "images",
+    "lasso",
+    "layers",
+    "light",
+    "mask",
+    "opentype",
+    "organize",
+    "patch-tool",
+    "pen",
+    "play",
+    "quick",
+    "renaming",
+    "resize",
+    "rotate",
+    "select",
+    "shadow-contrast",
+    "spot-healing",
+    "straighten",
+    "style",
+    "type",
+    "shapes",
+    "merge",
+    "gradient",
+    "freeform",
+    "tracing",
+    "pencil",
+    "stroke",
+    "swatches",
+    "backgrounds",
+    "bucket",
+    "wheel"
+  ];
+
+  let icon_item = '';
+
+  for(let i = 0; i < icons.length; i++) {
+    icon_item += `
+      <div class="icons__item">
+        <img src="${url}${icons[i]}.svg">
+        <input type="text" value="${icons[i]}">
+      </div>
+    `
+  }
+
+  document.querySelector('.icons').innerHTML = icon_item 
+  console.log(icon_item)
+  
+</script>

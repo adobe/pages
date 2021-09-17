@@ -11,14 +11,13 @@
  */
 
 // @ts-check
+/* eslint-disable import/no-extraneous-dependencies */
 
 import captureWebsite from 'capture-website';
-// set infinite listeners, since this spawns several
-process.setMaxListeners(0);
 
 /**
  * Type aliases
- * 
+ *
  * @typedef {import('capture-website').Options} ScreenshotOptions
  * @typedef {import('./plugin').ComparePlugin} Plugin
  * @typedef {import('./plugin').PluginContext} PluginContext
@@ -26,30 +25,33 @@ process.setMaxListeners(0);
 
 /**
  * Capture and write a screenshot.
- * 
+ *
  * @param {PluginContext} ctx
  * @param {string} pageName - The page name, ie. "blog"
  * @param {string} versionName - The page version name, ie. base.html
- * @param {string} url 
+ * @param {string} url
  * @param {ScreenshotOptions} [options]
  * @returns {Promise<void>}
  */
 async function captureScreenshot(ctx, pageName, versionName, url, options = {}) {
-  const opts = Object.assign({ type: 'png' }, options);
+  /** @type {ScreenshotOptions} */
+  const opts = { type: 'png', ...options };
 
-  // TODO: make this screenshot logic using only puppeteer
-  // and only spawn one instance, reusing for each URL.
-
-  return captureWebsite.buffer(url, opts).then(buf => {
+  return captureWebsite.buffer(url, {
+    ...opts,
+    // @ts-ignore
+    _browser: ctx.browser,
+    _keepAlive: true,
+  }).then((buf) => {
     const filename = `${pageName}/${ctx.name}/${versionName}.${opts.type}`;
     ctx.info('Emitting file ', filename);
     return ctx.emitFile(filename, buf);
-  })
+  });
 }
 
 /**
  * Capture screenshots.
- * 
+ *
  * @param {ScreenshotOptions} [options]
  * @returns {Plugin}
  */
@@ -59,18 +61,17 @@ export default function screenshot(options) {
     async run(input) {
       this.debug('run()');
       let proms = [];
-      for(let pageName in input) {
-        const page = input[pageName];
-        for(let versionName in page) {
-          const url = page[versionName];
+      for (const [pageName, page] of Object.entries(input)) {
+        for (const [versionName, url] of Object.entries(page)) {
           proms.push(captureScreenshot(this, pageName, versionName, url, options));
-          if(proms.length > 4) {
+          if (proms.length > 4) {
             // batch 5 concurrency
+            // eslint-disable-next-line no-await-in-loop
             await Promise.all(proms);
             proms = [];
           }
         }
       }
-    }
-  }
+    },
+  };
 }

@@ -10,18 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   debounce,
-//   decorateTables,
-//   externalLinks,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/*
-global
+import {
   addDefaultClass,
   appearMain,
   classify,
@@ -29,8 +18,9 @@ global
   debounce,
   decorateTables,
   externalLinks,
-  loadLocalHeader
-*/
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
+import { hashPathOf } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -62,12 +52,12 @@ function wrapSections(element) {
 async function insertSteps() {
   const $steps = document.querySelector('main div.steps');
   const $sectionTitles = document.querySelector('main div:nth-child(2)');
-  let addToCategory = '';
 
   if ($steps) {
     let count = -1;
     const steps = await fetchSteps();
-    steps.forEach((step, i) => {
+    const stepProms = steps.map(async (step, i) => {
+      let segment = '';
       if (i % 3 === 0) {
         count += 1;
         const headers = $sectionTitles.querySelectorAll('h3');
@@ -75,14 +65,13 @@ async function insertSteps() {
         if (headers[count]) {
           currentHeader = headers[count].outerHTML;
         }
-        addToCategory += `<div class="section-title">${currentHeader}</div><div class="category-steps">`;
+        segment += `<div class="section-title">${currentHeader}</div><div class="category-steps">`;
       }
-      addToCategory += `<div class="card" onclick="window.location='step?${
+      segment += `<div class="card" onclick="window.location='step?${
         i + 1
       }'">
-                <div class='img' style="background-image: url(../../../../static/ete/hero-posters/${getThumbnail(
-    step,
-  )})">
+                <div class='img' style="background-image: url(
+                  ${await hashPathOf(`/static/ete/hero-posters/${getThumbnail(step)}`)})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
                     <defs>
                       <style>
@@ -118,18 +107,21 @@ async function insertSteps() {
                 </div>
             </div>`;
       if (i === 2 || i === 5) {
-        addToCategory += '</div>';
+        segment += '</div>';
       }
+      return segment;
     });
     // let markup = `${addToCategory}`
-    $sectionTitles.innerHTML = '';
-    $steps.innerHTML = addToCategory;
+    await Promise.all(stepProms).then((segments) => {
+      const addToCategory = segments.join('');
+      $sectionTitles.innerHTML = '';
+      $steps.innerHTML = addToCategory;
+    });
   }
 }
 
 function decorateNav() {
   if (document.querySelector('header img')) {
-    console.log('nav initiated');
     const svg = document.querySelector('header img');
     const svgWithCarrot = document.createElement('div');
     svgWithCarrot.classList.add('nav-logo');
@@ -195,8 +187,12 @@ async function decorateStep() {
   const steps = await fetchSteps();
   const currentStep = steps[stepIndex];
 
-  $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`;
-  $video.setAttribute('data-bg', `/static/ete/hero-posters/${currentStep.Thumbnail}`);
+  hashPathOf(`/static/twp3/background-elements/${currentStep.Background_element}`).then((src) => {
+    $video.style.backgroundImage = `url(${src})`;
+  });
+  hashPathOf(`/static/ete/hero-posters/${currentStep.Thumbnail}`).then((src) => {
+    $video.setAttribute('data-bg', src);
+  });
 
   // fill content section
 
@@ -249,7 +245,9 @@ async function decorateStep() {
         <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
-    $video.firstChild.style.backgroundImage = `url(../../../../static/ete/hero-posters/${currentStep.Thumbnail})`;
+    hashPathOf(`/static/ete/hero-posters/${currentStep.Thumbnail}`).then((src) => {
+      $video.firstChild.style.backgroundImage = `url(${src})`;
+    });
     $video.firstChild.addEventListener('click', () => playVideo());
   }
 
@@ -281,21 +279,16 @@ async function decorateStep() {
     });
   }
   const $skills = createTag('div', { class: 'skills' });
-  let html = '';
 
-  skills.forEach((skill) => {
-    html += `
+  const segments = skills.map(async (skill) => `
       <div class="skill">
-        <img src="/static/you-will-learn/${skill.icon}.svg">
+        <img src="$/icon/you-will-learn/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
-  
-      </div>`;
-  });
+      </div>`);
 
   const $skillsTitle = document.querySelector('.learn h2');
-  $skills.innerHTML = html;
+  $skills.innerHTML = segments.join('');
   $learn.appendChild($skills);
-
   $skills.prepend($skillsTitle);
 
   // fill up next
@@ -377,7 +370,7 @@ function cleanUpBio() {
     `;
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
   decorateTables();
   await loadLocalHeader();
@@ -418,13 +411,3 @@ async function decoratePage() {
   externalLinks('main .section-wrapper:last-of-type');
   cardHeightEqualizer('.card-content');
 }
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
-}
-
-// function toClassName(name) {
-//   return name.toLowerCase().replace(/[^0-9a-z]/gi, '-');
-// }

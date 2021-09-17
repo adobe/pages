@@ -1,0 +1,14 @@
+main div.block.hr {
+	visibility: unset;
+}
+
+.hr-container {
+  background-color: var(--light_grey)
+}
+.hr-container > div {
+  height: 1px;
+  background: #A0A0A0;
+  max-width: 1240px;
+  margin: auto;
+  padding: 0em 0em !important;
+}

@@ -11,6 +11,7 @@
  */
 
 // @ts-check
+/* eslint-disable import/no-extraneous-dependencies */
 
 import lighthousesdk from 'lighthouse';
 import chromeLauncher from 'chrome-launcher';
@@ -29,20 +30,20 @@ import chromeLauncher from 'chrome-launcher';
  */
 
 /**
- * 
+ *
  * @param {PluginContext} ctx
  * @param {string} pageName - The page name, ie. "blog"
  * @param {string} versionName - The page version name, ie. base.html
- * @param {string} url 
+ * @param {string} url
  * @param {LighthouseOptions} [options]
  * @returns {Promise<void>}
  */
 async function captureLighthouse(ctx, pageName, versionName, url, chrome, options = {}) {
   /** @type {LighthouseOptions} */
   const defaults = {
-    output: 'html', 
-    onlyCategories: ['performance'], 
-    port: chrome.port
+    output: 'html',
+    onlyCategories: ['performance'],
+    port: chrome.port,
   };
   const opts = Object.assign(defaults, options);
   const result = await lighthousesdk(url, opts);
@@ -52,38 +53,35 @@ async function captureLighthouse(ctx, pageName, versionName, url, chrome, option
   ctx.info('Emitting file ', filename);
 
   // don't wait for this to complete, the promise will resolved before Node exits
-  ctx.emitFile(filename, result.report).catch(e => 
-    ctx.error('[Lighthouse] Error writing report: ', e)
-  );
+  ctx.emitFile(filename, result.report).catch((e) => ctx.error('[Lighthouse] Error writing report: ', e));
 }
 
 /**
  * Capture lighthouse reports.
  * Write them to their respective directories in /.comparisons/${now}/lighthouse
- * 
+ *
  * @param {LighthouseOptions} [options]
  * @this {Context}
  * @returns {Plugin}
  */
- export default function lighthouse(options) {
+export default function lighthouse(options) {
   return {
     name: 'lighthouse',
-    async run (input) {
+    async run(input) {
       this.debug('run()');
 
-      const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-      for(let pageName in input) {
-        const page = input[pageName];
-        for(let versionName in page) {
-          const url = page[versionName];
+      const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+      for (const [pageName, page] of Object.entries(input)) {
+        for (const [versionName, url] of Object.entries(page)) {
           // wait for each to complete
           // takes longer, but more accurate measurements
           // since we aren't bogging down the network.
+          // eslint-disable-next-line no-await-in-loop
           await captureLighthouse(this, pageName, versionName, url, chrome, options);
         }
       }
 
       await chrome.kill();
-    }
-  }
+    },
+  };
 }

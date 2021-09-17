@@ -13,7 +13,7 @@
 // @ts-check
 
 import * as path from 'path';
-import { writeFile } from "fs/promises";
+import { writeFile } from 'fs/promises';
 
 /**
  * Aliases
@@ -28,38 +28,45 @@ export class ContextFactory {
    */
    #rootDir;
 
-   /**
+  /**
    * @type {string}
    */
-    #startTime;
+  #startTime;
 
   /**
-   * 
-   * @param {CompareOptions} options 
-   * @param {string} rootDir
+   * @type {any}
    */
-  constructor(options, rootDir) {
+  #browser;
+
+  /**
+   *
+   * @param {CompareOptions} options
+   * @param {string} rootDir
+   * @param {any} browser
+   */
+  constructor(options, rootDir, browser) {
     this.#startTime = new Date().toISOString();
     this.#rootDir = rootDir;
+    this.#browser = browser;
     this.options = options;
   }
 
   /**
    * Make plugin context for specific plugin.
-   * 
+   *
    * @param {Plugin} plugin - Plugin option entry
-   * @returns {Context} 
+   * @returns {Context}
    */
   makeContext(plugin) {
     /**
-     * 
-     * @param {string} filename 
-     * @param {string | Buffer} data 
+     *
+     * @param {string} filename
+     * @param {string | Buffer} data
      * @returns {Promise<any>}
      */
     const emitFile = async (filename, data) => {
-      return writeFile(path.resolve(this.#rootDir, filename), data);
-    }
+      writeFile(path.resolve(this.#rootDir, filename), data);
+    };
 
     const loggerPrefix = `[${plugin.name}]`;
     return {
@@ -68,11 +75,14 @@ export class ContextFactory {
       rootDir: this.#rootDir,
       name: plugin.name,
       emitFile,
+      browser: this.#browser,
       log: console.log.bind(console, loggerPrefix),
       debug: console.debug.bind(console, loggerPrefix),
       error: console.error.bind(console, loggerPrefix),
       warn: console.warn.bind(console, loggerPrefix),
       info: console.info.bind(console, loggerPrefix),
-    }
+    };
   }
 }
+
+export default ContextFactory;

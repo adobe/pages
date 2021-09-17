@@ -2,6 +2,12 @@
 	box-sizing: border-box;
 }
 
+
+:root {
+  --light_grey: #eee;
+}
+
+
 body {
 	font-family: "Adobe Clean", "adobe-clean", sans-serif;
 	margin: 0;
@@ -46,22 +52,6 @@ main > .section-wrapper > div {
 	text-align: left;
 }
 
-
-.spacer-container.lg {
-	height: 180px;
-}
-
-.spacer-container.md {
-	height: 140px;
-}
-
-.spacer-container.sm {
-	height: 100px;
-}
-
-.spacer-container {
-	height: 60px;
-}
 main .section-wrapper {
 	color: #323232;
 }
@@ -76,7 +66,7 @@ main > .section-wrapper.dark {
 }
 
 main > .section-wrapper.lightgray {
-	background: #eee;
+	background: var(--light_grey);
 }
 
 main > .section-wrapper.dark .button.secondary {

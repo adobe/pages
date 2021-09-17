@@ -10,8 +10,17 @@
  * governing permissions and limitations under the License.
  */
 
-/* global createTag classify debounce addDefaultClass decorateTables loadLocalHeader
-appearMain externalLinks */
+import {
+  addDefaultClass,
+  appearMain,
+  classify,
+  createTag,
+  debounce,
+  decorateTables,
+  externalLinks,
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
+import { hashPathOf } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -20,16 +29,82 @@ async function fetchSteps() {
   return Array.isArray(json) ? json : json.data;
 }
 
-function getThumbnail(step) {
-  let thumbnail = step.Thumbnail;
-  if (!thumbnail) {
-    if (step.Video.startsWith('https://www.youtube.com')) {
-      const yturl = new URL(step.Video);
-      const vid = yturl.searchParams.get('v');
-      thumbnail = `https://img.youtube.com/vi/${vid}/0.jpg`;
-    }
+async function imageUrlFetcher(image) {
+  let url = '';
+  if (image.includes('https:') || image.includes('http:')) {
+    url = image;
+  } else {
+    url = await hashPathOf(`/static/lr-ps/hero-posters/${image}`);
   }
-  return thumbnail;
+  return url;
+}
+
+async function createNextStepsComponent(steps, currentIndex) {
+  // removing the markup that's being added
+  // by the 'lr-ps-show-more' component
+  if (document.querySelectorAll('.more-content--ete').length >= 1) {
+    document.querySelectorAll('.more-content--ete')[0].remove();
+  }
+
+  const lastContainer = document.querySelector('main .default:last-of-type');
+  const nextStepsTitle = lastContainer.querySelector('h5').innerText;
+  const nextStepsCta = lastContainer.querySelector('a');
+
+  const scratchRandomGdoc = document.querySelector('main .default:nth-child(4)');
+  document.querySelector('.must-haves__title').innerText = scratchRandomGdoc.querySelector('h1').innerText;
+  document.querySelector('.must-haves__copy').innerText = scratchRandomGdoc.querySelector('p').innerText;
+  scratchRandomGdoc.remove();
+
+  // Checking indexes
+  // If you're on the first step (0)
+  // It will just grab the next step
+  // (else) if you're on the last index (steps.length - 1)
+  // It will just grab the previous step
+  // (else) will grab both the previous and next steps index
+  const nextSteps = [];
+  const urls = [];
+  let moreContentElement = '';
+  if (currentIndex === 0) {
+    nextSteps.push(steps[currentIndex + 1]);
+    urls.push(currentIndex + 2);
+  } else if (currentIndex === steps.length - 1) {
+    nextSteps.push(steps[currentIndex]);
+    urls.push(currentIndex);
+  } else {
+    nextSteps.push(steps[currentIndex - 1]);
+    nextSteps.push(steps[currentIndex + 1]);
+    urls.push(currentIndex);
+    urls.push(currentIndex + 2);
+  }
+
+  // iterating through all the collected steps
+  // and creating the markup
+  const ps = nextSteps.map(async (nextStep, index) => `
+      <a class="more-content--ete-item" href="step?${urls[index]}">
+        <div class="more-content--ete-image">
+          <div style="position: relative;">
+            <img src="${await imageUrlFetcher(nextStep.Thumbnail)}">
+          </div>
+        </div>
+        <div class="more-content--ete-details">
+          <h4>${nextStep.Title.split('&nbsp;').join('')}</h4>
+          <p>${nextStep.Description}</p>
+        </div>
+      </a>
+    `);
+  moreContentElement = (await Promise.all(ps)).join('');
+
+  lastContainer.innerHTML = `
+    <div class="more-content--ete">
+      <h3 class="section-title--ete-more">${nextStepsTitle}</h3>
+      <div class="more-content--ete-inner">
+        ${moreContentElement}
+      </div>
+      <div class="see-all-tutorials--ete">
+        <a href="${nextStepsCta.getAttribute('href')}">${nextStepsCta.innerText}</a>
+      </div>
+    </div>
+  `;
 }
 
 function wrapSections(element) {
@@ -43,12 +118,12 @@ function wrapSections(element) {
 async function insertSteps() {
   const $steps = document.querySelector('main div.steps');
   const $sectionTitles = document.querySelector('main div:nth-child(2)');
-  let addToCategory = '';
 
   if ($steps) {
     let count = -1;
     const steps = await fetchSteps();
-    steps.forEach((step, i) => {
+    const stepProms = steps.map(async (step, i) => {
+      let segment = '';
       if (i % 3 === 0) {
         count += 1;
         const headers = $sectionTitles.querySelectorAll('h3');
@@ -56,14 +131,10 @@ async function insertSteps() {
         if (headers[count]) {
           currentHeader = headers[count].outerHTML;
         }
-        addToCategory += `<div class="section-title">${currentHeader}</div><div class="category-steps">`;
+        segment += `<div class="section-title">${currentHeader}</div><div class="category-steps">`;
       }
-      addToCategory += `<div class="card" onclick="window.location='step?${
-        i + 1
-      }'">
-                <div class='img' style="background-image: url(../../../../static/lr-ps/hero-posters/${getThumbnail(
-    step,
-  )})">
+      segment += `<div class="card" onclick="window.location='step?${i + 1}'">
+                <div class='img' style="background-image: url(${await imageUrlFetcher(step.Thumbnail)})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
                     <defs>
                       <style>
@@ -91,18 +162,21 @@ async function insertSteps() {
                 </div>
             </div>`;
       if (i === 2 || i === 5) {
-        addToCategory += '</div>';
+        segment += '</div>';
       }
+      return segment;
     });
     // let markup = `${addToCategory}`
-    $sectionTitles.innerHTML = '';
-    $steps.innerHTML = addToCategory;
+    await Promise.all(stepProms).then((segments) => {
+      const addToCategory = segments.join('');
+      $sectionTitles.innerHTML = '';
+      $steps.innerHTML = addToCategory;
+    });
   }
 }
 
 function decorateNav() {
   if (document.querySelector('header img')) {
-    console.log('nav initiated');
     const svg = document.querySelector('header img');
     const svgWithCarrot = document.createElement('div');
     svgWithCarrot.classList.add('nav-logo');
@@ -121,9 +195,7 @@ function decorateNav() {
     document.querySelector('header').classList.add('default-nav');
 
     if (document.querySelector('header .section-wrapper p')) {
-      const productName = document
-        .querySelector('header .section-wrapper')
-        .children[1].querySelector('p');
+      const productName = document.querySelector('header .section-wrapper').children[1].querySelector('p');
       document.querySelector('.product-icon').appendChild(productName);
     }
   }
@@ -169,15 +241,16 @@ async function decorateStep() {
   const steps = await fetchSteps();
   const currentStep = steps[stepIndex];
 
-  $video.style.backgroundImage = `url(../../../../static/twp3/background-elements/${currentStep.Background_element})`;
-  $video.setAttribute('data-bg', `/static/lr-ps/hero-posters/${currentStep.Thumbnail}`);
+  const returnCorrectBg = async (url) => (url.includes('http') ? url : hashPathOf(`/static/twp3/background-elements/${currentStep.Background_element}`));
+  $video.style.backgroundImage = `url(${await returnCorrectBg(currentStep.Background_element)})`;
+  $video.setAttribute('data-bg', await imageUrlFetcher(currentStep.Thumbnail));
 
   // fill content section
 
   const $h1 = document.querySelector('main .content > h1');
   let title = currentStep.Title;
   if (currentStep.Heading) title = currentStep.Heading;
-  // title=title.split(`\n`).join('<br>');
+  title = title.split('\n').join('<br>');
   title = title.split('&nbsp;').join('<br>');
   $h1.innerHTML = `${title}`;
 
@@ -192,11 +265,12 @@ async function decorateStep() {
 
   document.title = currentStep.Title;
   if (currentStep['Practice File']) {
-    document
-      .querySelector('main .content>p>a')
-      .setAttribute('href', currentStep['Practice File']);
-    document
-      .querySelector('main .content>p>a').classList.add('video-trigger-btn');
+    if (currentStep['Pactice File'] !== '#0') {
+      document.querySelector('main .content>p>a').setAttribute('target', '_blank');
+    } else {
+      document.querySelector('main .content>p>a').classList.add('video-trigger-btn');
+    }
+    document.querySelector('main .content>p>a').setAttribute('href', currentStep['Practice File']);
   }
 
   if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
@@ -223,7 +297,10 @@ async function decorateStep() {
         <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
-    $video.firstChild.style.backgroundImage = `url(../../../../static/lr-ps/hero-posters/${currentStep.Thumbnail})`;
+    // hashPathOf(`/static/lr-ps/hero-posters/${currentStep.Thumbnail}`).then((href) => {
+    //   $video.firstChild.style.backgroundImage = `url(${href})`;
+    // });
+    document.querySelector('.video').style.backgroundImage = `url(${await imageUrlFetcher(currentStep.Thumbnail)})`;
     $video.firstChild.addEventListener('click', () => playVideo());
   }
 
@@ -240,7 +317,9 @@ async function decorateStep() {
     document.querySelector('.button').click();
   }
 
-  document.querySelector('.video-trigger-btn').addEventListener('click', scrollPage);
+  if (currentStep['Practice File'] === '#0') {
+    document.querySelector('.video-trigger-btn').addEventListener('click', scrollPage);
+  }
 
   // fill learn section
 
@@ -260,7 +339,7 @@ async function decorateStep() {
   skills.forEach((skill) => {
     html += `
       <div class="skill">
-        <img src="/static/${skill.icon}.svg">
+        <img src="/icons/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
   
       </div>`;
@@ -272,7 +351,7 @@ async function decorateStep() {
 
   $skills.prepend($skillsTitle);
 
-  // fill up next
+  createNextStepsComponent(steps, stepIndex);
 }
 
 async function decorateHome() {
@@ -320,11 +399,12 @@ function cleanUpBio() {
   if (document.getElementsByTagName('body')[0].classList.contains('home')) {
     $bio.closest('.section-wrapper').classList.add('bio-section');
   }
+
   const bio = {
     $avatar: $bio.querySelectorAll('img')[0].getAttribute('src'),
     $name: $bio.querySelector('h2').innerText,
     $bioSummary: $bio.querySelector('h4').innerText,
-    $behanceLogo: $bio.querySelectorAll('img')[1].getAttribute('src'),
+    $behanceLogo: window.location.pathname.includes('sticker-mule') ? '' : $bio.querySelectorAll('img')[1].getAttribute('src'),
     $link: $bio.querySelector('a:last-of-type').getAttribute('href'),
   };
 
@@ -343,15 +423,19 @@ function cleanUpBio() {
           </div>
         </div>
     `;
+
+  if (window.location.pathname.includes('sticker-mule') && document.querySelector('.bio-section')) {
+    document.querySelector('.bio-section').remove();
+  }
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   addDefaultClass('main>div');
   decorateTables();
   await loadLocalHeader();
   wrapSections('header>div');
-  externalLinks('header');
-  externalLinks('footer');
+  // externalLinks('header');
+  // externalLinks('footer');
   // nav style/dropdown
   decorateNav();
 
@@ -387,15 +471,10 @@ async function decoratePage() {
   cardHeightEqualizer('.card-content');
 }
 
-window.addEventListener('resize', debounce(() => {
-  // run resize events
-  cardHeightEqualizer('.card-content');
-}, 250));
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', () => {
-    decoratePage();
-  });
-} else {
-  decoratePage();
-}
+window.addEventListener(
+  'resize',
+  debounce(() => {
+    // run resize events
+    cardHeightEqualizer('.card-content');
+  }, 250),
+);

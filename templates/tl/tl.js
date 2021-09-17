@@ -10,23 +10,15 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   classify,
-//   createTag,
-//   externalLinks,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/*
-global
+import {
   addDefaultClass,
   appearMain,
   classify,
   createTag,
   externalLinks,
-  loadLocalHeader
-*/
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
+import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');
@@ -242,7 +234,9 @@ async function decorateStep() {
       document.querySelector('main .content>p>a').setAttribute('href', `${currentStep['Practice File']}`);
       document.querySelector('main .content>p>a').setAttribute('target', '_blank');
     } else {
-      document.querySelector('main .content>p>a').setAttribute('href', `/static/twp3/practice-files/${currentStep['Practice File']}`);
+      hashPathOf(`/static/twp3/practice-files/${currentStep['Practice File']}`).then((href) => {
+        document.querySelector('main .content>p>a').setAttribute('href', href);
+      });
     }
   }
 
@@ -281,7 +275,7 @@ async function decorateStep() {
   let html = '';
 
   skills.forEach((skill) => {
-    html += `<div class="skill"><img src="/static/twp3/icons/${skill.icon}.svg">
+    html += `<div class="skill"><img src="/icons/twp3/${skill.icon}.svg">
             <p>${skill.title.replace('\n', '<br>')}</p></div>`;
   });
   $skills.innerHTML = html;
@@ -306,7 +300,6 @@ async function decorateStep() {
 
   // check if it's a step or external link
   // set next step page if one is available
-  // console.log(steps)
   // const internalSteps = [];
   let hasNextSteps;
   let hasAddedFilter = false;
@@ -354,7 +347,6 @@ async function decorateStep() {
                     <h2>${nextStep.Title.replace('\n', '<br>')}</h2>
                     <p>${nextStep.Description.replace('\n', '<br>')}</p>
                 </div>
-            
                     `;
     } else {
       $upnext.remove();
@@ -386,7 +378,11 @@ async function decorateHome() {
   await insertSteps();
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
+  setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-bg.png');
+  setBackgroundImage('.step main .upnext .window', '/static/twp3/window.jpg');
+  setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-desktop-bg-ai.jpg', 'min-width:900px');
+
   addDefaultClass('main>div');
   await loadLocalHeader();
   externalLinks('header');
@@ -419,12 +415,13 @@ async function decoratePage() {
   window.pages.decorated = true;
   appearMain();
   if (document.getElementsByTagName('body')[0].classList.contains('photography-plan')) {
-    document.querySelector('.progress').innerHTML = '';
+    const progEl = document.querySelector('.progress');
+    if (progEl) progEl.innerHTML = '';
   }
 }
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
-}
+// if (document.readyState === 'loading') {
+//   window.addEventListener('DOMContentLoaded', decoratePage);
+// } else {
+//   decoratePage();
+// }

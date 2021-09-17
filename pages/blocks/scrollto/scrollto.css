@@ -1,0 +1,29 @@
+main div.block.scrollto {
+	visibility: unset;
+}
+
+.scrollto-container > div {
+  padding-top: 0 !important;
+  padding-bottom: 3em !important;
+}
+
+.scroll-btn {
+  border: none;
+  box-shadow: 0;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: transform 200ms ease;
+}
+
+.scroll-btn:hover {
+  animation: bounce 300ms infinite alternate-reverse;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0px);
+  } 
+  to {
+    transform: translateY(-4px)
+  }
+}

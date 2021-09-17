@@ -1,0 +1,26 @@
+main div.block.iframe {
+	visibility: unset;
+}
+
+.iframe > div {
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+}
+
+.iframe-parent {
+  position: relative;
+  padding-bottom: 56.25%;
+  background: #aaa;
+  margin-bottom: 1em;
+}
+
+.iframe > div div iframe {
+  position: absolute;
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+}
+
+.iframe-parent {
+  position: relative;
+}

@@ -10,25 +10,16 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   createTag,
-//   debounce,
-//   decorateTables,
-//   externalLinks,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/*
-global
+import {
   addDefaultClass,
   appearMain,
   createTag,
   debounce,
+  decorateBlocks,
   decorateTables,
   externalLinks,
-  loadLocalHeader
-*/
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {
@@ -40,7 +31,6 @@ function wrapSections(element) {
 
 function decorateNav() {
   if (document.querySelector('header img')) {
-    console.log('nav initiated');
     const svg = document.querySelector('header img');
     const svgWithCarrot = document.createElement('div');
     svgWithCarrot.classList.add('nav-logo');
@@ -161,7 +151,10 @@ function setTabIndex() {
   }
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
+  const $main = document.querySelector('main');
+  decorateBlocks($main);
+
   addDefaultClass('main>div');
   decorateTables();
   styleCards();
@@ -181,10 +174,4 @@ async function decoratePage() {
   window.pages.decorated = true;
   wrapSections('.home > main > div');
   appearMain();
-}
-
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
 }

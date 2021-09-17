@@ -1,0 +1,28 @@
+@import "//d22hhoe037sl7u.cloudfront.net/1.7/css/link_texting_gz.min.css";
+
+main div.block.linktexting {
+	visibility: unset;
+}
+
+.promptWrapper .linkTextingButton,
+.linkTextingWidget .linkTextingInput {
+	font-family: "adobe-clean",sans-serif !important;
+}
+.promptWrapper .linkTextingButton {
+	font-weight: 700;
+	border-radius: 36px;
+}
+.promptWrapper .linkTextingWidget {
+	margin: 0;
+	padding: 0;
+}
+
+@media screen and (max-width: 600px) {
+	.promptWrapper {
+		padding: 0 10px;
+	}
+	.promptWrapper .linkTextingButton {
+	max-width: 100px;
+	width: 100px;
+	}
+}

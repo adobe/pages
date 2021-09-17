@@ -1,0 +1,28 @@
+@import url("./styles.css");
+
+main {
+  padding-top: 2em;
+}
+main .section-wrapper:nth-child(2) {
+  text-align: center;
+  background: #eee;
+  padding: 10px 0px;
+}
+
+main .section-wrapper:nth-child(2) a {
+  color: #1473E6;
+}
+
+main .section-wrapper:nth-child(3) {
+  text-align: center;
+  padding-top: 1.5em;
+}
+
+main .section-wrapper:nth-child(3) button {
+  color: white;
+  background: #1473E6;
+  padding: 12px 32px;
+  border-radius: 20px;
+  box-shadow: 0px;
+  border: none;
+}

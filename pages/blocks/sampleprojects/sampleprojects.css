@@ -1,0 +1,42 @@
+main div.block.sampleprojects {
+	visibility: unset;
+}
+
+.sampleprojects {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding-bottom: 2em;
+  max-width: 80%;
+  margin: auto;
+}
+
+.sampleprojects > div:first-of-type {
+  margin-bottom: 1em;
+}
+
+.sampleprojects img {
+  max-width: 48px;
+}
+
+.sampleprojects > div div:last-of-type a {
+  width: 80%;
+  color: #1473E6;
+  display: inline-block;
+  text-decoration: underline;
+  line-height: 1.4;
+}
+
+@media(min-width: 480px) {
+  .sampleprojects {
+    flex-direction: row;
+  }
+
+  .sampleprojects > div  {
+    width: 45%;
+  }
+
+  .sampleprojects > div:first-of-type {
+    margin-bottom: 0em;
+  }
+}

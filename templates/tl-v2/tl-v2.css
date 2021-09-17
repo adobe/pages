@@ -1,4 +1,4 @@
-@import url("/styles/legacy/styles.css");
+@import url("./styles.css");
 
 main {
   text-align: center;
@@ -266,7 +266,6 @@ main .card a:any-link:hover {
 }
 
 .step main .video-wrapper {
-  background-image: url(/static/twp3/step-bg.png);
   background-size: contain;
   background-position: top center;
   background-repeat: no-repeat;
@@ -378,7 +377,6 @@ main .card a:any-link:hover {
 .step main .upnext .window {
   padding-left: 1px;
   box-sizing: border-box;
-  background-image: url(/static/twp3/window.jpg);
   background-size: cover;
   margin: auto;
   width: 360px;
@@ -428,7 +426,6 @@ main svg {
       padding: 115px;
       padding-left: 115px;
       padding-top: 88px;
-      background-image: url(/static/twp3/step-desktop-bg-ai.jpg);
   }    
 
   main .card {

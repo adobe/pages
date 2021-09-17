@@ -10,13 +10,17 @@
  * governing permissions and limitations under the License.
  */
 
-import { ComparePlugin } from "./plugins/plugin";
+/* eslint-disable import/no-cycle, import/no-extraneous-dependencies */
+
+import { PuppeteerNodeLaunchOptions } from 'puppeteer';
+import { ComparePlugin } from './plugins/plugin';
+
 export * from './plugins/plugin';
 
 /**
  * CompareInput
  * Maps page name to an object mapping version name to URL.
- * 
+ *
  * @example
  * ```
  * {
@@ -47,11 +51,12 @@ export interface CompareOptions {
   plugins?: ComparePlugin[];
   input: CompareInput;
   output?: CompareOutput;
+  launchOptions?: PuppeteerNodeLaunchOptions;
 }
 
 /**
 * Main tool entrypoint.
-* 
+*
 * @example
 * ```
 * await compare({
@@ -75,7 +80,7 @@ export interface CompareOptions {
 *     root: './.compare'
 *   }
 * });
-* 
+*
 * // output tree
 * ./.compare
 * ├── blog
@@ -88,7 +93,7 @@ export interface CompareOptions {
 *         ├── prod.html
 *         └── stage.html
 * ```
-* 
-* @param {CompareOptions} options 
+*
+* @param {CompareOptions} options
 */
 export declare async function compare(options);

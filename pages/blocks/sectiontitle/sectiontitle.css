@@ -1,0 +1,24 @@
+main div.block.sectiontitle {
+	visibility: unset;
+}
+
+.sectiontitle-container  h2 {
+  max-width: 780px;
+}
+
+.sectiontitle-container .alignleft h2 {
+  margin: 0;
+}
+.sectiontitle-container .alignleft {
+  text-align: left;
+  margin: 0;
+}
+
+.sectiontitle-container > div {
+  padding: 0em !important;
+}
+.sectiontitle-container h2 {
+  font-weight: 100;
+  font-size: 32px;
+  margin:  0em auto;
+}

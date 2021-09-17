@@ -21,6 +21,8 @@ module.exports = {
     '!.tools/',
   ],
   rules: {
+    indent: 'off',
+    '@typescript-eslint/indent': ['error', 2],
     // allow reassigning param
     'no-param-reassign': [2, { props: false }],
     'linebreak-style': ['error', 'unix'],
@@ -35,6 +37,15 @@ module.exports = {
     }],
   },
   plugins: ['@typescript-eslint'],
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts'],
+    },
+    'import/resolver': {
+      typescript: {
+      },
+    },
+  },
   overrides: [
     {
       files: ['**/*.d.ts'],

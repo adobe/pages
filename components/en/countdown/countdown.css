@@ -1,0 +1,52 @@
+.flexy {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  line-height: 1.15;
+  background-color: rgb(245, 245, 245);
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  font-family: 'adobe-clean',Tahoma,Helvetica,Arial,sans-serif;
+}
+
+header, footer, main div>p, main h1  {
+  display: none;
+}
+
+#container {
+  min-width: 336px;
+  color: #444;
+}
+
+#icon {
+  width: 180px;
+  height: 120px;
+  min-width: 180px;
+  min-height: 120px;
+  margin-bottom: 24px;
+  fill: #333;
+
+}
+
+#heading {
+  color: #333;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+#description {
+  color: #8e8e8e;
+  font-size: 14px;
+  text-align: center;
+  line-height: 2em;
+}

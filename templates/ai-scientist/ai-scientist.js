@@ -10,14 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   addDefaultClass,
-//   appearMain,
-//   createTag,
-//   externalLinks,
-//   loadLocalHeader,
-// } from '../../scripts.js';
-/* global addDefaultClass, appearMain, createTag, externalLinks, loadLocalHeader */
+import {
+  addDefaultClass,
+  appearMain,
+  createTag,
+  externalLinks,
+  loadLocalHeader,
+} from '../../pages/scripts/scripts.js';
 
 // NOTE: lots of this looks reused from scripts/twp...js
 
@@ -377,7 +376,7 @@ async function decorateHome() {
   decorateFooter();
 }
 
-async function decoratePage() {
+export default async function decoratePage() {
   wrapSections('main>div');
   addDefaultClass('main>div');
   await loadLocalHeader();
@@ -409,8 +408,8 @@ async function decoratePage() {
   document.body.classList.add(window.pages.locale);
 }
 
-if (document.readyState === 'loading') {
-  window.addEventListener('DOMContentLoaded', decoratePage);
-} else {
-  decoratePage();
-}
+// if (document.readyState === 'loading') {
+//   window.addEventListener('DOMContentLoaded', decoratePage);
+// } else {
+//   decoratePage();
+// }

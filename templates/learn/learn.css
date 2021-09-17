@@ -1,4 +1,4 @@
-@import url("/styles/legacy/styles.css");
+@import url("./styles.css");
 
 body {
 	text-rendering: optimizeLegibility; 
@@ -274,7 +274,9 @@ body.step main {
 }
 
 body.step {
-	background: #f6f5f7 url(/static/lightroom-classic/progress-circle.gif) center center no-repeat;
+	/* background: #f6f5f7 url(/static/lightroom-classic/progress-circle.gif) center center no-repeat; */
+	background: #f6f5f7 center center no-repeat;
+
 	background-size: contain;
 	/*transition: 0.3s ease-out background;*/
 }
