@@ -6,7 +6,7 @@
     "test": "karma start",
     "lint": "eslint .",
     "compare": "node ./.tools/run-compare.js",
-    "sync:content": "node ./.tools/run-sync.js"
+    "sync": "node ./.tools/run-sync.js"
   },
   "repository": {
     "type": "git",
