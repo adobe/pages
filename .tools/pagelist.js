@@ -131,12 +131,12 @@ export default [
   '/premiere/fr/speechtotext/index',
   '/static/ete/hero-posters/index',
   '/premiere/kr/speechtotext/index',
-  '/static/lightroom-classic/index',
-  '/static/internal/index',
-  '/static/templates/stock-advocates/index',
-  '/static/lr-ps/hero-posters/index',
-  '/static/twp3/index',
-  '/static/twp3/background-elements/index',
+  // '/static/lightroom-classic/index', // not pages, just for static assets
+  // '/static/internal/index',
+  // '/static/templates/stock-advocates/index',
+  // '/static/lr-ps/hero-posters/index',
+  // '/static/twp3/index',
+  // '/static/twp3/background-elements/index',
   '/stock/en/artisthub/index',
   '/stock/en/advocates/index',
   // '/xd/en/xd-plugin-download/index', // redirect
