@@ -14,6 +14,7 @@
 
 import yargs from 'yargs';
 import { LocalSync } from './content-sync/content-sync.js';
+import { getOpt } from './util.js';
 
 const { argv } = yargs(process.argv);
 
@@ -29,26 +30,6 @@ const { argv } = yargs(process.argv);
  * ```
  */
 
-/**
- * Validate option and return if valid
- * @param {string} opt
- * @param {boolean} [required=true]
- * @param {string} [type='string']
- * @returns {any}
- */
-function getOpt(opt, required = true, type = 'string') {
-  const val = argv[opt];
-  if (!required && val == null) {
-    return val;
-  }
-  // eslint-disable-next-line valid-typeof
-  if (typeof val !== type) {
-    console.error(`Invalid param '${opt}'. Expected ${type}, got ${typeof val}.`);
-    process.exit(1);
-  }
-  return val;
-}
-
 (() => {
   const startTime = Date.now();
 
@@ -60,13 +41,13 @@ function getOpt(opt, required = true, type = 'string') {
   }
 
   // flags
-  const repo = getOpt('repo', false) || 'pages';
-  const owner = getOpt('owner', false) || 'adobe';
-  const env = getOpt('env', false, 'string') || 'preview';
-  const startDir = getOpt('startDir', false);
-  const branch = getOpt('branch', false);
-  const glob = getOpt('glob', false);
-  const recursive = getOpt('recursive', false, 'boolean');
+  const repo = getOpt(argv, 'repo', false) || 'pages';
+  const owner = getOpt(argv, 'owner', false) || 'adobe';
+  const env = getOpt(argv, 'env', false, 'string') || 'preview';
+  const startDir = getOpt(argv, 'startDir', false);
+  const branch = getOpt(argv, 'branch', false);
+  const glob = getOpt(argv, 'glob', false);
+  const recursive = getOpt(argv, 'recursive', false, 'boolean');
 
   /** @type {import('./content-sync/content-sync.js').LocalSyncOptions} */
   const opts = {
