@@ -12,7 +12,6 @@
 
 import {
   addDefaultClass,
-  appearMain,
   classify,
   createTag,
   debounce,
@@ -65,58 +64,58 @@ async function insertSteps() {
         if (headers[count]) {
           currentHeader = headers[count].outerHTML;
         }
-        segment += `<div class="section-title">${currentHeader}</div><div class="category-steps">`;
+        segment += /* html */`
+          <div class="section-title">
+            ${currentHeader}
+          </div>
+          <div class="category-steps">`;
       }
-      segment += `<div class="card" onclick="window.location='step?${
-        i + 1
-      }'">
-                <div class='img' style="background-image: url(
-                  ${await hashPathOf(`/static/ete/hero-posters/${getThumbnail(step)}`)})">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
-                    <defs>
-                      <style>
-                        .cls-1 {
-                          fill: #fff;
-                        }
-  
-                        .cls-2 {
-                          fill: #1473e6;
-                        }
-                      </style>
-                    </defs>
-                    <g id="gallery_design_playbutton_mobile" transform="translate(-441 -643)">
-                      <rect id="Rectangle_147685" data-name="Rectangle 147685" class="cls-1" width="27" height="36" transform="translate(457.545 652)"/>
-                      <path id="Ellipse_1" data-name="Ellipse 1" class="cls-2" d="M27.5,55A27.507,27.507,0,0,1,16.8,2.161,27.507,27.507,0,0,1,38.2,52.839,27.328,27.328,0,0,1,27.5,55ZM20.479,14.043l-.586,26.915L42.713,27.5,20.479,14.043Z" transform="translate(441 643)"/>
-                    </g>
-                  </svg>
-                </div>
-                <div class='text'>
-                    <div class="icons">
-                      <div class="icons__item">
-                        <img src="../../../../icons/${step.Product_icon_1.toLowerCase()}.svg">
-                      </div>
-                      <div class="icons__item">
-                        <img src="../../../../icons/${step.Product_icon_2.toLowerCase()}.svg">
-                      </div>
-                    </div>
-                    <div class="card-content"> 
-                      <h4>${step.Title}</h4>
-                      <p>${step.Description}</p>
-                    </div>
-                    <a href="step?${i + 1}">${step.CTA}</a>
-                </div>
-            </div>`;
+      segment += /* html */`
+        <div class="card" onclick="window.location='step?${i + 1}'">
+          <div class='img' style="background-image: url(${await hashPathOf(`/static/ete/hero-posters/${getThumbnail(step)}`)})">
+            <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: #fff;
+                  }
+                  .cls-2 {
+                    fill: #1473e6;
+                  }
+                </style>
+              </defs>
+              <g id="gallery_design_playbutton_mobile" transform="translate(-441 -643)">
+                <rect id="Rectangle_147685" data-name="Rectangle 147685" class="cls-1" width="27" height="36" transform="translate(457.545 652)"/>
+                <path id="Ellipse_1" data-name="Ellipse 1" class="cls-2" d="M27.5,55A27.507,27.507,0,0,1,16.8,2.161,27.507,27.507,0,0,1,38.2,52.839,27.328,27.328,0,0,1,27.5,55ZM20.479,14.043l-.586,26.915L42.713,27.5,20.479,14.043Z" transform="translate(441 643)"/>
+              </g>
+            </svg>
+          </div>
+          <div class='text'>
+            <div class="icons">
+              <div class="icons__item">
+                <img src="/icons/${step.Product_icon_1.toLowerCase()}.svg">
+              </div>
+              <div class="icons__item">
+                <img src="/icons/${step.Product_icon_2.toLowerCase()}.svg">
+              </div>
+            </div>
+            <div class="card-content"> 
+              <h4>${step.Title}</h4>
+              <p>${step.Description}</p>
+            </div>
+            <a href="step?${i + 1}">${step.CTA}</a>
+          </div>
+        </div>`;
       if (i === 2 || i === 5) {
         segment += '</div>';
       }
       return segment;
     });
+
     // let markup = `${addToCategory}`
-    await Promise.all(stepProms).then((segments) => {
-      const addToCategory = segments.join('');
-      $sectionTitles.innerHTML = '';
-      $steps.innerHTML = addToCategory;
-    });
+    const addToCategory = (await Promise.all(stepProms)).join('');
+    $sectionTitles.innerHTML = '';
+    $steps.innerHTML = addToCategory;
   }
 }
 
@@ -126,15 +125,14 @@ function decorateNav() {
     const svgWithCarrot = document.createElement('div');
     svgWithCarrot.classList.add('nav-logo');
 
-    svgWithCarrot.innerHTML = `
-        <span class="product-icon">
-            ${svg.outerHTML}
-        </span>
-  
-        <span class="carrot">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </span>
-        `;
+    svgWithCarrot.innerHTML = /* html */`
+      <span class="product-icon">
+        ${svg.outerHTML}
+      </span>
+      <span class="carrot">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </span>
+    `;
     svg.remove();
     document.querySelector('header div').prepend(svgWithCarrot);
     document.querySelector('header').classList.add('default-nav');
@@ -205,9 +203,14 @@ async function decorateStep() {
 
   const iconParent = document.createElement('div');
   iconParent.setAttribute('class', 'icons_parent');
-  iconParent.innerHTML = `
-    <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
-    <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
+  iconParent.innerHTML = /* html */`
+    <div class="icons_parent__item">
+      <img src="/icons/${currentStep.Product_icon_1.toLowerCase()}.svg">
+    </div>
+    <div class="icons_parent__item">
+      <img src="/icons/${currentStep.Product_icon_2.toLowerCase()}.svg">
+    </div>
+  `;
 
   document.querySelector('main .content').prepend(iconParent);
   document.querySelector('.content p').innerHTML = currentStep.Single_page_description;
@@ -222,14 +225,14 @@ async function decorateStep() {
   }
 
   if (currentStep.Video.startsWith('https://images-tv.adobe.com')) {
-    $video.innerHTML = `<div class="video"><div id="placeholder" class="button">
+    $video.innerHTML = /* html */`
+      <div class="video"><div id="placeholder" class="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
           <defs>
             <style>
               .cls-1 {
                 fill: #fff;
               }
-  
               .cls-2 {
                 fill: #1473e6;
               }
@@ -240,11 +243,11 @@ async function decorateStep() {
             <path id="Ellipse_1" data-name="Ellipse 1" class="cls-2" d="M27.5,55A27.507,27.507,0,0,1,16.8,2.161,27.507,27.507,0,0,1,38.2,52.839,27.328,27.328,0,0,1,27.5,55ZM20.479,14.043l-.586,26.915L42.713,27.5,20.479,14.043Z" transform="translate(441 643)"/>
           </g>
         </svg>
-  
-        </div>
-        <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
+      </div>
+      <video id='video' class="hidden" preload="metadata" src="${currentStep.Video}" tabindex="0">
         <source src="${currentStep.Video}" type="video/mpeg4">
-        </video></div>`;
+      </video>
+    </div>`;
     hashPathOf(`/static/ete/hero-posters/${currentStep.Thumbnail}`).then((src) => {
       $video.firstChild.style.backgroundImage = `url(${src})`;
     });
@@ -254,7 +257,10 @@ async function decorateStep() {
   if (currentStep.Video.startsWith('https://www.youtube.com/')) {
     const yturl = new URL(currentStep.Video);
     const vid = yturl.searchParams.get('v');
-    $video.innerHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe></div>`;
+    $video.innerHTML = /* html */`
+      <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+        <iframe src="https://www.youtube.com/embed/${vid}?rel=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture"></iframe>
+      </div>`;
   }
 
   function scrollPage(event) {
@@ -280,9 +286,9 @@ async function decorateStep() {
   }
   const $skills = createTag('div', { class: 'skills' });
 
-  const segments = skills.map(async (skill) => `
+  const segments = skills.map(async (skill) => /* html */`
       <div class="skill">
-        <img src="$/icon/you-will-learn/${skill.icon}.svg">
+        <img src="$/icons/you-will-learn/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
       </div>`);
 
@@ -353,21 +359,21 @@ function cleanUpBio() {
     $link: $bio.querySelector('a:last-of-type').getAttribute('href'),
   };
 
-  $bio.innerHTML = `
-        <div class="about-bio__inner">
-          <div class="bio-image">
-            <img src="${bio.$avatar}" alt="image of ${bio.$name}"/>
-          </div>
-          <div class="bio-content">
-            <h4>${bio.$name}</h4>
-            <a class="follow-link" href="${bio.$link}" target="_blank">
-              <img src="${bio.$behanceLogo}" alt="Follow ${bio.$name} on Behance">
-              <p>Follow Me</p>
-            </a>
-            <p class="bio">${bio.$bioSummary}</p>
-          </div>
-        </div>
-    `;
+  $bio.innerHTML = /* html */`
+    <div class="about-bio__inner">
+      <div class="bio-image">
+        <img src="${bio.$avatar}" alt="image of ${bio.$name}"/>
+      </div>
+      <div class="bio-content">
+        <h4>${bio.$name}</h4>
+        <a class="follow-link" href="${bio.$link}" target="_blank">
+          <img src="${bio.$behanceLogo}" alt="Follow ${bio.$name} on Behance">
+          <p>Follow Me</p>
+        </a>
+        <p class="bio">${bio.$bioSummary}</p>
+      </div>
+    </div>
+  `;
 }
 
 export default async function decoratePage() {
@@ -407,7 +413,7 @@ export default async function decoratePage() {
   window.pages.decorated = true;
   wrapSections('.home > main > div');
   cleanUpBio();
-  appearMain();
+  // appearMain();
   externalLinks('main .section-wrapper:last-of-type');
   cardHeightEqualizer('.card-content');
 }
