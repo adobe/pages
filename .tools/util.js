@@ -30,3 +30,23 @@ export function getStdOutFrom(cmd) {
     });
   });
 }
+
+/**
+ * Validate option and return if valid
+ * @param {string} opt
+ * @param {boolean} [required=true]
+ * @param {string} [type='string']
+ * @returns {any}
+ */
+export function getOpt(argv, opt, required = true, type = 'string') {
+  const val = argv[opt];
+  if (!required && val == null) {
+    return val;
+  }
+  // eslint-disable-next-line valid-typeof
+  if (typeof val !== type) {
+    console.error(`Invalid param '${opt}'. Expected ${type}, got ${typeof val}.`);
+    process.exit(1);
+  }
+  return val;
+}

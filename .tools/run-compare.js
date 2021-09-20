@@ -14,43 +14,45 @@
 
 // @ts-check
 
+/* eslint-disable-next-line import/no-extraneous-dependencies */
+import yargs from 'yargs';
 import * as path from 'path';
 import { cwd } from 'process';
 import { rm } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import screenshot from './compare/plugins/screenshot.js';
-// import lighthouse from './compare/plugins/lighthouse.js';
+import lighthouse from './compare/plugins/lighthouse.js';
 import { compare } from './compare/index.js';
-import { getStdOutFrom } from './util.js';
-import pagelist from './pagelist.js';
+import { getOpt, getStdOutFrom } from './util.js';
+
+const { argv } = yargs(process.argv);
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// TODO: could be parameterized
-const CURRENT_DOMAIN = 'hlx3.page';
+const DEFAULT_HOST = 'hlx3.page';
+const DEFAULT_OWNER = 'adobe';
+const DEFAULT_REPO = 'pages';
 
-// if defined, uses this for base URL construction
-const BASE_ROOT_URL = 'https://pages.adobe.com';
-// if root URL not defined, use branch and domain
-// to construct base to compare against
-const BASE_BRANCH = 'master';
-const BASE_DOMAIN = 'hlx.page';
+const DEFAULT_BASE_BRANCH = 'main';
+const DEFAULT_OUTPUT_PATH = '.comparisons';
+const DEFAULT_PAGELIST_PATH = path.resolve(__dirname, './pagelist.js');
 
-// root directory of output
-const ROOT_DIR = '.comparisons';
+const PLUGIN_LIST = ['screenshot', 'lighthouse']; // possible values for plugins
+const DEFAULT_PLUGINS = 'screenshot'; // or 'screenshot,lighthouse'
 
 /**
  * Make inputs object
  *
  * @param {string[]} routes
- * @param {string} currentDomain
  * @param {string} repoName
- * @param {string} currentOwner
- * @param {string} currentBranch
+ * @param {string} [currentRootUrl] - If not defined, all 3 proceeding arguments must be defined
+ * @param {string} [currentHost]
+ * @param {string} [currentOwner]
+ * @param {string} [currentBranch]
  * @param {string} [baseRootUrl] - If not defined, all 3 proceeding arguments must be defined
- * @param {string} [baseDomain]
+ * @param {string} [baseHost]
  * @param {string} [baseOwner]
  * @param {string} [baseBranch]
  *
@@ -59,11 +61,12 @@ const ROOT_DIR = '.comparisons';
 function makeInputs(
   routes,
   repoName,
-  currentDomain,
+  currentRootUrl,
+  currentHost,
   currentOwner,
   currentBranch,
   baseRootUrl,
-  baseDomain,
+  baseHost,
   baseOwner,
   baseBranch,
 ) {
@@ -76,9 +79,9 @@ function makeInputs(
    */
   const templateRoute = (route, isCurrent) => {
     if (isCurrent) {
-      return `https://${currentBranch}--${repoName}--${currentOwner}.${currentDomain}/${route}`;
+      return currentRootUrl ? `${currentRootUrl}/${route}` : `https://${currentBranch}--${repoName}--${currentOwner}.${currentHost}/${route}`;
     }
-    return baseRootUrl ? `${baseRootUrl}/${route}` : `https://${baseBranch}--${repoName}--${baseOwner}.${baseDomain}/${route}`;
+    return baseRootUrl ? `${baseRootUrl}/${route}` : `https://${baseBranch}--${repoName}--${baseOwner}.${baseHost}/${route}`;
   };
 
   return routes.reduce((prev, curr) => {
@@ -96,29 +99,74 @@ function makeInputs(
   }, {});
 }
 
+/**
+ * @example
+ * ```sh
+ * npm run compare -- \
+ *  [--baseHost="hlx3.page"] \
+ *  [--baseOwner="adobe"] \
+ *  [--baseBranch="main"] \
+ *  [--baseRootUrl="https://my-outer-cdn.com"] \
+ *  [--currentHost="hlx3.page"] \
+ *  [--currentOwner="adobe"] \
+ *  [--currentBranch="my-feature"]
+ *  [--currentRootUrl="..."]
+ *  [--repoName="pages"]
+ *  [--output="./.comparisons"]
+ *  [--pagelist="./.tools/pagelist.js"]
+ *  [--page="/stock/en/advocates/index"]
+ *  [--plugins="screenshot,lighthouse"]
+ * ```
+ */
 (async () => {
-  // TODO: get these from CLI params
-  const baseDomain = BASE_DOMAIN;
-  const baseOwner = 'adobe';
-  const baseBranch = BASE_BRANCH;
-  const baseRootUrl = BASE_ROOT_URL;
+  const baseHost = getOpt(argv, 'baseHost', false) || DEFAULT_HOST;
+  const baseOwner = getOpt(argv, 'baseOwner', false) || DEFAULT_OWNER;
+  const baseBranch = getOpt(argv, 'baseBranch', false) || DEFAULT_BASE_BRANCH;
+  const baseRootUrl = getOpt(argv, 'baseRootUrl', false) || undefined;
 
-  const repoName = 'pages';
-  const rootDir = path.resolve(cwd(), ROOT_DIR);
+  const currentHost = getOpt(argv, 'currentHost', false) || DEFAULT_HOST;
+  const currentOwner = getOpt(argv, 'currentOwner', false) || DEFAULT_OWNER;
+  const currentBranch = getOpt(argv, 'currentBranch', false) || await getStdOutFrom('git branch --show-current');
+  const currentRootUrl = getOpt(argv, 'currentRootUrl', false) || undefined;
 
-  // TODO: parse current branch and owner from the .git directory
-  const currentDomain = CURRENT_DOMAIN;
-  const currentOwner = 'adobe';
-  const currentBranch = await getStdOutFrom('git branch --show-current');
+  const repoName = getOpt(argv, 'repo', false) || DEFAULT_REPO;
+
+  const outputPath = getOpt(argv, 'output', false) || DEFAULT_OUTPUT_PATH;
+  const rootDir = path.resolve(cwd(), outputPath);
+
+  // Pages to run on, array of strings from a .js file or a single page as CLI arg
+  let pagelistPath = getOpt(argv, 'pagelist', false) || DEFAULT_PAGELIST_PATH;
+  const page = getOpt(argv, 'page', false) || undefined;
+  let pagelist = [];
+  if (typeof page === 'string') {
+    // if using `page`, only run on that route
+    pagelist = [page];
+  } else {
+    // otherwise import the pagelist
+    pagelistPath = path.resolve(cwd(), pagelistPath);
+    pagelist = (await import(pagelistPath)).default;
+  }
+
+  // Plugins to use, array of strings
+  let plugins = getOpt(argv, 'plugins', false) || DEFAULT_PLUGINS;
+  plugins = plugins.split(',').filter((p) => !!p).map((p) => p.trim().toLowerCase());
+  plugins.forEach((p) => {
+    if (!PLUGIN_LIST.includes(p)) {
+      console.error('Invalid plugin: ', p);
+      console.error('Possible plugins: ', PLUGIN_LIST);
+      process.exit(1);
+    }
+  });
 
   const input = makeInputs(
     pagelist,
     repoName,
-    currentDomain,
+    currentRootUrl,
+    currentHost,
     currentOwner,
     currentBranch,
     baseRootUrl,
-    baseDomain,
+    baseHost,
     baseOwner,
     baseBranch,
   );
@@ -137,7 +185,8 @@ function makeInputs(
       root: rootDir,
     },
     plugins: [
-      screenshot({
+
+      plugins.includes('screenshot') && screenshot({
         fullPage: true,
         delay: 15,
         timeout: 260,
@@ -146,8 +195,10 @@ function makeInputs(
           userDataDir,
         },
       }),
-      // lighthouse(),
-    ],
+
+      plugins.includes('lighthouse') && lighthouse(),
+
+    ].filter(Boolean),
   };
 
   await compare(compareOptions);
