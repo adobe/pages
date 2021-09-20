@@ -48,50 +48,47 @@ function decoratePhotoshopNPS() {
     };
   }());
 
-  // Event handler: Page load
-  window.addEventListener('load', () => {
   // Check that "f" (feedback ID) and "s" (score) are present in URL query string
-    if (getUrlParameter('f') && getUrlParameter('s') >= 0 && getUrlParameter('s') <= 10) {
+  if (getUrlParameter('f') && getUrlParameter('s') >= 0 && getUrlParameter('s') <= 10) {
     // Set "selected" class on button for selected score
-      document.querySelector(`#npsScaleButton_${getUrlParameter('s')}`).classList.add('selected');
+    document.querySelector(`#npsScaleButton_${getUrlParameter('s')}`).classList.add('selected');
 
-      // Construct initial JSON payload
-      const initialRequest = {
-        feedbackId: getUrlParameter('f'),
-        feedbackAttributes: {
-          score: getUrlParameter('s'),
-        },
-        feedbackType: 'NPS',
-        metaData: {},
-      };
+    // Construct initial JSON payload
+    const initialRequest = {
+      feedbackId: getUrlParameter('f'),
+      feedbackAttributes: {
+        score: getUrlParameter('s'),
+      },
+      feedbackType: 'NPS',
+      metaData: {},
+    };
 
-      // Send initial POST request (score only)
-      sonarPost(initialRequest, (response) => {
-        if (response === 200 || response === 204) {
-          // Score submitted successfully
-          console.log('Score submitted succesfully');
-        } else {
-          // Handle error on score submission
-          console.log(`Error response code received: ${response}`);
+    // Send initial POST request (score only)
+    sonarPost(initialRequest, (response) => {
+      if (response === 200 || response === 204) {
+        // Score submitted successfully
+        console.log('Score submitted succesfully');
+      } else {
+        // Handle error on score submission
+        console.log(`Error response code received: ${response}`);
 
-          // Hide the NPS survey form
-          document.querySelector('#npsForm').classList.add('hidden');
+        // Hide the NPS survey form
+        document.querySelector('#npsForm').classList.add('hidden');
 
-          // Show the error message
-          document.querySelector('#errorMessage').classList.remove('hidden');
-        }
-      });
-    } else {
-      // Broken URL, show error message
-      console.log('Unexpected URL query string');
+        // Show the error message
+        document.querySelector('#errorMessage').classList.remove('hidden');
+      }
+    });
+  } else {
+    // Broken URL, show error message
+    console.log('Unexpected URL query string');
 
-      // Hide the NPS survey form
-      document.querySelector('#npsForm').classList.add('hidden');
+    // Hide the NPS survey form
+    document.querySelector('#npsForm').classList.add('hidden');
 
-      // Show the error message
-      document.querySelector('#errorMessage').classList.remove('hidden');
-    }
-  });
+    // Show the error message
+    document.querySelector('#errorMessage').classList.remove('hidden');
+  }
 
   // Event handler: Form submitted
   document.querySelector('#npsForm').addEventListener('submit', (e) => {
