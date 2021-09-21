@@ -26,9 +26,10 @@ export default async function decorate($block) {
         if (url.host === 'youtu.be') vid = url.pathname.substr(1);
 
         type = 'youtube';
-        embedHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
-            <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;v=${vid}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture" title="content from youtube" loading="lazy"></iframe>
-            </div>
+        embedHTML = /* html */`
+          <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+            <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;v=${vid}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture" title="content from youtube" loading="lazy"></iframe>
+          </div>
           `;
       } else if ($a.href.includes('tv.adobe.com')) {
         const $video = createTag('iframe', { src: $a.href, class: 'embed tv-adobe' });

@@ -633,7 +633,7 @@ export async function loadComponent($component, embedData) {
  */
 export async function loadBlock($block) {
   const reqCSSBlocks = ['form'];
-  const ignoredBlocks = ['iframe', 'missionbg'];
+  const ignoredBlocks = ['missionbg'];
   const blockName = $block.getAttribute('data-block-name');
 
   if (ignoredBlocks.includes(blockName)) return;
@@ -663,13 +663,13 @@ function handleSpecialBlock(blockName, ogBlockName) {
     document.getElementsByTagName('body')[0].classList.add('checklist-page');
   }
 
-  if (['iframe', 'missiontimeline', 'missionbg'].includes(blockName)) {
+  if (['missiontimeline', 'missionbg'].includes(blockName)) {
     const msnPath = '/pages/blocks/mission-series/';
 
     loadJSModule(`${msnPath}/background.js`);
-    loadJSModule(`${msnPath}/iframe.js`);
+    // loadJSModule(`${msnPath}/iframe.js`);
 
-    loadCSS(`${msnPath}/iframe.css`);
+    // loadCSS(`${msnPath}/iframe.css`);
     loadCSS(`${msnPath}/background.css`);
     loadCSS(`${msnPath}/missiontimeline.css`);
   }
@@ -689,7 +689,7 @@ export function decorateBlocks(
     'cardcallouts', 'videocontent', 'scrolltop',
     'hero', 'tutorials', 'list',
   ];
-  const blocksWithSpecialCases = ['checklist', 'nav', 'iframe', 'missiontimeline', 'missionbg'];
+  const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
 
   $main.querySelectorAll(query).forEach(($block) => {
     const classes = Array.from($block.classList.values());

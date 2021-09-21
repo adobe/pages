@@ -15,9 +15,10 @@ function generateVideo() {
   const videos = document.querySelectorAll('.iframe > div a');
   videos.forEach((video) => {
     const videoParent = video.closest('div');
-    videoParent.innerHTML = `
-      <iframe src="${video.getAttribute('href')}" frameborder="0" id="video"></iframe>
-      `;
+    videoParent.innerHTML = /* html */`
+      <iframe src="${video.getAttribute('href')}" frameBorder="0" id="video"></iframe>
+    `;
+    // const iframe = document.querySelector();
   });
 
   const base = document.createElement('base');
@@ -68,7 +69,7 @@ function setUpControllers() {
     if (type === 'previous') {
       element = document.createElement('div');
       element.className = 'btn previous';
-      element.innerHTML = `
+      element.innerHTML = /* html */`
         <a href="${link}">
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" width="53" height="63" viewBox="0 0 53 63">
@@ -80,14 +81,12 @@ function setUpControllers() {
     } else {
       element = document.createElement('div');
       element.className = 'btn next';
-      element.innerHTML = `
+      element.innerHTML = /* html */`
         <a href="${link}">
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" width="53" height="63" viewBox="0 0 53 63">
-            <path id="Polygon_1" data-name="Polygon 1" d="M27.2,7.232a5,5,0,0,1,8.6,0L58.51,45.445A5,5,0,0,1,54.212,53H8.788a5,5,0,0,1-4.3-7.555Z" transform="translate(53) rotate(90)" fill="#3a0001"/>
-          </svg>
-          
-          
+              <path id="Polygon_1" data-name="Polygon 1" d="M27.2,7.232a5,5,0,0,1,8.6,0L58.51,45.445A5,5,0,0,1,54.212,53H8.788a5,5,0,0,1-4.3-7.555Z" transform="translate(53) rotate(90)" fill="#3a0001"/>
+            </svg>
           </span>
         </a>
       `;
