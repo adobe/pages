@@ -18,7 +18,6 @@ function generateVideo() {
     videoParent.innerHTML = /* html */`
       <iframe src="${video.getAttribute('href')}" frameBorder="0" id="video"></iframe>
     `;
-    // const iframe = document.querySelector();
   });
 
   const base = document.createElement('base');
