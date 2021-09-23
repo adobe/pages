@@ -18,6 +18,13 @@ async function fetchSteps() {
   return (Array.isArray(json) ? json : json.data);
 }
 
+async function getImageURL(pathOrURL) {
+  if (pathOrURL.startsWith('https://')) {
+    return pathOrURL;
+  }
+  return hashPathOf(`/static/lr-ps/hero-posters/${pathOrURL}`);
+}
+
 async function filterSteps() {
   const steps = await fetchSteps();
 
@@ -25,7 +32,7 @@ async function filterSteps() {
   const currentTag = steps[currentIndex].Tag;
   const urlBase = `${window.location.href.split('?')[0]}`;
 
-  steps
+  const proms = steps
     .filter(({ Tag }, i) => Tag === currentTag && i !== currentIndex)
     .map(async ({
       Title,
@@ -35,7 +42,7 @@ async function filterSteps() {
       <a class="more-content--ete-item" href="${urlBase}?${i + 1}">
         <div class="more-content--ete-image">
           <div style="position: relative;">
-            <img src="${await hashPathOf(`/static/lr-ps/hero-posters/${Thumbnail}`)}">
+            <img src="${await getImageURL(Thumbnail)}">
           </div>
         </div>
         <div class="more-content--ete-details">
@@ -43,8 +50,8 @@ async function filterSteps() {
           <p>${Description}</p>
         </div>
       </a>
-    `)
-    .then(Promise.all)
+    `);
+  Promise.all(proms)
     .then((segments) => {
       document.querySelector('.more-content--ete-inner').innerHTML = segments.join('');
     });
@@ -132,7 +139,7 @@ export default function decorate($block) {
   </div>
 
   <div class="see-all-tutorials--ete">
-    <a href="https://pages.adobe.com/creativecloud/en/lr-and-ps-together/">Sea all tutorials</a>
+    <a href="https://pages.adobe.com/creativecloud/en/lr-and-ps-together/">See all tutorials</a>
   </div>
 </div>`;
 
