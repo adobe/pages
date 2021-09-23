@@ -533,8 +533,8 @@ function createForm({
         </div>
         
         `;
-    formEl.prepend(slidePanelParent);
-    formEl.appendChild(buttonParent);
+    formEl.append(slidePanelParent);
+    slidePanelParent.appendChild(buttonParent);
   }
 
   // show_if

@@ -11,7 +11,7 @@
  */
 
 import {
-  debounce, isAttr, isNodeName, registerListener,
+  debounce, isAttr, isNodeName,
 } from '../../scripts/scripts.js';
 
 let formContainer = document.querySelector('.slide-form-container');
@@ -161,14 +161,11 @@ function setIndicator() {
 }
 
 // readjust container height on resize
-window.addEventListener('resize', debounce(() => {
+window.addEventListener('scroll', debounce(() => {
   setFormContainHeight();
 }, 300));
 
-// and when new css is loaded
-registerListener('cssLoaded', () => {
-  setFormContainHeight();
-});
+setFormContainHeight();
 
 const checkIfDomReady = setInterval(() => {
   formContainer = document.querySelector('.slide-form-container');
