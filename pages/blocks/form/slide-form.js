@@ -11,7 +11,7 @@
  */
 
 import {
-  debounce, isAttr, isNodeName,
+  debounce, isAttr, isNodeName, registerListener,
 } from '../../scripts/scripts.js';
 
 let formContainer = document.querySelector('.slide-form-container');
@@ -165,8 +165,6 @@ window.addEventListener('resize', debounce(() => {
   setFormContainHeight();
 }, 300));
 
-setFormContainHeight();
-
 const checkIfDomReady = setInterval(() => {
   formContainer = document.querySelector('.slide-form-container');
   if (formContainer) {
@@ -187,6 +185,14 @@ const checkIfDomReady = setInterval(() => {
     }
   }
 }, 10);
+
+if (document.querySelector('.section-wrapper')) {
+  setFormContainHeight();
+} else {
+  registerListener('cssLoaded', () => {
+    setFormContainHeight();
+  });
+}
 
 // Update progress counter and progress bar
 function progressBarUpdater() {
