@@ -340,7 +340,7 @@ export function externalizeImageSources($div) {
       const url = new URL(src);
       const id = url.pathname.split('/')[2];
       const ext = url.hash.split('.')[1];
-      $img.src = `/hlx_${id}.${ext}`;
+      $img.src = `/media_${id}.${ext}`;
     }
   });
 }
