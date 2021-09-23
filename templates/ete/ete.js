@@ -286,9 +286,9 @@ async function decorateStep() {
   }
   const $skills = createTag('div', { class: 'skills' });
 
-  const segments = skills.map(async (skill) => /* html */`
+  const segments = skills.map((skill) => /* html */`
       <div class="skill">
-        <img src="$/icons/you-will-learn/${skill.icon}.svg">
+        <img src="/icons/you-will-learn/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
       </div>`);
 
