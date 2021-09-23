@@ -26,26 +26,6 @@ function loadJSModule(src) {
   document.head.appendChild(module);
 }
 
-// TODO: dedupe this with default.js
-function setWidths() {
-  const sections = document.querySelectorAll('main .default');
-  sections.forEach((section) => {
-    const children = section.childNodes;
-    children.forEach((child) => {
-      if (child.innerHTML != null) {
-        if (child.innerHTML.includes('[!')) {
-          const width = child.innerHTML.split('[!')[1].split(']')[0];
-          const cleanUpText = child.innerHTML.split('[!')[0];
-          child.innerHTML = cleanUpText;
-          child.style.maxWidth = `${width}px`;
-          child.style.marginLeft = 'auto';
-          child.style.marginRight = 'auto';
-        }
-      }
-    });
-  });
-}
-
 /**
  * Creates a tag with the given name and attributes.
  * @param {string} name The tag name
@@ -428,7 +408,6 @@ function run() {
 // non-module, explicitly add functions to global scope
 window.addDefaultClass = addDefaultClass;
 window.loadJSModule = loadJSModule;
-window.setWidths = setWidths;
 window.createTag = createTag;
 window.insertLocalResource = insertLocalResource;
 window.externalLinks = externalLinks;

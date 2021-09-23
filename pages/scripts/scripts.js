@@ -240,29 +240,6 @@ export function isAttr(node, attr, val) {
 }
 
 /**
- * setWidths
- * @param {string} [selector] containing sections
- */
-export function setWidths(selector = 'main .default') {
-  const sections = document.querySelectorAll(selector);
-  sections.forEach((section) => {
-    const children = section.childNodes;
-    children.forEach((child) => {
-      if (child.innerHTML != null) {
-        if (child.innerHTML.includes('[!')) {
-          const width = child.innerHTML.split('[!')[1].split(']')[0];
-          const cleanUpText = child.innerHTML.split('[!')[0];
-          child.innerHTML = cleanUpText;
-          child.style.maxWidth = `${width}px`;
-          child.style.marginLeft = 'auto';
-          child.style.marginRight = 'auto';
-        }
-      }
-    });
-  });
-}
-
-/**
  * Creates a tag with the given name and attributes.
  * @param {string} name The tag name
  * @param {Record<string,string>} attrs An object containing the attributes
@@ -1017,6 +994,20 @@ export function styleButtons() {
   });
 }
 
+const linkInNewTabHelper = () => {
+  const links = document.querySelectorAll('a');
+  links.forEach((link) => {
+    if (link.innerText.includes('[!]')) {
+      console.log('we here');
+      const linkText = link.innerText.split('[!]')[0];
+      console.log(linkText);
+      link.innerText = linkText;
+      link.setAttribute('target', '_blank');
+    }
+  });
+  console.log('creating link out');
+};
+
 function setupTestMode() {
   if (window.location.hash.indexOf('test') === -1) {
     return;
@@ -1089,8 +1080,6 @@ export async function decorateDefault($main) {
       });
     }
   });
-  setWidths('main .section-wrapper >div');
-
   document.body.classList.add('loaded');
 }
 
@@ -1102,7 +1091,7 @@ async function decoratePage() {
   initializeNamespaces();
   setupTestMode();
   insertFooter();
-
+  linkInNewTabHelper();
   const template = getTemplateName();
   if (window.pages.product) {
     document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
