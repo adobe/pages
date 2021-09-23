@@ -14,6 +14,7 @@ import {
   addDefaultClass,
   classify,
   createTag,
+  externalizeImageSources,
   externalLinks,
   loadLocalHeader,
 } from '../../pages/scripts/scripts.js';
@@ -424,6 +425,8 @@ export default async function decoratePage() {
   if (pageType === 'step') {
     await decorateStep();
   }
+
+  externalizeImageSources(document.querySelector('main'));
 
   window.pages.decorated = true;
   // appearMain();
