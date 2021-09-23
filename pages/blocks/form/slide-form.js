@@ -161,7 +161,7 @@ function setIndicator() {
 }
 
 // readjust container height on resize
-window.addEventListener('scroll', debounce(() => {
+window.addEventListener('resize', debounce(() => {
   setFormContainHeight();
 }, 300));
 
