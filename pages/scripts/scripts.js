@@ -984,7 +984,7 @@ function fixImages() {
           if (contentHash && (extension === 'jpg' || extension === 'jpeg' || extension === 'png')) {
             const loading = heroProcessed ? 'lazy' : 'eager';
             heroProcessed = true;
-            node.setAttribute('src', `/hlx_${contentHash}.${extension}?width=${width}&auto=webp&format=pjpg&optimize=medium`);
+            node.setAttribute('src', `/media_${contentHash}.${extension}?width=${width}&auto=webp&format=pjpg&optimize=medium`);
             node.setAttribute('loading', loading);
           }
         }
