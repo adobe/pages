@@ -340,7 +340,7 @@ export function externalizeImageSources($div) {
       const url = new URL(src);
       const id = url.pathname.split('/')[2];
       const ext = url.hash.split('.')[1];
-      $img.src = `/hlx_${id}.${ext}`;
+      $img.src = `/media_${id}.${ext}`;
     }
   });
 }
@@ -984,7 +984,7 @@ function fixImages() {
           if (contentHash && (extension === 'jpg' || extension === 'jpeg' || extension === 'png')) {
             const loading = heroProcessed ? 'lazy' : 'eager';
             heroProcessed = true;
-            node.setAttribute('src', `/hlx_${contentHash}.${extension}?width=${width}&auto=webp&format=pjpg&optimize=medium`);
+            node.setAttribute('src', `/media_${contentHash}.${extension}?width=${width}&auto=webp&format=pjpg&optimize=medium`);
             node.setAttribute('loading', loading);
           }
         }
