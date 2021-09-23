@@ -249,9 +249,9 @@ async function decorateStep() {
       </video>
     </div>`;
     hashPathOf(`/static/ete/hero-posters/${currentStep.Thumbnail}`).then((src) => {
-      $video.firstChild.style.backgroundImage = `url(${src})`;
+      $video.firstElementChild.style.backgroundImage = `url(${src})`;
     });
-    $video.firstChild.addEventListener('click', () => playVideo());
+    $video.firstElementChild.addEventListener('click', () => playVideo());
   }
 
   if (currentStep.Video.startsWith('https://www.youtube.com/')) {
