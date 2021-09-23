@@ -1,3 +1,7 @@
+main div.block.cardcallouttitle {
+  visibility: unset;
+}
+
 .cardcallouttitle img {
   width: 70px;
   margin-bottom: 26px;
@@ -37,7 +41,7 @@
   z-index: 5;
   margin: 0;
   display: inline-block;
-  padding: 0em 2em;
+  padding: 0em 1em;
   font-weight: 100;
   background: white;
 }

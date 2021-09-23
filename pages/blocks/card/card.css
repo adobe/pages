@@ -21,6 +21,16 @@ main .card-container.fourstack > div {
   background: #ffffff;
 }
 
+.lineul ul li:before {
+  content: '-';
+  margin-right: 10px;
+}
+
+.lineul ul {
+  list-style-type: none;
+  margin: 0; padding: 0;
+  width: 100%;
+}
 
 .card > div > div:first-of-type img {
   width: 100%;
