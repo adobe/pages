@@ -186,13 +186,10 @@ const checkIfDomReady = setInterval(() => {
   }
 }, 10);
 
-if (document.querySelector('.section-wrapper')) {
+setFormContainHeight();
+registerListener('cssLoaded', () => {
   setFormContainHeight();
-} else {
-  registerListener('cssLoaded', () => {
-    setFormContainHeight();
-  });
-}
+});
 
 // Update progress counter and progress bar
 function progressBarUpdater() {
