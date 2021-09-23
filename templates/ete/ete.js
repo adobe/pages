@@ -249,9 +249,9 @@ async function decorateStep() {
       </video>
     </div>`;
     hashPathOf(`/static/ete/hero-posters/${currentStep.Thumbnail}`).then((src) => {
-      $video.firstChild.style.backgroundImage = `url(${src})`;
+      $video.firstElementChild.style.backgroundImage = `url(${src})`;
     });
-    $video.firstChild.addEventListener('click', () => playVideo());
+    $video.firstElementChild.addEventListener('click', () => playVideo());
   }
 
   if (currentStep.Video.startsWith('https://www.youtube.com/')) {
@@ -286,9 +286,9 @@ async function decorateStep() {
   }
   const $skills = createTag('div', { class: 'skills' });
 
-  const segments = skills.map(async (skill) => /* html */`
+  const segments = skills.map((skill) => /* html */`
       <div class="skill">
-        <img src="$/icons/you-will-learn/${skill.icon}.svg">
+        <img src="/icons/you-will-learn/${skill.icon}.svg">
         <p>${skill.title} <a href="${skill.linkHref}" target="_blank"> ${skill.linkText}</a></p>
       </div>`);
 

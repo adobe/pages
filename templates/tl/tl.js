@@ -237,7 +237,7 @@ async function decorateStep() {
       document.querySelector('main .content>p>a').setAttribute('href', `${currentStep['Practice File']}`);
       document.querySelector('main .content>p>a').setAttribute('target', '_blank');
     } else {
-      hashPathOf(`/static/twp3/practice-files/${currentStep['Practice File']}`).then((href) => {
+      await hashPathOf(`/static/twp3/practice-files/${currentStep['Practice File']}`).then((href) => {
         document.querySelector('main .content>p>a').setAttribute('href', href);
       });
     }
@@ -259,8 +259,9 @@ async function decorateStep() {
         </video>
       </div>
     `;
-    $video.firstChild.style.backgroundImage = `url(${currentStep.Thumbnail})`;
-    $video.firstChild.addEventListener('click', () => playVideo());
+
+    $video.firstElementChild.style.backgroundImage = `url(${currentStep.Thumbnail})`;
+    $video.firstElementChild.addEventListener('click', () => playVideo());
   }
 
   if (currentStep.Video.startsWith('https://www.youtube.com/')) {

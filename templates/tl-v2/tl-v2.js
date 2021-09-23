@@ -285,8 +285,8 @@ async function decorateStep() {
           <source src="${currentStep.Video}" type="video/mpeg4">
         </video>
       </div>`;
-    $video.firstChild.style.backgroundImage = `url(${currentStep.Thumbnail})`;
-    $video.firstChild.addEventListener('click', () => playVideo());
+    $video.firstElementChild.style.backgroundImage = `url(${currentStep.Thumbnail})`;
+    $video.firstElementChild.addEventListener('click', () => playVideo());
 
     if ($content.querySelector('a').getAttribute('href') === '#0') {
       $content.querySelector('a').addEventListener('click', (event) => {
