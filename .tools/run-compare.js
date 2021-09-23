@@ -12,10 +12,10 @@
 
 /* eslint-disable no-underscore-dangle */
 
-// @ts-check
-
 /* eslint-disable-next-line import/no-extraneous-dependencies */
 import yargs from 'yargs';
+
+// @ts-check
 import * as path from 'path';
 import { cwd } from 'process';
 import { rm } from 'fs/promises';

@@ -19,23 +19,29 @@ export default function decorate($block, name, doc) {
   </div>`;
 
   const emojis = ['💯', '💥', '👌', '👏', '👾', '👽', '🤖', '🦾', '🕺'];
-  const $links = doc.querySelectorAll('main > div > div > * > a[href]');
   const $description = doc.getElementById('description');
 
   function countdown() {
     const fun = emojis[Math.floor(Math.random() * emojis.length)];
+    const $links = doc.querySelectorAll('main > div > div > * > a[href]');
+
     $description.innerHTML += fun;
     console.log($description.textContent);
-    if ($description.innerHTML.split('<br>')[1].length > 20) {
-      const url = new URL($links[Math.floor(Math.random() * $links.length)].href);
-      const href = url.pathname + url.search;
-      if (window.location.hostname === 'localhost') {
-        $description.innerHTML = `<a href='${href}'>take me to a landing page</a>`;
-      } else {
-        window.location.href = href;
-      }
-    } else {
+    if ($description.innerHTML.split('<br>')[1].length < 20) {
       setTimeout(countdown, 300);
+      return;
+    }
+    const link = $links[Math.floor(Math.random() * $links.length)];
+    if (!link.href) {
+      setTimeout(countdown, 300);
+      return;
+    }
+    const url = new URL(link.href);
+    const href = url.pathname + url.search;
+    if (window.location.hostname === 'localhost') {
+      $description.innerHTML = `<a href='${href}'>take me to a landing page</a>`;
+    } else {
+      window.location.href = href;
     }
   }
 
