@@ -257,8 +257,8 @@ async function decorateStep() {
   const iconParent = document.createElement('div');
   iconParent.setAttribute('class', 'icons_parent');
   iconParent.innerHTML = `
-    <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
-    <div class="icons_parent__item"><img src="../../../../icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
+    <div class="icons_parent__item"><img src="/icons/${currentStep.Product_icon_1.toLowerCase()}.svg"></div>
+    <div class="icons_parent__item"><img src="/icons/${currentStep.Product_icon_2.toLowerCase()}.svg"></div>`;
 
   document.querySelector('main .content').prepend(iconParent);
   document.querySelector('.content p').innerHTML = currentStep.Single_page_description;
