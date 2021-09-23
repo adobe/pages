@@ -14,7 +14,7 @@ import {
   addDefaultClass,
   classify,
   createTag,
-  externalizeImageSources,
+  // externalizeImageSources,
   externalLinks,
   loadLocalHeader,
 } from '../../pages/scripts/scripts.js';
@@ -426,7 +426,7 @@ export default async function decoratePage() {
     await decorateStep();
   }
 
-  externalizeImageSources(document.querySelector('main'));
+  // externalizeImageSources(document.querySelector('main'));
 
   window.pages.decorated = true;
   // appearMain();
