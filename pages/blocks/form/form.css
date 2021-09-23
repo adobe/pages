@@ -57,7 +57,7 @@ main div.block.form {
 
 .panel {
 	display: flex;
-	padding: 32px 0px;
+	padding: 20px 0px;
 	flex-direction: column-reverse;
 	justify-content: space-between;
 }
@@ -147,11 +147,14 @@ main div.block.form {
 	cursor: pointer;
 }
 
+.slide-btn.prev {
+	margin-right: 16px;
+}
 .slide-btn.next, .submit {
 	background: #F4F4F4;
 	border: 1px solid #F4F4F4;
 	color: #BCBCBC;
-	margin-left: 16px;
+	/* margin-left: 16px; */
 }
 
 .slide-btn.next.completed {
@@ -279,7 +282,8 @@ main div.block.form {
 	
 	.panel {
 		display: flex;
-		padding: 32px 0px;
+		flex-direction: column;
+		padding: 16px 0px;
 		flex-direction: row;
 	}
 	
@@ -313,4 +317,10 @@ main div.block.form {
 	.has-other {
 		display: flex !important;
 	}	
+	.progress-indicator-group {
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+
+	}
 }

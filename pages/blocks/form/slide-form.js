@@ -165,11 +165,6 @@ window.addEventListener('resize', debounce(() => {
   setFormContainHeight();
 }, 300));
 
-// and when new css is loaded
-registerListener('cssLoaded', () => {
-  setFormContainHeight();
-});
-
 const checkIfDomReady = setInterval(() => {
   formContainer = document.querySelector('.slide-form-container');
   if (formContainer) {
@@ -190,6 +185,11 @@ const checkIfDomReady = setInterval(() => {
     }
   }
 }, 10);
+
+setFormContainHeight();
+registerListener('cssLoaded', () => {
+  setFormContainHeight();
+});
 
 // Update progress counter and progress bar
 function progressBarUpdater() {
