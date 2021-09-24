@@ -14,7 +14,12 @@ import {
   createTag,
   insertLocalResource,
   toClassName,
+  makeLogger,
+  loadCSS
 } from '../../pages/scripts/scripts.js';
+
+
+const lgr = makeLogger('template:advocates');
 
 async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
@@ -130,6 +135,63 @@ function decorateColors() {
       }
     });
   }
+}
+
+export function decorateBlocks(
+  $main,
+  query = ':scope div.section-wrapper > div > div',
+) {
+  const blocksWithOptions = [
+    'card', 'columns', 'missionbg',
+    'callout', 'background', 'spacer',
+    'scrollto', 'sectiontitle', 'hr',
+    'downloadcallouts', 'cardcallouttitle',
+    'cardcallouts', 'videocontent', 'scrolltop',
+    'hero', 'tutorials', 'list', 'grid'
+  ];
+  const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
+
+  $main.querySelectorAll(query).forEach(($block) => {
+    const classes = Array.from($block.classList.values());
+    lgr.debug('decorateBlock', { classes });
+    let blockName = classes[0];
+    if (!blockName) return;
+
+    if (classes.length > 1) {
+      const cls = $block.classList.item(0);
+      loadCSS(`/pages/blocks/${cls}/${cls}.css`);
+      return;
+    }
+
+    let options = [];
+    blocksWithOptions.forEach((b) => {
+      if (blockName.startsWith(`${b}-`)) {
+        options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
+        blockName = b;
+        $block.classList.add(b);
+        $block.classList.add(...options);
+      }
+    });
+
+    blocksWithSpecialCases.forEach((sBlockName) => {
+      if (blockName.indexOf(`${sBlockName}`) >= 0) {
+        const {
+          blockName: b,
+          options: o,
+        } = handleSpecialBlock(sBlockName, blockName, $block);
+        blockName = b || sBlockName;
+        $block.classList.add(...(o || []));
+      }
+    });
+
+    const $section = $block.closest('.section-wrapper');
+    if ($section) {
+      $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+      $section.classList.add(...options);
+    }
+    $block.classList.add('block');
+    $block.setAttribute('data-block-name', blockName);
+  });
 }
 
 function decorateGrid() {
@@ -521,7 +583,7 @@ export default async function decoratePage() {
   } else {
     decorateHeroSection();
   }
-
+  decorateBlocks(document.querySelector("main"));
   decorateVideoBlocks();
   decorateParallax();
   decorateOverlay();
@@ -532,7 +594,6 @@ export default async function decoratePage() {
   decorateButtons();
   decorateFaq();
   window.pages.decorated = true;
-  // appearMain();
   decorateContactUs();
   addAccessibility();
 
