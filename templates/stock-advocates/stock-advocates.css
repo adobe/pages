@@ -1010,7 +1010,7 @@ body.artist-bio .columns h3 {
 
 }
 
-body.artist-bio  .grid.artistcollage {
+body.artist-bio  .grid--artistcollage- {
   padding: unset;
   margin-left: 2vw;
   margin-right: 2vw;
@@ -1018,48 +1018,48 @@ body.artist-bio  .grid.artistcollage {
 
 
 
-body.artist-bio .grid.artistcollage {
+body.artist-bio .grid--artistcollage- {
   margin-top: 2em;
 }
-body.artist-bio  .grid.artistcollage > div > div.text {
+body.artist-bio  .grid--artistcollage- > div > div.text {
   display: none;
 } 
 
-body.artist-bio .grid.artistcollage div {
+body.artist-bio .grid--artistcollage- div {
   padding: 0;
   margin: 0;
 }
 
-body.artist-bio .grid.artistcollage > div {
+body.artist-bio .grid--artistcollage- > div {
   flex: 1 0 auto;
   margin: 0 0.5vw 0.5vw 0;
 }
-body.artist-bio .grid.artistcollage > div:nth-child(3),
-body.artist-bio .grid.artistcollage > div:nth-child(6),
-body.artist-bio .grid.artistcollage > div:nth-child(9)
+body.artist-bio .grid--artistcollage- > div:nth-child(3),
+body.artist-bio .grid--artistcollage- > div:nth-child(6),
+body.artist-bio .grid--artistcollage- > div:nth-child(9)
  {
   margin: 0 0 0.5vw 0;
 }
 
 
-body.artist-bio .grid.artistcollage > div:nth-child(1),
-body.artist-bio .grid.artistcollage > div:nth-child(2),
-body.artist-bio .grid.artistcollage > div:nth-child(3),
-body.artist-bio .grid.artistcollage > div:nth-child(7),
-body.artist-bio .grid.artistcollage > div:nth-child(8),
-body.artist-bio .grid.artistcollage > div:nth-child(9)
+body.artist-bio .grid--artistcollage- > div:nth-child(1),
+body.artist-bio .grid--artistcollage- > div:nth-child(2),
+body.artist-bio .grid--artistcollage- > div:nth-child(3),
+body.artist-bio .grid--artistcollage- > div:nth-child(7),
+body.artist-bio .grid--artistcollage- > div:nth-child(8),
+body.artist-bio .grid--artistcollage- > div:nth-child(9)
  {
   width: calc(100vw / 3.4);
   height: calc((100vw / 3.4) * 0.7);
 }
-body.artist-bio .grid.artistcollage > div:nth-child(5),
-body.artist-bio .grid.artistcollage > div:nth-child(6)
+body.artist-bio .grid--artistcollage- > div:nth-child(5),
+body.artist-bio .grid--artistcollage- > div:nth-child(6)
  {
   width: calc((100vw / 6) * 2);
   height: calc((100vw / 6) * 2 * 0.7);
 }
 
-body.artist-bio .grid.artistcollage > div:nth-child(4)
+body.artist-bio .grid--artistcollage- > div:nth-child(4)
  {
   width: calc(100vw / 12);
   height: calc((100vw / 12) * 2 * 1.4);
