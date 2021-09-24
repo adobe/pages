@@ -256,10 +256,12 @@ function decorateColumns() {
             $img.setAttribute('alt', '');
           }
           const $p = $img.closest('p');
-          if ($p) $p.classList.add('image-bleed');
-          const $nextP = $p.nextElementSibling;
-          if ($nextP && $nextP.tagName === 'P') {
-            $nextP.classList.add('caption');
+          if ($p) {
+            $p.classList.add('image-bleed');
+            const $nextP = $p.nextElementSibling;
+            if ($nextP && $nextP.tagName === 'P') {
+              $nextP.classList.add('caption');
+            }
           }
         } else {
           $cell.classList.add('text');
