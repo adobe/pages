@@ -42,6 +42,7 @@ async function loadLocalHeader() {
     document.querySelector('header').classList.add('appear');
   } else {
     await insertLocalResource('header');
+    makeLinksRelative();
   }
 }
 
@@ -185,7 +186,7 @@ export function decorateBlocks(
     });
 
     const $section = $block.closest('.section-wrapper');
-    if ($section) {
+    if ($section && blockName != 'grid') {
       $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
       $section.classList.add(...options);
     }
@@ -567,7 +568,21 @@ function searchPath(pathPart) {
   return ps.includes(pathPart);
 }
 
+function makeLinksRelative() {
+  const links = Array.from(document.querySelectorAll('a[href*="//pages.adobe.com/"]'));
+  links.forEach(link => {
+    try {
+      const url = new URL(link.href);
+      const rel = location.origin + url.pathname + url.search + url.hash;
+      link.href = rel;       
+    } catch (error) {
+      console.debug("problem with link " + link.href);
+    }
+  });
+}
+
 export default async function decoratePage() {
+  makeLinksRelative();
   decorateTables();
   checkWebpFeature(() => {
     webpPolyfill(document);
