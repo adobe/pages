@@ -581,6 +581,13 @@ function makeLinksRelative() {
   });
 }
 
+function showArtistGridHack() {
+  const el = document.querySelectorAll("main .block");
+  el.forEach((e) => {
+    e.style.visibility = "unset";
+  });  
+}
+
 export default async function decoratePage() {
   makeLinksRelative();
   decorateTables();
@@ -605,6 +612,7 @@ export default async function decoratePage() {
   decorateInternalAdvocates();
   decorateColumns();
   decorateGrid();
+  showArtistGridHack();
   decorateColors();
   decorateButtons();
   decorateFaq();

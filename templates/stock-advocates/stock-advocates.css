@@ -1,10 +1,5 @@
 @import url("/templates/stock-advocates/default.css");
 
-main .block {
-  visibility: unset;
-}
-
-
 main > .section-wrapper > div {
     margin: 0em auto;
     padding: 0em 0em;
