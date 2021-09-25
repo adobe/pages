@@ -10,6 +10,39 @@
  * governing permissions and limitations under the License.
  */
 
+// eslint-disable-next-line import/prefer-default-export
+function sampleRUM(checkpoint, data = {}) {
+  try {
+    window.hlx = window.hlx || {};
+    if (!window.hlx.rum) {
+      const usp = new URLSearchParams(window.location.search);
+      const weight = (usp.get('rum') === 'on') ? 1 : 100; // with parameter, weight is 1. Defaults to 100.
+      // eslint-disable-next-line no-bitwise
+      const hashCode = (s) => s.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0)) | 0, 0);
+      const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${Math.random().toString(16).substr(2, 14)}`;
+      const random = Math.random();
+      const isSelected = (random * weight < 1);
+      // eslint-disable-next-line object-curly-newline
+      window.hlx.rum = { weight, id, random, isSelected };
+    }
+    const { random, weight, id } = window.hlx.rum;
+    if (random && (random * weight < 1)) {
+      // eslint-disable-next-line object-curly-newline
+      const body = JSON.stringify({ weight, id, referer: window.location.href, generation: 'pages-gen1', checkpoint, ...data });
+      const url = `https://rum.hlx3.page/.rum/${weight}`;
+      // eslint-disable-next-line no-unused-expressions
+      navigator.sendBeacon(url, body); // we should probably use XHR instead of fetch
+    }
+  } catch (e) {
+    // somethign went wrong
+  }
+}
+
+sampleRUM('top');
+window.addEventListener('load', () => sampleRUM('load'));
+document.addEventListener('click', () => sampleRUM('click'));
+
+
 document.title = document.title.split('<br>').join(' ');
 
 function addDefaultClass(element) {
