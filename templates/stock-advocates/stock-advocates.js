@@ -236,6 +236,11 @@ function decorateButtons() {
       $a.className = 'button primary';
     }
   });
+  document.querySelectorAll('.artist-bio-hero-section a.primary').forEach(($a) => {
+    $a.classList.remove('button');
+    $a.classList.remove('primary');
+    $a.classList.add('artist-stock-link');
+  });
 }
 
 function decorateColumns() {
