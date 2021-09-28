@@ -1191,7 +1191,9 @@ body.artist-bio .columns .text h5 {
   body:not(.artist-bio) .columns .text p {
     text-align: center;
   }
-  
+  body.artist-development-fund .columns .text p {
+    text-align: left;
+  }
 }
 
 .columns .text table {
