@@ -70,6 +70,14 @@ function decorateHeroSection() {
       const $p = $firstSectionImage.parentNode.nextElementSibling;
       $imgWrapper.append($firstSectionImage.parentNode);
       if ($p) $imgWrapper.append($p);
+      
+      // move artist text to image side
+      const $allP = $div.querySelectorAll("p");
+      Array.from($allP).forEach(($p) => {
+        if ($p && $p.innerText && $p.innerText.includes("Artist")) {
+          $imgWrapper.appendChild($p);
+        }
+      });
     }
   }
 }
