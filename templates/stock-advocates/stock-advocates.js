@@ -604,8 +604,17 @@ function showArtistGridHack() {
   });  
 }
 
+function generalHacks() {
+  const hg = document.querySelector(".grid--partners-");
+  if (hg) {
+    hg.classList.add("grid");
+    hg.classList.add("partners");
+  }
+}
+
 export default async function decoratePage() {
   makeLinksRelative();
+  generalHacks();
   decorateTables();
   checkWebpFeature(() => {
     webpPolyfill(document);
@@ -635,6 +644,7 @@ export default async function decoratePage() {
   window.pages.decorated = true;
   decorateContactUs();
   addAccessibility();
+
 
   document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
 }

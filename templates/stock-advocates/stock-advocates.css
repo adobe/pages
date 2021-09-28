@@ -748,10 +748,11 @@ header img {
   position: relative;
 }
 
-.grid:not(.meetgrid) > div:after {
-    content: "";
-    padding-bottom: 100%;
-    display: block;
+.grid.partners > div:after,
+.grid.briefs > div:after {
+  content: "";
+  padding-bottom: 100%;
+  display: block;
 }
 
 .grid:not(.meetgrid) > div > div {
