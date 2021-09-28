@@ -196,12 +196,13 @@ export function decorateBlocks(
 }
 
 function decorateGrid() {
-  const meetGrids = Array.from(document.querySelectorAll('.embed-internal-meettheartists .grid'));
+  const meetGrid = document.querySelector(".embed-internal-meettheartists .grid");
+  const partnerGrid = document.querySelector(".embed-internal-partners .grid");
   document.querySelectorAll('main div>.grid').forEach(($grid) => {
     $grid.closest('.section-wrapper').classList.add('full-width');
 
-    if (meetGrids.includes($grid)) {
-      $grid.classList.add('meetgrid');
+    if ($grid == meetGrid) {
+      $grid.classList.add("meetgrid")
     }
 
     const rows = Array.from($grid.children);
@@ -209,8 +210,8 @@ function decorateGrid() {
       const cells = Array.from($row.children);
       cells[0].classList.add('image');
       cells[1].classList.add('text');
-      if (!meetGrids.includes($grid)) {
-        cells[1].style.backgroundColor = `${cells[2].textContent}80`;
+      if ($grid != meetGrid && $grid != partnerGrid) {
+        cells[1].style.backgroundColor = `${cells[2].textContent}80`; // why?
       }
       cells[2].remove();
       const $a = cells[1].querySelector('a');
