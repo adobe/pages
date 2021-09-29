@@ -431,6 +431,17 @@ body.artist-development-fund main h1
   font-size: 42px;
 }
 
+body.artist-development-fund .hero-section {
+  height: 60vh;
+}
+body.artist-development-fund .hero-section+div {
+  height: 40vh;
+}
+
+body.artist-development-fund h3 a:any-link {
+  color: black;
+}
+
 @media (min-width:600px) {
   body.artist-development-fund main>div.hero-section>div.text.image h1 {
     bottom: 22vh;
@@ -529,6 +540,14 @@ main .embed-internal-accessibility a {
 
     .hero-section {
         flex-direction: row-reverse;
+    }
+
+    body.artist-development-fund main>div.hero-section>div {
+      height: 100%;
+    }
+
+    body.artist-development-fund main > .section-wrapper:not(.full-width) {
+      padding: 0.5vh 0;
     }
     
 }
