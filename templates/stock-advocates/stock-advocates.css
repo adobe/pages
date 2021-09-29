@@ -85,6 +85,7 @@ main .faq .question {
   margin-top: 32px;
   font-weight: 700;
   padding-left: 32px;
+  cursor: pointer;
 }
 
 main .faq .question p::before {
