@@ -85,6 +85,11 @@ main .section-wrapper.headerwithlockup-container > div {
 
 .block.headerwithlockup .has-text p:last-of-type {
 	margin: 0;
+	display: flex;
+}
+
+.block.headerwithlockup .has-text a:nth-child(2) {
+	margin-left: 10px;
 }
 
 .block.headerwithlockup .has-nav div:last-of-type {
