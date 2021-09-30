@@ -22,6 +22,7 @@ const productIcons = [
   'photoshopexpress',
   'aero',
   'creativecloud',
+  'creativecloudwithtext',
   'lightroom-classic',
   'aftereffects',
   'lightroom',
