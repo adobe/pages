@@ -54,8 +54,6 @@ sampleRUM('top');
 window.addEventListener('load', () => sampleRUM('load'));
 document.addEventListener('click', () => sampleRUM('click'));
 
-
-
 // eslint-disable-next-line no-use-before-define
 const lgr = makeLogger('scripts');
 
@@ -698,7 +696,7 @@ export function decorateBlocks(
     'scrollto', 'sectiontitle', 'hr',
     'downloadcallouts', 'cardcallouttitle',
     'cardcallouts', 'videocontent', 'scrolltop',
-    'hero', 'tutorials', 'list',
+    'hero', 'tutorials', 'list', 'headerwithlockup',
   ];
   const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
 
@@ -1039,7 +1037,6 @@ const linkInNewTabHelper = () => {
       link.setAttribute('target', '_blank');
     }
   });
-  console.log('creating link out');
 };
 
 function setupTestMode() {
