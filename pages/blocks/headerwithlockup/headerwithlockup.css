@@ -53,7 +53,7 @@ main .section-wrapper.headerwithlockup-container > div {
 .block.headerwithlockup .has-text {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	/* justify-content: center; */
 	position: relative;
 	width: 100%;
 }
@@ -76,6 +76,7 @@ main .section-wrapper.headerwithlockup-container > div {
 .block.headerwithlockup .has-text a {
 	margin: 0;
 	border: none;
+	display: inline-block;
 	font-size: 14px;
 	font-weight: 800;
 	color: #2c2c2c !important;
@@ -156,6 +157,12 @@ main .section-wrapper.headerwithlockup-container > div {
 
 .menu-showing .menu-button span:nth-child(4) {
 	transform: translateY(-7px) rotate(-45deg);
+}
+
+@media(min-width: 468px) {
+	.block.headerwithlockup .has-text {
+		justify-content: center;
+	}
 }
 
 @media (min-width: 768px) {
