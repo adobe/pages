@@ -829,7 +829,7 @@ body.artist-bio .grid:not(.meetgrid) a:any-link {
 }
 
 body.artist-bio .grid a:hover  {
-  opacity: 0;
+  opacity: 0.9;
 }
 
 body.artist-bio h5  {
@@ -855,6 +855,8 @@ body.artist-bio .columns h5 a:nth-child(2) svg {
   width: 40px;
   height: 30px;
 }
+
+
 
 body.artist-bio h6 {
   font-size: 30px;
@@ -1214,6 +1216,9 @@ body.artist-bio .columns .text h5 {
   }
   body.artist-development-fund .columns .text p {
     text-align: left;
+  }
+  body.artist-development-fund .embed-internal-submitandgetfunded .columns .text p {
+    text-align: center;
   }
 }
 
