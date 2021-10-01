@@ -19,9 +19,9 @@ import {
 } from '../../pages/scripts/scripts.js';
 
 async function fetchSheet() {
-  window.hlx.dependencies.push('content.json');
   const resp = await fetch('content.json');
   const json = await resp.json();
+  window.hlx.dependencies.push('content.json');
   return (Array.isArray(json) ? json : json.data);
 }
 
