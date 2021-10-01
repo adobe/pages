@@ -75,7 +75,7 @@ window.hlx.sidekick.addEventListener('published', async ({ detail = {}}) => {
       throw new Error(`non-ok status ${resp.status}`);
     }
     // delete browser cache
-    await fetch(purgeURL, { cache: 'reload', mode: 'no-cors' });
+    await fetch(purgeUrl, { cache: 'reload', mode: 'no-cors' });
   } catch (e) {
     console.error(`failed to purge ${purgeUrl}: ${e.message}`);
   }
