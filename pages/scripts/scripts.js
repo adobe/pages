@@ -302,12 +302,12 @@ export async function insertLocalResource(type) {
   }
 
   if (url) {
-    window.hlx.dependencies.push(url);
     const resp = await fetch(url);
     if (resp.status === 200) {
       const html = await resp.text();
       const inner = `<div> ${html} </div>`;
       document.querySelector(type).innerHTML = inner;
+      window.hlx.dependencies.push(url);
     }
   }
 

@@ -75,9 +75,9 @@ function decorateTables() {
 }
 
 async function fetchSteps() {
-  window.hlx.dependencies.push('steps.json');
   const resp = await fetch('steps.json');
   const json = await resp.json();
+  window.hlx.dependencies.push('steps.json');
   return (Array.isArray(json) ? json : json.data);
 }
 

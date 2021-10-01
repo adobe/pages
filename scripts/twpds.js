@@ -67,9 +67,9 @@ async function insertSteps() {
     let html = '';
     do {
       const url = `step-${i}.plain.html`;
-      window.hlx.dependencies.push(url);
       const resp = await fetch(url);
       if (resp.status === 200) {
+        window.hlx.dependencies.push(url);
         const text = await resp.text();
         const $html = createTag('div');
         $html.innerHTML = text;
