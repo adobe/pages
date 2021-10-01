@@ -56,27 +56,31 @@ window.hlx.initSidekick({
   ],
 });
 
-window.hlx.sidekick.addEventListener('published', async ({ detail = {}}) => {
-  // purge url from production cdn cache
-  let { data: path } = detail;
-  if (!path) {
-    return;
-  }
-  if (!path.startsWith('/')) {
-    // get absolute path
-    path = new URL(path, location.href).pathname;
-  }
-  const { config } = window.hlx.sidekick;
-  const purgeUrl = `https://${config.host}${path}`;
-  console.log(`purging ${purgeUrl}`);
-  try {
-    const resp = await fetch(purgeUrl, { method: 'PURGE' });
-    if (!resp.ok) {
-      throw new Error(`non-ok status ${resp.status}`);
+(() => {
+  const purgeProd = async ({ detail = {}}) => {
+    // purge url from production cdn cache
+    let { data: path } = detail;
+    if (!path) {
+      return;
     }
-    // delete browser cache
-    await fetch(purgeUrl, { cache: 'reload', mode: 'no-cors' });
-  } catch (e) {
-    console.error(`failed to purge ${purgeUrl}: ${e.message}`);
-  }
-});
+    if (!path.startsWith('/')) {
+      // get absolute path
+      path = new URL(path, location.href).pathname;
+    }
+    const { config } = window.hlx.sidekick;
+    const purgeUrl = `https://${config.host}${path}`;
+    console.log(`purging ${purgeUrl}`);
+    try {
+      const resp = await fetch(purgeUrl, { method: 'PURGE' });
+      if (!resp.ok) {
+        throw new Error(`non-ok status ${resp.status}`);
+      }
+      // refresh browser cache
+      await fetch(purgeUrl, { cache: 'reload' });
+    } catch (e) {
+      console.error(`failed to purge ${purgeUrl}: ${e.message}`);
+    }
+  };
+  window.hlx.sidekick.addEventListener('published', purgeProd);
+  window.hlx.sidekick.addEventListener('unpublished', purgeProd);
+})();
