@@ -11,7 +11,7 @@
  */
 
 // This file contains the pages-specific configuration for the sidekick.
-const sk = window.hlx.initSidekick({
+window.hlx.initSidekick({
   project: 'Adobe Landing Pages',
   host: 'pages.adobe.com',
   hlx3: true,
@@ -56,7 +56,7 @@ const sk = window.hlx.initSidekick({
   ],
 });
 
-sk.addEventListener('published', async ({ detail = {}}) => {
+window.hlx.sidekick.addEventListener('published', async ({ detail = {}}) => {
   // purge url from production cdn cache
   let { data: path } = detail;
   if (!path) {
@@ -66,7 +66,7 @@ sk.addEventListener('published', async ({ detail = {}}) => {
     // get absolute path
     path = new URL(path, location.href).pathname;
   }
-  const { config } = sk;
+  const { config } = window.hlx.sidekick;
   const purgeUrl = `https://${config.host}${path}`;
   console.log(`purging ${purgeUrl}`);
   try {
@@ -74,6 +74,8 @@ sk.addEventListener('published', async ({ detail = {}}) => {
     if (!resp.ok) {
       throw new Error(`non-ok status ${resp.status}`);
     }
+    // delete browser cache
+    await fetch(purgeURL, { cache: 'reload', mode: 'no-cors' });
   } catch (e) {
     console.error(`failed to purge ${purgeUrl}: ${e.message}`);
   }
