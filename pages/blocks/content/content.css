@@ -1,0 +1,21 @@
+main div.block.content {
+  visibility: unset;
+}
+
+main .block.content h1 {
+  font-size: 36px;
+}
+
+main .block.content p {
+  color: #505050 !important;
+  font-size: 22px !important;
+  margin: 0.5em 0em;
+}
+
+main .block.content.sm {
+  max-width: 700px;
+}
+
+main .content-container.borderbottom > div {
+  border-bottom: 1px solid #EAEAEA;
+}
