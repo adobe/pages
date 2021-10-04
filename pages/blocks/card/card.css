@@ -70,7 +70,6 @@ main .card-container.fourstack > div {
 
 @media(min-width: 600px) {
   .card > div {
-    /* width: 31%; */
     width: 48%;
     max-width: 350px;
     border-radius: 8px;

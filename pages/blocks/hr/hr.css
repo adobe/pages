@@ -3,7 +3,7 @@ main div.block.hr {
 }
 
 .hr-container {
-  background-color: var(--light_grey)
+  background-color: var(--light_gray)
 }
 .hr-container > div {
   height: 1px;
