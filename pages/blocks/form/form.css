@@ -8,6 +8,15 @@ main div.block.form {
 	max-width: 100%;
 }
 
+.form-container.expanded > div {
+	width: 100%;
+	max-width: 100%;
+}
+
+.form-container.expanded .form-container {
+	width: 100%;
+}
+
 .form-container .form {
 	background: transparent !important;
 	margin: 0 !important;
