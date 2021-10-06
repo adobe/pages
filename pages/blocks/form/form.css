@@ -4,23 +4,33 @@ main div.block.form {
 	visibility: unset;
 }
 
+
+.has-progressed .content-container{
+	display: none;
+}
+
 .form-container #wg-form {
 	max-width: 100%;
 }
 
+.form-container.expanded {
+	width: 80%;
+	margin: auto;
+}
+
 .form-container.expanded > div {
 	width: 100%;
-	max-width: 100%;
 }
 
-.form-container.expanded .form-container {
-	width: 100%;
-}
-
-.form-container .form {
+.section-wrapper.expanded.form-container .form {
 	background: transparent !important;
 	margin: 0 !important;
 	padding: 0 !important;
+}
+
+.section-wrapper.expanded .form-container {
+	width: 100%;
+	margin: 0;
 }
 
 .form-container h1 {
@@ -235,6 +245,10 @@ main div.block.form {
 }
 
 @media(min-width: 768px) {
+
+	.form-container.expanded  > div .form-container {
+		margin: auto;
+	}
 	
 	.form-container h1 {
 		margin-bottom: unset;

@@ -323,6 +323,12 @@ function formSlider(event) {
     }
   }
 
+  const setBodyClass = currentSlide >= 1;
+  if (setBodyClass) {
+    document.body.classList.add('has-progressed');
+  } else {
+    document.body.classList.remove('has-progressed');
+  }
   const noMoreSlides = currentSlide >= slideItems.length - 1;
   document.querySelector('.next').style.display = noMoreSlides ? 'none' : 'inline';
   document.querySelector('.submit').style.display = noMoreSlides ? 'inline' : 'none';
