@@ -69,7 +69,6 @@ function addOtherInputField() {
   checkBoxes.forEach((checkbox) => {
     if (checkbox.value.toLowerCase() === 'other'
     || checkbox.value.toLowerCase() === 'prefer to self describe') {
-      console.log('here');
       const parentElement = checkbox.closest('div');
       parentElement.classList.add('has-other');
       const parentHTML = parentElement.innerHTML;
