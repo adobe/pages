@@ -202,15 +202,6 @@ main div.form textarea {
 	font-family: "Adobe Clean", adobe-clean, sans-serif;
 }
 
-main .section-wrapper div.form {
-    background-color: #fafafa;
-    padding: 20px;
-    margin: auto;
-    width: 100%;
-    max-width: none;
-    margin: 50px 0;
-}
-  
 main div.form p {
     margin: 30px 0;
 }
