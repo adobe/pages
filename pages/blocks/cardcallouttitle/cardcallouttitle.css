@@ -47,5 +47,5 @@ main div.block.cardcallouttitle {
 }
 
 .lightgray .cardcallouttitle > div div:last-of-type h4 {
-  background: var(--light_grey);
+  background: var(--light_gray);
 }

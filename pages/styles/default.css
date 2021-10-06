@@ -5,7 +5,7 @@
 
 
 :root {
-  --light_grey: #eee;
+  --light_gray: #F8F8F8;
 }
 
 
@@ -67,7 +67,7 @@ main > .section-wrapper.dark {
 }
 
 main > .section-wrapper.lightgray {
-	background: var(--light_grey);
+	background: var(--light_gray);
 }
 
 main > .section-wrapper.dark .button.secondary {
