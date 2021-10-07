@@ -180,15 +180,16 @@ const checkIfDomReady = setInterval(() => {
       header = headerEl.innerHTML;
       setHeader(header);
       setFormContainHeight();
-      addOtherInputField();
       clearInterval(checkIfDomReady);
     }
   }
 }, 10);
 
 setFormContainHeight();
+addOtherInputField();
 registerListener('cssLoaded', () => {
   setFormContainHeight();
+  addOtherInputField();
 });
 
 // Update progress counter and progress bar
@@ -244,6 +245,7 @@ function setSlider(count = 0) {
         }
 
         field.addEventListener('change', (event) => {
+          setFormContainHeight();
           if (event.currentTarget.checked === true) {
             values.push(event.currentTarget.getAttribute('name'));
           } else {
