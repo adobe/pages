@@ -601,7 +601,7 @@ function showArtistGridHack() {
   const el = document.querySelectorAll("main .block");
   el.forEach((e) => {
     e.style.visibility = "unset";
-  });  
+  });
 }
 
 function generalHacks() {
@@ -610,6 +610,9 @@ function generalHacks() {
     hg.classList.add("grid");
     hg.classList.add("partners");
   }
+  const h2 = document.querySelector("h2#explore-the-creative-briefs + div.grid");
+  h2.classList.add("briefs");
+
 }
 
 export default async function decoratePage() {
