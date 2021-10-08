@@ -776,6 +776,9 @@ header img {
   display: block;
 }
 
+h4#what-is-the-fund-for {
+  font-weight: 600;
+}
 .grid:not(.meetgrid) > div > div {
     top: 0;
     left: 0;
