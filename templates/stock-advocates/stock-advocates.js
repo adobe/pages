@@ -611,7 +611,7 @@ function generalHacks() {
     hg.classList.add("partners");
   }
   const h2 = document.querySelector("h2#explore-the-creative-briefs + div.grid");
-  h2.classList.add("briefs");
+  if (h2) h2.classList.add("briefs");
 
 }
 
