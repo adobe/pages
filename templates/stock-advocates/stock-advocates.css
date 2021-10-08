@@ -1208,6 +1208,7 @@ main .columns ul {
 
 body.artist-bio .columns .text h5 {
   text-align: left;
+  font-size: 25px;
 }
 
 @media (min-width: 600px) {
