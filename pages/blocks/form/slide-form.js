@@ -189,7 +189,6 @@ setFormContainHeight();
 addOtherInputField();
 registerListener('cssLoaded', () => {
   setFormContainHeight();
-  addOtherInputField();
 });
 
 // Update progress counter and progress bar
