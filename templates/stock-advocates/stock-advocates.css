@@ -1216,8 +1216,13 @@ body.artist-bio .columns .text h5 {
 
 @media (min-width: 600px) {
   body:not(.artist-bio) .columns .text p {
+    text-align: left;
+  }
+
+  body .embed-internal-submitandgetfunded .columns .text p {
     text-align: center;
   }
+
   body.artist-development-fund .columns .text p {
     text-align: left;
   }
