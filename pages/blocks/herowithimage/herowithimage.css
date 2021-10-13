@@ -1,0 +1,50 @@
+main div.block.herowithimage {
+	visibility: unset;
+}
+
+main > .section-wrapper.herowithimage-container > div {
+  padding-bottom: 0;
+  z-index: 5;
+  position: relative;
+}
+.herowithimage-container.onblue {
+  color: var(--spectrum_blue);
+  background-color: var(--light_blue);
+}
+
+.herowithimage h1 {
+  font-size: 31px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.herowithimage p {
+  margin-top: 8px;
+}
+
+.herowithimage img {
+  max-width: 200px;
+  width: 25%;
+  margin: auto;
+  margin-top: 1em;
+}
+
+@media(min-width: 600px) {
+  .herowithimage h1 {
+    font-size:  42px;
+  }
+
+  .herowithimage p {
+    font-size: 19px;
+  }
+}
+
+@media(min-width: 900px) {
+  .herowithimage h1 {
+    font-size:  51px;
+    max-width: 700px;
+  }
+  .herowithimage p {
+    font-size: 20px;
+  }
+}

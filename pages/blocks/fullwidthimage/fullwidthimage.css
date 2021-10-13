@@ -1,0 +1,31 @@
+main div.block.fullwidthimage {
+	visibility: unset;
+}
+
+main >.section-wrapper.fullwidthimage-container picture {
+  margin: 0;
+  line-height: 0;
+}
+main >.section-wrapper.fullwidthimage-container {
+  position:relative;
+}
+
+main >.section-wrapper.fullwidthimage-container > div {
+  max-width: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+main >.section-wrapper.fullwidthimage-container.onblue {
+  background: var(--light_blue);
+  overflow: hidden;
+}
+
+
+.fullwidthimage img {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  bottom: -10px;
+  position: relative;
+}
