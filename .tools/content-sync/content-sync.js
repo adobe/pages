@@ -28,7 +28,7 @@ const EXT_MAP = {
   gsheet: 'json',
   gdoc: 'md',
 };
-const ENVS = ['preview', 'publish', 'code'];
+const ENVS = ['preview', 'publish', 'code', 'live'];
 
 /**
  * Get a promise that resolves in some duration

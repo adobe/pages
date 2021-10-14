@@ -61,6 +61,10 @@ function getImageName(pAppName) {
     iconName = iconName !== '' ? iconName : window.pages.product;
   }
 
+  if (!iconName) {
+    iconName = 'adobe';
+  }
+
   return `/icons/${iconName.split(' ').join('')}.svg`;
 }
 
