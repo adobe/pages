@@ -1,6 +1,5 @@
 @import url("/templates/stock-advocates/default.css");
 
-
 main > .section-wrapper > div {
     margin: 0em auto;
     padding: 0em 0em;
@@ -86,6 +85,7 @@ main .faq .question {
   margin-top: 32px;
   font-weight: 700;
   padding-left: 32px;
+  cursor: pointer;
 }
 
 main .faq .question p::before {
@@ -293,17 +293,33 @@ body.artist-bio main .video iframe {
   align-items: center;
 }
 
+.hero-section:not(.artist-bio-hero-section) > div.image > p {
+  line-height: 24px;
+  font-size: 19px;
+  position: absolute;
+  text-align: right;
+  right: 40px;
+  bottom: 15px;
+}
+
+main > div.hero-section.section-wrapper > div > p {
+padding: 0;
+}
+
 main>div.hero-section>div {
     width: 100%;
     position: relative;
 }
 
+.artist-bio-hero-section {
+  margin-bottom: 2em;
+}
 @media (min-width:600px) {
   .artist-bio-hero-section .text {
     position: absolute;  
     left: 50%;
     width: 50vw;                        /* horizontal alignment */
-    top: 50%;                         /* vertical alignment */
+    top: 40vw;                         /* vertical alignment */
     transform: translate(-90%, -75%);
     z-index: 2;
     text-align: left;/* precise centering; see link below */
@@ -313,20 +329,60 @@ main>div.hero-section>div {
 .artist-bio-hero-section .text p {
   padding: 0;
 }
+
 .artist-bio-hero-section .text h1 {
-  font-size: 46px;
+  font-size: 80px;
+  line-height: 80px;
+  font-weight: 400;
 }
 
-.artist-bio-hero-section .text strong {
-  font-size: 17px;
-  line-height: 24px;
+@media (min-width: 600px) {
+  .artist-bio-hero-section .text h1 {
+    font-size: 74px;
+    line-height: 90px;
+    font-weight: 800;
+  }
+}
+.artist-bio-hero-section .text a.button {
+  border: 1px solid #FFFFFF;
+  border-radius: 34px;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
 }
 
 .artist-bio-hero-section .text h4 {
-  font-size: 13px;
-  line-height: 17px;
+  font-size: 19px;
+  line-height: 25px;
+  font-weight: normal;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
+.artist-bio-hero-section .text h5 {
+  font-size: 19px;
+  line-height: 35px;
+  font-weight: normal;
+  padding-top: 0px;
+  margin-bottom: 0;
+}
+
+@media (min-width: 600px) {
+    
+  .artist-bio-hero-section .text h4 {
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: normal;
+    margin-top: 35px;
+    margin-bottom: 30px;
+  }
+
+  .artist-bio-hero-section .text h5 {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: normal;
+    padding-top: 0px;
+  }
+}
 
 .hero-section>div.image img {
     width: 100%;
@@ -343,6 +399,7 @@ main>div.hero-section>div {
 
 .hero-section .text {
     padding: 2em;
+    text-align: left;
 }
 
 main>div.hero-section>div.text.image {
@@ -372,6 +429,18 @@ body.artist-development-fund main>div.hero-section>div.text.image h1 {
 body.artist-development-fund main h1
 {
   font-size: 42px;
+  margin-top: 15vh;
+}
+
+body.artist-development-fund .hero-section {
+  height: 60vh;
+}
+body.artist-development-fund .hero-section+div {
+  height: 40vh;
+}
+
+body.artist-development-fund h3 a:any-link {
+  color: black;
 }
 
 @media (min-width:600px) {
@@ -438,6 +507,21 @@ main .embed-internal-accessibility a {
   line-height: 31px;
 }
 
+.embed-internal-partners {
+  background-color: #040B28;
+}
+
+.embed-internal-partners .grid {
+  background-color: #040B28;
+  max-width: 1200px;
+  margin: auto;
+}
+.embed-internal-partners .grid>div {
+  padding: 20px;
+}
+
+
+
 .hero-section h1 {
   font-size: 4em;
   line-height: 1em;
@@ -457,6 +541,14 @@ main .embed-internal-accessibility a {
 
     .hero-section {
         flex-direction: row-reverse;
+    }
+
+    body.artist-development-fund main>div.hero-section>div {
+      height: 100%;
+    }
+
+    body.artist-development-fund main > .section-wrapper:not(.full-width) {
+      padding: 0.5vh 0;
     }
     
 }
@@ -555,18 +647,7 @@ main .hero-section + .section-wrapper a.button {
   }
 }
 
-.embed-internal-fundsection a.button.primary {
-  background-color: white;
-  color: #3e1bb2;
-  border-color: white;
 
-}
-
-.embed-internal-fundsection a.button.primary:hover {
-  background-color: transparent;
-  color: white;
-  border-color: white;
-}
 
 /* getfunded embed */
 
@@ -644,10 +725,23 @@ main .hero-section + .section-wrapper a.button {
   padding-bottom: 3em;
 }
 
-.embed-internal-meettheartists h2 {
+.embed-internal-meettheartists .grid div:hover  {
+  opacity: 1;
+}
 
+.embed-internal-meettheartists h2, .embed-internal-partners h2 {
   padding-top: 2em; margin-top: 0;
 }
+
+.embed-internal-partners  {
+  color: white;
+  padding-bottom: 3em;
+}
+
+.embed-internal-partners a {
+  opacity: 0;
+}
+
 main .section-wrapper:first-of-type p {
   font-size: 20px;
   color: #fff;
@@ -675,12 +769,16 @@ header img {
   position: relative;
 }
 
-.grid:not(.meetgrid) > div:after {
-    content: "";
-    padding-bottom: 100%;
-    display: block;
+.grid.partners > div:after,
+.grid.briefs > div:after {
+  content: "";
+  padding-bottom: 100%;
+  display: block;
 }
 
+h4#what-is-the-fund-for {
+  font-weight: 600;
+}
 .grid:not(.meetgrid) > div > div {
     top: 0;
     left: 0;
@@ -694,6 +792,8 @@ header img {
 .grid.meetgrid {
   text-align: left;
   padding: 10px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .grid:not(.meetgrid) div.text {
@@ -704,7 +804,6 @@ header img {
     padding: 20px;
     color: white;
 }
-
 
 .grid.meetgrid div.text {
   color: white;
@@ -717,7 +816,6 @@ header img {
   line-height: 34px;
 }
 
-
 .grid:not(.meetgrid) div.text h4 {
     line-height: 1em;
     font-style: italic;
@@ -729,12 +827,44 @@ header img {
     color: white;
 }
 
-body.artist-bio .grid a:any-link {
+body.artist-bio .grid:not(.meetgrid) a:any-link {
   opacity: 0;
 }
 
 body.artist-bio .grid a:hover  {
-  opacity: 0;
+  opacity: 0.9;
+}
+
+body.artist-bio h5  {
+  font-size: 34px;
+  line-height: 54px;
+  font-weight: 300;
+}
+
+body.artist-bio .columns h5 a:any-link {
+  color: black;
+}
+
+body.artist-bio .columns h5 a svg {
+  vertical-align: middle;
+}
+body.artist-bio .columns h5 a svg {
+  height: 30px;
+  width: 90px;
+  vertical-align: middle;
+}
+
+body.artist-bio .columns h5 a:nth-child(2) svg {
+  width: 40px;
+  height: 30px;
+}
+
+
+
+body.artist-bio h6 {
+  font-size: 30px;
+  color: #a0a0a0;
+  font-weight: 300;
 }
 
 .grid:not(.meetgrid) img {
@@ -743,12 +873,41 @@ body.artist-bio .grid a:hover  {
     width: 100%;
 }
 
+#commissioned-portfolio-coming {
+  font-size: 40px;
+  line-height: 45px;
+  font-weight: normal;
+}
+
+#meet-the-artists {
+  font-size: 45px;
+  line-height: 53px;
+}
+
+#meet-the-artists + p {
+  font-size: 25px;
+  line-height: 45px;
+}
+
+body.artist-bio .grid:not(.meetgrid) {
+  margin-bottom: 0;
+}
+
+body.artist-bio .grid:not(.meetgrid) + p {
+  margin-top: 0;
+  margin-bottom: 2em;
+}
+
+body.artist-bio .grid:not(.meetgrid) + p a {
+  margin-top: 1em;
+}
+
 .grid.meetgrid img {
-  padding: 10px;
+  padding: 8px;
   cursor: pointer;
 }
 .grid.meetgrid .text {
-  padding: 10px;
+  padding: 8px;
   font-size: smaller;
 }
 
@@ -756,6 +915,7 @@ body.artist-bio .grid a:hover  {
   width: 100%;
   padding-bottom: 2em;
 }
+
 
 body.artist-bio  .grid:not(.meetgrid)>div {
   width: calc(100%);
@@ -786,19 +946,160 @@ body.artist-bio  .grid:not(.meetgrid)>div {
 
 }
 
+.embed-internal-partners .text h5 {
+  z-index: 15;
+  opacity: 1;
+  margin-top: -190px;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.embed-internal-partners .grid div.text  {
+  opacity: 1;
+}
+
+.embed-internal-partners .grid div:hover  {
+  opacity: 0.8;
+}
+
+
+
+.embed-internal-partners .grid>div {
+  padding: 20px;
+}
+
+.embed-internal-partners .grid img {
+  object-fit: scale-down;
+  position: relative;
+  max-width: 80%;
+}
 
 /* Columns */
 
-.columns h2 {
-    font-size: 29px;
-    margin-top: 0;
-  }
-  
-.columns h3 {
-    font-size: 25px;
-    font-weight: 300
+body.artist-bio .columns h2 {
+  font-size: 20px;
+  line-height: 27px;
+  font-weight: 600;
+  text-align: left;
+  padding: 0;
+  margin-top: 0;
+}
+
+body.artist-bio .columns h3 {
+  font-size: 28px;
+  line-height: 45px;
+  font-weight: 300;
+  text-align: left;
+  padding: 0;
+}
+
+@media (min-width: 600px) {
+
+  body.artist-bio .columns h2 {
+    font-size: 60px;
+    line-height: 75px;
+    font-weight: 300;
+    text-align: center;
   }
 
+  body:not(.artist-bio) .columns h3,
+  body:not(.artist-bio) .columns h2 {
+    font-size: 60px;
+    line-height: 75px;
+    text-align: center;
+  }
+  
+  body.artist-bio .columns h3
+  {
+    text-align: left;
+    font-size: 40px;
+    line-height: 45px;  
+  }
+
+  #contact-us .columns h3 {
+    text-align: center;
+    font-size: 25px;
+  }
+
+  .padded h3 {
+    font-weight: normal;
+  }
+  body.artist-bio .columns h2
+  {
+    text-align: left;
+    font-size: 30px;
+    line-height: 37px;  
+    font-weight: bold;
+    margin-top: 2.5em;
+  }
+
+
+}
+
+body.artist-bio  .grid.artistcollage {
+  padding: unset;
+  margin-left: 2vw;
+  margin-right: 2vw;
+}
+
+
+
+body.artist-bio .grid.artistcollage {
+  margin-top: 2em;
+}
+body.artist-bio  .grid.artistcollage > div > div.text {
+  display: none;
+} 
+
+body.artist-bio .grid.artistcollage div {
+  padding: 0;
+  margin: 0;
+}
+
+body.artist-bio .grid.artistcollage > div {
+  flex: 1 0 auto;
+  margin: 0 0.5vw 0.5vw 0;
+}
+body.artist-bio .grid.artistcollage > div:nth-child(3),
+body.artist-bio .grid.artistcollage > div:nth-child(6),
+body.artist-bio .grid.artistcollage > div:nth-child(9)
+ {
+  margin: 0 0 0.5vw 0;
+}
+
+
+body.artist-bio .grid.artistcollage > div:nth-child(1),
+body.artist-bio .grid.artistcollage > div:nth-child(2),
+body.artist-bio .grid.artistcollage > div:nth-child(3),
+body.artist-bio .grid.artistcollage > div:nth-child(7),
+body.artist-bio .grid.artistcollage > div:nth-child(8),
+body.artist-bio .grid.artistcollage > div:nth-child(9)
+ {
+  width: calc(100vw / 3.4);
+  height: calc((100vw / 3.4) * 0.7);
+}
+body.artist-bio .grid.artistcollage > div:nth-child(5),
+body.artist-bio .grid.artistcollage > div:nth-child(6)
+ {
+  width: calc((100vw / 6) * 2);
+  height: calc((100vw / 6) * 2 * 0.7);
+}
+
+body.artist-bio .grid.artistcollage > div:nth-child(4)
+ {
+  width: calc(100vw / 12);
+  height: calc((100vw / 12) * 2 * 1.4);
+}
+
+main a:any-link.artist-stock-link {
+  color:white;
+  font-weight: normal;
+  text-decoration: underline;
+  font-size: 16px;
+}
+.columns h2 strong {
+  display: block;
+}
   
 .columns h3 strong {
   display: block;
@@ -856,16 +1157,21 @@ main .columns ul {
 }
 
 .columns>div.padded>div.image img {
-  padding: 40px 40px 80px 40px;
+  padding: 40px 40px 100px 40px;
 }
 .columns>div.padded>div.image p.caption {
   color: black;
   text-align: left;
   font-size: 0.8rem;
-  left: 40px;
-  padding-right: 40px;
+  /*left: 40px;
+  padding-right: 40px; */
   line-height: 1.2em;
-  padding-bottom: 0.4em;
+  padding-bottom: 1.5em;
+  position: relative;
+  margin-top: -5em;
+  text-align: center;
+  bottom: unset;
+  left: unset;
 }
 
 .columns>div>div.image img {
@@ -893,15 +1199,37 @@ main .columns ul {
     left: 1em;
 }
 
+
 .columns .text {
     padding: 2em;
     margin: auto;
 }
 
 .columns .text p {
-  text-align: center;
+  text-align: left;
 }
 
+body.artist-bio .columns .text h5 {
+  text-align: left;
+  font-size: 25px;
+}
+
+@media (min-width: 600px) {
+  body:not(.artist-bio) .columns .text p {
+    text-align: left;
+  }
+
+  body .embed-internal-submitandgetfunded .columns .text p {
+    text-align: center;
+  }
+
+  body.artist-development-fund .columns .text p {
+    text-align: left;
+  }
+  body.artist-development-fund .embed-internal-submitandgetfunded .columns .text p {
+    text-align: center;
+  }
+}
 
 .columns .text table {
   display: inline-block;
@@ -926,7 +1254,7 @@ main .columns ul {
 
 @media (min-width:900px) {
   .columns .text {
-    padding: 4rem;
+    padding: 3rem;
     margin: auto;
     max-width: 36rem;
   }
@@ -1030,15 +1358,15 @@ main .columns ul {
     max-width: 500px;
   }
 
-  .hero-carousel-overlay>p {
+  main .section-wrapper .hero-carousel-overlay>p {
     position: absolute;
     bottom: 50px;
     text-align: center;
     left: 0;
     right: 0;
-    font-size: 2rem;
+    font-size: 36px;
     font-weight: 100;
-    line-height: 2.2rem;
+    line-height: 45px;
   }
 
 
@@ -1087,10 +1415,11 @@ main .columns ul {
 }
     .hero-carousel-slide div:nth-of-type(2){
       position: absolute;
-      bottom: 0px;
-      left: 10px;
+      bottom: 10px;
+      left: 48px;
       color: white;
-      font-size: 0.7em;
+      font-size: 19px;
+      line-height: 24px;
       font-weight: 100;
   }
 

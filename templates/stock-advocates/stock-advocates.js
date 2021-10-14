@@ -14,7 +14,12 @@ import {
   createTag,
   insertLocalResource,
   toClassName,
+  makeLogger,
+  loadCSS
 } from '../../pages/scripts/scripts.js';
+
+
+const lgr = makeLogger('template:advocates');
 
 async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
@@ -37,6 +42,7 @@ async function loadLocalHeader() {
     document.querySelector('header').classList.add('appear');
   } else {
     await insertLocalResource('header');
+    makeLinksRelative();
   }
 }
 
@@ -64,6 +70,14 @@ function decorateHeroSection() {
       const $p = $firstSectionImage.parentNode.nextElementSibling;
       $imgWrapper.append($firstSectionImage.parentNode);
       if ($p) $imgWrapper.append($p);
+      
+      // move artist text to image side
+      const $allP = $div.querySelectorAll("p");
+      Array.from($allP).forEach(($p) => {
+        if ($p && $p.innerText && $p.innerText.includes("Artist")) {
+          $imgWrapper.appendChild($p);
+        }
+      });
     }
   }
 }
@@ -132,13 +146,71 @@ function decorateColors() {
   }
 }
 
+export function decorateBlocks(
+  $main,
+  query = ':scope div.section-wrapper > div > div',
+) {
+  const blocksWithOptions = [
+    'card', 'columns', 'missionbg',
+    'callout', 'background', 'spacer',
+    'scrollto', 'sectiontitle', 'hr',
+    'downloadcallouts', 'cardcallouttitle',
+    'cardcallouts', 'videocontent', 'scrolltop',
+    'hero', 'tutorials', 'list', 'grid'
+  ];
+  const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
+
+  $main.querySelectorAll(query).forEach(($block) => {
+    const classes = Array.from($block.classList.values());
+    lgr.debug('decorateBlock', { classes });
+    let blockName = classes[0];
+    if (!blockName) return;
+
+    if (classes.length > 1) {
+      const cls = $block.classList.item(0);
+      loadCSS(`/pages/blocks/${cls}/${cls}.css`);
+      return;
+    }
+
+    let options = [];
+    blocksWithOptions.forEach((b) => {
+      if (blockName.startsWith(`${b}-`)) {
+        options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
+        blockName = b;
+        $block.classList.add(b);
+        $block.classList.add(...options);
+      }
+    });
+
+    blocksWithSpecialCases.forEach((sBlockName) => {
+      if (blockName.indexOf(`${sBlockName}`) >= 0) {
+        const {
+          blockName: b,
+          options: o,
+        } = handleSpecialBlock(sBlockName, blockName, $block);
+        blockName = b || sBlockName;
+        $block.classList.add(...(o || []));
+      }
+    });
+
+    const $section = $block.closest('.section-wrapper');
+    if ($section && blockName != 'grid') {
+      $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+      $section.classList.add(...options);
+    }
+    $block.classList.add('block');
+    $block.setAttribute('data-block-name', blockName);
+  });
+}
+
 function decorateGrid() {
-  const meetGrids = Array.from(document.querySelectorAll('.embed-internal-meettheartists .grid'));
+  const meetGrid = document.querySelector(".embed-internal-meettheartists .grid");
+  const partnerGrid = document.querySelector(".embed-internal-partners .grid");
   document.querySelectorAll('main div>.grid').forEach(($grid) => {
     $grid.closest('.section-wrapper').classList.add('full-width');
 
-    if (meetGrids.includes($grid)) {
-      $grid.classList.add('meetgrid');
+    if ($grid == meetGrid) {
+      $grid.classList.add("meetgrid")
     }
 
     const rows = Array.from($grid.children);
@@ -146,8 +218,8 @@ function decorateGrid() {
       const cells = Array.from($row.children);
       cells[0].classList.add('image');
       cells[1].classList.add('text');
-      if (!meetGrids.includes($grid)) {
-        cells[1].style.backgroundColor = `${cells[2].textContent}80`;
+      if ($grid != meetGrid && $grid != partnerGrid) {
+        cells[1].style.backgroundColor = `${cells[2].textContent}80`; // why?
       }
       cells[2].remove();
       const $a = cells[1].querySelector('a');
@@ -173,6 +245,11 @@ function decorateButtons() {
       $a.className = 'button primary';
     }
   });
+  document.querySelectorAll('.artist-bio-hero-section a.primary').forEach(($a) => {
+    $a.classList.remove('button');
+    $a.classList.remove('primary');
+    $a.classList.add('artist-stock-link');
+  });
 }
 
 function decorateColumns() {
@@ -193,10 +270,12 @@ function decorateColumns() {
             $img.setAttribute('alt', '');
           }
           const $p = $img.closest('p');
-          if ($p) $p.classList.add('image-bleed');
-          const $nextP = $p.nextElementSibling;
-          if ($nextP && $nextP.tagName === 'P') {
-            $nextP.classList.add('caption');
+          if ($p) {
+            $p.classList.add('image-bleed');
+            const $nextP = $p.nextElementSibling;
+            if ($nextP && $nextP.tagName === 'P') {
+              $nextP.classList.add('caption');
+            }
           }
         } else {
           $cell.classList.add('text');
@@ -505,7 +584,40 @@ function searchPath(pathPart) {
   return ps.includes(pathPart);
 }
 
+function makeLinksRelative() {
+  const links = Array.from(document.querySelectorAll('a[href*="//pages.adobe.com/"]'));
+  links.forEach(link => {
+    try {
+      const url = new URL(link.href);
+      const rel = location.origin + url.pathname + url.search + url.hash;
+      link.href = rel;       
+    } catch (error) {
+      console.debug("problem with link " + link.href);
+    }
+  });
+}
+
+function showArtistGridHack() {
+  const el = document.querySelectorAll("main .block");
+  el.forEach((e) => {
+    e.style.visibility = "unset";
+  });
+}
+
+function generalHacks() {
+  const hg = document.querySelector(".grid--partners-");
+  if (hg) {
+    hg.classList.add("grid");
+    hg.classList.add("partners");
+  }
+  const h2 = document.querySelector("h2#explore-the-creative-briefs + div.grid");
+  if (h2) h2.classList.add("briefs");
+
+}
+
 export default async function decoratePage() {
+  makeLinksRelative();
+  generalHacks();
   decorateTables();
   checkWebpFeature(() => {
     webpPolyfill(document);
@@ -521,20 +633,21 @@ export default async function decoratePage() {
   } else {
     decorateHeroSection();
   }
-
+  decorateBlocks(document.querySelector("main"));
   decorateVideoBlocks();
   decorateParallax();
   decorateOverlay();
   decorateInternalAdvocates();
   decorateColumns();
   decorateGrid();
+  showArtistGridHack();
   decorateColors();
   decorateButtons();
   decorateFaq();
   window.pages.decorated = true;
-  // appearMain();
   decorateContactUs();
   addAccessibility();
+
 
   document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
 }
