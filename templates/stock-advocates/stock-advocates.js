@@ -488,19 +488,28 @@ function addAccessibility() {
   } catch (e) {
     console.debug('could not add lang to html tag');
   }
+  
+  function iconAria($icons) {
+    $icons.forEach(($icon) => {
+      try {
+        $icon.classList.forEach(($cl) => {
+          if ($cl.startsWith('icon-')) {
+            const $name = $cl.split('-')[1];
+            $icon.parentElement.setAttribute('aria-label', $name);
+          }
+        });
+      } catch (e) {
+        console.debug('Count not set icon aria-label');
+      }
+    });
+  
+  }
   const footerIcons = document.querySelectorAll('#contact-us .icon');
-  footerIcons.forEach(($icon) => {
-    try {
-      $icon.classList.forEach(($cl) => {
-        if ($cl.startsWith('icon-')) {
-          const $name = $cl.split('-')[1];
-          $icon.parentElement.setAttribute('aria-label', $name);
-        }
-      });
-    } catch (e) {
-      console.debug('Count not set icon aria-label');
-    }
-  });
+  iconAria(footerIcons);
+  const includedIcons = document.querySelectorAll('embed-internal .icon');
+  iconAria(includedIcons);
+  const artistIcons = document.querySelectorAll('.artist-bio main .icon');
+  iconAria(artistIcons);
 }
 
 function supportsWebp() {
