@@ -38,7 +38,7 @@ export default function decorate($block, name, doc) {
     }
     const url = new URL(link.href);
     const href = url.pathname + url.search;
-    if (window.location.hostname === 'localhost') {
+    if (window.location.hostname !== 'pages.adobe.com') {
       $description.innerHTML = `<a href='${href}'>take me to a landing page</a>`;
     } else {
       window.location.href = href;
