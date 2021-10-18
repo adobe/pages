@@ -115,7 +115,7 @@ main svg.icon.icon-behance {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .selected {

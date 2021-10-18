@@ -10,12 +10,16 @@
  * governing permissions and limitations under the License.
  */
 
+/* eslint-disable no-continue */
+
 import {
   hideElements,
   readBlockConfig,
   showElements,
   toClassName,
   makeLogger,
+  createTag,
+  insertContentEmbed,
 } from '../../scripts/scripts.js';
 
 const lgr = makeLogger('blocks:form');
@@ -277,13 +281,25 @@ function hideConditionals($form, $inputs, formData) {
         if (values.includes(val)) match = true;
       });
 
-      const qs = '.radio-el, .select-el, .input-el, .text-el';
+      const qs = '.radio-el, .select-el, .input-el, .text-el, .redirect-el, .info-el';
       const $div = $form.querySelector(`[name="${item.name}"]`).closest(qs);
       if (!$div) return;
       if (match) {
         $div.classList.remove('hidden');
       } else {
         $div.classList.add('hidden');
+      }
+
+      // if it's a redirect, hide or show progress/submit button
+      if (item.type === 'redirect') {
+        const $pg = $form.querySelector('.progress-indicator-group');
+        if (!$pg) return;
+
+        if (match) {
+          $pg.classList.add('hidden');
+        } else {
+          $pg.classList.remove('hidden');
+        }
       }
     }
   });
@@ -308,7 +324,7 @@ function createForm({
     const setup = inputSettings(item.label);
     const name = item.name ? item.name : setup.label_clean;
     const required = item.required ? item.required : setup.required;
-    const description = hasPageBreak && item.description.length > 0 ? `<span class="description-title" tabindex="0">${item.description}</span>` : '';
+    const description = hasPageBreak && item.description.length > 0 ? `<span class="description-title">${item.description}</span>` : '';
 
     if (item.type === 'indicator') {
       progressLabel = item.label;
@@ -338,7 +354,7 @@ function createForm({
       formField += `
         <div class="input-el question ${required ? 'is-required' : ''}">
           <div class="title-el">
-            <label class="label-title" for="${name}" tabindex="0">${setup.label}</label>
+            <label class="label-title" for="${name}">${setup.label}</label>
             ${description}
           </div>
           <input type="${item.type}" name="${name}" placeholder="${placeholder}" ${required}/>
@@ -358,7 +374,7 @@ function createForm({
         /* html */
         radioOption += `
           <div class="radio-option">
-            <input type="radio" id="${id}" name="${name}" value="${value}" ${required}/>
+            <input type="radio" id="${id}" name="${name}" tabindex="0" value="${value}" ${required}/>
             <label for="${id}">${option}</label>
           </div>
         `;
@@ -367,11 +383,34 @@ function createForm({
       formField += `
           <div class="radio-el question is-${required}">
             <div class="title-el">
-              <span class="label-title" tabindex="0">${item.label}</span>
+              <span class="label-title">${item.label}</span>
               ${description}
             </div>
             <div class="radio-options-parent">
               ${radioOption}
+            </div>
+          </div>
+        `;
+    }
+
+    // REDIRECT
+    // adds button to redirect elsewhere
+    if (item.type === 'redirect') {
+      /* html */
+      formField += `
+        <div class="redirect-el" name="${name}">
+          <a class="form-redirect" href="${item.redirect_to}">${item.label}</a>
+        </div>
+      `;
+    }
+
+    // INFO
+    if (item.type === 'info') {
+      /* html */
+      formField += `
+          <div class="info-el" name="${name}">
+            <div class="title-el">
+              <span class="label-title">${item.description}</span>
             </div>
           </div>
         `;
@@ -402,7 +441,7 @@ function createForm({
       formField += `
           <div class="input-el checkboxes ${required} question is-${required}">
             <div class="title-el">
-              <span class="label-title" tabindex="0">${item.label}</span>
+              <span class="label-title">${item.label}</span>
               ${description}
             </div>
             ${options}
@@ -417,14 +456,14 @@ function createForm({
       selectOptions.forEach((option) => {
         /* html */
         options += `
-            <option>${option}</option>
+            <option tabindex="0">${option}</option>
           `;
       });
       /* html */
       formField += `
           <div class="select-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
+              <label class="label-title" for="${name}">${item.label}</label>
               ${description}  
             </div>
             <select name="${name}" id="${name}">
@@ -440,7 +479,7 @@ function createForm({
       formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
+              <label class="label-title" for="${name}">${item.label}</label>
               ${description}
             </div>
             <textarea
@@ -460,7 +499,7 @@ function createForm({
       formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}" tabindex="0">${item.label}</label>
+              <label class="label-title" for="${name}">${item.label}</label>
               ${description}
             </div>
             <hr>
@@ -485,6 +524,31 @@ function createForm({
           </div>
         `;
       formSubmitPresent = true;
+    }
+
+    // if element has include, insert it lazily
+    if (item.include) {
+      window.hlx.dependencies.push(item.include);
+
+      setTimeout(() => {
+        const el = formEl.querySelector(`[name="${item.name}"]`);
+        if (!el) return;
+
+        const include = createTag('div');
+        const parent = el.parentElement;
+        const label = parent.querySelector(':scope label');
+
+        if (label) {
+          // insert after label
+          label.insertAdjacentElement('afterend', include);
+        } else {
+          // or as first item
+          const first = parent.firstElementChild;
+          first.insertAdjacentElement('beforebegin', include);
+        }
+
+        insertContentEmbed(include, { path: `${item.include}.plain.html`, basename: item.include });
+      });
     }
   });
 
@@ -531,8 +595,8 @@ function createForm({
             <button type="submit" class="submit" style='display: none;'>Submit</button>
           </div>
         </div>
-        
         `;
+
     formEl.append(slidePanelParent);
     slidePanelParent.appendChild(buttonParent);
   }
@@ -596,6 +660,31 @@ function readFormConfig($block) {
   return config;
 }
 
+/**
+ * Assign names to data entries that don't have names and that don't
+ * contribute to submission data. These are used for enabling/disabling fields.
+ */
+function prepFormData(data) {
+  const noDataFields = ['page-break', 'redirect', 'info'];
+  const counts = {};
+  for (const item of data) {
+    if (item.name) {
+      // valid
+    } else if (item.type === 'page-break') {
+      // ignore
+    } else if (noDataFields.includes(item.type)) {
+      // assign
+      counts[item.type] ??= 0;
+      counts[item.type] += 1;
+      item.name = `${item.type}-${counts[item.type]}`;
+    } else {
+      // corrupt
+      console.error('Invalid form data. Missing `name` on field: ', item);
+    }
+  }
+  return data;
+}
+
 export async function decorateForm($block, formId, config) {
   /* html */
   $block.innerHTML = `
@@ -611,7 +700,8 @@ export async function decorateForm($block, formId, config) {
   const { definition } = config;
   let hasPageBreak = false;
 
-  const formData = (await fetchFormData(definition)).data;
+  const formData = prepFormData((await fetchFormData(definition)).data);
+
   // check if slider
   for (const item of formData) {
     if (item.type === 'page-break') {

@@ -794,7 +794,7 @@ export function parseEmbedPath(path) {
  * @param {import('./index').EmbedData} data
  * @returns {Promise<void>}
  */
-async function insertContentEmbed(el, data) {
+export async function insertContentEmbed(el, data) {
   const { path, basename, dirname } = data;
   const r = await fetch(path);
   if (!r.ok) {
