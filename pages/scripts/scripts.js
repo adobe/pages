@@ -69,6 +69,11 @@ const cssIncluded = {};
 const jsIncluded = {};
 
 /**
+ * Array of block names, pending or loaded.
+ */
+const blocksIncluded = [];
+
+/**
  * Emitter handlers
  * @type {Record<string, Function[]>}
  */
@@ -647,6 +652,8 @@ export async function loadBlock($block) {
 
   if (ignoredBlocks.includes(blockName)) return;
 
+  blocksIncluded.push(blockName);
+
   const reqCSS = reqCSSBlocks.includes(blockName);
   lgr.debug('loadBlock', { blockName });
   const { jsProm } = loadModuleDir($block, `/pages/blocks/${blockName}/`, blockName, reqCSS);
@@ -1145,6 +1152,11 @@ async function decoratePage() {
 
     if (!template) {
       loadBlocks(mainEl);
+    }
+
+    if (!blocksIncluded.includes('nav')) {
+      // try to load from header.plain.html
+      loadLocalHeader();
     }
     loadCSS('/pages/styles/lazy-styles.css');
   });
