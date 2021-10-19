@@ -162,12 +162,18 @@ export function decorateButtons() {
   document.querySelectorAll('main a').forEach(($a) => {
     const $up = $a.parentElement;
     const $twoup = $a.parentElement.parentElement;
+    const $threeup = $a.parentElement.parentElement?.parentElement;
     if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'P') {
       $a.className = 'button secondary';
     }
     if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'STRONG'
       && $twoup.childNodes.length === 1 && $twoup.tagName.toUpperCase() === 'P') {
       $a.className = 'button primary';
+    }
+    if ($up.childNodes.length === 1 && ['STRONG', 'EM'].includes($up.tagName.toUpperCase())
+    && $twoup.childNodes.length === 1 && ['STRONG', 'EM'].includes($twoup.tagName.toUpperCase())
+    && $threeup.childNodes.length === 1 && $threeup.tagName.toUpperCase() === 'P') {
+      $a.className = 'button primary large';
     }
   });
 }

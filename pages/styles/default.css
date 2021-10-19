@@ -145,6 +145,13 @@ main .button {
   -webkit-appearance: none;
 }
 
+main .button.primary.large {
+  font-style: normal;
+  border-radius: 50px;
+  padding: 14px 40px;
+	font-size: 16px;
+}
+
 main .button.primary {
 	background-color: #1473e6;
 	border-color: #1473e6;
