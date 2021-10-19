@@ -69,6 +69,11 @@ const cssIncluded = {};
 const jsIncluded = {};
 
 /**
+ * Array of block names, pending or loaded.
+ */
+const blocksIncluded = [];
+
+/**
  * Emitter handlers
  * @type {Record<string, Function[]>}
  */
@@ -647,6 +652,8 @@ export async function loadBlock($block) {
 
   if (ignoredBlocks.includes(blockName)) return;
 
+  blocksIncluded.push(blockName);
+
   const reqCSS = reqCSSBlocks.includes(blockName);
   lgr.debug('loadBlock', { blockName });
   const { jsProm } = loadModuleDir($block, `/pages/blocks/${blockName}/`, blockName, reqCSS);
@@ -1030,9 +1037,7 @@ const linkInNewTabHelper = () => {
   const links = document.querySelectorAll('a');
   links.forEach((link) => {
     if (link.innerText.includes('[!]')) {
-      console.log('we here');
       const linkText = link.innerText.split('[!]')[0];
-      console.log(linkText);
       link.innerText = linkText;
       link.setAttribute('target', '_blank');
     }
@@ -1145,7 +1150,21 @@ async function decoratePage() {
 
     if (!template) {
       loadBlocks(mainEl);
+
+      const headerContents = document.querySelectorAll('header > *');
+      if (!blocksIncluded.includes('nav') && headerContents.length === 0) {
+      // try to load from header.plain.html
+        loadLocalHeader().then(() => {
+          const div = document.querySelector('header > div');
+          if (div) {
+            div.classList.add('nav');
+            div.setAttribute('data-block-name', 'nav');
+            loadBlock(div);
+          }
+        });
+      }
     }
+
     loadCSS('/pages/styles/lazy-styles.css');
   });
 }
