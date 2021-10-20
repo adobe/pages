@@ -90,7 +90,7 @@ export function setupForm({
 
   // default form urls
   const postURL = 'https://ccgrowth.servicebus.windows.net/formsink/messages';
-  const postAuth = 'SharedAccessSignature sr=https%3A%2F%2Fccgrowth.servicebus.windows.net%2Fformsink%2Fmessages&sig=RFndMU%2FyHZrlchNBfHlIdulld4URAgUAQdAlqVLf1Bw%3D&se=1634259041&skn=send';
+  const postAuth = 'SharedAccessSignature sr=https%3A%2F%2Fccgrowth.servicebus.windows.net%2Fformsink%2Fmessages&sig=m2yyuNdKMB07L7UdTp2ntOMyUBvdXJJSA5Kozr3kZ9s%3D&se=1697792387&skn=send';
   const testURL = 'https://adobeioruntime.net/api/v1/web/helix-clients/ccgrowth/forms-handler@v1';
 
   // we validate the form ourselves. otherwise it would already validate on submit and we cannot
