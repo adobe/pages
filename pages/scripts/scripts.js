@@ -1134,9 +1134,6 @@ async function decoratePage() {
   }
   await replaceEmbeds();
 
-  // scroll to anchor in embed
-  document.getElementById(window.location.hash.substr(1)).scrollIntoView();
-
   if (template) {
     lgr.debug('use:template', { template });
     await loadTemplate(template);
@@ -1147,6 +1144,14 @@ async function decoratePage() {
 
   document.title = document.title.split('<br>').join(' ');
   fixImages();
+
+  window.pages.on('mainVisible', () => {
+    // scroll to anchor in embed, if needed
+    const anchor = document.getElementById(window.location.hash.substr(1));
+    if (anchor) {
+      anchor.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  });
 
   setLCPTrigger(document, async () => {
     emit('postLCP');
