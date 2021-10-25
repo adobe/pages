@@ -1145,6 +1145,15 @@ async function decoratePage() {
   document.title = document.title.split('<br>').join(' ');
   fixImages();
 
+  window.pages.on('mainVisible', async () => {
+    // scroll to anchor in embed, if needed
+    const anchor = document.getElementById(window.location.hash.substr(1));
+    if (anchor) {
+      await Promise.all(Object.values(cssIncluded).map((inc) => inc.prom));
+      anchor.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+  });
+
   setLCPTrigger(document, async () => {
     emit('postLCP');
 

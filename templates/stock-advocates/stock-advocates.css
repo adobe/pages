@@ -1442,7 +1442,8 @@ body.artist-bio .columns .text h5 {
     left: 0;
     width: 100%;
     height: 100%;
-    scroll-snap-align: center;
+    /* Max (10/25/21): disabled to allow scrolling to anchors on embeds */
+    /* scroll-snap-align: center; */
   }
   
   @media (hover: hover) {
