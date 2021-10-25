@@ -88,6 +88,8 @@ let nsInit = false;
  */
 let decoratedProm = null;
 
+let mainVisible = false;
+
 /**
  * Emit event.
  *
@@ -506,6 +508,7 @@ export async function appearMain() {
   document.body.classList.add(...classes);
   classify('main', 'appear');
 
+  mainVisible = true;
   emit('mainVisible');
 }
 
@@ -1045,12 +1048,28 @@ const linkInNewTabHelper = () => {
 };
 
 function setupTestMode() {
-  if (window.location.hash.indexOf('test') === -1) {
+  const loc = window.location;
+  if (loc.hash.indexOf('test') === -1
+  && !loc.search.includes('test')) {
     return;
   }
   window.pages.on('log', ({ lvl, ns, msgs }) => {
     console.debug(`[${lvl}] ${ns}`, ...msgs);
   });
+}
+
+/**
+ * Scroll to an element id.
+ * @param id - element id, defaults to `location.hash`
+ */
+async function scrollToId(id = window.location.hash.substr(1)) {
+  const anchor = document.getElementById(id);
+  if (anchor) {
+    // const top = anchor.offsetTop;
+    lgr.debug('scrollTo', { id });
+    // window.scrollTo(window.scrollX, top);
+    anchor.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
 }
 
 /**
@@ -1145,14 +1164,11 @@ async function decoratePage() {
   document.title = document.title.split('<br>').join(' ');
   fixImages();
 
-  window.pages.on('mainVisible', async () => {
-    // scroll to anchor in embed, if needed
-    const anchor = document.getElementById(window.location.hash.substr(1));
-    if (anchor) {
-      await Promise.all(Object.values(cssIncluded).map((inc) => inc.prom));
-      anchor.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    }
-  });
+  if (mainVisible) {
+    scrollToId();
+  } else {
+    window.pages.on('mainVisible', () => scrollToId());
+  }
 
   setLCPTrigger(document, async () => {
     emit('postLCP');

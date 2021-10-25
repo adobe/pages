@@ -15,11 +15,23 @@ import {
   insertLocalResource,
   toClassName,
   makeLogger,
-  loadCSS
+  loadCSS,
 } from '../../pages/scripts/scripts.js';
 
-
 const lgr = makeLogger('template:advocates');
+
+function makeLinksRelative() {
+  const links = Array.from(document.querySelectorAll('a[href*="//pages.adobe.com/"]'));
+  links.forEach((link) => {
+    try {
+      const url = new URL(link.href);
+      const rel = window.location.origin + url.pathname + url.search + url.hash;
+      link.href = rel;
+    } catch (error) {
+      console.debug(`problem with link ${link.href}`);
+    }
+  });
+}
 
 async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
@@ -70,12 +82,12 @@ function decorateHeroSection() {
       const $p = $firstSectionImage.parentNode.nextElementSibling;
       $imgWrapper.append($firstSectionImage.parentNode);
       if ($p) $imgWrapper.append($p);
-      
+
       // move artist text to image side
-      const $allP = $div.querySelectorAll("p");
-      Array.from($allP).forEach(($p) => {
-        if ($p && $p.innerText && $p.innerText.includes("Artist")) {
-          $imgWrapper.appendChild($p);
+      const $allP = $div.querySelectorAll('p');
+      Array.from($allP).forEach(($p2) => {
+        if ($p2 && $p2.innerText && $p2.innerText.includes('Artist')) {
+          $imgWrapper.appendChild($p2);
         }
       });
     }
@@ -156,7 +168,7 @@ export function decorateBlocks(
     'scrollto', 'sectiontitle', 'hr',
     'downloadcallouts', 'cardcallouttitle',
     'cardcallouts', 'videocontent', 'scrolltop',
-    'hero', 'tutorials', 'list', 'grid'
+    'hero', 'tutorials', 'list', 'grid',
   ];
   const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
 
@@ -182,6 +194,8 @@ export function decorateBlocks(
       }
     });
 
+    const handleSpecialBlock = console.debug.bind(console, 'Unexpected special block: ');
+
     blocksWithSpecialCases.forEach((sBlockName) => {
       if (blockName.indexOf(`${sBlockName}`) >= 0) {
         const {
@@ -194,7 +208,7 @@ export function decorateBlocks(
     });
 
     const $section = $block.closest('.section-wrapper');
-    if ($section && blockName != 'grid') {
+    if ($section && blockName !== 'grid') {
       $section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
       $section.classList.add(...options);
     }
@@ -204,13 +218,13 @@ export function decorateBlocks(
 }
 
 function decorateGrid() {
-  const meetGrid = document.querySelector(".embed-internal-meettheartists .grid");
-  const partnerGrid = document.querySelector(".embed-internal-partners .grid");
+  const meetGrid = document.querySelector('.embed-internal-meettheartists .grid');
+  const partnerGrid = document.querySelector('.embed-internal-partners .grid');
   document.querySelectorAll('main div>.grid').forEach(($grid) => {
     $grid.closest('.section-wrapper').classList.add('full-width');
 
-    if ($grid == meetGrid) {
-      $grid.classList.add("meetgrid")
+    if ($grid === meetGrid) {
+      $grid.classList.add('meetgrid');
     }
 
     const rows = Array.from($grid.children);
@@ -218,7 +232,7 @@ function decorateGrid() {
       const cells = Array.from($row.children);
       cells[0].classList.add('image');
       cells[1].classList.add('text');
-      if ($grid != meetGrid && $grid != partnerGrid) {
+      if ($grid !== meetGrid && $grid !== partnerGrid) {
         cells[1].style.backgroundColor = `${cells[2].textContent}80`; // why?
       }
       cells[2].remove();
@@ -488,7 +502,7 @@ function addAccessibility() {
   } catch (e) {
     console.debug('could not add lang to html tag');
   }
-  
+
   function iconAria($icons) {
     $icons.forEach(($icon) => {
       try {
@@ -502,7 +516,6 @@ function addAccessibility() {
         console.debug('Count not set icon aria-label');
       }
     });
-  
   }
   const footerIcons = document.querySelectorAll('#contact-us .icon');
   iconAria(footerIcons);
@@ -593,35 +606,21 @@ function searchPath(pathPart) {
   return ps.includes(pathPart);
 }
 
-function makeLinksRelative() {
-  const links = Array.from(document.querySelectorAll('a[href*="//pages.adobe.com/"]'));
-  links.forEach(link => {
-    try {
-      const url = new URL(link.href);
-      const rel = location.origin + url.pathname + url.search + url.hash;
-      link.href = rel;       
-    } catch (error) {
-      console.debug("problem with link " + link.href);
-    }
-  });
-}
-
 function showArtistGridHack() {
-  const el = document.querySelectorAll("main .block");
+  const el = document.querySelectorAll('main .block');
   el.forEach((e) => {
-    e.style.visibility = "unset";
+    e.style.visibility = 'unset';
   });
 }
 
 function generalHacks() {
-  const hg = document.querySelector(".grid--partners-");
+  const hg = document.querySelector('.grid--partners-');
   if (hg) {
-    hg.classList.add("grid");
-    hg.classList.add("partners");
+    hg.classList.add('grid');
+    hg.classList.add('partners');
   }
-  const h2 = document.querySelector("h2#explore-the-creative-briefs + div.grid");
-  if (h2) h2.classList.add("briefs");
-
+  const h2 = document.querySelector('h2#explore-the-creative-briefs + div.grid');
+  if (h2) h2.classList.add('briefs');
 }
 
 export default async function decoratePage() {
@@ -642,7 +641,7 @@ export default async function decoratePage() {
   } else {
     decorateHeroSection();
   }
-  decorateBlocks(document.querySelector("main"));
+  decorateBlocks(document.querySelector('main'));
   decorateVideoBlocks();
   decorateParallax();
   decorateOverlay();
@@ -656,7 +655,6 @@ export default async function decoratePage() {
   window.pages.decorated = true;
   decorateContactUs();
   addAccessibility();
-
 
   document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
 }
