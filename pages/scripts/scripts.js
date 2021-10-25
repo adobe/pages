@@ -1065,10 +1065,10 @@ function setupTestMode() {
 async function scrollToId(id = window.location.hash.substr(1)) {
   const anchor = document.getElementById(id);
   if (anchor) {
-    const top = anchor.offsetTop;
-    lgr.debug('scrollTo', { id, top });
-    window.scrollTo(window.scrollX, top);
-    // anchor.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    // const top = anchor.offsetTop;
+    lgr.debug('scrollTo', { id });
+    // window.scrollTo(window.scrollX, top);
+    anchor.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 }
 
