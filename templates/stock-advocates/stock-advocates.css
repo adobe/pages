@@ -579,6 +579,8 @@ main .hero-section + .section-wrapper a.button {
 
 .embed-internal-fundsection>div:first-of-type>p:first-of-type {
     display: flex;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
 }
 
 .embed-internal-fundsection>div:first-of-type picture,img {
@@ -1385,6 +1387,7 @@ body.artist-bio .columns .text h5 {
     left: 0;
     display: flex;
     overflow-x: scroll;
+    overflow-y: hidden;
     counter-reset: item;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
