@@ -1134,6 +1134,9 @@ async function decoratePage() {
   }
   await replaceEmbeds();
 
+  // scroll to anchor in embed
+  document.getElementById(window.location.hash.substr(1)).scrollIntoView();
+
   if (template) {
     lgr.debug('use:template', { template });
     await loadTemplate(template);
