@@ -861,24 +861,20 @@ body.artist-bio .columns h5 a:nth-child(2) svg {
   height: 30px;
 }
 
-
-
 body.artist-bio h6 {
   font-size: 30px;
-  color: #a0a0a0;
+  color: #323232;
   font-weight: 300;
+}
+
+body.artist-development-fund div.columns div.selection-criteria a:any-link {
+  color: #90D8F7;
 }
 
 .grid:not(.meetgrid) img {
     object-fit: cover;
     height: 100%;
     width: 100%;
-}
-
-#commissioned-portfolio-coming {
-  font-size: 40px;
-  line-height: 45px;
-  font-weight: normal;
 }
 
 #meet-the-artists {

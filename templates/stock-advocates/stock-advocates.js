@@ -431,7 +431,7 @@ function decorateLogo() {
   if (!$hero) {
     const $header = document.querySelector('header');
     const $asaLogoDiv = createTag('div', { class: 'asa-logo handsy' });
-    $asaLogoDiv.innerHTML = '<img src="/templates/stock-advocates/advocates_logo_small.svg">';
+    $asaLogoDiv.innerHTML = '<img src="/templates/stock-advocates/advocates_logo_small.svg" alt="Adobe Stock Advocates">';
     // don't want to wrap with a tag, too many style selectors may break - kk
     $asaLogoDiv.addEventListener('click', (() => {
       // this won't work if we add more sub folders
@@ -523,6 +523,11 @@ function addAccessibility() {
   iconAria(includedIcons);
   const artistIcons = document.querySelectorAll('.artist-bio main .icon');
   iconAria(artistIcons);
+
+  const asaIds = document.querySelectorAll("#adobe-stock-advocates");
+  if (asaIds.length > 1) {
+    asaIds[1].id = asaIds[1].id + '--contact';
+  }
 }
 
 function supportsWebp() {
@@ -606,10 +611,15 @@ function searchPath(pathPart) {
   return ps.includes(pathPart);
 }
 
-function showArtistGridHack() {
+function redecorateArtistGrid() {
   const el = document.querySelectorAll('main .block');
   el.forEach((e) => {
     e.style.visibility = 'unset';
+  });
+  const artistGridEntries = document.querySelectorAll(".embed-internal-meettheartists .meetgrid .text h4");
+  console.log(artistGridEntries);
+  artistGridEntries.forEach(($child) => {
+    $child.id = $child.id + "--artistbio";
   });
 }
 
@@ -620,7 +630,9 @@ function generalHacks() {
     hg.classList.add('partners');
   }
   const h2 = document.querySelector('h2#explore-the-creative-briefs + div.grid');
-  if (h2) h2.classList.add('briefs');
+  if (h2) {
+    h2.classList.add('briefs');
+  }
 }
 
 export default async function decoratePage() {
@@ -648,7 +660,7 @@ export default async function decoratePage() {
   decorateInternalAdvocates();
   decorateColumns();
   decorateGrid();
-  showArtistGridHack();
+  redecorateArtistGrid();
   decorateColors();
   decorateButtons();
   decorateFaq();
