@@ -12,5 +12,3 @@ yarn.lock
 karma.conf.js
 .bu-static/
 .tools/
-icons/spectrum-icons-dark/
-icons/spectrum-icons-light/
