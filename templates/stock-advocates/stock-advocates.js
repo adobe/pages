@@ -122,7 +122,9 @@ function decorateFaq() {
       const $question = $row.children[0];
       const $answer = $row.children[1];
 
+      $question.tabIndex="0";
       $question.classList.add('question');
+      $answer.tabIndex="-1";
       $answer.classList.add('answer');
 
       $question.addEventListener('click', () => {
@@ -617,7 +619,6 @@ function redecorateArtistGrid() {
     e.style.visibility = 'unset';
   });
   const artistGridEntries = document.querySelectorAll(".embed-internal-meettheartists .meetgrid .text h4");
-  console.log(artistGridEntries);
   artistGridEntries.forEach(($child) => {
     $child.id = $child.id + "--artistbio";
   });
