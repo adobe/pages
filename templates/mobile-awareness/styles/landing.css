@@ -253,7 +253,7 @@ html {
 }
 
 .install-cards > .row > .cell > div {
-  max-width: 400px;
+  max-width: 390px;
   margin: 0 5px;
   display: flex;
   flex-direction: column;
@@ -286,7 +286,7 @@ html {
   left: 0; */
   position: relative;
   left: var(--card-pad);
-  transform: translateY(-50%);
+  transform: translateY(-60%);
 }
 
 .install-card-contents {
@@ -320,5 +320,5 @@ html {
 }
 
 .install-card-buttons .secondary {
-  border: 0;
+  border-color: transparent !important;
 }
