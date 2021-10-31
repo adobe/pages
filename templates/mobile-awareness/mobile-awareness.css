@@ -1,0 +1,41 @@
+@import url('./styles/nav.css');
+@import url('./styles/landing.css');
+
+:root {
+  --sub-text-size: 16px;
+  --light_gray: #e1e1e1;
+  --medium_gray: #747474;
+}
+
+.section-wrapper {
+  position: relative;
+  max-width: 1200px;
+  width: 95%;
+  margin: auto;
+}
+@media (max-width: 767px) {
+  .section-wrapper {
+    max-width: 85vw;
+  }
+}
+
+.button {
+  cursor: pointer;
+}
+
+.gray-zone {
+  padding: 60px 0;
+  background: var(--light_gray);
+}
+
+@media (min-width: 768px) {
+  .no-desktop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .no-mobile {
+    display: none !important;
+  }
+}

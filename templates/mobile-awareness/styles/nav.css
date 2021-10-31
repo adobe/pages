@@ -1,0 +1,153 @@
+nav {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+.nav-elements {
+  display: flex;
+  background: white;
+}
+.nav-elements > * {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+nav .hamburger {
+  display: none;
+}
+
+nav .main-section a {
+  display: flex;
+}
+nav .icon-creativecloud {
+  height: 50px;
+  padding-right: 12px;
+}
+
+nav .links a {
+  padding: 0 12px;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  color: #6e6e6e;
+}
+
+nav .links a .textholder {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  position: relative;
+}
+
+nav .links .highlight {
+  opacity: 0;
+  height: 2px;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  background-color: var(--dark_gray);
+  position: absolute;
+  transition: opacity 0.2s ease;
+}
+
+nav .links a:hover,
+nav .links a.current {
+  color: var(--dark_gray);
+}
+nav .links a:hover .highlight,
+nav .links .current .highlight {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  nav {
+    overflow: hidden;
+    height: 48px;
+  }
+  nav .hamburger {
+    padding: 10px;
+    display: block;
+    position: absolute;
+    left: 0;
+  }
+
+  nav.open {
+    overflow: visible;
+  }
+  nav.open .hamburger .open {
+    display: block;
+  }
+  nav.open .hamburger .closed {
+    display: none;
+  }
+  nav:not(.open) .hamburger .closed {
+    display: block;
+  }
+  nav:not(.open) .hamburger .open {
+    display: none;
+  }
+
+  .nav-elements {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-direction: column;
+    padding: 0 38px;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-elements > * {
+    height: auto;
+  }
+
+  nav .links {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 25px;
+  }
+
+  nav .links a {
+    height: 56px;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  nav .links a .textholder {
+    padding: 0 20px;
+  }
+
+  nav .links a .highlight {
+    opacity: 0.1;
+    top: 0;
+    width: 2px;
+    height: 100%;
+  }
+
+  nav .main-section {
+    position: relative;
+    margin-bottom: 12px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  nav .main-section .menu-open-divider {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 2px;
+
+    background: var(--dark_gray);
+    opacity: 0.1;
+  }
+
+  nav .icon-creativecloud {
+    height: 47px;
+    padding: 10px;
+  }
+}
