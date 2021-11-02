@@ -100,14 +100,14 @@ html {
 .mobile-awareness-landing-app-intro
   .gray-zone.swap
   .section-wrapper
-  .row
-  .cell {
+  > .row
+  > .cell {
   grid-column: 2;
 }
 .mobile-awareness-landing-app-intro
   .gray-zone.swap
   .section-wrapper
-  .row
+  > .row
   > *:not(.cell) {
   grid-column: 1;
   grid-row: 1;
@@ -116,7 +116,7 @@ html {
 .get-links {
   margin-top: 30px;
 }
-.get-links img {
+.get-links picture {
   margin-left: -7px;
 }
 .get-buttons {

@@ -147,7 +147,6 @@ function decorateAppIntros() {
   });
 
   function intersectCallback(changes) {
-    console.log(changes);
     changes.forEach((change) => {
       if (change.intersectionRatio > 0) change.target.classList.add('slide-active');
     });
