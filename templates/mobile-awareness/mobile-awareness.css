@@ -28,6 +28,28 @@
   background: var(--light_gray);
 }
 
+.slide-in {
+  position: relative;
+  transition: left 1s cubic-bezier(0.25, 1, 0.5, 1),
+    right 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s;
+  opacity: 0;
+}
+.slide-in.slide-active {
+  opacity: 1;
+}
+.slide-in.from-left {
+  left: -30vw;
+}
+.slide-in.from-left.slide-active {
+  left: 0;
+}
+.slide-in.from-right {
+  right: -30vw;
+}
+.slide-in.from-right.slide-active {
+  right: 0;
+}
+
 @media (min-width: 768px) {
   .no-desktop {
     display: none !important;

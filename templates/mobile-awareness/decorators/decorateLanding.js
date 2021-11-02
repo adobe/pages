@@ -145,6 +145,22 @@ function decorateAppIntros() {
       cardEl.appendChild(contents);
     }
   });
+
+  function intersectCallback(changes) {
+    console.log(changes);
+    changes.forEach((change) => {
+      if (change.intersectionRatio > 0) change.target.classList.add('slide-active');
+    });
+  }
+  const observer = new IntersectionObserver(intersectCallback, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1,
+  });
+
+  document.querySelectorAll('.slide-in').forEach((slideEl) => {
+    observer.observe(slideEl);
+  });
 }
 
 export default function decorateLanding() {

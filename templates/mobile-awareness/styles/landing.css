@@ -11,6 +11,7 @@ html {
 .mobile-awareness-landing-hero .responsive-image-swap {
   position: relative;
   z-index: 1;
+  min-height: calc(min(90vh, 600px));
 }
 
 .mobile-awareness-landing-hero
@@ -95,6 +96,21 @@ html {
   .row
   .cell {
   max-width: 500px;
+}
+.mobile-awareness-landing-app-intro
+  .gray-zone.swap
+  .section-wrapper
+  .row
+  .cell {
+  grid-column: 2;
+}
+.mobile-awareness-landing-app-intro
+  .gray-zone.swap
+  .section-wrapper
+  .row
+  > *:not(.cell) {
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .get-links {
