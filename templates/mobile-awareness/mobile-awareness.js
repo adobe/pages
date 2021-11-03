@@ -16,6 +16,10 @@ import {
   insertFooter,
 } from '../../pages/scripts/scripts.js';
 
+import {
+  wrapSections,
+} from '../../pages/scripts/default-blocks.js';
+
 import decorateNav from './decorators/decorateNav.js';
 import decorateGeneral from './decorators/decorateGeneral.js';
 import decorateLanding from './decorators/decorateLanding.js';
@@ -27,6 +31,7 @@ export default async function decoratePage() {
   decorateLanding();
 
   insertFooter();
+  wrapSections('header>div, footer>div');
 
   window.pages.decorated = true;
   appearMain();
