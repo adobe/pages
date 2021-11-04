@@ -17,15 +17,16 @@ import {
 export default function decorateNav() {
   const navPlaceholderEl = document.querySelector('.mobile-awareness-nav');
   const navEl = createTag('nav', { class: 'mobile-awareness-nav' });
-  const navLinkNames = navPlaceholderEl.innerHTML
+  let navLinkNames = navPlaceholderEl.innerHTML
     .replace(/(<\/?div>)+/g, '~')
     .split('~')
-    .filter((e) => e)
     .map((e) => ({
       label: e,
-      path: e.trim().replace(/\s+/g, '-')
+      path: (e || '').trim().replace(/\s+/g, '-')
         .toLowerCase(),
     }));
+  const homeLink = navLinkNames.shift();
+  navLinkNames = navLinkNames.filter((l) => l.label);
   const { href } = window.location;
 
   const links = navLinkNames.map((link) => /* html */ `
@@ -54,7 +55,7 @@ export default function decorateNav() {
           </g>
         </svg>
       </div>
-      <a href="/creativecloud/en/mobile-apps-in-your-plan/">
+      <a href="/creativecloud/en/mobile-apps-in-your-plan/${homeLink.path || ''}">
         <img class="icon icon-creativecloud" src="/icons/creativecloud.svg">
       </a>
       <div class="menu-open-divider"></div>

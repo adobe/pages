@@ -15,6 +15,17 @@
 h2 {
   font-size: 45px;
 }
+@media (max-width: 767px) {
+  h2 {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 767px) {
+  p {
+    font-size: 17px !important;
+  }
+}
 
 .section-wrapper {
   position: relative;
@@ -54,6 +65,12 @@ h2 {
 .get-links.one-line > *:not(:first-child) {
   margin-left: 20px;
 }
+@media (max-width: 767px) {
+  .get-links.one-line > *:not(:first-child) {
+    margin-left: 0px;
+  }
+}
+
 .get-buttons .button {
   margin-right: 20px;
 }
@@ -67,6 +84,12 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 16px;
+}
+@media (max-width: 767px) {
+  .grid-2 .row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 }
 
 .slide-in {

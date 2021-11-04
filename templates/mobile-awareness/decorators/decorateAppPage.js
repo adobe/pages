@@ -90,6 +90,7 @@ function decorateAppExtensibility() {
 
 function decorateAppCta() {
   const existingEl = document.querySelector('.mobile-awareness-app-cta');
+  if (!existingEl) return;
   const imageContainers = existingEl.querySelectorAll('picture');
   const mainImage = imageContainers[imageContainers.length - 1];
   mainImage.parentElement.removeChild(mainImage);

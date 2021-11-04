@@ -113,6 +113,12 @@
   margin-bottom: 80px !important;
   text-align: left;
 }
+@media (max-width: 767px) {
+  .mobile-awareness-app-tutorial-prompt {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+  }
+}
 .mobile-awareness-app-tutorial-prompt h2 {
   margin-bottom: 10px;
 }
@@ -124,11 +130,16 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
 }
+@media (max-width: 767px) {
+  .mobile-awareness-app-tutorial-prompt .tutorial-prompts {
+    grid-template-columns: 1fr;
+  }
+}
 
 .mobile-awareness-app-tutorial-prompt .tutorial-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid #c9c9c9;
+  border: 1px solid #e6e6e6;
   padding-bottom: 20px;
   color: #4b4b4b;
 }
@@ -156,15 +167,17 @@
 .mobile-awareness-app-extensibility .section-wrapper {
   color: white;
 }
-.mobile-awareness-app-extensibility .section-wrapper h2 {
-  font-size: 45px;
-}
 .mobile-awareness-app-extensibility .section-wrapper p {
   color: white !important;
   max-width: 800px;
   margin: 0 auto;
   font-size: 20px !important;
   margin-bottom: 45px !important;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-extensibility .section-wrapper p {
+    font-size: 17px !important;
+  }
 }
 
 /* app cta */
@@ -173,8 +186,19 @@
   position: relative;
   padding: 200px 0;
 }
+@media (max-width: 767px) {
+  .mobile-awareness-app-cta {
+    position: relative;
+    padding: 40px 0;
+  }
+}
 .mobile-awareness-app-cta .section-wrapper {
   display: flex;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-cta .section-wrapper {
+    flex-direction: column;
+  }
 }
 
 .mobile-awareness-app-cta .section-wrapper > * {
@@ -203,12 +227,23 @@
   max-width: 500px;
   margin-right: 50px;
 }
+@media (max-width: 767px) {
+  .app-cta-content {
+    max-width: 100%;
+    margin-right: 0px;
+  }
+}
 
 .app-cta-overlay .section-wrapper {
   text-align: left;
 }
 .app-cta-overlay .section-wrapper > * {
   max-width: 550px;
+}
+@media (max-width: 767px) {
+  .app-cta-overlay .section-wrapper > * {
+    max-width: 100%;
+  }
 }
 
 .app-cta-overlay .icon {
@@ -221,6 +256,12 @@
   font-weight: 600;
   font-size: 50px;
   color: black;
+}
+
+@media (max-width: 767px) {
+  .app-cta-content .get-links {
+    margin: 10px auto 30px auto;
+  }
 }
 
 /* inspiration */
@@ -240,10 +281,22 @@
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 20px;
 }
+@media (max-width: 767px) {
+  .mobile-awareness-app-inspiration .app-inspiration {
+    font-size: 17px;
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+  }
+}
 .mobile-awareness-app-inspiration .app-inspiration > * {
   padding: 0 0 20px 0;
   grid-column: span 2;
   align-self: end;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-inspiration .app-inspiration > * {
+    grid-column: span 1 !important;
+  }
 }
 
 .app-inspiration > *:nth-child(1),
@@ -263,6 +316,12 @@
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
 }
+@media (max-width: 767px) {
+  .learn-cards {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 15px;
+  }
+}
 .learn-cards > *:not(.learn-card) {
   display: none;
 }
@@ -277,6 +336,12 @@
   font-size: 16px;
   overflow: hidden;
   height: 750px;
+}
+@media (max-width: 767px) {
+  .learn-card {
+    padding: 15px;
+    height: 500px;
+  }
 }
 
 .learn-card a {
@@ -302,4 +367,10 @@
   bottom: -10px;
   left: 0px;
   right: 0px;
+}
+
+.learn-card img:not(.icon) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
