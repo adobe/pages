@@ -25,9 +25,19 @@
   align-items: center;
   justify-content: flex-start;
 }
+@media (max-width: 767px) {
+  .app-hero-overlay {
+    align-items: flex-start;
+  }
+}
 
 .app-hero-overlay .section-wrapper {
   text-align: left;
+}
+@media (max-width: 767px) {
+  .app-hero-overlay .section-wrapper {
+    margin-top: 3em;
+  }
 }
 .app-hero-overlay .section-wrapper > * {
   max-width: 550px;
@@ -38,11 +48,28 @@
   height: 85px;
   margin-bottom: 40px;
 }
+@media (max-width: 767px) {
+  .app-hero-overlay .icon {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 30px;
+  }
+}
 
 .app-hero-overlay h2 {
   font-weight: 600;
   font-size: 50px;
   color: black;
+}
+@media (max-width: 767px) {
+  .app-hero-overlay h2 {
+    font-size: 27px;
+  }
+}
+@media (max-width: 767px) {
+  .app-hero-overlay .get-links {
+    margin-top: 1em;
+  }
 }
 
 /* sign in reminder */
@@ -55,6 +82,15 @@
   padding-left: 0;
   padding-right: 0;
 }
+@media (max-width: 767px) {
+  .mobile-awareness-app-sign-in-reminder {
+    padding: 0;
+    background: #eaeaea;
+    margin: 20px auto !important;
+    padding: 20px;
+    max-width: 90% !important;
+  }
+}
 
 .mobile-awareness-app-sign-in-reminder img:not(.icon) {
   position: absolute;
@@ -65,14 +101,27 @@
   max-width: 45vw;
   max-height: 580px;
 }
+@media (max-width: 767px) {
+  .mobile-awareness-app-sign-in-reminder img:not(.icon) {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    max-width: 100%;
+    margin-top: 30px;
+  }
+}
 .mobile-awareness-app-sign-in-reminder .content {
   width: 600px;
   align-self: flex-end;
   padding: 80px;
 }
-
-.mobile-awareness-app-sign-in-reminder .content h2 {
-  font-size: 45px;
+@media (max-width: 767px) {
+  .mobile-awareness-app-sign-in-reminder .content {
+    width: auto;
+    align-self: flex-end;
+    padding: 0;
+  }
 }
 
 .mobile-awareness-app-sign-in-reminder .icon {
@@ -95,6 +144,12 @@
   margin: 60px 0;
   background: #eaeaea;
 }
+@media (max-width: 767px) {
+  .mobile-awareness-app-sign-in-reminder .gray-zone {
+    width: 100%;
+    margin: 0;
+  }
+}
 
 .mobile-awareness-app-sign-in-reminder .image-caption {
   position: absolute;
@@ -104,6 +159,11 @@
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-sign-in-reminder .image-caption {
+    display: none;
+  }
 }
 
 /* tutorials */
@@ -270,6 +330,11 @@
   padding: 80px 0;
   background: var(--light_gray);
 }
+@media (max-width: 767px) {
+  .mobile-awareness-app-inspiration {
+    padding: 40px 0;
+  }
+}
 .mobile-awareness-app-inspiration .section-wrapper {
   text-align: left;
 }
@@ -309,6 +374,11 @@
 .mobile-awareness-app-others {
   padding: 80px 0;
   background: #eaeaea;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-others {
+    padding: 40px 0;
+  }
 }
 
 .learn-cards {

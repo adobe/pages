@@ -35,7 +35,7 @@ function decorateSignInReminder() {
   existingEl.classList.add('section-wrapper');
 
   const contentBox = wrapContents(existingEl, { innerAttrs: { class: 'gray-zone' } });
-  hoist('picture', contentBox, true);
+  hoist('picture', contentBox);
 
   wrapContents(existingEl, { innerAttrs: { class: 'content' } });
   const elements = contentBox.querySelectorAll('h2, p');
