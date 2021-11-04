@@ -23,12 +23,14 @@ import {
 import decorateNav from './decorators/decorateNav.js';
 import decorateGeneral from './decorators/decorateGeneral.js';
 import decorateLanding from './decorators/decorateLanding.js';
+import decorateAppPage from './decorators/decorateAppPage.js';
 
 export default async function decoratePage() {
   loadCSS('/pages/styles/default.css', true, true);
   decorateNav();
   decorateGeneral();
   decorateLanding();
+  decorateAppPage();
 
   insertFooter();
   wrapSections('header>div, footer>div');

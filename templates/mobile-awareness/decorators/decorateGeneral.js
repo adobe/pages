@@ -30,7 +30,7 @@ export function decorateTables() {
       const $row = createTag('div', { class: 'row' });
       $tr.querySelectorAll('td').forEach(($td, i) => {
         const $cell = createTag('div',
-          { class: i === 0 ? 'cell' : cols[i] });
+          { class: i === 0 ? 'cell' : cols[i] || 'cell' });
         $cell.innerHTML = $td.innerHTML;
         externalizeImageSources($cell);
         $row.appendChild($cell);
@@ -61,8 +61,8 @@ function cleanUpEmptyPTags() {
     if (p.innerHTML.trim() === '') p.parentElement.removeChild(p);
   });
 }
-function cleanUpUnnecessaryTags() {
-  document.querySelectorAll('div').forEach((div) => {
+export function cleanUpUnnecessaryTags(root = document) {
+  root.querySelectorAll('div').forEach((div) => {
     const parent = div.parentElement;
     if (parent
       && (div.classList?.length === 0 || parent?.classList.length === 0)
@@ -73,7 +73,7 @@ function cleanUpUnnecessaryTags() {
       parent.append(...childNodes);
     }
   });
-  document.querySelectorAll('p').forEach((p) => {
+  root.querySelectorAll('p').forEach((p) => {
     const parent = p.parentElement;
     if (parent
       && (p.classList?.length === 0 || parent?.classList.length === 0)
@@ -86,9 +86,69 @@ function cleanUpUnnecessaryTags() {
   });
 }
 
+function watchSlideIns() {
+  function intersectCallback(changes) {
+    changes.forEach((change) => {
+      if (change.intersectionRatio > 0) change.target.classList.add('slide-active');
+    });
+  }
+  const observer = new IntersectionObserver(intersectCallback, {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1,
+  });
+
+  document.querySelectorAll('.slide-in').forEach((slideEl) => {
+    observer.observe(slideEl);
+  });
+}
+
+function decorateGetLinks() {
+  document.querySelectorAll('.get-links').forEach((getLinksEl) => {
+    const getLinksType = [...getLinksEl.classList].find((e) => e !== 'get-links');
+    if (getLinksType) {
+      const getButtons = createTag('div', { class: 'get-buttons' });
+      const textMe = createTag('div', { class: 'button primary no-mobile' });
+      textMe.innerHTML = 'Text me a download link';
+      const download = createTag('div', { class: 'button primary no-desktop' });
+      download.innerHTML = 'Download';
+      getButtons.appendChild(textMe);
+      getButtons.appendChild(download);
+
+      if (window.location.href.includes(`mobile-apps-in-your-plan/${getLinksType}`)) {
+        getLinksEl.classList.add('one-line');
+        textMe.classList.add('large');
+        download.classList.add('large');
+      } else {
+        const learnMore = createTag('a', { class: 'button secondary', href: `/creativecloud/en/mobile-apps-in-your-plan/${getLinksType}` });
+        learnMore.innerHTML = 'Learn more';
+        getButtons.appendChild(learnMore);
+      }
+
+      getLinksEl.appendChild(getButtons);
+    }
+  });
+}
+
+function replaceIcons() {
+  const replaces = [
+    { from: '/icons/tablet.svg', to: '/icons/spectrum-icons-dark/DeviceTablet_18_N.svg' },
+    { from: '/icons/phone.svg', to: '/icons/spectrum-icons-dark/DevicePhone_18_N.svg' },
+  ];
+  for (const type of replaces) {
+    const els = document.querySelectorAll(`img[src="${type.from}"]`);
+    for (const el of els) {
+      el.src = type.to;
+    }
+  }
+}
+
 export default function decorateGeneral() {
   decorateTables();
   cleanUpEmptyPTags();
   cleanUpUnnecessaryTags();
   decorateResponsiveImageSwap();
+  watchSlideIns();
+  decorateGetLinks();
+  replaceIcons();
 }

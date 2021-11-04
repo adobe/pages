@@ -112,23 +112,21 @@ html {
   grid-column: 1;
   grid-row: 1;
 }
-
-.get-links {
-  margin-top: 30px;
-}
-.get-links picture {
-  margin-left: -7px;
-}
-.get-buttons {
-  display: flex;
-  margin-top: 5px;
-}
-.get-buttons .button {
-  margin-right: 20px;
-}
 @media (max-width: 767px) {
-  .get-links img {
-    display: none;
+  .mobile-awareness-landing-app-intro
+    .gray-zone.swap
+    .section-wrapper
+    > .row
+    > .cell {
+    grid-column: auto;
+  }
+  .mobile-awareness-landing-app-intro
+    .gray-zone.swap
+    .section-wrapper
+    > .row
+    > *:not(.cell) {
+    grid-column: auto;
+    grid-row: auto;
   }
 }
 

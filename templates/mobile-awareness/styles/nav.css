@@ -25,6 +25,12 @@ nav .main-section a {
 nav .icon-creativecloud {
   height: 50px;
   padding-right: 12px;
+  transition: transform 0.2s ease-in-out,
+    filter 0.2s ease-in-out;
+}
+nav .icon-creativecloud:hover {
+  transform: scale(1.02, 1.02);
+  filter: drop-shadow(0 5px 10px rgba(255, 0, 0, 0.178));
 }
 
 nav .links a {

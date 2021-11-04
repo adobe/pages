@@ -14,50 +14,11 @@ import {
   createTag,
 } from '../../../pages/scripts/scripts.js';
 
-function wrapContents(
-  el,
-  { outside, wrapperAttrs, innerAttrs } =
-  { outside: false, wrapperAttrs: {}, innerAttrs: {} },
-) {
-  const wrapper = createTag('div', 'wrapper');
-  el.replaceWith(wrapper);
-  wrapper.appendChild(el);
-  if (!outside) {
-    wrapper.classList.add(...el.classList);
-    el.classList = '';
-  }
-  for (const [key, value] of Object.entries(wrapperAttrs || {})) {
-    wrapper.setAttribute(key, value);
-  }
-  for (const [key, value] of Object.entries(innerAttrs || {})) {
-    el.setAttribute(key, value);
-  }
-  return wrapper;
-}
-
-function hoist(selector, parent, toTop, targetParent) {
-  const all = parent.querySelectorAll(selector);
-  if (!all) return false;
-  return [...all].map((el) => {
-    if (toTop) (targetParent || parent).prepend(el);
-    else (targetParent || parent).appendChild(el);
-    return el;
-  });
-}
-
-// function replaceTag(el, tagName) {
-//   const newEl = createTag(tagName);
-//   const attrs = el.attributes;
-//   for (let i = 0; i < attrs.length; i += 1) {
-//     newEl.setAttribute(attrs[i].name, attrs[i].value);
-//   }
-//   newEl.append(...el.childNodes);
-//   el.replaceWith(newEl);
-//   return newEl;
-// }
+import { hoist, wrapContents } from '../scripts/scripts.js';
 
 function decorateHero() {
   const existingEl = document.querySelector('.mobile-awareness-landing-hero');
+  if (!existingEl) return;
   let imageContainer = existingEl.querySelector('.responsive-image-swap');
   if (!imageContainer) imageContainer = existingEl.querySelector('picture');
   existingEl.removeChild(imageContainer);
@@ -94,23 +55,6 @@ function decorateAppIntros() {
           });
         });
       });
-
-    introEl.querySelectorAll('.get-links').forEach((getLinksEl) => {
-      const getLinksType = [...getLinksEl.classList].find((e) => e !== 'get-links');
-      if (getLinksType) {
-        const getButtons = createTag('div', { class: 'get-buttons' });
-        const textMe = createTag('div', { class: 'button primary no-mobile' });
-        textMe.innerHTML = 'Text me a download link';
-        const download = createTag('div', { class: 'button primary no-desktop' });
-        download.innerHTML = 'Download';
-        const learnMore = createTag('a', { class: 'button secondary', href: `/creativecloud/en/mobile-apps-in-your-plan/${getLinksType}` });
-        learnMore.innerHTML = 'Learn more';
-        getButtons.appendChild(textMe);
-        getButtons.appendChild(download);
-        getButtons.appendChild(learnMore);
-        getLinksEl.appendChild(getButtons);
-      }
-    });
   });
 
   wrapContents(document.querySelector('.mobile-awareness-landing-bottom'), { innerAttrs: { class: 'section-wrapper' } });
@@ -144,21 +88,6 @@ function decorateAppIntros() {
 
       cardEl.appendChild(contents);
     }
-  });
-
-  function intersectCallback(changes) {
-    changes.forEach((change) => {
-      if (change.intersectionRatio > 0) change.target.classList.add('slide-active');
-    });
-  }
-  const observer = new IntersectionObserver(intersectCallback, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1,
-  });
-
-  document.querySelectorAll('.slide-in').forEach((slideEl) => {
-    observer.observe(slideEl);
   });
 }
 
