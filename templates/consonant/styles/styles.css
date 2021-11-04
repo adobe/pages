@@ -95,6 +95,10 @@ main {
   font-weight: var(--body-font-weight);
 }
 
+main .block {
+  visibility: unset;
+}
+
 main p:not(:last-of-type) {
   margin-bottom: 32px;
 }
@@ -354,4 +358,8 @@ main .figure .caption {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+header, main, body>footer {
+  opacity: 1;
 }
