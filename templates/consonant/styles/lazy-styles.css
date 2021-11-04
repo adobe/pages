@@ -57,3 +57,7 @@
 .tk-adobe-clean-serif { 
   font-family: "adobe-clean-serif", sans-serif;
 }
+
+body {
+  background: blue !important;
+}

@@ -1,0 +1,183 @@
+/*-- Marquee Variants --*/
+/* [small(default), medium, large, quiet, inline] */
+/* Small marquees are 360 pixels tall and contain an optional detail, a headline, body copy, at least one CTA, and a relevant image or video.*/
+/* Medium marquees are 560 pixels tall and contain an optional detail, headline, body copy, at least one CTA, and a relevant image or a video.*/
+/* Large marquees are 700 pixels tall and contain an optional detail (or brand image), headline, body copy, two CTAs, and a relevant image or video.*/
+/* Quiet marquees are 360 pixels tall and contain an optional detail, headline, and body copy. They should appear as simple copy over a neutral background color, and they may or may not include a single CTA.*/
+/* Inline marquees have flexible heights and flow inline with the rest of the page. They include a headline, body copy, and a horizontal rule divider.*/
+
+
+.marquee {
+    position: relative;
+    padding: var(--spacing-l) 0 var(--spacing-l) 0;
+
+    --marquee-height-sm: 360px;
+    --marquee-height-md: 560px;
+    --marquee-height-lg: 700px;
+    --marquee-height-qt: 360px;
+    --marquee-height-in: auto;
+
+}
+.marquee.large {
+    padding: 0;
+}
+.marquee.center {
+    text-align: center;
+}
+.marquee.is-Loaded {
+    display: block;
+    opacity: 1;
+}
+.marquee.is-Loaded.init {
+    opacity: 1;
+}
+
+.marquee .background img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.marquee .background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.marquee .container {
+    position: relative;
+    max-width: var(--grid-mobile-container-width);
+    margin: 0 auto;
+}
+
+.marquee .container .text {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    margin: var(--spacing-l) 0;
+}
+
+
+
+.marquee .container .text > * {
+    width: 100%;
+}
+
+.marquee .container .text p:first-of-type {
+    font-size: var(--type-detail-m-size);
+    text-transform: var(--type-detail-m-transform);
+    line-height: var(--type-detail-m-lh);
+    font-weight: var(--type-detail-all-weight);
+    margin: 0 0 var(--spacing-s) 0;
+}
+
+.marquee .container .text h1 {
+    font-size: var(--type-heading-xl-size);
+    line-height: var(--type-heading-xl-lh);
+    font-weight: var(--type-heading-all-weight);
+    margin: 0 0 var(--spacing-s) 0;
+}
+
+.marquee .container .text h1 + p {
+    font-size: var(--type-body-m-size);
+    line-height: var(--type-body-m-lh);
+    margin: 0 0 var(--spacing-m) 0;
+}
+
+.marquee .container .text h1 + p + p {
+    margin: 0;
+}
+
+.marquee .container .image {
+    text-align: right;
+}
+
+.marquee .container div {
+    flex: 1 1 auto;
+}
+
+.marquee .container img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.marquee.large .background {
+    position: relative;
+    min-height: 350px;
+}
+
+.marquee.large .background picture {
+    height: 350px;
+    display: block;
+}
+
+/*tablet*/
+@media screen and (min-width: 600px) {
+    .marquee.large {
+        padding: var(--spacing-l) 0 var(--spacing-l) 0;
+    }
+    .marquee.large .background {
+        position: absolute;
+    }
+    .marquee.large .container .text {
+        width: 40%;
+    }
+    .marquee.large .background picture {
+        height: auto;
+        display: initial;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .marquee {
+        padding: 0;
+    }
+    .marquee .container,
+    .marquee.small .container {
+        min-height: var(--marquee-height-sm);
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+    .marquee.medium .container {
+        min-height: var(--marquee-height-md);
+    }
+    .marquee.large .container {
+        min-height: var(--marquee-height-lg);
+    }
+    .marquee.quiet .container {
+        min-height: var(--marquee-height-qt);
+    }
+    .marquee.inline .container {
+        min-height: var(--marquee-height-in);
+    }
+    .marquee .container .text,
+    .marquee .container .image {
+        flex: 0 1 auto;
+    }
+
+    .marquee .container .text {
+        width: 40%;
+    }
+
+    .marquee .container .image {
+        width: 50%;
+    }
+    /*quiet inline*/
+    .marquee.quiet .container .text,
+    .marquee.inline .container .text,
+    .marquee.quiet .container .image,
+    .marquee.inline .container .image {
+        flex: 1 0 100%;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .marquee .container {
+        max-width: var(--grid-desktop-container-width);
+    }
+}
