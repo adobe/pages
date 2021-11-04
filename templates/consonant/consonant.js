@@ -849,13 +849,6 @@ async function loadLazy() {
   // post LCP actions go here
   sampleRUM('lcp');
 
-  /* load gnav */
-  const header = document.querySelector('header');
-  const gnavPath = getMetadata('gnav') || `${getRootPath()}/gnav`;
-  header.setAttribute('data-block-name', 'gnav');
-  header.setAttribute('data-gnav-source', gnavPath);
-  loadBlock(header);
-
   /* load footer */
   const footer = document.querySelector('footer');
   footer.setAttribute('data-block-name', 'footer');

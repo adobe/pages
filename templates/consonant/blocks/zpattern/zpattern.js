@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 const init = (element) => {
-  // create the tabs list container div
+  // create the container div
   const container = element.querySelector(':scope > div:first-of-type');
   container.classList.add('container');
   const rowIds = element.querySelectorAll(':scope > div:first-of-type > div');

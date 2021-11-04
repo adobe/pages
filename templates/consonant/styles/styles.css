@@ -323,8 +323,6 @@ a.button > svg > use {
   color: currentColor;
 }
 
-/* gnav placeholder */
-
 header {
   border-bottom: 1px solid #EAEAEA;
   display: flex;
