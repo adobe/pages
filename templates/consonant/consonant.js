@@ -1031,3 +1031,13 @@ function registerPerformanceLogger() {
 }
 
 if (window.name.includes('performance')) registerPerformanceLogger();
+
+export function isNodeName(node, name) {
+  if (!node || typeof node !== 'object') return false;
+  return node.nodeName.toLowerCase() === name.toLowerCase();
+}
+
+export function isAttr(node, attr, val) {
+  if (!node || typeof node !== 'object') return false;
+  return node.getAttribute(attr) === val;
+}

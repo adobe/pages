@@ -1,0 +1,104 @@
+main div.block.card {
+	visibility: unset;
+}
+
+main .card-container.fourstack > div {
+  max-width: 1200px; 
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card > div {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #DEDEDE;
+  margin: 2% auto;
+  background: #ffffff;
+}
+
+.lineul ul li:before {
+  content: '-';
+  margin-right: 10px;
+}
+
+.lineul ul {
+  list-style-type: none;
+  margin: 0; padding: 0;
+  width: 100%;
+}
+
+.card > div > div:first-of-type img {
+  width: 100%;
+}
+
+.card > div > div:last-of-type {
+  padding: 24px 24px;
+}
+
+.card > div > div:last-of-type p{
+  text-align: left;
+  font-size: 18px;
+  margin: 0;
+}
+
+
+.card > div > div:last-of-type p img{
+  width: 28px;
+}
+
+.card > div > div:last-of-type p img:last-of-type{
+  margin-left: 6px;
+}
+
+.card > div > div:last-of-type h3{
+  text-align: left;
+  font-size: 22px;
+  margin: 14px 0px 8px 0px;
+  line-height: 1.4;
+}
+
+.card > div > div:last-of-type a.button {
+  margin-top: 26px;
+  display: inline-block;
+}
+
+
+@media(min-width: 600px) {
+  .card > div {
+    width: 48%;
+    max-width: 350px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #DEDEDE;
+    min-height: 500px;
+  }
+
+  .card.wide > div {
+    max-width: 500px;
+    width: 100%;
+  }
+}
+
+
+@media(min-width: 968px) {
+  .fourstack.card > div {
+    width: 23%;
+  }
+  
+  .card > div {
+    width: 31%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #DEDEDE;
+  }
+  .card.wide > div {
+    max-width: 500px;
+    width: 48%;
+  }
+
+}

@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 export default function decorate($block) {
-  const $headerTag = $block.querySelector('header');
-  $headerTag.append($block);
+  const $headerTag = document.querySelector('header');
+  const $headerContainer = $block.parentElement.parentElement;
+  $headerContainer.classList.remove('section-wrapper');
+  $headerTag.append($headerContainer);
 }
