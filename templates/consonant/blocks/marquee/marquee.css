@@ -6,17 +6,22 @@
 /* Quiet marquees are 360 pixels tall and contain an optional detail, headline, and body copy. They should appear as simple copy over a neutral background color, and they may or may not include a single CTA.*/
 /* Inline marquees have flexible heights and flow inline with the rest of the page. They include a headline, body copy, and a horizontal rule divider.*/
 
+main .section-wrapper:first-of-type.marquee-container {
+    margin-top: 0;
+}
+
+.marquee-container {
+    position: relative;
+}
 
 .marquee {
-    position: relative;
     padding: var(--spacing-l) 0 var(--spacing-l) 0;
-
     --marquee-height-sm: 360px;
     --marquee-height-md: 560px;
     --marquee-height-lg: 700px;
     --marquee-height-qt: 360px;
     --marquee-height-in: auto;
-
+    color: white;
 }
 .marquee.large {
     padding: 0;

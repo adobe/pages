@@ -160,16 +160,12 @@ main .section-wrapper {
 }
 
 main .section-wrapper:first-of-type {
-  padding-top: 0;
+  padding: 0;
   margin-top: 128px;
 }
 
 main .section-wrapper:last-of-type {
   margin-bottom: 0;
-}
-
-main .section-wrapper:first-of-type {
-  padding: 0;
 }
 
 @media (min-width:600px) {
