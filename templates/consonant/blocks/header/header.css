@@ -1,6 +1,14 @@
-.header-container {
-    width: 100%;
+/* probably fix this later by copying from somewhere else */
+.header-container,
+.header-container > div,
+.header,
+.header > div,
+.header > div > div {
     height: 100%;
+    width: 100%;
+}
+
+.header-container {
     max-width: 1300px;
     margin: 0 auto;
     padding: 0;
@@ -10,6 +18,7 @@
     display: flex;
     list-style-type: none;
 }
+
 .header ul li {
     margin: 0 4px;
 }
@@ -22,4 +31,9 @@
 
 .header p {
     margin: 0;
+}
+
+.header > div > div {
+    display: flex;
+    align-items: center;
 }
