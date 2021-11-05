@@ -234,7 +234,7 @@ export function decorateBlock(block) {
   if (section) {
     section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
   }
-  const blocksWithVariants = ['recommended-articles'];
+  const blocksWithVariants = ['columns', 'cards'];
   blocksWithVariants.forEach((b) => {
     if (blockName.startsWith(`${b}-`)) {
       const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -515,8 +515,8 @@ export async function loadBlock(block, eager = false) {
     block.setAttribute('data-block-loaded', true);
     const blockName = block.getAttribute('data-block-name');
     try {
-      loadCSS(`/blocks/${blockName}/${blockName}.css`);
-      const mod = await import(`/blocks/${blockName}/${blockName}.js`);
+      loadCSS(`/templates/consonant/blocks/${blockName}/${blockName}.css`);
+      const mod = await import(`/templates/consonant/blocks/${blockName}/${blockName}.js`);
       if (mod.default) {
         await mod.default(block, blockName, document, eager);
       }
@@ -856,8 +856,8 @@ async function loadLazy() {
   loadBlock(footer);
 
   loadBlocks(main);
-  loadCSS('/styles/lazy-styles.css');
-  addFavIcon('/styles/favicon.svg');
+  loadCSS('/templates/consonant/styles/lazy-styles.css');
+  addFavIcon('/templates/consonant/styles/favicon.svg');
 }
 
 /**
@@ -866,7 +866,7 @@ async function loadLazy() {
  */
 function loadDelayed() {
   /* trigger delayed.js load */
-  const delayedScript = '/scripts/delayed.js';
+  const delayedScript = '/templates/consonant/scripts/delayed.js';
   const usp = new URLSearchParams(window.location.search);
   const delayed = usp.get('delayed');
 
