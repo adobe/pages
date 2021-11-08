@@ -21,17 +21,29 @@ const init = (element) => {
   }
   const content = element.querySelector(':scope > div:last-of-type');
   content.classList.add('container');
-  content.querySelector(':scope > div:first-of-type').classList.add('text');
-  content.querySelector(':scope > div:last-of-type').classList.add('image');
+  content.querySelector(':scope > div:first-of-type').classList.add('marquee-column');
+  content.querySelector(':scope > div:last-of-type').classList.add('marquee-column');
+  content.querySelector(':scope picture').parentElement.classList.add('image');
 
-  const ctas = content.querySelectorAll(':scope > div:first-of-type a');
+  const ctasLeft = content.querySelectorAll(':scope > div:first-of-type a');
   let i;
-  for (i = 0; i < ctas.length; i += 1) {
-    const isSecondLink = (i === 0 && ctas.length > 1);
+  for (i = 0; i < ctasLeft.length; i += 1) {
+    const isSecondLink = (i === 0 && ctasLeft.length > 1);
     const modClass = isSecondLink ? 'secondary' : 'primary';
-    ctas[i].classList.add('button', modClass);
+    ctasLeft[i].classList.add('button', modClass);
     if (isDark && isSecondLink) {
-      ctas[i].classList.add('over-background');
+      ctasLeft[i].classList.add('over-background');
+    }
+  }
+
+  const ctasRight = content.querySelectorAll(':scope > div:last-of-type a');
+  let n;
+  for (n = 0; n < ctasRight.length; n += 1) {
+    const isSecondLink = (n === 0 && ctasRight.length > 1);
+    const modClass = isSecondLink ? 'secondary' : 'primary';
+    ctasRight[n].classList.add('button', modClass);
+    if (isDark && isSecondLink) {
+      ctasRight[n].classList.add('over-background');
     }
   }
 };

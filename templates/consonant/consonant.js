@@ -241,6 +241,10 @@ export function decorateBlock(block) {
       blockName = b;
       block.classList.add(b);
       block.classList.add(...options);
+
+      if (section) {
+        section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+      }
     }
   });
 

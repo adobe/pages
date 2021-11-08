@@ -3,6 +3,7 @@
 /* default content */
 
 :root {
+  --header-height: 64px;
   --color-white: #FFF;
   --color-gray-100: #F8F8F8;
   --color-gray-200: #E8E8E8;
@@ -50,7 +51,7 @@
   --heading-font-size-xxs: 0.875rem; /* 14px */
   
   /* details */
-  --detail-font-weight: 700;
+  --detail-font-weight: 600;
   --detail-color: var(--color-gray-600);
   --detail-line-height: 1.25;
   --detail-font-size-l: 1.25rem; /* 20px */
@@ -162,6 +163,7 @@ main .section-wrapper {
 main .section-wrapper:first-of-type {
   padding: 0;
   margin-top: 128px;
+  margin-top: calc(var(--header-height) + 64px);
 }
 
 main .section-wrapper:last-of-type {
@@ -185,7 +187,7 @@ main .section-wrapper > div {
 
 @media (min-width: 700px) {
   main .section-wrapper > div {
-    max-width: 800px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
   }

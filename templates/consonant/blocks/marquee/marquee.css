@@ -1,31 +1,64 @@
 /*-- Marquee Variants --*/
-/* [small(default), medium, large, quiet, inline] */
+/* [small(default), medium, large] */
 /* Small marquees are 360 pixels tall and contain an optional detail, a headline, body copy, at least one CTA, and a relevant image or video.*/
 /* Medium marquees are 560 pixels tall and contain an optional detail, headline, body copy, at least one CTA, and a relevant image or a video.*/
 /* Large marquees are 700 pixels tall and contain an optional detail (or brand image), headline, body copy, two CTAs, and a relevant image or video.*/
-/* Quiet marquees are 360 pixels tall and contain an optional detail, headline, and body copy. They should appear as simple copy over a neutral background color, and they may or may not include a single CTA.*/
-/* Inline marquees have flexible heights and flow inline with the rest of the page. They include a headline, body copy, and a horizontal rule divider.*/
+
 
 main .section-wrapper:first-of-type.marquee-container {
-    margin-top: 0;
+    margin-top: var(--header-height);
 }
 
-.marquee-container {
-    position: relative;
+main .section-wrapper:first-of-type.marquee-container > div > :first-child:not(.marquee) {
+    margin-top: 128px;
+    margin-top: calc(var(--header-height) + 64px);
 }
 
-.marquee {
-    padding: var(--spacing-l) 0 var(--spacing-l) 0;
+main .marquee h3 {
+    font-size: var(--detail-font-size-m);
+    font-weight: var(--detail-font-weight);
+    line-height: var(--detail-line-height);
+    text-transform: uppercase;
+    margin: 0;
+    margin-top: 16px;
+}
+
+main .marquee h2 {
+    font-size: var(--heading-font-size-xl);
+    margin: 16px 0;
+}
+
+main .marquee p {
+    font-size: var(--body-font-size-m);
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+main .marquee .button {
+    margin-bottom: 0;
+    margin-top: 8px
+}
+
+main .marquee .button:first-child {
+    margin-left: 0;
+}
+
+main .marquee {
+    padding: 48px 0;
+    margin: 48px 0;
     --marquee-height-sm: 360px;
     --marquee-height-md: 560px;
     --marquee-height-lg: 700px;
     --marquee-height-qt: 360px;
     --marquee-height-in: auto;
     color: white;
+    position: relative;
 }
-.marquee.large {
-    padding: 0;
+
+main .section-wrapper:first-of-type.marquee-container .marquee:first-child {
+    margin-top: 0;
 }
+
 .marquee.center {
     text-align: center;
 }
@@ -45,10 +78,13 @@ main .section-wrapper:first-of-type.marquee-container {
 
 .marquee .background {
     position: absolute;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
     right: 0;
     top: 0;
     bottom: 0;
+    user-select: none;
 }
 
 .marquee .container {
@@ -57,41 +93,31 @@ main .section-wrapper:first-of-type.marquee-container {
     margin: 0 auto;
 }
 
-.marquee .container .text {
+.marquee .container .marquee-column {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
     margin: var(--spacing-l) 0;
 }
 
-
-
-.marquee .container .text > * {
+.marquee .container .marquee-column > * {
     width: 100%;
 }
 
-.marquee .container .text p:first-of-type {
-    font-size: var(--type-detail-m-size);
-    text-transform: var(--type-detail-m-transform);
-    line-height: var(--type-detail-m-lh);
-    font-weight: var(--type-detail-all-weight);
-    margin: 0 0 var(--spacing-s) 0;
-}
-
-.marquee .container .text h1 {
+.marquee .container .marquee-column h1 {
     font-size: var(--type-heading-xl-size);
     line-height: var(--type-heading-xl-lh);
     font-weight: var(--type-heading-all-weight);
     margin: 0 0 var(--spacing-s) 0;
 }
 
-.marquee .container .text h1 + p {
+.marquee .container .marquee-column h1 + p {
     font-size: var(--type-body-m-size);
     line-height: var(--type-body-m-lh);
     margin: 0 0 var(--spacing-m) 0;
 }
 
-.marquee .container .text h1 + p + p {
+.marquee .container .marquee-column h1 + p + p {
     margin: 0;
 }
 
@@ -127,7 +153,7 @@ main .section-wrapper:first-of-type.marquee-container {
     .marquee.large .background {
         position: absolute;
     }
-    .marquee.large .container .text {
+    .marquee.large .container .marquee-column {
         width: 40%;
     }
     .marquee.large .background picture {
@@ -153,30 +179,20 @@ main .section-wrapper:first-of-type.marquee-container {
     .marquee.large .container {
         min-height: var(--marquee-height-lg);
     }
-    .marquee.quiet .container {
-        min-height: var(--marquee-height-qt);
-    }
-    .marquee.inline .container {
-        min-height: var(--marquee-height-in);
-    }
-    .marquee .container .text,
+    .marquee .container .marquee-column,
     .marquee .container .image {
         flex: 0 1 auto;
     }
 
-    .marquee .container .text {
+    .marquee .container .marquee-column {
         width: 40%;
     }
 
     .marquee .container .image {
         width: 50%;
     }
-    /*quiet inline*/
-    .marquee.quiet .container .text,
-    .marquee.inline .container .text,
-    .marquee.quiet .container .image,
-    .marquee.inline .container .image {
-        flex: 1 0 100%;
+
+    .marquee .container .marquee-column:first-child:last-child {
         width: 100%;
     }
 }
