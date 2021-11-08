@@ -9,6 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
 const init = (element) => {
   // create the container div
   const container = element.querySelector(':scope > div:first-of-type');

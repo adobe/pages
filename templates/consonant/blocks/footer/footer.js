@@ -9,8 +9,9 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
 export default function decorate($block) {
-  // turn links into buttons
+  // Turn links into buttons
   $block.querySelectorAll(':scope a.button').forEach(($a) => {
     const $button = document.createElement('button');
     $button.title = $a.title || $a.textContent;

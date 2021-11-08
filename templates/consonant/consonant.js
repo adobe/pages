@@ -45,7 +45,7 @@ export function sampleRUM(checkpoint, data = {}) {
       navigator.sendBeacon(url, body); // we should probably use XHR instead of fetch
     }
   } catch (e) {
-    // somethign went wrong
+    // Somethign went wrong
   }
 }
 
