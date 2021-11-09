@@ -21,6 +21,7 @@ export default function decorate($block) {
   }
 
   $rows.forEach(($row) => {
+    $row.classList.add('columns-row');
     const $columns = Array.from($row.children);
     $columns.forEach(($column) => {
       $column.classList.add('column');

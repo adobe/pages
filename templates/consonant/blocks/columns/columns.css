@@ -33,6 +33,12 @@ main .section-wrapper.column-container > div > :not(.column) {
   padding-right: 2rem;
 }
 
+main .columns-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 main .column {
   padding: 24px 0;
   margin: 48px 0;
@@ -41,9 +47,6 @@ main .column {
   --column-width-lg: 700px;
   position: relative;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 main .column h2 {
