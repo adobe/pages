@@ -119,23 +119,23 @@ main h1, main h2, main h3, main h4, main h5, main h6 {
 }
 
 main h1 {
-  font-size: var(--heading-font-size-xl);
+  font-size: var(--heading-font-size-xxl);
 }
 
 main h2 {
-  font-size: var(--heading-font-size-l);
+  font-size: var(--heading-font-size-xl);
 }
 
 main h3 {
-  font-size: var(--heading-font-size-m);
+  font-size: var(--heading-font-size-l);
 }
 
 main h4 {
-  font-size: var(--heading-font-size-s);
+  font-size: var(--heading-font-size-m);
 }
 
 main h5 {
-  font-size: var(--heading-font-size-xs);
+  font-size: var(--heading-font-size-s);
 }
 
 main h6 {    
@@ -149,24 +149,6 @@ main h6 {
 main img,
 main video {
   max-width: 100%;
-}
-
-@media (min-width: 600px) {
-  main {
-    font-size: var(--body-font-size-l);
-  }
-
-  main h2 {
-    font-size: var(--heading-font-size-l);
-  }
-
-  main h3 {
-    font-size: var(--heading-font-size-l);
-  }
-
-  main h4 {
-    font-size: var(--heading-font-size-m);
-  }
 }
 
 /* section wrapper */
@@ -201,19 +183,18 @@ main .container {
   padding: 0 2rem;
 }
 
-@media (min-width: 700px) {
-  main .section-wrapper > div,
-  main .container {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+main .section-wrapper > div,
+main .container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  main .section-wrapper > div > :not(div) {
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+main .section-wrapper > div > :not(div) {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 main .section-wrapper p.button-container {
