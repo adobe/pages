@@ -52,12 +52,12 @@
   --heading-font-size-xxs: 0.875rem; /* 14px */
   
   /* details */
-  --detail-font-weight: 600;
+  --detail-font-weight: 700;
   --detail-color: var(--color-gray-600);
   --detail-line-height: 1.25;
   --detail-font-size-l: 1.25rem; /* 20px */
   --detail-font-size-m: 1rem; /* 16px */
-  --detail-font-size-s: 0.75rem; /* 12px */
+  --detail-font-size-s: 0.8rem; /* 12px */
 }
 
 @media (min-width: 900px) {

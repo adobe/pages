@@ -15,9 +15,10 @@ main .section-wrapper:first-of-type.marquee-container > div > :first-child:not(.
 }
 
 main .marquee h3 {
-    font-size: var(--detail-font-size-m);
+    font-size: var(--detail-font-size-s);
     font-weight: var(--detail-font-weight);
     line-height: var(--detail-line-height);
+    letter-spacing: 0.72px;
     text-transform: uppercase;
     margin: 0;
     margin-top: 16px;
