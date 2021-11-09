@@ -172,6 +172,9 @@
   margin-top: 60px !important;
   margin-bottom: 80px !important;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-tutorial-prompt {
@@ -218,18 +221,37 @@
   margin-bottom: 10px;
 }
 
+.mobile-awareness-app-tutorial-prompt .fake-link {
+  display: inline-block;
+  margin: 0 auto;
+  color: #0d66d0;
+  cursor: pointer;
+}
+.mobile-awareness-app-tutorial-prompt .fake-link:hover {
+  text-decoration: underline;
+}
+
 /* extensibility */
 
 .mobile-awareness-app-extensibility {
   padding: 60px 0;
   background: #6e6e6e;
 }
+.mobile-awareness-app-extensibility .grid-2.uneven .row {
+  grid-template-columns: 42.7% 57.3%;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-extensibility .grid-2.uneven .row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .mobile-awareness-app-extensibility .section-wrapper {
   color: white;
 }
 .mobile-awareness-app-extensibility .section-wrapper p {
   color: white !important;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   font-size: 20px !important;
   margin-bottom: 45px !important;
@@ -238,6 +260,32 @@
   .mobile-awareness-app-extensibility .section-wrapper p {
     font-size: 17px !important;
   }
+}
+.mobile-awareness-app-extensibility
+  .section-wrapper
+  .cell
+  p {
+  margin: 0 !important;
+}
+.mobile-awareness-app-extensibility img {
+  width: 100%;
+}
+.mobile-awareness-app-extensibility .cell {
+  position: relative;
+}
+.mobile-awareness-app-extensibility .cell p + p {
+  position: absolute;
+  transform-origin: 0% 100%;
+  transform: translateX(95%) rotate(-90deg);
+  top: 85%;
+  right: -0.5em;
+  white-space: nowrap;
+  color: white;
+  font-size: 14px !important;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 /* app cta */
@@ -261,6 +309,19 @@
   }
 }
 
+.mobile-awareness-app-cta .section-wrapper.secondary {
+  margin-top: 80px;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-cta .section-wrapper.secondary {
+    margin-top: 40px;
+    flex-direction: column-reverse;
+  }
+  .mobile-awareness-app-cta .section-wrapper.secondary img {
+    margin-top: 40px;
+  }
+}
+
 .mobile-awareness-app-cta .section-wrapper > * {
   flex-grow: 1;
   display: flex;
@@ -268,6 +329,9 @@
   align-items: flex-start;
   justify-content: center;
   text-align: left;
+}
+.mobile-awareness-app-cta .section-wrapper > picture {
+  align-items: center;
 }
 
 .mobile-awareness-app-cta .responsive-image-swap {
@@ -369,6 +433,13 @@
   grid-column: span 3;
 }
 
+.app-inspiration .author a {
+  color: inherit;
+}
+.app-inspiration .author a:hover {
+  text-decoration: underline;
+}
+
 /* other apps */
 
 .mobile-awareness-app-others {
@@ -431,7 +502,8 @@
   width: 44px;
   height: 44px;
 }
-.learn-card picture {
+.learn-card picture,
+.learn-card picture img {
   position: absolute;
   z-index: 1;
   bottom: -10px;
@@ -439,6 +511,7 @@
   right: 0px;
 }
 
+.learn-card picture,
 .learn-card img:not(.icon) {
   width: 100%;
   height: 100%;

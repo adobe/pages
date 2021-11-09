@@ -13,6 +13,35 @@
 import {
   createTag,
 } from '../../../pages/scripts/scripts.js';
+import { sendSMS } from './branch.js';
+
+export function openModalLink(el, app) {
+  if (!el || !app) return;
+  el.classList.add('branch-link');
+
+  el.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal-wrapper');
+
+    let modal;
+    if (modals.length === 1) {
+      modal = modals[0];
+    } else {
+      modals.forEach((m) => {
+        if (m.classList.contains(app)) modal = m;
+      });
+    }
+    if (modal) {
+      modal.classList.add('active');
+      modal.querySelector('input')?.focus();
+
+      modal.querySelector('form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        sendSMS(modal.querySelector('input')?.value, app);
+        modal.classList.remove('active');
+      });
+    }
+  });
+}
 
 export function wrapContents(
   el,

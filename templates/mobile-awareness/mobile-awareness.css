@@ -39,6 +39,11 @@ h2 {
   }
 }
 
+.white-text,
+.white-text * {
+  color: #fff !important;
+}
+
 .button {
   cursor: pointer;
 }
@@ -92,6 +97,105 @@ h2 {
   }
 }
 
+.modal-wrapper {
+  z-index: 1000;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.modal-wrapper:not(.active) {
+  display: none;
+}
+.modal-wrapper picture {
+  height: 151px;
+}
+.text-app-modal {
+  position: relative;
+  max-width: 500px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.text-app-modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 45px;
+  font-size: 25px;
+  padding: 5px 15px;
+  cursor: pointer;
+  z-index: 2;
+  line-height: 1;
+}
+
+.text-app-modal-contents {
+  background: #fff;
+  padding: 30px;
+}
+.text-app-modal-header {
+  display: flex;
+  align-items: center;
+}
+
+.text-app-modal-header > * {
+  margin: 0;
+  font-size: 28px;
+}
+.text-app-modal-header > p {
+  height: 75px;
+}
+
+.text-app-modal .icon {
+  flex-grow: 0;
+  margin-right: 15px;
+  height: 75px;
+  width: 75px;
+}
+.text-app-modal-explainer {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+  color: #4b4b4b;
+  font-size: 18px;
+}
+.text-app-modal-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.text-app-modal-label {
+  align-self: flex-start;
+  font-size: 12px;
+  color: #4b4b4b;
+  opacity: 0.7;
+  margin-bottom: 5px;
+}
+.text-app-modal-input {
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.text-app-modal-input::placeholder {
+  opacity: 0.5;
+}
+.text-app-modal-submit {
+  align-self: flex-end;
+}
+
 .slide-in {
   position: relative;
   transition: left 1s cubic-bezier(0.25, 1, 0.5, 1),
@@ -112,6 +216,13 @@ h2 {
 }
 .slide-in.from-right.slide-active {
   right: 0;
+}
+
+.single-app .cpp-only {
+  display: none;
+}
+.cpp .single-app-only {
+  display: none;
 }
 
 @media (min-width: 768px) {

@@ -15,22 +15,38 @@ import {
 } from '../../../pages/scripts/scripts.js';
 
 export default function decorateNav() {
+  const plan = document.body.classList.contains('cpp') ? 'cpp' : 'single-app';
   const navPlaceholderEl = document.querySelector('.mobile-awareness-nav');
   const navEl = createTag('nav', { class: 'mobile-awareness-nav' });
-  let navLinkNames = navPlaceholderEl.innerHTML
-    .replace(/(<\/?div>)+/g, '~')
-    .split('~')
-    .map((e) => ({
-      label: e,
-      path: (e || '').trim().replace(/\s+/g, '-')
-        .toLowerCase(),
-    }));
-  const homeLink = navLinkNames.shift();
-  navLinkNames = navLinkNames.filter((l) => l.label);
+  const navLinkNames = [];
+  if (plan === 'cpp') {
+    navLinkNames.push(...[{
+      label: 'Photography Plan',
+      path: 'cpp',
+      mobileOnly: true,
+    },
+    { label: 'Lightroom for Mobile', path: 'lightroom-for-mobile' }, {
+      label: 'Photoshop on iPad',
+      path: 'photoshop-on-ipad',
+    },
+    { label: 'Photoshop Express', path: 'photoshop-express' }]);
+  } else {
+    navLinkNames.push(...[{
+      label: 'Photoshop',
+      path: '',
+      mobileOnly: true,
+    }, {
+      label: 'Photoshop on iPad',
+      path: 'photoshop-on-ipad',
+    },
+    { label: 'Fresco', path: 'fresco' },
+    { label: 'Photoshop Express', path: 'photoshop-express' }]);
+  }
+  const homeLink = { label: '', path: plan === 'cpp' ? 'cpp' : '' };
   const { href } = window.location;
 
   const links = navLinkNames.map((link) => /* html */ `
-    <a href="/creativecloud/en/mobile-apps-in-your-plan/${link.path}" class="${new RegExp(`/${link.path}/?$`, 'g').exec(href) ? 'current' : ''}">
+    <a href="/creativecloud/en/mobile-apps-in-your-plan/${link.path}" class="${new RegExp(`/${link.path}/?$`, 'g').exec(href) ? 'current' : ''} ${link.mobileOnly ? 'no-desktop' : ''}">
       <div class="textholder">
         <div>${link.label}</div>
         <div class="highlight"></div>

@@ -139,6 +139,7 @@ html {
 }
 
 .mobile-awareness-landing-inspiration h2 {
+  font-size: 36px;
   margin: 0;
 }
 @media (max-width: 767px) {

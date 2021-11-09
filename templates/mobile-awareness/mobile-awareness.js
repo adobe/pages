@@ -21,12 +21,14 @@ import {
 } from '../../pages/scripts/default-blocks.js';
 
 import decorateNav from './decorators/decorateNav.js';
-import decorateGeneral from './decorators/decorateGeneral.js';
+import decorateGeneral, { loadURLParams, applyURLParams, externalLinks } from './decorators/decorateGeneral.js';
 import decorateLanding from './decorators/decorateLanding.js';
 import decorateAppPage from './decorators/decorateAppPage.js';
+import setUpBranch from './scripts/branch.js';
 
 export default async function decoratePage() {
   loadCSS('/pages/styles/default.css', true, true);
+  loadURLParams();
   decorateNav();
   decorateGeneral();
   decorateLanding();
@@ -34,6 +36,10 @@ export default async function decoratePage() {
 
   insertFooter();
   wrapSections('header>div, footer>div');
+
+  applyURLParams();
+  externalLinks();
+  setUpBranch();
 
   window.pages.decorated = true;
   appearMain();

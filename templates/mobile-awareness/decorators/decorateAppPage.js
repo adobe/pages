@@ -15,7 +15,9 @@
 // } from '../../../pages/scripts/scripts.js';
 
 import { createTag } from '../../../pages/scripts/scripts.js';
-import { hoist, replaceTag, wrapContents } from '../scripts/scripts.js';
+import {
+  hoist, openModalLink, replaceTag, wrapContents,
+} from '../scripts/scripts.js';
 
 function decorateHero() {
   const existingEl = document.querySelector('.mobile-awareness-app-hero');
@@ -80,6 +82,12 @@ function decorateTutorialPrompt() {
       newEl.setAttribute('href', url);
     }
   });
+
+  const link = createTag('a', { class: 'fake-link no-mobile' });
+  link.innerHTML = 'Text me a download link >';
+  openModalLink(link, /.*\/([^/]*)\/?$/gi.exec(window.location.href.split('?')[0])?.[1]);
+
+  existingEl.appendChild(link);
 }
 
 function decorateAppExtensibility() {
@@ -89,15 +97,28 @@ function decorateAppExtensibility() {
 }
 
 function decorateAppCta() {
-  const existingEl = document.querySelector('.mobile-awareness-app-cta');
+  let existingEl = document.querySelector('.mobile-awareness-app-cta');
   if (!existingEl) return;
-  const imageContainers = existingEl.querySelectorAll('picture');
+  const secondary = existingEl.querySelector('.grid-2');
+  if (secondary) secondary.parentElement.removeChild(secondary);
+
+  const imageContainers = existingEl.querySelectorAll('.mobile-awareness-app-cta > picture');
   const mainImage = imageContainers[imageContainers.length - 1];
   mainImage.parentElement.removeChild(mainImage);
 
   const wrapper = wrapContents(existingEl, { innerAttrs: { class: 'app-cta-content' } });
   wrapContents(wrapper, { innerAttrs: { class: 'section-wrapper' } });
   wrapper.appendChild(mainImage);
+
+  // secondary
+  if (!secondary) return;
+  existingEl = document.querySelector('.mobile-awareness-app-cta');
+  if (existingEl) existingEl.appendChild(secondary);
+  const imageContainer = secondary.querySelector('picture');
+  imageContainer.parentElement.removeChild(imageContainer);
+  const w = wrapContents(secondary, { innerAttrs: { class: 'app-cta-content' } });
+  wrapContents(w, { innerAttrs: { class: 'section-wrapper secondary' } });
+  w.prepend(imageContainer);
 }
 
 function decorateAppInspiration() {

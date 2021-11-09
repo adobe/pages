@@ -14,9 +14,42 @@ import {
   createTag,
   externalizeImageSources,
 } from '../../../pages/scripts/scripts.js';
+import { hoist, openModalLink, wrapContents } from '../scripts/scripts.js';
 
 function parseClassName(s) {
   return s.trim().replace(/<[^>]*>/g, '').replace(/[\n\t\r]+/g, '-');
+}
+
+function addHeadElements() {
+  document.title = 'Mobile Apps in Your Plan';
+}
+
+export function loadURLParams() {
+  const params = new URLSearchParams(window.location.search);
+  let plan = params.get('plan') || 'single-app';
+  if (window.location.href.includes('/cpp')) plan = 'cpp';
+  document.body.classList.add(plan);
+}
+export function applyURLParams() {
+  const params = new URLSearchParams(window.location.search);
+  let plan = params.get('plan') || 'single-app';
+  if (window.location.href.includes('/cpp')) plan = 'cpp';
+
+  document.querySelectorAll('a').forEach((a) => {
+    if (a.href.includes('creativecloud')) {
+      const url = new URL(a.href);
+      if (/mobile-apps-in-your-plan\/?(cpp\/?)?$/g.exec(url.href)) return;
+      url.searchParams.set('plan', plan);
+      a.href = url.href;
+    }
+  });
+}
+export function externalLinks() {
+  document.querySelectorAll('a').forEach((a) => {
+    if (!a.href.includes('creativecloud/')) {
+      a.setAttribute('target', '_blank');
+    }
+  });
 }
 
 export function decorateTables() {
@@ -110,6 +143,8 @@ function decorateGetLinks() {
       const getButtons = createTag('div', { class: 'get-buttons' });
       const textMe = createTag('div', { class: 'button primary no-mobile' });
       textMe.innerHTML = 'Text me a download link';
+      openModalLink(textMe, getLinksType);
+
       const download = createTag('div', { class: 'button primary no-desktop' });
       download.innerHTML = 'Download';
       getButtons.appendChild(textMe);
@@ -143,7 +178,46 @@ function replaceIcons() {
   }
 }
 
+function decorateModal() {
+  document.querySelectorAll('.text-app-modal').forEach((el) => {
+    const wrapper = wrapContents(el, { innerAttrs: { class: 'text-app-modal-contents' } });
+    wrapper.classList.remove('text-app-modal');
+    wrapper.classList.add('modal-wrapper');
+    wrapContents(wrapper, { innerAttrs: { class: 'text-app-modal' } });
+
+    hoist('picture', wrapper, true);
+    cleanUpEmptyPTags(el);
+    wrapContents(el, { innerAttrs: { class: 'text-app-modal-header' } });
+    const appName = el.querySelector('h3')?.innerHTML.toLowerCase().replace(/\s/g, '-');
+    wrapper.parentElement.classList.add(appName);
+
+    const close = createTag('div', { class: 'text-app-modal-close' });
+    close.innerHTML = '&times;';
+    close.addEventListener('click', () => {
+      wrapper.parentElement.classList.remove('active');
+    });
+    wrapper.prepend(close);
+
+    const explainer = createTag('div', { class: 'text-app-modal-explainer' });
+    explainer.innerHTML = 'An SMS with a download link will be sent to the mobile number provided. Our texts are free, but your service provider may charge a usage fee. Adobe does not store or share this mobile number.';
+    el.parentElement.appendChild(explainer);
+
+    const form = createTag('form', { class: 'text-app-modal-form' });
+    const label = createTag('label', { class: 'text-app-modal-label' });
+    label.innerHTML = 'Phone number';
+    const input = createTag('input', {
+      class: 'text-app-modal-input', type: 'tel', name: 'phone', placeholder: '+1 (222) 333 4444',
+    });
+    const submit = createTag('input', { class: 'text-app-modal-submit button primary large', type: 'submit', value: 'Send Link' });
+    form.appendChild(label);
+    form.appendChild(input);
+    form.appendChild(submit);
+    el.parentElement.appendChild(form);
+  });
+}
+
 export default function decorateGeneral() {
+  addHeadElements();
   decorateTables();
   cleanUpEmptyPTags();
   cleanUpUnnecessaryTags();
@@ -151,4 +225,5 @@ export default function decorateGeneral() {
   watchSlideIns();
   decorateGetLinks();
   replaceIcons();
+  decorateModal();
 }
