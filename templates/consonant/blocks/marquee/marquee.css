@@ -1,9 +1,10 @@
 /*-- Marquee Variants --*/
-/* [small(default), medium, large] */
-/* Small marquees are 360 pixels tall and contain an optional detail, a headline, body copy, at least one CTA, and a relevant image or video.*/
-/* Medium marquees are 560 pixels tall and contain an optional detail, headline, body copy, at least one CTA, and a relevant image or a video.*/
-/* Large marquees are 700 pixels tall and contain an optional detail (or brand image), headline, body copy, two CTAs, and a relevant image or video.*/
-
+/* [small(default), medium, large, center, right] */
+/* Small marquees are min 360 pixels tall */
+/* Medium marquees are min 560 pixels tall */
+/* Large marquees are min 700 pixels tall */
+/* Center aligns the text center */
+/* Right aligns the text right */
 
 main .section-wrapper:first-of-type.marquee-container {
     margin-top: var(--header-height);
@@ -25,6 +26,11 @@ main .section-wrapper.marquee-container > div {
 
 main .section-wrapper.marquee-container > div.marquee {
     padding: 24px 0;
+}
+
+main .section-wrapper.marquee-container > div > :not(.marquee) {
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 main .marquee {
@@ -60,10 +66,6 @@ main .marquee .button:first-child {
     margin-left: 0;
 }
 
-main .marquee.center {
-    text-align: center;
-}
-
 main .marquee .background {
     position: absolute;
     width: 100%;
@@ -80,9 +82,11 @@ main .marquee .background img {
 }
 
 main .marquee .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
     z-index: 2;
 }
-
 
 main .marquee .container .marquee-column {
     display: flex;
@@ -91,93 +95,115 @@ main .marquee .container .marquee-column {
     margin: var(--spacing-l) 0;
 }
 
-main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
-    padding: 32px 0;
-}
-
 main .marquee .container .marquee-column > * {
     width: 100%;
 }
 
-.marquee .container .marquee-column:first-child.marquee-image {
-    text-align: left;
+main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
+    padding: 32px 0;
 }
 
-.marquee .container .marquee-column:last-child.marquee-image {
+main .marquee.center .container .marquee-column:not(.marquee-image) {
+    text-align: center;
+}
+
+main .marquee.right .container .marquee-column:not(.marquee-image) {
     text-align: right;
 }
 
-.marquee .container > div {
+main .marquee .container .marquee-column:first-child h1,
+main .marquee .container .marquee-column:first-child h2,
+main .marquee .container .marquee-column:first-child h3,
+main .marquee .container .marquee-column:first-child h4,
+main .marquee .container .marquee-column:first-child h5,
+main .marquee .container .marquee-column:first-child h6 {
+    max-width: 500px;
+}
+
+main .marquee.center .container .marquee-column:first-child h1,
+main .marquee.center .container .marquee-column:first-child h2,
+main .marquee.center .container .marquee-column:first-child h3,
+main .marquee.center .container .marquee-column:first-child h4,
+main .marquee.center .container .marquee-column:first-child h5,
+main .marquee.center .container .marquee-column:first-child h6 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main .marquee.right .container .marquee-column:first-child h1,
+main .marquee.right .container .marquee-column:first-child h2,
+main .marquee.right .container .marquee-column:first-child h3,
+main .marquee.right .container .marquee-column:first-child h4,
+main .marquee.right .container .marquee-column:first-child h5,
+main .marquee.right .container .marquee-column:first-child h6 {
+    margin-left: auto;
+}
+
+main .marquee .container .marquee-column:first-child.marquee-image {
+    text-align: left;
+}
+
+main .marquee .container .marquee-column:last-child.marquee-image {
+    text-align: right;
+}
+
+main .marquee .container > div {
     flex: 1 1 auto;
 }
 
-.marquee .container img {
+main .marquee .container img {
     object-fit: contain;
     height: 100%;
     width: 100%;
 }
 
-.marquee.large .background {
-    position: relative;
-    min-height: 350px;
+main .marquee {
+    min-height: var(--marquee-height-sm);
 }
 
-.marquee.large .background picture {
-    height: 350px;
-    display: block;
+main .marquee.medium {
+    min-height: var(--marquee-height-md);
 }
 
-/*tablet*/
-@media screen and (min-width: 600px) {
-    .marquee.large {
-        padding: var(--spacing-l) 0 var(--spacing-l) 0;
-    }
-    .marquee.large .background {
-        position: absolute;
-    }
-    .marquee.large .container .marquee-column {
-        width: 40%;
-    }
-    .marquee.large .background picture {
-        height: auto;
-        display: initial;
-    }
+main .marquee.large {
+    min-height: var(--marquee-height-lg);
 }
 
-@media screen and (min-width: 1200px) {
-    main .marquee {
-        min-height: var(--marquee-height-sm);
-    }
-    
-    main .marquee.medium {
-        min-height: var(--marquee-height-md);
-    }
-
-    main .marquee.large {
-        min-height: var(--marquee-height-lg);
-    }
-
-    .marquee .container,
-    .marquee.small .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: stretch;
-    }
-
-    .marquee .container .marquee-column,
-    .marquee .container .marquee-image {
+@media screen and (min-width: 800px) {
+    main .marquee .container .marquee-column,
+    main .marquee .container .marquee-image {
         flex: 0 1 auto;
     }
 
-    .marquee .container .marquee-column {
+    main .marquee .container .marquee-column {
         width: 40%;
     }
 
-    .marquee .container .marquee-image {
+    main .marquee .container .marquee-image {
         width: 50%;
     }
 
-    .marquee .container .marquee-column:first-child:last-child {
+    main .marquee .container .marquee-column:first-child:last-child {
         width: 100%;
+        max-width: 700px;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1000px) {
+    main .marquee .container .marquee-image {
+        width: 40%;
+    }
+    main .marquee .container .marquee-column:not(.marquee-image) {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 799px) {
+    main .marquee .container {
+        flex-direction: column;
+    }
+    main .marquee .container .marquee-image {
+        order: 2;
+        padding-bottom: 32px;
     }
 }

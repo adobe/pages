@@ -151,7 +151,7 @@ main video {
   max-width: 100%;
 }
 
-@media (min-width:600px) {
+@media (min-width: 600px) {
   main {
     font-size: var(--body-font-size-l);
   }
