@@ -10,45 +10,35 @@
  * governing permissions and limitations under the License.
  */
 
-const init = (element) => {
-  const bg = element.querySelector(':scope > div:first-of-type > div');
-  const isDark = element.classList.contains('dark');
+function decorateButtons(linkNodeList) {
+  let i;
+  for (i = 0; i < linkNodeList.length; i += 1) {
+    const isSecondLink = (i === 0 && linkNodeList.length > 1);
+    const modClass = isSecondLink ? 'secondary' : 'primary';
+    linkNodeList[i].classList.add('button', modClass);
+    linkNodeList[i].parentElement.classList.add('button-container');
+  }
+}
+
+export default function decorate($block) {
+  const bg = $block.querySelector(':scope > div:first-of-type > div');
   bg.classList.add('background');
   const bgImg = bg.querySelector(':scope img');
   if (!bgImg) {
     bg.style.display = 'none';
     const bgColor = bg.textContent;
-    element.style.background = bgColor;
+    $block.style.background = bgColor;
   }
-  const content = element.querySelector(':scope > div:last-of-type');
+  const content = $block.querySelector(':scope > div:last-of-type');
   content.classList.add('container');
   content.querySelector(':scope > div:first-of-type').classList.add('marquee-column');
   content.querySelector(':scope > div:last-of-type').classList.add('marquee-column');
-  content.querySelector(':scope picture').parentElement.classList.add('marquee-image');
-
+  const picElement = content.querySelector(':scope picture');
+  if (picElement) {
+    picElement.parentElement.classList.add('marquee-image');
+  }
   const ctasLeft = content.querySelectorAll(':scope > div:first-of-type a');
-  let i;
-  for (i = 0; i < ctasLeft.length; i += 1) {
-    const isSecondLink = (i === 0 && ctasLeft.length > 1);
-    const modClass = isSecondLink ? 'secondary' : 'primary';
-    ctasLeft[i].classList.add('button', modClass);
-    if (isDark && isSecondLink) {
-      ctasLeft[i].classList.add('over-background');
-    }
-    ctasLeft[i].parentElement.classList.add('button-container');
-  }
-
+  decorateButtons(ctasLeft);
   const ctasRight = content.querySelectorAll(':scope > div:last-of-type a');
-  let n;
-  for (n = 0; n < ctasRight.length; n += 1) {
-    const isSecondLink = (n === 0 && ctasRight.length > 1);
-    const modClass = isSecondLink ? 'secondary' : 'primary';
-    ctasRight[n].classList.add('button', modClass);
-    if (isDark && isSecondLink) {
-      ctasRight[n].classList.add('over-background');
-    }
-    ctasRight[n].parentElement.classList.add('button-container');
-  }
-};
-
-export default init;
+  decorateButtons(ctasRight);
+}
