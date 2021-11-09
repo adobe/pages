@@ -10,20 +10,33 @@ main .section-wrapper.column-container > div.column {
   padding: 24px 0;
 }
 
-main .columns-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-main .column {
-  padding: 24px 0;
-  margin: 48px 0;
+main .columns {
   --column-width-sm: 400px;
   --column-width-md: 560px;
   --column-width-lg: 700px;
+}
+
+main .columns .columns-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  margin: 48px 0;
   position: relative;
   box-sizing: border-box;
+}
+
+main .columns .column {
+  width: 50%;
+}
+
+main .columns.large .column {
+  width: 35%;
+  width: calc(40% - 56px);
+}
+
+main .columns.large .column-picture {
+  width: 60%;
 }
 
 main .column h2 {
