@@ -1,3 +1,15 @@
+
+header {
+    border-bottom: 1px solid #EAEAEA;
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 65px;
+    background-color: var(--color-white);
+    z-index: 20;
+  }
+
 /* probably fix this later by copying from somewhere else */
 .header-container,
 .header-container > div,
