@@ -55,15 +55,6 @@ main .marquee p {
     font-size: var(--body-font-size-m);
 }
 
-main .marquee .button {
-    margin-bottom: 0;
-    margin-top: 8px
-}
-
-main .marquee .button:first-child {
-    margin-left: 0;
-}
-
 main .marquee .background {
     position: absolute;
     width: 100%;
