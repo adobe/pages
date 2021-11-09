@@ -11,15 +11,29 @@
  */
 
 export default function decorate($block) {
-  // Turn links into buttons
-  $block.querySelectorAll(':scope a.button').forEach(($a) => {
-    const $button = document.createElement('button');
-    $button.title = $a.title || $a.textContent;
-    $button.textContent = $a.textContent;
-    $button.addEventListener('click', () => {
-      window.location.href = $a.href;
+  const $rows = Array.from($block.children);
+  let numberOfColumns = 0;
+  if ($rows[0]) {
+    numberOfColumns = $rows[0].children.length;
+  }
+  if (numberOfColumns > 0) {
+    $block.classList.add(`col-${numberOfColumns}-columns`);
+  }
+
+  $rows.forEach(($row) => {
+    const $columns = Array.from($row.children);
+    $columns.forEach(($column) => {
+      $column.classList.add('column');
+      const $pics = $column.querySelectorAll(':scope picture');
+      $column.querySelectorAll(':scope p:empty').forEach(($p) => $p.remove());
+      if ($pics.length === 1 && $pics[0].parentElement.tagName === 'P') {
+        const $parentDiv = $pics[0].closest('div');
+        const $parentParagraph = $pics[0].parentNode;
+        $parentDiv.insertBefore($pics[0], $parentParagraph);
+      }
+      if ($column.firstElementChild.tagName === 'PICTURE') {
+        $column.classList.add('column-picture');
+      }
     });
-    $a.replaceWith($button);
-    $button.parentElement.classList.add('button-container');
   });
 }

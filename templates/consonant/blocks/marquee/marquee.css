@@ -39,8 +39,6 @@ main .marquee {
     --marquee-height-sm: 400px;
     --marquee-height-md: 560px;
     --marquee-height-lg: 700px;
-    --marquee-height-qt: 360px;
-    --marquee-height-in: auto;
     color: white;
     position: relative;
     box-sizing: border-box;
