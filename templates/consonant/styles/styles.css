@@ -101,15 +101,21 @@ main .block {
   visibility: unset;
 }
 
-main p:not(:last-of-type) {
-  margin-bottom: 32px;
+main p {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 main h1, main h2, main h3, main h4, main h5 {
   font-weight: var(--heading-font-weight);
   line-height: var(--heading-line-height);
-  margin-top: 48px;
-  margin-bottom: 16px;
+}
+
+main h1, main h2, main h3, main h4, main h5, main h6 {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 main h1 {
@@ -138,7 +144,6 @@ main h6 {
   line-height: var(--detail-line-height);
   letter-spacing: 0.72px;
   text-transform: uppercase;
-  margin: 16px 0;
 }
 
 main img,
@@ -210,9 +215,7 @@ main .section-wrapper > div {
 }
 
 main .section-wrapper p.button-container {
-  text-align: center;
-  margin-top: 16px;
-  margin-bottom: 0;
+  line-height: 0;
 }
 
 /* links */

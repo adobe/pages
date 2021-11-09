@@ -24,7 +24,7 @@ const init = (element) => {
   content.classList.add('container');
   content.querySelector(':scope > div:first-of-type').classList.add('marquee-column');
   content.querySelector(':scope > div:last-of-type').classList.add('marquee-column');
-  content.querySelector(':scope picture').parentElement.classList.add('image');
+  content.querySelector(':scope picture').parentElement.classList.add('marquee-image');
 
   const ctasLeft = content.querySelectorAll(':scope > div:first-of-type a');
   let i;
@@ -35,6 +35,7 @@ const init = (element) => {
     if (isDark && isSecondLink) {
       ctasLeft[i].classList.add('over-background');
     }
+    ctasLeft[i].parentElement.classList.add('button-container');
   }
 
   const ctasRight = content.querySelectorAll(':scope > div:last-of-type a');
@@ -46,6 +47,7 @@ const init = (element) => {
     if (isDark && isSecondLink) {
       ctasRight[n].classList.add('over-background');
     }
+    ctasRight[n].parentElement.classList.add('button-container');
   }
 };
 

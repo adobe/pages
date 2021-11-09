@@ -20,5 +20,6 @@ export default function decorate($block) {
       window.location.href = $a.href;
     });
     $a.replaceWith($button);
+    $button.parentElement.classList.add('button-container');
   });
 }
