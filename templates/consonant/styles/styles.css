@@ -105,7 +105,7 @@ main p:not(:last-of-type) {
   margin-bottom: 32px;
 }
 
-main h1, main h2, main h3, main h4, main h5, main h6 {
+main h1, main h2, main h3, main h4, main h5 {
   font-weight: var(--heading-font-weight);
   line-height: var(--heading-line-height);
   margin-top: 48px;
@@ -128,8 +128,17 @@ main h4 {
   font-size: var(--heading-font-size-s);
 }
 
-main h5, main h6 {
+main h5 {
   font-size: var(--heading-font-size-xs);
+}
+
+main h6 {    
+  font-size: var(--detail-font-size-s);
+  font-weight: var(--detail-font-weight);
+  line-height: var(--detail-line-height);
+  letter-spacing: 0.72px;
+  text-transform: uppercase;
+  margin: 16px 0;
 }
 
 main img,
