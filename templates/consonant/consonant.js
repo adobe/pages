@@ -950,7 +950,12 @@ function loadMartech() {
  */
 async function decoratePage() {
   await loadEager();
-  loadMartech();
+
+  const usp = new URLSearchParams(window.location.search);
+  const martech = usp.get('martech');
+  if (martech !== 'off') {
+    loadMartech();
+  }
   loadLazy();
   loadDelayed();
 }
