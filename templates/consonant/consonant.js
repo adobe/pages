@@ -694,18 +694,18 @@ export function decorateButtons(block = document) {
           $up.classList.add('button-container');
         }
         if ($up.childNodes.length === 1 && $up.tagName === 'STRONG'
-            && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'P') {
+            && $twoUp.tagName === 'P') {
           $a.className = 'button accent';
           $twoUp.classList.add('button-container');
         }
         if ($up.childNodes.length === 1 && $up.tagName === 'EM'
-            && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'P') {
+            && $twoUp.tagName === 'P') {
           $a.className = 'button secondary';
           $twoUp.classList.add('button-container');
         }
-        if ((($up.childNodes.length === 1 && $up.tagName === 'EM' && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'STRONG')
-            || ($up.childNodes.length === 1 && $up.tagName === 'STRONG' && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'EM'))
-            && $threeUp.childNodes.length === 1 && $threeUp.tagName === 'P') {
+        if ((($up.childNodes.length === 1 && $up.tagName === 'EM' && $twoUp.tagName === 'STRONG')
+            || ($up.childNodes.length === 1 && $up.tagName === 'STRONG' && $twoUp.tagName === 'EM'))
+            && $threeUp.tagName === 'P') {
           $a.className = 'button transparent';
           $threeUp.classList.add('button-container');
         }
