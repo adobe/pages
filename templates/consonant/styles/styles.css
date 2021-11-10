@@ -339,20 +339,21 @@ a.button.primaryCTA:any-link:active {
 
 a.button.reverse:any-link {
   color: var(--color-black);
-  background-color: var(--color-white);
+  background-color: transparent;
 }
 
 a.button.reverse:any-link:hover {
-  background-color: var(--color-info-secondary-hover)
+  background-color: rgba(0,0,0,0.1);
 }
 
 a.button.reverse:any-link:active {
-  background-color: var(--color-info-secondary-down)
+  background-color: rgba(0,0,0,0.2);
 }
 
 a.button.reverse.accent:any-link,
 a.button.reverse.primaryCTA:any-link {
-  color: var(--color-info-accent)
+  color: var(--color-info-accent);
+  background-color: var(--color-white);
 }
 
 a.button.reverse.accent:any-link:hover,

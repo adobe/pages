@@ -39,12 +39,26 @@ main .marquee {
     --marquee-height-sm: 400px;
     --marquee-height-md: 560px;
     --marquee-height-lg: 700px;
-    color: white;
     position: relative;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--color-white);
+}
+
+main .marquee a.button.reverse:any-link {
+    color: var(--color-white);
+    border-color: var(--color-white);
+    background-color: transparent;
+}
+
+main .marquee a.button.reverse:any-link:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+main .marquee a.button.reverse:any-link:active {
+    background-color: rgba(0,0,0,0.2);
 }
 
 main .marquee h2 {
