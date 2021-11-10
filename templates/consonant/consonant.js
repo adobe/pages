@@ -676,7 +676,7 @@ export function buildArticleCard(article, type = 'article') {
 }
 
 export function decorateButtons(block = document) {
-  const $blocksWithoutButton = ['header'];
+  const $blocksWithoutButton = ['header', 'cards'];
   block.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent;
     const $block = $a.closest('div.section-wrapper > div > div');
