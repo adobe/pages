@@ -14,7 +14,7 @@ const keys = {
   fresco: 'key_live_bmNdZDHgMUk7VGTx5bdUZbpbFvogSE8i',
   'lightroom-for-mobile': 'key_live_mpNkmP6pUud4YmIqkpxginnnADcn7yGW',
   'photoshop-express': 'key_live_fhPo4Nlbi7AIL5ltTMYpxllnxvljUYEs',
-  'photoshop-for-ipad': 'key_live_ibHp9EVpQKeYXNAaWHyesadpyyocSNsL',
+  'photoshop-on-ipad': 'key_live_ibHp9EVpQKeYXNAaWHyesadpyyocSNsL',
 };
 
 export default function setUpBranch() {
@@ -27,21 +27,11 @@ export function sendSMS(phoneNumber, app = 'fresco') {
   window.branch?.init(keys[app]);
 
   const linkData = {
-    tags: [],
     channel: 'Website',
     feature: 'TextMeTheApp',
-    data: {
-      foo: 'bar',
-    },
   };
   const options = {};
-  const callback = (err, result) => {
-    if (err) {
-      console.log('Sorry, something went wrong.', err);
-    } else {
-      console.log('SMS sent!', result);
-    }
-  };
+  const callback = () => {};
 
   window.branch?.sendSMS(phoneNumber, linkData, options, callback);
 }
