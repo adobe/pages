@@ -10,6 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
-// eslint-disable-next-line no-unused-vars
 export default function decorate($block) {
+  const $footerTag = document.querySelector('footer');
+  const $footerContainer = $block.parentElement.parentElement;
+  $footerContainer.classList.remove('section-wrapper');
+  $footerTag.append($footerContainer);
 }
