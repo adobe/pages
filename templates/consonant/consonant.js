@@ -706,7 +706,7 @@ export function decorateButtons(block = document) {
         if ((($up.childNodes.length === 1 && $up.tagName === 'EM' && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'STRONG')
             || ($up.childNodes.length === 1 && $up.tagName === 'STRONG' && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'EM'))
             && $threeUp.childNodes.length === 1 && $threeUp.tagName === 'P') {
-          $a.className = 'button reverse';
+          $a.className = 'button transparent';
           $threeUp.classList.add('button-container');
         }
       }

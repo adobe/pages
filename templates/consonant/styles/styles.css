@@ -24,8 +24,12 @@
   --color-info-accent: #1473E6;
   --color-info-accent-hover: #186dd4;
   --color-info-accent-down: #1d62b6;
-  --color-info-accent-reverse: #eeeefc;
-  --color-info-accent-reverse-down: #e6e6f4;
+  --color-info-transparent: #4B4B4B;
+  --color-info-transparent-hover: #3d3d3d;
+  --color-info-transparent-down: #363636;
+  --color-info-transparent-bg: transparent;
+  --color-info-transparent-bg-hover: rgba(0,0,0,0.1);
+  --color-info-transparent-bg-down: rgba(0,0,0,0.2);
   --color-premium: #EBCF2D;
   --gradient-highlight-vertical: linear-gradient(15deg, #7c84fc, #ff4dd2);
   --gradient-highlight-horizontal: linear-gradient(90deg, #ff4dd2, #7c84fc);
@@ -318,52 +322,38 @@ a.button.secondary:any-link:active {
   border-color: var(--color-info-secondary-down);
 }
 
-a.button.accent:any-link, 
-a.button.primaryCTA:any-link {
+a.button.accent:any-link {
   color: var(--color-white);
   background-color: var(--color-info-accent);
   border-color: var(--color-info-accent);
 }
 
-a.button.accent:any-link:hover,
-a.button.primaryCTA:any-link:hover {
+a.button.accent:any-link:hover {
   background-color: var(--color-info-accent-hover);
   border-color: var(--color-info-accent-hover);
 }
 
-a.button.accent:any-link:active,
-a.button.primaryCTA:any-link:active {
+a.button.accent:any-link:active {
   background-color: var(--color-info-accent-down);
   border-color: var(--color-info-accent-down);
 }
 
-a.button.reverse:any-link {
-  color: var(--color-black);
-  background-color: transparent;
+a.button.transparent:any-link {
+  color: var(--color-info-transparent);
+  border-color: var(--color-info-transparent);
+  background-color: var(--color-info-transparent-bg);
 }
 
-a.button.reverse:any-link:hover {
-  background-color: rgba(0,0,0,0.1);
+a.button.transparent:any-link:hover {
+  color: var(--color-info-transparent-hover);
+  border-color: var(--color-info-transparent-hover);
+  background-color: var(--color-info-transparent-bg-hover);
 }
 
-a.button.reverse:any-link:active {
-  background-color: rgba(0,0,0,0.2);
-}
-
-a.button.reverse.accent:any-link,
-a.button.reverse.primaryCTA:any-link {
-  color: var(--color-info-accent);
-  background-color: var(--color-white);
-}
-
-a.button.reverse.accent:any-link:hover,
-a.button.reverse.primaryCTA:any-link:hover {
-  background-color: var(--color-info-accent-reverse);
-}
-
-a.button.reverse.accent:any-link:active,
-a.button.reverse.primaryCTA:any-link:active {
-  background-color: var(--color-info-accent-reverse-down);
+a.button.transparent:any-link:active {
+  color: var(--color-info-transparent-down);
+  border-color: var(--color-info-transparent-down);
+  background-color: var(--color-info-transparent-bg-down);
 }
 
 a.button.dark:any-link {
@@ -384,22 +374,22 @@ a.button.dark:any-link:active {
   border-color: var(--color-gray-200);
 }
 
-a.button.dark.reverse:any-link {
+a.button.dark.transparent:any-link {
   color: var(--color-white);
-  background-color: transparent;
   border-color: var(--color-white);
+  background-color: var(--color-info-transparent-bg);
 }
 
-a.button.dark.reverse:any-link:hover {
+a.button.dark.transparent:any-link:hover {
   color: var(--color-white);
-  background-color: rgba(0,0,0,0.1);
   border-color: var(--color-gray-100);
+  background-color: var(--color-info-transparent-bg-hover);
 }
 
-a.button.dark.reverse:any-link:active {
+a.button.dark.transparent:any-link:active {
   color: var(--color-white);
-  background-color: rgba(0,0,0,0.2);
   border-color: var(--color-gray-200);
+  background-color: var(--color-info-transparent-bg-down);
 }
 
 a.button > svg {
