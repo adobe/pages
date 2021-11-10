@@ -689,7 +689,7 @@ export function decorateButtons(block = document) {
       const $twoUp = $a.parentElement.parentElement;
       const $threeUp = $a.parentElement.parentElement.parentElement;
       if (!$a.querySelector('img')) {
-        if ($up.childNodes.length === 1 && ($up.tagName === 'P' || $up.tagName === 'DIV')) {
+        if ($up.childNodes.length === 1 && $up.tagName === 'P') {
           $a.className = 'button primary'; // default
           $up.classList.add('button-container');
         }
