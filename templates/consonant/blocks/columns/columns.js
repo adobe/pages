@@ -10,16 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-function decorateButtons(linkNodeList) {
-  let i;
-  for (i = 0; i < linkNodeList.length; i += 1) {
-    const isSecondLink = (i === 0 && linkNodeList.length > 1);
-    const modClass = isSecondLink ? 'secondary' : 'primary';
-    linkNodeList[i].classList.add('button', modClass);
-    linkNodeList[i].parentElement.classList.add('button-container');
-  }
-}
-
 export default function decorate($block) {
   const $rows = Array.from($block.children);
   let numberOfColumns = 0;
@@ -45,8 +35,6 @@ export default function decorate($block) {
       if ($column.firstElementChild.tagName === 'PICTURE') {
         $column.classList.add('column-picture');
       }
-      const $ctas = $column.querySelectorAll(':scope a');
-      decorateButtons($ctas);
     });
   });
 }

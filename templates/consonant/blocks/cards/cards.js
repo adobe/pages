@@ -10,16 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
+// eslint-disable-next-line no-unused-vars
 export default function decorate($block) {
-  // Turn links into buttons
-  $block.querySelectorAll(':scope a.button').forEach(($a) => {
-    const $button = document.createElement('button');
-    $button.title = $a.title || $a.textContent;
-    $button.textContent = $a.textContent;
-    $button.addEventListener('click', () => {
-      window.location.href = $a.href;
-    });
-    $a.replaceWith($button);
-    $button.parentElement.classList.add('button-container');
-  });
+  // code here
 }

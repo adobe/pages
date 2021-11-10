@@ -675,6 +675,45 @@ export function buildArticleCard(article, type = 'article') {
   return card;
 }
 
+export function decorateButtons(block = document) {
+  const $blocksWithoutButton = [];
+  block.querySelectorAll(':scope a').forEach(($a) => {
+    $a.title = $a.title || $a.textContent;
+    const $block = $a.closest('div.section-wrapper > div > div');
+    let blockName;
+    if ($block) {
+      blockName = $block.className;
+    }
+    if (!$blocksWithoutButton.includes(blockName)) {
+      const $up = $a.parentElement;
+      const $twoUp = $a.parentElement.parentElement;
+      const $threeUp = $a.parentElement.parentElement.parentElement;
+      if (!$a.querySelector('img')) {
+        if ($up.childNodes.length === 1 && ($up.tagName === 'P' || $up.tagName === 'DIV')) {
+          $a.className = 'button primary'; // default
+          $up.classList.add('button-container');
+        }
+        if ($up.childNodes.length === 1 && $up.tagName === 'STRONG'
+            && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'P') {
+          $a.className = 'button accent';
+          $twoUp.classList.add('button-container');
+        }
+        if ($up.childNodes.length === 1 && $up.tagName === 'EM'
+            && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'P') {
+          $a.className = 'button secondary';
+          $twoUp.classList.add('button-container');
+        }
+        if ((($up.childNodes.length === 1 && $up.tagName === 'EM' && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'STRONG')
+            || ($up.childNodes.length === 1 && $up.tagName === 'STRONG' && $twoUp.childNodes.length === 1 && $twoUp.tagName === 'EM'))
+            && $threeUp.childNodes.length === 1 && $threeUp.tagName === 'P') {
+          $a.className = 'button reverse';
+          $threeUp.classList.add('button-container');
+        }
+      }
+    }
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -699,6 +738,7 @@ export function decorateMain(main) {
   removeEmptySections();
   wrapSections(main.querySelectorAll(':scope > div'));
   decorateBlocks(main);
+  decorateButtons(main);
 }
 
 /**
