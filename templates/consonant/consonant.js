@@ -684,7 +684,7 @@ export function decorateButtons(block = document) {
     if ($block) {
       blockName = $block.className;
     }
-    if (!$blocksWithoutButton.includes(blockName)) {
+    if (!$blocksWithoutButton.includes(blockName.replace(/ .*/, ''))) {
       const $up = $a.parentElement;
       const $twoUp = $a.parentElement.parentElement;
       const $threeUp = $a.parentElement.parentElement.parentElement;
