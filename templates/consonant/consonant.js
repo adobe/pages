@@ -680,11 +680,17 @@ export function decorateButtons(block = document) {
   block.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent;
     const $block = $a.closest('div.section-wrapper > div > div');
-    let blockName;
+    let blockClassNamesString;
+    let blockClassNames;
+    const blockNames = [];
     if ($block) {
-      blockName = $block.className;
+      blockClassNamesString = $block.className;
+      blockClassNames = blockClassNamesString.split(' ');
+      blockClassNames.forEach((className) => {
+        blockNames.push(className);
+      });
     }
-    if (!$blocksWithoutButton.includes(blockName.replace(/ .*/, ''))) {
+    if (!blockNames.some((e) => $blocksWithoutButton.includes(e))) {
       const $up = $a.parentElement;
       const $twoUp = $a.parentElement.parentElement;
       const $threeUp = $a.parentElement.parentElement.parentElement;
