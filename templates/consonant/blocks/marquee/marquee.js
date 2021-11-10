@@ -10,16 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-function decorateButtons(linkNodeList) {
-  let i;
-  for (i = 0; i < linkNodeList.length; i += 1) {
-    const isSecondLink = (i === 0 && linkNodeList.length > 1);
-    const modClass = isSecondLink ? 'secondary' : 'primary';
-    linkNodeList[i].classList.add('button', modClass);
-    linkNodeList[i].parentElement.classList.add('button-container');
-  }
-}
-
 export default function decorate($block) {
   const bg = $block.querySelector(':scope > div:first-of-type > div');
   bg.classList.add('background');
@@ -37,8 +27,4 @@ export default function decorate($block) {
   if (picElement) {
     picElement.parentElement.classList.add('marquee-image');
   }
-  const ctasLeft = content.querySelectorAll(':scope > div:first-of-type a');
-  decorateButtons(ctasLeft);
-  const ctasRight = content.querySelectorAll(':scope > div:last-of-type a');
-  decorateButtons(ctasRight);
 }

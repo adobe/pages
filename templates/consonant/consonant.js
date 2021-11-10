@@ -109,18 +109,6 @@ export function getLanguage() {
 }
 
 /**
- * Returns the language dependent root path
- * @returns {string} The computed root path
- */
-export function getRootPath() {
-  const loc = getLanguage();
-  if (loc === LANG.EN) {
-    return '/blog';
-  }
-  return `/${loc}/blog`;
-}
-
-/**
  * Retrieves the content of a metadata tag.
  * @param {string} name The metadata name (or property)
  * @returns {string} The metadata value
@@ -325,66 +313,6 @@ function buildImageBlocks(mainEl) {
 }
 
 /**
- * builds article header block from meta and default content.
- * @param {Element} mainEl The container element
- */
-function buildArticleHeader(mainEl) {
-  const div = document.createElement('div');
-  const h1 = mainEl.querySelector('h1');
-  const picture = mainEl.querySelector('picture');
-  const category = getMetadata('category');
-  const author = getMetadata('author');
-  const publicationDate = getMetadata('publication-date');
-
-  const articleHeaderBlockEl = buildBlock('article-header', [
-    [`<p>${category}</p>`],
-    [h1],
-    [`<p><a href="${getRootPath()}/authors/${toClassName(author)}">${author}</a></p>
-      <p>${publicationDate}</p>`],
-    [{ elems: [picture.closest('p'), getImageCaption(picture)] }],
-  ]);
-  div.append(articleHeaderBlockEl);
-  mainEl.prepend(div);
-}
-
-function buildTagHeader(mainEl) {
-  const div = mainEl.querySelector('div');
-  const h1 = mainEl.querySelector('h1');
-  const picture = mainEl.querySelector('picture');
-  const tagHeaderBlockEl = buildBlock('tag-header', [
-    [h1],
-    [{ elems: [picture.closest('p')] }],
-  ]);
-  div.append(tagHeaderBlockEl);
-}
-
-function buildArticleFeed(mainEl) {
-  const { pathname } = window.location;
-  const div = document.createElement('div');
-  const title = mainEl.querySelector('h1').textContent.trim();
-  const articleFeedEl = buildBlock('article-feed', [
-    [`${pathname.includes('/tags/') ? 'tags' : 'category'}`, title],
-  ]);
-  div.append(articleFeedEl);
-  mainEl.append(div);
-}
-
-function buildTagsBlock(mainEl) {
-  const tags = getMetadata('article:tag');
-  if (tags) {
-    const tagsBlock = buildBlock('tags', [
-      [`<p>${tags}</p>`],
-    ]);
-    const recBlock = mainEl.querySelector('.recommended-articles');
-    if (recBlock) {
-      recBlock.parentNode.insertBefore(tagsBlock, recBlock);
-    } else {
-      mainEl.lastElementChild.append(tagsBlock);
-    }
-  }
-}
-
-/**
  * Decorates all blocks in a container element.
  * @param {Element} main The container element
  */
@@ -401,14 +329,6 @@ function decorateBlocks(main) {
 function buildAutoBlocks(mainEl) {
   removeStylingFromImages(mainEl);
   try {
-    if (getMetadata('publication-date') && !mainEl.querySelector('.article-header')) {
-      buildArticleHeader(mainEl);
-      buildTagsBlock(mainEl);
-    }
-    if (window.location.pathname.includes('/categories/') || window.location.pathname.includes('/tags/')) {
-      buildTagHeader(mainEl);
-      buildArticleFeed(mainEl);
-    }
     buildImageBlocks(mainEl);
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -645,34 +565,14 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
   return picture;
 }
 
-/**
- * Build article card
- * @param {Element} article The article data to be placed in card.
- * @returns card Generated card
- */
-export function buildArticleCard(article, type = 'article') {
-  const {
-    title, description, image, imageAlt, category,
-  } = article;
+export function isNodeName(node, name) {
+  if (!node || typeof node !== 'object') return false;
+  return node.nodeName.toLowerCase() === name.toLowerCase();
+}
 
-  const path = article.path.split('.')[0];
-
-  const picture = createOptimizedPicture(image, imageAlt || title, type === 'featured-article', [{ width: '750' }]);
-  const pictureTag = picture.outerHTML;
-  const card = document.createElement('a');
-  card.className = `${type}-card`;
-  card.href = path;
-  card.innerHTML = `<div class="${type}-card-image">
-      ${pictureTag}
-    </div>
-    <div class="${type}-card-body">
-      <p class="${type}-card-category">
-        <a href="${window.location.origin}${getRootPath()}/categories/${category}">${category}</a>
-      </p>
-      <h3>${title}</h3>
-      <p>${description}</p>
-    </div>`;
-  return card;
+export function isAttr(node, attr, val) {
+  if (!node || typeof node !== 'object') return false;
+  return node.getAttribute(attr) === val;
 }
 
 export function decorateButtons(block = document) {
@@ -695,23 +595,21 @@ export function decorateButtons(block = document) {
       const $twoUp = $a.parentElement.parentElement;
       const $threeUp = $a.parentElement.parentElement.parentElement;
       if (!$a.querySelector('img')) {
-        if ($up.childNodes.length === 1 && $up.tagName === 'P') {
+        if ($up.childNodes.length === 1 && isNodeName($up, 'p')) {
           $a.className = 'button primary'; // default
           $up.classList.add('button-container');
         }
-        if ($up.childNodes.length === 1 && $up.tagName === 'STRONG'
-            && $twoUp.tagName === 'P') {
+        if ($up.childNodes.length === 1 && isNodeName($up, 'strong') && isNodeName($twoUp, 'p')) {
           $a.className = 'button accent';
           $twoUp.classList.add('button-container');
         }
-        if ($up.childNodes.length === 1 && $up.tagName === 'EM'
-            && $twoUp.tagName === 'P') {
+        if ($up.childNodes.length === 1 && isNodeName($up, 'em') && isNodeName($twoUp, 'p')) {
           $a.className = 'button secondary';
           $twoUp.classList.add('button-container');
         }
-        if ((($up.childNodes.length === 1 && $up.tagName === 'EM' && $twoUp.tagName === 'STRONG')
-            || ($up.childNodes.length === 1 && $up.tagName === 'STRONG' && $twoUp.tagName === 'EM'))
-            && $threeUp.tagName === 'P') {
+        if ((($up.childNodes.length === 1 && isNodeName($up, 'em') && isNodeName($twoUp, 'strong'))
+            || ($up.childNodes.length === 1 && isNodeName($up, 'strong') && isNodeName($twoUp, 'em')))
+            && isNodeName($threeUp, 'p')) {
           $a.className = 'button transparent';
           $threeUp.classList.add('button-container');
         }
@@ -765,22 +663,6 @@ export function addFavIcon(href) {
 }
 
 /**
- * fetches blog article index.
- * @returns {object} index with data and path lookup
- */
-
-export async function fetchBlogArticleIndex() {
-  const resp = await fetch(`${getRootPath()}/query-index.json`);
-  const json = await resp.json();
-  const byPath = {};
-  json.data.forEach((post) => {
-    byPath[post.path.split('.')[0]] = post;
-  });
-  const index = { data: json.data, byPath };
-  return (index);
-}
-
-/**
  * forward looking *.metadata.json experiment
  * fetches metadata.json of page
  * @param {path} path to *.metadata.json
@@ -826,21 +708,6 @@ export async function getBlogArticle(path) {
     category: meta.category,
   };
   return (articleMeta);
-}
-
-/**
- * fetches the string variables.
- * @returns {object} localized variables
- */
-
-export async function fetchPlaceholders() {
-  const resp = await fetch(`${getRootPath()}/placeholders.json`);
-  const json = await resp.json();
-  const placeholders = {};
-  json.data.forEach((placeholder) => {
-    placeholders[placeholder.Key] = placeholder.Text;
-  });
-  return (placeholders);
 }
 
 /**
@@ -898,12 +765,6 @@ async function loadLazy() {
 
   // post LCP actions go here
   sampleRUM('lcp');
-
-  /* load footer */
-  const footer = document.querySelector('footer');
-  footer.setAttribute('data-block-name', 'footer');
-  footer.setAttribute('data-footer-source', `${getRootPath()}/footer`);
-  loadBlock(footer);
 
   loadBlocks(main);
   loadCSS('/templates/consonant/styles/lazy-styles.css');
@@ -1086,13 +947,3 @@ function registerPerformanceLogger() {
 }
 
 if (window.name.includes('performance')) registerPerformanceLogger();
-
-export function isNodeName(node, name) {
-  if (!node || typeof node !== 'object') return false;
-  return node.nodeName.toLowerCase() === name.toLowerCase();
-}
-
-export function isAttr(node, attr, val) {
-  if (!node || typeof node !== 'object') return false;
-  return node.getAttribute(attr) === val;
-}
