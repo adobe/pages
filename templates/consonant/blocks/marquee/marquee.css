@@ -31,6 +31,9 @@ main .section-wrapper.marquee-container > div.marquee {
 main .section-wrapper.marquee-container > div > :not(.marquee) {
     padding-left: 2rem;
     padding-right: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 main .marquee {
