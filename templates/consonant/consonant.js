@@ -604,8 +604,8 @@ export function decorateButtons(block = document) {
         if (!isNodeName(e, 'a') && !isNodeName(e, 'em') && !isNodeName(e, 'strong') && !isNodeName(e, '#text')) {
           buttonsOnly = false;
         } else if (isNodeName(e, '#text')) {
-          const re = new RegExp('.*\\w+.*');
-          if (re.test(e.textContent)) {
+          const re = new RegExp('^\\s*$');
+          if (!re.test(e.textContent)) {
             buttonsOnly = false;
           }
         }
