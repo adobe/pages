@@ -37,6 +37,7 @@ main .separator {
     color: var(--color-white);
     background-color: #777777;
     flex-wrap: wrap;
+    text-align: center;
 }
 
 main .separator div {
