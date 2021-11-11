@@ -10,18 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  insertAfter,
-} from '../block-helpers.js';
-
-// eslint-disable-next-line no-unused-vars
-export default function decorate($block) {
-  const $separator = $block.querySelector(':scope > div:first-of-type');
-  $separator.classList.add('container');
-  const $otherCells = Array.from($block.querySelectorAll(':scope > div:not(:first-of-type)'));
-  $otherCells.forEach(($cell) => {
-    if ($cell) {
-      insertAfter($cell, $block);
-    }
-  });
+// eslint-disable-next-line import/prefer-default-export
+export function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }

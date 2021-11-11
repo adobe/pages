@@ -1,1 +1,61 @@
 
+main .section-wrapper:first-of-type.separator-container {
+    margin-top: var(--header-height);
+}
+
+main .section-wrapper:first-of-type.separator-container > div > :first-child:not(.separator) {
+    margin-top: 128px;
+    margin-top: calc(var(--header-height) + 64px);
+}
+
+main .section-wrapper:first-of-type.separator-container .separator:first-child {
+    margin-top: 0;
+}
+
+main .section-wrapper.separator-container > div {
+    max-width: none;
+    padding: 0;
+}
+
+main .section-wrapper.separator-container > div.separator {
+    padding: 24px 0;
+}
+
+main .section-wrapper.separator-container > div > :not(.separator) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+main .separator {
+    padding: 24px 0;
+    margin: 48px 0;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    background-color: #777777;
+    flex-wrap: wrap;
+}
+
+main .separator div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+main .separator a.button.transparent:any-link {
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+main .separator .icon {
+    min-height: 40px;
+}
+
+main .separator p {
+    margin-left: 16px;
+    margin-right: 16px;
+}
