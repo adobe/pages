@@ -12,20 +12,10 @@ main .section-wrapper.column-container > div.column {
 
 main .columns {
   --column-width-sm: 850px;
-  --column-width-md: 950px;
+  --column-width-md: 1000px;
   --column-width-lg: 100%;
   margin-left: auto;
   margin-right: auto;
-}
-
-main .columns .columns-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 0;
-  margin: 48px 0;
-  position: relative;
-  box-sizing: border-box;
 }
 
 main .columns {
@@ -40,55 +30,66 @@ main .columns.small {
   max-width: var(--column-width-sm);
 }
 
+main .columns .columns-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  margin: 48px 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
 main .columns .column {
   width: 50%;
+  box-sizing: border-box;
+}
+
+main .columns .column:not(.column-picture) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+main .columns .column:first-child:not(.column-picture) {
+  padding-left: 0;
+}
+
+main .columns .column:last-child:not(.column-picture) {
+  padding-right: 0;
 }
 
 main .columns.large .column {
   width: 40%;
 }
 
-main .columns .column:not(.column-picture) {
-  margin-left: 40px;
-  margin-right: 40px;
-}
-
-main .columns .column:first-child:not(.column-picture) {
-  margin-left: 0;
-}
-
-main .columns .column:last-child:not(.column-picture) {
-  margin-right: 0;
-}
-
-main .columns.large .column:not(.column-picture) {
-  margin-left: 56px;
-  margin-right: 56px;
-}
-
-main .columns.large .column:first-child:not(.column-picture) {
-  margin-left: 0;
-}
-
-main .columns.large .column:last-child:not(.column-picture) {
-  margin-right: 0;
-}
-
-main .columns.large .column:not(.column-picture) {
-  margin-left: 32pz;
-  margin-right: 32px;
-}
-
-main .columns.large .column:first-child:not(.column-picture) {
-  margin-left: 0;
-}
-
-main .columns.large .column:last-child:not(.column-picture) {
-  margin-right: 0;
-}
-
 main .columns.large .column-picture {
   width: 60%;
+}
+
+main .columns.large .column:not(.column-picture) {
+  padding-left: 56px;
+  padding-right: 56px;
+}
+
+main .columns.large .column:first-child:not(.column-picture) {
+  padding-left: 0;
+}
+
+main .columns.large .column:last-child:not(.column-picture) {
+  padding-right: 0;
+}
+
+main .columns.small .column:not(.column-picture) {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+main .columns.small .column:first-child:not(.column-picture) {
+  padding-left: 0;
+}
+
+main .columns.small .column:last-child:not(.column-picture) {
+  padding-right: 0;
 }
 
 main .columns h2 {
@@ -96,7 +97,25 @@ main .columns h2 {
 }
 
 main .columns p {
+  font-size: var(--body-font-size-s);
+  color: #4B4B4B;
+}
+
+main .columns h6 {    
+  font-size: var(--detail-font-size-s);
+}
+
+main .columns.large p {
   font-size: var(--body-font-size-m);
+  color: var(--body-color);
+}
+
+main .columns.small h6 {    
+  font-size: var(--detail-font-size-xs);
+}
+
+main .columns.large h6 {    
+  font-size: var(--detail-font-size-m);
 }
 
 main .columns .column-picture img {

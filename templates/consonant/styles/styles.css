@@ -68,7 +68,8 @@
   --detail-line-height: 1.25;
   --detail-font-size-l: 1.25rem; /* 20px */
   --detail-font-size-m: 1rem; /* 16px */
-  --detail-font-size-s: 0.8rem; /* 12px */
+  --detail-font-size-s: 0.8rem;
+  --detail-font-size-xs: 0.75rem;
 
   /* gutter */
   --gutter-laptop: 1180px;
