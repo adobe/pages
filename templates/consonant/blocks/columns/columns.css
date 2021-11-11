@@ -45,8 +45,7 @@ main .columns .column {
 }
 
 main .columns.large .column {
-  width: 35%;
-  width: calc(40%);
+  width: 40%;
 }
 
 main .columns .column:not(.column-picture) {
@@ -65,6 +64,19 @@ main .columns .column:last-child:not(.column-picture) {
 main .columns.large .column:not(.column-picture) {
   margin-left: 56px;
   margin-right: 56px;
+}
+
+main .columns.large .column:first-child:not(.column-picture) {
+  margin-left: 0;
+}
+
+main .columns.large .column:last-child:not(.column-picture) {
+  margin-right: 0;
+}
+
+main .columns.large .column:not(.column-picture) {
+  margin-left: 32pz;
+  margin-right: 32px;
 }
 
 main .columns.large .column:first-child:not(.column-picture) {
