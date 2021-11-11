@@ -11,7 +11,7 @@ main .section-wrapper.column-container > div.column {
 }
 
 main .columns {
-  --column-width-sm: 700px;
+  --column-width-sm: 850px;
   --column-width-md: 950px;
   --column-width-lg: 100%;
   margin-left: auto;
