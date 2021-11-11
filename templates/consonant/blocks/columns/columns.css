@@ -35,6 +35,10 @@ main .columns .columns-row {
   box-sizing: border-box;
 }
 
+main .columns.large .columns-row {
+  margin-bottom: calc(var(--section-spacing) * 1.5);
+}
+
 main .columns .column {
   width: 50%;
   box-sizing: border-box;

@@ -29,35 +29,35 @@ export default function decorate($block) {
   });
   $block.remove();
 
-  // Removes unwanted padding/margin from colorful blocks to avoid the extra white space:
-  const $blocksNoBackgroundPadding = ['marquee', 'separator'];
+  // Removes unwanted margin from colorful blocks to avoid the extra white space:
+  const noMarginBlocks = ['marquee', 'separator'];
 
   if ($background) {
-    const $blockFirstChild = $sectionWrapper.querySelector(':scope > div > :first-child');
-    const firstBlockNames = [];
-    if ($blockFirstChild) {
-      const firstBlockClassNamesString = $blockFirstChild.className;
-      const firstBlockClassNames = firstBlockClassNamesString.split(' ');
-      firstBlockClassNames.forEach((className) => {
-        firstBlockNames.push(className);
-      });
+    const $previousSection = $sectionWrapper.previousSibling;
+    if ($previousSection) {
+      const $lastChild = $previousSection.querySelector(':scope > div > :last-child');
+      if ($lastChild) {
+        noMarginBlocks.forEach((blockName) => {
+          if ($lastChild.classList.contains(blockName)) {
+            $previousSection.style.marginBottom = '0';
+            $lastChild.style.marginBottom = '0';
+            $sectionWrapper.style.marginTop = '0';
+          }
+        });
+      }
     }
-    if (firstBlockNames.some((e) => $blocksNoBackgroundPadding.includes(e))) {
-      $blockFirstChild.style.marginTop = '0';
-      $sectionWrapper.style.paddingTop = '0';
-    }
-    const $blockLastChild = $sectionWrapper.querySelector(':scope > div > :last-child');
-    const lastBlockNames = [];
-    if ($blockLastChild) {
-      const lastBlockClassNamesString = $blockLastChild.className;
-      const lastBlockClassNames = lastBlockClassNamesString.split(' ');
-      lastBlockClassNames.forEach((className) => {
-        lastBlockNames.push(className);
-      });
-    }
-    if (lastBlockNames.some((e) => $blocksNoBackgroundPadding.includes(e))) {
-      $blockLastChild.style.marginBottom = '0';
-      $sectionWrapper.style.paddingBottom = '0';
+    const $nextSection = $sectionWrapper.nextSibling;
+    if ($nextSection) {
+      const $firstChild = $nextSection.querySelector(':scope > div > :first-child');
+      if ($firstChild) {
+        noMarginBlocks.forEach((blockName) => {
+          if ($firstChild.classList.contains(blockName)) {
+            $nextSection.style.marginTop = '0';
+            $firstChild.style.marginTop = '0';
+            $sectionWrapper.style.marginBottom = '0';
+          }
+        });
+      }
     }
   }
 }

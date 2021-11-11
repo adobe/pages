@@ -28,14 +28,16 @@ export default function decorate($block) {
     picElement.parentElement.classList.add('marquee-image');
   }
   const $sectionWrapper = $block.closest('.marquee-container');
-  const $firstChildMarquee = $sectionWrapper.querySelector(':scope > div > .marquee:first-child');
-  if ($firstChildMarquee) {
-    $sectionWrapper.style.marginTop = 0;
-  }
   const $previousSection = $sectionWrapper.previousSibling;
   if ($previousSection) {
     if ($previousSection.classList.contains('background-container')) {
-      $previousSection.style.paddingBottom = '128px';
+      $previousSection.style.paddingBottom = '96px';
+    }
+  }
+  const $nextSection = $sectionWrapper.nextSibling;
+  if ($nextSection) {
+    if ($nextSection.classList.contains('background-container')) {
+      $nextSection.style.paddingTop = '96px';
     }
   }
 }
