@@ -143,21 +143,30 @@ main .columns .column-picture img {
   }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1000px) {
-  main .column .container .column-image {
-      width: 40%;
-  }
-  main .column .container .column-column:not(.column-image) {
-      width: 50%;
-  }
-}
-
 @media screen and (max-width: 799px) {
-  main .column .container {
-      flex-direction: column;
+  main .columns .columns-row {
+    flex-direction: column;
   }
-  main .column .container .column-image {
-      order: 2;
-      padding-bottom: 32px;
+
+  main .columns .columns-row .column-picture {
+    order: 2;
+    margin-top: 16px;
+  }
+
+  main .columns .columns-row .column {
+    padding: 0;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  main .columns.large .columns-row .column {
+    padding: 0;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  main .columns.small .columns-row .column {
+    padding: 0;
+    max-width: 360px;
   }
 }
