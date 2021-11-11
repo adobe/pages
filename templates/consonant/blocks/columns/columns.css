@@ -1,10 +1,11 @@
 /*-- Column Variants --*/
-/* [medium (default), small, large, center, right] */
-/* Small columns are min x pixels wide */
+/* [medium (default), small, large, center, right, top] */
 /* Medium columns are min x pixels wide */
+/* Small columns are min x pixels wide */
 /* Large columns are min x pixels wide */
 /* Center aligns the text center */
 /* Right aligns the text right */
+/* Top aligns the text top vertically (default aligns center vertically)*/
 
 main .columns {
   --column-width-sm: 850px;
