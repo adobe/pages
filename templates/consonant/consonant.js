@@ -595,7 +595,7 @@ export function decorateButtons(block = document) {
       const $up = $a.parentElement;
       const $elementsAround$a = Array.from($up.childNodes);
       $elementsAround$a.forEach((e) => {
-        if (!isNodeName(e, 'a')) {
+        if (!(isNodeName(e, 'a') || isNodeName(e, 'em') || !isNodeName(e, 'strong'))) {
           buttonsOnly = false;
         }
       });
