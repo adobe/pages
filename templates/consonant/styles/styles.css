@@ -69,6 +69,9 @@
   --detail-font-size-l: 1.25rem; /* 20px */
   --detail-font-size-m: 1rem; /* 16px */
   --detail-font-size-s: 0.8rem; /* 12px */
+
+  /* gutter */
+  --gutter-laptop: 1180px;
 }
 
 @media (min-width: 900px) {
@@ -196,7 +199,7 @@ main .container {
 
 main .section-wrapper > div,
 main .container {
-  max-width: 1200px;
+  max-width: var(--gutter-laptop);
   margin-left: auto;
   margin-right: auto;
 }

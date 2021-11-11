@@ -11,9 +11,11 @@ main .section-wrapper.column-container > div.column {
 }
 
 main .columns {
-  --column-width-sm: 400px;
-  --column-width-md: 560px;
-  --column-width-lg: 700px;
+  --column-width-sm: 700px;
+  --column-width-md: 950px;
+  --column-width-lg: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 main .columns .columns-row {
@@ -26,37 +28,68 @@ main .columns .columns-row {
   box-sizing: border-box;
 }
 
+main .columns {
+  max-width: var(--column-width-md);
+}
+
+main .columns.large {
+  max-width: var(--column-width-lg);
+}
+
+main .columns.small {
+  max-width: var(--column-width-sm);
+}
+
 main .columns .column {
   width: 50%;
 }
 
 main .columns.large .column {
   width: 35%;
-  width: calc(40% - 56px);
+  width: calc(40%);
+}
+
+main .columns .column:not(.column-picture) {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+main .columns .column:first-child:not(.column-picture) {
+  margin-left: 0;
+}
+
+main .columns .column:last-child:not(.column-picture) {
+  margin-right: 0;
+}
+
+main .columns.large .column:not(.column-picture) {
+  margin-left: 56px;
+  margin-right: 56px;
+}
+
+main .columns.large .column:first-child:not(.column-picture) {
+  margin-left: 0;
+}
+
+main .columns.large .column:last-child:not(.column-picture) {
+  margin-right: 0;
 }
 
 main .columns.large .column-picture {
   width: 60%;
 }
 
-main .column h2 {
+main .columns h2 {
   font-size: var(--heading-font-size-xl);
 }
 
-main .column p {
+main .columns p {
   font-size: var(--body-font-size-m);
 }
 
-main .column {
-  min-height: var(--column-height-sm);
-}
-
-main .column.medium {
-  min-height: var(--column-height-md);
-}
-
-main .column.large {
-  min-height: var(--column-height-lg);
+main .columns .column-picture img {
+  width: 100%;
+  height: auto;
 }
 
 @media screen and (min-width: 800px) {

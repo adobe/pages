@@ -28,7 +28,7 @@ main .section-wrapper.separator-container > div.separator {
 main .section-wrapper.separator-container > div > :not(.separator) {
     padding-left: 2rem;
     padding-right: 2rem;
-    max-width: 1200px;
+    max-width: var(--gutter-laptop);
     margin-left: auto;
     margin-right: auto;
 }
