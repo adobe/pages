@@ -26,6 +26,14 @@ main .columns.small {
   max-width: var(--column-width-sm);
 }
 
+main .columns.center {
+  text-align: center;
+}
+
+main .columns.right {
+  text-align: right;
+}
+
 main .columns .columns-row {
   display: flex;
   justify-content: space-between;
@@ -143,22 +151,10 @@ main .columns .column-picture img {
 }
 
 @media screen and (min-width: 800px) {
-  main .column .container .column-column,
-  main .column .container .column-image {
-      flex: 0 1 auto;
-  }
+  /* top variant */
 
-  main .column .container .column-column {
-      width: 40%;
-  }
-
-  main .column .container .column-image {
-      width: 50%;
-  }
-
-  main .column .container .column-column:first-child:last-child {
-      width: 100%;
-      max-width: 700px;
+  main .columns.top .columns-row {
+    align-items: top;
   }
 }
 
