@@ -12,6 +12,10 @@ main .section-wrapper:first-of-type.separator-container .separator:first-child {
     margin-top: 0;
 }
 
+main .section-wrapper:last-of-type .separator:last-child {
+    margin-bottom: 0;
+}
+
 main .section-wrapper.separator-container > div {
     max-width: none;
     padding: 0;

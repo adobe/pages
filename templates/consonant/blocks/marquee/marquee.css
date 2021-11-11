@@ -19,6 +19,10 @@ main .section-wrapper:first-of-type.marquee-container .marquee:first-child {
     margin-top: 0;
 }
 
+main .section-wrapper:last-of-type .marquee:last-child {
+    margin-bottom: 0;
+}
+
 main .section-wrapper.marquee-container > div {
     max-width: none;
     padding: 0;
