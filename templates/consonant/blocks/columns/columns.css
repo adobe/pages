@@ -95,12 +95,24 @@ main .columns h2 {
   font-size: var(--heading-font-size-m);
 }
 
+main .columns h3 {
+  font-size: var(--heading-font-size-s);
+}
+
 main .columns.large h2 {
   font-size: var(--heading-font-size-xl);
 }
 
-main .columns.small h3 {
+main .columns.large h3 {
+  font-size: var(--heading-font-size-l);
+}
+
+main .columns.small h2 {
   font-size: var(--heading-font-size-s);
+}
+
+main .columns.small h3 {
+  font-size: var(--heading-font-size-xs);
 }
 
 main .columns p {
