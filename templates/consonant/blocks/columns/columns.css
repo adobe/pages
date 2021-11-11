@@ -155,7 +155,7 @@ main .columns .column-picture img {
   /* top variant */
 
   main .columns.top .columns-row {
-    align-items: top;
+    align-items: flex-start;
   }
 }
 
