@@ -595,20 +595,20 @@ export function decorateButtons(block = document) {
       const $twoUp = $a.parentElement.parentElement;
       const $threeUp = $a.parentElement.parentElement.parentElement;
       if (!$a.querySelector('img')) {
-        if ($up.childNodes.length === 1 && isNodeName($up, 'p')) {
+        if (isNodeName($up, 'p')) {
           $a.className = 'button primary'; // default
           $up.classList.add('button-container');
         }
-        if ($up.childNodes.length === 1 && isNodeName($up, 'strong') && isNodeName($twoUp, 'p')) {
+        if (isNodeName($up, 'strong') && isNodeName($twoUp, 'p')) {
           $a.className = 'button accent';
           $twoUp.classList.add('button-container');
         }
-        if ($up.childNodes.length === 1 && isNodeName($up, 'em') && isNodeName($twoUp, 'p')) {
+        if (isNodeName($up, 'em') && isNodeName($twoUp, 'p')) {
           $a.className = 'button secondary';
           $twoUp.classList.add('button-container');
         }
-        if ((($up.childNodes.length === 1 && isNodeName($up, 'em') && isNodeName($twoUp, 'strong'))
-            || ($up.childNodes.length === 1 && isNodeName($up, 'strong') && isNodeName($twoUp, 'em')))
+        if (((isNodeName($up, 'em') && isNodeName($twoUp, 'strong'))
+            || (isNodeName($up, 'strong') && isNodeName($twoUp, 'em')))
             && isNodeName($threeUp, 'p')) {
           $a.className = 'button transparent';
           $threeUp.classList.add('button-container');
