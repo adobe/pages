@@ -56,7 +56,7 @@
   --heading-font-size-xxl: 2.8125rem; /* 45px */
   --heading-font-size-xl: 2.25rem; /* 36px */
   --heading-font-size-l: 2rem; /* 32px */
-  --heading-font-size-m: 1.75rem; /* 28px */
+  --heading-font-size-m: 1.5rem; /* 28px */
   --heading-font-size-s: 1.375rem; /* 22px */
   --heading-font-size-xs: 1.125rem; /* 18px */
   --heading-font-size-xxs: 0.875rem; /* 14px */
@@ -143,15 +143,15 @@ main h2 {
 }
 
 main h3 {
-  font-size: var(--heading-font-size-l);
-}
-
-main h4 {
   font-size: var(--heading-font-size-m);
 }
 
-main h5 {
+main h4 {
   font-size: var(--heading-font-size-s);
+}
+
+main h5 {
+  font-size: var(--heading-font-size-xs);
 }
 
 main h6 {    
