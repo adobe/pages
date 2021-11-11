@@ -92,7 +92,15 @@ main .columns.small .column:last-child:not(.column-picture) {
 }
 
 main .columns h2 {
+  font-size: var(--heading-font-size-m);
+}
+
+main .columns.large h2 {
   font-size: var(--heading-font-size-xl);
+}
+
+main .columns.small h3 {
+  font-size: var(--heading-font-size-s);
 }
 
 main .columns p {
