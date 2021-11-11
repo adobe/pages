@@ -591,10 +591,17 @@ export function decorateButtons(block = document) {
       });
     }
     if (!blockNames.some((e) => $blocksWithoutButton.includes(e))) {
+      let buttonsOnly = true;
       const $up = $a.parentElement;
-      const $twoUp = $a.parentElement.parentElement;
-      const $threeUp = $a.parentElement.parentElement.parentElement;
-      if (!$a.querySelector('img')) {
+      const $elementsAround$a = Array.from($up.childNodes);
+      $elementsAround$a.forEach((e) => {
+        if (!isNodeName(e, 'a')) {
+          buttonsOnly = false;
+        }
+      });
+      if (!$a.querySelector('img') && buttonsOnly) {
+        const $twoUp = $a.parentElement.parentElement;
+        const $threeUp = $a.parentElement.parentElement.parentElement;
         if (isNodeName($up, 'p')) {
           $a.className = 'button primary'; // default
           $up.classList.add('button-container');
