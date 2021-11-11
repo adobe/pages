@@ -592,15 +592,26 @@ export function decorateButtons(block = document) {
     }
     if (!blockNames.some((e) => $blocksWithoutButton.includes(e))) {
       let buttonsOnly = true;
-      const $buttonContainer = $a.closest('p');
-      const $elementsAround$a = Array.from($buttonContainer.childNodes);
+      let $c = $a.parentElement;
+      if (!isNodeName($c, 'p') && (isNodeName($c, 'em') || isNodeName($c, 'strong'))) {
+        $c = $c.parentElement;
+        if (!isNodeName($c, 'p') && (isNodeName($c, 'em') || isNodeName($c, 'strong'))) {
+          $c = $c.parentElement;
+        }
+      }
+      const $elementsAround$a = Array.from($c.childNodes);
       $elementsAround$a.forEach((e) => {
-        if (!(isNodeName(e, 'a') || isNodeName(e, 'em') || !isNodeName(e, 'strong'))) {
+        if (!isNodeName(e, 'a') && !isNodeName(e, 'em') && !isNodeName(e, 'strong') && !isNodeName(e, '#text')) {
           buttonsOnly = false;
+        } else if (isNodeName(e, '#text')) {
+          const re = new RegExp('.*\\w+.*');
+          if (re.test(e.textContent)) {
+            buttonsOnly = false;
+          }
         }
       });
       if (!$a.querySelector('img') && buttonsOnly) {
-        $buttonContainer.classList.add('button-container');
+        $c.classList.add('button-container');
         const $up = $a.parentElement;
         const $twoUp = $a.parentElement.parentElement;
         const $threeUp = $a.parentElement.parentElement.parentElement;
