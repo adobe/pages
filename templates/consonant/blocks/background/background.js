@@ -15,12 +15,19 @@ import {
 } from '../block-helpers.js';
 
 export default function decorate($block) {
-  const $separator = $block.querySelector(':scope > div:first-of-type');
-  $separator.classList.add('container');
+  const $background = $block.querySelector(':scope > div:first-of-type');
+  if ($background) {
+    const color = $background.innerText;
+    const $sectionWrapper = $block.closest('.section-wrapper');
+    if ($sectionWrapper) {
+      $sectionWrapper.style.backgroundColor = color;
+    }
+  }
   const $otherCells = Array.from($block.querySelectorAll(':scope > div:not(:first-of-type)'));
   $otherCells.forEach(($cell) => {
     if ($cell) {
       insertAfter($cell, $block);
     }
   });
+  $block.remove();
 }

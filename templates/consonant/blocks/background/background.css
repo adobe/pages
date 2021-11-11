@@ -1,0 +1,8 @@
+.background-container {
+    padding-top: 64px;
+    padding-bottom: 64px;
+}
+
+.background-container ~ .background-container {
+    margin-top: 0;
+}
