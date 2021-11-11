@@ -38,7 +38,8 @@ main .section-wrapper.marquee-container > div > :not(.marquee) {
 
 main .marquee {
     padding: 24px 0;
-    margin: var(--section-spacing) 0;
+    margin: 128px 0;
+    margin: calc(var(--section-spacing) * 2) 0;
     --marquee-height-sm: 400px;
     --marquee-height-md: 560px;
     --marquee-height-lg: 700px;

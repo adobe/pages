@@ -27,4 +27,15 @@ export default function decorate($block) {
   if (picElement) {
     picElement.parentElement.classList.add('marquee-image');
   }
+  const $sectionWrapper = $block.closest('.marquee-container');
+  const $firstChildMarquee = $sectionWrapper.querySelector(':scope > div > .marquee:first-child');
+  if ($firstChildMarquee) {
+    $sectionWrapper.style.marginTop = 0;
+  }
+  const $previousSection = $sectionWrapper.previousSibling;
+  if ($previousSection) {
+    if ($previousSection.classList.contains('background-container')) {
+      $previousSection.style.paddingBottom = '128px';
+    }
+  }
 }

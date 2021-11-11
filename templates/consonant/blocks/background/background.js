@@ -15,9 +15,8 @@ import {
 } from '../block-helpers.js';
 
 export default function decorate($block) {
-  const $blocksNoBackgroundPadding = ['marquee', 'separator'];
   const $background = $block.querySelector(':scope > div:first-of-type');
-  const $sectionWrapper = $block.closest('.section-wrapper');
+  const $sectionWrapper = $block.closest('.background-container');
   if ($background) {
     const color = $background.innerText;
     $sectionWrapper.style.backgroundColor = color;
@@ -29,6 +28,10 @@ export default function decorate($block) {
     }
   });
   $block.remove();
+
+  // Removes unwanted padding/margin from colorful blocks to avoid the extra white space:
+  const $blocksNoBackgroundPadding = ['marquee', 'separator'];
+
   if ($background) {
     const $blockFirstChild = $sectionWrapper.querySelector(':scope > div > :first-child');
     const firstBlockNames = [];

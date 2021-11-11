@@ -1,8 +1,22 @@
-.background-container {
+main .background-container {
     padding-top: 64px;
     padding-bottom: 64px;
 }
 
-.background-container ~ .background-container {
+main .background-container ~ .background-container {
     margin-top: 0;
+}
+
+main .background-container ~ .marquee-container > div > .marquee:first-child,
+main .background-container ~ .separator-container > div > .separator:first-child {
+    margin-top: 0;
+    margin-top: 0;
+}
+
+main .background-container > div > .marquee:first-child {
+    margin-bottom: var(--section-spacing);
+}
+
+main .background-container > div > .marquee:last-child {
+    margin-top: var(--section-spacing);
 }
