@@ -592,33 +592,31 @@ export function decorateButtons(block = document) {
     }
     if (!blockNames.some((e) => $blocksWithoutButton.includes(e))) {
       let buttonsOnly = true;
-      const $up = $a.parentElement;
-      const $elementsAround$a = Array.from($up.childNodes);
+      const $buttonContainer = $a.closest('p');
+      const $elementsAround$a = Array.from($buttonContainer.childNodes);
       $elementsAround$a.forEach((e) => {
         if (!(isNodeName(e, 'a') || isNodeName(e, 'em') || !isNodeName(e, 'strong'))) {
           buttonsOnly = false;
         }
       });
       if (!$a.querySelector('img') && buttonsOnly) {
+        $buttonContainer.classList.add('button-container');
+        const $up = $a.parentElement;
         const $twoUp = $a.parentElement.parentElement;
         const $threeUp = $a.parentElement.parentElement.parentElement;
         if (isNodeName($up, 'p')) {
           $a.className = 'button primary'; // default
-          $up.classList.add('button-container');
         }
         if (isNodeName($up, 'strong') && isNodeName($twoUp, 'p')) {
           $a.className = 'button accent';
-          $twoUp.classList.add('button-container');
         }
         if (isNodeName($up, 'em') && isNodeName($twoUp, 'p')) {
           $a.className = 'button secondary';
-          $twoUp.classList.add('button-container');
         }
         if (((isNodeName($up, 'em') && isNodeName($twoUp, 'strong'))
             || (isNodeName($up, 'strong') && isNodeName($twoUp, 'em')))
             && isNodeName($threeUp, 'p')) {
           $a.className = 'button transparent';
-          $threeUp.classList.add('button-container');
         }
       }
     }
