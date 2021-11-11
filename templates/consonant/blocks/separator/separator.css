@@ -5,24 +5,20 @@ main .section-wrapper:first-of-type.separator-container {
 
 main .section-wrapper:first-of-type.separator-container > div > :first-child:not(.separator) {
     margin-top: 128px;
-    margin-top: calc(var(--header-height) + 64px);
+    margin-top: calc(var(--header-height) + var(--section-spacing));
 }
 
 main .section-wrapper:first-of-type.separator-container .separator:first-child {
     margin-top: 0;
 }
 
-main .section-wrapper:last-of-type .separator:last-child {
+main .section-wrapper.separator-container .separator:last-child {
     margin-bottom: 0;
 }
 
 main .section-wrapper.separator-container > div {
     max-width: none;
     padding: 0;
-}
-
-main .section-wrapper.separator-container > div.separator {
-    padding: 24px 0;
 }
 
 main .section-wrapper.separator-container > div > :not(.separator) {
@@ -35,7 +31,7 @@ main .section-wrapper.separator-container > div > :not(.separator) {
 
 main .separator {
     padding: 24px 0;
-    margin: 48px 0;
+    margin: var(--section-spacing) 0;
     position: relative;
     box-sizing: border-box;
     display: flex;

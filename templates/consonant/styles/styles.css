@@ -3,7 +3,6 @@
 /* default content */
 
 :root {
-  --header-height: 64px;
   --color-white: #FFF;
   --color-gray-100: #F8F8F8;
   --color-gray-200: #E8E8E8;
@@ -71,8 +70,10 @@
   --detail-font-size-s: 0.8rem;
   --detail-font-size-xs: 0.75rem;
 
-  /* gutter */
+  /* height/widths */
   --gutter-laptop: 1180px;
+  --section-spacing: 64px;
+  --header-height: 64px;
 }
 
 @media (min-width: 900px) {
@@ -169,13 +170,13 @@ main video {
 /* section wrapper */
 
 main .section-wrapper {
-  margin-top: 64px;
+  margin-top: var(--section-spacing);
 }
 
 main .section-wrapper:first-of-type {
   padding: 0;
   margin-top: 128px;
-  margin-top: calc(var(--header-height) + 64px);
+  margin-top: calc(var(--header-height) + var(--section-spacing));
 }
 
 main .section-wrapper:last-of-type {

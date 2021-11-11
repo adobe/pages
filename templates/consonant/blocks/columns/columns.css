@@ -6,10 +6,6 @@
 /* Center aligns the text center */
 /* Right aligns the text right */
 
-main .section-wrapper.column-container > div.column {
-  padding: 24px 0;
-}
-
 main .columns {
   --column-width-sm: 850px;
   --column-width-md: 1000px;
@@ -34,8 +30,7 @@ main .columns .columns-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 0;
-  margin: 48px 0;
+  margin: var(--section-spacing) 0;
   position: relative;
   box-sizing: border-box;
 }
