@@ -20,6 +20,10 @@ footer .footer-container .footer .icon.icon-adobe-logo-vertical {
 	max-height: 60px;
 }
 
+footer .footer-container .footer .icon.icon-stock-logo-dark {
+	margin-right: 100px;
+}
+
 footer .footer-container .footer,
 footer .footer-container .footer > div {
 	display: flex;
@@ -36,8 +40,19 @@ footer .footer-container .footer > div {
 	footer .footer-container .footer > div {
 		flex-wrap: wrap;
 	}
+	footer .footer-container .footer .icon.icon-stock-logo-dark {
+		margin-right: 0;
+	}
+	
 	footer .footer-container .footer > div > div {
-		padding: 10px 0;
+		margin: 18px 0;
+	}
+	footer .footer-container .footer > div > div:first-child {
+		margin-top: 0;
+	}
+	footer .footer-container .footer > div > div:last-child {
+		margin-bottom: 0;
+		padding-top: 10px;
 	}
 }
 
