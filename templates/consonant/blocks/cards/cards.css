@@ -2,6 +2,7 @@ main .cards {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    margin: var(--section-spacing) 0;
 }
 
 main .cards .card > a {
@@ -16,12 +17,14 @@ main .cards .card {
     max-width: 400px;
     margin: 10px;
     background: white;
-    border: 1px solid #EAEAEA
+    border: 1px solid #EAEAEA;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 main .cards .card-text {
     padding: 10px;
-    padding-bottom: 30px;
+    padding-bottom: 50px;
 }
 
 @media screen and (max-width: 799px) {
