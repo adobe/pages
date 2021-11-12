@@ -12,14 +12,17 @@
 
 export default function decorate($block) {
   const $footerTag = document.querySelector('footer');
+
+  // Move default footer into a div called .footer-copyright
   const $copyright = document.createElement('div');
+  $copyright.classList.add('footer-copyright');
   const $footerElements = Array.from($footerTag.children);
   $footerTag.appendChild($copyright);
-  $copyright.classList.add('footer-copyright');
-  console.log($footerElements);
   $footerElements.forEach((div) => {
     $copyright.append(div);
   });
+
+  // Move elements from .footer block to the beginning of <footer>
   const $footerContainer = $block.closest('.footer-container');
   $footerContainer.classList.remove('section-wrapper');
   $footerTag.prepend($footerContainer);

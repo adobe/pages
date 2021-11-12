@@ -1,3 +1,19 @@
+footer .footer-container .footer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: var(--gutter-laptop);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: var(--section-spacing-large);
+    padding-bottom: var(--section-spacing-large);
+}
+
+footer .footer-container .footer .icon {
+	max-height: 50px;
+}
+
+
+/* Footer copyright section */
 
 footer .footer-copyright {
 	font-size: 14px;
@@ -95,14 +111,4 @@ footer .footer-copyright li:after {
 		content: '/';
 		margin-right: 16px;
 	}
-}
-
-footer .footer-container .footer {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    max-width: var(--gutter-laptop);
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: var(--section-spacing-large);
-    padding-bottom: var(--section-spacing-large);
 }
