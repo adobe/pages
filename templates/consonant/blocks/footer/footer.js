@@ -12,7 +12,14 @@
 
 export default function decorate($block) {
   const $footerTag = document.querySelector('footer');
-  const $footerContainer = $block.parentElement.parentElement;
+  const $copyright = document.createElement('div');
+  $footerTag.appendChild($copyright);
+  $copyright.classList.add('footer-copyright');
+  // const $footerElements = Array.from($footerTag.children);
+  // $footerElements.forEach((div) => {
+  //   $copyright.append(div);
+  // });
+  const $footerContainer = $block.closest('footer-container');
   $footerContainer.classList.remove('section-wrapper');
-  $footerTag.append($footerContainer);
+  // $footerTag.prepend($footerContainer);
 }

@@ -28,13 +28,13 @@ export default function decorate($block) {
     picElement.parentElement.classList.add('marquee-image');
   }
   const $sectionWrapper = $block.closest('.marquee-container');
-  const $previousSection = $sectionWrapper.previousSibling;
+  const $previousSection = $sectionWrapper.previousElementSibling;
   if ($previousSection) {
     if ($previousSection.classList.contains('background-container')) {
       $previousSection.style.paddingBottom = '96px';
     }
   }
-  const $nextSection = $sectionWrapper.nextSibling;
+  const $nextSection = $sectionWrapper.nextElementSibling;
   if ($nextSection) {
     if ($nextSection.classList.contains('background-container')) {
       $nextSection.style.paddingTop = '96px';

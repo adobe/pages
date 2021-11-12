@@ -45,7 +45,7 @@ main .columns .columns-row {
 }
 
 main .columns.large .columns-row {
-  margin-bottom: calc(var(--section-spacing) * 1.5);
+  margin-bottom: var(--section-spacing-large);
 }
 
 main .columns .column {

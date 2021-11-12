@@ -72,8 +72,9 @@
 
   /* height/widths */
   --gutter-laptop: 1180px;
-  --section-spacing: 64px;
   --header-height: 64px;
+  --section-spacing: 64px;
+  --section-spacing-large: 96px;
 }
 
 @media (min-width: 900px) {

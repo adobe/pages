@@ -33,7 +33,7 @@ export default function decorate($block) {
   const noMarginBlocks = ['marquee', 'separator'];
 
   if ($background) {
-    const $previousSection = $sectionWrapper.previousSibling;
+    const $previousSection = $sectionWrapper.previousElementSibling;
     if ($previousSection) {
       const $lastChild = $previousSection.querySelector(':scope > div > :last-child');
       if ($lastChild) {
@@ -46,7 +46,7 @@ export default function decorate($block) {
         });
       }
     }
-    const $nextSection = $sectionWrapper.nextSibling;
+    const $nextSection = $sectionWrapper.nextElementSibling;
     if ($nextSection) {
       const $firstChild = $nextSection.querySelector(':scope > div > :first-child');
       if ($firstChild) {
