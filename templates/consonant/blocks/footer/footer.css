@@ -21,10 +21,9 @@ footer .footer-container .footer .icon.icon-adobe-logo-vertical {
 }
 
 footer .footer-container .footer .icon.icon-stock-logo-dark {
-	margin-right: 100px;
+	margin-right: 70px;
 }
 
-footer .footer-container .footer,
 footer .footer-container .footer > div {
 	display: flex;
 	align-items: flex-end;
@@ -78,6 +77,7 @@ footer .footer-container p.icon-container a {
 	justify-content: center;
 	align-items: flex-end;
 	color: #9f9f9f !important;
+	padding-bottom: 0;
 }
 
 footer .footer-container p.icon-container svg.icon {
