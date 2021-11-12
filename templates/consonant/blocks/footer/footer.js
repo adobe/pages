@@ -19,7 +19,7 @@ export default function decorate($block) {
   // $footerElements.forEach((div) => {
   //   $copyright.append(div);
   // });
-  const $footerContainer = $block.closest('footer-container');
+  const $footerContainer = $block.closest('.footer-container');
   $footerContainer.classList.remove('section-wrapper');
   // $footerTag.prepend($footerContainer);
 }
