@@ -565,16 +565,24 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
   return picture;
 }
 
+/**
+ * Block Helpers
+ */
+export function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
 export function isNodeName(node, name) {
   if (!node || typeof node !== 'object') return false;
   return node.nodeName.toLowerCase() === name.toLowerCase();
 }
-
 export function isAttr(node, attr, val) {
   if (!node || typeof node !== 'object') return false;
   return node.getAttribute(attr) === val;
 }
 
+/**
+ * Decorate Buttons
+ */
 export function decorateButtons(block = document) {
   const $blocksWithoutButton = ['header', 'footer', 'cards'];
   block.querySelectorAll(':scope a').forEach(($a) => {

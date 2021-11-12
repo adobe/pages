@@ -12,6 +12,41 @@ footer .footer-container .footer .icon {
 	max-height: 50px;
 }
 
+footer .footer-container .footer,
+footer .footer-container .footer > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+footer .footer-container .footer > div > div {
+	width: 100%;
+	text-align: center;
+}
+
+footer .footer-container a,
+footer .footer-container img,
+footer .footer-container svg {
+	display: inline-block;
+	width: auto;
+	height: auto;
+	min-width: 0;
+	margin: 0;
+	min-height: auto;
+}
+
+footer .footer-container p.icon-container, 
+footer .footer-container p.icon-container a {
+	color: #9f9f9f !important;
+}
+
+footer .footer-container p.icon-container svg.icon {
+	width: 40px;
+	height: auto;
+	margin: 0 8px;
+}
+
 
 /* Footer copyright section */
 

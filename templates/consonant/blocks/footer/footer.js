@@ -9,6 +9,9 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import {
+  isNodeName,
+} from '../../consonant.js';
 
 export default function decorate($block) {
   const $footerTag = document.querySelector('footer');
@@ -26,4 +29,23 @@ export default function decorate($block) {
   const $footerContainer = $block.closest('.footer-container');
   $footerContainer.classList.remove('section-wrapper');
   $footerTag.prepend($footerContainer);
+
+  // Decorate social media icon list
+  const $inlineSVGicons = Array.from($block.querySelectorAll('svg.icon'));
+  $inlineSVGicons.forEach((icon) => {
+    let $c = icon.parentElement;
+    if ((isNodeName($c, 'a'))) {
+      $c = $c.parentElement;
+    }
+    if (!isNodeName($c, 'p')) {
+      const c = document.createElement('p');
+      $c.appendChild(c);
+      c.appendChild(icon);
+      $c = c;
+    }
+    if ($c.children.length > 1) {
+      $c.classList.add('icon-container');
+      icon.setAttribute('fill', 'currentColor');
+    }
+  });
 }

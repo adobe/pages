@@ -12,7 +12,7 @@
 
 import {
   insertAfter,
-} from '../block-helpers.js';
+} from '../../consonant.js';
 
 export default function decorate($block) {
   const $background = $block.querySelector(':scope > div:first-of-type');

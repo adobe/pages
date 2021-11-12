@@ -11,7 +11,9 @@
  */
 
 /* globals webVitals */
-import { loadScript, sampleRUM } from '../consonant.js';
+import {
+  loadScript, sampleRUM,
+} from '../consonant.js';
 
 function updateExternalLinks() {
   document.querySelectorAll('main a, footer a').forEach((a) => {

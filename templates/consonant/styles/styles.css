@@ -118,44 +118,44 @@ main .block {
   visibility: unset;
 }
 
-main p {
+p {
   margin: 0;
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-main h1, main h2, main h3, main h4, main h5 {
+h1, h2, h3, h4, h5 {
   font-weight: var(--heading-font-weight);
   line-height: var(--heading-line-height);
 }
 
-main h1, main h2, main h3, main h4, main h5, main h6 {
+h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-main h1 {
+h1 {
   font-size: var(--heading-font-size-xxl);
 }
 
-main h2 {
+h2 {
   font-size: var(--heading-font-size-xl);
 }
 
-main h3 {
+h3 {
   font-size: var(--heading-font-size-m);
 }
 
-main h4 {
+h4 {
   font-size: var(--heading-font-size-s);
 }
 
-main h5 {
+h5 {
   font-size: var(--heading-font-size-xs);
 }
 
-main h6 {    
+h6 {    
   font-size: var(--detail-font-size-s);
   font-weight: var(--detail-font-weight);
   line-height: var(--detail-line-height);
@@ -163,8 +163,8 @@ main h6 {
   text-transform: uppercase;
 }
 
-main img,
-main video {
+img,
+video {
   max-width: 100%;
 }
 
