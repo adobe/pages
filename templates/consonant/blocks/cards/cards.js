@@ -12,5 +12,59 @@
 
 // eslint-disable-next-line no-unused-vars
 export default function decorate($block) {
-  // code here
+  const $cards = Array.from($block.children);
+  let numberOfCards = 0;
+  if ($cards[0]) {
+    numberOfCards = $cards[0].children.length;
+  }
+  if (numberOfCards > 0) {
+    $block.classList.add(`col-${numberOfCards}-cards`);
+  }
+  const $pics = $block.querySelectorAll(':scope picture');
+  $block.querySelectorAll(':scope p:empty').forEach(($p) => $p.remove());
+  if ($pics.length === 1 && $pics[0].parentElement.tagName === 'P') {
+    const $parentDiv = $pics[0].closest('div');
+    const $parentParagraph = $pics[0].parentNode;
+    $parentDiv.insertBefore($pics[0], $parentParagraph);
+  }
+  $cards.forEach(($card) => {
+    $card.classList.add('card');
+    const $cells = Array.from($card.children);
+    let hasPic;
+    let hasLink;
+    $cells.forEach(($e, cell) => {
+      if (cell === 0) {
+        const pic = $e.querySelector(':scope picture');
+        if (pic) {
+          $e.classList.add('card-picture');
+          hasPic = true;
+        } else {
+          $e.classList.add('card-text');
+        }
+      } else if (cell === 1) {
+        if (!hasPic) {
+          $e.classList.add('card-text');
+          $e.classList.add('card-link');
+          hasLink = true;
+        } else {
+          $e.classList.add('card-text');
+        }
+      } else if (cell === 2) {
+        $e.classList.add('card-text');
+        $e.classList.add('card-link');
+        hasLink = true;
+      }
+    });
+    if (hasPic && hasLink) {
+      const $cardLink = $card.querySelector(':scope .card-link a');
+      if ($cardLink) {
+        $cardLink.innerText = '';
+        $card.appendChild($cardLink);
+        $cells.forEach((div) => {
+          $cardLink.append(div);
+        });
+        $card.querySelector(':scope .card-link').remove();
+      }
+    }
+  });
 }

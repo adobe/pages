@@ -1,0 +1,31 @@
+main .cards {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+main .cards .card > a {
+    color: unset;
+    font-weight: unset;
+    font-size: unset;
+    line-height: unset;
+
+}
+
+main .cards .card {
+    max-width: 400px;
+    margin: 10px;
+    background: white;
+    border: 1px solid #EAEAEA
+}
+
+main .cards .card-text {
+    padding: 10px;
+    padding-bottom: 30px;
+}
+
+@media screen and (max-width: 799px) {
+    main .cards {
+        flex-wrap: wrap;
+    }
+}
