@@ -1,46 +1,47 @@
 
-footer {
+footer .footer-copyright {
 	font-size: 14px;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 	padding: 32px 0px;
+    border-top: 1px solid #DEDEDE;
 }
 
-footer > div:last-of-type {
+footer .footer-copyright > div:last-child {
 	margin-left: 16px;
 }
 
-footer svg {
+footer .footer-copyright svg {
 	fill: currentColor;
 	height: 1em;
 	width: 1em;
 }
 
-footer a {
+footer .footer-copyright a {
 	color: #4B4B4B;
 	text-decoration: none;
 }
 
-footer a:hover {
+footer .footer-copyright a:hover {
 	color: #999999;
 }
 
-footer .section-wrapper > div {
+footer .footer-copyright > div:first-child {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
 }
 
-footer .section-wrapper p {
+footer .footer-copyright p {
 	margin: 0;
 	color: #4B4B4B;
 	padding: 0;
 	margin-bottom: 12px;
 }
 
-footer .section-wrapper ul {
+footer .footer-copyright ul {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -49,59 +50,54 @@ footer .section-wrapper ul {
 	padding: 0;
 }
 
-footer li {
+footer .footer-copyright li {
 	margin-bottom: 12px;
 	position: relative;
 }
 
-footer li:before {
+footer .footer-copyright li:before {
 	content: '';
 	position: relative;
 }
 
-footer li:after {
+footer .footer-copyright li:after {
 	display: none;
 }
 
 @media (min-width: 992px) {
-	footer {
+	footer .footer-copyright {
 		font-size: 11px;
 		flex-direction: row;
 	}
 
-	footer > div:last-of-type {
+	footer .footer-copyright > div:last-child {
 		margin-left: 16px;
 	}
 
-	footer .section-wrapper > div {
+	footer .footer-copyright > div:first-child {
 		flex-direction: row;
 	}
 
-	footer .section-wrapper p {
+	footer .footer-copyright p {
 		margin-bottom: 0px;
 	}
 
-	footer .section-wrapper ul {
+	footer .footer-copyright ul {
 		flex-direction: row;
 	}
 
-	footer li {
+	footer .footer-copyright li {
 		margin-left: 16px;
 		margin-bottom: 0px;
 	}
 
-	footer li:before {
+	footer .footer-copyright li:before {
 		content: '/';
 		margin-right: 16px;
 	}
 }
 
-
-
-
-
-
-.footer {
+footer .footer-container .footer {
     padding-left: 2rem;
     padding-right: 2rem;
     max-width: var(--gutter-laptop);
@@ -109,8 +105,4 @@ footer li:after {
     margin-right: auto;
     padding-top: var(--section-spacing-large);
     padding-bottom: var(--section-spacing-large);
-}
-
-.footer-container {
-    border-bottom: 1px solid #DEDEDE;
 }
