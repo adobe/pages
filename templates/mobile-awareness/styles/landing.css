@@ -44,7 +44,7 @@ html {
 }
 .landing-hero-overlay h3 {
   font-weight: 300;
-  font-size: 22px;
+  font-size: 1.375rem;
 }
 
 .landing-hero-overlay .button {
@@ -69,7 +69,7 @@ html {
   text-align: left;
 }
 .mobile-awareness-landing-app-intro .gray-zone p {
-  font-size: var(--sub-text-size) !important;
+  font-size: 1rem !important;
 }
 
 .mobile-awareness-landing-app-intro
@@ -139,13 +139,13 @@ html {
 }
 
 .mobile-awareness-landing-inspiration h2 {
-  font-size: 36px;
+  font-size: 2.25rem;
   margin: 0;
 }
 @media (max-width: 767px) {
   .mobile-awareness-landing-inspiration h2 {
     text-align: center;
-    font-size: 27px;
+    font-size: 1.59rem;
     margin: 0.6em 0;
   }
 }
@@ -175,7 +175,7 @@ html {
   width: 350px;
   margin-right: 70px;
   font-weight: 600;
-  font-size: 36px;
+  font-size: 2.25rem;
   display: flex;
   align-items: center;
   text-align: left;
@@ -231,7 +231,7 @@ html {
   left: 100%;
   white-space: nowrap;
   color: white;
-  font-size: 14px;
+  font-size: 0.875rem;
   opacity: 0.8;
 }
 
@@ -250,7 +250,7 @@ html {
 }
 .mobile-awareness-landing-bottom p {
   margin: 0em 0;
-  font-size: var(--sub-text-size) !important;
+  font-size: 1rem !important;
   color: var(--medium_gray);
 }
 
@@ -258,8 +258,12 @@ html {
   margin-top: 30px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   text-align: left;
+}
+@media (max-width: 767px) {
+  .install-cards > .row > .cell {
+    flex-wrap: wrap;
+  }
 }
 
 .install-cards .install-card {
@@ -287,9 +291,12 @@ html {
 } */
 
 .install-cards .install-card-image,
+.install-cards .install-card-image picture,
 .install-cards .install-card-image img {
-  width: 100%;
-  /* height: 170px; */
+  display: block;
+  /* width: auto; */
+  min-height: 170px;
+  object-fit: cover;
 }
 .install-cards .icon {
   /* padding: 0; */
@@ -306,8 +313,8 @@ html {
 .install-card-contents {
   padding: var(--card-pad);
   padding-top: 0;
-  font-size: var(--sub-text-size);
-  height: 375px;
+  font-size: 1rem;
+  height: 325px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -319,7 +326,7 @@ html {
 }
 
 .install-card-contents h3 {
-  font-size: 22px;
+  font-size: 1.375rem;
 }
 
 .install-card-buttons {
@@ -328,6 +335,7 @@ html {
   padding-top: 25px;
   margin-top: 25px;
   border-top: 1px solid var(--light_gray);
+  white-space: nowrap;
 }
 .install-card-buttons > * {
   margin-left: 20px;

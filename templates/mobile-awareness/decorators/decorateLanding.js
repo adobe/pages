@@ -14,7 +14,7 @@ import {
   createTag,
 } from '../../../pages/scripts/scripts.js';
 
-import { hoist, wrapContents } from '../scripts/scripts.js';
+import { hoist, openModalLink, wrapContents } from '../scripts/scripts.js';
 
 function decorateHero() {
   const existingEl = document.querySelector('.mobile-awareness-landing-hero');
@@ -76,6 +76,8 @@ function decorateAppIntros() {
       const getButtons = createTag('div', { class: 'install-card-buttons' });
       const textMe = createTag('div', { class: 'button primary no-mobile' });
       textMe.innerHTML = 'Text link';
+      openModalLink(textMe, cardType);
+
       const download = createTag('div', { class: 'button primary no-desktop' });
       download.innerHTML = 'Download';
       const learnMore = createTag('a', { class: 'button secondary', href: `/creativecloud/en/mobile-apps-in-your-plan/${cardType}` });

@@ -1,5 +1,6 @@
 .mobile-awareness-app-hero {
   position: relative;
+  min-height: calc(max(90vh, 700px));
 }
 
 .mobile-awareness-app-hero .responsive-image-swap {
@@ -10,7 +11,7 @@
 .mobile-awareness-app-hero .responsive-image-swap picture,
 .mobile-awareness-app-hero .responsive-image-swap img {
   display: block;
-  min-height: calc(min(90vh, 700px));
+  min-height: calc(max(90vh, 700px));
   width: 100%;
   object-fit: cover;
 }
@@ -58,17 +59,17 @@
 
 .app-hero-overlay h2 {
   font-weight: 600;
-  font-size: 50px;
+  font-size: 3.125em;
   color: black;
 }
 @media (max-width: 767px) {
   .app-hero-overlay h2 {
-    font-size: 27px;
+    font-size: 1.58rem;
   }
 }
 @media (max-width: 767px) {
   .app-hero-overlay .get-links {
-    margin-top: 1em;
+    margin-top: 16px;
   }
 }
 
@@ -155,7 +156,7 @@
   position: absolute;
   top: 0em;
   left: 1.5em;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -212,7 +213,7 @@
     0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 .mobile-awareness-app-tutorial-prompt .tutorial-card h4 {
-  font-size: 16px;
+  font-size: 1rem;
   margin-bottom: 5px;
 }
 .mobile-awareness-app-tutorial-prompt
@@ -258,12 +259,12 @@
   color: white !important;
   max-width: 900px;
   margin: 0 auto;
-  font-size: 20px !important;
+  font-size: 1.25rem !important;
   margin-bottom: 45px !important;
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-extensibility .section-wrapper p {
-    font-size: 17px !important;
+    font-size: 1rem !important;
   }
 }
 .mobile-awareness-app-extensibility
@@ -286,7 +287,7 @@
   right: -0.5em;
   white-space: nowrap;
   color: white;
-  font-size: 14px !important;
+  font-size: 0.875rem !important;
   opacity: 0.8;
   text-transform: uppercase;
   font-weight: 600;
@@ -383,7 +384,7 @@
 
 .app-cta-overlay h2 {
   font-weight: 600;
-  font-size: 50px;
+  font-size: 3.125rem;
   color: black;
 }
 
@@ -409,7 +410,7 @@
 }
 
 .mobile-awareness-app-inspiration .app-inspiration {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #4b4b4b;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -479,7 +480,7 @@
   background: white;
   position: relative;
   padding: 50px;
-  font-size: 16px;
+  font-size: 1rem;
   overflow: hidden;
   height: 750px;
 }
@@ -495,7 +496,7 @@
   margin-top: 35px;
 }
 .learn-card p {
-  font-size: 16px !important;
+  font-size: 1rem !important;
 }
 
 .learn-card > * {
