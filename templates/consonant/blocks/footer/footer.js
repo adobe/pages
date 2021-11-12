@@ -38,10 +38,10 @@ export default function decorate($block) {
       $c = $c.parentElement;
     }
     if (!isNodeName($c, 'p')) {
-      const c = document.createElement('p');
-      $c.appendChild(c);
-      c.appendChild(icon);
-      $c = c;
+      const p = document.createElement('p');
+      $c.appendChild(p);
+      p.appendChild(icon);
+      $c = p;
     }
     if ($c.children.length > 1) {
       $c.classList.add('icon-container');
