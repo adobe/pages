@@ -52,6 +52,12 @@ export function externalLinks() {
   });
 }
 
+export function fixLinksWithAmpersands() {
+  document.querySelectorAll('a').forEach((a) => {
+    a.href = a.href.replace(/&amp;/g, '&');
+  });
+}
+
 export function decorateTables() {
   [...document.querySelectorAll('main table')].reverse().forEach(($table) => {
     const $cols = $table.querySelectorAll('thead tr th');

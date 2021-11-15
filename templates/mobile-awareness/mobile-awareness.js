@@ -21,7 +21,9 @@ import {
 } from '../../pages/scripts/default-blocks.js';
 
 import decorateNav from './decorators/decorateNav.js';
-import decorateGeneral, { loadURLParams, applyURLParams, externalLinks } from './decorators/decorateGeneral.js';
+import decorateGeneral, {
+  loadURLParams, applyURLParams, externalLinks, fixLinksWithAmpersands,
+} from './decorators/decorateGeneral.js';
 import decorateLanding from './decorators/decorateLanding.js';
 import decorateAppPage from './decorators/decorateAppPage.js';
 import setUpBranch from './scripts/branch.js';
@@ -40,6 +42,7 @@ export default async function decoratePage() {
   applyURLParams();
   externalLinks();
   setUpBranch();
+  fixLinksWithAmpersands();
 
   window.pages.decorated = true;
   appearMain();

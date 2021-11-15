@@ -1,6 +1,6 @@
 .mobile-awareness-app-hero {
   position: relative;
-  min-height: calc(max(90vh, 700px));
+  min-height: 700px;
 }
 
 .mobile-awareness-app-hero .responsive-image-swap {
@@ -11,9 +11,20 @@
 .mobile-awareness-app-hero .responsive-image-swap picture,
 .mobile-awareness-app-hero .responsive-image-swap img {
   display: block;
-  min-height: calc(max(90vh, 700px));
+  height: 700px;
   width: 100%;
   object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  .mobile-awareness-app-hero {
+    min-height: 95vh;
+  }
+
+  .mobile-awareness-app-hero .responsive-image-swap picture,
+  .mobile-awareness-app-hero .responsive-image-swap img {
+    height: 95vh;
+  }
 }
 
 .app-hero-overlay {
