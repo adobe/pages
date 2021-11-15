@@ -1,3 +1,9 @@
+/*-- Cards Variants --*/
+/* [default, overlay, horizontal] */
+/* Default cards show an image at the top and text at the bottom */
+/* Overlay cards show an image in the background and a dark overlay with white text in front */
+/* Horizontal cards show an image on the left and text on the right */
+
 main .cards {
     display: flex;
     justify-content: center;
