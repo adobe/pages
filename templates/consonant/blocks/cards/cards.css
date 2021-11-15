@@ -10,6 +10,8 @@ main .cards {
     align-items: stretch;
     margin: var(--section-spacing) 0;
     flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 main .cards.col-2-cards,
@@ -160,18 +162,6 @@ main .cards.horizontal .card-picture {
     min-width: 110px;
 }
 
-@media screen and (max-width: 500px) {
-    main .cards.col-2-cards {
-        flex-wrap: wrap;
-    }
-}
-
-@media screen and (max-width: 799px) {
-    main .cards.col-3-cards {
-        flex-wrap: wrap;
-    }
-}
-
 @media screen and (max-width: 999px) {
     main .cards.col-4-cards {
         flex-wrap: wrap;
@@ -179,12 +169,6 @@ main .cards.horizontal .card-picture {
 
     main .cards.col-4-cards .card {
         flex-basis: 45%;
-    }
-}
-
-@media screen and (max-width: 599px) {
-    main .cards.col-4-cards .card {
-        flex-basis: 100%;
     }
 }
 
@@ -213,9 +197,23 @@ main .cards.horizontal .card-picture {
     }
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 799px) {
+    main .cards .card,
+    main .cards.col-2-cards .card,
+    main .cards.col-3-cards .card,
+    main .cards.col-4-cards .card,
     main .cards.col-5-cards .card,
     main .cards.col-6-cards .card {
         flex-basis: 100%;
+    }
+    
+    main .cards,
+    main .cards.col-2-cards,
+    main .cards.col-3-cards,
+    main .cards.col-4-cards,
+    main .cards.col-5-cards,
+    main .cards.col-6-cards {
+        flex-wrap: wrap;
+        max-width: 370px;
     }
 }
