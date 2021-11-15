@@ -14,7 +14,7 @@ export default function decorate($block) {
   const $cards = Array.from($block.children);
   let numberOfCards = 0;
   if ($cards[0]) {
-    numberOfCards = $cards[0].children.length;
+    numberOfCards = $cards.length;
   }
   if (numberOfCards > 0) {
     $block.classList.add(`col-${numberOfCards}-cards`);
