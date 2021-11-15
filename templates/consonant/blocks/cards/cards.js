@@ -26,6 +26,10 @@ export default function decorate($block) {
     const $parentParagraph = $pics[0].parentNode;
     $parentDiv.insertBefore($pics[0], $parentParagraph);
   }
+  let overlay = false;
+  if ($block.classList.contains('overlay')) {
+    overlay = true;
+  }
   $cards.forEach(($card) => {
     $card.classList.add('card');
     const $cells = Array.from($card.children);
@@ -62,6 +66,7 @@ export default function decorate($block) {
     if (hasLink) {
       const $cardLink = $card.querySelector(':scope .card-link a');
       if ($cardLink) {
+        $cardLink.classList.add('card-container-link');
         $cardLink.innerText = '';
         $card.appendChild($cardLink);
         $cells.forEach((div) => {
@@ -69,6 +74,11 @@ export default function decorate($block) {
         });
         $card.querySelector(':scope .card-link').remove();
       }
+    }
+    if (overlay) {
+      const div = document.createElement('div');
+      div.classList.add('card-overlay');
+      $card.appendChild(div);
     }
   });
 }
