@@ -71,7 +71,8 @@
   --detail-font-size-xs: 0.75rem;
 
   /* height/widths */
-  --gutter-laptop: 1180px;
+  --max-width-laptop: 1180px;
+  --gutter: 2rem;
   --header-height: 64px;
   --section-spacing: 64px;
   --section-spacing-large: 96px;
@@ -196,12 +197,12 @@ main .section-wrapper > div:empty {
 main .section-wrapper > div,
 main .container {
   margin: auto;
-  padding: 0 2rem;
+  padding: 0 var(--gutter);
 }
 
 main .section-wrapper > div,
 main .container {
-  max-width: var(--gutter-laptop);
+  max-width: var(--max-width-laptop);
   margin-left: auto;
   margin-right: auto;
 }

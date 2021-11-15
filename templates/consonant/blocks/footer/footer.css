@@ -3,9 +3,9 @@ footer {
 }
 
 footer .footer-container .footer {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    max-width: var(--gutter-laptop);
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    max-width: var(--max-width-laptop);
     margin-left: auto;
     margin-right: auto;
     padding-top: var(--section-spacing-large);
