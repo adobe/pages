@@ -32,6 +32,7 @@ export default function decorate($block) {
     let hasPic;
     let hasLink;
     $cells.forEach(($e, cell) => {
+      const $cardLink = $e.querySelector(':scope a:first-child:last-child');
       if (cell === 0) {
         const pic = $e.querySelector(':scope picture');
         if (pic) {
@@ -41,7 +42,7 @@ export default function decorate($block) {
           $e.classList.add('card-text');
         }
       } else if (cell === 1) {
-        if (!hasPic) {
+        if (!hasPic && $cardLink) {
           $e.classList.add('card-text');
           $e.classList.add('card-link');
           hasLink = true;
@@ -49,12 +50,16 @@ export default function decorate($block) {
           $e.classList.add('card-text');
         }
       } else if (cell === 2) {
-        $e.classList.add('card-text');
-        $e.classList.add('card-link');
-        hasLink = true;
+        if ($cardLink && !hasLink) {
+          $e.classList.add('card-text');
+          $e.classList.add('card-link');
+          hasLink = true;
+        } else {
+          $e.remove();
+        }
       }
     });
-    if (hasPic && hasLink) {
+    if (hasLink) {
       const $cardLink = $card.querySelector(':scope .card-link a');
       if ($cardLink) {
         $cardLink.innerText = '';

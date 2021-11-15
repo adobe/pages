@@ -1,7 +1,7 @@
 main .cards {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch;
     margin: var(--section-spacing) 0;
 }
 
@@ -15,16 +15,34 @@ main .cards .card > a {
 
 main .cards .card {
     max-width: 400px;
-    margin: 10px;
+    margin: 12px;
     background: white;
     border: 1px solid #EAEAEA;
     border-radius: 4px;
     overflow: hidden;
+    min-width: 200px;
+    max-width: 370px;
 }
 
 main .cards .card-text {
-    padding: 10px;
-    padding-bottom: 50px;
+    padding: 8px 16px;
+    padding-bottom: 32px;
+}
+
+main .cards .card-text h6 {
+    text-transform: none;
+    color: #505050;
+    font-weight: 400;
+    padding: 0;
+}
+
+main .cards .card-text > :first-child {
+    padding-top: 0;
+}
+
+main .cards .card-text h6 + * {
+    padding-top: 2px;
+    min-height: 54px;
 }
 
 @media screen and (max-width: 799px) {
