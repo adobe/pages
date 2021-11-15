@@ -49,3 +49,13 @@ header {
     display: flex;
     align-items: center;
 }
+
+
+
+/* Temporary fix of mobile header */
+
+@media screen and (max-width: 1000px) {
+    .header ul {
+        display: none;
+    }
+}
