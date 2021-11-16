@@ -7,7 +7,8 @@ header {
     width: 100%;
     height: 65px;
     background-color: var(--color-white);
-    z-index: 20;
+    z-index: 200;
+    text-align: center;
 }
 
 header nav {
@@ -65,8 +66,8 @@ header a {
 }
 
 header li a {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 18px;
+    padding-right: 18px;
     transition: background-color .1s ease;
 }
 
@@ -92,6 +93,11 @@ header .header p a {
     padding: 0 4px;
 }
 
+header .header p {
+    padding: 4px 0;
+    box-sizing: border-box;
+}
+
 header .header > div > div {
     display: flex;
     align-items: center;
@@ -100,6 +106,7 @@ header .header > div > div {
 header .header-hamburger {
     display: none;
     height: 100%;
+    width: 65px;
     padding: 0;
     margin: 0;
     font-weight: 300;
@@ -110,27 +117,122 @@ header .header-hamburger {
     box-shadow: none;
     cursor: pointer;
     box-sizing: border-box;
-    padding: 0 var(--gutter);
 }
 
 header .header-hamburger:before {
     content: "\2630";
 }
 
+header .header-hamburger[aria-expanded=true]:before {
+    content: "\2715";
+}
 
+header .header-left-top {
+    z-index: 199;
+}
 
-/* Temporary fix of mobile header */
+.menu-open-background {
+    height: 200vh;
+    width: 200vw;
+    position: fixed;
+    top: -2px;
+    left: -2px;
+    background: #000;
+    opacity: 0.5;
+    z-index: 19;
+    display: none;
+}
+
+header .header .header-left-nav div {
+    height: 100%;
+    display: flex;
+}
 
 @media screen and (max-width: 1000px) {
-    header .header ul {
-        display: none;
+    header {
+        text-align: left;
+    }
+    
+    header.menu-open ~ .menu-open-background {
+        display: block;
     }
 
     header .header-hamburger {
         display: block;
     }
 
-    header .header {
-        padding-left: 0;
+    header .header .header-left-top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        height: 64px;
+    }
+
+    header .header .header-left-nav {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        height: 200vh;
+        width: calc(100% - 20px);
+        background-color: #FAFAFA;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    header .header .header-left-nav div {
+        height: auto;
+    }
+
+    header.menu-open .header .header-left-nav {
+        display: flex;
+    }
+
+    header .header .header-left-nav ul {
+        height: auto;
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    
+    header .header .header-left-nav > div {
+        height: 100%;
+        width: 100%;
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+    }
+
+    header .header .header-left-nav p {
+        height: auto;
+    }
+
+    header .header .header-left-nav li {
+        height: auto;
+    }
+
+    header .header .header-left-nav li:first-child a {
+        margin-left: 0;
+    }
+
+    header .header .header-left-nav li,
+    header .header .header-left-nav a {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    header .header .header-left-nav li {
+        padding: 2px;
+        padding-right: 4px;
+    }
+    header .header .header-left-nav a {
+        padding: 16px 35px 16px 20px;
+        border-bottom: solid 1px #f3f3f3;
+    }
+
+    header .header .header-hamburger[aria-expanded=true] ~ .header-left-nav {
+        display: flex;
     }
 }
