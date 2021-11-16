@@ -177,7 +177,8 @@ main .section-wrapper {
 
 main .section-wrapper:first-of-type {
   padding: 0;
-  margin-top: calc(var(--header-height) + var(--section-spacing));
+  margin-top: var(--header-height);
+  padding-top: var(--section-spacing);
 }
 
 main .section-wrapper:last-of-type {

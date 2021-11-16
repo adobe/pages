@@ -10,9 +10,37 @@
  * governing permissions and limitations under the License.
  */
 
+import {
+  insertAfter,
+} from '../../consonant.js';
+
 export default function decorate($block) {
+  const $otherCells = Array.from($block.querySelectorAll(':scope > div:not(:first-of-type)'));
+  $otherCells.forEach(($cell) => {
+    if ($cell) {
+      insertAfter($cell, $block);
+    }
+  });
   const $headerTag = document.querySelector('header');
-  const $headerContainer = $block.parentElement.parentElement;
-  $headerContainer.classList.remove('section-wrapper');
-  $headerTag.append($headerContainer);
+  const $headerContainer = $block.closest('.header-container');
+  $headerContainer.classList.remove('header-container');
+  $block.classList.remove('block');
+  const $nav = document.createElement('nav');
+  $headerTag.append($nav);
+
+  $nav.append($block);
+  if ($headerContainer.firstElementChild.childElementCount === 0) {
+    $headerContainer.remove();
+  }
+  $headerTag.classList.add('appear');
+  const $headerLeft = $block.querySelector(':scope > div');
+  $headerLeft.classList.add('header-left');
+  const $headerRight = document.createElement('div');
+  $headerRight.classList.add('header-right');
+  const $lastCell = $block.querySelector(':scope > div > div:last-of-type:not(:first-of-type)');
+  if ($lastCell) {
+    $block.append($headerRight);
+    $headerRight.append($lastCell);
+  }
+  $headerLeft.insertAdjacentHTML('afterbegin', '<button class="header-hamburger" aria-expanded="false" aria-haspopup="true" aria-label="Navigation menu" tabindex="1" role="button" type="button"></button>');
 }

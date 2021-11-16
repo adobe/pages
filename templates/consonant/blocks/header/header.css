@@ -8,46 +8,113 @@ header {
     height: 65px;
     background-color: var(--color-white);
     z-index: 20;
-  }
+}
 
-/* probably fix this later by copying from somewhere else */
-.header-container,
-.header-container > div,
-.header,
-.header > div,
-.header > div > div {
+header nav {
     height: 100%;
     width: 100%;
-}
-
-.header-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 var(--gutter);
-}
-
-.header ul {
     display: flex;
+}
+
+.header {
+    display: none;
+    height: 0px;
+    overflow: hidden;
+}
+
+header.appear .header {
+    display: flex;
+    height: 100%;
+    overflow: auto;
+}
+
+header .header {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--gutter);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+header .header-right,
+header .header-left,
+header .header-right > div,
+header .header-left > div,
+header p,
+header a,
+header ul,
+header li {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+header a {
+    color: #2c2c2c;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+header li a {
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: background-color .1s ease;
+}
+
+header li:first-child a {
+    margin-left: 20px;
+}
+
+header li a:hover {
+    background-color: #FAFAFA;
+}
+
+header .header ul {
     list-style-type: none;
 }
 
-.header ul li {
-    margin: 0 4px;
-}
-
-.header img {
+header .header img {
     height: 26px;
     width: auto;
     margin: 0;
 }
 
-.header p {
+header .header p {
     margin: 0;
 }
 
-.header > div > div {
+header .header > div > div {
     display: flex;
     align-items: center;
+}
+
+header .header-hamburger {
+    display: none;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-weight: 300;
+    font-size: 20px;
+    color: #2d2d2d;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0 var(--gutter);
+}
+
+header .header-hamburger:before {
+    content: "\2630";
 }
 
 
@@ -55,7 +122,15 @@ header {
 /* Temporary fix of mobile header */
 
 @media screen and (max-width: 1000px) {
-    .header ul {
+    header .header ul {
         display: none;
+    }
+
+    header .header-hamburger {
+        display: block;
+    }
+
+    header .header {
+        padding-left: 0;
     }
 }

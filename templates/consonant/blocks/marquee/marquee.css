@@ -8,10 +8,12 @@
 
 main .section-wrapper:first-of-type.marquee-container {
     margin-top: var(--header-height);
+    padding-top: 0;
 }
 
 main .section-wrapper:first-of-type.marquee-container > div > :first-child:not(.marquee) {
-    margin-top: calc(var(--header-height) + var(--section-spacing));
+    margin-top: var(--header-height);
+    padding-top: var(--section-spacing);
 }
 
 main .section-wrapper:first-of-type.marquee-container .marquee:first-child {

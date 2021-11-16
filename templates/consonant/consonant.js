@@ -584,7 +584,7 @@ export function isAttr(node, attr, val) {
  * Decorate Buttons
  */
 export function decorateButtons(block = document) {
-  const $blocksWithoutButton = ['header', 'footer', 'cards'];
+  const $blocksWithoutButton = ['footer', 'cards'];
   block.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent;
     const $block = $a.closest('div.section-wrapper > div > div');
