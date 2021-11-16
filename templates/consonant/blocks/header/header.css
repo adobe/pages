@@ -88,8 +88,8 @@ header .header img {
     margin: 0;
 }
 
-header .header p {
-    margin: 0;
+header .header p a {
+    padding: 0 4px;
 }
 
 header .header > div > div {

@@ -78,6 +78,12 @@
   --section-spacing-large: 96px;
 }
 
+@media screen and (max-width: 1000px) {
+  :root {
+    --gutter: 1.5rem;
+  }
+}
+
 @media (min-width: 900px) {
   :root {
     --heading-font-size-xxxl: 3.75rem; /* 60px */

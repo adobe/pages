@@ -1,6 +1,6 @@
 main .background-container {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
 }
 
 main .background-container + .background-container {
