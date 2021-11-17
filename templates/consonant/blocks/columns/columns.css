@@ -68,10 +68,14 @@ main .columns .column:last-child:not(.column-picture) {
 
 main .columns.large .column {
   width: 40%;
+  min-width: 40%;
+  max-width: 40%;
 }
 
 main .columns.large .column-picture {
   width: 60%;
+  min-width: 60%;
+  max-width: 60%;
 }
 
 main .columns.large .column:not(.column-picture) {

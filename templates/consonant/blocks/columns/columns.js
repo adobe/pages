@@ -9,6 +9,9 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import {
+  isNodeName,
+} from '../../consonant.js';
 
 export default function decorate($block) {
   const $rows = Array.from($block.children);
@@ -25,14 +28,7 @@ export default function decorate($block) {
     const $columns = Array.from($row.children);
     $columns.forEach(($column) => {
       $column.classList.add('column');
-      const $pics = $column.querySelectorAll(':scope picture');
-      $column.querySelectorAll(':scope p:empty').forEach(($p) => $p.remove());
-      if ($pics.length === 1 && $pics[0].parentElement.tagName === 'P') {
-        const $parentDiv = $pics[0].closest('div');
-        const $parentParagraph = $pics[0].parentNode;
-        $parentDiv.insertBefore($pics[0], $parentParagraph);
-      }
-      if ($column.firstElementChild.tagName === 'PICTURE') {
+      if (isNodeName($column.firstElementChild, 'picture')) {
         $column.classList.add('column-picture');
       }
     });
