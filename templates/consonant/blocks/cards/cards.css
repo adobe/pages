@@ -226,6 +226,15 @@ main .cards.horizontal .card-picture {
         flex-basis: 25%;
     }
 
+    main .cards.overlay {
+        gap: 24px;
+        padding: 12px 0;
+    }
+
+    main .cards.overlay .card {
+        margin: 0;
+    }
+    
     main .cards.overlay .card,
     main .cards.horizontal .card {
         margin-left: 0;
