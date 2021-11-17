@@ -39,13 +39,6 @@ function mobileMenuListeners($block) {
     }
   });
 
-  // Keyboard accessibility for hamburger
-  $hamburger.addEventListener('keydown', (event) => {
-    if (event.code === 'Space' || event.code === 'Enter') {
-      $hamburger.click();
-    }
-  });
-
   // Close mobile menu if press Escape key
   document.addEventListener('keydown', (event) => {
     if (event.code === 'Escape' && $header.classList.contains('menu-open')) {
@@ -57,6 +50,13 @@ function mobileMenuListeners($block) {
   const $backdrop = document.querySelector('.menu-open-background');
   $backdrop.addEventListener('click', () => {
     closeMobileMenu();
+  });
+
+  // Close mobile menu if they focus out
+  $header.addEventListener('focusout', (e) => {
+    if (!$header.contains(e.relatedTarget)) {
+      closeMobileMenu();
+    }
   });
 }
 
