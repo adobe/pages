@@ -273,7 +273,7 @@ a.button:any-link {
   transition: background-color .3s, color .3s, border .3s;
   border-width: 2px;
   border-style: solid;
-  margin: 10px;
+  margin: 10px 7px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
