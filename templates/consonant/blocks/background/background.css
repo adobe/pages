@@ -11,6 +11,7 @@ main .background-container {
     background-color: #f8f8f8;
 }
 
-main .background-container .cards:last-child {
-    margin-bottom: 8px;
+main .background-container .cards:last-child,
+main .background-container .columns:last-child .columns-row:last-child {
+    margin-bottom: 16px;
 }
