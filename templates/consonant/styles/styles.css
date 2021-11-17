@@ -71,7 +71,9 @@
   --detail-font-size-xs: 0.75rem;
 
   /* height/widths */
-  --max-width-laptop: 1180px;
+  --max-width-block-laptop: 1180px;
+  --max-width-text-laptop: 600px;
+  --max-width-mobile: 500px;
   --gutter: 2rem;
   --header-height: 64px;
   --section-spacing: 64px;
@@ -191,14 +193,12 @@ main .section-wrapper:last-of-type {
   margin-bottom: 0;
 }
 
-@media (min-width:600px) {
-  main .section-wrapper > div {
-    max-width: unset;
-  }
-}
-
 main .section-wrapper > div:empty {
   padding: 0;
+}
+
+main .section-wrapper p.button-container {
+  line-height: 0;
 }
 
 main .section-wrapper > div,
@@ -209,25 +209,36 @@ main .container {
 
 main .section-wrapper > div,
 main .container {
-  max-width: var(--max-width-laptop);
+  max-width: var(--max-width-block-laptop);
   margin-left: auto;
   margin-right: auto;
 }
 
 main .section-wrapper > div > :not(div) {
-  max-width: 600px;
+  max-width: var(--max-width-text-laptop);
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
 
 main .section-wrapper > div > p {
-  max-width: 900px;
+  max-width: var(--max-width-text-laptop);
 }
 
+@media screen and (max-width: 799px) {
+  main .section-wrapper > div,
+  main .container {
+    max-width: var(--max-width-mobile);
+  }
 
-main .section-wrapper p.button-container {
-  line-height: 0;
+  main .section-wrapper > div > :not(div) {
+    max-width: var(--max-width-mobile);
+    text-align: left;
+  }
+
+  main .section-wrapper > div > p.button-container {
+    justify-content: flex-start;
+  }
 }
 
 /* links */
@@ -454,7 +465,7 @@ main .figure .caption {
 
 @media (min-width: 700px) {
   main .figure .caption {
-    max-width: 600px;
+    max-width: var(--max-width-text-laptop);
     margin-left: auto;
     margin-right: auto;
   }

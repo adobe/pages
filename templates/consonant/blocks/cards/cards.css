@@ -12,6 +12,7 @@ main .cards {
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
+    gap: 24px;
 }
 
 main .cards-container p + .cards, 
@@ -41,23 +42,16 @@ main .cards .card > a {
 }
 
 main .cards .card {
-    max-width: 400px;
-    margin: 12px;
+    max-width: var(--max-width-mobile);
     background: white;
     border: 1px solid #EAEAEA;
     border-radius: 4px;
     overflow: hidden;
     width: 100%;
     min-width: 200px;
-    max-width: 200px;
+    max-width: var(--max-width-mobile);
     position: relative;
-}
-
-main .cards.col-3-cards .card,
-main .cards.col-4-cards .card,
-main .cards.col-5-cards .card,
-main .cards.col-6-cards .card {
-    max-width: 370px;    
+    margin: 0;
 }
 
 main .cards.col-2-cards .card{
@@ -283,6 +277,6 @@ main .cards.horizontal .card-picture {
     main .cards.col-5-cards,
     main .cards.col-6-cards {
         flex-wrap: wrap;
-        max-width: 370px;
+        max-width: var(--max-width-mobile);
     }
 }

@@ -32,9 +32,15 @@ main .section-wrapper.marquee-container > div {
 main .section-wrapper.marquee-container > div > :not(.marquee) {
     padding-left: var(--gutter);
     padding-right: var(--gutter);
-    max-width: var(--max-width-laptop);
+    max-width: var(--max-width-block-laptop);
     margin-left: auto;
     margin-right: auto;
+}
+
+@media screen and (max-width: 799px) {
+    main .section-wrapper.marquee-container > div > :not(.marquee) {
+        max-width: var(--max-width-mobile);
+    }
 }
 
 main .marquee {
@@ -115,7 +121,7 @@ main .marquee .container .marquee-column:first-child h3,
 main .marquee .container .marquee-column:first-child h4,
 main .marquee .container .marquee-column:first-child h5,
 main .marquee .container .marquee-column:first-child h6 {
-    max-width: 500px;
+    max-width: var(--max-width-mobile);
 }
 
 main .marquee.center .container .marquee-column:first-child h1,
