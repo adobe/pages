@@ -186,4 +186,12 @@ main .columns .column-picture img {
     padding: 0;
     max-width: 360px;
   }
+
+  main .columns.small h2 {
+    font-size: var(--heading-font-size-m);
+  }
+
+  main .columns.small h3 {
+    font-size: var(--heading-font-size-s);
+  }
 }

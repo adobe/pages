@@ -69,6 +69,14 @@ main .cards .card-text {
     padding-bottom: 20px;
 }
 
+main .cards.cards.horizontal .card-text {
+    padding-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
 main .cards .card-text h6 {
     text-transform: none;
     color: #505050;
@@ -167,6 +175,8 @@ main .cards.overlay .card-text a {
 main .cards.horizontal .card,
 main .cards.horizontal .card-container-link {
     display: flex;
+    width: 100%;
+    height: 100%;
 }
 
 main .cards.horizontal .card-picture {
