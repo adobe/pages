@@ -280,14 +280,15 @@ a.button:any-link {
   display: inline-block;
 }
 
-p.button-container > :first-child,
-p.button-container > :first-child a.button {
-  margin-left: 0;
+p.button-container {
+  display: flex;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  gap: 14px;
 }
 
-p.button-container > :last-child,
-p.button-container > :last-child a.button {
-  margin-right: 0;
+p.button-container a.button {
+  margin: 0;
 }
 
 a.button.xlarge:any-link {
