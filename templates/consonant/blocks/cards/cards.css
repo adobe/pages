@@ -64,6 +64,7 @@ main .cards .card-text h6 {
     color: #505050;
     font-weight: 400;
     padding: 0;
+    letter-spacing: 0;
 }
 
 main .cards .card-text > :first-child {
