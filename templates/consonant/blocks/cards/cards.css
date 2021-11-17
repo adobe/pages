@@ -14,6 +14,16 @@ main .cards {
     margin-right: auto;
 }
 
+main .cards-container p + .cards, 
+main .cards-container h1 + .cards, 
+main .cards-container h2 + .cards, 
+main .cards-container h3 + .cards, 
+main .cards-container h4 + .cards, 
+main .cards-container h5 + .cards,
+main .cards-container h6 + .cards {
+    margin-top: 32px;
+}
+
 main .cards.col-2-cards,
 main .cards.col-3-cards,
 main .cards.col-4-cards,
