@@ -181,6 +181,11 @@ main .columns .column-picture img {
     max-width: 500px;
     text-align: center;
   }
+  
+
+  main .columns.large .columns-row .column p.button-container {
+    justify-content: center;
+  }
 
   main .columns.small .columns-row .column {
     padding: 0;
