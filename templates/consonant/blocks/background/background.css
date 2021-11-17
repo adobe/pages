@@ -10,3 +10,7 @@ main .background-container + .background-container {
 main .background-container {
     background-color: #f8f8f8;
 }
+
+main .background-container .cards:last-child {
+    margin-bottom: 8px;
+}
