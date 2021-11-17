@@ -285,6 +285,11 @@ p.button-container {
   margin: 10px 0;
   flex-wrap: wrap;
   gap: 14px;
+  justify-content: flex-start;
+}
+
+.center p.button-container {
+  justify-content: center;
 }
 
 p.button-container a.button {
