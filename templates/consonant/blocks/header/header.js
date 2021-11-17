@@ -29,6 +29,7 @@ function closeMobileMenu() {
 function mobileMenuListeners($block) {
   const $header = document.querySelector('header');
   const $hamburger = $block.querySelector('.header-hamburger');
+  const $nav = $block.querySelector('.header-left-top');
 
   // Toggle mobile menu if click on hamburger
   $hamburger.addEventListener('click', () => {
@@ -54,8 +55,9 @@ function mobileMenuListeners($block) {
 
   // Close mobile menu if they focus out
   $header.addEventListener('focusout', (e) => {
-    if (!$header.contains(e.relatedTarget)) {
+    if (!$header.contains(e.relatedTarget) && !$nav.contains(e.target)) {
       closeMobileMenu();
+      $hamburger.focus();
     }
   });
 }
