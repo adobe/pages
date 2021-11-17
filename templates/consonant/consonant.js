@@ -973,30 +973,4 @@ function registerPerformanceLogger() {
   }
 }
 
-// Scroll to anchor links
-function scrollToAnchorLinks() {
-  const $links = Array.from(document.querySelectorAll('a'));
-  const headerHeight = '64';
-  const $header = document.querySelector('header');
-  $links.forEach(($link) => {
-    if ($link.hash) {
-      const $anchorPoint = document.querySelector($link.hash) || false;
-      if ($anchorPoint) {
-        $link.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.scrollTo({
-            top: $anchorPoint.offsetTop - headerHeight,
-            behavior: 'smooth',
-          });
-          if ($header.classList.contains('menu-open')) {
-            $header.classList.remove('menu-open');
-            document.body.style.overflow = '';
-          }
-        }, false);
-      }
-    }
-  });
-}
-scrollToAnchorLinks();
-
 if (window.name.includes('performance')) registerPerformanceLogger();
