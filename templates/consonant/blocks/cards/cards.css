@@ -179,6 +179,26 @@ main .cards.horizontal .card-container-link {
     height: 100%;
 }
 
+main .cards.horizontal {
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 12px 0;
+}
+
+main .cards.col-3-cards.horizontal {
+    flex-wrap: nowrap;
+}
+
+main .cards.horizontal .card {
+    flex-basis: 40%;
+    margin: 0;
+}
+
+main .cards.horizontal.col-4-cards .card {
+    flex-basis: 50%;
+    min-width: 35%;
+}
+
 main .cards.horizontal .card-picture {
     min-width: 110px;
 }
@@ -189,7 +209,11 @@ main .cards.horizontal .card-picture {
     }
 
     main .cards.col-4-cards .card {
-        flex-basis: 45%;
+        flex-basis: 50%;
+    }
+
+    main .cards.horizontal.col-4-cards .card {
+        flex-basis: 100%;
     }
 }
 
@@ -201,11 +225,21 @@ main .cards.horizontal .card-picture {
     main .cards.col-5-cards .card {
         flex-basis: 25%;
     }
-    
-    main .cards.horizontal {
+
+    main .cards.overlay .card,
+    main .cards.horizontal .card {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    main .cards.col-3-cards.horizontal {
         flex-wrap: wrap;
     }
 
+    main .cards.col-3-cards.horizontal .card {
+        flex-basis: 100%;
+        min-width: 55%;
+    }
 }
 
 @media screen and (max-width: 1420px) {
@@ -215,6 +249,11 @@ main .cards.horizontal .card-picture {
 
     main .cards.col-6-cards .card {
         flex-basis: 25%;
+    }
+    
+    main .cards.horizontal .card {
+        flex-basis: 50%;
+        margin: 0;
     }
 }
 
