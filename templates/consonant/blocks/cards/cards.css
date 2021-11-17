@@ -22,7 +22,7 @@ main .cards-container h3 + .cards,
 main .cards-container h4 + .cards, 
 main .cards-container h5 + .cards,
 main .cards-container h6 + .cards {
-    margin-top: 32px;
+    margin-top: 40px;
 }
 
 main .cards.col-2-cards,
@@ -38,11 +38,9 @@ main .cards .card > a {
     font-weight: unset;
     font-size: unset;
     line-height: unset;
-
 }
 
 main .cards .card {
-    max-width: var(--max-width-mobile);
     background: white;
     border: 1px solid #EAEAEA;
     border-radius: 4px;
@@ -50,12 +48,8 @@ main .cards .card {
     width: 100%;
     min-width: 200px;
     max-width: var(--max-width-mobile);
-    position: relative;
     margin: 0;
-}
-
-main .cards.col-2-cards .card{
-    max-width: none;
+    position: relative;
 }
 
 main .cards .card-text {
@@ -175,8 +169,6 @@ main .cards.horizontal .card-container-link {
 
 main .cards.horizontal {
     flex-wrap: wrap;
-    gap: 24px;
-    padding: 12px 0;
 }
 
 main .cards.col-3-cards.horizontal {
@@ -185,12 +177,11 @@ main .cards.col-3-cards.horizontal {
 
 main .cards.horizontal .card {
     flex-basis: 40%;
-    margin: 0;
 }
 
 main .cards.horizontal.col-4-cards .card {
     flex-basis: 50%;
-    min-width: 35%;
+    width: 100%;
 }
 
 main .cards.horizontal .card-picture {
@@ -220,28 +211,13 @@ main .cards.horizontal .card-picture {
         flex-basis: 25%;
     }
 
-    main .cards.overlay {
-        gap: 24px;
-        padding: 12px 0;
-    }
-
-    main .cards.overlay .card {
-        margin: 0;
-    }
-    
-    main .cards.overlay .card,
-    main .cards.horizontal .card {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
     main .cards.col-3-cards.horizontal {
         flex-wrap: wrap;
     }
 
     main .cards.col-3-cards.horizontal .card {
         flex-basis: 100%;
-        min-width: 55%;
+        width: 100%;
     }
 }
 
@@ -256,7 +232,6 @@ main .cards.horizontal .card-picture {
     
     main .cards.horizontal .card {
         flex-basis: 50%;
-        margin: 0;
     }
 }
 
