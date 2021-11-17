@@ -178,6 +178,7 @@ main .columns .column-picture img {
   main .columns .columns-row .column {
     padding: 0;
     width: 100%;
+    min-width: 100%;
     max-width: var(--max-width-mobile);
     margin-bottom: 16px;
   }
