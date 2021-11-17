@@ -229,12 +229,15 @@ export function decorateBlock(block) {
       blockName = b;
       block.classList.add(b);
       block.classList.add(...options);
-
-      if (section) {
-        section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
-      }
     }
   });
+  if (section) {
+    section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+    const $sectionTitle = section.querySelector('h1') || section.querySelector('h2') || section.querySelector('h3') || section.querySelector('h4') || section.querySelector('h5');
+    if ($sectionTitle && typeof $sectionTitle !== 'undefined') {
+      section.id = `${$sectionTitle.id}`;
+    }
+  }
 
   block.classList.add('block');
   block.setAttribute('data-block-name', blockName);
@@ -969,5 +972,31 @@ function registerPerformanceLogger() {
     // no output
   }
 }
+
+// Scroll to anchor links
+function scrollToAnchorLinks() {
+  const $links = Array.from(document.querySelectorAll('a'));
+  const headerHeight = '64';
+  const $header = document.querySelector('header');
+  $links.forEach(($link) => {
+    if ($link.hash) {
+      const $anchorPoint = document.querySelector($link.hash) || false;
+      if ($anchorPoint) {
+        $link.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({
+            top: $anchorPoint.offsetTop - headerHeight,
+            behavior: 'smooth',
+          });
+          if ($header.classList.contains('menu-open')) {
+            $header.classList.remove('menu-open');
+            document.body.style.overflow = '';
+          }
+        }, false);
+      }
+    }
+  });
+}
+scrollToAnchorLinks();
 
 if (window.name.includes('performance')) registerPerformanceLogger();
