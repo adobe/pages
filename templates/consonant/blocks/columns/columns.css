@@ -50,6 +50,8 @@ main .columns.large .columns-row {
 
 main .columns .column {
   width: 50%;
+  min-width: 50%;
+  max-width: 50%;
   box-sizing: border-box;
 }
 
