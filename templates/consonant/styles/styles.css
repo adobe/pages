@@ -288,8 +288,13 @@ p.button-container {
   justify-content: flex-start;
 }
 
-.center p.button-container {
+.center p.button-container,
+.section-wrapper > div > p.button-container {
   justify-content: center;
+}
+
+.right p.button-container {
+  justify-content: flex-end;
 }
 
 p.button-container a.button {
