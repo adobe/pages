@@ -795,7 +795,7 @@ async function loadLazy() {
 
   loadBlocks(main);
   loadCSS('/templates/consonant/styles/lazy-styles.css');
-  addFavIcon('/templates/consonant/styles/favicon.svg');
+  // addFavIcon('/templates/consonant/styles/favicon.svg');
 }
 
 /**
