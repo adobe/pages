@@ -242,6 +242,24 @@ main .section-wrapper > div > p {
   }
 }
 
+/* Spacing options */
+
+main .padding-top-L {
+  padding-top: var(--section-spacing-large) !important;
+}
+
+main .padding-bottom-L {
+  padding-bottom: var(--section-spacing-large) !important;
+}
+
+main .no-margin-top {
+  margin-top: 0 !important;
+}
+
+main .no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
 /* links */
 
 main a:any-link {

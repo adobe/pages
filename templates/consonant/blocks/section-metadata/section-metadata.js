@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-function background($sectionWrapper, color) {
+function applyBackground($sectionWrapper, color) {
   $sectionWrapper.style.backgroundColor = color;
   $sectionWrapper.classList.add('background-container');
 
@@ -22,9 +22,9 @@ function background($sectionWrapper, color) {
     if ($lastChild) {
       noMarginBlocks.forEach((blockName) => {
         if ($lastChild.classList.contains(blockName)) {
-          $previousSection.style.marginBottom = '0';
-          $lastChild.style.marginBottom = '0';
-          $sectionWrapper.style.marginTop = '0';
+          $previousSection.classList.add('no-margin-bottom');
+          $lastChild.classList.add('no-margin-bottom');
+          $sectionWrapper.classList.add('no-margin-top');
         }
       });
     }
@@ -35,12 +35,18 @@ function background($sectionWrapper, color) {
     if ($firstChild) {
       noMarginBlocks.forEach((blockName) => {
         if ($firstChild.classList.contains(blockName)) {
-          $nextSection.style.marginTop = '0';
-          $firstChild.style.marginTop = '0';
-          $sectionWrapper.style.marginBottom = '0';
+          $nextSection.classList.add('no-margin-top');
+          $firstChild.classList.add('no-margin-top');
+          $sectionWrapper.classList.add('no-margin-bottom');
         }
       });
     }
+  }
+}
+
+function applyTheme($sectionWrapper, theme) {
+  if (theme === 'dark') {
+    $sectionWrapper.classList.add('dark-theme');
   }
 }
 
@@ -51,10 +57,13 @@ export default function decorate($block) {
   $rows.forEach(($row) => {
     const $cells = Array.from($row.children);
     if ($cells[0] && $cells[1]) {
-      const meta = $cells[0].innerText;
-      const value = $cells[1].innerText;
+      const meta = $cells[0].innerText || '';
+      const value = $cells[1].innerText || '';
       if ((/background/gi).test(meta)) {
-        background($sectionWrapper, value);
+        applyBackground($sectionWrapper, value.trim().toLowerCase());
+      }
+      if ((/theme/gi).test(meta)) {
+        applyTheme($sectionWrapper, value.trim().toLowerCase());
       }
     }
   });

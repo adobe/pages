@@ -28,7 +28,7 @@ export default function decorate($block) {
     const $columns = Array.from($row.children);
     $columns.forEach(($column) => {
       $column.classList.add('column');
-      if (isNodeName($column.firstElementChild, 'picture')) {
+      if (isNodeName($column.firstElementChild, 'picture') || isNodeName($column.firstElementChild.firstElementChild, 'picture')) {
         $column.classList.add('column-picture');
       }
     });
