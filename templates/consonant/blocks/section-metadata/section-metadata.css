@@ -1,3 +1,7 @@
+main .section-metadata {
+    display: none;
+}
+
 main .background-container {
     padding-top: var(--section-spacing);
     padding-bottom: var(--section-spacing);
