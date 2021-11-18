@@ -128,6 +128,10 @@ main .block {
   visibility: unset;
 }
 
+.dark-theme {
+  color: var(--color-white);
+}
+
 p {
   margin: 0;
   padding-top: 8px;
@@ -415,39 +419,21 @@ a.button.transparent:any-link:active {
   background-color: var(--color-info-transparent-bg-down);
 }
 
-a.button.dark:any-link {
-  color: var(--color-black);
-  background-color: var(--color-white);
-  border-color: var(--color-white);
-}
-
-a.button.dark:any-link:hover {
-  color: var(--color-black);
-  background-color: var(--color-gray-100);
-  border-color: var(--color-gray-100);
-}
-
-a.button.dark:any-link:active {
-  color: var(--color-black);
-  background-color: var(--color-gray-200);
-  border-color: var(--color-gray-200);
-}
-
-a.button.dark.transparent:any-link {
+.dark-theme a.button.transparent:any-link {
   color: var(--color-white);
   border-color: var(--color-white);
   background-color: var(--color-info-transparent-bg);
 }
 
-a.button.dark.transparent:any-link:hover {
+.dark-theme a.button.transparent:any-link:hover {
   color: var(--color-white);
-  border-color: var(--color-gray-100);
+  border-color: var(--color-white);
   background-color: var(--color-info-transparent-bg-hover);
 }
 
-a.button.dark.transparent:any-link:active {
+.dark-theme a.button.transparent:any-link:active {
   color: var(--color-white);
-  border-color: var(--color-gray-200);
+  border-color: var(--color-white);
   background-color: var(--color-info-transparent-bg-down);
 }
 

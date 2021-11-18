@@ -1,10 +1,11 @@
 /*-- Marquee Variants --*/
-/* [small(default), medium, large, center, right] */
+/* [small(default), medium, large, center, right, light] */
 /* Small marquees are min 400 pixels tall */
 /* Medium marquees are min 560 pixels tall */
 /* Large marquees are min 700 pixels tall */
 /* Center aligns the text center */
 /* Right aligns the text right */
+/* Light changes the default dark theme to light theme */
 
 main .section-wrapper:first-of-type.marquee-container {
     margin-top: var(--header-height);
@@ -54,12 +55,46 @@ main .marquee {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+main .marquee:not(.light) {
     color: var(--color-white);
 }
 
 main .marquee a.button.transparent:any-link {
     color: var(--color-white);
     border-color: var(--color-white);
+    background-color: var(--color-info-transparent-bg);
+}
+
+main .marquee a.button.transparent:any-link:hover {
+    color: var(--color-white);
+    border-color: var(--color-white);
+    background-color: var(--color-info-transparent-bg-hover);
+}
+
+main .marquee a.button.transparent:any-link:active {
+    color: var(--color-white);
+    border-color: var(--color-white);
+    background-color: var(--color-info-transparent-bg-down);
+}
+
+main .marquee.light a.button.transparent:any-link {
+    color: var(--color-info-transparent);
+    border-color: var(--color-info-transparent);
+    background-color: var(--color-info-transparent-bg);
+}
+
+main .marquee.light a.button.transparent:any-link:hover {
+    color: var(--color-info-transparent-hover);
+    border-color: var(--color-info-transparent-hover);
+    background-color: var(--color-info-transparent-bg-hover);
+}
+
+main .marquee.light a.button.transparent:any-link:active {
+    color: var(--color-info-transparent-down);
+    border-color: var(--color-info-transparent-down);
+    background-color: var(--color-info-transparent-bg-down);
 }
 
 main .marquee h2 {

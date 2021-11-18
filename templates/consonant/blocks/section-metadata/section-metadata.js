@@ -11,7 +11,12 @@
  */
 
 function applyBackground($sectionWrapper, color) {
+  console.log('works');
+  console.log($sectionWrapper);
+  console.log(color);
   $sectionWrapper.style.backgroundColor = color;
+  console.log($sectionWrapper);
+  console.log($sectionWrapper.style.color);
   $sectionWrapper.classList.add('background-container');
 
   // Removes unwanted margin from colorful blocks to avoid the extra white space:
