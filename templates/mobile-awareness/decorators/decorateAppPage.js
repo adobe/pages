@@ -83,7 +83,7 @@ function decorateTutorialPrompt() {
     }
   });
 
-  const link = createTag('a', { class: 'fake-link no-mobile' });
+  const link = createTag('span', { class: 'fake-link no-mobile no-tablet' });
   link.innerHTML = 'Text me a download link >';
   openModalLink(link, /.*\/([^/]*)\/?$/gi.exec(window.location.href.split('?')[0])?.[1]);
 
@@ -125,6 +125,15 @@ function decorateAppInspiration() {
   const existingEl = document.querySelector('.mobile-awareness-app-inspiration');
   if (!existingEl) return;
   wrapContents(existingEl, { innerAttrs: { class: 'section-wrapper' } });
+
+  // images also are links
+  existingEl.querySelectorAll('.app-inspiration .row').forEach((inspirationEl) => {
+    const link = inspirationEl.querySelector('a');
+    const imageContainer = inspirationEl.querySelector('.cell');
+    const newImageContainer = replaceTag(imageContainer, 'a');
+    newImageContainer.href = link.href;
+    newImageContainer.setAttribute('target', '_blank');
+  });
 }
 
 function decorateAppOthers() {

@@ -9,12 +9,11 @@
 
 html,
 body {
-  font-size: 16px;
+  font-size: calc(min(16px, max(1.2vw, 14px)));
 }
-@media (max-width: 1200px) {
-  html,
+@media (max-width: 1023px) {
   body {
-    font-size: 14.5px;
+    padding-top: var(--menu-height);
   }
 }
 @media (max-width: 767px) {
@@ -46,7 +45,7 @@ h2 {
 .section-wrapper {
   position: relative;
   max-width: 1200px;
-  width: 95%;
+  width: 93%;
   margin: auto;
 }
 @media (max-width: 767px) {
@@ -65,11 +64,11 @@ h2 {
 }
 
 .gray-zone {
-  padding: 60px 0;
+  padding: 3.75rem 0;
   background: var(--light_gray);
 }
 .get-links {
-  margin-top: 30px;
+  margin-top: 1.875rem;
   text-align: left;
 }
 .get-links picture {
@@ -77,14 +76,14 @@ h2 {
 }
 .get-buttons {
   display: flex;
-  margin-top: 5px;
+  margin-top: 0.3125rem;
 }
 .get-links.one-line {
   display: flex;
   align-items: flex-end;
 }
 .get-links.one-line > *:not(:first-child) {
-  margin-left: 20px;
+  margin-left: 1.25rem;
 }
 @media (max-width: 767px) {
   .get-links.one-line > *:not(:first-child) {
@@ -93,18 +92,18 @@ h2 {
 }
 
 .get-buttons .button {
-  margin-right: 20px;
+  margin-right: 1.25rem;
 }
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   .get-links img {
     display: none;
   }
-}
+} */
 
 .grid-2 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 1rem;
 }
 @media (max-width: 767px) {
   .grid-2 .row {
@@ -135,7 +134,7 @@ h2 {
 }
 .text-app-modal {
   position: relative;
-  max-width: 500px;
+  max-width: 31.25rem;
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -146,10 +145,10 @@ h2 {
   position: absolute;
   top: 0;
   right: 0;
-  width: 45px;
-  height: 45px;
+  width: 2.8rem;
+  height: 2.8rem;
   font-size: 1.56rem;
-  padding: 5px 15px;
+  padding: 0.3125rem 1.3125rem;
   cursor: pointer;
   z-index: 2;
   line-height: 1;
@@ -157,7 +156,7 @@ h2 {
 
 .text-app-modal-contents {
   background: #fff;
-  padding: 30px;
+  padding: 1.875rem;
 }
 .text-app-modal-header {
   display: flex;
@@ -169,18 +168,18 @@ h2 {
   font-size: 1.75rem;
 }
 .text-app-modal-header > p {
-  height: 75px;
+  height: 7.3125rem;
 }
 
 .text-app-modal .icon {
   flex-grow: 0;
-  margin-right: 15px;
-  height: 75px;
-  width: 75px;
+  margin-right: 1.3125rem;
+  height: 7.3125rem;
+  width: 7.3125rem;
 }
 .text-app-modal-explainer {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 1.875rem;
+  margin-bottom: 1.875rem;
   text-align: left;
   color: #4b4b4b;
   font-size: 1.125rem;
@@ -195,15 +194,15 @@ h2 {
   font-size: 0.75rem;
   color: #4b4b4b;
   opacity: 0.7;
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
 }
 .text-app-modal-input {
   border: 1px solid #e1e1e1;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0.3125rem;
+  padding: 0.625rem;
   font-size: 1rem;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 .text-app-modal-input::placeholder {
   opacity: 0.5;
@@ -241,8 +240,21 @@ h2 {
   display: none;
 }
 
-@media (min-width: 768px) {
+footer {
+  margin-left: 3vw;
+}
+footer * {
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
   .no-desktop {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .no-tablet {
     display: none !important;
   }
 }

@@ -86,8 +86,12 @@ export function decorateResponsiveImageSwap() {
 
     const pictureEls = el.querySelectorAll('picture');
     pictureEls.forEach((pictureEl, index) => {
-      if (index === 0) pictureEl.classList.add('no-mobile');
-      else pictureEl.classList.add('no-desktop');
+      if (index === 0) {
+        pictureEl.classList.add('no-mobile');
+      } else {
+        pictureEl.classList.add('no-desktop');
+        pictureEl.classList.add('no-tablet');
+      }
       finalEl.appendChild(pictureEl);
     });
 
@@ -147,12 +151,20 @@ function decorateGetLinks() {
     const getLinksType = [...getLinksEl.classList].find((e) => e !== 'get-links');
     if (getLinksType) {
       const getButtons = createTag('div', { class: 'get-buttons' });
-      const textMe = createTag('div', { class: 'button primary no-mobile' });
+      const textMe = createTag('div', { class: 'button primary no-mobile no-tablet' });
       textMe.innerHTML = 'Text me a download link';
       openModalLink(textMe, getLinksType);
 
-      const download = createTag('div', { class: 'button primary no-desktop' });
+      const downloadUrls = {
+        fresco: 'https://adobefresco.app.link/4EpABpE2ikb',
+        'photoshop-on-ipad': 'https://adobephotoshop.app.link/oVUQwA21ikb',
+        'photoshop-express': 'https://photoshopexpress.app.link/LG0AV3N1ikb',
+        'lightroom-for-mobile': 'https://lightroom-web.app.link/e/WLDTTql1ikb',
+      };
+      const download = createTag('a', { class: 'button primary no-desktop' });
+      if (getLinksType === 'photoshop-on-ipad') download.classList.add('no-mobile');
       download.innerHTML = 'Download';
+      download.href = downloadUrls[getLinksType];
       getButtons.appendChild(textMe);
       getButtons.appendChild(download);
 
@@ -168,6 +180,9 @@ function decorateGetLinks() {
 
       getLinksEl.appendChild(getButtons);
     }
+
+    if (getLinksType !== 'photoshop-on-ipad') getLinksEl.querySelector('picture')?.parentElement.parentElement.classList.add('no-tablet');
+    if (getLinksType !== 'photoshop-on-ipad') getLinksEl.querySelector('picture')?.parentElement.parentElement.classList.add('no-mobile');
   });
 }
 

@@ -1,6 +1,13 @@
 .mobile-awareness-app-hero {
   position: relative;
-  min-height: 700px;
+  --hero-height: calc(max(43rem, 43vw));
+  min-height: var(--hero-height);
+}
+
+@media (max-width: 1199px) {
+  .mobile-awareness-app-hero {
+    --hero-height: calc(max(35rem, 43vw));
+  }
 }
 
 .mobile-awareness-app-hero .responsive-image-swap {
@@ -8,27 +15,38 @@
   z-index: 1;
 }
 
+.mobile-awareness-app-hero .responsive-image-swap,
 .mobile-awareness-app-hero .responsive-image-swap picture,
 .mobile-awareness-app-hero .responsive-image-swap img {
+  position: absolute;
   display: block;
-  height: 700px;
+  height: 100%;
   width: 100%;
+  top: 0;
   object-fit: cover;
+  object-position: 40% top;
+}
+
+@media (max-width: 1199px) {
+  .mobile-awareness-app-hero .responsive-image-swap picture,
+  .mobile-awareness-app-hero .responsive-image-swap img {
+    object-position: 50% center;
+  }
 }
 
 @media (max-width: 767px) {
   .mobile-awareness-app-hero {
-    min-height: 95vh;
+    min-height: calc(max(45rem, 85vh));
   }
 
   .mobile-awareness-app-hero .responsive-image-swap picture,
   .mobile-awareness-app-hero .responsive-image-swap img {
-    height: 95vh;
+    object-position: 50% bottom;
   }
 }
 
 .app-hero-overlay {
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100%;
   top: 0;
@@ -36,10 +54,12 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding: 3vw 0;
 }
 @media (max-width: 767px) {
   .app-hero-overlay {
     align-items: flex-start;
+    padding: 0;
   }
 }
 
@@ -48,23 +68,28 @@
 }
 @media (max-width: 767px) {
   .app-hero-overlay .section-wrapper {
-    margin-top: 3em;
+    margin-top: 1.5em;
   }
 }
 .app-hero-overlay .section-wrapper > * {
-  max-width: 550px;
+  max-width: calc(min(45vw, 34rem));
+}
+@media (max-width: 767px) {
+  .app-hero-overlay .section-wrapper > * {
+    max-width: 100%;
+  }
 }
 
 .app-hero-overlay .icon {
-  width: 85px;
-  height: 85px;
-  margin-bottom: 40px;
+  width: 5.3rem;
+  height: 5.3rem;
+  margin-bottom: 2.5rem;
 }
 @media (max-width: 767px) {
   .app-hero-overlay .icon {
-    width: 45px;
-    height: 45px;
-    margin-bottom: 30px;
+    width: 2.8rem;
+    height: 2.8rem;
+    margin-bottom: 1.875rem;
   }
 }
 
@@ -80,7 +105,7 @@
 }
 @media (max-width: 767px) {
   .app-hero-overlay .get-links {
-    margin-top: 16px;
+    margin-top: 1rem;
   }
 }
 
@@ -88,18 +113,18 @@
 
 .mobile-awareness-app-sign-in-reminder {
   position: relative;
-  padding: 60px;
+  padding: 3.75rem;
   display: flex;
   flex-direction: column;
   padding-left: 0;
   padding-right: 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .mobile-awareness-app-sign-in-reminder {
     padding: 0;
     background: #eaeaea;
-    margin: 20px auto !important;
-    padding: 20px;
+    margin: 1.25rem auto !important;
+    padding: 1.25rem;
     max-width: 90% !important;
   }
 }
@@ -111,36 +136,42 @@
   top: 50%;
   transform: translateY(-40%);
   max-width: 45vw;
-  max-height: 580px;
+  max-height: 36.25rem;
 }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .mobile-awareness-app-sign-in-reminder img:not(.icon) {
     position: relative;
     left: 0;
     top: 0;
     transform: none;
     max-width: 100%;
-    margin-top: 30px;
+    margin-top: 1.875rem;
   }
 }
 .mobile-awareness-app-sign-in-reminder .content {
-  width: 600px;
+  width: 37.5rem;
   align-self: flex-end;
-  padding: 80px;
+  padding: 5rem;
 }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .mobile-awareness-app-sign-in-reminder .content {
     width: auto;
     align-self: flex-end;
+    padding: 1rem;
+    padding-bottom: 0;
+  }
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-sign-in-reminder .content {
     padding: 0;
   }
 }
 
 .mobile-awareness-app-sign-in-reminder .icon {
   opacity: 0.5;
-  max-height: 30px;
-  margin-right: 10px;
-  margin-top: -10px;
+  max-height: 1.875rem;
+  margin-right: 0.625rem;
+  margin-top: -0.625rem;
 }
 
 .mobile-awareness-app-sign-in-reminder .gray-zone {
@@ -153,10 +184,10 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  margin: 60px 0;
+  margin: 3.75rem 0;
   background: #eaeaea;
 }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .mobile-awareness-app-sign-in-reminder .gray-zone {
     width: 100%;
     margin: 0;
@@ -172,7 +203,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .mobile-awareness-app-sign-in-reminder .image-caption {
     display: none;
   }
@@ -181,8 +212,8 @@
 /* tutorials */
 
 .mobile-awareness-app-tutorial-prompt {
-  margin-top: 60px !important;
-  margin-bottom: 80px !important;
+  margin-top: 3.75rem !important;
+  margin-bottom: 5rem !important;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -190,12 +221,12 @@
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-tutorial-prompt {
-    margin-top: 40px !important;
-    margin-bottom: 40px !important;
+    margin-top: 2.5rem !important;
+    margin-bottom: 2.5rem !important;
   }
 }
 .mobile-awareness-app-tutorial-prompt h2 {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .mobile-awareness-app-tutorial-prompt .tutorial-prompts {
@@ -203,7 +234,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 1rem;
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-tutorial-prompt .tutorial-prompts {
@@ -215,27 +246,27 @@
   display: flex;
   flex-direction: column;
   border: 1px solid #e6e6e6;
-  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
   color: #4b4b4b;
   transition: box-shadow 0.2s ease-in-out;
 }
 .mobile-awareness-app-tutorial-prompt .tutorial-card:hover {
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.05),
+  box-shadow: 0 0.625rem 1.25rem 0 rgba(0, 0, 0, 0.05),
     0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 .mobile-awareness-app-tutorial-prompt .tutorial-card h4 {
   font-size: 1rem;
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
 }
 .mobile-awareness-app-tutorial-prompt
   .tutorial-card
   > *:not(picture) {
-  padding: 0 10px;
+  padding: 0 0.625rem;
 }
 .mobile-awareness-app-tutorial-prompt
   .tutorial-card
   > picture {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .mobile-awareness-app-tutorial-prompt .fake-link {
@@ -251,7 +282,7 @@
 /* extensibility */
 
 .mobile-awareness-app-extensibility {
-  padding: 60px 0;
+  padding: 3.75rem 0;
   background: #6e6e6e;
 }
 .mobile-awareness-app-extensibility .grid-2.uneven .row {
@@ -268,10 +299,10 @@
 }
 .mobile-awareness-app-extensibility .section-wrapper p {
   color: white !important;
-  max-width: 900px;
+  max-width: 56.25rem;
   margin: 0 auto;
   font-size: 1.25rem !important;
-  margin-bottom: 45px !important;
+  margin-bottom: 2.8rem !important;
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-extensibility .section-wrapper p {
@@ -309,12 +340,12 @@
 
 .mobile-awareness-app-cta {
   position: relative;
-  padding: 200px 0;
+  padding: 8rem 0;
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-cta {
     position: relative;
-    padding: 40px 0;
+    padding: 2.5rem 0;
   }
 }
 .mobile-awareness-app-cta .section-wrapper {
@@ -327,15 +358,15 @@
 }
 
 .mobile-awareness-app-cta .section-wrapper.secondary {
-  margin-top: 80px;
+  margin-top: 5rem;
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-cta .section-wrapper.secondary {
-    margin-top: 40px;
+    margin-top: 2.5rem;
     flex-direction: column-reverse;
   }
   .mobile-awareness-app-cta .section-wrapper.secondary img {
-    margin-top: 40px;
+    margin-top: 2.5rem;
   }
 }
 
@@ -349,6 +380,7 @@
 }
 .mobile-awareness-app-cta .section-wrapper > picture {
   align-items: center;
+  background: white;
 }
 
 .mobile-awareness-app-cta .responsive-image-swap {
@@ -359,19 +391,24 @@
 .mobile-awareness-app-cta .responsive-image-swap picture,
 .mobile-awareness-app-cta .responsive-image-swap img {
   display: block;
-  min-height: calc(min(90vh, 700px));
+  min-height: calc(min(90vh, 45rem));
   width: 100%;
   object-fit: cover;
 }
 
 .app-cta-content {
-  max-width: 500px;
-  margin-right: 50px;
+  max-width: 31.25rem;
+  margin-right: 3.125rem;
+}
+.app-cta-content:last-child {
+  margin-right: 0;
+  margin-left: 3.125rem;
 }
 @media (max-width: 767px) {
   .app-cta-content {
     max-width: 100%;
-    margin-right: 0px;
+    margin-right: 0px !important;
+    margin-left: 0 !important;
   }
 }
 
@@ -379,7 +416,7 @@
   text-align: left;
 }
 .app-cta-overlay .section-wrapper > * {
-  max-width: 550px;
+  max-width: 34rem;
 }
 @media (max-width: 767px) {
   .app-cta-overlay .section-wrapper > * {
@@ -388,9 +425,9 @@
 }
 
 .app-cta-overlay .icon {
-  width: 85px;
-  height: 85px;
-  margin-bottom: 40px;
+  width: 5.3rem;
+  height: 5.3rem;
+  margin-bottom: 2.5rem;
 }
 
 .app-cta-overlay h2 {
@@ -401,19 +438,19 @@
 
 @media (max-width: 767px) {
   .app-cta-content .get-links {
-    margin: 10px auto 30px auto;
+    margin: 0.625rem auto 1.875rem auto;
   }
 }
 
 /* inspiration */
 
 .mobile-awareness-app-inspiration {
-  padding: 80px 0;
+  padding: 5rem 0;
   background: var(--light_gray);
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-inspiration {
-    padding: 40px 0;
+    padding: 2.5rem 0;
   }
 }
 .mobile-awareness-app-inspiration .section-wrapper {
@@ -425,17 +462,16 @@
   color: #4b4b4b;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-gap: 20px;
+  grid-gap: 1.25rem;
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-inspiration .app-inspiration {
-    font-size: 17px;
     grid-template-columns: 1fr;
-    grid-gap: 15px;
+    grid-gap: 1.3125rem;
   }
 }
 .mobile-awareness-app-inspiration .app-inspiration > * {
-  padding: 0 0 20px 0;
+  padding: 0 0 1.25rem 0;
   grid-column: span 2;
   align-self: end;
 }
@@ -460,24 +496,24 @@
 /* other apps */
 
 .mobile-awareness-app-others {
-  padding: 80px 0;
+  padding: 5rem 0;
   background: #eaeaea;
 }
 @media (max-width: 767px) {
   .mobile-awareness-app-others {
-    padding: 40px 0;
+    padding: 2.5rem 0;
   }
 }
 
 .learn-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
+  grid-gap: 1.25rem;
 }
 @media (max-width: 767px) {
   .learn-cards {
     grid-template-columns: repeat(1, 1fr);
-    grid-gap: 15px;
+    grid-gap: 1.3125rem;
   }
 }
 .learn-cards > *:not(.learn-card) {
@@ -490,21 +526,27 @@
   text-align: left;
   background: white;
   position: relative;
-  padding: 50px;
+  padding: 3.125rem;
   font-size: 1rem;
   overflow: hidden;
-  height: 750px;
+  height: 50rem;
+}
+@media (max-width: 1023px) {
+  .learn-card {
+    padding: 2rem;
+    height: 40rem;
+  }
 }
 @media (max-width: 767px) {
   .learn-card {
-    padding: 15px;
-    height: 500px;
+    padding: 1.3125rem;
+    height: 32rem;
   }
 }
 
 .learn-card a {
   display: inline-block;
-  margin-top: 35px;
+  margin-top: 3.3125rem;
 }
 .learn-card p {
   font-size: 1rem !important;
@@ -516,16 +558,16 @@
 }
 
 .learn-card img.icon {
-  width: 44px;
-  height: 44px;
+  width: 2.75rem;
+  height: 2.75rem;
 }
 .learn-card picture,
 .learn-card picture img {
   position: absolute;
   z-index: 1;
-  bottom: -10px;
-  left: 0px;
-  right: 0px;
+  bottom: -0.625rem;
+  left: 0;
+  right: 0;
 }
 
 .learn-card picture,
@@ -533,4 +575,22 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+@media (max-width: 1023px) {
+  .learn-card picture,
+  .learn-card img:not(.icon) {
+    height: 90%;
+  }
+}
+@media (max-width: 767px) {
+  .learn-card picture,
+  .learn-card img:not(.icon) {
+    height: 85%;
+  }
+}
+
+/* app-specific styles */
+
+.photoshop-on-ipad .icon-phone {
+  display: none;
 }

@@ -12,47 +12,86 @@
 
 import {
   createTag,
+  debounce,
 } from '../../../pages/scripts/scripts.js';
 
 export default function decorateNav() {
-  const plan = document.body.classList.contains('cpp') ? 'cpp' : 'single-app';
-  const navPlaceholderEl = document.querySelector('.mobile-awareness-nav');
-  const navEl = createTag('nav', { class: 'mobile-awareness-nav' });
+  const plan = document.body.classList.contains('cpp')
+    ? 'cpp'
+    : 'single-app';
+  const navPlaceholderEl = document.querySelector(
+    '.mobile-awareness-nav',
+  );
+  const navEl = createTag('nav', {
+    class: 'mobile-awareness-nav',
+  });
   const navLinkNames = [];
   if (plan === 'cpp') {
-    navLinkNames.push(...[{
-      label: 'Photography Plan',
-      path: 'cpp',
-      mobileOnly: true,
-    },
-    { label: 'Lightroom for Mobile', path: 'lightroom-for-mobile' }, {
-      label: 'Photoshop on iPad',
-      path: 'photoshop-on-ipad',
-    },
-    { label: 'Photoshop Express', path: 'photoshop-express' }]);
+    navLinkNames.push(
+      ...[
+        {
+          label: 'Photography Plan',
+          path: 'cpp',
+          mobileOnly: true,
+        },
+        {
+          label: 'Lightroom for Mobile',
+          path: 'lightroom-for-mobile',
+        },
+        {
+          label: 'Photoshop on iPad',
+          path: 'photoshop-on-ipad',
+        },
+        {
+          label: 'Photoshop Express',
+          path: 'photoshop-express',
+        },
+      ],
+    );
   } else {
-    navLinkNames.push(...[{
-      label: 'Photoshop',
-      path: '',
-      mobileOnly: true,
-    }, {
-      label: 'Photoshop on iPad',
-      path: 'photoshop-on-ipad',
-    },
-    { label: 'Fresco', path: 'fresco' },
-    { label: 'Photoshop Express', path: 'photoshop-express' }]);
+    navLinkNames.push(
+      ...[
+        {
+          label: 'Photoshop',
+          path: '',
+          mobileOnly: true,
+        },
+        {
+          label: 'Photoshop on iPad',
+          path: 'photoshop-on-ipad',
+        },
+        { label: 'Fresco', path: 'fresco' },
+        {
+          label: 'Photoshop Express',
+          path: 'photoshop-express',
+        },
+      ],
+    );
   }
-  const homeLink = { label: '', path: plan === 'cpp' ? 'cpp' : '' };
+  const homeLink = {
+    label: '',
+    path: plan === 'cpp' ? 'cpp' : '',
+  };
   const { href } = window.location;
 
-  const links = navLinkNames.map((link) => /* html */ `
-    <a href="/creativecloud/en/mobile-apps-in-your-plan/${link.path}" class="${new RegExp(`/${link.path}/?$`, 'g').exec(href) ? 'current' : ''} ${link.mobileOnly ? 'no-desktop' : ''}">
+  const links = navLinkNames
+    .map(
+      (link) => /* html */ `
+    <a href="/creativecloud/en/mobile-apps-in-your-plan/${
+  link.path
+}" class="${
+  new RegExp(`/${link.path}/?$`, 'g').exec(href)
+    ? 'current'
+    : ''
+} ${link.mobileOnly ? 'no-desktop' : ''}">
       <div class="textholder">
         <div>${link.label}</div>
         <div class="highlight"></div>
       </div>
     </a>
-  `).join('');
+  `,
+    )
+    .join('');
 
   navEl.innerHTML = /* html */ `
   <div class="section-wrapper nav-elements">
@@ -71,7 +110,9 @@ export default function decorateNav() {
           </g>
         </svg>
       </div>
-      <a href="/creativecloud/en/mobile-apps-in-your-plan/${homeLink.path || ''}">
+      <a href="/creativecloud/en/mobile-apps-in-your-plan/${
+  homeLink.path || ''
+}">
         <img class="icon icon-creativecloud" src="/icons/creativecloud.svg">
       </a>
       <div class="menu-open-divider"></div>
@@ -87,4 +128,27 @@ export default function decorateNav() {
   hamburger.addEventListener('click', () => {
     navEl.classList.toggle('open');
   });
+
+  // add scroll listener for mobile
+  let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const scrollListener = debounce(
+    () => {
+      const st = window.pageYOffset
+        || document.documentElement.scrollTop;
+      if (st > 60) {
+        navEl.classList.add('scrolled');
+      } else navEl.classList.remove('scrolled');
+
+      if (st > 60 && st > lastScrollTop) {
+        navEl.classList.add('scrollingdown');
+        navEl.classList.remove('open');
+      } else {
+        navEl.classList.remove('scrollingdown');
+      }
+      lastScrollTop = st <= 0 ? 0 : st;
+    },
+    10,
+    true,
+  );
+  document.addEventListener('scroll', scrollListener);
 }

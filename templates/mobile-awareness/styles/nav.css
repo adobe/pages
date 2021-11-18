@@ -1,8 +1,12 @@
+:root {
+  --menu-height: 3rem;
+}
+
 nav {
   position: relative;
   z-index: 4;
   width: 100%;
-  height: 80px;
+  height: 5rem;
   display: flex;
   align-items: center;
 }
@@ -11,7 +15,7 @@ nav {
   background: white;
 }
 .nav-elements > * {
-  height: 50px;
+  height: 3.125rem;
   display: flex;
   align-items: center;
 }
@@ -23,18 +27,20 @@ nav .main-section a {
   display: flex;
 }
 nav .icon-creativecloud {
-  height: 50px;
-  padding-right: 12px;
+  height: 3.125rem;
+  padding-right: 0.75rem;
   transition: transform 0.2s ease-in-out,
     filter 0.2s ease-in-out;
 }
 nav .icon-creativecloud:hover {
   transform: scale(1.02, 1.02);
-  filter: drop-shadow(0 5px 10px rgba(255, 0, 0, 0.178));
+  filter: drop-shadow(
+    0 0.3125rem 0.625rem rgba(255, 0, 0, 0.178)
+  );
 }
 
 nav .links a {
-  padding: 0 12px;
+  padding: 0 0.75rem;
   position: relative;
   height: 100%;
   display: flex;
@@ -71,13 +77,25 @@ nav .links .current .highlight {
   opacity: 1;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   nav {
     overflow: hidden;
-    height: 48px;
+    height: var(--menu-height);
+    position: fixed;
+    top: 0;
+    transition: top cubic-bezier(0.25, 0.46, 0.45, 0.94)
+        0.2s,
+      box-shadow cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  }
+  nav.scrolled {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  }
+  nav.scrollingdown {
+    top: calc(-1 * var(--menu-height));
+    box-shadow: none;
   }
   nav .hamburger {
-    padding: 10px;
+    padding: 0.625rem;
     display: block;
     position: absolute;
     left: 0;
@@ -103,8 +121,8 @@ nav .links .current .highlight {
     width: 100% !important;
     max-width: 100% !important;
     flex-direction: column;
-    padding: 0 38px;
-    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 0 1.5rem;
+    box-shadow: 0 0.625rem 0.625rem 0 rgba(0, 0, 0, 0.1);
   }
 
   .nav-elements > * {
@@ -114,17 +132,17 @@ nav .links .current .highlight {
   nav .links {
     flex-direction: column;
     align-items: flex-start;
-    padding-bottom: 25px;
+    padding-bottom: 2.3125rem;
   }
 
   nav .links a {
-    height: 56px;
+    height: 3.5rem;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 1.25rem;
   }
 
   nav .links a .textholder {
-    padding: 0 20px;
+    padding: 0 1.25rem;
   }
 
   nav .links a .highlight {
@@ -136,8 +154,8 @@ nav .links .current .highlight {
 
   nav .main-section {
     position: relative;
-    margin-bottom: 12px;
-    height: 48px;
+    margin-bottom: 0.75rem;
+    height: var(--menu-height);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,7 +171,7 @@ nav .links .current .highlight {
   }
 
   nav .icon-creativecloud {
-    height: 47px;
-    padding: 10px;
+    height: 2.94rem;
+    padding: 0.625rem;
   }
 }
