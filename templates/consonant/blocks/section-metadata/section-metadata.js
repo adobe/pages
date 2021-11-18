@@ -10,8 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-function background($block, color) {
-  const $sectionWrapper = $block.closest('.section-metadata-container');
+function background($sectionWrapper, color) {
   $sectionWrapper.style.backgroundColor = color;
   $sectionWrapper.classList.add('background-container');
 
@@ -46,6 +45,8 @@ function background($block, color) {
 }
 
 export default function decorate($block) {
+  const $sectionWrapper = $block.closest('.section-metadata-container');
+  $sectionWrapper.classList.remove('section-metadata-container');
   const $rows = Array.from($block.children);
   $rows.forEach(($row) => {
     const $cells = Array.from($row.children);
@@ -53,7 +54,7 @@ export default function decorate($block) {
       const meta = $cells[0].innerText;
       const value = $cells[1].innerText;
       if ((/background/gi).test(meta)) {
-        background($block, value);
+        background($sectionWrapper, value);
       }
     }
   });
