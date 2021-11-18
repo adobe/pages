@@ -13,6 +13,7 @@
 function background($block, color) {
   const $sectionWrapper = $block.closest('.section-metadata-container');
   $sectionWrapper.style.backgroundColor = color;
+  $sectionWrapper.classList.add('.background-container');
 
   // Removes unwanted margin from colorful blocks to avoid the extra white space:
   const noMarginBlocks = ['marquee', 'separator'];
