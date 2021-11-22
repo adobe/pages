@@ -40,21 +40,8 @@ main .section-wrapper.marquee-container > div > :not(.marquee) {
     }
 }
 
-main .section-wrapper .marquee.block {
-  margin-top: var(--section-spacing-large);
-  margin-bottom: var(--section-spacing-large);
-}
-
 main .section-wrapper.marquee-container + .section-wrapper {
     padding-top: var(--section-spacing-large);
-}
-
-main .section-wrapper .marquee.block:first-child {
-  margin-top: 0;
-}
-
-main .section-wrapper .marquee.block:last-child {
-  margin-bottom: 0;
 }
 
 main .marquee {
@@ -143,7 +130,6 @@ main .marquee .container .marquee-column {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
-    margin: var(--spacing-l) 0;
 }
 
 main .marquee .container .marquee-column > * {
