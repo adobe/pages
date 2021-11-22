@@ -174,7 +174,11 @@ main .cards.overlay .card-text a {
     min-height: unset;
 }
 
-main .cards.horizontal .card,
+main .cards.horizontal .card {
+    display: flex;
+    width: 100%;
+}
+
 main .cards.horizontal .card-container-link {
     display: flex;
     width: 100%;
