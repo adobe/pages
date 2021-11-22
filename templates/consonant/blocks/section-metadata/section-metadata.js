@@ -13,20 +13,6 @@
 function applyBackground($sectionWrapper, color) {
   $sectionWrapper.style.backgroundColor = color;
   $sectionWrapper.classList.add('background-container');
-
-  // Removes unwanted margin from colorful blocks to avoid the extra white space:
-  const noSpacingBlocks = ['marquee', 'separator'];
-  const $nextSection = $sectionWrapper.nextElementSibling;
-  if ($nextSection) {
-    const $firstChild = $nextSection.querySelector(':scope > div > :first-child');
-    if ($firstChild) {
-      noSpacingBlocks.forEach((blockName) => {
-        if ($firstChild.classList.contains(blockName)) {
-          $nextSection.classList.add('no-padding-top');
-        }
-      });
-    }
-  }
 }
 
 function applyTheme($sectionWrapper, theme) {

@@ -260,20 +260,12 @@ main .section-wrapper > div > p {
 
 /* Spacing options */
 
-main .padding-top-L {
-  padding-top: var(--section-spacing-large) !important;
+main .section-wrapper.padding-top-L {
+  padding-top: var(--section-spacing-large);
 }
 
-main .padding-bottom-L {
-  padding-bottom: var(--section-spacing-large) !important;
-}
-
-main .no-padding-top {
-  padding-top: 0;
-}
-
-main .no-padding-bottom {
-  padding-bottom: 0;
+main .section-wrapper.padding-bottom-L {
+  padding-bottom: var(--section-spacing-large);
 }
 
 /* links */
