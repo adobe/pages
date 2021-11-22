@@ -39,14 +39,17 @@ main .columns .columns-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: var(--section-spacing) 0;
   position: relative;
   box-sizing: border-box;
+  padding-bottom: var(--section-spacing-small);
 }
 
 main .columns.large .columns-row {
-  margin-bottom: var(--section-spacing-large);
-  margin-top: var(--section-spacing-large);
+  padding-bottom: var(--section-spacing-large);
+}
+
+main .columns .columns-row:last-child {
+  padding-bottom: 0;
 }
 
 main .columns .column {

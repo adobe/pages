@@ -15,29 +15,14 @@ function applyBackground($sectionWrapper, color) {
   $sectionWrapper.classList.add('background-container');
 
   // Removes unwanted margin from colorful blocks to avoid the extra white space:
-  const noMarginBlocks = ['marquee', 'separator'];
-  const $previousSection = $sectionWrapper.previousElementSibling;
-  if ($previousSection) {
-    const $lastChild = $previousSection.querySelector(':scope > div > :last-child');
-    if ($lastChild) {
-      noMarginBlocks.forEach((blockName) => {
-        if ($lastChild.classList.contains(blockName)) {
-          $previousSection.classList.add('no-margin-bottom');
-          $lastChild.classList.add('no-margin-bottom');
-          $sectionWrapper.classList.add('no-margin-top');
-        }
-      });
-    }
-  }
+  const noSpacingBlocks = ['marquee', 'separator'];
   const $nextSection = $sectionWrapper.nextElementSibling;
   if ($nextSection) {
     const $firstChild = $nextSection.querySelector(':scope > div > :first-child');
     if ($firstChild) {
-      noMarginBlocks.forEach((blockName) => {
+      noSpacingBlocks.forEach((blockName) => {
         if ($firstChild.classList.contains(blockName)) {
-          $nextSection.classList.add('no-margin-top');
-          $firstChild.classList.add('no-margin-top');
-          $sectionWrapper.classList.add('no-margin-bottom');
+          $nextSection.classList.add('no-padding-top');
         }
       });
     }

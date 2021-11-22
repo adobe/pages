@@ -30,14 +30,6 @@ export default function decorate($block) {
   const $sectionWrapper = $block.closest('.marquee-container');
   const $previousSection = $sectionWrapper.previousElementSibling;
   if ($previousSection) {
-    if ($previousSection.classList.contains('background-container')) {
-      $previousSection.classList.add('padding-bottom-L');
-    }
-  }
-  const $nextSection = $sectionWrapper.nextElementSibling;
-  if ($nextSection) {
-    if ($nextSection.classList.contains('background-container')) {
-      $nextSection.classList.add('padding-top-L');
-    }
+    $previousSection.classList.add('padding-bottom-L');
   }
 }

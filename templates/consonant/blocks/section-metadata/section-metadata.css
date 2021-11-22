@@ -5,6 +5,7 @@ main .section-metadata {
 main .background-container {
     padding-top: var(--section-spacing);
     padding-bottom: var(--section-spacing);
+    margin-top: var(--section-spacing);
 }
 
 main .background-container + .background-container {

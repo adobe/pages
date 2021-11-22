@@ -77,8 +77,9 @@
   --max-width-mobile: 500px;
   --gutter: 2rem;
   --header-height: 64px;
-  --section-spacing: 64px;
-  --section-spacing-large: 96px;
+  --section-spacing: 80px;
+  --section-spacing-small: 64px;
+  --section-spacing-large: 112px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -185,13 +186,24 @@ video {
 /* section wrapper */
 
 main .section-wrapper {
-  margin-top: var(--section-spacing);
+  padding-top: var(--section-spacing);
 }
 
 main .section-wrapper:first-of-type {
-  padding: 0;
   margin-top: var(--header-height);
-  padding-top: var(--section-spacing);
+}
+
+main .section-wrapper .block {
+  margin-top: var(--section-spacing);
+  margin-bottom: var(--section-spacing);
+}
+
+main .section-wrapper .block:first-child {
+  margin-top: 0;
+}
+
+main .section-wrapper .block:last-child {
+  margin-bottom: 0;
 }
 
 main .section-wrapper:last-of-type {
@@ -256,12 +268,12 @@ main .padding-bottom-L {
   padding-bottom: var(--section-spacing-large) !important;
 }
 
-main .no-margin-top {
-  margin-top: 0 !important;
+main .no-padding-top {
+  padding-top: 0;
 }
 
-main .no-margin-bottom {
-  margin-bottom: 0 !important;
+main .no-padding-bottom {
+  padding-bottom: 0;
 }
 
 /* links */

@@ -17,12 +17,8 @@ main .section-wrapper:first-of-type.marquee-container > div > :first-child:not(.
     padding-top: var(--section-spacing);
 }
 
-main .section-wrapper:first-of-type.marquee-container .marquee:first-child {
-    margin-top: 0;
-}
-
-main .section-wrapper:last-of-type.marquee-container .marquee:last-child {
-    margin-bottom: 0;
+main .section-wrapper.marquee-container {
+    padding: 0;
 }
 
 main .section-wrapper.marquee-container > div {
@@ -44,9 +40,25 @@ main .section-wrapper.marquee-container > div > :not(.marquee) {
     }
 }
 
+main .section-wrapper .marquee.block {
+  margin-top: var(--section-spacing-large);
+  margin-bottom: var(--section-spacing-large);
+}
+
+main .section-wrapper.marquee-container + .section-wrapper {
+    padding-top: var(--section-spacing-large);
+}
+
+main .section-wrapper .marquee.block:first-child {
+  margin-top: 0;
+}
+
+main .section-wrapper .marquee.block:last-child {
+  margin-bottom: 0;
+}
+
 main .marquee {
     padding: 24px 0;
-    margin: var(--section-spacing-large) 0;
     --marquee-height-sm: 400px;
     --marquee-height-md: 560px;
     --marquee-height-lg: 700px;
