@@ -158,6 +158,10 @@ main .columns .column-picture img {
   height: auto;
 }
 
+main .dark-theme .columns p {
+  color: var(--color-white);
+}
+
 @media screen and (min-width: 800px) {
   /* top variant */
 
