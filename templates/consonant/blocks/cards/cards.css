@@ -111,10 +111,24 @@ main .card .card-text p {
 
 main .cards .card-picture img {
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
     max-height: 370px;
     display: block;
+}
+
+main .cards.cards.col-1-cards .card-picture img,
+main .cards.cards.col-2-cards .card-picture img,
+main .cards.cards.col-3-cards .card-picture img {
+    height: 300px;
+}
+
+main .cards.overlay.cards.col-1-cards .card-picture img,
+main .cards.overlay.cards.col-2-cards .card-picture img,
+main .cards.overlay.cards.col-3-cards .card-picture img,
+main .cards.overlay .card-picture img {
+    height: 100%;
+    max-height: none;
 }
 
 main .cards.overlay .card-overlay {
@@ -186,6 +200,13 @@ main .cards.horizontal.col-4-cards .card {
 
 main .cards.horizontal .card-picture {
     min-width: 110px;
+}
+
+main .cards.horizontal.cards.col-1-cards .card-picture img,
+main .cards.horizontal.cards.col-2-cards .card-picture img,
+main .cards.horizontal.cards.col-3-cards .card-picture img,
+main .cards.horizontal .card-picture img {
+    height: 100%;
 }
 
 @media screen and (max-width: 999px) {
