@@ -17,7 +17,7 @@ footer .footer-container .footer .icon {
 	transition: filter 0.3s;
 }
 
-footer .footer-container .footer .icon:hover {
+footer .footer-container .footer a .icon:hover {
 	filter: brightness(0.7);
 }
 
