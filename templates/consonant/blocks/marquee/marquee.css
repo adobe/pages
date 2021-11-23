@@ -171,7 +171,7 @@ main .marquee .container .marquee-column:first-child h2,
 main .marquee .container .marquee-column:first-child h3,
 main .marquee .container .marquee-column:first-child h4,
 main .marquee .container .marquee-column:first-child h5,
-main .marquee .container .marquee-column:first-child h6 {
+main .marquee .container .marquee-column:first-child span.detail {
     max-width: var(--max-width-mobile);
 }
 
@@ -180,7 +180,7 @@ main .marquee.center .container .marquee-column:first-child h2,
 main .marquee.center .container .marquee-column:first-child h3,
 main .marquee.center .container .marquee-column:first-child h4,
 main .marquee.center .container .marquee-column:first-child h5,
-main .marquee.center .container .marquee-column:first-child h6 {
+main .marquee.center .container .marquee-column:first-child span.detail {
     margin-left: auto;
     margin-right: auto;
 }
@@ -190,7 +190,7 @@ main .marquee.right .container .marquee-column:first-child h2,
 main .marquee.right .container .marquee-column:first-child h3,
 main .marquee.right .container .marquee-column:first-child h4,
 main .marquee.right .container .marquee-column:first-child h5,
-main .marquee.right .container .marquee-column:first-child h6 {
+main .marquee.right .container .marquee-column:first-child span.detail {
     margin-left: auto;
 }
 

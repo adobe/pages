@@ -139,7 +139,7 @@ main .columns p {
   color: #4B4B4B;
 }
 
-main .columns h6 {    
+main .columns span.detail {    
   font-size: var(--detail-font-size-s);
 }
 
@@ -148,11 +148,11 @@ main .columns.large p {
   color: var(--body-color);
 }
 
-main .columns.small h6 {    
+main .columns.small span.detail {    
   font-size: var(--detail-font-size-xs);
 }
 
-main .columns.large h6 {    
+main .columns.large span.detail {    
   font-size: var(--detail-font-size-m);
 }
 

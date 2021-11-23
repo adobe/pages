@@ -639,7 +639,7 @@ export function decorateButtons(block = document) {
  */
 export function updateH6toDetail(block = document) {
   block.querySelectorAll(':scope h6').forEach(($h6) => {
-    const n = document.createElement('p');
+    const n = document.createElement('span');
     n.classList.add('detail');
     const attr = $h6.attributes;
     for (let i = 0, len = attr.length; i < len; i += 1) {

@@ -22,7 +22,7 @@ main .cards-container h2 + .cards,
 main .cards-container h3 + .cards, 
 main .cards-container h4 + .cards, 
 main .cards-container h5 + .cards,
-main .cards-container h6 + .cards {
+main .cards-container span.detail + .cards {
     margin-top: var(--section-spacing-small);
 }
 
@@ -66,7 +66,7 @@ main .cards.cards.horizontal .card-text {
     width: 100%;
 }
 
-main .cards .card-text h6 {
+main .cards .card-text span.detail {
     text-transform: none;
     color: #505050;
     font-weight: 400;
@@ -82,7 +82,7 @@ main .cards .card-text > :last-child {
     padding-bottom: 0;
 }
 
-main .cards .card-text h6 + * {
+main .cards .card-text span.detail + * {
     padding-top: 2px;
     min-height: 54px;
 }
@@ -93,7 +93,7 @@ main .card .card-text h2,
 main .card .card-text h3, 
 main .card .card-text h4, 
 main .card .card-text h5,
-main .card .card-text h6 {
+main .card .card-text span.detail {
     padding-top: 2px;
     padding-bottom: 2px;
 }
@@ -167,7 +167,7 @@ main .cards.overlay .card-text h2,
 main .cards.overlay .card-text h3, 
 main .cards.overlay .card-text h4, 
 main .cards.overlay .card-text h5, 
-main .cards.overlay .card-text h6, 
+main .cards.overlay .card-text span.detail, 
 main .cards.overlay .card-text a {
     color: var(--color-white);
     min-height: unset;
