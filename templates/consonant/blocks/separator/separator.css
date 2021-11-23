@@ -1,0 +1,76 @@
+
+main .section-wrapper:first-of-type.separator-container {
+    margin-top: var(--header-height);
+    padding-top: 0;
+}
+
+main .section-wrapper:first-of-type.separator-container > div > :first-child:not(.separator) {
+    margin-top: var(--header-height);
+    padding-top: var(--section-spacing);
+}
+
+main .section-wrapper:first-of-type.separator-container .separator:first-child {
+    margin-top: 0;
+}
+
+main .section-wrapper:last-of-type.separator-container .separator:last-child {
+    margin-bottom: 0;
+}
+
+main .section-wrapper.separator-container {
+    padding: 0;
+}
+
+main .section-wrapper.separator-container > div {
+    max-width: none;
+    padding: 0;
+}
+
+main .section-wrapper.separator-container > div > :not(.separator) {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    max-width: var(--max-width-block-laptop);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 799px) {
+    main .section-wrapper.separator-container > div > :not(.separator) {
+        max-width: var(--max-width-mobile);
+    }
+}
+
+main .separator {
+    padding: 24px 0;
+    margin: var(--section-spacing) 0;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    background-color: var(--color-gray-600);
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+main .separator div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+main .separator a.button.transparent:any-link {
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+main .separator .icon {
+    min-height: 40px;
+}
+
+main .separator p {
+    margin-left: 16px;
+    margin-right: 16px;
+}

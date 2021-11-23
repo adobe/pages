@@ -1,0 +1,229 @@
+/*-- Column Variants --*/
+/* [medium (default), small, large, center, right, top] */
+/* Medium columns are min x pixels wide */
+/* Small columns are min x pixels wide */
+/* Large columns are min x pixels wide */
+/* Center aligns the text center */
+/* Right aligns the text right */
+/* Top aligns the text top vertically (default aligns center vertically)*/
+
+main .columns {
+  --column-width-sm: 850px;
+  --column-width-md: 1000px;
+  --column-width-lg: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main .columns {
+  max-width: var(--column-width-md);
+}
+
+main .columns.large {
+  max-width: var(--column-width-lg);
+}
+
+main .columns.small {
+  max-width: var(--column-width-sm);
+}
+
+main .columns.center {
+  text-align: center;
+}
+
+main .columns.right {
+  text-align: right;
+}
+
+main .columns .columns-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  padding-bottom: var(--section-spacing-small);
+}
+
+main .columns.large .columns-row {
+  padding-bottom: var(--section-spacing-large);
+}
+
+main .columns .columns-row:last-child {
+  padding-bottom: 0;
+}
+
+main .columns .column {
+  width: 50%;
+  min-width: 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+main .columns .column:not(.column-picture) {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+main .columns .column:first-child:not(.column-picture) {
+  padding-left: 0;
+}
+
+main .columns .column:last-child:not(.column-picture) {
+  padding-right: 0;
+}
+
+main .columns.large .column {
+  width: 40%;
+  min-width: 40%;
+  max-width: 40%;
+}
+
+main .columns.large .column-picture {
+  width: 60%;
+  min-width: 60%;
+  max-width: 60%;
+}
+
+main .columns.large .column:not(.column-picture) {
+  padding-left: 56px;
+  padding-right: 56px;
+}
+
+main .columns.large .column:first-child:not(.column-picture) {
+  padding-left: 0;
+}
+
+main .columns.large .column:last-child:not(.column-picture) {
+  padding-right: 0;
+}
+
+main .columns.small .column:not(.column-picture) {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+main .columns.small .column:first-child:not(.column-picture) {
+  padding-left: 0;
+}
+
+main .columns.small .column:last-child:not(.column-picture) {
+  padding-right: 0;
+}
+
+main .columns h2 {
+  font-size: var(--heading-font-size-m);
+}
+
+main .columns h3 {
+  font-size: var(--heading-font-size-s);
+}
+
+main .columns.large h2 {
+  font-size: var(--heading-font-size-xl);
+}
+
+main .columns.large h3 {
+  font-size: var(--heading-font-size-l);
+}
+
+main .columns.small h2 {
+  font-size: var(--heading-font-size-s);
+}
+
+main .columns.small h3 {
+  font-size: var(--heading-font-size-xs);
+}
+
+main .columns p {
+  font-size: var(--body-font-size-s);
+  color: #4B4B4B;
+}
+
+main .columns span.detail {    
+  font-size: var(--detail-font-size-s);
+}
+
+main .columns.large p {
+  font-size: var(--body-font-size-m);
+  color: var(--body-color);
+}
+
+main .columns.small span.detail {    
+  font-size: var(--detail-font-size-xs);
+}
+
+main .columns.large span.detail {    
+  font-size: var(--detail-font-size-m);
+}
+
+main .columns .column-picture {
+  overflow: hidden;
+  display: block;
+  line-height: 0;
+}
+
+main .columns .column-picture img {
+  width: 100%;
+  height: auto;
+  transition: filter 0.3s, transform 0.3s;
+}
+
+main .columns .column-picture a {
+  display: block;
+  line-height: 0;
+}
+
+main .columns .column-picture a:hover img,
+main .columns .column-picture a:focus img {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+main .dark-theme .columns p {
+  color: var(--color-white);
+}
+
+@media screen and (min-width: 800px) {
+  /* top variant */
+
+  main .columns.top .columns-row {
+    align-items: flex-start;
+  }
+}
+
+@media screen and (max-width: 799px) {
+  main .columns .columns-row {
+    flex-direction: column;
+  }
+
+  main .columns .columns-row .column-picture {
+    order: 2;
+    margin-top: 16px;
+  }
+
+  main .columns .columns-row .column {
+    padding: 0;
+    width: 100%;
+    min-width: 100%;
+    max-width: var(--max-width-mobile);
+    margin-bottom: 16px;
+  }
+
+  main .columns.large .columns-row .column {
+    padding: 0;
+    max-width: var(--max-width-mobile);
+  }
+
+  main .columns.small .columns-row .column {
+    padding: 0;
+    max-width: var(--max-width-mobile);
+  }
+
+  main .columns.small h2 {
+    font-size: var(--heading-font-size-m);
+  }
+
+  main .columns.small h3 {
+    font-size: var(--heading-font-size-s);
+  }
+}

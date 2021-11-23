@@ -1,0 +1,323 @@
+/*-- Cards Variants --*/
+/* [default, overlay, horizontal] */
+/* Default cards show an image at the top and text at the bottom */
+/* Overlay cards show an image in the background and a dark overlay with white text in front */
+/* Horizontal cards show an image on the left and text on the right */
+
+main .cards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0;
+    margin-top: var(--section-spacing);
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 24px;
+}
+
+main .cards-container p + .cards, 
+main .cards-container h1 + .cards, 
+main .cards-container h2 + .cards, 
+main .cards-container h3 + .cards, 
+main .cards-container h4 + .cards, 
+main .cards-container h5 + .cards,
+main .cards-container span.detail + .cards {
+    margin-top: var(--section-spacing-small);
+}
+
+main .cards.col-2-cards,
+main .cards.col-3-cards,
+main .cards.col-4-cards,
+main .cards.col-5-cards,
+main .cards.col-6-cards {
+    flex-wrap: nowrap;
+}
+
+main .cards .card > a {
+    color: unset;
+    font-weight: unset;
+    font-size: unset;
+    line-height: unset;
+}
+
+main .cards .card {
+    background: white;
+    border: 1px solid #EAEAEA;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100%;
+    min-width: 200px;
+    max-width: var(--max-width-mobile);
+    margin: 0;
+    position: relative;
+}
+
+main .cards .card-text {
+    padding: 16px;
+    padding-bottom: 20px;
+}
+
+main .cards.cards.horizontal .card-text {
+    padding-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+main .cards .card-text span.detail {
+    text-transform: none;
+    color: #505050;
+    font-weight: 400;
+    padding: 0;
+    letter-spacing: 0;
+}
+
+main .cards .card-text > :first-child {
+    padding-top: 0;
+}
+
+main .cards .card-text > :last-child {
+    padding-bottom: 0;
+}
+
+main .cards .card-text span.detail + * {
+    padding-top: 2px;
+    min-height: 54px;
+}
+
+main .card .card-text p, 
+main .card .card-text h1, 
+main .card .card-text h2, 
+main .card .card-text h3, 
+main .card .card-text h4, 
+main .card .card-text h5,
+main .card .card-text span.detail {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+main .card .card-text h1, 
+main .card .card-text h2, 
+main .card .card-text h3, 
+main .card .card-text h4, 
+main .card .card-text h5 {
+    font-size: var(--heading-font-size-xs);
+}
+
+main .card .card-text p {
+    font-size: var(--body-font-size-xs);
+}
+
+main .cards .card-picture img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+main .cards.cards.col-1-cards .card-picture img,
+main .cards.cards.col-2-cards .card-picture img,
+main .cards.cards.col-3-cards .card-picture img {
+    height: 300px;
+}
+
+main .cards.overlay.cards.col-1-cards .card-picture img,
+main .cards.overlay.cards.col-2-cards .card-picture img,
+main .cards.overlay.cards.col-3-cards .card-picture img,
+main .cards.overlay .card-picture img {
+    height: 100%;
+}
+
+main .cards.overlay .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    z-index: 2;
+    background: transparent linear-gradient(180deg, #0000001A 0%, #000000CC 100%) 0% 0% no-repeat padding-box;
+}
+
+main .cards.overlay .card-picture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+main .cards.overlay .card-text {
+    z-index: 3;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    min-height: 208px;
+}
+
+main .cards.overlay .card-text p, 
+main .cards.overlay .card-text h1, 
+main .cards.overlay .card-text h2, 
+main .cards.overlay .card-text h3, 
+main .cards.overlay .card-text h4, 
+main .cards.overlay .card-text h5, 
+main .cards.overlay .card-text span.detail, 
+main .cards.overlay .card-text a {
+    color: var(--color-white);
+    min-height: unset;
+}
+
+main .cards.horizontal .card {
+    display: flex;
+    width: 100%;
+}
+
+main .cards.horizontal .card-container-link {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+main .cards.horizontal {
+    flex-wrap: wrap;
+}
+
+main .cards.col-3-cards.horizontal {
+    flex-wrap: nowrap;
+}
+
+main .cards.horizontal.col-4-cards {
+    max-width: 900px;
+}
+main .cards.horizontal .card {
+    flex-basis: 40%;
+    max-width: 375px;
+}
+
+main .cards.horizontal.col-4-cards .card {
+    flex-basis: 50%;
+    width: 100%;
+}
+
+main .cards.horizontal .card-picture {
+    width: 110px;
+    min-width: 110px;
+}
+
+main .cards.horizontal.cards.col-1-cards .card-picture img,
+main .cards.horizontal.cards.col-2-cards .card-picture img,
+main .cards.horizontal.cards.col-3-cards .card-picture img,
+main .cards.horizontal .card-picture img {
+    height: 100%;
+}
+
+main .cards.horizontal .card-picture img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+}
+
+main .cards.horizontal .card {
+    min-height: 128px;
+}
+
+@media screen and (max-width: 999px) {
+    main .cards.col-4-cards {
+        flex-wrap: wrap;
+    }
+
+    main .cards.col-4-cards .card {
+        flex-basis: 50%;
+    }
+
+    main .cards.horizontal.col-4-cards .card {
+        flex-basis: 100%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    main .cards.col-5-cards {
+        flex-wrap: wrap;
+    }
+
+    main .cards.col-5-cards .card {
+        flex-basis: 25%;
+    }
+
+    main .cards.col-3-cards.horizontal {
+        flex-wrap: wrap;
+        max-width: 600px;
+    }
+
+    main .cards.col-3-cards.horizontal .card {
+        flex-basis: 100%;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1420px) {
+    main .cards.col-6-cards {
+        flex-wrap: wrap;
+    }
+
+    main .cards.col-6-cards .card {
+        flex-basis: 25%;
+    }
+    
+    main .cards.horizontal .card {
+        flex-basis: 50%;
+    }
+}
+
+@media screen and (max-width: 799px) {
+    main .cards .card,
+    main .cards.col-2-cards .card,
+    main .cards.col-3-cards .card,
+    main .cards.col-4-cards .card,
+    main .cards.col-5-cards .card,
+    main .cards.col-6-cards .card {
+        flex-basis: 100%;
+    }
+    
+    main .cards,
+    main .cards.col-2-cards,
+    main .cards.col-3-cards,
+    main .cards.col-4-cards,
+    main .cards.col-5-cards,
+    main .cards.col-6-cards {
+        flex-wrap: wrap;
+        max-width: var(--max-width-mobile);
+    }
+}
+
+/* Hover Animations */
+
+main .cards:not(.horizontal) .card-container-link .card-picture {
+    overflow: hidden;
+}
+
+main .cards:not(.horizontal) .card-container-link .card-picture img {
+    transition: filter 0.3s, transform 0.3s;
+}
+
+main .cards:not(.horizontal) .card-container-link:hover .card-picture img,
+main .cards:not(.horizontal) .card-container-link:focus .card-picture img {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+main .cards.horizontal .card-container-link {
+    transition: filter 0.3s;
+}
+
+main .cards.horizontal .card-container-link:focus,
+main .cards.horizontal .card-container-link:hover {
+    filter: brightness(0.9);
+}

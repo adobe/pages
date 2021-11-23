@@ -1,0 +1,22 @@
+main .section-metadata {
+    display: none;
+}
+
+main .background-container {
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
+    margin-top: var(--section-spacing);
+}
+
+main .background-container + .background-container {
+    margin-top: 0;
+}
+
+main .background-container {
+    background-color: #f8f8f8;
+}
+
+main .background-container .cards:last-child,
+main .background-container .columns:last-child .columns-row:last-child {
+    margin-bottom: 16px;
+}
