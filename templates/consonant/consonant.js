@@ -578,7 +578,7 @@ export function isAttr(node, attr, val) {
 export function decorateButtons(block = document) {
   const $blocksWithoutButton = ['header', 'footer', 'cards'];
   block.querySelectorAll(':scope a').forEach(($a) => {
-    $a.title = $a.title || $a.textContent;
+    $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section-wrapper > div > div');
     let blockClassNamesString;
     let blockClassNames;
@@ -635,6 +635,22 @@ export function decorateButtons(block = document) {
 }
 
 /**
+ * Change h6 to 'detail'
+ */
+export function updateH6toDetail(block = document) {
+  block.querySelectorAll(':scope h6').forEach(($h6) => {
+    const n = document.createElement('p');
+    n.classList.add('detail');
+    const attr = $h6.attributes;
+    for (let i = 0, len = attr.length; i < len; i += 1) {
+      n.setAttribute(attr[i].name, attr[i].value);
+    }
+    n.innerHTML = $h6.innerHTML;
+    $h6.parentNode.replaceChild(n, $h6);
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -659,6 +675,8 @@ export function decorateMain(main) {
   wrapSections(main.querySelectorAll(':scope > div'));
   decorateBlocks(main);
   decorateButtons(main);
+  updateH6toDetail(main);
+  document.documentElement.lang = getLanguage();
 }
 
 /**
