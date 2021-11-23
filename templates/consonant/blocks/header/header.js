@@ -16,14 +16,16 @@ import {
 
 function openMobileMenu() {
   // Opens the mobile menu
-  document.querySelector('header').classList.add('menu-open');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('menu-open');
+  const $hamburger = document.querySelector('.header-hamburger');
+  $hamburger.setAttribute('aria-expanded', true);
 }
 
 function closeMobileMenu() {
   // Closes the mobile menu
-  document.querySelector('header').classList.remove('menu-open');
-  document.body.style.overflow = '';
+  document.body.classList.remove('menu-open');
+  const $hamburger = document.querySelector('.header-hamburger');
+  $hamburger.setAttribute('aria-expanded', false);
 }
 
 function mobileMenuListeners($block) {
@@ -33,7 +35,7 @@ function mobileMenuListeners($block) {
 
   // Toggle mobile menu if click on hamburger
   $hamburger.addEventListener('click', () => {
-    if ($header.classList.contains('menu-open')) {
+    if (document.body.classList.contains('menu-open')) {
       closeMobileMenu();
     } else {
       openMobileMenu();
@@ -42,7 +44,7 @@ function mobileMenuListeners($block) {
 
   // Close mobile menu if press Escape key
   document.addEventListener('keydown', (event) => {
-    if (event.code === 'Escape' && $header.classList.contains('menu-open')) {
+    if (event.code === 'Escape' && document.body.classList.contains('menu-open')) {
       closeMobileMenu();
     }
   });
@@ -108,7 +110,7 @@ export default function decorate($block) {
     $headerLeftTop.prepend($iconLogo);
   }
   // Add mobile menu hamburger button
-  $headerLeftTop.insertAdjacentHTML('afterbegin', '<button class="header-hamburger" aria-expanded="false" aria-haspopup="true" aria-label="Navigation menu" tabindex="1" role="button" type="button"></button>');
+  $headerLeftTop.insertAdjacentHTML('afterbegin', '<button class="header-hamburger" aria-expanded="false" aria-haspopup="true" aria-label="Navigation menu" role="button" type="button"></button>');
   // Add a background overlay for the open mobile menu
   const $backdrop = document.createElement('div');
   $backdrop.classList.add('menu-open-background');

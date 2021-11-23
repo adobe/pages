@@ -143,6 +143,10 @@ header .header-left-top {
     display: none;
 }
 
+.menu-open {
+    overflow: hidden;
+}
+
 header .header .header-left-nav div {
     height: 100%;
     display: flex;
@@ -153,7 +157,7 @@ header .header .header-left-nav div {
         text-align: left;
     }
     
-    header.menu-open ~ .menu-open-background {
+    .menu-open header ~ .menu-open-background {
         display: block;
     }
 
@@ -186,7 +190,7 @@ header .header .header-left-nav div {
         height: auto;
     }
 
-    header.menu-open .header .header-left-nav {
+    .menu-open header .header .header-left-nav {
         display: flex;
     }
 
