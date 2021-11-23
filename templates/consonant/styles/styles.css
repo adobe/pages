@@ -78,8 +78,9 @@
   --gutter: 2rem;
   --header-height: 64px;
   --section-spacing: 80px;
-  --section-spacing-small: 64px;
   --section-spacing-large: 112px;
+  --section-spacing-small: 64px;
+  --section-spacing-x-small: 48px;
 }
 
 @media screen and (max-width: 1000px) {

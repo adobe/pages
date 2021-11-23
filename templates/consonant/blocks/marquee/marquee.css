@@ -34,14 +34,25 @@ main .section-wrapper.marquee-container > div > :not(.marquee) {
     margin-right: auto;
 }
 
+main .section-wrapper:not(.background-container) + .section-wrapper.marquee-container {
+    padding-top: var(--section-spacing-small);    
+    margin-top: var(--section-spacing-x-small);
+}
+
+main .section-wrapper.marquee-container + .section-wrapper {
+    padding-top: var(--section-spacing-small);
+    margin-top: var(--section-spacing-x-small)
+}
+
 @media screen and (max-width: 799px) {
     main .section-wrapper.marquee-container > div > :not(.marquee) {
         max-width: var(--max-width-mobile);
     }
 }
 
-main .section-wrapper.marquee-container + .section-wrapper {
+main .section-wrapper.marquee-container + .section-wrapper.background-container {
     padding-top: var(--section-spacing-large);
+    margin-top: 0;
 }
 
 main .marquee {
