@@ -156,9 +156,27 @@ main .columns.large span.detail {
   font-size: var(--detail-font-size-m);
 }
 
+main .columns .column-picture {
+  overflow: hidden;
+  display: block;
+  line-height: 0;
+}
+
 main .columns .column-picture img {
   width: 100%;
   height: auto;
+  transition: filter 0.3s, transform 0.3s;
+}
+
+main .columns .column-picture a {
+  display: block;
+  line-height: 0;
+}
+
+main .columns .column-picture a:hover img,
+main .columns .column-picture a:focus img {
+  filter: brightness(1.1);
+  transform: scale(1.05);
 }
 
 main .dark-theme .columns p {

@@ -296,3 +296,28 @@ main .cards.horizontal .card {
         max-width: var(--max-width-mobile);
     }
 }
+
+/* Hover Animations */
+
+main .cards:not(.horizontal) .card-container-link .card-picture {
+    overflow: hidden;
+}
+
+main .cards:not(.horizontal) .card-container-link .card-picture img {
+    transition: filter 0.3s, transform 0.3s;
+}
+
+main .cards:not(.horizontal) .card-container-link:hover .card-picture img,
+main .cards:not(.horizontal) .card-container-link:focus .card-picture img {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+main .cards.horizontal .card-container-link {
+    transition: filter 0.3s;
+}
+
+main .cards.horizontal .card-container-link:focus,
+main .cards.horizontal .card-container-link:hover {
+    filter: brightness(0.9);
+}

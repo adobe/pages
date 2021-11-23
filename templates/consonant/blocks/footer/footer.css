@@ -14,6 +14,11 @@ footer .footer-container .footer {
 
 footer .footer-container .footer .icon {
 	max-height: 50px;
+	transition: filter 0.3s;
+}
+
+footer .footer-container .footer .icon:hover {
+	filter: brightness(0.7);
 }
 
 footer .footer-container .footer .icon.icon-adobe-logo-vertical {
