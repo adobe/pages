@@ -7,25 +7,45 @@
 /* Right aligns the text right */
 /* Light changes the default dark theme to light theme */
 
-main .section-wrapper:first-of-type.marquee-container {
-    margin-top: var(--header-height);
-    padding-top: 0;
+/* Remove any default padding from the marquee container */
+main .section-wrapper.marquee-container,
+main .section-wrapper.marquee-container > div {
+    padding: 0;
 }
 
-main .section-wrapper:first-of-type.marquee-container > div > :first-child:not(.marquee) {
+/* Add spacing for header if the marquee is the first section of the page */
+main .section-wrapper:first-of-type.marquee-container {
     margin-top: var(--header-height);
+}
+
+/* Add padding-top to marquee section if the previous section doesn't have a background */
+main .section-wrapper:not(.background-container) + .section-wrapper.marquee-container {
+    padding-top: var(--section-spacing-small);    
+    margin-top: var(--section-spacing-x-small);
+}
+main .section-wrapper.marquee-container + .section-wrapper {
+    padding-top: var(--section-spacing-small);
+    margin-top: var(--section-spacing-x-small)
+}
+main .section-wrapper.marquee-container + .section-wrapper.background-container {
+    padding-top: var(--section-spacing-large);
+    margin-top: 0;
+}
+
+/* Add padding-top if the first child in the section isn't a marquee block */
+main .section-wraper.background-container + .section-wrapper.marquee-container > div > :first-child:not(.marquee) {
+    padding-top: var(--section-spacing);
+}
+main .section-wraper:not(.marquee-container) + .section-wrapper.marquee-container > div > :first-child:not(.marquee) {
     padding-top: var(--section-spacing);
 }
 
-main .section-wrapper.marquee-container {
-    padding: 0;
-}
-
+/* Remove max-width from marquee to be a full width banner */
 main .section-wrapper.marquee-container > div {
     max-width: none;
-    padding: 0;
 }
 
+/* Re-add max-width and default padding to elements inside the section that are not marquee block */
 main .section-wrapper.marquee-container > div > :not(.marquee) {
     padding-left: var(--gutter);
     padding-right: var(--gutter);
@@ -34,26 +54,13 @@ main .section-wrapper.marquee-container > div > :not(.marquee) {
     margin-right: auto;
 }
 
-main .section-wrapper:not(.background-container) + .section-wrapper.marquee-container {
-    padding-top: var(--section-spacing-small);    
-    margin-top: var(--section-spacing-x-small);
-}
-
-main .section-wrapper.marquee-container + .section-wrapper {
-    padding-top: var(--section-spacing-small);
-    margin-top: var(--section-spacing-x-small)
-}
-
 @media screen and (max-width: 799px) {
     main .section-wrapper.marquee-container > div > :not(.marquee) {
         max-width: var(--max-width-mobile);
     }
 }
 
-main .section-wrapper.marquee-container + .section-wrapper.background-container {
-    padding-top: var(--section-spacing-large);
-    margin-top: 0;
-}
+/* Style the marquee block */
 
 main .marquee {
     padding: 24px 0;
