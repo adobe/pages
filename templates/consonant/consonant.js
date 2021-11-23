@@ -79,17 +79,6 @@ const LANG = {
   BR: 'br',
 };
 
-const LANG_LOC = {
-  en: 'en_US',
-  de: 'de_DE',
-  fr: 'fr_FR',
-  ko: 'ko_KR',
-  es: 'es_ES', // es_MX?
-  it: 'it_IT',
-  jp: 'ja_JP',
-  br: 'pt_BR',
-};
-
 let language;
 
 export function getLanguage() {
@@ -818,78 +807,12 @@ function loadDelayed() {
   }
 }
 
-function loadMartech() {
-  const env = getHelixEnv();
-  const usp = new URLSearchParams(window.location.search);
-  const alloy = usp.get('alloy');
-
-  // set data layer properties
-  window.digitalData = {
-    page: {
-      pageInfo: {
-        language: LANG_LOC[getLanguage()] || '',
-      },
-    },
-  };
-
-  // load bootstrap script
-  let bootstrapScriptUrl = 'https://www.adobe.com/marketingtech/';
-  if (alloy === 'on') {
-    window.marketingtech = {
-      adobe: {
-        target: env.target,
-        launch: {
-          url: 'https://assets.adobedtm.com/d4d114c60e50/cf25c910a920/launch-1bba233684fa-development.js',
-          load: (l) => {
-            const delay = () => (
-              setTimeout(l, 3500)
-            );
-            if (document.readyState === 'complete') {
-              delay();
-            } else {
-              window.addEventListener('load', delay);
-            }
-          },
-        },
-      },
-    };
-    bootstrapScriptUrl += 'main.alloy.min.js';
-  } else {
-    window.marketingtech = {
-      adobe: {
-        target: env.target,
-        audienceManager: true,
-        launch: {
-          property: 'global',
-          environment: 'production',
-        },
-      },
-    };
-    window.targetGlobalSettings = window.targetGlobalSettings || {};
-    window.targetGlobalSettings.bodyHidingEnabled = false;
-    bootstrapScriptUrl += 'main.min.js';
-  }
-
-  /* eslint-disable no-underscore-dangle */
-  loadScript(bootstrapScriptUrl);
-  // loadScript(bootstrapScriptUrl, () => {
-  //   const { digitalData } = window;
-  //   digitalData._set('page.pageInfo.language', getLanguage());
-  // });
-  /* eslint-enable no-underscore-dangle */
-}
-
 /**
  * Decorates the page.
  */
 async function decoratePage() {
   await loadEager();
 
-  const usp = new URLSearchParams(window.location.search);
-  const martech = usp.get('martech');
-  if (martech !== 'off') {
-    loadMartech();
-  }
   loadLazy();
   loadDelayed();
 }

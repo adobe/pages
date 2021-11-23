@@ -49,7 +49,7 @@ main .separator {
     align-items: center;
     justify-content: center;
     color: var(--color-white);
-    background-color: #777777;
+    background-color: var(--color-gray-600);
     flex-wrap: wrap;
     text-align: center;
 }
