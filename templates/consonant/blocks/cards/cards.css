@@ -192,8 +192,12 @@ main .cards.col-3-cards.horizontal {
     flex-wrap: nowrap;
 }
 
+main .cards.horizontal.col-4-cards {
+    max-width: 900px;
+}
 main .cards.horizontal .card {
     flex-basis: 40%;
+    max-width: 375px;
 }
 
 main .cards.horizontal.col-4-cards .card {
@@ -202,6 +206,7 @@ main .cards.horizontal.col-4-cards .card {
 }
 
 main .cards.horizontal .card-picture {
+    width: 110px;
     min-width: 110px;
 }
 
@@ -210,6 +215,17 @@ main .cards.horizontal.cards.col-2-cards .card-picture img,
 main .cards.horizontal.cards.col-3-cards .card-picture img,
 main .cards.horizontal .card-picture img {
     height: 100%;
+}
+
+main .cards.horizontal .card-picture img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+}
+
+main .cards.horizontal .card {
+    min-height: 128px;
 }
 
 @media screen and (max-width: 999px) {
@@ -237,6 +253,7 @@ main .cards.horizontal .card-picture img {
 
     main .cards.col-3-cards.horizontal {
         flex-wrap: wrap;
+        max-width: 600px;
     }
 
     main .cards.col-3-cards.horizontal .card {
