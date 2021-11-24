@@ -181,7 +181,7 @@ function decorateGetLinks() {
       getLinksEl.appendChild(getButtons);
     }
 
-    if (getLinksType !== 'photoshop-on-ipad') getLinksEl.querySelector('picture')?.parentElement.parentElement.classList.add('no-tablet');
+    getLinksEl.querySelector('picture')?.parentElement.parentElement.classList.add('no-tablet');
     if (getLinksType !== 'photoshop-on-ipad') getLinksEl.querySelector('picture')?.parentElement.parentElement.classList.add('no-mobile');
   });
 }

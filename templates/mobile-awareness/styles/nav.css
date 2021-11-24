@@ -77,7 +77,7 @@ nav .links .current .highlight {
   opacity: 1;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   nav {
     overflow: hidden;
     height: var(--menu-height);

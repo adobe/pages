@@ -80,7 +80,8 @@ export default function decorateNav() {
     <a href="/creativecloud/en/mobile-apps-in-your-plan/${
   link.path
 }" class="${
-  new RegExp(`/${link.path}/?$`, 'g').exec(href)
+  // eslint-disable-next-line
+  new RegExp(`/${link.path}/?(?:\\?.*)?$`, 'g').exec(href)
     ? 'current'
     : ''
 } ${link.mobileOnly ? 'no-desktop' : ''}">
