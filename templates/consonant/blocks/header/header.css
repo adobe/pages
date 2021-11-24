@@ -26,7 +26,7 @@ header nav {
 header.appear .header {
     display: flex;
     height: 100%;
-    overflow: auto;
+    overflow: unset;
 }
 
 header .header {
@@ -55,32 +55,83 @@ header li {
     margin: 0;
 }
 
-header a {
+header li {
+    box-sizing: border-box;
+    position: relative;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+header li,
+header li a {
+    justify-content: center;
     color: #2c2c2c;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.4;
     box-sizing: border-box;
-    cursor: pointer;
     text-decoration: none;
+    transition: background-color .1s ease;
+    cursor: default;
 }
 
 header li a {
-    padding-left: 18px;
-    padding-right: 18px;
-    transition: background-color .1s ease;
+    width: 100%;
+    width: calc(100% + 36px);
+    min-width: calc(100% + 36px);
+    text-align: center;
+    cursor: pointer;
 }
 
-header li:first-child a {
-    margin-left: 20px;
-}
-
-header li a:hover {
+header li:hover {
     background-color: #FAFAFA;
 }
 
 header .header ul {
     list-style-type: none;
+}
+
+header .header-left-nav > div > ul > li:first-child {
+    margin-left: 20px;
+}
+
+header ul > li > ul {
+    display: block;
+    text-align: left;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #FAFAFA;
+    border: 1px solid #EAEAEA;
+    border-top: 1px solid #EFEFEF;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    display: none;
+    padding: 18px 0;
+}
+
+header ul > li:hover > ul {
+    display: block;
+}
+
+header ul > li > ul > li {
+    padding: 4px 18px;
+    min-width: 150px;
+    display: block;
+    width: auto;
+    white-space: nowrap;
+}
+
+header ul > li > ul > li > a {
+    padding: 4px 18px;
+    margin-left: -18px;
+    justify-content: flex-start;
+}
+
+header ul > li > ul > li:hover,
+header ul > li > ul > li:hover a {
+    color: #1473E6;
 }
 
 header .header img {
@@ -213,30 +264,33 @@ header .header .header-left-nav div {
         height: auto;
     }
 
+    header .header-left-nav > div > ul > li:first-child {
+        margin-left: unset;
+    }
+
     header .header .header-left-nav li {
         height: auto;
-    }
-
-    header .header .header-left-nav li:first-child a {
-        margin-left: 0;
-    }
-
-    header .header .header-left-nav li,
-    header .header .header-left-nav a {
         width: 100%;
         box-sizing: border-box;
-    }
-    
-    header .header .header-left-nav li {
-        padding: 2px;
-        padding-right: 4px;
-    }
-    header .header .header-left-nav a {
-        padding: 16px 35px 16px 20px;
+        padding: 18px 35px 18px 20px;
+        justify-content: flex-start;
         border-bottom: solid 1px #f3f3f3;
+    }
+
+    header .header .header-left-nav a {
+        width: 100%;
+        box-sizing: content-box;
+        height: calc(100% + 32px);
+        justify-content: flex-start;
+        padding-left: 20px;
+        margin-left: -20px;
     }
 
     header .header .header-hamburger[aria-expanded=true] ~ .header-left-nav {
         display: flex;
+    }
+
+    header ul > li:hover > ul {
+        display: none;
     }
 }

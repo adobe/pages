@@ -22,6 +22,8 @@ import {
   wrapSections,
 } from './default-blocks.js';
 
+console.log('this runs');
+
 // eslint-disable-next-line import/prefer-default-export
 function sampleRUM(checkpoint, data = {}) {
   try {
