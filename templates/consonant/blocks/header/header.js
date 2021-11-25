@@ -158,6 +158,7 @@ export default function decorate($block) {
       if ($link) {
         $item.classList.add('dropdown-has-link');
         if ($link.getAttribute('href') === '#') {
+          // if the link is empty, treat it as if there's no link, less confusing for accessibility
           $link.setAttribute('tabIndex', '-1');
         }
       }
