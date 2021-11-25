@@ -64,6 +64,51 @@ function mobileMenuListeners($block) {
   });
 }
 
+function closeDropdown($dropdown) {
+  const $chevron = $dropdown.querySelector('.chevron');
+  $dropdown.classList.remove('dropdown-open');
+  $chevron.setAttribute('aria-expanded', 'false');
+}
+
+function openDropdown($dropdown) {
+  const $chevron = $dropdown.querySelector('.chevron');
+  $dropdown.classList.add('dropdown-open');
+  $chevron.setAttribute('aria-expanded', 'true');
+}
+
+function dropdownEvents($dropdown) {
+  const $chevron = $dropdown.querySelector('.chevron');
+
+  // Toggle dropdown if they click on chevron
+  $chevron.addEventListener('click', () => {
+    if (!$dropdown.classList.contains('dropdown-open')) {
+      openDropdown($dropdown);
+    } else {
+      closeDropdown($dropdown);
+    }
+  });
+
+  // Close dropdown if they focus out
+  $dropdown.addEventListener('focusout', (e) => {
+    if (!$dropdown.contains(e.relatedTarget) && !$chevron.contains(e.relatedTarget)
+    && $dropdown !== e.relatedTarget && $chevron !== e.relatedTarget && e.relatedTarget !== null) {
+      closeDropdown($dropdown);
+    }
+  });
+
+  // Hover events
+  $dropdown.addEventListener('mouseenter', () => {
+    if (window.innerWidth > 1000) {
+      openDropdown($dropdown);
+    }
+  }, false);
+  $dropdown.addEventListener('mouseleave', () => {
+    if (window.innerWidth > 1000) {
+      closeDropdown($dropdown);
+    }
+  }, false);
+}
+
 export default function decorate($block) {
   // Anything below the 1st table row will not go into the header
   const $otherCells = Array.from($block.querySelectorAll(':scope > div:not(:first-of-type)'));
@@ -100,6 +145,23 @@ export default function decorate($block) {
   $headerLeft.append($headerLeftNav);
   $navElements.forEach(($e) => {
     $headerLeftNav.append($e);
+  });
+  // Get all the dropdown menus
+  const $listItems = Array.from($headerLeft.querySelectorAll(':scope .header-left-nav li '));
+  $listItems.forEach(($item) => {
+    const $ul = $item.querySelector('ul');
+    if ($ul) {
+      $item.classList.add('has-dropdown');
+      $ul.insertAdjacentHTML('beforebegin', '<button class="chevron" aria-expanded="false" role="button" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></button>');
+      dropdownEvents($item);
+      const $link = $item.querySelector(':scope > a');
+      if ($link) {
+        $item.classList.add('dropdown-has-link');
+        if ($link.getAttribute('href') === '#') {
+          $link.setAttribute('tabIndex', '-1');
+        }
+      }
+    }
   });
   // Move the icon logo outside of the 'header-left-nav' div so we can still see it on mobile
   const $headerLeftTop = document.createElement('div');

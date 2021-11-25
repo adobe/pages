@@ -55,85 +55,6 @@ header li {
     margin: 0;
 }
 
-header li {
-    box-sizing: border-box;
-    position: relative;
-    padding-left: 18px;
-    padding-right: 18px;
-}
-
-header li,
-header li a {
-    justify-content: center;
-    color: #2c2c2c;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.4;
-    box-sizing: border-box;
-    text-decoration: none;
-    transition: background-color .1s ease;
-    cursor: default;
-}
-
-header li a {
-    width: 100%;
-    width: calc(100% + 36px);
-    min-width: calc(100% + 36px);
-    text-align: center;
-    cursor: pointer;
-}
-
-header li:hover {
-    background-color: #FAFAFA;
-}
-
-header .header ul {
-    list-style-type: none;
-}
-
-header .header-left-nav > div > ul > li:first-child {
-    margin-left: 20px;
-}
-
-header ul > li > ul {
-    display: block;
-    text-align: left;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #FAFAFA;
-    border: 1px solid #EAEAEA;
-    border-top: 1px solid #EFEFEF;
-    flex-direction: column;
-    height: auto;
-    width: auto;
-    display: none;
-    padding: 18px 0;
-}
-
-header ul > li:hover > ul {
-    display: block;
-}
-
-header ul > li > ul > li {
-    padding: 4px 18px;
-    min-width: 150px;
-    display: block;
-    width: auto;
-    white-space: nowrap;
-}
-
-header ul > li > ul > li > a {
-    padding: 4px 18px;
-    margin-left: -18px;
-    justify-content: flex-start;
-}
-
-header ul > li > ul > li:hover,
-header ul > li > ul > li:hover a {
-    color: #1473E6;
-}
-
 header .header img {
     height: 26px;
     width: auto;
@@ -198,12 +119,136 @@ header .header-left-top {
     overflow: hidden;
 }
 
-header .header .header-left-nav div {
+header .header .header-left-nav > div {
     height: 100%;
     display: flex;
 }
 
+header li {
+    box-sizing: border-box;
+    position: relative;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+header .header .header-left-nav > div > ul {
+    list-style-type: none;
+    user-select: none;
+}
+
+header .header-left-nav > div > ul > li:first-child {
+    margin-left: 20px;
+}
+
+header .header-left-nav > div > ul li,
+header .header-left-nav > div > ul li a {
+    justify-content: center;
+    color: #2c2c2c;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: background-color .1s ease;
+    cursor: default;
+}
+
+header .header-left-nav > div > ul li a {
+    width: 100%;
+    width: calc(100% + 36px);
+    min-width: calc(100% + 36px);
+    text-align: center;
+    cursor: pointer;
+}
+
+header .header .header-left-nav > div > ul > li > ul {
+    display: block;
+    text-align: left;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #FAFAFA;
+    border: 1px solid #EAEAEA;
+    border-top: 1px solid #EFEFEF;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    display: none;
+    padding: 18px 0;
+}
+
+header a:focus-visible, header button:focus-visible {
+    outline: none;
+    box-shadow: inset 0px 0px 0px 2px #109cde;
+}
+
+header .has-dropdown {
+    padding-right: 28px;
+}
+
+header .chevron {
+    position: absolute;
+    top: 20px;
+    right: 8px;
+    padding: 6px 4px;
+    margin: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+}
+
+header .chevron svg {
+    height: 10px;
+    width: 10px;
+    transition: transform 0.1s;
+}
+
+header .dropdown-open svg {
+    transform: rotate(180deg);
+}
+
+@media screen and (min-width: 1001px) {
+    header .header-left-nav > div > ul li:hover,
+    header .header-left-nav > div > ul li:focus {
+        background-color: #FAFAFA;
+    }
+
+    header .header .header-left-nav > div > ul > li > ul > li {
+        padding: 4px 18px;
+        min-width: 150px;
+        display: block;
+        width: auto;
+        white-space: nowrap;
+    }
+
+    header .header .header-left-nav > div > ul > li > ul > li > a {
+        padding: 4px 18px;
+        margin-left: -18px;
+        justify-content: flex-start;
+    }
+
+    header .header .header-left-nav > div > ul > li > ul > li:hover,
+    header .header .header-left-nav > div > ul > li > ul > li:hover a,
+    header .header .header-left-nav > div > ul > li > ul > li:focus,
+    header .header .header-left-nav > div > ul > li > ul > li:focus a {
+        color: #1473E6;
+    }
+
+    header .header .header-left-nav > div > ul > li.dropdown-open > ul {
+        display: block;
+    }
+    
+    header .has-dropdown.dropdown-open {
+        background-color: #FAFAFA;
+    }
+}
+
 @media screen and (max-width: 1000px) {
+    
+    header .chevron {
+        top: 13px;
+    }
     header {
         text-align: left;
     }
@@ -235,6 +280,12 @@ header .header .header-left-nav div {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
+        border-top: 1px solid var(--color-white);
+        padding-top: 1px;
+    }
+    
+    header .header .header-hamburger[aria-expanded=true] ~ .header-left-nav {
+        display: flex;
     }
 
     header .header .header-left-nav div {
@@ -244,15 +295,11 @@ header .header .header-left-nav div {
     .menu-open header .header .header-left-nav {
         display: flex;
     }
-
-    header .header .header-left-nav ul {
-        height: auto;
-        width: 100%;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
     
+    header .header .header-left-nav p {
+        height: auto;
+    }
+
     header .header .header-left-nav > div {
         height: 100%;
         width: 100%;
@@ -260,37 +307,130 @@ header .header .header-left-nav div {
         overflow-y: auto;
     }
 
-    header .header .header-left-nav p {
+    header .header .header-left-nav > div > ul {
         height: auto;
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
     }
 
     header .header-left-nav > div > ul > li:first-child {
         margin-left: unset;
     }
 
-    header .header .header-left-nav li {
+    header .header-left-nav > div > ul li {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        min-height: 52px;
         height: auto;
-        width: 100%;
         box-sizing: border-box;
-        padding: 18px 35px 18px 20px;
-        justify-content: flex-start;
-        border-bottom: solid 1px #f3f3f3;
+        padding: 0 35px 0 20px;
+        border-bottom: 1px solid #f3f3f3;
+        text-align: left;
+        position: relative;
     }
 
-    header .header .header-left-nav a {
+    
+    .dropdown-open {
+        border-left: 2px solid #2c2c2c; 
+    }
+
+    .dropdown-open:not(.dropdown-has-link) {
+        padding-top: 16px
+    }
+
+    .dropdown-open:not(.dropdown-has-link) > ul {
+        margin-top: 16px;
+    }
+
+    header .header-left-nav > div > ul li a {
         width: 100%;
-        box-sizing: content-box;
-        height: calc(100% + 32px);
+        min-width: calc(100% + 20px + 35px);
+        box-sizing: border-box;
+        height: 52px;
         justify-content: flex-start;
-        padding-left: 20px;
+        padding: 0 35px 0 20px;
         margin-left: -20px;
+        text-align: left;
+    }
+    
+    header .header .header-left-nav > div > ul > li > ul {
+        display: flex;
+        position: unset;
+        top: unset;
+        left: unset;
+        width: 100%;
+        min-width: calc(100% + 20px + 35px);
+        margin-left: -20px;
+        padding: 0;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        box-sizing: border-box;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        background-color: #f3f3f3;
+        border: 0;
+        border-bottom: 1px solid #EAEAEA;
+        border-top: 1px solid #EAEAEA;
+    }
+    
+    header .header .header-left-nav > div > ul > li > ul > li {
+        padding: 0 35px;
+        border: none;
+        min-height: 46px;
+        height: 46px;
+    }
+    
+    header .header .header-left-nav > div > ul > li > ul > li > a {
+        padding: 0 35px;
+        min-width: calc(100% + 35px + 35px);
+        margin-left: -35px;
+        min-height: 46px;
+        height: 46px;
     }
 
-    header .header .header-hamburger[aria-expanded=true] ~ .header-left-nav {
+    header .header .header-left-nav > div > ul > li > ul {
+        display: none;
+    }
+
+    header .header .header-left-nav > div > ul > li.dropdown-open > ul {
         display: flex;
     }
 
-    header ul > li:hover > ul {
-        display: none;
+    header .chevron {
+        width: 15vw;
+        height: 52px;
+        top: 0;
+        right: 0;
+        text-align: right;
+        padding-right: 18px;
     }
+
+    header .has-dropdown.dropdown-has-link > a:not(a[href^="#"]) {
+        width: 80vw;
+        min-width: 80vw;
+    }
+}
+
+header .has-dropdown > a[href^="#"] + .chevron,
+header .has-dropdown:not(.dropdown-has-link) .chevron {
+    width: 100%;
+    text-align: right;
+    height: 100%;
+    top: 0;
+    right: 0;
+    padding-right: 13px;
+    padding-top: 7px;
+}
+
+@media screen and (max-width: 1000px) {
+    header .has-dropdown > a[href^="#"] + .chevron,
+    header .has-dropdown:not(.dropdown-has-link) .chevron {
+        height: 52px;
+    }    
 }
