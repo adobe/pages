@@ -2,8 +2,11 @@
 
 /* default content */
 
-:root {
+html {
   scroll-behavior: smooth;
+}
+
+:root {
   --color-white: #FFF;
   --color-gray-100: #F8F8F8;
   --color-gray-200: #E8E8E8;
