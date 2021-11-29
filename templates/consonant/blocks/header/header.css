@@ -232,7 +232,7 @@ header .dropdown-open svg {
     header .header .header-left-nav > div > ul > li > ul > li:hover a,
     header .header .header-left-nav > div > ul > li > ul > li:focus,
     header .header .header-left-nav > div > ul > li > ul > li:focus a {
-        color: #1473E6;
+        color: var(--color-info-accent);
     }
 
     header .header .header-left-nav > div > ul > li.dropdown-open > ul {
