@@ -164,7 +164,7 @@ main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
 
 @media screen and (min-width: 1081px) {
     main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
-        min-width: var(--max-width-mobile);
+        min-width: 500px;
     }
 }
 
