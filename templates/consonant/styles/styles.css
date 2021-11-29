@@ -155,6 +155,10 @@ h1, h2, h3, h4, h5, span.detail {
   padding-bottom: 8px;
 }
 
+p + h1, p + h2, p + h3, p + h4, p + h5, p + span.detail {
+  padding-top: var(--section-spacing);
+}
+
 h1 {
   font-size: var(--heading-font-size-xxl);
 }
