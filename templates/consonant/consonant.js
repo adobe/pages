@@ -497,7 +497,11 @@ export async function loadBlock(block, eager = false) {
 async function loadBlocks(main) {
   main
     .querySelectorAll('div.section-wrapper > div > .block')
-    .forEach(async (block) => loadBlock(block));
+    .forEach(async (block) => {
+      if (block.getAttribute('data-block-name') !== 'header') {
+        loadBlock(block);
+      }
+    });
 }
 
 /**
@@ -695,6 +699,31 @@ function decoratePictures(main) {
   });
 }
 
+export async function importBlocks(doc) {
+  // remove this next line after draft:
+  const path = `drafts/artisthub-2.2/${doc}`;
+
+  let url = '';
+  if (window.pages.product && window.pages.locale) {
+    url = `/${window.pages.product}/${window.pages.locale}/${path}.plain.html`;
+  }
+  if (window.pages.product && window.pages.project) {
+    url = `/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${path}.plain.html`;
+  }
+  if (url) {
+    const resp = await fetch(url);
+    if (resp.status === 200) {
+      const html = await resp.text();
+      const inner = document.createElement('div');
+      inner.innerHTML = html;
+      document.querySelector('main').appendChild(inner);
+      window.hlx.dependencies.push(url);
+      return inner;
+    }
+  }
+  return null;
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -834,8 +863,17 @@ async function loadLazy() {
   sampleRUM('lcp');
 
   loadBlocks(main);
-  loadCSS('/templates/consonant/styles/lazy-styles.css');
-  // addFavIcon('/templates/consonant/styles/favicon.svg');
+  // Load Header
+  const $headerName = 'header';
+  try {
+    loadCSS(`/templates/consonant/blocks/${$headerName}/${$headerName}.css`);
+    const mod = await import(`/templates/consonant/blocks/${$headerName}/${$headerName}.js`);
+    if (mod.default) {
+      await mod.default($headerName);
+    }
+  } catch (err) {
+    debug(`failed to load module for ${$headerName}`, err);
+  }
 }
 
 /**

@@ -11,7 +11,7 @@
  */
 
 import {
-  insertAfter,
+  importBlocks,
 } from '../../consonant.js';
 
 function openMobileMenu() {
@@ -109,17 +109,10 @@ function dropdownEvents($dropdown) {
   }, false);
 }
 
-export default function decorate($block) {
-  // Anything below the 1st table row will not go into the header
-  const $otherCells = Array.from($block.querySelectorAll(':scope > div:not(:first-of-type)'));
-  $otherCells.forEach(($cell) => {
-    if ($cell) {
-      insertAfter($cell, $block);
-    }
-  });
+function decorateHeader($block) {
   // Move the header block to <header> and remove from <main>
   const $headerTag = document.querySelector('header');
-  const $headerContainer = $block.closest('.header-container');
+  const $headerContainer = $block.parentElement.parentElement;
   $headerContainer.classList.remove('header-container');
   $block.classList.remove('block');
   const $nav = document.createElement('nav');
@@ -182,4 +175,20 @@ export default function decorate($block) {
   mobileMenuListeners($block);
   // Show the header
   $headerTag.classList.add('appear');
+}
+
+export default function loadHeader($block) {
+  const $inlineHeader = document.querySelector('main div.header');
+  if ($inlineHeader) {
+    decorateHeader($block);
+  } else {
+    importBlocks('header').then((response) => {
+      if (response && response.nodeType) {
+        const $importedHeader = response.querySelector('main div.header');
+        if ($importedHeader) {
+          decorateHeader($importedHeader);
+        }
+      }
+    });
+  }
 }
