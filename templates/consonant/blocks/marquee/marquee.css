@@ -49,6 +49,12 @@ main .section-wrapper.marquee-container > div {
     max-width: none;
 }
 
+/* Remove spacing top if comes after breadcrumbs */
+main .section-wrapper.breadcrumbs-container + .section-wrapper.marquee-container {
+    padding-top: 0;
+    margin-top: 0;
+}
+
 /* Re-add max-width and default padding to elements inside the section that are not marquee block */
 main .section-wrapper.marquee-container > div > :not(.marquee) {
     padding-left: var(--gutter);
