@@ -162,6 +162,12 @@ main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
     padding: 32px 0;
 }
 
+@media screen and (min-width: 1081px) {
+    main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
+        min-width: var(--max-width-mobile);
+    }
+}
+
 main .marquee.center .container .marquee-column:not(.marquee-image) {
     text-align: center;
 }
