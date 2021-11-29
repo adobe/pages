@@ -177,14 +177,14 @@ function decorateHeader($block) {
   $headerTag.classList.add('appear');
 }
 
-export default function loadHeader($block) {
-  const $inlineHeader = document.querySelector('main div.header');
+export default function loadHeader($blockName) {
+  const $inlineHeader = document.querySelector(`main div.${$blockName}`);
   if ($inlineHeader) {
-    decorateHeader($block);
+    decorateHeader($inlineHeader);
   } else {
     importBlocks('header').then((response) => {
       if (response && response.nodeType) {
-        const $importedHeader = response.querySelector('main div.header');
+        const $importedHeader = response.querySelector(`main div.${$blockName}`);
         if ($importedHeader) {
           decorateHeader($importedHeader);
         }
