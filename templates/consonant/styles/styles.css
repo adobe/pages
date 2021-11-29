@@ -27,6 +27,7 @@ html {
   --color-info-accent: #1473E6;
   --color-info-accent-hover: #186dd4;
   --color-info-accent-down: #1d62b6;
+  --color-info-accent-subtle: #486EC2;
   --color-info-transparent: #4B4B4B;
   --color-info-transparent-hover: #3d3d3d;
   --color-info-transparent-down: #363636;
@@ -486,4 +487,105 @@ main .figure .caption {
 
 header, main, body>footer {
   opacity: 1;
+}
+
+
+/* Default footer */
+footer {
+	font-size: 14px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+  text-align: center;
+	padding: 32px 0px;
+  border-top: 1px solid #DEDEDE;
+}
+
+footer > div:last-child {
+	margin-left: 0;
+}
+
+footer svg {
+	fill: currentColor;
+	height: 1em;
+	width: 1em;
+}
+
+footer a {
+	color: #4B4B4B;
+	text-decoration: none;
+}
+
+footer a:hover {
+	color: #999999;
+}
+
+footer > div:first-child {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+footer p {
+	margin: 0;
+	color: #4B4B4B;
+	padding: 0;
+	margin-bottom: 12px;
+}
+
+footer ul {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+footer li {
+	margin-bottom: 12px;
+	position: relative;
+}
+
+footer li:before {
+	content: '';
+	position: relative;
+}
+
+footer li:after {
+	display: none;
+}
+
+@media (min-width: 992px) {
+	footer {
+		font-size: 11px;
+		flex-direction: row;
+	}
+
+	footer > div:last-child {
+		margin-left: 16px;
+	}
+
+	footer > div:first-child {
+		flex-direction: row;
+	}
+
+	footer p {
+		margin-bottom: 0px;
+	}
+
+	footer ul {
+		flex-direction: row;
+	}
+
+	footer li {
+		margin-left: 16px;
+		margin-bottom: 0px;
+	}
+
+	footer li:before {
+		content: '/';
+		margin-right: 16px;
+	}
 }

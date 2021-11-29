@@ -200,10 +200,26 @@ function wrapSections(sections) {
 }
 
 /**
+ * Block Helpers
+ */
+export function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+export function isNodeName(node, name) {
+  if (!node || typeof node !== 'object') return false;
+  return node.nodeName.toLowerCase() === name.toLowerCase();
+}
+export function isAttr(node, attr, val) {
+  if (!node || typeof node !== 'object') return false;
+  return node.getAttribute(attr) === val;
+}
+
+/**
  * Decorates a block.
  * @param {Element} block The block element
  */
 export function decorateBlock(block) {
+  // Add classes to container...
   const classes = Array.from(block.classList.values());
   let blockName = classes[0];
   if (!blockName) return;
@@ -211,7 +227,30 @@ export function decorateBlock(block) {
   if (section) {
     section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
   }
-  const blocksWithVariants = ['columns', 'cards', 'marquee'];
+
+  // Wrap text-nodes or <a>-nodes in a <p> if they are alone...
+  const divs = Array.from(block.querySelectorAll(':scope > div div'));
+  divs.forEach((div) => {
+    const blockChildren = Array.from(div.childNodes);
+    let textOnlyNoP = true;
+    blockChildren.forEach(($c) => {
+      const $n = $c.nodeName.toLowerCase();
+      if ($n === 'p' || $n === 'picture' || $n === 'img' || $n === 'h1' || $n === 'h2'
+          || $n === 'h3' || $n === 'h4' || $n === 'h5' || $n === 'h6' || $n === 'div') {
+        textOnlyNoP = false;
+      }
+    });
+    if (textOnlyNoP) {
+      const p = document.createElement('p');
+      div.appendChild(p);
+      blockChildren.forEach(($c) => {
+        p.appendChild($c);
+      });
+    }
+  });
+
+  // Allow for variants...
+  const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator'];
   blocksWithVariants.forEach((b) => {
     if (blockName.startsWith(`${b}-`)) {
       const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -230,6 +269,16 @@ export function decorateBlock(block) {
 
   block.classList.add('block');
   block.setAttribute('data-block-name', blockName);
+
+  // Delete empty section wrappers
+  const sections = Array.from(document.querySelectorAll('.section-wrapper'));
+  sections.forEach(($s) => {
+    const div = $s.querySelector(':scope > div');
+    console.log(div.firstElementChild);
+    if (!div.firstElementChild) {
+      $s.remove();
+    }
+  });
 }
 
 /**
@@ -555,21 +604,6 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
   });
 
   return picture;
-}
-
-/**
- * Block Helpers
- */
-export function insertAfter(newNode, existingNode) {
-  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-}
-export function isNodeName(node, name) {
-  if (!node || typeof node !== 'object') return false;
-  return node.nodeName.toLowerCase() === name.toLowerCase();
-}
-export function isAttr(node, attr, val) {
-  if (!node || typeof node !== 'object') return false;
-  return node.getAttribute(attr) === val;
 }
 
 /**
