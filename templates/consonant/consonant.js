@@ -274,7 +274,6 @@ export function decorateBlock(block) {
   const sections = Array.from(document.querySelectorAll('.section-wrapper'));
   sections.forEach(($s) => {
     const div = $s.querySelector(':scope > div');
-    console.log(div.firstElementChild);
     if (!div.firstElementChild) {
       $s.remove();
     }
