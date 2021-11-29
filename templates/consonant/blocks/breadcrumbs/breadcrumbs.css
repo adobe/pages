@@ -40,7 +40,7 @@ main .section-wrapper.breadcrumbs-container > div > :not(.breadcrumbs) {
 }
 
 main .breadcrumbs {
-    padding: 4px 0;
+    padding: 5px 0 4px 0;
     margin: var(--section-spacing) auto;
     max-width: 1440px;
     position: relative;
