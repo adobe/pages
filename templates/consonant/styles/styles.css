@@ -325,6 +325,7 @@ a.button:any-link {
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
+  min-width: 100px;
 }
 
 p.button-container {
