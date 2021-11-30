@@ -433,4 +433,9 @@ header .has-dropdown:not(.dropdown-has-link) .chevron {
     header .has-dropdown:not(.dropdown-has-link) .chevron {
         height: 52px;
     }    
+    
+    header .has-dropdown > a[href^="#"] + .chevron,
+    header .has-dropdown:not(.dropdown-has-link) .chevron {
+        padding-right: 18px;
+    }
 }
