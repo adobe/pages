@@ -286,4 +286,10 @@ main .marquee.large {
     main .marquee .container .marquee-column:last-child.marquee-image {
         text-align: center;
     }
+    
+    main .marquee {
+        --marquee-height-sm: 300px;
+        --marquee-height-md: 350px;
+        --marquee-height-lg: 400px;
+    }
 }
