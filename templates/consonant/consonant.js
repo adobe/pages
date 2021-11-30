@@ -653,10 +653,10 @@ export function decorateButtons(block = document) {
         const $twoUp = $a.parentElement.parentElement;
         const $threeUp = $a.parentElement.parentElement.parentElement;
         if (isNodeName($up, 'p')) {
-          $a.className = 'button primary'; // default
+          $a.className = 'button transparent'; // default
         }
         if (isNodeName($up, 'strong') && isNodeName($twoUp, 'p')) {
-          $a.className = 'button accent';
+          $a.className = 'button primary';
         }
         if (isNodeName($up, 'em') && isNodeName($twoUp, 'p')) {
           $a.className = 'button secondary';
@@ -664,7 +664,7 @@ export function decorateButtons(block = document) {
         if (((isNodeName($up, 'em') && isNodeName($twoUp, 'strong'))
             || (isNodeName($up, 'strong') && isNodeName($twoUp, 'em')))
             && isNodeName($threeUp, 'p')) {
-          $a.className = 'button transparent';
+          $a.className = 'button accent';
         }
       }
     }
