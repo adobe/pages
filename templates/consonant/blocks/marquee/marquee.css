@@ -278,10 +278,12 @@ main .marquee.large {
         flex-direction: column;
     }
     main .marquee .container .marquee-image {
-        order: 2;
-        padding-bottom: 32px;
-    }    
+        order: -1;
+        padding-top: 32px;
+    }   
+    
+    main .marquee .container .marquee-column:first-child.marquee-image,
     main .marquee .container .marquee-column:last-child.marquee-image {
-        text-align: left;
+        text-align: center;
     }
 }
