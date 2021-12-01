@@ -85,7 +85,7 @@ function decorateTutorialPrompt() {
 
   const link = createTag('span', { class: 'fake-link no-mobile no-tablet' });
   link.innerHTML = 'Text me a download link >';
-  openModalLink(link, /.*\/([^/]*)\/?$/gi.exec(window.location.href.split('?')[0])?.[1]);
+  openModalLink(link, /.*\/([^/]*)\/?$/gi.exec(window.location.href.split('?')[0])[1]);
 
   existingEl.appendChild(link);
 }

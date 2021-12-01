@@ -23,8 +23,8 @@ export default function setUpBranch() {
 }
 
 export function sendSMS(phoneNumber, app = 'fresco') {
-  if (!phoneNumber || !keys[app]) return;
-  window.branch?.init(keys[app]);
+  if (!phoneNumber || !keys[app] || !window.branch) return;
+  window.branch.init(keys[app]);
 
   const linkData = {
     channel: 'Website',
@@ -33,5 +33,5 @@ export function sendSMS(phoneNumber, app = 'fresco') {
   const options = {};
   const callback = () => {};
 
-  window.branch?.sendSMS(phoneNumber, linkData, options, callback);
+  window.branch.sendSMS(phoneNumber, linkData, options, callback);
 }

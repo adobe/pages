@@ -32,11 +32,11 @@ export function openModalLink(el, app) {
     }
     if (modal) {
       modal.classList.add('active');
-      modal.querySelector('input')?.focus();
+      if (modal.querySelector('input')) modal.querySelector('input').focus();
 
       modal.querySelector('form').addEventListener('submit', (e) => {
         e.preventDefault();
-        sendSMS(modal.querySelector('input')?.value, app);
+        if (modal.querySelector('input')) sendSMS(modal.querySelector('input').value, app);
         modal.classList.remove('active');
       });
     }

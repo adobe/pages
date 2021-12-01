@@ -108,7 +108,7 @@ export function cleanUpUnnecessaryTags(root = document) {
   root.querySelectorAll('div').forEach((div) => {
     const parent = div.parentElement;
     if (parent
-      && (div.classList?.length === 0 || parent?.classList.length === 0)
+      && ((div.classList || []).length === 0 || (parent.classList || []).length === 0)
       && div.parentNode.tagName === 'DIV') {
       div.classList.forEach((c) => parent.classList.add(c));
       const { childNodes } = div;
@@ -119,7 +119,7 @@ export function cleanUpUnnecessaryTags(root = document) {
   root.querySelectorAll('p').forEach((p) => {
     const parent = p.parentElement;
     if (parent
-      && (p.classList?.length === 0 || parent?.classList.length === 0)
+      && ((p.classList || []).length === 0 || (parent.classList || []).length === 0)
       && p.parentNode.tagName === 'DIV' && p.parentNode.childElementCount === 1) {
       p.classList.forEach((c) => parent.classList.add(c));
       const { childNodes } = p;
@@ -181,8 +181,11 @@ function decorateGetLinks() {
       getLinksEl.appendChild(getButtons);
     }
 
-    getLinksEl.querySelector('picture')?.parentElement.parentElement.classList.add('no-tablet');
-    if (getLinksType !== 'photoshop-on-ipad') getLinksEl.querySelector('picture')?.parentElement.parentElement.classList.add('no-mobile');
+    const picture = getLinksEl.querySelector('picture');
+    if (picture) {
+      picture.parentElement.parentElement.classList.add('no-tablet');
+      if (getLinksType !== 'photoshop-on-ipad') picture.parentElement.parentElement.classList.add('no-mobile');
+    }
   });
 }
 
@@ -209,7 +212,8 @@ function decorateModal() {
     hoist('picture', wrapper, true);
     cleanUpEmptyPTags(el);
     wrapContents(el, { innerAttrs: { class: 'text-app-modal-header' } });
-    const appName = el.querySelector('h3')?.innerHTML.toLowerCase().replace(/\s/g, '-');
+    const h3 = el.querySelector('h3');
+    const appName = h3 ? el.querySelector('h3').innerHTML.toLowerCase().replace(/\s/g, '-') : '';
     wrapper.parentElement.classList.add(appName);
 
     const close = createTag('div', { class: 'text-app-modal-close' });
