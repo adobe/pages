@@ -1,0 +1,177 @@
+:root {
+  --menu-height: 3rem;
+}
+
+nav {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+.nav-elements {
+  display: flex;
+  background: white;
+}
+.nav-elements > * {
+  height: 3.125rem;
+  display: flex;
+  align-items: center;
+}
+nav .hamburger {
+  display: none;
+}
+
+nav .main-section a {
+  display: flex;
+}
+nav .icon-creativecloud {
+  height: 3.125rem;
+  padding-right: 0.75rem;
+  transition: transform 0.2s ease-in-out,
+    filter 0.2s ease-in-out;
+}
+nav .icon-creativecloud:hover {
+  transform: scale(1.02, 1.02);
+  filter: drop-shadow(
+    0 0.3125rem 0.625rem rgba(255, 0, 0, 0.178)
+  );
+}
+
+nav .links a {
+  padding: 0 0.75rem;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  color: #6e6e6e;
+}
+
+nav .links a .textholder {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  position: relative;
+}
+
+nav .links .highlight {
+  opacity: 0;
+  height: 2px;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  background-color: var(--dark_gray);
+  position: absolute;
+  transition: opacity 0.2s ease;
+}
+
+nav .links a:hover,
+nav .links a.current {
+  color: var(--dark_gray);
+}
+nav .links a:hover .highlight,
+nav .links .current .highlight {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  nav {
+    overflow: hidden;
+    height: var(--menu-height);
+    position: fixed;
+    top: 0;
+    transition: top cubic-bezier(0.25, 0.46, 0.45, 0.94)
+        0.2s,
+      box-shadow cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  }
+  nav.scrolled {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  }
+  nav.scrollingdown {
+    top: calc(-1 * var(--menu-height));
+    box-shadow: none;
+  }
+  nav .hamburger {
+    padding: 0.625rem;
+    display: block;
+    position: absolute;
+    left: 0;
+  }
+
+  nav.open {
+    overflow: visible;
+  }
+  nav.open .hamburger .open {
+    display: block;
+  }
+  nav.open .hamburger .closed {
+    display: none;
+  }
+  nav:not(.open) .hamburger .closed {
+    display: block;
+  }
+  nav:not(.open) .hamburger .open {
+    display: none;
+  }
+
+  .nav-elements {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-direction: column;
+    padding: 0 1.5rem;
+    box-shadow: 0 0.625rem 0.625rem 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-elements > * {
+    height: auto;
+  }
+
+  nav .links {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 2.3125rem;
+  }
+
+  nav .links a {
+    height: 3.5rem;
+    width: 100%;
+    padding: 0 1.25rem;
+  }
+
+  nav .links a .textholder {
+    padding: 0 1.25rem;
+  }
+
+  nav .links a .highlight {
+    opacity: 0.1;
+    top: 0;
+    width: 2px;
+    height: 100%;
+  }
+
+  nav .main-section {
+    position: relative;
+    margin-bottom: 0.75rem;
+    height: var(--menu-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  nav .main-section .menu-open-divider {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 2px;
+
+    background: var(--dark_gray);
+    opacity: 0.1;
+  }
+
+  nav .icon-creativecloud {
+    height: 2.94rem;
+    padding: 0.625rem;
+  }
+}

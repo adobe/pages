@@ -1,0 +1,266 @@
+@import url('./styles/nav.css');
+@import url('./styles/landing.css');
+@import url('./styles/appPage.css');
+
+:root {
+  --light_gray: #e1e1e1;
+  --medium_gray: #747474;
+}
+
+html,
+body {
+  font-size: calc(min(16px, max(1.2vw, 14px)));
+}
+@media (max-width: 1024px) {
+  body {
+    padding-top: var(--menu-height);
+  }
+}
+@media (max-width: 767px) {
+  html,
+  body {
+    font-size: 17px;
+  }
+}
+
+.invisible {
+  display: none;
+}
+
+h2 {
+  font-size: 2.8rem;
+}
+@media (max-width: 767px) {
+  h2 {
+    font-size: 1.56rem;
+  }
+}
+
+@media (max-width: 767px) {
+  p {
+    font-size: 1rem !important;
+  }
+}
+
+.section-wrapper {
+  position: relative;
+  max-width: 1200px;
+  width: 93%;
+  margin: auto;
+}
+@media (max-width: 767px) {
+  .section-wrapper {
+    max-width: 85vw;
+  }
+}
+
+.white-text,
+.white-text * {
+  color: #fff !important;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.gray-zone {
+  padding: 3.75rem 0;
+  background: var(--light_gray);
+}
+.get-links {
+  margin-top: 1.875rem;
+  text-align: left;
+}
+.get-links picture {
+  margin-left: -7px;
+}
+.get-buttons {
+  display: flex;
+  margin-top: 0.3125rem;
+}
+.get-links.one-line {
+  display: flex;
+  align-items: flex-end;
+}
+.get-links.one-line > *:not(:first-child) {
+  margin-left: 1.25rem;
+}
+@media (max-width: 767px) {
+  .get-links.one-line > *:not(:first-child) {
+    margin-left: 0px;
+  }
+}
+
+.get-buttons .button {
+  margin-right: 1.25rem;
+}
+/* @media (max-width: 767px) {
+  .get-links img {
+    display: none;
+  }
+} */
+
+.grid-2 .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+@media (max-width: 767px) {
+  .grid-2 .row {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-wrapper {
+  z-index: 1000;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.modal-wrapper:not(.active) {
+  display: none;
+}
+.modal-wrapper picture {
+  height: 142px;
+}
+.text-app-modal {
+  position: relative;
+  max-width: 31.25rem;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.text-app-modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1.56rem;
+  padding: 0.3125rem 1.3125rem;
+  cursor: pointer;
+  z-index: 2;
+  line-height: 1;
+}
+
+.text-app-modal-contents {
+  background: #fff;
+  padding: 1.875rem;
+}
+.text-app-modal-header {
+  display: flex;
+  align-items: center;
+}
+
+.text-app-modal-header > * {
+  margin: 0;
+  font-size: 1.75rem;
+}
+.text-app-modal-header > p {
+  height: 7.3125rem;
+}
+
+.text-app-modal .icon {
+  flex-grow: 0;
+  margin-right: 1.3125rem;
+  height: 7.3125rem;
+  width: 7.3125rem;
+}
+.text-app-modal-explainer {
+  margin-top: 1.875rem;
+  margin-bottom: 1.875rem;
+  text-align: left;
+  color: #4b4b4b;
+  font-size: 1.125rem;
+}
+.text-app-modal-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.text-app-modal-label {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  color: #4b4b4b;
+  opacity: 0.7;
+  margin-bottom: 0.3125rem;
+}
+.text-app-modal-input {
+  border: 1px solid #e1e1e1;
+  border-radius: 0.3125rem;
+  padding: 0.625rem;
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 1.25rem;
+}
+.text-app-modal-input::placeholder {
+  opacity: 0.5;
+}
+.text-app-modal-submit {
+  align-self: flex-end;
+}
+
+.slide-in {
+  position: relative;
+  transition: left 1s cubic-bezier(0.25, 1, 0.5, 1),
+    right 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s;
+  opacity: 0;
+}
+.slide-in.slide-active {
+  opacity: 1;
+}
+.slide-in.from-left {
+  left: -30vw;
+}
+.slide-in.from-left.slide-active {
+  left: 0;
+}
+.slide-in.from-right {
+  right: -30vw;
+}
+.slide-in.from-right.slide-active {
+  right: 0;
+}
+
+.single-app .cpp-only {
+  display: none;
+}
+.cpp .single-app-only {
+  display: none;
+}
+
+footer {
+  margin-left: 3vw;
+}
+footer * {
+  white-space: nowrap;
+}
+
+@media (min-width: 1025px) {
+  .no-desktop {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .no-tablet {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .no-mobile {
+    display: none !important;
+  }
+}
