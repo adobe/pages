@@ -647,8 +647,7 @@ export function decorateButtons(block = document) {
           }
         }
       });
-
-      if (buttonsOnly) {
+      if (!$a.querySelector('img') && buttonsOnly) {
         $c.classList.add('button-container');
         const $up = $a.parentElement;
         const $twoUp = $a.parentElement.parentElement;
