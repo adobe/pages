@@ -491,6 +491,22 @@ export async function loadBlock(block, eager = false) {
 }
 
 /**
+ * Loads JS and CSS for a block.
+ * @param {String} block The block's name
+ */
+export async function loadBlockManually(blockName, eager = false) {
+  try {
+    loadCSS(`/templates/consonant/blocks/${blockName}/${blockName}.css`);
+    const mod = await import(`/templates/consonant/blocks/${blockName}/${blockName}.js`);
+    if (mod.default) {
+      await mod.default(blockName, document, eager);
+    }
+  } catch (err) {
+    debug(`failed to load module for ${blockName}`, err);
+  }
+}
+
+/**
  * Loads JS and CSS for all blocks in a container element.
  * @param {Element} main The container element
  */
@@ -699,31 +715,6 @@ function decoratePictures(main) {
   });
 }
 
-export async function importBlocks(doc) {
-  // remove this next line after draft:
-  const path = `drafts/artisthub-2.2/${doc}`;
-
-  let url = '';
-  if (window.pages.product && window.pages.locale) {
-    url = `/${window.pages.product}/${window.pages.locale}/${path}.plain.html`;
-  }
-  if (window.pages.product && window.pages.project) {
-    url = `/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${path}.plain.html`;
-  }
-  if (url) {
-    const resp = await fetch(url);
-    if (resp.status === 200) {
-      const html = await resp.text();
-      const inner = document.createElement('div');
-      inner.innerHTML = html;
-      document.querySelector('main').appendChild(inner);
-      window.hlx.dependencies.push(url);
-      return inner;
-    }
-  }
-  return null;
-}
-
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -865,16 +856,7 @@ async function loadLazy() {
   loadBlocks(main);
 
   // Load Header
-  const $headerName = 'header';
-  try {
-    loadCSS(`/templates/consonant/blocks/${$headerName}/${$headerName}.css`);
-    const mod = await import(`/templates/consonant/blocks/${$headerName}/${$headerName}.js`);
-    if (mod.default) {
-      await mod.default($headerName);
-    }
-  } catch (err) {
-    debug(`failed to load module for ${$headerName}`, err);
-  }
+  loadBlockManually('header', true);
 }
 
 /**

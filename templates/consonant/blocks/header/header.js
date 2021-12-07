@@ -10,10 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  importBlocks,
-} from '../../consonant.js';
-
 function openMobileMenu() {
   // Opens the mobile menu
   document.body.classList.add('menu-open');
@@ -177,12 +173,39 @@ function decorateHeader($block) {
   $headerTag.classList.add('appear');
 }
 
+async function importHeader(doc) {
+  let path = doc;
+  if (window.location.toString().includes('drafts/artisthub-2.2/')) {
+    path = `drafts/artisthub-2.2/${doc}`;
+  }
+
+  let url = '';
+  if (window.pages.product && window.pages.locale) {
+    url = `/${window.pages.product}/${window.pages.locale}/${path}.plain.html`;
+  }
+  if (window.pages.product && window.pages.project) {
+    url = `/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${path}.plain.html`;
+  }
+  if (url) {
+    const resp = await fetch(url);
+    if (resp.status === 200) {
+      const html = await resp.text();
+      const inner = document.createElement('div');
+      inner.innerHTML = html;
+      document.querySelector('main').appendChild(inner);
+      window.hlx.dependencies.push(url);
+      return inner;
+    }
+  }
+  return null;
+}
+
 export default function loadHeader($blockName) {
   const $inlineHeader = document.querySelector(`main div.${$blockName}`);
   if ($inlineHeader) {
     decorateHeader($inlineHeader);
   } else {
-    importBlocks('header').then((response) => {
+    importHeader('header').then((response) => {
       if (response && response.nodeType) {
         const $importedHeader = response.querySelector(`main div.${$blockName}`);
         if ($importedHeader) {
