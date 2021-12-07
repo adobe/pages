@@ -613,7 +613,7 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
  * Decorate Buttons
  */
 export function decorateButtons(block = document) {
-  const $blocksWithoutButton = ['header', 'footer', 'cards', 'breadcrumbs', 'sitemap'];
+  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap'];
   block.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section-wrapper > div > div');
@@ -647,7 +647,8 @@ export function decorateButtons(block = document) {
           }
         }
       });
-      if (!$a.querySelector('img') && buttonsOnly) {
+
+      if (buttonsOnly) {
         $c.classList.add('button-container');
         const $up = $a.parentElement;
         const $twoUp = $a.parentElement.parentElement;

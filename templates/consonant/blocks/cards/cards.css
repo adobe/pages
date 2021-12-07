@@ -1,8 +1,11 @@
 /*-- Cards Variants --*/
-/* [default, overlay, horizontal] */
+/* [default, overlay, horizontal, nocrop] */
 /* Default cards show an image at the top and text at the bottom */
 /* Overlay cards show an image in the background and a dark overlay with white text in front */
 /* Horizontal cards show an image on the left and text on the right */
+/* The 'nocrop' variant shows the entire width of the image, and adjusts the height accordingly, as compared to the 
+default image option where the height is set and the width crops accordingly. Only works on default card.
+Please make sure to use the same height for each card in a card-set if you use 'nocrop' */
 
 main .cards {
     display: flex;
@@ -188,6 +191,21 @@ main .cards.horizontal .card {
     width: 100%;
 }
 
+main .cards .card > a {
+    color: unset;
+    border-color: unset;
+    background: unset;
+    border-radius: unset;
+    padding: unset;
+    margin: unset;
+    height: 100%;
+    text-align: unset;
+    transition: unset;
+    border: unset;
+    white-space: unset;
+    display: unset;
+}
+
 main .cards.horizontal .card-container-link {
     display: flex;
     width: 100%;
@@ -329,6 +347,20 @@ main .cards + p.button-container {
     margin-top: -20px;
     padding-top: 0;
 }
+
+main .cards.nocrop:not(.horizontal):not(.overlay) .card-picture img {
+    height: auto;
+    object-fit: contain;
+}
+
+main .cards.nocrop:not(.horizontal):not(.overlay) .card-text p.button-container:last-child {
+    margin-bottom: 0;
+    padding-top: 20px;
+    margin-top: 16px;
+    border-top: 1px solid #EAEAEA;
+    justify-content: flex-end;
+}
+
 
 /* Hover Animations */
 
