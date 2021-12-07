@@ -350,10 +350,10 @@ main .artist-bio-hero-section {
 
 @media (max-width: 1030px) {
   main .artist-bio-hero-section .text {
-    position: unset;
+    position: relative;
     height: 100%;
     display: block;
-    padding: 5rem 3rem;
+    padding: 2rem 2rem 1rem 2rem;
     width: 100%;
     z-index: 2;
     text-align: left;
@@ -364,7 +364,7 @@ main .artist-bio-hero-section {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
   }
   main .artist-bio-hero-section .image img {
     object-fit: cover;
