@@ -1,0 +1,596 @@
+.mobile-awareness-app-hero {
+  position: relative;
+  --hero-height: calc(max(43rem, 43vw));
+  min-height: var(--hero-height);
+}
+
+@media (max-width: 1199px) {
+  .mobile-awareness-app-hero {
+    --hero-height: calc(max(35rem, 43vw));
+  }
+}
+
+.mobile-awareness-app-hero .responsive-image-swap {
+  position: relative;
+  z-index: 1;
+}
+
+.mobile-awareness-app-hero .responsive-image-swap,
+.mobile-awareness-app-hero .responsive-image-swap picture,
+.mobile-awareness-app-hero .responsive-image-swap img {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  object-fit: cover;
+  object-position: 40% top;
+}
+
+@media (max-width: 1199px) {
+  .mobile-awareness-app-hero .responsive-image-swap picture,
+  .mobile-awareness-app-hero .responsive-image-swap img {
+    object-position: 50% center;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-awareness-app-hero {
+    min-height: calc(max(45rem, 85vh));
+  }
+
+  .mobile-awareness-app-hero .responsive-image-swap picture,
+  .mobile-awareness-app-hero .responsive-image-swap img {
+    object-position: 50% bottom;
+  }
+}
+
+.app-hero-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3vw 0;
+}
+@media (max-width: 767px) {
+  .app-hero-overlay {
+    align-items: flex-start;
+    padding: 0;
+  }
+}
+
+.app-hero-overlay .section-wrapper {
+  text-align: left;
+}
+@media (max-width: 767px) {
+  .app-hero-overlay .section-wrapper {
+    margin-top: 1.5em;
+  }
+}
+.app-hero-overlay .section-wrapper > * {
+  max-width: calc(min(45vw, 34rem));
+}
+@media (max-width: 767px) {
+  .app-hero-overlay .section-wrapper > * {
+    max-width: 100%;
+  }
+}
+
+.app-hero-overlay .icon {
+  width: 5.3rem;
+  height: 5.3rem;
+  margin-bottom: 2.5rem;
+}
+@media (max-width: 767px) {
+  .app-hero-overlay .icon {
+    width: 2.8rem;
+    height: 2.8rem;
+    margin-bottom: 1.875rem;
+  }
+}
+
+.app-hero-overlay h2 {
+  font-weight: 600;
+  font-size: 3.125em;
+  color: black;
+}
+@media (max-width: 767px) {
+  .app-hero-overlay h2 {
+    font-size: 1.58rem;
+  }
+}
+@media (max-width: 767px) {
+  .app-hero-overlay .get-links {
+    margin-top: 1rem;
+  }
+}
+
+/* sign in reminder */
+
+.mobile-awareness-app-sign-in-reminder {
+  position: relative;
+  padding: 3.75rem;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  padding-right: 0;
+}
+@media (max-width: 1024px) {
+  .mobile-awareness-app-sign-in-reminder {
+    padding: 0;
+    background: #eaeaea;
+    margin: 1.25rem auto !important;
+    padding: 1.25rem;
+    max-width: 90% !important;
+  }
+}
+
+.mobile-awareness-app-sign-in-reminder img:not(.icon) {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 50%;
+  transform: translateY(-40%);
+  max-width: 45vw;
+  max-height: 36.25rem;
+}
+@media (max-width: 1024px) {
+  .mobile-awareness-app-sign-in-reminder img:not(.icon) {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    max-width: 100%;
+    margin-top: 1.875rem;
+  }
+}
+.mobile-awareness-app-sign-in-reminder .content {
+  width: 37.5rem;
+  align-self: flex-end;
+  padding: 5rem;
+}
+@media (max-width: 1024px) {
+  .mobile-awareness-app-sign-in-reminder .content {
+    width: auto;
+    align-self: flex-end;
+    padding: 1rem;
+    padding-bottom: 0;
+  }
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-sign-in-reminder .content {
+    padding: 0;
+  }
+}
+
+.mobile-awareness-app-sign-in-reminder .icon {
+  opacity: 0.5;
+  max-height: 1.875rem;
+  margin-right: 0.625rem;
+  margin-top: -0.625rem;
+}
+
+.mobile-awareness-app-sign-in-reminder .gray-zone {
+  padding: 0;
+  text-align: left;
+  width: 80%;
+  max-width: 100%;
+  align-self: flex-end;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 3.75rem 0;
+  background: #eaeaea;
+}
+@media (max-width: 1024px) {
+  .mobile-awareness-app-sign-in-reminder .gray-zone {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.mobile-awareness-app-sign-in-reminder .image-caption {
+  position: absolute;
+  top: 0em;
+  left: 1.5em;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+@media (max-width: 1024px) {
+  .mobile-awareness-app-sign-in-reminder .image-caption {
+    display: none;
+  }
+}
+
+/* tutorials */
+
+.mobile-awareness-app-tutorial-prompt {
+  margin-top: 3.75rem !important;
+  margin-bottom: 5rem !important;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-tutorial-prompt {
+    margin-top: 2.5rem !important;
+    margin-bottom: 2.5rem !important;
+  }
+}
+.mobile-awareness-app-tutorial-prompt h2 {
+  margin-bottom: 0.625rem;
+}
+
+.mobile-awareness-app-tutorial-prompt .tutorial-prompts {
+  max-width: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-tutorial-prompt .tutorial-prompts {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mobile-awareness-app-tutorial-prompt .tutorial-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e6e6e6;
+  padding-bottom: 1.25rem;
+  color: #4b4b4b;
+  transition: box-shadow 0.2s ease-in-out;
+}
+.mobile-awareness-app-tutorial-prompt .tutorial-card:hover {
+  box-shadow: 0 0.625rem 1.25rem 0 rgba(0, 0, 0, 0.05),
+    0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.mobile-awareness-app-tutorial-prompt .tutorial-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.3125rem;
+}
+.mobile-awareness-app-tutorial-prompt
+  .tutorial-card
+  > *:not(picture) {
+  padding: 0 0.625rem;
+}
+.mobile-awareness-app-tutorial-prompt
+  .tutorial-card
+  > picture {
+  margin-bottom: 0.625rem;
+}
+
+.mobile-awareness-app-tutorial-prompt .fake-link {
+  display: inline-block;
+  margin: 0 auto;
+  color: #0d66d0;
+  cursor: pointer;
+}
+.mobile-awareness-app-tutorial-prompt .fake-link:hover {
+  text-decoration: underline;
+}
+
+/* extensibility */
+
+.mobile-awareness-app-extensibility {
+  padding: 3.75rem 0;
+  background: #6e6e6e;
+}
+.mobile-awareness-app-extensibility .grid-2.uneven .row {
+  grid-template-columns: 42.7% 57.3%;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-extensibility .grid-2.uneven .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mobile-awareness-app-extensibility .section-wrapper {
+  color: white;
+}
+.mobile-awareness-app-extensibility .section-wrapper p {
+  color: white !important;
+  max-width: 56.25rem;
+  margin: 0 auto;
+  font-size: 1.25rem !important;
+  margin-bottom: 2.8rem !important;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-extensibility .section-wrapper p {
+    font-size: 1rem !important;
+  }
+}
+.mobile-awareness-app-extensibility
+  .section-wrapper
+  .cell
+  p {
+  margin: 0 !important;
+}
+.mobile-awareness-app-extensibility img {
+  width: 100%;
+}
+.mobile-awareness-app-extensibility .cell {
+  position: relative;
+}
+.mobile-awareness-app-extensibility .cell p + p {
+  position: absolute;
+  transform-origin: 0% 100%;
+  transform: translateX(95%) rotate(-90deg);
+  top: 85%;
+  right: -0.5em;
+  white-space: nowrap;
+  color: white;
+  font-size: 0.875rem !important;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* app cta */
+
+.mobile-awareness-app-cta {
+  position: relative;
+  padding: 8rem 0;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-cta {
+    position: relative;
+    padding: 2.5rem 0;
+  }
+}
+.mobile-awareness-app-cta .section-wrapper {
+  display: flex;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-cta .section-wrapper {
+    flex-direction: column;
+  }
+}
+
+.mobile-awareness-app-cta .section-wrapper.secondary {
+  margin-top: 5rem;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-cta .section-wrapper.secondary {
+    margin-top: 2.5rem;
+    flex-direction: column-reverse;
+  }
+  .mobile-awareness-app-cta .section-wrapper.secondary img {
+    margin-top: 2.5rem;
+  }
+}
+
+.mobile-awareness-app-cta .section-wrapper > * {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+}
+.mobile-awareness-app-cta .section-wrapper > picture {
+  align-items: center;
+  background: white;
+}
+
+.mobile-awareness-app-cta .responsive-image-swap {
+  position: relative;
+  z-index: 1;
+}
+
+.mobile-awareness-app-cta .responsive-image-swap picture,
+.mobile-awareness-app-cta .responsive-image-swap img {
+  display: block;
+  min-height: calc(min(90vh, 45rem));
+  width: 100%;
+  object-fit: cover;
+}
+
+.app-cta-content {
+  max-width: 31.25rem;
+  margin-right: 3.125rem;
+}
+.app-cta-content:last-child {
+  margin-right: 0;
+  margin-left: 3.125rem;
+}
+@media (max-width: 767px) {
+  .app-cta-content {
+    max-width: 100%;
+    margin-right: 0px !important;
+    margin-left: 0 !important;
+  }
+}
+
+.app-cta-overlay .section-wrapper {
+  text-align: left;
+}
+.app-cta-overlay .section-wrapper > * {
+  max-width: 34rem;
+}
+@media (max-width: 767px) {
+  .app-cta-overlay .section-wrapper > * {
+    max-width: 100%;
+  }
+}
+
+.app-cta-overlay .icon {
+  width: 5.3rem;
+  height: 5.3rem;
+  margin-bottom: 2.5rem;
+}
+
+.app-cta-overlay h2 {
+  font-weight: 600;
+  font-size: 3.125rem;
+  color: black;
+}
+
+@media (max-width: 767px) {
+  .app-cta-content .get-links {
+    margin: 0.625rem 0 1.875rem 0;
+  }
+}
+
+/* inspiration */
+
+.mobile-awareness-app-inspiration {
+  padding: 5rem 0;
+  background: var(--light_gray);
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-inspiration {
+    padding: 2.5rem 0;
+  }
+}
+.mobile-awareness-app-inspiration .section-wrapper {
+  text-align: left;
+}
+
+.mobile-awareness-app-inspiration .app-inspiration {
+  font-size: 1.25rem;
+  color: #4b4b4b;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 1.25rem;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-inspiration .app-inspiration {
+    grid-template-columns: 1fr;
+    grid-gap: 1.3125rem;
+  }
+}
+.mobile-awareness-app-inspiration .app-inspiration > * {
+  padding: 0 0 1.25rem 0;
+  grid-column: span 2;
+  align-self: end;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-inspiration .app-inspiration > * {
+    grid-column: span 1 !important;
+  }
+}
+
+.app-inspiration > *:nth-child(1),
+.app-inspiration > *:nth-child(2) {
+  grid-column: span 3;
+}
+
+.app-inspiration .author a {
+  color: inherit;
+}
+.app-inspiration .author a:hover {
+  text-decoration: underline;
+}
+
+/* other apps */
+
+.mobile-awareness-app-others {
+  padding: 5rem 0;
+  background: #eaeaea;
+}
+@media (max-width: 767px) {
+  .mobile-awareness-app-others {
+    padding: 2.5rem 0;
+  }
+}
+
+.learn-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1.25rem;
+}
+@media (max-width: 767px) {
+  .learn-cards {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1.3125rem;
+  }
+}
+.learn-cards > *:not(.learn-card) {
+  display: none;
+}
+
+.learn-card {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background: white;
+  position: relative;
+  padding: 3.125rem;
+  font-size: 1rem;
+  overflow: hidden;
+  height: 50rem;
+}
+@media (max-width: 1024px) {
+  .learn-card {
+    padding: 2rem;
+    height: 40rem;
+  }
+}
+@media (max-width: 767px) {
+  .learn-card {
+    padding: 1.3125rem;
+    height: 32rem;
+  }
+}
+
+.learn-card a {
+  display: inline-block;
+  margin-top: 3.3125rem;
+}
+.learn-card p {
+  font-size: 1rem !important;
+}
+
+.learn-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.learn-card img.icon {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+.learn-card picture,
+.learn-card picture img {
+  position: absolute;
+  z-index: 1;
+  bottom: -0.625rem;
+  left: 0;
+  right: 0;
+}
+
+.learn-card picture,
+.learn-card img:not(.icon) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 1024px) {
+  .learn-card picture,
+  .learn-card img:not(.icon) {
+    height: 90%;
+  }
+}
+@media (max-width: 767px) {
+  .learn-card picture,
+  .learn-card img:not(.icon) {
+    height: 85%;
+  }
+}
+
+/* app-specific styles */
+
+.photoshop-on-ipad .icon-phone {
+  display: none;
+}
