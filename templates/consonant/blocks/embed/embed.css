@@ -1,0 +1,12 @@
+main .section-wrapper.embed-container,
+main .section-wrapper.embed-container > div,
+main .section-wrapper.marquee-container + .section-wrapper.embed-container {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    width: 100%;
+}
+
+main .section-wrapper.embed-container .section-wrapper:first-child {
+    margin-top: 0;
+}

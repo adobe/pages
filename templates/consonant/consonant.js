@@ -494,7 +494,7 @@ export async function loadBlock(block, eager = false) {
  * Loads JS and CSS for all blocks in a container element.
  * @param {Element} main The container element
  */
-async function loadBlocks(main) {
+export async function loadBlocks(main) {
   main
     .querySelectorAll('div.section-wrapper > div > .block')
     .forEach(async (block) => {
@@ -738,7 +738,6 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateButtons(main);
   updateH6toDetail(main);
-  document.documentElement.lang = getLanguage();
 }
 
 /**
@@ -862,7 +861,9 @@ async function loadLazy() {
   // post LCP actions go here
   sampleRUM('lcp');
 
+  document.documentElement.lang = getLanguage();
   loadBlocks(main);
+
   // Load Header
   const $headerName = 'header';
   try {
