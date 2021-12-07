@@ -245,16 +245,31 @@ main .marquee.large {
 }
 
 main .marquee .marquee-caption {
-    max-width: var(--max-width-block-laptop);
+    width: 100%;
+    z-index: 2;
     position: absolute;
     bottom: 0;
-    left: 50%;
-    width: 100%;
-    transform: translate(-50%);
-    padding: 0 var(--gutter);
     text-align: left;
     text-shadow: 1px 2px 3px #000000B1;
-    padding-bottom: 1rem;
+    padding-bottom: 32px;
+}
+
+main .marquee .marquee-caption p {
+    width: 100%;
+    max-width: var(--max-width-block-laptop);
+    font-size: var(--body-font-size-s);
+    padding: 0 var(--gutter);
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 799px) {
+    main .marquee .marquee-caption p {
+        max-width: var(--max-width-mobile);
+    }
+}
+
+main .marquee.light .marquee-caption {
+    text-shadow: none;
 }
 
 @media screen and (min-width: 800px) {
