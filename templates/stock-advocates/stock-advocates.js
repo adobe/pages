@@ -469,6 +469,15 @@ async function decorateHeader() {
       document.body.classList.remove('noscroll');
     }
   });
+
+  const $links = Array.from($menu.querySelectorAll('a'));
+  $links.forEach(($a) => {
+    $a.addEventListener('click', () => {
+      $header.classList.remove('expanded');
+      document.body.classList.remove('noscroll');
+    });
+  });
+  
   decorateLogo();
 }
 
