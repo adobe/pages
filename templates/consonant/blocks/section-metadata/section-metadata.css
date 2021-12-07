@@ -18,5 +18,5 @@ main .background-container {
 
 main .background-container .cards:last-child,
 main .background-container .columns:last-child .columns-row:last-child {
-    margin-bottom: 16px;
+    margin-bottom: var(--section-spacing-x-small);
 }

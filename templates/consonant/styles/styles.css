@@ -215,6 +215,11 @@ main .section-wrapper .block:last-child {
   margin-bottom: 0;
 }
 
+main .section-wrapper:last-child .block:last-child {
+  margin-bottom: 0;
+  padding-bottom: var(--section-spacing);
+}
+
 main .section-wrapper:last-of-type {
   margin-bottom: 0;
 }

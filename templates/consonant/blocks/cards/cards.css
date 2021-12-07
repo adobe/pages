@@ -53,12 +53,16 @@ main .cards .card {
     position: relative;
 }
 
+main .cards.col-2-cards .card {
+    max-width: unset;
+}
+
 main .cards .card-text {
     padding: 16px;
     padding-bottom: 20px;
 }
 
-main .cards.cards.horizontal .card-text {
+main .cards.horizontal .card-text {
     padding-bottom: 16px;
     display: flex;
     flex-direction: column;
@@ -104,10 +108,12 @@ main .card .card-text h3,
 main .card .card-text h4, 
 main .card .card-text h5 {
     font-size: var(--heading-font-size-xs);
+    min-height: 47px;
 }
 
 main .card .card-text p {
     font-size: var(--body-font-size-xs);
+    color: #747474;
 }
 
 main .cards .card-picture img {
@@ -117,9 +123,13 @@ main .cards .card-picture img {
     display: block;
 }
 
-main .cards.cards.col-1-cards .card-picture img,
-main .cards.cards.col-2-cards .card-picture img,
-main .cards.cards.col-3-cards .card-picture img {
+main .cards.col-5-cards .card-picture img {
+    height: 150px;
+}
+
+main .cards.col-1-cards .card-picture img,
+main .cards.col-2-cards .card-picture img,
+main .cards.col-3-cards .card-picture img {
     height: 300px;
 }
 
@@ -234,11 +244,29 @@ main .cards.horizontal .card {
     }
 
     main .cards.col-4-cards .card {
-        flex-basis: 50%;
+        flex-basis: calc(50% - 16px);
     }
 
     main .cards.horizontal.col-4-cards .card {
         flex-basis: 100%;
+    }
+
+    main .cards.col-1-cards .card-picture img,
+    main .cards.col-2-cards .card-picture img,
+    main .cards.col-3-cards .card-picture img {
+        height: 200px;
+    }
+
+    main .cards-container .cards:not(:last-of-type) {
+        margin-bottom: 24px;
+    }
+    
+    main .cards-container .cards:not(:first-of-type) {
+        margin-top: 24px;
+    }
+
+    main .section-wrapper > div > .cards + p.button-container {
+        justify-content: center;
     }
 }
 
@@ -295,6 +323,11 @@ main .cards.horizontal .card {
         flex-wrap: wrap;
         max-width: var(--max-width-mobile);
     }
+}
+
+main .cards + p.button-container {
+    margin-top: -20px;
+    padding-top: 0;
 }
 
 /* Hover Animations */
