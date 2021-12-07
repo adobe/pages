@@ -90,6 +90,10 @@ html {
 @media screen and (max-width: 1000px) {
   :root {
     --gutter: 1.5rem;
+    --section-spacing: 64px;
+    --section-spacing-large: 90px;
+    --section-spacing-small: 50px;
+    --section-spacing-x-small: 38px;
   }
 }
 
@@ -215,8 +219,7 @@ main .section-wrapper .block:last-child {
   margin-bottom: 0;
 }
 
-main .section-wrapper:last-child .block:last-child {
-  margin-bottom: 0;
+main .section-wrapper:last-child {
   padding-bottom: var(--section-spacing);
 }
 
