@@ -10,6 +10,40 @@
  * governing permissions and limitations under the License.
  */
 
+function assignActives($headerLeftNav) {
+  const $links = $headerLeftNav.querySelectorAll(':scope > div > ul > li');
+  const { href } = window.location;
+
+  if (href.includes('artisthub')) {
+    // Hard-coded for artist-hub pages...
+    let path = '/artisthub';
+    if (href.includes('/drafts/artisthub-2.2')) {
+      path = '/artisthub/drafts/artisthub-2.2';
+    }
+    let page = '';
+    if (href.includes(`${path}/get-started`)) {
+      page = 'Get Started';
+    } else if (href.includes(`${path}/learn`)) {
+      page = 'Learn';
+    } else if (href.includes(`${path}/get-inspired`)) {
+      page = 'Get Inspired';
+    } else if (href.includes(`${path}/advocates-program`)) {
+      page = 'Advocates Program';
+    } else if (href.includes(`${path}/community`)) {
+      page = 'Community';
+    } else if (href.includes(`${path}/support`)) {
+      page = 'Support';
+    }
+    $links.forEach(($li) => {
+      const $a = $li.querySelector(':scope > a');
+      const name = $a.textContent.trim();
+      if (name === page) {
+        $li.classList.add('active-page');
+      }
+    });
+  }
+}
+
 function openMobileMenu() {
   // Opens the mobile menu
   document.body.classList.add('menu-open');
@@ -135,6 +169,8 @@ function decorateHeader($block) {
   $navElements.forEach(($e) => {
     $headerLeftNav.append($e);
   });
+  // Assign active nav elements
+  assignActives($headerLeftNav);
   // Get all the dropdown menus
   const $listItems = Array.from($headerLeft.querySelectorAll(':scope .header-left-nav li '));
   $listItems.forEach(($item) => {

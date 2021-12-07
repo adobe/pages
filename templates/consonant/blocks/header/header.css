@@ -242,6 +242,10 @@ header .dropdown-open svg {
     header .has-dropdown.dropdown-open {
         background-color: #FAFAFA;
     }
+
+    header .active-page {
+        border-bottom: 2px solid #4B4B4B;
+    }
 }
 
 @media screen and (max-width: 1000px) {
