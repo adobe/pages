@@ -350,10 +350,10 @@ main .artist-bio-hero-section {
 
 @media (max-width: 1030px) {
   main .artist-bio-hero-section .text {
-    position: unset;
+    position: relative;
     height: 100%;
     display: block;
-    padding: 5rem 3rem;
+    padding: 2rem 2rem 1rem 2rem;
     width: 100%;
     z-index: 2;
     text-align: left;
@@ -362,10 +362,13 @@ main .artist-bio-hero-section {
     position: absolute;
     height: 100%;
     width: 100%;
-    object-fit: cover;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
+  }
+  main .artist-bio-hero-section .image img {
+    object-fit: cover;
+    object-position: 65%;
   }
 }
 
@@ -490,9 +493,11 @@ body.artist-development-fund main h1
 
 body.artist-development-fund .hero-section {
   height: 60vh;
+  min-height: 475px;
 }
 body.artist-development-fund .hero-section+div {
   height: 40vh;
+  min-height: 440px;;
 }
 
 body.artist-development-fund h3 a:any-link {
@@ -1365,7 +1370,9 @@ body.artist-bio .columns .text h5 {
     
   main>div.section-wrapper .hero-carousel {
     position: relative;
-    padding-top: 65vh;
+    padding-top: 100%;
+    height: 65vh;
+    min-height: 475px;
     perspective: 100px;
     width: 100%;
   }
@@ -1392,6 +1399,7 @@ body.artist-bio .columns .text h5 {
       line-height: 1em;
       pointer-events: none;
       height: 65vh;
+      min-height: 475px;
   }
 
   @media (min-width:1000px) {
