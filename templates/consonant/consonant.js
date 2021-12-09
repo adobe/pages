@@ -729,6 +729,20 @@ export function externalLinks(selector) {
   });
 }
 
+/* Make links relative */
+export function makeLinksRelative() {
+  const links = Array.from(document.querySelectorAll('a[href*="//pages.adobe.com/"]'));
+  links.forEach((link) => {
+    try {
+      const url = new URL(link.href);
+      const rel = window.location.origin + url.pathname + url.search + url.hash;
+      link.href = rel;
+    } catch (error) {
+      console.debug(`problem with link ${link.href}`);
+    }
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element

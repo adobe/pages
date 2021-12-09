@@ -11,6 +11,7 @@
  */
 import {
   externalLinks,
+  makeLinksRelative,
 } from '../../consonant.js';
 
 function assignActives($headerLeftNav) {
@@ -210,6 +211,7 @@ function decorateHeader($block) {
   mobileMenuListeners($block);
   // Show the header
   externalLinks('header');
+  makeLinksRelative();
   $headerTag.classList.add('appear');
 }
 
