@@ -10,3 +10,7 @@ main .section-wrapper.marquee-container + .section-wrapper.embed-container {
 main .section-wrapper.embed-container .section-wrapper:first-child {
     margin-top: 0;
 }
+
+main .section-wrapper.embed-container {
+    margin-top: var(--section-spacing);
+}

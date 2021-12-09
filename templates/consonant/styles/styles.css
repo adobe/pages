@@ -259,10 +259,6 @@ main .section-wrapper > div > p {
   max-width: var(--max-width-text-laptop);
 }
 
-main .section-wrapper.embed-container {
-  margin-top: var(--section-spacing);
-}
-
 @media screen and (max-width: 799px) {
   main .section-wrapper > div,
   main .container {
