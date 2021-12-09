@@ -210,8 +210,8 @@ function decorateHeader($block) {
   // Add mobile menu functionality
   mobileMenuListeners($block);
   // Show the header
-  externalLinks('header');
   makeLinksRelative();
+  externalLinks('header');
   $headerTag.classList.add('appear');
 }
 

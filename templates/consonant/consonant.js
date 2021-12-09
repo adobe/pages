@@ -755,6 +755,7 @@ export function decorateMain(main) {
   removeEmptySections();
   wrapSections(main.querySelectorAll(':scope > div'));
   decorateBlocks(main);
+  makeLinksRelative();
   externalLinks('main');
   decorateButtons(main);
   updateH6toDetail(main);
