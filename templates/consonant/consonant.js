@@ -735,7 +735,7 @@ export function makeLinksRelative() {
   links.forEach((link) => {
     try {
       const url = new URL(link.href);
-      const rel = window.location.origin + url.pathname + url.search + url.hash;
+      const rel = url.pathname + url.search + url.hash;
       link.href = rel;
     } catch (error) {
       console.debug(`problem with link ${link.href}`);
