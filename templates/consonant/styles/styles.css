@@ -259,6 +259,10 @@ main .section-wrapper > div > p {
   max-width: var(--max-width-text-laptop);
 }
 
+main .section-wrapper > div > p:last-child {
+  padding-bottom: var(--section-spacing);
+}
+
 @media screen and (max-width: 799px) {
   main .section-wrapper > div,
   main .container {
