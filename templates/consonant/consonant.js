@@ -715,6 +715,20 @@ function decoratePictures(main) {
   });
 }
 
+/* link out to external links */
+export function externalLinks(selector) {
+  const element = document.querySelector(selector);
+  const links = element.querySelectorAll('a[href]');
+
+  links.forEach((linkItem) => {
+    const linkValue = linkItem.getAttribute('href');
+
+    if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
+      linkItem.setAttribute('target', '_blank');
+    }
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -727,6 +741,7 @@ export function decorateMain(main) {
   removeEmptySections();
   wrapSections(main.querySelectorAll(':scope > div'));
   decorateBlocks(main);
+  externalLinks('main');
   decorateButtons(main);
   updateH6toDetail(main);
 }

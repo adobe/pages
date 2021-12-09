@@ -9,6 +9,9 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import {
+  externalLinks,
+} from '../../consonant.js';
 
 function assignActives($headerLeftNav) {
   const $links = $headerLeftNav.querySelectorAll(':scope > div > ul > li');
@@ -206,6 +209,7 @@ function decorateHeader($block) {
   // Add mobile menu functionality
   mobileMenuListeners($block);
   // Show the header
+  externalLinks('header');
   $headerTag.classList.add('appear');
 }
 
