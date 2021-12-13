@@ -505,7 +505,7 @@ header, main, body>footer {
 
 /* Default footer */
 footer {
-	font-size: 14px;
+  font-size: 14px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -515,90 +515,90 @@ footer {
 }
 
 footer > div:last-child {
-	margin-left: 0;
+  margin-left: 0;
 }
 
 footer svg {
-	fill: currentColor;
-	height: 1em;
-	width: 1em;
+  fill: currentColor;
+  height: 1em;
+  width: 1em;
 }
 
 footer a {
-	color: #4B4B4B;
-	text-decoration: none;
+  color: #4B4B4B;
+  text-decoration: none;
 }
 
 footer a:hover {
-	color: #999999;
+  color: #999999;
 }
 
 footer > div:first-child {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 footer p {
-	margin: 0;
-	color: #4B4B4B;
-	padding: 0;
-	margin-bottom: 12px;
+  margin: 0;
+  color: #4B4B4B;
+  padding: 0;
+  margin-bottom: 12px;
 }
 
 footer ul {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 footer li {
-	margin-bottom: 12px;
-	position: relative;
+  margin-bottom: 12px;
+  position: relative;
 }
 
 footer li:before {
-	content: '';
-	position: relative;
+  content: '';
+  position: relative;
 }
 
 footer li:after {
-	display: none;
+  display: none;
 }
 
 @media (min-width: 992px) {
-	footer {
-		font-size: 11px;
-		flex-direction: row;
-	}
+  footer {
+    font-size: 11px;
+    flex-direction: row;
+  }
 
-	footer > div:last-child {
-		margin-left: 16px;
-	}
+  footer > div:last-child {
+    margin-left: 16px;
+  }
 
-	footer > div:first-child {
-		flex-direction: row;
-	}
+  footer > div:first-child {
+    flex-direction: row;
+  }
 
-	footer p {
-		margin-bottom: 0px;
-	}
+  footer p {
+    margin-bottom: 0px;
+  }
 
-	footer ul {
-		flex-direction: row;
-	}
+  footer ul {
+    flex-direction: row;
+  }
 
-	footer li {
-		margin-left: 16px;
-		margin-bottom: 0px;
-	}
+  footer li {
+    margin-left: 16px;
+    margin-bottom: 0px;
+  }
 
-	footer li:before {
-		content: '/';
-		margin-right: 16px;
-	}
+  footer li:before {
+    content: '/';
+    margin-right: 16px;
+  }
 }
