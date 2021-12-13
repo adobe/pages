@@ -20,31 +20,43 @@ function assignActives($headerLeftNav) {
 
   if (href.includes('artisthub')) {
     // Hard-coded for artist-hub pages...
-    let path = '/artisthub';
+    let regex = /\/artisthub\/(\S+)/g;
     if (href.includes('/drafts/artisthub-2.2')) {
-      path = '/artisthub/drafts/artisthub-2.2';
+      regex = /\/artisthub\/drafts\/artisthub-2.2\/(\S+)/g;
     }
-    let page = '';
-    if (href.includes(`${path}/get-started`)) {
-      page = 'Get Started';
-    } else if (href.includes(`${path}/learn`)) {
-      page = 'Learn';
-    } else if (href.includes(`${path}/get-inspired`)) {
-      page = 'Get Inspired';
-    } else if (href.includes(`${path}/advocates-program`)) {
-      page = 'Advocates Program';
-    } else if (href.includes(`${path}/community`)) {
-      page = 'Community';
-    } else if (href.includes(`${path}/support`)) {
-      page = 'Support';
-    }
-    $links.forEach(($li) => {
-      const $a = $li.querySelector(':scope > a');
-      const name = $a.textContent.trim();
-      if (name === page) {
-        $li.classList.add('active-page');
+    const match = regex.exec(href);
+    if (match && match.length > 1) {
+      let page = '';
+      switch (match[1]) {
+        case 'get-started':
+          page = 'Get Started';
+          break;
+        case 'learn':
+          page = 'Learn';
+          break;
+        case 'get-inspired':
+          page = 'Get Inspired';
+          break;
+        case 'advocates-program':
+          page = 'Advocates Program';
+          break;
+        case 'community':
+          page = 'Community';
+          break;
+        case 'support':
+          page = 'Support';
+          break;
+        default:
+          page = '';
       }
-    });
+      $links.forEach(($li) => {
+        const $a = $li.querySelector(':scope > a');
+        const name = $a.textContent.trim();
+        if (name === page) {
+          $li.classList.add('active-page');
+        }
+      });
+    }
   }
 }
 
