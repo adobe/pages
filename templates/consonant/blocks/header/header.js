@@ -20,9 +20,9 @@ function assignActives($headerLeftNav) {
 
   if (href.includes('artisthub')) {
     // Hard-coded for artist-hub pages...
-    let regex = /\/artisthub\/(\S+)/g;
+    let regex = /\/artisthub\/([^/]+)/g;
     if (href.includes('/drafts/artisthub-2.2')) {
-      regex = /\/artisthub\/drafts\/artisthub-2.2\/(\S+)/g;
+      regex = /\/artisthub\/drafts\/artisthub-2.2\/([^/]+)/g;
     }
     const match = regex.exec(href);
     if (match && match.length > 1) {
