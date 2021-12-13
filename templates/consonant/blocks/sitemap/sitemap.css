@@ -1,5 +1,5 @@
 main .section-wrapper.sitemap-container {
-    background-color: #F8F8F8;
+    background-color: var(--color-gray-100);
 }
 
 main .sitemap-container {
