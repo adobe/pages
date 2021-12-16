@@ -83,7 +83,7 @@ footer .footer-container svg {
 	height: auto;
 	min-width: 0;
 	margin: 0;
-	min-height: auto;
+	min-height: 50px;
 }
 
 footer .footer-container p.icon-container {
