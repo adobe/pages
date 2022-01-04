@@ -912,12 +912,13 @@ export async function loadTemplate(template) {
  * @param {string} locale
  */
 export function getLocalizedFooter(locale) {
+  const currentYear = new Date().getFullYear();
   const template = ({
     links,
     cookies,
   }) => `
   <div>
-    <p>Copyright © 2021 Adobe. All rights reserved.</p>
+    <p>Copyright © ${currentYear} Adobe. All rights reserved.</p>
     <ul>
       ${links}
     </ul>
