@@ -21,13 +21,17 @@ export default function decorate($block) {
     const bgColor = bg.textContent;
     $block.style.background = bgColor;
   }
-  const content = $block.querySelector(':scope > div:last-of-type');
+  const content = $block.querySelector(':scope > div:nth-of-type(2)');
   content.classList.add('container');
   content.querySelector(':scope > div:first-of-type').classList.add('marquee-column');
   content.querySelector(':scope > div:last-of-type').classList.add('marquee-column');
   const picElement = content.querySelector(':scope picture');
   if (picElement) {
     picElement.parentElement.classList.add('marquee-image');
+  }
+  const caption = $block.querySelector(':scope > div:nth-of-type(3)');
+  if (caption) {
+    caption.classList.add('marquee-caption');
   }
   // Remove white space between section with background and marquee:
   const $previousSection = $sectionWrapper.previousElementSibling;

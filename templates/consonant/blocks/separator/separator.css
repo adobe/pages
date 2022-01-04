@@ -1,3 +1,10 @@
+/*-- Separator Variants --*/
+/* Medium (default) separator has padding: 24px 0 */
+/* Small separator has padding: 6px 0 */
+/* Center (default) aligns the text center */
+/* Right aligns the text right */
+/* Left aligns the text left */
+/* Accent separator has the accent color background */
 
 main .section-wrapper:first-of-type.separator-container {
     margin-top: var(--header-height);
@@ -54,11 +61,44 @@ main .separator {
     text-align: center;
 }
 
+main .separator.small {
+    padding: 6px 0;
+}
+
+main .separator.accent {
+    background-color: var(--color-info-accent-subtle);
+}
+
+main .separator .container {
+    width: 100%;
+}
+
+main .separator .container :first-child {
+    margin-left: 0;
+}
+
+main .separator .container :last-child {
+    margin-right: 0;
+}
+
+main .separator.right .container {
+    justify-content: flex-end;
+}
+
+main .separator.left .container {
+    justify-content: flex-start;
+}
+
 main .separator div {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+main .separator a {
+    color: var(--color-white);
+    text-decoration: underline;
 }
 
 main .separator a.button.transparent:any-link {

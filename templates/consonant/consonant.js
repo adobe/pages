@@ -200,10 +200,26 @@ function wrapSections(sections) {
 }
 
 /**
+ * Block Helpers
+ */
+export function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+export function isNodeName(node, name) {
+  if (!node || typeof node !== 'object') return false;
+  return node.nodeName.toLowerCase() === name.toLowerCase();
+}
+export function isAttr(node, attr, val) {
+  if (!node || typeof node !== 'object') return false;
+  return node.getAttribute(attr) === val;
+}
+
+/**
  * Decorates a block.
  * @param {Element} block The block element
  */
 export function decorateBlock(block) {
+  // Add classes to container...
   const classes = Array.from(block.classList.values());
   let blockName = classes[0];
   if (!blockName) return;
@@ -211,7 +227,30 @@ export function decorateBlock(block) {
   if (section) {
     section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
   }
-  const blocksWithVariants = ['columns', 'cards', 'marquee'];
+
+  // Wrap text-nodes or <a>-nodes in a <p> if they are alone...
+  const divs = Array.from(block.querySelectorAll(':scope > div div'));
+  divs.forEach((div) => {
+    const blockChildren = Array.from(div.childNodes);
+    let textOnlyNoP = true;
+    blockChildren.forEach(($c) => {
+      const $n = $c.nodeName.toLowerCase();
+      if ($n === 'p' || $n === 'picture' || $n === 'img' || $n === 'h1' || $n === 'h2'
+          || $n === 'h3' || $n === 'h4' || $n === 'h5' || $n === 'h6' || $n === 'div') {
+        textOnlyNoP = false;
+      }
+    });
+    if (textOnlyNoP) {
+      const p = document.createElement('p');
+      div.appendChild(p);
+      blockChildren.forEach(($c) => {
+        p.appendChild($c);
+      });
+    }
+  });
+
+  // Allow for variants...
+  const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator'];
   blocksWithVariants.forEach((b) => {
     if (blockName.startsWith(`${b}-`)) {
       const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -230,6 +269,15 @@ export function decorateBlock(block) {
 
   block.classList.add('block');
   block.setAttribute('data-block-name', blockName);
+
+  // Delete empty section wrappers
+  const sections = Array.from(document.querySelectorAll('.section-wrapper'));
+  sections.forEach(($s) => {
+    const div = $s.querySelector(':scope > div');
+    if (!div.firstElementChild) {
+      $s.remove();
+    }
+  });
 }
 
 /**
@@ -443,13 +491,33 @@ export async function loadBlock(block, eager = false) {
 }
 
 /**
+ * Loads JS and CSS for a block.
+ * @param {String} block The block's name
+ */
+export async function loadBlockManually(blockName, eager = false) {
+  try {
+    loadCSS(`/templates/consonant/blocks/${blockName}/${blockName}.css`);
+    const mod = await import(`/templates/consonant/blocks/${blockName}/${blockName}.js`);
+    if (mod.default) {
+      await mod.default(blockName, document, eager);
+    }
+  } catch (err) {
+    debug(`failed to load module for ${blockName}`, err);
+  }
+}
+
+/**
  * Loads JS and CSS for all blocks in a container element.
  * @param {Element} main The container element
  */
-async function loadBlocks(main) {
+export async function loadBlocks(main) {
   main
     .querySelectorAll('div.section-wrapper > div > .block')
-    .forEach(async (block) => loadBlock(block));
+    .forEach(async (block) => {
+      if (block.getAttribute('data-block-name') !== 'header') {
+        loadBlock(block);
+      }
+    });
 }
 
 /**
@@ -558,25 +626,10 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
 }
 
 /**
- * Block Helpers
- */
-export function insertAfter(newNode, existingNode) {
-  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-}
-export function isNodeName(node, name) {
-  if (!node || typeof node !== 'object') return false;
-  return node.nodeName.toLowerCase() === name.toLowerCase();
-}
-export function isAttr(node, attr, val) {
-  if (!node || typeof node !== 'object') return false;
-  return node.getAttribute(attr) === val;
-}
-
-/**
  * Decorate Buttons
  */
 export function decorateButtons(block = document) {
-  const $blocksWithoutButton = ['header', 'footer', 'cards'];
+  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed'];
   block.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section-wrapper > div > div');
@@ -616,10 +669,10 @@ export function decorateButtons(block = document) {
         const $twoUp = $a.parentElement.parentElement;
         const $threeUp = $a.parentElement.parentElement.parentElement;
         if (isNodeName($up, 'p')) {
-          $a.className = 'button primary'; // default
+          $a.className = 'button transparent'; // default
         }
         if (isNodeName($up, 'strong') && isNodeName($twoUp, 'p')) {
-          $a.className = 'button accent';
+          $a.className = 'button primary';
         }
         if (isNodeName($up, 'em') && isNodeName($twoUp, 'p')) {
           $a.className = 'button secondary';
@@ -627,7 +680,7 @@ export function decorateButtons(block = document) {
         if (((isNodeName($up, 'em') && isNodeName($twoUp, 'strong'))
             || (isNodeName($up, 'strong') && isNodeName($twoUp, 'em')))
             && isNodeName($threeUp, 'p')) {
-          $a.className = 'button transparent';
+          $a.className = 'button accent';
         }
       }
     }
@@ -662,6 +715,34 @@ function decoratePictures(main) {
   });
 }
 
+/* link out to external links */
+export function externalLinks(selector) {
+  const element = document.querySelector(selector);
+  const links = element.querySelectorAll('a[href]');
+
+  links.forEach((linkItem) => {
+    const linkValue = linkItem.getAttribute('href');
+
+    if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
+      linkItem.setAttribute('target', '_blank');
+    }
+  });
+}
+
+/* Make links relative */
+export function makeLinksRelative() {
+  const links = Array.from(document.querySelectorAll('a[href*="//pages.adobe.com/"]'));
+  links.forEach((link) => {
+    try {
+      const url = new URL(link.href);
+      const rel = url.pathname + url.search + url.hash;
+      link.href = rel;
+    } catch (error) {
+      console.debug(`problem with link ${link.href}`);
+    }
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -674,9 +755,10 @@ export function decorateMain(main) {
   removeEmptySections();
   wrapSections(main.querySelectorAll(':scope > div'));
   decorateBlocks(main);
+  makeLinksRelative();
+  externalLinks('main');
   decorateButtons(main);
   updateH6toDetail(main);
-  document.documentElement.lang = getLanguage();
 }
 
 /**
@@ -800,9 +882,11 @@ async function loadLazy() {
   // post LCP actions go here
   sampleRUM('lcp');
 
+  document.documentElement.lang = getLanguage();
   loadBlocks(main);
-  loadCSS('/templates/consonant/styles/lazy-styles.css');
-  // addFavIcon('/templates/consonant/styles/favicon.svg');
+
+  // Load Header
+  loadBlockManually('header', true);
 }
 
 /**

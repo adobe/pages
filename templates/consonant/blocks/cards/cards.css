@@ -1,8 +1,11 @@
 /*-- Cards Variants --*/
-/* [default, overlay, horizontal] */
+/* [default, overlay, horizontal, nocrop] */
 /* Default cards show an image at the top and text at the bottom */
 /* Overlay cards show an image in the background and a dark overlay with white text in front */
 /* Horizontal cards show an image on the left and text on the right */
+/* The 'nocrop' variant shows the entire width of the image, and adjusts the height accordingly, as compared to the 
+default image option where the height is set and the width crops accordingly. Only works on default card.
+Please make sure to use the same height for each card in a card-set if you use 'nocrop' */
 
 main .cards {
     display: flex;
@@ -53,12 +56,16 @@ main .cards .card {
     position: relative;
 }
 
+main .cards.col-2-cards .card {
+    max-width: unset;
+}
+
 main .cards .card-text {
     padding: 16px;
     padding-bottom: 20px;
 }
 
-main .cards.cards.horizontal .card-text {
+main .cards.horizontal .card-text {
     padding-bottom: 16px;
     display: flex;
     flex-direction: column;
@@ -104,10 +111,12 @@ main .card .card-text h3,
 main .card .card-text h4, 
 main .card .card-text h5 {
     font-size: var(--heading-font-size-xs);
+    min-height: 47px;
 }
 
 main .card .card-text p {
     font-size: var(--body-font-size-xs);
+    color: #747474;
 }
 
 main .cards .card-picture img {
@@ -117,9 +126,13 @@ main .cards .card-picture img {
     display: block;
 }
 
-main .cards.cards.col-1-cards .card-picture img,
-main .cards.cards.col-2-cards .card-picture img,
-main .cards.cards.col-3-cards .card-picture img {
+main .cards.col-5-cards .card-picture img {
+    height: 150px;
+}
+
+main .cards.col-1-cards .card-picture img,
+main .cards.col-2-cards .card-picture img,
+main .cards.col-3-cards .card-picture img {
     height: 300px;
 }
 
@@ -178,6 +191,21 @@ main .cards.horizontal .card {
     width: 100%;
 }
 
+main .cards .card > a {
+    color: unset;
+    border-color: unset;
+    background: unset;
+    border-radius: unset;
+    padding: unset;
+    margin: unset;
+    height: 100%;
+    text-align: unset;
+    transition: unset;
+    border: unset;
+    white-space: unset;
+    display: unset;
+}
+
 main .cards.horizontal .card-container-link {
     display: flex;
     width: 100%;
@@ -234,11 +262,29 @@ main .cards.horizontal .card {
     }
 
     main .cards.col-4-cards .card {
-        flex-basis: 50%;
+        flex-basis: calc(50% - 16px);
     }
 
     main .cards.horizontal.col-4-cards .card {
         flex-basis: 100%;
+    }
+
+    main .cards.col-1-cards .card-picture img,
+    main .cards.col-2-cards .card-picture img,
+    main .cards.col-3-cards .card-picture img {
+        height: 200px;
+    }
+
+    main .cards-container .cards:not(:last-of-type) {
+        margin-bottom: 24px;
+    }
+    
+    main .cards-container .cards:not(:first-of-type) {
+        margin-top: 24px;
+    }
+
+    main .section-wrapper > div > .cards + p.button-container {
+        justify-content: center;
     }
 }
 
@@ -296,6 +342,25 @@ main .cards.horizontal .card {
         max-width: var(--max-width-mobile);
     }
 }
+
+main .cards + p.button-container {
+    margin-top: -20px;
+    padding-top: 0;
+}
+
+main .cards.nocrop:not(.horizontal):not(.overlay) .card-picture img {
+    height: auto;
+    object-fit: contain;
+}
+
+main .cards.nocrop:not(.horizontal):not(.overlay) .card-text p.button-container:last-child {
+    margin-bottom: 0;
+    padding-top: 20px;
+    margin-top: 16px;
+    border-top: 1px solid #EAEAEA;
+    justify-content: flex-end;
+}
+
 
 /* Hover Animations */
 

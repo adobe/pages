@@ -13,10 +13,10 @@ main .background-container + .background-container {
 }
 
 main .background-container {
-    background-color: #f8f8f8;
+    background-color: var(--color-gray-100);
 }
 
 main .background-container .cards:last-child,
 main .background-container .columns:last-child .columns-row:last-child {
-    margin-bottom: 16px;
+    margin-bottom: var(--section-spacing-x-small);
 }

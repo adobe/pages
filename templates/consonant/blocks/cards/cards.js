@@ -66,6 +66,7 @@ export default function decorate($block) {
     if (hasLink) {
       const $cardLink = $card.querySelector(':scope .card-link a');
       if ($cardLink) {
+        $cardLink.classList.remove('button');
         $cardLink.classList.add('card-container-link');
         $cardLink.innerText = '';
         $card.appendChild($cardLink);

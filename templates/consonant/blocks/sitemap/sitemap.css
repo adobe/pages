@@ -1,0 +1,103 @@
+main .section-wrapper.sitemap-container {
+    background-color: var(--color-gray-100);
+}
+
+main .sitemap-container {
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
+    margin-top: var(--section-spacing);
+}
+
+main .sitemap-container + .sitemap-container,
+main .marquee-container + .sitemap-container,
+main .separator-container + .sitemap-container,
+main .background-container + .sitemap-container {
+    margin-top: 0;
+}
+
+main .sitemap-container .sitemap ul,
+main .sitemap-container .sitemap li,
+main .sitemap-container .sitemap p {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+main .sitemap-container > div {
+    max-width: 1440px;
+}
+
+main .sitemap-container .sitemap {
+    margin: 0 auto;
+}
+
+main .sitemap-container .sitemap p > ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+main .sitemap-container .sitemap p > ul > li {
+    padding: 0;
+    padding-bottom: 30px;
+    flex: 1 1 0px;
+    min-width: 160px;
+}
+
+main .sitemap-container .sitemap p > ul > li a {
+    color: #a1a1a1;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 14px 0;
+    box-sizing: border-box;
+    padding: 8px 0;
+    display: block;
+}
+
+main .sitemap-container .sitemap p > ul > li > a {
+    text-transform: uppercase;
+    color: #565656;
+    font-weight: 700;
+}
+
+main .sitemap-container .sitemap p > ul > li a:hover {
+    color: #565656;
+}
+
+main .sitemap-container .sitemap p > ul > li > a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1240px) {
+    
+    main .sitemap-container .sitemap {
+        max-width: 800px;
+        padding-left: 80px;
+    }
+
+    main .sitemap-container .sitemap p > ul > li {
+        min-width: 240px;
+        max-width: 25%;
+    }
+}
+
+@media screen and (max-width: 920px) {
+    main .sitemap-container .sitemap p > ul > li {
+        min-width: 27%;
+    }
+    
+    main .sitemap-container .sitemap {
+        padding-left: 36px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    main .sitemap-container .sitemap p > ul > li {
+        min-width: 120px;
+        max-width: 50%;
+    }
+    
+    main .sitemap-container .sitemap {
+        padding-left: 8px;
+    }
+}

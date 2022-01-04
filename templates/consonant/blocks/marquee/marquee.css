@@ -31,6 +31,10 @@ main .section-wrapper.marquee-container + .section-wrapper.background-container 
     padding-top: var(--section-spacing-large);
     margin-top: 0;
 }
+main .section-wrapper.marquee-container + .section-wrapper.separator-container {
+    padding-top: 0;
+    margin-top: 0;
+}
 
 /* Add padding-top if the first child in the section isn't a marquee block */
 main .section-wraper.background-container + .section-wrapper.marquee-container > div > :first-child:not(.marquee) {
@@ -43,6 +47,12 @@ main .section-wraper:not(.marquee-container) + .section-wrapper.marquee-containe
 /* Remove max-width from marquee to be a full width banner */
 main .section-wrapper.marquee-container > div {
     max-width: none;
+}
+
+/* Remove spacing top if comes after breadcrumbs */
+main .section-wrapper.breadcrumbs-container + .section-wrapper.marquee-container {
+    padding-top: 0;
+    margin-top: 0;
 }
 
 /* Re-add max-width and default padding to elements inside the section that are not marquee block */
@@ -158,6 +168,12 @@ main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
     padding: 32px 0;
 }
 
+@media screen and (min-width: 1081px) {
+    main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
+        min-width: 500px;
+    }
+}
+
 main .marquee.center .container .marquee-column:not(.marquee-image) {
     text-align: center;
 }
@@ -194,6 +210,10 @@ main .marquee.right .container .marquee-column:first-child span.detail {
     margin-left: auto;
 }
 
+main .marquee .container .marquee-image img {
+    width: auto;
+}
+
 main .marquee .container .marquee-column:first-child.marquee-image {
     text-align: left;
 }
@@ -222,6 +242,35 @@ main .marquee.medium {
 
 main .marquee.large {
     min-height: var(--marquee-height-lg);
+}
+
+main .marquee .marquee-caption {
+    width: 100%;
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+    text-align: left;
+    text-shadow: 1px 2px 3px #000000B1;
+    padding-bottom: 32px;
+}
+
+main .marquee .marquee-caption p {
+    width: 100%;
+    max-width: var(--max-width-block-laptop);
+    font-size: var(--body-font-size-s);
+    padding: 0 var(--gutter);
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 799px) {
+    main .marquee .marquee-caption p {
+        max-width: var(--max-width-mobile);
+    }
+}
+
+main .marquee.light .marquee-caption {
+    text-shadow: none;
 }
 
 @media screen and (min-width: 800px) {
@@ -258,7 +307,18 @@ main .marquee.large {
         flex-direction: column;
     }
     main .marquee .container .marquee-image {
-        order: 2;
-        padding-bottom: 32px;
+        order: -1;
+        padding-top: 32px;
+    }   
+    
+    main .marquee .container .marquee-column:first-child.marquee-image,
+    main .marquee .container .marquee-column:last-child.marquee-image {
+        text-align: center;
+    }
+    
+    main .marquee {
+        --marquee-height-sm: 300px;
+        --marquee-height-md: 350px;
+        --marquee-height-lg: 400px;
     }
 }

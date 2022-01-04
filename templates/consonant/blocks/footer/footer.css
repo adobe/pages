@@ -1,5 +1,15 @@
 footer {
-	text-align: center;
+	font-size: unset;
+	display: block;
+	padding: 0;
+	border: none;
+}
+
+footer > div,
+footer > div:last-child,
+footer > div:first-child {
+	margin: 0;
+	display: block;
 }
 
 footer .footer-container .footer {
@@ -73,7 +83,11 @@ footer .footer-container svg {
 	height: auto;
 	min-width: 0;
 	margin: 0;
-	min-height: auto;
+	min-height: 50px;
+}
+
+footer .footer-container p.icon-container {
+	padding-top: 8px;
 }
 
 footer .footer-container p.icon-container, 
@@ -94,7 +108,7 @@ footer .footer-container p.icon-container svg.icon {
 
 /* Footer copyright section */
 
-footer .footer-copyright {
+footer > div.footer-copyright {
 	font-size: 14px;
 	display: flex;
 	justify-content: center;
@@ -160,7 +174,7 @@ footer .footer-copyright li:after {
 }
 
 @media (min-width: 992px) {
-	footer .footer-copyright {
+	footer > div.footer-copyright {
 		font-size: 11px;
 		flex-direction: row;
 	}

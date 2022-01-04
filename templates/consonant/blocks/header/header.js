@@ -9,10 +9,56 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-
 import {
-  insertAfter,
+  externalLinks,
+  makeLinksRelative,
 } from '../../consonant.js';
+
+function assignActives($headerLeftNav) {
+  const $links = $headerLeftNav.querySelectorAll(':scope > div > ul > li');
+  const { href } = window.location;
+
+  if (href.includes('artisthub')) {
+    // Hard-coded for artist-hub pages...
+    let regex = /\/artisthub\/([^/]+)/g;
+    if (href.includes('/drafts/artisthub-2.2')) {
+      regex = /\/artisthub\/drafts\/artisthub-2.2\/([^/]+)/g;
+    }
+    const match = regex.exec(href);
+    if (match && match.length > 1) {
+      let page = '';
+      switch (match[1]) {
+        case 'get-started':
+          page = 'Get Started';
+          break;
+        case 'learn':
+          page = 'Learn';
+          break;
+        case 'get-inspired':
+          page = 'Get Inspired';
+          break;
+        case 'advocates-program':
+          page = 'Advocates Program';
+          break;
+        case 'community':
+          page = 'Community';
+          break;
+        case 'support':
+          page = 'Support';
+          break;
+        default:
+          page = '';
+      }
+      $links.forEach(($li) => {
+        const $a = $li.querySelector(':scope > a');
+        const name = $a.textContent.trim();
+        if (name === page) {
+          $li.classList.add('active-page');
+        }
+      });
+    }
+  }
+}
 
 function openMobileMenu() {
   // Opens the mobile menu
@@ -64,17 +110,55 @@ function mobileMenuListeners($block) {
   });
 }
 
-export default function decorate($block) {
-  // Anything below the 1st table row will not go into the header
-  const $otherCells = Array.from($block.querySelectorAll(':scope > div:not(:first-of-type)'));
-  $otherCells.forEach(($cell) => {
-    if ($cell) {
-      insertAfter($cell, $block);
+function closeDropdown($dropdown) {
+  const $chevron = $dropdown.querySelector('.chevron');
+  $dropdown.classList.remove('dropdown-open');
+  $chevron.setAttribute('aria-expanded', 'false');
+}
+
+function openDropdown($dropdown) {
+  const $chevron = $dropdown.querySelector('.chevron');
+  $dropdown.classList.add('dropdown-open');
+  $chevron.setAttribute('aria-expanded', 'true');
+}
+
+function dropdownEvents($dropdown) {
+  const $chevron = $dropdown.querySelector('.chevron');
+
+  // Toggle dropdown if they click on chevron
+  $chevron.addEventListener('click', () => {
+    if (!$dropdown.classList.contains('dropdown-open')) {
+      openDropdown($dropdown);
+    } else {
+      closeDropdown($dropdown);
     }
   });
+
+  // Close dropdown if they focus out
+  $dropdown.addEventListener('focusout', (e) => {
+    if (!$dropdown.contains(e.relatedTarget) && !$chevron.contains(e.relatedTarget)
+    && $dropdown !== e.relatedTarget && $chevron !== e.relatedTarget && e.relatedTarget !== null) {
+      closeDropdown($dropdown);
+    }
+  });
+
+  // Hover events
+  $dropdown.addEventListener('mouseenter', () => {
+    if (window.innerWidth > 1000) {
+      openDropdown($dropdown);
+    }
+  }, false);
+  $dropdown.addEventListener('mouseleave', () => {
+    if (window.innerWidth > 1000) {
+      closeDropdown($dropdown);
+    }
+  }, false);
+}
+
+function decorateHeader($block) {
   // Move the header block to <header> and remove from <main>
   const $headerTag = document.querySelector('header');
-  const $headerContainer = $block.closest('.header-container');
+  const $headerContainer = $block.parentElement.parentElement;
   $headerContainer.classList.remove('header-container');
   $block.classList.remove('block');
   const $nav = document.createElement('nav');
@@ -101,6 +185,26 @@ export default function decorate($block) {
   $navElements.forEach(($e) => {
     $headerLeftNav.append($e);
   });
+  // Assign active nav elements
+  assignActives($headerLeftNav);
+  // Get all the dropdown menus
+  const $listItems = Array.from($headerLeft.querySelectorAll(':scope .header-left-nav li '));
+  $listItems.forEach(($item) => {
+    const $ul = $item.querySelector('ul');
+    if ($ul) {
+      $item.classList.add('has-dropdown');
+      $ul.insertAdjacentHTML('beforebegin', '<button class="chevron" aria-expanded="false" role="button" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></button>');
+      dropdownEvents($item);
+      const $link = $item.querySelector(':scope > a');
+      if ($link) {
+        $item.classList.add('dropdown-has-link');
+        if ($link.getAttribute('href') === '#') {
+          // if the link is empty, treat it as if there's no link, less confusing for accessibility
+          $link.setAttribute('tabIndex', '-1');
+        }
+      }
+    }
+  });
   // Move the icon logo outside of the 'header-left-nav' div so we can still see it on mobile
   const $headerLeftTop = document.createElement('div');
   $headerLeftTop.classList.add('header-left-top');
@@ -118,5 +222,50 @@ export default function decorate($block) {
   // Add mobile menu functionality
   mobileMenuListeners($block);
   // Show the header
+  makeLinksRelative();
+  externalLinks('header');
   $headerTag.classList.add('appear');
+}
+
+async function importHeader(doc) {
+  let path = doc;
+  if (window.location.toString().includes('drafts/artisthub-2.2/')) {
+    path = `drafts/artisthub-2.2/${doc}`;
+  }
+
+  let url = '';
+  if (window.pages.product && window.pages.locale) {
+    url = `/${window.pages.product}/${window.pages.locale}/${path}.plain.html`;
+  }
+  if (window.pages.product && window.pages.project) {
+    url = `/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${path}.plain.html`;
+  }
+  if (url) {
+    const resp = await fetch(url);
+    if (resp.status === 200) {
+      const html = await resp.text();
+      const inner = document.createElement('div');
+      inner.innerHTML = html;
+      document.querySelector('main').appendChild(inner);
+      window.hlx.dependencies.push(url);
+      return inner;
+    }
+  }
+  return null;
+}
+
+export default function loadHeader($blockName) {
+  const $inlineHeader = document.querySelector(`main div.${$blockName}`);
+  if ($inlineHeader) {
+    decorateHeader($inlineHeader);
+  } else {
+    importHeader('header').then((response) => {
+      if (response && response.nodeType) {
+        const $importedHeader = response.querySelector(`main div.${$blockName}`);
+        if ($importedHeader) {
+          decorateHeader($importedHeader);
+        }
+      }
+    });
+  }
 }

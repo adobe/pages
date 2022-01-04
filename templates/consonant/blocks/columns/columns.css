@@ -7,6 +7,14 @@
 /* Right aligns the text right */
 /* Top aligns the text top vertically (default aligns center vertically)*/
 
+main .columns-container .columns.large:first-child {
+  padding-top: var(--section-spacing-x-small);
+}
+
+main .columns-container .columns.large:last-child {
+  padding-bottom: var(--section-spacing-x-small);
+}
+
 main .columns {
   --column-width-sm: 850px;
   --column-width-md: 1000px;
@@ -226,4 +234,9 @@ main .dark-theme .columns p {
   main .columns.small h3 {
     font-size: var(--heading-font-size-s);
   }
+}
+
+main .cards + .columns {
+  margin-top: var(--section-spacing-large);
+  margin-bottom: var(--section-spacing-large);
 }
