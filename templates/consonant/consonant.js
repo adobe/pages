@@ -726,6 +726,11 @@ export function externalLinks(selector) {
     if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
       linkItem.setAttribute('target', '_blank');
     }
+    if (window.pages.product && !linkValue.includes(window.pages.product)) {
+      linkItem.setAttribute('target', '_blank');
+    } else if (window.pages.project && !linkValue.includes(window.pages.project)) {
+      linkItem.setAttribute('target', '_blank');
+    }
   });
 }
 
