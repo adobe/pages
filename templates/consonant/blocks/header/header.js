@@ -51,9 +51,11 @@ function assignActives($headerLeftNav) {
       }
       $links.forEach(($li) => {
         const $a = $li.querySelector(':scope > a');
-        const name = $a.textContent.trim();
-        if (name === page) {
-          $li.classList.add('active-page');
+        if ($a) {
+          const name = $a.textContent.trim();
+          if (name === page) {
+            $li.classList.add('active-page');
+          }
         }
       });
     }
