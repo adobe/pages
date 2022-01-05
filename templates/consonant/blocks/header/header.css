@@ -415,13 +415,13 @@ header .dropdown-open svg {
         padding-right: 18px;
     }
 
-    header .has-dropdown.dropdown-has-link > a:not(a[href^="#"]) {
+    header .has-dropdown.dropdown-has-link > a:not(a[href="#"]) {
         width: 80vw;
         min-width: 80vw;
     }
 }
 
-header .has-dropdown > a[href^="#"] + .chevron,
+header .has-dropdown > a[href="#"] + .chevron,
 header .has-dropdown:not(.dropdown-has-link) .chevron {
     width: 100%;
     text-align: right;
@@ -433,12 +433,12 @@ header .has-dropdown:not(.dropdown-has-link) .chevron {
 }
 
 @media screen and (max-width: 1000px) {
-    header .has-dropdown > a[href^="#"] + .chevron,
+    header .has-dropdown > a[href="#"] + .chevron,
     header .has-dropdown:not(.dropdown-has-link) .chevron {
         height: 52px;
     }    
     
-    header .has-dropdown > a[href^="#"] + .chevron,
+    header .has-dropdown > a[href="#"] + .chevron,
     header .has-dropdown:not(.dropdown-has-link) .chevron {
         padding-right: 18px;
     }

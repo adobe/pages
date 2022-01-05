@@ -722,13 +722,14 @@ export function externalLinks(selector) {
 
   links.forEach((linkItem) => {
     const linkValue = linkItem.getAttribute('href');
-
-    if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
-      linkItem.setAttribute('target', '_blank');
-    } else if (window.pages.product && !linkValue.includes(window.pages.product)) {
-      linkItem.setAttribute('target', '_blank');
-    } else if (window.pages.project && !linkValue.includes(window.pages.project)) {
-      linkItem.setAttribute('target', '_blank');
+    if (linkValue.indexOf("#") === -1) {
+      if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
+        linkItem.setAttribute('target', '_blank');
+      } else if (window.pages.product && !linkValue.includes(window.pages.product)) {
+        linkItem.setAttribute('target', '_blank');
+      } else if (window.pages.project && !linkValue.includes(window.pages.project)) {
+        linkItem.setAttribute('target', '_blank');
+      } 
     }
   });
 }
