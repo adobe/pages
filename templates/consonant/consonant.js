@@ -722,7 +722,7 @@ export function externalLinks(selector) {
 
   links.forEach((linkItem) => {
     const linkValue = linkItem.getAttribute('href');
-    if (linkValue.indexOf("#") === -1) {
+    if (linkValue.indexOf("#") !== 0) {
       if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
         linkItem.setAttribute('target', '_blank');
       } else if (window.pages.product && !linkValue.includes(window.pages.product)) {
