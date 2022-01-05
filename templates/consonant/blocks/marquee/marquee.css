@@ -260,7 +260,7 @@ main .marquee .marquee-caption p {
     font-size: var(--body-font-size-s);
     padding: 0 var(--gutter);
     margin: 0 auto;
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
 @media screen and (max-width: 799px) {
