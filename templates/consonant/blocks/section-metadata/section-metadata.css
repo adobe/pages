@@ -8,7 +8,8 @@ main .background-container {
     margin-top: var(--section-spacing);
 }
 
-main .background-container + .background-container {
+main .background-container + .background-container,
+main .background-container + .section-wrapper.embed-container {
     margin-top: 0;
 }
 
