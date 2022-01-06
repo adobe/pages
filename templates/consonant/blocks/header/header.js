@@ -231,8 +231,14 @@ function decorateHeader($block) {
 
 async function importHeader(doc) {
   let path = doc;
-  if (window.location.toString().includes('drafts/artisthub-2.2/')) {
-    path = `drafts/artisthub-2.2/${doc}`;
+  const href = window.location.toString();
+  if (href.includes('/drafts/')) {
+    const match = href.match(/\/drafts\/([^\/]+)\//);
+    if (match) {
+      path = `drafts/${match[1]}/${doc}`;
+    } else {
+      path = `drafts/${doc}`;
+    }
   }
 
   let url = '';
