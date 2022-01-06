@@ -44,20 +44,32 @@ main .sitemap-container .sitemap p > ul > li {
     min-width: 160px;
 }
 
-main .sitemap-container .sitemap p > ul > li a {
-    color: #a1a1a1;
-    font-weight: 400;
-    font-size: 16px;
-    padding: 14px 0;
-    box-sizing: border-box;
+main .sitemap-container .sitemap p > ul li {
     padding: 8px 0;
-    display: block;
 }
 
+main .sitemap-container .sitemap p > ul > li,
 main .sitemap-container .sitemap p > ul > li > a {
     text-transform: uppercase;
     color: #565656;
     font-weight: 700;
+    font-size: 16px;
+    box-sizing: border-box;
+    display: block;
+}
+
+main .sitemap-container .sitemap p > ul > li > ul > li,
+main .sitemap-container .sitemap p > ul > li > ul > li > a {
+    color: #a1a1a1;
+    font-weight: 400;
+    font-size: 16px;
+    box-sizing: border-box;
+    display: block;
+    text-transform: none;
+}
+
+main .sitemap-container .sitemap p > ul > li > ul {
+    padding-top: 8px;
 }
 
 main .sitemap-container .sitemap p > ul > li a:hover {
