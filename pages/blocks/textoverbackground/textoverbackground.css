@@ -25,17 +25,22 @@ main div.block.textoverbackground {
   text-align: left;
 }
 
-.textoverbackground.ondark {
-  color: white !important;
+.textoverbackground.ondark h1,
+.textoverbackground.ondark h2,
+.textoverbackground.ondark h3,
+.textoverbackground.ondark h4,
+.textoverbackground.ondark h5,
+.textoverbackground.ondark h6 {
+  color: #ffffff !important;
 }
 
 .textoverbackground.ondark p {
-  color: white !important;
+  color: #ffffff !important;
 }
 
 .textoverbackground.ondark .secondary {
-  color: white;
-  border-color: white;
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
 .textoverbackground > div {
