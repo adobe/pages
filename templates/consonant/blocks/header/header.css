@@ -208,7 +208,7 @@ header .dropdown-open svg {
     transform: rotate(180deg);
 }
 
-@media screen and (min-width: 1001px) {
+@media screen and (min-width: 901px) {
     header .header-left-nav > div > ul li:hover,
     header .header-left-nav > div > ul li:focus {
         background-color: #FAFAFA;
@@ -248,7 +248,7 @@ header .dropdown-open svg {
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 900px) {
     
     header .chevron {
         top: 13px;
@@ -432,7 +432,7 @@ header .has-dropdown:not(.dropdown-has-link) .chevron {
     padding-top: 7px;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 900px) {
     header .has-dropdown > a[href="#"] + .chevron,
     header .has-dropdown:not(.dropdown-has-link) .chevron {
         height: 52px;
@@ -441,5 +441,50 @@ header .has-dropdown:not(.dropdown-has-link) .chevron {
     header .has-dropdown > a[href="#"] + .chevron,
     header .has-dropdown:not(.dropdown-has-link) .chevron {
         padding-right: 18px;
+    }
+}
+
+
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+    header .header-left-nav > div > ul li,
+    header .header-left-nav > div > ul li a {
+        font-size: 12.5px;
+    }
+
+    header .header img {
+        height: 20px;
+    }
+
+    header .header-left-nav > div > ul > li:first-child {
+        margin-left: 12px;
+    }
+
+    header li {    
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+    
+    header .has-dropdown {
+        padding-right: 24px;
+    }
+    
+    header .header-left-nav > div > ul li a {
+        width: calc(100% + 28px);
+        min-width: calc(100% + 28px);
+    }
+    
+    header .chevron {
+        right: 5px;
+        top: 19px;
+    }
+
+    header .chevron svg {
+        height: 9px;
+        width: 9px;
+    }
+
+    header .has-dropdown > a[href="#"] + .chevron, header .has-dropdown:not(.dropdown-has-link) .chevron {
+        padding-right: 9px;
+        padding-top: 6px;
     }
 }
