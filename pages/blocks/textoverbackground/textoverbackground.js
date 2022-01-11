@@ -20,13 +20,17 @@ export default async function textOverBackground($block) {
       parent.style.backgroundColor = $typeOfBackground;
       parent.classList.add('has-background-color');
     } else {
-      parent.style.backgroundImage = `url(${$typeOfBackground})`;
+      const picture = document.createElement('picture');
+      picture.innerHTML = $typeOfBackground;
+      // parent.style.backgroundImage = `url(${$typeOfBackground})`;
+
+      parent.appendChild(picture);
       parent.classList.add('has-background-image');
     }
   };
 
   if (backgroundColumn.querySelector('img')) {
-    setBackground(backgroundColumn.querySelector('img').getAttribute('src'));
+    setBackground(backgroundColumn.querySelector('picture').innerHTML);
     backgroundColumn.remove();
   } else if (backgroundColumn.childNodes.length === 1) {
     if (backgroundColumn.innerText.includes('#')) {
