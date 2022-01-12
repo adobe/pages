@@ -1,0 +1,59 @@
+main div.block.textoverbackground {
+	visibility: unset;
+}
+
+.textoverbackground-container.has-background-image {
+  background-size: cover;
+  position: relative;
+}
+
+.textoverbackground-container > picture {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  object-fit: cover;
+  width: 100%;
+}
+
+.textoverbackground-container > picture img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+
+.textoverbackground {
+  text-align: left;
+}
+
+.textoverbackground.ondark h1,
+.textoverbackground.ondark h2,
+.textoverbackground.ondark h3,
+.textoverbackground.ondark h4,
+.textoverbackground.ondark h5,
+.textoverbackground.ondark h6 {
+  color: #ffffff !important;
+}
+
+.textoverbackground.ondark p {
+  color: #ffffff !important;
+}
+
+.textoverbackground.ondark .secondary {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.textoverbackground > div {
+  max-width: 620px;
+  padding: 3em 0em;
+}
+
+.textoverbackground.smalltextimage > div img{
+  max-width: 280px
+}
+
+.textoverbackground.center > div {
+  text-align: center;
+  margin: auto;
+}
+
