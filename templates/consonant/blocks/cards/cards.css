@@ -63,6 +63,9 @@ main .cards.col-2-cards .card {
 main .cards .card-text {
     padding: 16px;
     padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 main .cards.horizontal .card-text {
@@ -87,6 +90,30 @@ main .cards .card-text > :first-child {
 
 main .cards .card-text > :last-child {
     padding-bottom: 0;
+}
+
+main .cards:not(.horizontal):not(.overlay) .card-text > p:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+main .cards:not(.horizontal):not(.overlay) .card-text > .button-container:last-child {
+    justify-self: flex-end;
+    align-self: flex-end;
+    margin-top: auto;
+    margin-bottom: 0;
+    padding-top: 20px;
+    padding-bottom: 0;
+    width: 100%;
+    border-top: 1px solid #EAEAEA;
+    justify-content: space-between;
+}
+
+main .cards:not(.horizontal):not(.overlay) .card-text > .button-container:last-child a {
+    min-width: none;
+}
+
+main .cards:not(.horizontal):not(.overlay) .card-text > .button-container:last-child a:only-child {
+    margin-left: auto;
 }
 
 main .cards .card-text span.detail + * {
@@ -203,13 +230,17 @@ main .cards .card > a {
     transition: unset;
     border: unset;
     white-space: unset;
-    display: unset;
+    /* display: unset; */
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
 }
 
 main .cards.horizontal .card-container-link {
     display: flex;
     width: 100%;
     height: 100%;
+    flex-direction: row;
 }
 
 main .cards.horizontal {
@@ -352,15 +383,6 @@ main .cards.nocrop:not(.horizontal):not(.overlay) .card-picture img {
     height: auto;
     object-fit: contain;
 }
-
-main .cards.nocrop:not(.horizontal):not(.overlay) .card-text p.button-container:last-child {
-    margin-bottom: 0;
-    padding-top: 20px;
-    margin-top: 16px;
-    border-top: 1px solid #EAEAEA;
-    justify-content: flex-end;
-}
-
 
 /* Hover Animations */
 
