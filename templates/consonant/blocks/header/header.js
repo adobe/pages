@@ -146,12 +146,12 @@ function dropdownEvents($dropdown) {
 
   // Hover events
   $dropdown.addEventListener('mouseenter', () => {
-    if (window.innerWidth > 1000) {
+    if (window.innerWidth > 900) {
       openDropdown($dropdown);
     }
   }, false);
   $dropdown.addEventListener('mouseleave', () => {
-    if (window.innerWidth > 1000) {
+    if (window.innerWidth > 900) {
       closeDropdown($dropdown);
     }
   }, false);
