@@ -1,0 +1,66 @@
+main .images {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
+main .images-container > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main .images > div {
+    display: block;
+}
+
+main .images > div > div {
+    display: flex;
+    gap: 32px;
+}
+
+main .images picture {
+    display: block;
+}
+
+main .images p {
+    max-width: 800px;
+}
+
+main .images h1,
+main .images h2,
+main .images h3,
+main .images h4,
+main .images h5,
+main .images span.detail {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main .images svg.icon {
+    width: 30px;
+    height: auto;
+    min-height: 40px;
+    min-width: 0;
+    margin: 0 4px;
+    max-height: 50px;
+    transition: filter 0.3s;
+    display: inline-block;
+    fill: currentColor;
+    color: #adadad;
+}
+
+main .images a svg.icon:hover {
+    filter: brightness(0.7);
+}
+
+main .images p.icon-container,
+main .images p.icon-container a {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: #adadad;
+    padding-bottom: 0;
+}

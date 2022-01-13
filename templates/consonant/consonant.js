@@ -250,7 +250,7 @@ export function decorateBlock(block) {
   });
 
   // Allow for variants...
-  const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator'];
+  const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images'];
   blocksWithVariants.forEach((b) => {
     if (blockName.startsWith(`${b}-`)) {
       const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -629,7 +629,7 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
  * Decorate Buttons
  */
 export function decorateButtons(block = document) {
-  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed'];
+  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed', 'quote', 'images'];
   block.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section-wrapper > div > div');
