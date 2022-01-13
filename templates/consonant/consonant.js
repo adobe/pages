@@ -629,7 +629,7 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
  * Decorate Buttons
  */
 export function decorateButtons(block = document) {
-  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed', 'quote', 'images'];
+  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed', 'quote', 'images', 'title', 'share'];
   block.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section-wrapper > div > div');
