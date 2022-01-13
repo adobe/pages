@@ -64,3 +64,9 @@ main .images p.icon-container a {
     color: #adadad;
     padding-bottom: 0;
 }
+
+@media screen and (max-width: 900px) {
+    main .images > div > div {
+        gap: 8px;
+    }
+}
