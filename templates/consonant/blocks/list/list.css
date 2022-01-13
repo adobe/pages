@@ -1,0 +1,30 @@
+main .block.list {
+    margin-top: 16px;
+}
+
+main .list {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 16px;
+    text-align: left;
+    border-top: 1px solid #707070;
+}
+
+main .section-wrapper.list-container > div > :not(div) {
+    text-align: left;
+}
+
+main .list > div {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #707070;
+    padding: 16px 0;
+    gap: 16px;
+}
+
+main .list > div > div:first-child :not(div) {
+    font-size: var(--heading-font-size-l);
+    font-weight: 700;
+    line-height: 0;
+}

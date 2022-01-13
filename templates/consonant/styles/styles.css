@@ -148,6 +148,16 @@ p {
   padding-bottom: 8px;
 }
 
+li {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+ul, ol {
+  margin: 0;
+}
+
 h1, h2, h3, h4, h5 {
   font-weight: var(--heading-font-weight);
   line-height: var(--heading-line-height);
