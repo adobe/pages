@@ -8,6 +8,12 @@ main div.block.button-group {
   border-color: #5D5CE0;
 }
 
+.button-group.nosecondary .button.secondary {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--spectrum_blue) !important;
+}
+
 .button-group.ccexpress .button.primary:hover {
   background-color: #4646C6;
   border-color: #4646C6;
