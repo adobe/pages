@@ -14,10 +14,17 @@ main div.block.button-group {
   color: var(--spectrum_blue) !important;
 }
 
+.button-group.ccexpress.nosecondary .button.secondary {
+  background-color: transparent;
+  border-color: transparent;
+  color: #4646C6 !important;
+}
+
 .button-group.ccexpress .button.primary:hover {
   background-color: #4646C6;
   border-color: #4646C6;
 }
+
 .button-group > div > div:last-of-type p:nth-child(2) {
   margin-top: 32px;
 }
