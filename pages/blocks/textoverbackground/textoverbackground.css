@@ -34,6 +34,10 @@ main div.block.textoverbackground {
   color: #ffffff !important;
 }
 
+.textoverbackground h1 strong {
+  font-weight:  bolder;
+}
+
 .textoverbackground.ondark p {
   color: #ffffff !important;
 }
