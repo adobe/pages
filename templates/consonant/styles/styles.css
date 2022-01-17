@@ -148,6 +148,10 @@ p {
   padding-bottom: 8px;
 }
 
+p:empty {
+  padding: 0;
+}
+
 li {
   margin: 0;
   padding-top: 8px;

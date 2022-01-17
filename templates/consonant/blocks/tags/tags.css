@@ -1,0 +1,31 @@
+main .tags {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+main .tags > div > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+main .tags > div p:not(:empty),
+main .tags > div a:not(:empty) {
+    display: inline-block;
+    color: #747474;
+    font-size: var(--body-font-size-xxs);
+    padding: 2px 6px;
+    border: 1px solid #959595;
+    border-radius: 4px;
+    cursor: default;
+}
+
+main .share + .tags {
+    margin-top: var(--section-spacing-x-small);
+}
+
+main .share-container.tags-container .share {
+    margin-bottom: var(--section-spacing-x-small);
+}
