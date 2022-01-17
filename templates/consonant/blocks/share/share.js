@@ -13,6 +13,7 @@ import {
   isNodeName,
 } from '../../consonant.js';
 
+// eslint-disable-next-line no-unused-vars
 export default function decorate($block) {
   // Decorate social media icon list
   const $inlineSVGicons = Array.from($block.querySelectorAll('svg.icon'));
@@ -45,7 +46,7 @@ export default function decorate($block) {
       p.appendChild(pic);
       $c = p;
     }
-    const contributorsPic = $c.parentElement
+    const contributorsPic = $c.parentElement;
     contributorsPic.classList.add('contributors-pic');
     if (!contributorsPic.parentElement.classList.contains('share')) {
       contributorsPic.parentElement.classList.add('contributors');

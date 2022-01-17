@@ -722,14 +722,14 @@ export function externalLinks(selector) {
 
   links.forEach((linkItem) => {
     const linkValue = linkItem.getAttribute('href');
-    if (linkValue.indexOf("#") !== 0) {
+    if (linkValue.indexOf('#') !== 0) {
       if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
         linkItem.setAttribute('target', '_blank');
       } else if (window.pages.product && !linkValue.includes(window.pages.product)) {
         linkItem.setAttribute('target', '_blank');
       } else if (window.pages.project && !linkValue.includes(window.pages.project)) {
         linkItem.setAttribute('target', '_blank');
-      } 
+      }
     }
   });
 }
@@ -743,6 +743,7 @@ export function makeLinksRelative() {
       const rel = url.pathname + url.search + url.hash;
       link.href = rel;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.debug(`problem with link ${link.href}`);
     }
   });

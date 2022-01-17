@@ -233,7 +233,7 @@ async function importHeader(doc) {
   let path = doc;
   const href = window.location.toString();
   if (href.includes('/drafts/')) {
-    const match = href.match(/\/drafts\/([^\/]+)\//);
+    const match = href.match(/\/drafts\/([^/]+)\//);
     if (match) {
       path = `drafts/${match[1]}/${doc}`;
     } else {

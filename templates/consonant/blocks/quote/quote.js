@@ -10,5 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
+// eslint-disable-next-line no-unused-vars
 export default function decorate($block) {
 }
