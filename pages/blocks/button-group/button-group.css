@@ -1,0 +1,43 @@
+main div.block.button-group {
+	visibility: unset;
+}
+
+
+.button-group.ccexpress .button.primary {
+  background-color: #5D5CE0;
+  border-color: #5D5CE0;
+}
+
+.button-group.nosecondary .button.secondary {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--spectrum_blue) !important;
+}
+
+.button-group.ccexpress.nosecondary .button.secondary {
+  background-color: transparent;
+  border-color: transparent;
+  color: #4646C6 !important;
+}
+
+.button-group.ccexpress .button.primary:hover {
+  background-color: #4646C6;
+  border-color: #4646C6;
+}
+
+.button-group > div > div:last-of-type p:nth-child(2) {
+  margin-top: 32px;
+}
+
+@media(min-width: 700px) {
+  .button-group > div > div:last-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button-group > div > div:last-of-type p:nth-child(2) {
+    margin-left: 16px;
+    margin-top: 0px;
+  }
+}
