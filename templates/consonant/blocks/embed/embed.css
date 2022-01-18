@@ -12,5 +12,5 @@ main .section-wrapper.embed-container .section-wrapper:first-child {
 }
 
 main .section-wrapper.embed-container {
-    margin-top: var(--section-spacing);
+    margin-top: var(--section-spacing-large);
 }
