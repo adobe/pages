@@ -6,15 +6,12 @@ main .textbody {
 }
 
 main .textbody svg.icon {
-    height: auto;
-    min-height: 40px;
-    min-width: 0;
-    max-height: 50px;
+    height: 28px;
     transition: filter 0.3s;
     display: inline-block;
     fill: currentColor;
     width: 28px;
-    margin: 0 8px;
+    margin: 4px 8px;
     color: #adadad;
 }
 

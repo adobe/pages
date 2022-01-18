@@ -6,14 +6,12 @@ main .share {
 }
 
 main .share svg.icon {
-    height: 20px;
-    width: auto;
-    max-width: 20px;
-    min-width: 0;
-    margin: 0;
+    height: 28px;
     transition: filter 0.3s;
     display: inline-block;
     fill: currentColor;
+    width: 28px;
+    margin: 0;
     color: #adadad;
 }
 
@@ -27,7 +25,7 @@ main .share p.icon-container a {
     justify-content: flex-start;
     align-items: center;
     padding-bottom: 0;
-    gap: 10px;
+    gap: 15px;
 }
 
 main .share p.icon-container svg {
