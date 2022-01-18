@@ -2,10 +2,10 @@ main .section-wrapper.sitemap-container {
     background-color: var(--color-gray-100);
 }
 
-main .sitemap-container {
-    padding-top: var(--section-spacing);
-    padding-bottom: var(--section-spacing);
-    margin-top: var(--section-spacing);
+main .section-wrapper.sitemap-container {
+    padding-top: var(--section-spacing-large);
+    padding-bottom: var(--section-spacing-large);
+    margin-top: var(--section-spacing-large);
 }
 
 main .sitemap-container + .sitemap-container,

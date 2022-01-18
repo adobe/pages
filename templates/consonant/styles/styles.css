@@ -81,16 +81,18 @@ html {
   --max-width-mobile: 500px;
   --gutter: 2rem;
   --header-height: 64px;
-  --section-spacing: 80px;
-  --section-spacing-large: 112px;
-  --section-spacing-small: 64px;
-  --section-spacing-x-small: 48px;
+  --section-spacing: 64px;
+  --section-spacing-x-large: 128px;
+  --section-spacing-large: 90px;
+  --section-spacing-small: 50px;
+  --section-spacing-x-small: 38px;
 }
 
 @media screen and (max-width: 1000px) {
   :root {
     --gutter: 1.5rem;
     --section-spacing: 64px;
+    --section-spacing-x-large: 90px;
     --section-spacing-large: 90px;
     --section-spacing-small: 50px;
     --section-spacing-x-small: 38px;
@@ -145,7 +147,7 @@ main .block {
 p {
   margin: 0;
   padding-top: 8px;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
 }
 
 p:empty {
@@ -160,6 +162,12 @@ li {
 
 ul, ol {
   margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding: 15px 0;
+  padding-inline-start: 60px;
 }
 
 h1, h2, h3, h4, h5 {

@@ -5,6 +5,10 @@ main .tags {
     text-align: left;
 }
 
+main .section-wrapper .block.tags {
+    margin-bottom: var(--section-spacing-x-large);
+}
+
 main .tags > div > div {
     display: flex;
     flex-wrap: wrap;

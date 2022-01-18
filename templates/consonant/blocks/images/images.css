@@ -26,6 +26,7 @@ main .images picture {
 
 main .images p {
     max-width: 800px;
+    padding-bottom: 0;
 }
 
 main .images h1,
@@ -40,15 +41,15 @@ main .images span.detail {
 }
 
 main .images svg.icon {
-    width: 30px;
     height: auto;
     min-height: 40px;
     min-width: 0;
-    margin: 0 4px;
     max-height: 50px;
     transition: filter 0.3s;
     display: inline-block;
     fill: currentColor;
+    width: 28px;
+    margin: 0 8px;
     color: #adadad;
 }
 

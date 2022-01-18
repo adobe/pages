@@ -373,7 +373,8 @@ main .cards.horizontal .card {
     }
 }
 
-main .cards + p.button-container {
+main .cards + p,
+main .cards + a {
     margin-top: -20px;
     padding-top: 0;
 }

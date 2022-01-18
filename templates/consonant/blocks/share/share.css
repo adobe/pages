@@ -39,6 +39,10 @@ main .share > div:not(.contributors) {
     padding-bottom: var(--section-spacing-x-small);
 }
 
+main .share > div:not(.contributors) p {
+    padding-bottom: 8px;
+}
+
 main .share .contributors {
     display: flex;
     border-bottom: 1px solid #707070;

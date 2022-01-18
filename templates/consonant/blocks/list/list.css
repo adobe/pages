@@ -19,7 +19,7 @@ main .list > div {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #707070;
-    padding: 16px 0;
+    padding: 17px 0 15px 0;
     gap: 16px;
 }
 
