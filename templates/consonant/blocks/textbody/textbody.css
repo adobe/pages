@@ -1,0 +1,32 @@
+main .textbody {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+main .textbody svg.icon {
+    height: 28px;
+    transition: filter 0.3s;
+    display: inline-block;
+    fill: currentColor;
+    width: 28px;
+    margin: 4px 8px;
+    color: #adadad;
+}
+
+main .textbody a svg.icon:hover {
+    filter: brightness(0.7);
+}
+
+main .textbody p.icon-container,
+main .textbody p.icon-container a {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: #adadad;
+    padding-bottom: 0;
+}
+main .textbody > div > div :first-child:not(div) {
+    padding-top: 0;
+}

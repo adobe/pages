@@ -124,6 +124,7 @@ main .marquee.light a.button.transparent:any-link:active {
     background-color: var(--color-info-transparent-bg-down);
 }
 
+main .marquee h1,
 main .marquee h2 {
     font-size: var(--heading-font-size-xl);
 }

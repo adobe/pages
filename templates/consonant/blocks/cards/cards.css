@@ -230,7 +230,6 @@ main .cards .card > a {
     transition: unset;
     border: unset;
     white-space: unset;
-    /* display: unset; */
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -374,7 +373,8 @@ main .cards.horizontal .card {
     }
 }
 
-main .cards + p.button-container {
+main .cards + p,
+main .cards + a {
     margin-top: -20px;
     padding-top: 0;
 }

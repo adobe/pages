@@ -1,0 +1,55 @@
+main .quote {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    border-left: 10px solid #000B1D;
+    padding: 3rem;
+}
+
+main .quote > div {
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main .quote h1,
+main .quote h2 {
+    font-size: var(--heading-font-size-xxl);
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main .quote h3,
+main .quote h4,
+main .quote h5 {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: var(--heading-font-size-m);
+}
+
+main .quote p,
+main .quote span.detail {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main .quote h1 ~ p,
+main .quote h2 ~ p,
+main .quote h1 ~ span.detail,
+main .quote h2 ~ span.detail {
+    max-width: 650px;
+}
+
+main .quote span.detail {
+    color: var(--color-gray-600);
+    padding-top: 0;
+    display: block;
+}
+
+main .quote.gray {
+    background-color: #F5F5F5;
+}

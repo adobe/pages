@@ -250,7 +250,7 @@ export function decorateBlock(block) {
   });
 
   // Allow for variants...
-  const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator'];
+  const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images'];
   blocksWithVariants.forEach((b) => {
     if (blockName.startsWith(`${b}-`)) {
       const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -629,7 +629,7 @@ export function createOptimizedPicture(src, alt = '', eager = false, breakpoints
  * Decorate Buttons
  */
 export function decorateButtons(block = document) {
-  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed'];
+  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed', 'quote', 'images', 'title', 'share', 'tags'];
   block.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section-wrapper > div > div');
@@ -722,14 +722,15 @@ export function externalLinks(selector) {
 
   links.forEach((linkItem) => {
     const linkValue = linkItem.getAttribute('href');
-    if (linkValue.indexOf("#") !== 0) {
+    if (linkValue.indexOf('#') !== 0) {
       if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
         linkItem.setAttribute('target', '_blank');
+        linkItem.setAttribute('rel', 'noopener');
       } else if (window.pages.product && !linkValue.includes(window.pages.product)) {
         linkItem.setAttribute('target', '_blank');
       } else if (window.pages.project && !linkValue.includes(window.pages.project)) {
         linkItem.setAttribute('target', '_blank');
-      } 
+      }
     }
   });
 }
@@ -743,6 +744,7 @@ export function makeLinksRelative() {
       const rel = url.pathname + url.search + url.hash;
       link.href = rel;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.debug(`problem with link ${link.href}`);
     }
   });

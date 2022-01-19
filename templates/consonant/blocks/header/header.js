@@ -195,7 +195,7 @@ function decorateHeader($block) {
     const $ul = $item.querySelector('ul');
     if ($ul) {
       $item.classList.add('has-dropdown');
-      $ul.insertAdjacentHTML('beforebegin', '<button class="chevron" aria-expanded="false" role="button" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></button>');
+      $ul.insertAdjacentHTML('beforebegin', '<button class="chevron" aria-expanded="false" aria-label="List" role="button" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg></button>');
       dropdownEvents($item);
       const $link = $item.querySelector(':scope > a');
       if ($link) {
@@ -233,7 +233,7 @@ async function importHeader(doc) {
   let path = doc;
   const href = window.location.toString();
   if (href.includes('/drafts/')) {
-    const match = href.match(/\/drafts\/([^\/]+)\//);
+    const match = href.match(/\/drafts\/([^/]+)\//);
     if (match) {
       path = `drafts/${match[1]}/${doc}`;
     } else {

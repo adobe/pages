@@ -1,0 +1,71 @@
+main .share {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+main .share svg.icon {
+    height: 28px;
+    transition: filter 0.3s;
+    display: inline-block;
+    fill: currentColor;
+    width: 28px;
+    margin: 0;
+    color: #adadad;
+}
+
+main .share a svg.icon:hover {
+    filter: brightness(0.7);
+}
+
+main .share p.icon-container,
+main .share p.icon-container a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 0;
+    gap: 15px;
+}
+
+main .share p.icon-container svg {
+    color: #adadad;
+}
+
+main .share > div:not(.contributors) {
+    border-bottom: 1px solid #707070;
+    padding-bottom: var(--section-spacing-x-small);
+}
+
+main .share > div:not(.contributors) p {
+    padding-bottom: 8px;
+}
+
+main .share .contributors {
+    display: flex;
+    border-bottom: 1px solid #707070;
+    padding: 16px 0;
+    gap: 16px;
+    align-items: center;
+}
+
+main .share .contributors h1,
+main .share .contributors h2,
+main .share .contributors h3,
+main .share .contributors h4,
+main .share .contributors h5 {
+    font-size: var(--heading-font-size-s);
+    margin: 0;
+    padding: 0;
+}
+
+main .share .contributors p {
+    font-size: var(--body-font-size-s);
+    margin: 0;
+    padding: 0;
+    margin-top: 4px;
+}
+
+main .share .contributors-pic picture {
+    line-height: 0;
+}

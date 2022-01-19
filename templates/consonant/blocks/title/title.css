@@ -1,0 +1,39 @@
+main .title {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+main .title h1,
+main .title h2,
+main .title h3,
+main .title h4,
+main .title h5,
+main .title span.detail {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main .title svg.icon {
+    height: 28px;
+    transition: filter 0.3s;
+    display: inline-block;
+    fill: currentColor;
+    width: 28px;
+    margin: 4px 8px;
+    color: #adadad;
+}
+
+main .title a svg.icon:hover {
+    filter: brightness(0.7);
+}
+
+main .title p.icon-container,
+main .title p.icon-container a {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: #adadad;
+    padding-bottom: 0;
+}

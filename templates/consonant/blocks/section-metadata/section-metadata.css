@@ -3,9 +3,9 @@ main .section-metadata {
 }
 
 main .background-container {
-    padding-top: var(--section-spacing);
-    padding-bottom: var(--section-spacing);
-    margin-top: var(--section-spacing);
+    padding-top: var(--section-spacing-large);
+    padding-bottom: var(--section-spacing-large);
+    margin-top: var(--section-spacing-large);
 }
 
 main .background-container + .background-container,
