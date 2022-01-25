@@ -274,6 +274,17 @@ header .hamburger {
   }
 }
 
+
+@media (max-width: 1420px) {
+  header div.menu {
+    padding-right: 0;
+  }
+
+  header > div li {
+    padding: 8px 12px;
+  }
+}
+
 .handsy {
   cursor: pointer;
 }
