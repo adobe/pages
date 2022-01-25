@@ -1,0 +1,7 @@
+main div.block.redirect-global {
+	visibility: unset;
+}
+
+main div.block.redirect-global {
+  opacity: 0;
+}
