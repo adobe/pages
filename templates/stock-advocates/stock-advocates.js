@@ -382,6 +382,7 @@ function decorateHeroCarousel() {
 
     // Carousel auto-scroll every 4 seconds:
     const seconds = 4000;
+
     setInterval(() => {
       if (($wrapper.scrollWidth / $slides.length) >= $wrapper.scrollLeft) {
         $wrapper.scrollBy(window.innerWidth, 0);
