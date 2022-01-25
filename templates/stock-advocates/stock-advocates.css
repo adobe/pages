@@ -1579,6 +1579,15 @@ body.artist-bio .columns .text h5 {
     font-size: 0;
     outline: 0;
   }
+
+  @media screen and (max-width: 600px) {
+    .hero-carousel::before,
+    .hero-carousel::after,
+    .hero-carousel-prev,
+    .hero-carousel-next {
+      margin-top: 55%;
+    }
+  }
   
   .hero-carousel::before,
   .hero-carousel-prev {
