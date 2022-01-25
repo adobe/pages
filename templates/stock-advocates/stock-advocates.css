@@ -27,7 +27,6 @@ main #explore-the-creative-briefs {
   margin-top: 3rem;
 }
 
-
 main .colors {
     display: none;
 }
@@ -258,12 +257,19 @@ header .icon.icon-stock-logo {
   width: 180px;
 }
 
+header .hamburger {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
 @media (min-width:1200px) {
   header div.menu {
     display: flex;
     padding-right: 32px;
   }
-  header div.hamburger {
+  header .hamburger {
     display: none;
   }
 }
@@ -1505,8 +1511,8 @@ body.artist-bio .columns .text h5 {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Max (10/25/21): disabled to allow scrolling to anchors on embeds */
-    /* scroll-snap-align: center; */
+    /* (01/25/22): scrolling to anchors on embeds now works correctly */
+    scroll-snap-align: center;
   }
   
   @media (hover: hover) {
@@ -1569,7 +1575,6 @@ body.artist-bio .columns .text h5 {
     margin-top: 37.5vh;
     width: 4rem;
     height: 4rem;
-    transform: translateY(-50%);
     border-radius: 50%;
     font-size: 0;
     outline: 0;

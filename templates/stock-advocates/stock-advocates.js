@@ -122,9 +122,9 @@ function decorateFaq() {
       const $question = $row.children[0];
       const $answer = $row.children[1];
 
-      $question.tabIndex="0";
+      $question.tabIndex = '0';
       $question.classList.add('question');
-      $answer.tabIndex="-1";
+      $answer.tabIndex = '-1';
       $answer.classList.add('answer');
 
       $question.addEventListener('click', () => {
@@ -449,7 +449,11 @@ async function decorateHeader() {
   const $logo = $header.children[0];
   const $menu = $header.children[1];
   const $hamburger = $header.children[2];
-
+  const $hamburgerButton = document.createElement('button');
+  while ($hamburger.firstChild) {
+    $hamburgerButton.appendChild($hamburger.firstChild);
+  }
+  $hamburger.parentNode.replaceChild($hamburgerButton, $hamburger);
   $logo.classList.add('logo');
   $logo.classList.add('handsy');
 
@@ -459,9 +463,9 @@ async function decorateHeader() {
     window.location.href = 'https://stock.adobe.com/'; // hardcoded for now
   }));
   $menu.classList.add('menu');
-  $hamburger.classList.add('hamburger');
-
-  $hamburger.addEventListener('click', () => {
+  $hamburgerButton.classList.add('hamburger');
+  $hamburgerButton.setAttribute('aria-label', 'Menu Toggle');
+  $hamburgerButton.addEventListener('click', () => {
     const added = $header.classList.toggle('expanded');
     if (added) {
       document.body.classList.add('noscroll');
@@ -477,7 +481,7 @@ async function decorateHeader() {
       document.body.classList.remove('noscroll');
     });
   });
-  
+
   decorateLogo();
 }
 
@@ -535,9 +539,9 @@ function addAccessibility() {
   const artistIcons = document.querySelectorAll('.artist-bio main .icon');
   iconAria(artistIcons);
 
-  const asaIds = document.querySelectorAll("#adobe-stock-advocates");
+  const asaIds = document.querySelectorAll('#adobe-stock-advocates');
   if (asaIds.length > 1) {
-    asaIds[1].id = asaIds[1].id + '--contact';
+    asaIds[1].id = `${asaIds[1].id}--contact`;
   }
 }
 
@@ -627,9 +631,9 @@ function redecorateArtistGrid() {
   el.forEach((e) => {
     e.style.visibility = 'unset';
   });
-  const artistGridEntries = document.querySelectorAll(".embed-internal-meettheartists .meetgrid .text h4");
+  const artistGridEntries = document.querySelectorAll('.embed-internal-meettheartists .meetgrid .text h4');
   artistGridEntries.forEach(($child) => {
-    $child.id = $child.id + "--artistbio";
+    $child.id += '--artistbio';
   });
 }
 
