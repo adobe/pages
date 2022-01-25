@@ -383,13 +383,19 @@ function decorateHeroCarousel() {
     // Carousel auto-scroll every 4 seconds:
     const seconds = 4000;
 
-    setInterval(() => {
+    const autoScrollCarousel = setInterval(() => {
       if (($wrapper.scrollWidth / $slides.length) >= $wrapper.scrollLeft) {
         $wrapper.scrollBy(window.innerWidth, 0);
       } else {
         $wrapper.scrollTo(0, 0);
       }
     }, seconds);
+
+    Array.from($wrapper.querySelectorAll('a')).forEach((a) => {
+      a.addEventListener('click', () => {
+        clearInterval(autoScrollCarousel);
+      });
+    });
   });
 }
 

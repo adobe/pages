@@ -1580,7 +1580,7 @@ body.artist-bio .columns .text h5 {
     outline: 0;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 450px) and (max-height: 800px) {
     .hero-carousel::before,
     .hero-carousel::after,
     .hero-carousel-prev,
