@@ -28,6 +28,7 @@ function makeLinksRelative() {
       const rel = window.location.origin + url.pathname + url.search + url.hash;
       link.href = rel;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.debug(`problem with link ${link.href}`);
     }
   });
@@ -196,6 +197,7 @@ export function decorateBlocks(
       }
     });
 
+    // eslint-disable-next-line no-console
     const handleSpecialBlock = console.debug.bind(console, 'Unexpected special block: ');
 
     blocksWithSpecialCases.forEach((sBlockName) => {
@@ -352,7 +354,8 @@ function decorateHeroCarousel() {
     const $navList = createTag('div', { class: 'hero-carousel-navigation-list' });
     $nav.append($navList);
     $carousel.appendChild($nav);
-    $wrapper.querySelectorAll(':scope>div').forEach(($slide, i, slides) => {
+    const $slides = $wrapper.querySelectorAll(':scope>div');
+    $slides.forEach(($slide, i, slides) => {
       const prevSlide = i > 0 ? (i - 1) % slides.length : slides.length - 1;
       const nextSlide = (i + 1) % slides.length;
       $slide.classList.add('hero-carousel-slide');
@@ -376,6 +379,16 @@ function decorateHeroCarousel() {
     $section.prepend($carousel);
 
     $overlay.innerHTML = $overlay.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">');
+
+    // Carousel auto-scroll every 4 seconds:
+    const seconds = 4000;
+    setInterval(() => {
+      if (($wrapper.scrollWidth / $slides.length) >= $wrapper.scrollLeft) {
+        $wrapper.scrollBy(window.innerWidth, 0);
+      } else {
+        $wrapper.scrollTo(0, 0);
+      }
+    }, seconds);
   });
 }
 
@@ -515,6 +528,7 @@ function addAccessibility() {
     const htmlTag = document.querySelector('html');
     htmlTag.setAttribute('lang', lang);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.debug('could not add lang to html tag');
   }
 
@@ -528,6 +542,7 @@ function addAccessibility() {
           }
         });
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.debug('Count not set icon aria-label');
       }
     });
