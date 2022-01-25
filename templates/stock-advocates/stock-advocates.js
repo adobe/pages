@@ -257,10 +257,12 @@ function decorateButtons() {
     const $twoup = $a.parentElement.parentElement;
     if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'P') {
       $a.className = 'button secondary';
+      $up.classList.add('button-container');
     }
     if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'STRONG'
         && $twoup.childNodes.length === 1 && $twoup.tagName.toUpperCase() === 'P') {
       $a.className = 'button primary';
+      $twoup.classList.add('button-container');
     }
   });
   document.querySelectorAll('.artist-bio-hero-section a.primary').forEach(($a) => {

@@ -39,8 +39,14 @@ main div.white-text {
   color: white;
 }
 
+main div a.button {
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
 main div a.button.primary:hover {
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.75);
   color: #3e1bb2;
   border-color: #3e1bb2
 }
@@ -60,6 +66,9 @@ main div.white-text a.button.secondary:hover {
   color: #2c2c2c;
 }
 
+main p:not(.button-container) + p.button-container {
+  margin-top: 32px;
+}
 
 /* faq */
 
@@ -407,8 +416,8 @@ main .artist-bio-hero-section {
 }
 
 .artist-bio-hero-section .text h1 {
-  font-size: 80px;
-  line-height: 80px;
+  font-size: 52px;
+  line-height: 1.15;
   font-weight: 400;
 }
 
@@ -629,12 +638,6 @@ main .embed-internal-accessibility a {
       padding: 0.5vh 0;
     }
     
-}
-
-
-main .hero-section + .section-wrapper a.button {
-  display: inline-block;
-  margin-top: 32px;
 }
 
 
@@ -1072,7 +1075,7 @@ body.artist-bio .columns h3 {
 @media (min-width: 600px) {
 
   body.artist-bio .columns h2 {
-    font-size: 60px;
+    font-size: 54px;
     line-height: 75px;
     font-weight: 300;
     text-align: center;
@@ -1080,15 +1083,15 @@ body.artist-bio .columns h3 {
 
   body:not(.artist-bio) .columns h3,
   body:not(.artist-bio) .columns h2 {
-    font-size: 60px;
-    line-height: 75px;
+    font-size: 54px;
+    line-height: 1.15;
     text-align: center;
+    margin-bottom: 2rem;
   }
   
-  body.artist-bio .columns h3
-  {
+  body.artist-bio .columns h3 {
     text-align: left;
-    font-size: 40px;
+    font-size: 35px;
     line-height: 45px;  
   }
 
@@ -1100,16 +1103,14 @@ body.artist-bio .columns h3 {
   .padded h3 {
     font-weight: normal;
   }
-  body.artist-bio .columns h2
-  {
+  
+  body.artist-bio .columns h2 {
     text-align: left;
     font-size: 30px;
     line-height: 37px;  
     font-weight: bold;
     margin-top: 2.5em;
   }
-
-
 }
 
 body.artist-bio  .grid.artistcollage {
@@ -1118,11 +1119,11 @@ body.artist-bio  .grid.artistcollage {
   margin-right: 2vw;
 }
 
-
-
 body.artist-bio .grid.artistcollage {
   margin-top: 2em;
+  margin-bottom: 1rem;
 }
+
 body.artist-bio  .grid.artistcollage > div > div.text {
   display: none;
 } 
@@ -1182,8 +1183,10 @@ main a:any-link.artist-stock-link {
 }
 
 .columns h4 {
-    font-size: 22px;
-    font-weight: 100;
+    font-size: 32px;
+    font-weight: 200;
+    text-align: center;
+    line-height: 1.2;
   }
   
 .columns h5 {
@@ -1287,12 +1290,47 @@ main .columns ul {
 
 body.artist-bio .columns .text h5 {
   text-align: left;
-  font-size: 25px;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px 16px;
+  flex-wrap: wrap;
 }
 
-@media (min-width: 600px) {
+body.artist-bio .columns .text h5 svg {
+  max-width: 75px;
+  max-height: 24px;
+}
+
+body.artist-bio .columns .text h5 {
+  line-height: 1;
+}
+
+@media (min-width: 1000px) {
+  body.artist-bio .columns .text h5 {
+    font-size: 25px;
+    justify-content: flex-start;
+  }
+
+  body.artist-bio .columns .text h5 svg {
+    max-width: 100px;
+    max-height: 24px;
+  }
+}
+
+@media (min-width: 600px) {  
   body:not(.artist-bio) .columns .text p {
     text-align: left;
+  }
+
+  body:not(.artist-bio) .columns .text h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  body:not(.artist-bio) .columns .text h3 ~ p {
+    text-align: center;
+    margin: 1.5rem 0;
+    font-weight: 400;
   }
 
   body .embed-internal-submitandgetfunded .columns .text p {
@@ -1330,17 +1368,30 @@ body.artist-bio .columns .text h5 {
 
 @media (min-width:900px) {
   .columns .text {
-    padding: 3rem;
+    padding: 1rem;
     margin: auto;
     max-width: 36rem;
   }
 
   .columns .text p {
-    font-size: 0.9375rem;
+    font-size: 1rem;
     line-height: 1.9rem;
     margin-bottom: 1.5rem;
+    padding: 0 2rem;
+    font-weight: 200;
   }
-  
+
+  body .columns .text p.button-container {
+    text-align: center;
+  }
+
+  body.artist-bio .columns .text {
+    padding: 0 3rem;
+  }
+
+  body.artist-bio .columns .text p {
+    padding: 0;
+  }
 }
 
 
