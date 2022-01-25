@@ -244,7 +244,7 @@ function decorateGrid() {
       if ($a) {
         const linkTarget = $a.href;
         $row.addEventListener('click', () => {
-          window.location.href = linkTarget;
+          window.open(linkTarget);
         });
       }
     });
