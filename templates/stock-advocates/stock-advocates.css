@@ -895,6 +895,14 @@ h4#what-is-the-fund-for {
   line-height: 34px;
 }
 
+.grid.meetgrid div.text p:not(:last-child) {
+  margin-bottom: 0
+}
+
+.grid.meetgrid div.text p:not(:first-child) {
+  margin-top: 0
+}
+
 .grid:not(.meetgrid) div.text h4,
 .grid:not(.meetgrid) div.text h3.h4 {
   line-height: 1em;
