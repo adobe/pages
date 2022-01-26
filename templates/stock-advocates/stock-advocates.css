@@ -688,15 +688,6 @@ main .embed-internal-accessibility a {
   text-align: left;
 }
 
-@media (min-width: 600px) {
-  #call-for-content +.columns .text,
-  #call-for-content +.columns .text p
-  {
-    padding-top: 0;
-    margin-top: 0;
-  }
-}
-
 @media (max-width: 640px) {
   .embed-internal-fundsection>div:nth-of-type(2) {
     padding: 0px;
