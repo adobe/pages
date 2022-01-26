@@ -893,6 +893,7 @@ h4#what-is-the-fund-for {
 .grid.meetgrid div.text h3.h4 {
   font-size: 19px;
   line-height: 34px;
+  margin-bottom: 0;
 }
 
 .grid.meetgrid div.text p:not(:last-child) {
