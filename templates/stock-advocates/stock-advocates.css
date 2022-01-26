@@ -1,9 +1,9 @@
 @import url("/templates/stock-advocates/default.css");
 
 main > .section-wrapper > div {
-    margin: 0em auto;
-    padding: 0em 0em;
-    width: unset;
+  margin: 0em auto;
+  padding: 0em 0em;
+  width: unset;
 }
 
 main > .section-wrapper > div > p {
@@ -329,14 +329,13 @@ padding: 0;
 }
 
 main>div.hero-section>div {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 }
 
 .artist-bio-hero-section {
   margin-bottom: 2em;
 }
-
 
 main .artist-bio-hero-section {
   position: relative;
@@ -351,7 +350,6 @@ main .artist-bio-hero-section {
   z-index: 2;
   text-align: left;/* precise centering; see link below */
 }
-
 
 @media (max-width: 1230px) {
   main .artist-bio-hero-section .text {
@@ -448,7 +446,6 @@ main .artist-bio-hero-section {
 }
 
 @media (min-width: 600px) {
-    
   .artist-bio-hero-section .text h4 {
     font-size: 28px;
     line-height: 36px;
@@ -466,21 +463,21 @@ main .artist-bio-hero-section {
 }
 
 .hero-section>div.image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-section>div.image p:nth-of-type(2) {
-    position: absolute;
-    color: white;
-    bottom: 1em;
-    left: 1em;
+  position: absolute;
+  color: white;
+  bottom: 1em;
+  left: 1em;
 }
 
 .hero-section .text {
-    padding: 2em;
-    text-align: left;
+  padding: 2em;
+  text-align: left;
 }
 
 main>div.hero-section>div.text.image {
@@ -599,11 +596,10 @@ main .embed-internal-accessibility a {
   max-width: 1200px;
   margin: auto;
 }
+
 .embed-internal-partners .grid>div {
   padding: 20px;
 }
-
-
 
 .hero-section h1 {
   font-size: 4em;
@@ -612,28 +608,27 @@ main .embed-internal-accessibility a {
 }
 
 .hero-section .image, .hero-section .image p {
-    padding: 0;
-    margin: 0;
-    line-height: 0;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
 }
 
 @media (min-width:600px) {
-    main>div.hero-section:not(.artist-bio-hero-section)>div {
-        width: 50%;
-    }
+  main>div.hero-section:not(.artist-bio-hero-section)>div {
+    width: 50%;
+  }
 
-    .hero-section {
-        flex-direction: row-reverse;
-    }
+  .hero-section {
+    flex-direction: row-reverse;
+  }
 
-    body.artist-development-fund main>div.hero-section>div {
-      height: 100%;
-    }
+  body.artist-development-fund main>div.hero-section>div {
+    height: 100%;
+  }
 
-    body.artist-development-fund main > .section-wrapper:not(.full-width) {
-      padding: 0.5vh 0;
-    }
-    
+  body.artist-development-fund main > .section-wrapper:not(.full-width) {
+    padding: 0.5vh 0;
+  }
 }
 
 
@@ -650,6 +645,7 @@ main .embed-internal-accessibility a {
   grid-area: a;
   position: relative;
 }
+
 .embed-internal-fundsection h2 {
   margin-top: 1em;
 }
@@ -665,7 +661,6 @@ main .embed-internal-accessibility a {
   width: 100%;
   height: 100%;
 }
-
 
 .embed-internal-fundsection>div:first-of-type>p:first-of-type {
   height: 100%;
@@ -741,22 +736,23 @@ main .embed-internal-accessibility a {
   max-width: 600px;
   margin: auto;
 }
+
 .embed-internal-submitandgetfunded #contact-us > p a:any-link {
   display: inline;
   color: black;
 }
 
 .embed-internal-submitandgetfunded {
-    margin-top: 8em;
-    color: white;
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background-image: url(./media_129787ec36518fdc9519e56bfad5abecdff569bf7.jpeg);
+  margin-top: 8em;
+  color: white;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-image: url(./media_129787ec36518fdc9519e56bfad5abecdff569bf7.jpeg);
 }
 
 .embed-internal-submitandgetfunded a:any-link {
-    color: white;
+  color: white;
 }
 
 .embed-internal-submitandgetfunded .columns {
@@ -775,16 +771,16 @@ main .embed-internal-accessibility a {
 }
 
 .embed-internal-submitandgetfunded .icon {
-    fill: currentColor;
-    width: 2em;
-    height: 2em;
-    display: inline-block;
-    margin: 10px;
+  fill: currentColor;
+  width: 2em;
+  height: 2em;
+  display: inline-block;
+  margin: 10px;
 }
 
 .embed-internal-submitandgetfunded h2 {
-    color: #3e1bb2;
-    margin-bottom: 0;
+  color: #3e1bb2;
+  margin-bottom: 0;
 }
 
 .embed-internal-submitandgetfunded a.button.primary {
@@ -833,10 +829,10 @@ header img {
 /* Grid */
 
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    margin-bottom: 43px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-bottom: 43px;
 }
 
 .grid h4, .grid p {
@@ -858,14 +854,15 @@ header img {
 h4#what-is-the-fund-for {
   font-weight: 600;
 }
+
 .grid:not(.meetgrid) > div > div {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    margin: 10px;
-    cursor: pointer;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  margin: 10px;
+  cursor: pointer;
 }
 
 .grid.meetgrid {
@@ -876,12 +873,12 @@ h4#what-is-the-fund-for {
 }
 
 .grid:not(.meetgrid) div.text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  color: white;
 }
 
 .grid.meetgrid div.text {
@@ -890,16 +887,17 @@ h4#what-is-the-fund-for {
   line-height: 24px;
   cursor: pointer;
 }
+
 .grid.meetgrid div.text h4 {
   font-size: 19px;
   line-height: 34px;
 }
 
 .grid:not(.meetgrid) div.text h4 {
-    line-height: 1em;
-    font-style: italic;
-    padding: 3px;
-    font-size: 1.5em;
+  line-height: 1em;
+  font-style: italic;
+  padding: 3px;
+  font-size: 1.5em;
 }
 
 .grid div.text a:any-link {
@@ -927,6 +925,7 @@ body.artist-bio .columns h5 a:any-link {
 body.artist-bio .columns h5 a svg {
   vertical-align: middle;
 }
+
 body.artist-bio .columns h5 a svg {
   height: 30px;
   width: 90px;
@@ -949,9 +948,9 @@ body.artist-development-fund div.columns div.selection-criteria a:any-link {
 }
 
 .grid:not(.meetgrid) img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 #meet-the-artists {
@@ -981,6 +980,7 @@ body.artist-bio .grid:not(.meetgrid) + p a {
   padding: 8px;
   cursor: pointer;
 }
+
 .grid.meetgrid .text {
   padding: 8px;
   font-size: smaller;
@@ -991,34 +991,32 @@ body.artist-bio .grid:not(.meetgrid) + p a {
   padding-bottom: 2em;
 }
 
-
 body.artist-bio  .grid:not(.meetgrid)>div {
   width: calc(100%);
 }
 
 @media (min-width:600px) {
-    .grid>div, .grid.meetgrid>div {
-        width: calc(100%/3);
-    }
+  .grid>div, .grid.meetgrid>div {
+    width: calc(100%/3);
+  }
 }
 
 @media (min-width:900px) {
-    .grid>div, .grid.meetgrid>div {
-        width: calc(100%/4);
-    }
+  .grid>div, .grid.meetgrid>div {
+    width: calc(100%/4);
+  }
 
-    body.artist-bio  .grid:not(.meetgrid)>div {
-      width: calc(100%/3);
-   }
+  body.artist-bio  .grid:not(.meetgrid)>div {
+    width: calc(100%/3);
+  }
 
-    .grid:not(.meetgrid) div.text {
-        opacity: 0;
-    }
+  .grid:not(.meetgrid) div.text {
+    opacity: 0;
+  }
 
-    .grid:not(.meetgrid) div.text:hover, .grid div.text:focus-within {
-        opacity: 1;
-    }
-
+  .grid:not(.meetgrid) div.text:hover, .grid div.text:focus-within {
+    opacity: 1;
+  }
 }
 
 .embed-internal-partners .text h5 {
@@ -1036,8 +1034,6 @@ body.artist-bio  .grid:not(.meetgrid)>div {
 .embed-internal-partners .grid div:hover  {
   opacity: 0.8;
 }
-
-
 
 .embed-internal-partners .grid>div {
   padding: 20px;
@@ -1133,33 +1129,30 @@ body.artist-bio .grid.artistcollage > div {
   flex: 1 0 auto;
   margin: 0 0.5vw 0.5vw 0;
 }
+
 body.artist-bio .grid.artistcollage > div:nth-child(3),
 body.artist-bio .grid.artistcollage > div:nth-child(6),
-body.artist-bio .grid.artistcollage > div:nth-child(9)
- {
+body.artist-bio .grid.artistcollage > div:nth-child(9) {
   margin: 0 0 0.5vw 0;
 }
-
 
 body.artist-bio .grid.artistcollage > div:nth-child(1),
 body.artist-bio .grid.artistcollage > div:nth-child(2),
 body.artist-bio .grid.artistcollage > div:nth-child(3),
 body.artist-bio .grid.artistcollage > div:nth-child(7),
 body.artist-bio .grid.artistcollage > div:nth-child(8),
-body.artist-bio .grid.artistcollage > div:nth-child(9)
- {
+body.artist-bio .grid.artistcollage > div:nth-child(9) {
   width: calc(100vw / 3.4);
   height: calc((100vw / 3.4) * 0.7);
 }
+
 body.artist-bio .grid.artistcollage > div:nth-child(5),
-body.artist-bio .grid.artistcollage > div:nth-child(6)
- {
+body.artist-bio .grid.artistcollage > div:nth-child(6) {
   width: calc((100vw / 6) * 2);
   height: calc((100vw / 6) * 2 * 0.7);
 }
 
-body.artist-bio .grid.artistcollage > div:nth-child(4)
- {
+body.artist-bio .grid.artistcollage > div:nth-child(4) {
   width: calc(100vw / 12);
   height: calc((100vw / 12) * 2 * 1.4);
 }
@@ -1170,6 +1163,7 @@ main a:any-link.artist-stock-link {
   text-decoration: underline;
   font-size: 16px;
 }
+
 .columns h2 strong {
   display: block;
 }
@@ -1180,23 +1174,24 @@ main a:any-link.artist-stock-link {
 
 .columns h4,
 .columns h2.h4 {
-    font-size: 32px;
-    font-weight: 200;
-    text-align: center;
-    line-height: 1.2;
-  }
+  font-size: 32px;
+  font-weight: 200;
+  text-align: center;
+  line-height: 1.2;
+}
   
 .columns h5 {
-    font-size: 20px;
-  }
+  font-size: 20px;
+}
 
 .columns > div {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
+
 .columns>div>div {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 }
 
 .columns>div.white2>div {
