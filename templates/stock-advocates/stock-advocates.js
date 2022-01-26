@@ -248,6 +248,26 @@ function decorateGrid() {
         });
       }
     });
+    // Fix header in sequential order accessibility lighthouse
+    Array.from($grid.querySelectorAll('h4:first-child, p + h4')).forEach((h4) => {
+      const h3 = document.createElement('h3');
+      h3.innerHTML = h4.innerHTML;
+      h3.className = h4.className;
+      for (const attr of h4.attributes) {
+        h3.setAttribute(attr.name, attr.value);
+      }
+      h3.classList.add('h4');
+      h4.parentNode.replaceChild(h3, h4);
+    });
+    Array.from($grid.querySelectorAll('h5:first-child, p + h5')).forEach((h5) => {
+      const h3 = document.createElement('h3');
+      h3.innerHTML = h5.innerHTML;
+      for (const attr of h5.attributes) {
+        h3.setAttribute(attr.name, attr.value);
+      }
+      h3.classList.add('h5');
+      h5.parentNode.replaceChild(h3, h5);
+    });
   });
 }
 
@@ -313,6 +333,9 @@ function decorateColumns() {
     Array.from($columns.querySelectorAll('h4:first-child, p + h4')).forEach((h4) => {
       const h2 = document.createElement('h2');
       h2.innerHTML = h4.innerHTML;
+      for (const attr of h4.attributes) {
+        h2.setAttribute(attr.name, attr.value);
+      }
       h2.classList.add('h4');
       h4.parentNode.replaceChild(h2, h4);
     });

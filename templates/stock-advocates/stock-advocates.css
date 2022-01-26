@@ -131,6 +131,9 @@ main h2:not(.h4) {
   padding: 0 16px;
 }
 
+h3.h5 {
+	font-size: 20px;
+}
 
 /* overlay */
 
@@ -835,7 +838,7 @@ header img {
   margin-bottom: 43px;
 }
 
-.grid h4, .grid p {
+.grid h4, .grid h3.h4 .grid p {
   margin: 0;
 }
 
@@ -888,12 +891,14 @@ h4#what-is-the-fund-for {
   cursor: pointer;
 }
 
-.grid.meetgrid div.text h4 {
+.grid.meetgrid div.text h4,
+.grid.meetgrid div.text h3.h4 {
   font-size: 19px;
   line-height: 34px;
 }
 
-.grid:not(.meetgrid) div.text h4 {
+.grid:not(.meetgrid) div.text h4,
+.grid:not(.meetgrid) div.text h3.h4 {
   line-height: 1em;
   font-style: italic;
   padding: 3px;
@@ -1019,12 +1024,45 @@ body.artist-bio  .grid:not(.meetgrid)>div {
   }
 }
 
-.embed-internal-partners .text h5 {
+.embed-internal-partners .text h5 
+.embed-internal-partners .text h3.h5 {
   z-index: 15;
   opacity: 1;
-  margin-top: -190px;
-  font-size: 25px;
-  font-weight: normal;
+}
+
+
+@media (min-width: 599px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -140px;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1000px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -190px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -180px;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 500px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -120px;
+  }
+}
+
+@media (max-width: 400px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -75px;
+  }
 }
 
 .embed-internal-partners .grid div.text  {
