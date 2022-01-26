@@ -1377,7 +1377,7 @@ body.artist-bio .columns .text h5 {
   display: inline-block;
 }
 .columns .text table th {
-  padding: 1em;
+  padding: 2px;
 }
 
 .columns .text table th p {
