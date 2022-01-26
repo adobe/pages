@@ -394,10 +394,10 @@ function decorateHeroCarousel() {
       $slide.id = `hero-carousel-slide${i}`;
       $slide.append(createTag('div', { class: 'hero-carousel-snapper' }));
       $slide.append(createTag('a', {
-        class: 'hero-carousel-prev', 'aria-label': 'Previous', role: 'button', href: `#hero-carousel-slide${prevSlide}`,
+        class: 'hero-carousel-prev', 'aria-label': 'Previous', tabindex: '-1', role: 'button', href: `#hero-carousel-slide${prevSlide}`,
       }));
       $slide.append(createTag('a', {
-        class: 'hero-carousel-next', 'aria-label': 'Next', role: 'button', href: `#hero-carousel-slide${nextSlide}`,
+        class: 'hero-carousel-next', 'aria-label': 'Next', tabindex: '-1', role: 'button', href: `#hero-carousel-slide${nextSlide}`,
       }));
       const $navitem = createTag('div', { class: 'hero-carousel-navigation-list' });
       $navitem.innerHTML = `<div class="hero-carousel-navigation-item"><a href="#hero-carousel-slide${i}" role="button" aria-label="Hero Slide ${i}" class="hero-carousel-navigation-button"><a></div>`;
