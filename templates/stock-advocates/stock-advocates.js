@@ -393,7 +393,7 @@ function decorateHeroCarousel() {
       }
     }, seconds);
 
-    Array.from($wrapper.querySelectorAll('a')).forEach((a) => {
+    Array.from($carousel.querySelectorAll('a')).forEach((a) => {
       a.addEventListener('click', () => {
         clearInterval(autoScrollCarousel);
       });
