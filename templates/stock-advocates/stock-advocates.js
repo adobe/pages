@@ -526,6 +526,8 @@ async function decorateHeader() {
     }
   });
 
+  $header.insertBefore($hamburgerButton, $menu);
+
   const $links = Array.from($menu.querySelectorAll('a'));
   $links.forEach(($a) => {
     $a.addEventListener('click', () => {

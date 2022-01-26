@@ -206,6 +206,7 @@ header div.expanded {
   align-items: start;
   backdrop-filter: blur(20px);
   background-color: rgba(49, 49, 49, 0.7);
+  flex-direction: row-reverse;
 }
 
 header div.expanded>div.menu {
