@@ -1,9 +1,9 @@
 @import url("/templates/stock-advocates/default.css");
 
 main > .section-wrapper > div {
-    margin: 0em auto;
-    padding: 0em 0em;
-    width: unset;
+  margin: 0em auto;
+  padding: 0em 0em;
+  width: unset;
 }
 
 main > .section-wrapper > div > p {
@@ -19,14 +19,9 @@ main > .section-wrapper.full-width > div {
 
 }
 
-main #call-for-content {
-  margin-top: -7%;
-}
-
 main #explore-the-creative-briefs {
   margin-top: 3rem;
 }
-
 
 main .colors {
     display: none;
@@ -40,8 +35,14 @@ main div.white-text {
   color: white;
 }
 
+main div a.button {
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
 main div a.button.primary:hover {
-  background-color: rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.75);
   color: #3e1bb2;
   border-color: #3e1bb2
 }
@@ -61,6 +62,9 @@ main div.white-text a.button.secondary:hover {
   color: #2c2c2c;
 }
 
+main p:not(.button-container) + p.button-container {
+  margin-top: 32px;
+}
 
 /* faq */
 
@@ -122,11 +126,20 @@ main .faq .show .answer {
   max-height: 300px;
 }
 
-main h2 {
-  margin-top: 3em;
+main h2:not(.h4) {
+  margin-top: 1em;
   padding: 0 16px;
+  margin-bottom: 24px;
 }
 
+main h2:first-child:not(.h4) {
+  margin-top: 0;
+  padding-top: 1em;
+}
+
+h3.h5 {
+	font-size: 20px;
+}
 
 /* overlay */
 
@@ -193,6 +206,7 @@ header div.expanded {
   align-items: start;
   backdrop-filter: blur(20px);
   background-color: rgba(49, 49, 49, 0.7);
+  flex-direction: row-reverse;
 }
 
 header div.expanded>div.menu {
@@ -258,13 +272,31 @@ header .icon.icon-stock-logo {
   width: 180px;
 }
 
+header .hamburger {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
 @media (min-width:1200px) {
   header div.menu {
     display: flex;
     padding-right: 32px;
   }
-  header div.hamburger {
+  header .hamburger {
     display: none;
+  }
+}
+
+
+@media (max-width: 1420px) {
+  header div.menu {
+    padding-right: 0;
+  }
+
+  header > div li {
+    padding: 8px 12px;
   }
 }
 
@@ -307,14 +339,13 @@ padding: 0;
 }
 
 main>div.hero-section>div {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 }
 
 .artist-bio-hero-section {
   margin-bottom: 2em;
 }
-
 
 main .artist-bio-hero-section {
   position: relative;
@@ -329,7 +360,6 @@ main .artist-bio-hero-section {
   z-index: 2;
   text-align: left;/* precise centering; see link below */
 }
-
 
 @media (max-width: 1230px) {
   main .artist-bio-hero-section .text {
@@ -390,8 +420,8 @@ main .artist-bio-hero-section {
 }
 
 .artist-bio-hero-section .text h1 {
-  font-size: 80px;
-  line-height: 80px;
+  font-size: 52px;
+  line-height: 1.15;
   font-weight: 400;
 }
 
@@ -426,7 +456,6 @@ main .artist-bio-hero-section {
 }
 
 @media (min-width: 600px) {
-    
   .artist-bio-hero-section .text h4 {
     font-size: 28px;
     line-height: 36px;
@@ -444,21 +473,21 @@ main .artist-bio-hero-section {
 }
 
 .hero-section>div.image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-section>div.image p:nth-of-type(2) {
-    position: absolute;
-    color: white;
-    bottom: 1em;
-    left: 1em;
+  position: absolute;
+  color: white;
+  bottom: 1em;
+  left: 1em;
 }
 
 .hero-section .text {
-    padding: 2em;
-    text-align: left;
+  padding: 2em;
+  text-align: left;
 }
 
 main>div.hero-section>div.text.image {
@@ -521,7 +550,7 @@ main.appear #call-for-content + .columns .text p {
   text-align: left;
 }
 
-.columns.left-justify .text h2 {
+.columns.left-justify .text h2:not(.h4) {
   padding-left: 0;
 }
 
@@ -577,11 +606,10 @@ main .embed-internal-accessibility a {
   max-width: 1200px;
   margin: auto;
 }
+
 .embed-internal-partners .grid>div {
   padding: 20px;
 }
-
-
 
 .hero-section h1 {
   font-size: 4em;
@@ -590,34 +618,27 @@ main .embed-internal-accessibility a {
 }
 
 .hero-section .image, .hero-section .image p {
-    padding: 0;
-    margin: 0;
-    line-height: 0;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
 }
 
 @media (min-width:600px) {
-    main>div.hero-section:not(.artist-bio-hero-section)>div {
-        width: 50%;
-    }
+  main>div.hero-section:not(.artist-bio-hero-section)>div {
+    width: 50%;
+  }
 
-    .hero-section {
-        flex-direction: row-reverse;
-    }
+  .hero-section {
+    flex-direction: row-reverse;
+  }
 
-    body.artist-development-fund main>div.hero-section>div {
-      height: 100%;
-    }
+  body.artist-development-fund main>div.hero-section>div {
+    height: 100%;
+  }
 
-    body.artist-development-fund main > .section-wrapper:not(.full-width) {
-      padding: 0.5vh 0;
-    }
-    
-}
-
-
-main .hero-section + .section-wrapper a.button {
-  display: inline-block;
-  margin-top: 32px;
+  body.artist-development-fund main > .section-wrapper:not(.full-width) {
+    padding: 0.5vh 0;
+  }
 }
 
 
@@ -634,6 +655,7 @@ main .hero-section + .section-wrapper a.button {
   grid-area: a;
   position: relative;
 }
+
 .embed-internal-fundsection h2 {
   margin-top: 1em;
 }
@@ -649,7 +671,6 @@ main .hero-section + .section-wrapper a.button {
   width: 100%;
   height: 100%;
 }
-
 
 .embed-internal-fundsection>div:first-of-type>p:first-of-type {
   height: 100%;
@@ -672,15 +693,6 @@ main .hero-section + .section-wrapper a.button {
   position: relative;
   margin-top: -2em;
   text-align: left;
-}
-
-@media (min-width: 600px) {
-  #call-for-content +.columns .text,
-  #call-for-content +.columns .text p
-  {
-    padding-top: 0;
-    margin-top: 0;
-  }
 }
 
 @media (max-width: 640px) {
@@ -725,22 +737,23 @@ main .hero-section + .section-wrapper a.button {
   max-width: 600px;
   margin: auto;
 }
+
 .embed-internal-submitandgetfunded #contact-us > p a:any-link {
   display: inline;
   color: black;
 }
 
 .embed-internal-submitandgetfunded {
-    margin-top: 8em;
-    color: white;
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background-image: url(./media_129787ec36518fdc9519e56bfad5abecdff569bf7.jpeg);
+  margin-top: 8em;
+  color: white;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-image: url(./media_129787ec36518fdc9519e56bfad5abecdff569bf7.jpeg);
 }
 
 .embed-internal-submitandgetfunded a:any-link {
-    color: white;
+  color: white;
 }
 
 .embed-internal-submitandgetfunded .columns {
@@ -759,16 +772,16 @@ main .hero-section + .section-wrapper a.button {
 }
 
 .embed-internal-submitandgetfunded .icon {
-    fill: currentColor;
-    width: 2em;
-    height: 2em;
-    display: inline-block;
-    margin: 10px;
+  fill: currentColor;
+  width: 2em;
+  height: 2em;
+  display: inline-block;
+  margin: 10px;
 }
 
 .embed-internal-submitandgetfunded h2 {
-    color: #3e1bb2;
-    margin-bottom: 0;
+  color: #3e1bb2;
+  margin-bottom: 0;
 }
 
 .embed-internal-submitandgetfunded a.button.primary {
@@ -817,13 +830,13 @@ header img {
 /* Grid */
 
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    margin-bottom: 43px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-bottom: 43px;
 }
 
-.grid h4, .grid p {
+.grid h4, .grid h3.h4 .grid p {
   margin: 0;
 }
 
@@ -842,14 +855,15 @@ header img {
 h4#what-is-the-fund-for {
   font-weight: 600;
 }
+
 .grid:not(.meetgrid) > div > div {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    margin: 10px;
-    cursor: pointer;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  margin: 10px;
+  cursor: pointer;
 }
 
 .grid.meetgrid {
@@ -860,12 +874,12 @@ h4#what-is-the-fund-for {
 }
 
 .grid:not(.meetgrid) div.text {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  color: white;
 }
 
 .grid.meetgrid div.text {
@@ -874,16 +888,28 @@ h4#what-is-the-fund-for {
   line-height: 24px;
   cursor: pointer;
 }
-.grid.meetgrid div.text h4 {
+
+.grid.meetgrid div.text h4,
+.grid.meetgrid div.text h3.h4 {
   font-size: 19px;
   line-height: 34px;
+  margin-bottom: 0;
 }
 
-.grid:not(.meetgrid) div.text h4 {
-    line-height: 1em;
-    font-style: italic;
-    padding: 3px;
-    font-size: 1.5em;
+.grid.meetgrid div.text p {
+  margin-bottom: 0
+}
+
+.grid.meetgrid div.text p:not(:first-child) {
+  margin-top: 0
+}
+
+.grid:not(.meetgrid) div.text h4,
+.grid:not(.meetgrid) div.text h3.h4 {
+  line-height: 1em;
+  font-style: italic;
+  padding: 3px;
+  font-size: 1.5em;
 }
 
 .grid div.text a:any-link {
@@ -911,6 +937,7 @@ body.artist-bio .columns h5 a:any-link {
 body.artist-bio .columns h5 a svg {
   vertical-align: middle;
 }
+
 body.artist-bio .columns h5 a svg {
   height: 30px;
   width: 90px;
@@ -933,9 +960,9 @@ body.artist-development-fund div.columns div.selection-criteria a:any-link {
 }
 
 .grid:not(.meetgrid) img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 #meet-the-artists {
@@ -965,6 +992,7 @@ body.artist-bio .grid:not(.meetgrid) + p a {
   padding: 8px;
   cursor: pointer;
 }
+
 .grid.meetgrid .text {
   padding: 8px;
   font-size: smaller;
@@ -975,42 +1003,73 @@ body.artist-bio .grid:not(.meetgrid) + p a {
   padding-bottom: 2em;
 }
 
-
 body.artist-bio  .grid:not(.meetgrid)>div {
   width: calc(100%);
 }
 
 @media (min-width:600px) {
-    .grid>div, .grid.meetgrid>div {
-        width: calc(100%/3);
-    }
+  .grid>div, .grid.meetgrid>div {
+    width: calc(100%/3);
+  }
 }
 
 @media (min-width:900px) {
-    .grid>div, .grid.meetgrid>div {
-        width: calc(100%/4);
-    }
+  .grid>div, .grid.meetgrid>div {
+    width: calc(100%/4);
+  }
 
-    body.artist-bio  .grid:not(.meetgrid)>div {
-      width: calc(100%/3);
-   }
+  body.artist-bio  .grid:not(.meetgrid)>div {
+    width: calc(100%/3);
+  }
 
-    .grid:not(.meetgrid) div.text {
-        opacity: 0;
-    }
+  .grid:not(.meetgrid) div.text {
+    opacity: 0;
+  }
 
-    .grid:not(.meetgrid) div.text:hover, .grid div.text:focus-within {
-        opacity: 1;
-    }
-
+  .grid:not(.meetgrid) div.text:hover, .grid div.text:focus-within {
+    opacity: 1;
+  }
 }
 
-.embed-internal-partners .text h5 {
+.embed-internal-partners .text h5 
+.embed-internal-partners .text h3.h5 {
   z-index: 15;
   opacity: 1;
-  margin-top: -190px;
-  font-size: 25px;
-  font-weight: normal;
+}
+
+
+@media (min-width: 599px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -140px;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1000px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -190px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -180px;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 500px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -120px;
+  }
+}
+
+@media (max-width: 400px) {
+  .embed-internal-partners .text h3.h5 {
+    margin-top: -75px;
+  }
 }
 
 .embed-internal-partners .grid div.text  {
@@ -1020,8 +1079,6 @@ body.artist-bio  .grid:not(.meetgrid)>div {
 .embed-internal-partners .grid div:hover  {
   opacity: 0.8;
 }
-
-
 
 .embed-internal-partners .grid>div {
   padding: 20px;
@@ -1035,7 +1092,7 @@ body.artist-bio  .grid:not(.meetgrid)>div {
 
 /* Columns */
 
-body.artist-bio .columns h2 {
+body.artist-bio .columns h2:not(.h4) {
   font-size: 20px;
   line-height: 27px;
   font-weight: 600;
@@ -1054,24 +1111,24 @@ body.artist-bio .columns h3 {
 
 @media (min-width: 600px) {
 
-  body.artist-bio .columns h2 {
-    font-size: 60px;
+  body.artist-bio .columns h2:not(.h4) {
+    font-size: 54px;
     line-height: 75px;
     font-weight: 300;
     text-align: center;
   }
 
   body:not(.artist-bio) .columns h3,
-  body:not(.artist-bio) .columns h2 {
-    font-size: 60px;
-    line-height: 75px;
+  body:not(.artist-bio) .columns h2:not(.h4) {
+    font-size: 54px;
+    line-height: 1.15;
     text-align: center;
+    margin-bottom: 2rem;
   }
   
-  body.artist-bio .columns h3
-  {
+  body.artist-bio .columns h3 {
     text-align: left;
-    font-size: 40px;
+    font-size: 35px;
     line-height: 45px;  
   }
 
@@ -1083,16 +1140,14 @@ body.artist-bio .columns h3 {
   .padded h3 {
     font-weight: normal;
   }
-  body.artist-bio .columns h2
-  {
+  
+  body.artist-bio .columns h2:not(.h4) {
     text-align: left;
     font-size: 30px;
     line-height: 37px;  
     font-weight: bold;
     margin-top: 2.5em;
   }
-
-
 }
 
 body.artist-bio  .grid.artistcollage {
@@ -1101,11 +1156,11 @@ body.artist-bio  .grid.artistcollage {
   margin-right: 2vw;
 }
 
-
-
 body.artist-bio .grid.artistcollage {
   margin-top: 2em;
+  margin-bottom: 1rem;
 }
+
 body.artist-bio  .grid.artistcollage > div > div.text {
   display: none;
 } 
@@ -1119,33 +1174,30 @@ body.artist-bio .grid.artistcollage > div {
   flex: 1 0 auto;
   margin: 0 0.5vw 0.5vw 0;
 }
+
 body.artist-bio .grid.artistcollage > div:nth-child(3),
 body.artist-bio .grid.artistcollage > div:nth-child(6),
-body.artist-bio .grid.artistcollage > div:nth-child(9)
- {
+body.artist-bio .grid.artistcollage > div:nth-child(9) {
   margin: 0 0 0.5vw 0;
 }
-
 
 body.artist-bio .grid.artistcollage > div:nth-child(1),
 body.artist-bio .grid.artistcollage > div:nth-child(2),
 body.artist-bio .grid.artistcollage > div:nth-child(3),
 body.artist-bio .grid.artistcollage > div:nth-child(7),
 body.artist-bio .grid.artistcollage > div:nth-child(8),
-body.artist-bio .grid.artistcollage > div:nth-child(9)
- {
+body.artist-bio .grid.artistcollage > div:nth-child(9) {
   width: calc(100vw / 3.4);
   height: calc((100vw / 3.4) * 0.7);
 }
+
 body.artist-bio .grid.artistcollage > div:nth-child(5),
-body.artist-bio .grid.artistcollage > div:nth-child(6)
- {
+body.artist-bio .grid.artistcollage > div:nth-child(6) {
   width: calc((100vw / 6) * 2);
   height: calc((100vw / 6) * 2 * 0.7);
 }
 
-body.artist-bio .grid.artistcollage > div:nth-child(4)
- {
+body.artist-bio .grid.artistcollage > div:nth-child(4) {
   width: calc(100vw / 12);
   height: calc((100vw / 12) * 2 * 1.4);
 }
@@ -1156,6 +1208,7 @@ main a:any-link.artist-stock-link {
   text-decoration: underline;
   font-size: 16px;
 }
+
 .columns h2 strong {
   display: block;
 }
@@ -1164,22 +1217,26 @@ main a:any-link.artist-stock-link {
   display: block;
 }
 
-.columns h4 {
-    font-size: 22px;
-    font-weight: 100;
-  }
+.columns h4,
+.columns h2.h4 {
+  font-size: 32px;
+  font-weight: 200;
+  text-align: center;
+  line-height: 1.2;
+}
   
 .columns h5 {
-    font-size: 20px;
-  }
+  font-size: 20px;
+}
 
 .columns > div {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
+
 .columns>div>div {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
 }
 
 .columns>div.white2>div {
@@ -1249,6 +1306,7 @@ main .columns ul {
   margin: 0;
   padding: 0;
   line-height: 0;
+  height: 100%
 }
 
 .columns>div>div.image p.caption {
@@ -1270,12 +1328,47 @@ main .columns ul {
 
 body.artist-bio .columns .text h5 {
   text-align: left;
-  font-size: 25px;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px 16px;
+  flex-wrap: wrap;
 }
 
-@media (min-width: 600px) {
+body.artist-bio .columns .text h5 svg {
+  max-width: 75px;
+  max-height: 24px;
+}
+
+body.artist-bio .columns .text h5 {
+  line-height: 1;
+}
+
+@media (min-width: 1000px) {
+  body.artist-bio .columns .text h5 {
+    font-size: 25px;
+    justify-content: flex-start;
+  }
+
+  body.artist-bio .columns .text h5 svg {
+    max-width: 100px;
+    max-height: 24px;
+  }
+}
+
+@media (min-width: 600px) {  
   body:not(.artist-bio) .columns .text p {
     text-align: left;
+  }
+
+  body:not(.artist-bio) .columns .text h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  body:not(.artist-bio) .columns .text h3 ~ p {
+    text-align: center;
+    margin: 1.5rem 0;
+    font-weight: 400;
   }
 
   body .embed-internal-submitandgetfunded .columns .text p {
@@ -1294,7 +1387,7 @@ body.artist-bio .columns .text h5 {
   display: inline-block;
 }
 .columns .text table th {
-  padding: 1em;
+  padding: 2px;
 }
 
 .columns .text table th p {
@@ -1313,17 +1406,30 @@ body.artist-bio .columns .text h5 {
 
 @media (min-width:900px) {
   .columns .text {
-    padding: 3rem;
+    padding: 1rem;
     margin: auto;
     max-width: 36rem;
   }
 
   .columns .text p {
-    font-size: 0.9375rem;
+    font-size: 1rem;
     line-height: 1.9rem;
     margin-bottom: 1.5rem;
+    padding: 0 2rem;
+    font-weight: 200;
   }
-  
+
+  body .columns .text p.button-container {
+    text-align: center;
+  }
+
+  body.artist-bio .columns .text {
+    padding: 0 3rem;
+  }
+
+  body.artist-bio .columns .text p {
+    padding: 0;
+  }
 }
 
 
@@ -1505,8 +1611,8 @@ body.artist-bio .columns .text h5 {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Max (10/25/21): disabled to allow scrolling to anchors on embeds */
-    /* scroll-snap-align: center; */
+    /* (01/25/22): scrolling to anchors on embeds now works correctly */
+    scroll-snap-align: center;
   }
   
   @media (hover: hover) {
@@ -1569,10 +1675,18 @@ body.artist-bio .columns .text h5 {
     margin-top: 37.5vh;
     width: 4rem;
     height: 4rem;
-    transform: translateY(-50%);
     border-radius: 50%;
     font-size: 0;
     outline: 0;
+  }
+
+  @media screen and (max-width: 450px) and (max-height: 800px) {
+    .hero-carousel::before,
+    .hero-carousel::after,
+    .hero-carousel-prev,
+    .hero-carousel-next {
+      margin-top: 55%;
+    }
   }
   
   .hero-carousel::before,

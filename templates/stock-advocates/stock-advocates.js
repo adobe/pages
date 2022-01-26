@@ -28,6 +28,7 @@ function makeLinksRelative() {
       const rel = window.location.origin + url.pathname + url.search + url.hash;
       link.href = rel;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.debug(`problem with link ${link.href}`);
     }
   });
@@ -122,9 +123,9 @@ function decorateFaq() {
       const $question = $row.children[0];
       const $answer = $row.children[1];
 
-      $question.tabIndex="0";
+      $question.tabIndex = '0';
       $question.classList.add('question');
-      $answer.tabIndex="-1";
+      $answer.tabIndex = '-1';
       $answer.classList.add('answer');
 
       $question.addEventListener('click', () => {
@@ -196,6 +197,7 @@ export function decorateBlocks(
       }
     });
 
+    // eslint-disable-next-line no-console
     const handleSpecialBlock = console.debug.bind(console, 'Unexpected special block: ');
 
     blocksWithSpecialCases.forEach((sBlockName) => {
@@ -242,9 +244,29 @@ function decorateGrid() {
       if ($a) {
         const linkTarget = $a.href;
         $row.addEventListener('click', () => {
-          window.location.href = linkTarget;
+          window.open(linkTarget);
         });
       }
+    });
+    // Fix header in sequential order accessibility lighthouse
+    Array.from($grid.querySelectorAll('h4:first-child, p + h4')).forEach((h4) => {
+      const h3 = document.createElement('h3');
+      h3.innerHTML = h4.innerHTML;
+      h3.className = h4.className;
+      for (const attr of h4.attributes) {
+        h3.setAttribute(attr.name, attr.value);
+      }
+      h3.classList.add('h4');
+      h4.parentNode.replaceChild(h3, h4);
+    });
+    Array.from($grid.querySelectorAll('h5:first-child, p + h5')).forEach((h5) => {
+      const h3 = document.createElement('h3');
+      h3.innerHTML = h5.innerHTML;
+      for (const attr of h5.attributes) {
+        h3.setAttribute(attr.name, attr.value);
+      }
+      h3.classList.add('h5');
+      h5.parentNode.replaceChild(h3, h5);
     });
   });
 }
@@ -255,10 +277,12 @@ function decorateButtons() {
     const $twoup = $a.parentElement.parentElement;
     if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'P') {
       $a.className = 'button secondary';
+      $up.classList.add('button-container');
     }
     if ($up.childNodes.length === 1 && $up.tagName.toUpperCase() === 'STRONG'
         && $twoup.childNodes.length === 1 && $twoup.tagName.toUpperCase() === 'P') {
       $a.className = 'button primary';
+      $twoup.classList.add('button-container');
     }
   });
   document.querySelectorAll('.artist-bio-hero-section a.primary').forEach(($a) => {
@@ -304,6 +328,16 @@ function decorateColumns() {
           }
         }
       });
+    });
+    // Fix header in sequential order accessibility lighthouse
+    Array.from($columns.querySelectorAll('h4:first-child, p + h4')).forEach((h4) => {
+      const h2 = document.createElement('h2');
+      h2.innerHTML = h4.innerHTML;
+      for (const attr of h4.attributes) {
+        h2.setAttribute(attr.name, attr.value);
+      }
+      h2.classList.add('h4');
+      h4.parentNode.replaceChild(h2, h4);
     });
   });
 }
@@ -352,17 +386,18 @@ function decorateHeroCarousel() {
     const $navList = createTag('div', { class: 'hero-carousel-navigation-list' });
     $nav.append($navList);
     $carousel.appendChild($nav);
-    $wrapper.querySelectorAll(':scope>div').forEach(($slide, i, slides) => {
+    const $slides = $wrapper.querySelectorAll(':scope>div');
+    $slides.forEach(($slide, i, slides) => {
       const prevSlide = i > 0 ? (i - 1) % slides.length : slides.length - 1;
       const nextSlide = (i + 1) % slides.length;
       $slide.classList.add('hero-carousel-slide');
       $slide.id = `hero-carousel-slide${i}`;
       $slide.append(createTag('div', { class: 'hero-carousel-snapper' }));
       $slide.append(createTag('a', {
-        class: 'hero-carousel-prev', 'aria-label': 'Previous', role: 'button', href: `#hero-carousel-slide${prevSlide}`,
+        class: 'hero-carousel-prev', 'aria-label': 'Previous', tabindex: '-1', role: 'button', href: `#hero-carousel-slide${prevSlide}`,
       }));
       $slide.append(createTag('a', {
-        class: 'hero-carousel-next', 'aria-label': 'Next', role: 'button', href: `#hero-carousel-slide${nextSlide}`,
+        class: 'hero-carousel-next', 'aria-label': 'Next', tabindex: '-1', role: 'button', href: `#hero-carousel-slide${nextSlide}`,
       }));
       const $navitem = createTag('div', { class: 'hero-carousel-navigation-list' });
       $navitem.innerHTML = `<div class="hero-carousel-navigation-item"><a href="#hero-carousel-slide${i}" role="button" aria-label="Hero Slide ${i}" class="hero-carousel-navigation-button"><a></div>`;
@@ -376,6 +411,23 @@ function decorateHeroCarousel() {
     $section.prepend($carousel);
 
     $overlay.innerHTML = $overlay.innerHTML.replace('Adobe Stock Advocates', '<img src="/templates/stock-advocates/stock-advocates.svg" class="stock-advocates" alt="Adobe Stock Advocates. Be seen. Be heard. Be you.">');
+
+    // Carousel auto-scroll every 4 seconds:
+    const seconds = 4000;
+
+    const autoScrollCarousel = setInterval(() => {
+      if (($wrapper.scrollWidth / $slides.length) >= $wrapper.scrollLeft) {
+        $wrapper.scrollBy(window.innerWidth, 0);
+      } else {
+        $wrapper.scrollTo(0, 0);
+      }
+    }, seconds);
+
+    Array.from($carousel.querySelectorAll('a')).forEach((a) => {
+      a.addEventListener('click', () => {
+        clearInterval(autoScrollCarousel);
+      });
+    });
   });
 }
 
@@ -449,7 +501,11 @@ async function decorateHeader() {
   const $logo = $header.children[0];
   const $menu = $header.children[1];
   const $hamburger = $header.children[2];
-
+  const $hamburgerButton = document.createElement('button');
+  while ($hamburger.firstChild) {
+    $hamburgerButton.appendChild($hamburger.firstChild);
+  }
+  $hamburger.parentNode.replaceChild($hamburgerButton, $hamburger);
   $logo.classList.add('logo');
   $logo.classList.add('handsy');
 
@@ -459,9 +515,9 @@ async function decorateHeader() {
     window.location.href = 'https://stock.adobe.com/'; // hardcoded for now
   }));
   $menu.classList.add('menu');
-  $hamburger.classList.add('hamburger');
-
-  $hamburger.addEventListener('click', () => {
+  $hamburgerButton.classList.add('hamburger');
+  $hamburgerButton.setAttribute('aria-label', 'Menu Toggle');
+  $hamburgerButton.addEventListener('click', () => {
     const added = $header.classList.toggle('expanded');
     if (added) {
       document.body.classList.add('noscroll');
@@ -470,6 +526,8 @@ async function decorateHeader() {
     }
   });
 
+  $header.insertBefore($hamburgerButton, $menu);
+
   const $links = Array.from($menu.querySelectorAll('a'));
   $links.forEach(($a) => {
     $a.addEventListener('click', () => {
@@ -477,7 +535,7 @@ async function decorateHeader() {
       document.body.classList.remove('noscroll');
     });
   });
-  
+
   decorateLogo();
 }
 
@@ -511,6 +569,7 @@ function addAccessibility() {
     const htmlTag = document.querySelector('html');
     htmlTag.setAttribute('lang', lang);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.debug('could not add lang to html tag');
   }
 
@@ -524,6 +583,7 @@ function addAccessibility() {
           }
         });
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.debug('Count not set icon aria-label');
       }
     });
@@ -535,9 +595,9 @@ function addAccessibility() {
   const artistIcons = document.querySelectorAll('.artist-bio main .icon');
   iconAria(artistIcons);
 
-  const asaIds = document.querySelectorAll("#adobe-stock-advocates");
+  const asaIds = document.querySelectorAll('#adobe-stock-advocates');
   if (asaIds.length > 1) {
-    asaIds[1].id = asaIds[1].id + '--contact';
+    asaIds[1].id = `${asaIds[1].id}--contact`;
   }
 }
 
@@ -627,9 +687,9 @@ function redecorateArtistGrid() {
   el.forEach((e) => {
     e.style.visibility = 'unset';
   });
-  const artistGridEntries = document.querySelectorAll(".embed-internal-meettheartists .meetgrid .text h4");
+  const artistGridEntries = document.querySelectorAll('.embed-internal-meettheartists .meetgrid .text h4');
   artistGridEntries.forEach(($child) => {
-    $child.id = $child.id + "--artistbio";
+    $child.id += '--artistbio';
   });
 }
 
