@@ -129,6 +129,7 @@ main .faq .show .answer {
 main h2:not(.h4) {
   margin-top: 1em;
   padding: 0 16px;
+  margin-bottom: 24px;
 }
 
 main h2:first-child:not(.h4) {
