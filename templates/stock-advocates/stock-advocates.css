@@ -126,7 +126,7 @@ main .faq .show .answer {
   max-height: 300px;
 }
 
-main h2 {
+main h2:not(.h4) {
   margin-top: 1em;
   padding: 0 16px;
 }
@@ -540,7 +540,7 @@ main.appear #call-for-content + .columns .text p {
   text-align: left;
 }
 
-.columns.left-justify .text h2 {
+.columns.left-justify .text h2:not(.h4) {
   padding-left: 0;
 }
 
@@ -1047,7 +1047,7 @@ body.artist-bio  .grid:not(.meetgrid)>div {
 
 /* Columns */
 
-body.artist-bio .columns h2 {
+body.artist-bio .columns h2:not(.h4) {
   font-size: 20px;
   line-height: 27px;
   font-weight: 600;
@@ -1066,7 +1066,7 @@ body.artist-bio .columns h3 {
 
 @media (min-width: 600px) {
 
-  body.artist-bio .columns h2 {
+  body.artist-bio .columns h2:not(.h4) {
     font-size: 54px;
     line-height: 75px;
     font-weight: 300;
@@ -1074,7 +1074,7 @@ body.artist-bio .columns h3 {
   }
 
   body:not(.artist-bio) .columns h3,
-  body:not(.artist-bio) .columns h2 {
+  body:not(.artist-bio) .columns h2:not(.h4) {
     font-size: 54px;
     line-height: 1.15;
     text-align: center;
@@ -1096,7 +1096,7 @@ body.artist-bio .columns h3 {
     font-weight: normal;
   }
   
-  body.artist-bio .columns h2 {
+  body.artist-bio .columns h2:not(.h4) {
     text-align: left;
     font-size: 30px;
     line-height: 37px;  

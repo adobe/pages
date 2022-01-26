@@ -310,7 +310,7 @@ function decorateColumns() {
       });
     });
     // Fix header in sequential order accessibility lighthouse
-    Array.from($columns.querySelectorAll('h4:first-child')).forEach((h4) => {
+    Array.from($columns.querySelectorAll('h4:first-child, p + h4')).forEach((h4) => {
       const h2 = document.createElement('h2');
       h2.innerHTML = h4.innerHTML;
       h2.classList.add('h4');
