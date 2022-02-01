@@ -66,18 +66,6 @@ main p:not(.button-container) + p.button-container {
   margin-top: 32px;
 }
 
-/* video */
-
-main div.video-container div {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-main div.block.video {
-  visibility: unset;
-}
-
 /* faq */
 
 main .section-wrapper.faq-container {
@@ -1483,6 +1471,28 @@ body.artist-bio .columns .text h5 {
       }
 }
 
+/* video */
+
+main div.video-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  padding: 1em 0 6em 0!important;
+}
+
+main div.video-container div {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main div.video-container .video {
+  width: 100%;
+}
+
+main div.block.video {
+  visibility: unset;
+}
 
 /*  Hero Carousel */
 
