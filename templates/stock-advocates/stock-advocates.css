@@ -543,6 +543,10 @@ body.artist-development-fund h3 a:any-link {
   margin-top: 0;
 }
 
+.artist-development-fund .columns ul li {
+  font-weight: 200;
+}
+
 /* alignment rules for specific pages */
 .columns.left-justify .text,
 .columns.left-justify .text p,
