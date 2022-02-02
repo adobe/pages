@@ -55,7 +55,7 @@ border-color: #3e1bb2
 main div.white-text a.button.secondary {
   color: white;
   border-color: white;
-} 
+}
 
 main div.white-text a.button.secondary:hover {
   background-color: white;
@@ -95,8 +95,8 @@ main .faq .question {
 main .faq .question p::before {
   position: absolute;
   content: '\A';
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border: 7px solid transparent;
   border-left: 7px solid currentColor;
   margin-left: -32px;
@@ -316,7 +316,7 @@ body.artist-bio main .video {
 
 body.artist-bio main .video iframe {
   width: 100%;
-  height: 34vw;  
+  height: 34vw;
 }
 
 .hero-section:not(.artist-bio-hero-section) {
@@ -352,7 +352,7 @@ main .artist-bio-hero-section {
 }
 
 .artist-bio-hero-section .text {
-  position: absolute;  
+  position: absolute;
   top: 35vw;                         /* vertical alignment */
   left: 50%;
   width: 50vw;                        /* horizontal alignment */;
@@ -363,7 +363,7 @@ main .artist-bio-hero-section {
 
 @media (max-width: 1230px) {
   main .artist-bio-hero-section .text {
-    position: absolute;  
+    position: absolute;
     top: 0;
     left: 0;
     height: 100%;
@@ -543,6 +543,19 @@ body.artist-development-fund h3 a:any-link {
   margin-top: 0;
 }
 
+.columns-container.full-width > div > h2:first-child {
+  margin-bottom: 2em;
+}
+
+.artist-development-fund main .hero-section + .section-wrapper p:first-child {
+  max-width: 650px;
+  margin: 6em auto 2em auto;
+}
+
+.artist-development-fund .columns ul li {
+  font-weight: 200;
+}
+
 /* alignment rules for specific pages */
 .columns.left-justify .text,
 .columns.left-justify .text p,
@@ -642,7 +655,7 @@ main .embed-internal-accessibility a {
 }
 
 
-/* fund section */ 
+/* fund section */
 
 .embed-internal-fundsection {
   margin-top: 3em;
@@ -796,7 +809,7 @@ main .embed-internal-accessibility a {
 }
 
 .embed-internal-meettheartists {
-  background-color: #2D0A4D;  
+  background-color: #2D0A4D;
   color: white;
   padding-bottom: 3em;
 }
@@ -1031,7 +1044,7 @@ body.artist-bio  .grid:not(.meetgrid)>div {
   }
 }
 
-.embed-internal-partners .text h5 
+.embed-internal-partners .text h5
 .embed-internal-partners .text h3.h5 {
   z-index: 15;
   opacity: 1;
@@ -1125,11 +1138,11 @@ body.artist-bio .columns h3 {
     text-align: center;
     margin-bottom: 2rem;
   }
-  
+
   body.artist-bio .columns h3 {
     text-align: left;
     font-size: 35px;
-    line-height: 45px;  
+    line-height: 45px;
   }
 
   #contact-us .columns h3 {
@@ -1140,11 +1153,11 @@ body.artist-bio .columns h3 {
   .padded h3 {
     font-weight: normal;
   }
-  
+
   body.artist-bio .columns h2:not(.h4) {
     text-align: left;
     font-size: 30px;
-    line-height: 37px;  
+    line-height: 37px;
     font-weight: bold;
     margin-top: 2.5em;
   }
@@ -1163,7 +1176,7 @@ body.artist-bio .grid.artistcollage {
 
 body.artist-bio  .grid.artistcollage > div > div.text {
   display: none;
-} 
+}
 
 body.artist-bio .grid.artistcollage div {
   padding: 0;
@@ -1212,7 +1225,7 @@ main a:any-link.artist-stock-link {
 .columns h2 strong {
   display: block;
 }
-  
+
 .columns h3 strong {
   display: block;
 }
@@ -1224,7 +1237,7 @@ main a:any-link.artist-stock-link {
   text-align: center;
   line-height: 1.2;
 }
-  
+
 .columns h5 {
   font-size: 20px;
 }
@@ -1356,7 +1369,7 @@ body.artist-bio .columns .text h5 {
   }
 }
 
-@media (min-width: 600px) {  
+@media (min-width: 600px) {
   body:not(.artist-bio) .columns .text p {
     text-align: left;
   }
@@ -1401,7 +1414,7 @@ body.artist-bio .columns .text h5 {
     .columns>div>div {
         width: 50%;
     }
-    
+
 }
 
 @media (min-width:900px) {
@@ -1465,15 +1478,37 @@ body.artist-bio .columns .text h5 {
         left: 0;
         width: 100%;
         }
-      
+
       .parallax>div:last-of-type {
           padding: 6rem 0 24rem 0;
-      }          
+      }
 }
 
+/* video */
+
+main div.video-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
+  padding: 1em 0 6em 0!important;
+}
+
+main div.video-container div {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main div.video-container .video {
+  width: 100%;
+}
+
+main div.block.video {
+  visibility: unset;
+}
 
 /*  Hero Carousel */
-    
+
   main>div.section-wrapper .hero-carousel {
     position: relative;
     padding-top: 100%;
@@ -1482,12 +1517,12 @@ body.artist-bio .columns .text h5 {
     perspective: 100px;
     width: 100%;
   }
-  
+
   @media (min-width:1000px) {
     main>div.section-wrapper .hero-carousel {
       padding-top: 100vh;
     }
-  }   
+  }
 
 
 
@@ -1512,7 +1547,7 @@ body.artist-bio .columns .text h5 {
     .hero-carousel-overlay {
       height: 100vh;
     }
-  }   
+  }
 
   .hero-carousel-overlay h1 {
     padding-top: 1em;
@@ -1544,7 +1579,7 @@ body.artist-bio .columns .text h5 {
     line-height: 1em;
     display: block;
   }
-  
+
   .hero-carousel-viewport {
     position: absolute;
     top: 0;
@@ -1563,7 +1598,7 @@ body.artist-bio .columns .text h5 {
   .hero-carousel-viewport::-webkit-scrollbar {
     display: none;
   }
-  
+
   .hero-carousel-slide {
     position: relative;
     flex: 0 0 100%;
@@ -1595,7 +1630,7 @@ body.artist-bio .columns .text h5 {
   .hero-carousel-slide:nth-child(even) {
     background-color: #99f;
   }
-  
+
   .hero-carousel-slide:before {
     position: absolute;
     top: 50%;
@@ -1604,7 +1639,7 @@ body.artist-bio .columns .text h5 {
     color: #fff;
     font-size: 2em;
   }
-  
+
   .hero-carousel-snapper {
     position: absolute;
     top: 0;
@@ -1614,7 +1649,7 @@ body.artist-bio .columns .text h5 {
     /* (01/25/22): scrolling to anchors on embeds now works correctly */
     scroll-snap-align: center;
   }
-  
+
   @media (hover: hover) {
     .hero-carousel-snapper {
       animation-name: none;
@@ -1624,23 +1659,23 @@ body.artist-bio .columns .text h5 {
       animation-iteration-count: infinite;
       */
     }
-  
+
     .hero-carousel-slide:last-child .hero-carousel-snapper {
       animation-name: hero-carousel-tostart, hero-carousel-snap;
     }
   }
-  
+
   @media (prefers-reduced-motion: reduce) {
     .hero-carousel-snapper {
       animation-name: none;
     }
   }
-  
+
   .hero-carousel:hover .hero-carousel-snapper,
   .hero-carousel:focus-within .hero-carousel-snapper {
     animation-name: none;
   }
-  
+
   .hero-carousel-navigation {
     position: absolute;
     right: 0;
@@ -1648,12 +1683,12 @@ body.artist-bio .columns .text h5 {
     left: 0;
     text-align: center;
   }
-  
+
   .hero-carousel-navigation-list,
   .hero-carousel-navigation-item {
     display: inline-block;
   }
-  
+
   .hero-carousel-navigation-button {
     display: inline-block;
     width: 1.0rem;
@@ -1665,7 +1700,7 @@ body.artist-bio .columns .text h5 {
     font-size: 0;
     transition: transform 0.1s;
   }
-  
+
   .hero-carousel::before,
   .hero-carousel::after,
   .hero-carousel-prev,
@@ -1688,17 +1723,17 @@ body.artist-bio .columns .text h5 {
       margin-top: 55%;
     }
   }
-  
+
   .hero-carousel::before,
   .hero-carousel-prev {
     left: 0;
   }
-  
+
   .hero-carousel::after,
   .hero-carousel-next {
     right: 0;
   }
-  
+
   .hero-carousel::before,
   .hero-carousel::after {
     content: '';
@@ -1719,7 +1754,7 @@ body.artist-bio .columns .text h5 {
     background-image: url('backward.svg');
     transform: scaleX(1);
   }
-  
+
   .hero-carousel::after {
     background-image: url('backward.svg');
     transform: scaleX(-1);
@@ -1742,7 +1777,7 @@ body.artist-bio .columns .text h5 {
       left: 0;
     }
   }
-  
+
   @keyframes hero-carousel-tostart {
     75% {
       left: 0;
@@ -1757,7 +1792,7 @@ body.artist-bio .columns .text h5 {
       left: 0;
     }
   }
-  
+
   @keyframes hero-carousel-snap {
     96% {
       scroll-snap-align: center;

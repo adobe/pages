@@ -171,7 +171,7 @@ export function decorateBlocks(
     'scrollto', 'sectiontitle', 'hr',
     'downloadcallouts', 'cardcallouttitle',
     'cardcallouts', 'videocontent', 'scrolltop',
-    'hero', 'tutorials', 'list', 'grid',
+    'hero', 'tutorials', 'list', 'grid', 'video',
   ];
   const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
 
@@ -218,6 +218,55 @@ export function decorateBlocks(
     }
     $block.classList.add('block');
     $block.setAttribute('data-block-name', blockName);
+  });
+}
+
+function decorateVideo() {
+  let autoplay = '';
+
+  document.querySelectorAll('main .video-container').forEach(($container) => {
+    if ($container.classList.contains('full') && $container.classList.contains('width')) {
+      $container.classList.remove('full', 'width');
+      $container.classList.add('full-width');
+    }
+
+    if ($container.classList.contains('autoplay')) {
+      autoplay = `&amp;autoplay=1&amp;mute=1`;
+    }
+  });
+
+  document.querySelectorAll('main .video.block').forEach(($block) => {
+    const $a = $block.querySelector('a');
+
+    if ($a.textContent.startsWith('https://')) {
+      const url = new URL($a.href);
+      const usp = new URLSearchParams(url.search);
+      let embedHTML = '';
+      let type = '';
+
+      if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
+        let vid = usp.get('v');
+        if (url.host === 'youtu.be') vid = url.pathname.substr(1);
+
+        type = 'youtube';
+        embedHTML = /* html */`
+          <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+            <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;autohide=1&amp;showinfo=0&amp;controls=1${autoplay}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+          </div>
+          `;
+      } else if ($a.href.includes('tv.adobe.com')) {
+        const $video = createTag('iframe', { src: $a.href, class: 'embed tv-adobe' });
+
+        $a.parentElement.replaceChild($video, $a);
+      }
+
+      if (type) {
+        const $embed = createTag('div', { class: `embed embed-oembed embed-${type}` });
+        const $div = $a.closest('div');
+        $embed.innerHTML = embedHTML;
+        $div.parentElement.replaceChild($embed, $div);
+      }
+    }
   });
 }
 
@@ -729,6 +778,7 @@ export default async function decoratePage() {
   decorateOverlay();
   decorateInternalAdvocates();
   decorateColumns();
+  decorateVideo();
   decorateGrid();
   redecorateArtistGrid();
   decorateColors();
