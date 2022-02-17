@@ -11,26 +11,48 @@
  */
 import {
   isNodeName,
+  createTag,
 } from '../../consonant.js';
 
 // eslint-disable-next-line no-unused-vars
 export default function decorate($block) {
   // Decorate social media icon list
   const $inlineSVGicons = Array.from($block.querySelectorAll('svg.icon'));
-  $inlineSVGicons.forEach((icon) => {
-    let $c = icon.parentElement;
+  $inlineSVGicons.forEach(($icon) => {
+    const url = encodeURIComponent(window.location.href);
+    let link = null;
+
+    if ($icon.classList.contains('icon-facebook')) {
+      link = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    } else if ($icon.classList.contains('icon-linkedin')) {
+      link = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    } else if ($icon.classList.contains('icon-twitter')) {
+      link = `https://twitter.com/share?&url=${url}`;
+    } else if ($icon.classList.contains('icon-pinterest')) {
+      link = `https://pinterest.com/pin/create/button/?url=${url}`;
+    } else {
+      $icon.remove();
+    }
+
+    let $c = $icon.parentElement;
     if ((isNodeName($c, 'a'))) {
       $c = $c.parentElement;
     }
     if (!isNodeName($c, 'p')) {
       const p = document.createElement('p');
       $c.appendChild(p);
-      p.appendChild(icon);
+      p.appendChild($icon);
       $c = p;
     }
     if ($c.children.length > 1) {
       $c.classList.add('icon-container');
-      icon.setAttribute('fill', 'currentColor');
+      $icon.setAttribute('fill', 'currentColor');
+    }
+
+    if (link) {
+      const $link = createTag('a', { target: '_blank', href: link });
+      $icon.parentNode.replaceChild($link, $icon);
+      $link.append($icon);
     }
   });
 
