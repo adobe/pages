@@ -51,6 +51,9 @@ export default function decorate($block) {
 
     if (link) {
       const $link = createTag('a', { target: '_blank', href: link });
+      $link.addEventListener('click', () => {
+        window.open($link.href, 'newwindow', 'width=600, height=400');
+      });
       $icon.parentNode.replaceChild($link, $icon);
       $link.append($icon);
     }
