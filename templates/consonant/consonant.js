@@ -98,6 +98,22 @@ export function getLanguage() {
 }
 
 /**
+ * Creates a tag with the given name and attributes.
+ * @param {string} name The tag name
+ * @param {object} attrs An object containing the attributes
+ * @returns The new tag
+ */
+export function createTag(name, attrs) {
+  const el = document.createElement(name);
+  if (typeof attrs === 'object') {
+    for (const [key, value] of Object.entries(attrs)) {
+      el.setAttribute(key, value);
+    }
+  }
+  return el;
+}
+
+/**
  * Retrieves the content of a metadata tag.
  * @param {string} name The metadata name (or property)
  * @returns {string} The metadata value
