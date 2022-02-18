@@ -706,7 +706,7 @@ export function decorateBlocks(
     'scrollto', 'sectiontitle', 'hr',
     'downloadcallouts', 'cardcallouttitle',
     'cardcallouts', 'videocontent', 'scrolltop',
-    'hero', 'tutorials', 'list', 'headerwithlockup', 'content', 'form', 'herowithimage', 'fullwidthimage', 'textoverbackground', 'button-group', 'herocontent',
+    'hero', 'tutorials', 'list', 'headerwithlockup', 'content', 'form', 'herowithimage', 'fullwidthimage', 'textoverbackground', 'button-group', 'herocontent', 'productcta',
   ];
   const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
 
