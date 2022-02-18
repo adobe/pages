@@ -1,0 +1,49 @@
+main div.block.herocontent {
+	visibility: unset;
+}
+
+
+.herocontent p {
+  font-size: 18px;
+}
+
+.herocontent.sm {
+  max-width: 550px;
+  margin: auto;
+}
+
+.herocontent.md {
+  max-width: 700px;
+  margin: auto;
+}
+
+.herocontent.lg {
+  max-width: 850px;
+  margin: auto;
+}
+
+
+.herocontent h1 {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+
+@media(min-width: 700px) {
+  .herocontent h1 {
+    font-size: 46px;
+  }
+  .herocontent p {
+    font-size: 20px;
+  }
+}
+
+@media(min-width: 900px) {
+  .herocontent h1 {
+    font-size: 55px;
+  }
+  .herocontent p {
+    font-size: 22px;
+  }
+}
