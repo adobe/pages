@@ -9,9 +9,3 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-/** @type {import("../block").BlockDecorator} */
-export default async function decorate($block) {
-  if (!$block.querySelector('img')) {
-    $block.classList.add('single-child');
-  }
-}
