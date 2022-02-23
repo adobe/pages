@@ -1,0 +1,66 @@
+main div.block.productcta {
+  visibility: unset;
+}
+
+.productcta-container > div {
+  padding: 0em 0em !important;
+}
+
+.productcta > div:nth-child(2n) {
+  margin-top: 2em;
+}
+
+.productcta a {
+  margin: 1em 0em 0 0;
+  display: inline-block;
+}
+
+
+.productcta a {
+  min-width: 200px;
+  border: 2px solid white;
+  color: white !important;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 100px;
+}
+
+.productcta strong a {
+  background: var(--spectrum_blue);
+  color: white;
+  border: 2px solid var(--spectrum_blue);
+}
+
+.productcta em a {
+  font-weight: 500;
+  font-style: normal;
+}
+
+.productcta strong a:hover {
+  background: #0d62c9;
+  color: white;
+  border: 2px solid #0d62c9;
+}
+
+.productcta em a:hover {
+  background: white;
+  color: black !important;
+}
+
+@media(min-width: 700px) {
+  .productcta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1em;
+  }
+
+  .product-cta a {
+    margin-bottom: 1em;
+  }
+
+  .productcta > div:nth-child(2n) {
+    margin-top: 0em;
+    margin-left: 4em;
+  }
+}
