@@ -10,18 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-/**
- * log RUM if part of the sample.
- * @param {string} checkpoint identifies the checkpoint in funnel
- * @param {Object} data additional data for RUM sample
- */
-
-// eslint-disable-next-line object-curly-newline
-if (!navigator.sendBeacon) {
-  window.data = JSON.stringify({ referer: window.location.href, checkpoint: 'unsupported', weight: 1 });
-  new Image().src = `https://rum.hlx3.page/.rum/1?data=${window.data}`;
-}
-
 export function sampleRUM(checkpoint, data = {}) {
   try {
     window.hlx = window.hlx || {};
@@ -38,14 +26,31 @@ export function sampleRUM(checkpoint, data = {}) {
     }
     const { random, weight, id } = window.hlx.rum;
     if (random && (random * weight < 1)) {
-      // eslint-disable-next-line object-curly-newline
-      const body = JSON.stringify({ weight, id, referer: window.location.href, generation: 'biz-gen1', checkpoint, ...data });
-      const url = `https://rum.hlx3.page/.rum/${weight}`;
-      // eslint-disable-next-line no-unused-expressions
-      navigator.sendBeacon(url, body); // we should probably use XHR instead of fetch
+      const sendPing = () => {
+        // eslint-disable-next-line object-curly-newline
+        const body = JSON.stringify({ weight, id, referer: window.location.href, generation: 'ccx-gen2', checkpoint, ...data });
+        const url = `https://rum.hlx3.page/.rum/${weight}`;
+        // eslint-disable-next-line no-unused-expressions
+        navigator.sendBeacon(url, body);
+      };
+      sendPing();
+      // special case CWV
+      if (checkpoint === 'cwv') {
+        // eslint-disable-next-line import/no-unresolved
+        import('https://unpkg.com/web-vitals?module').then((mod) => {
+          const storeCWV = (measurement) => {
+            data.cwv = {};
+            data.cwv[measurement.name] = measurement.value;
+            sendPing();
+          };
+          mod.getCLS(storeCWV);
+          mod.getFID(storeCWV);
+          mod.getLCP(storeCWV);
+        });
+      }
     }
   } catch (e) {
-    // Somethign went wrong
+    // something went wrong
   }
 }
 
@@ -53,18 +58,32 @@ sampleRUM('top');
 window.addEventListener('load', () => sampleRUM('load'));
 document.addEventListener('click', () => sampleRUM('click'));
 
+export function createTag(name, attrs) {
+  const el = document.createElement(name);
+  if (typeof attrs === 'object') {
+    for (const [key, value] of Object.entries(attrs)) {
+      el.setAttribute(key, value);
+    }
+  }
+  return el;
+}
+
 /**
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
  */
-export function loadCSS(href) {
+export function loadCSS(href, callback) {
   if (!document.querySelector(`head > link[href="${href}"]`)) {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('href', href);
-    link.onload = () => { };
-    link.onerror = () => { };
+    if (typeof callback === 'function') {
+      link.onload = (e) => callback(e.type);
+      link.onerror = (e) => callback(e.type);
+    }
     document.head.appendChild(link);
+  } else if (typeof callback === 'function') {
+    callback('noop');
   }
 }
 
@@ -98,30 +117,168 @@ export function getLanguage() {
 }
 
 /**
- * Creates a tag with the given name and attributes.
- * @param {string} name The tag name
- * @param {object} attrs An object containing the attributes
- * @returns The new tag
+ * Adds one or more URLs to the dependencies for publishing.
+ * @param {string|[string]} url The URL(s) to add as dependencies
  */
-export function createTag(name, attrs) {
-  const el = document.createElement(name);
-  if (typeof attrs === 'object') {
-    for (const [key, value] of Object.entries(attrs)) {
-      el.setAttribute(key, value);
+export function addPublishDependencies(url) {
+  const urls = Array.isArray(url) ? url : [url];
+  window.hlx = window.hlx || {};
+  if (window.hlx.dependencies && Array.isArray(window.hlx.dependencies)) {
+    window.hlx.dependencies.concat(urls);
+  } else {
+    window.hlx.dependencies = urls;
+  }
+}
+
+export function toClassName(name) {
+  return name && typeof name === 'string'
+    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
+    : '';
+}
+
+export function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+
+export function isAttr(node, attr, val) {
+  if (!node || typeof node !== 'object') return false;
+  return node.getAttribute(attr) === val;
+}
+
+export function transformLinkToAnimation($a) {
+  if (!$a || !$a.href.endsWith('.mp4')) {
+    return null;
+  }
+  const params = new URL($a.href).searchParams;
+  const attribs = {};
+  ['playsinline', 'autoplay', 'loop', 'muted'].forEach((p) => {
+    if (params.get(p) !== 'false') attribs[p] = '';
+  });
+  // use closest picture as poster
+  const $poster = $a.closest('div').querySelector('picture source');
+  if ($poster) {
+    attribs.poster = $poster.srcset;
+    $poster.parentNode.remove();
+  }
+  // replace anchor with video element
+  const videoUrl = new URL($a.href);
+  const helixId = videoUrl.hostname.includes('hlx.blob.core') ? videoUrl.pathname.split('/')[2] : videoUrl.pathname.split('media_')[1].split('.')[0];
+  const videoHref = `./media_${helixId}.mp4`;
+  const $video = createTag('video', attribs);
+  $video.innerHTML = `<source src="${videoHref}" type="video/mp4">`;
+  const $innerDiv = $a.closest('div');
+  $innerDiv.prepend($video);
+  $innerDiv.classList.add('hero-animation-overlay');
+  $a.replaceWith($video);
+  // autoplay animation
+  $video.addEventListener('canplay', () => {
+    $video.muted = true;
+    $video.play();
+  });
+  return $video;
+}
+
+export function linkPicture($picture) {
+  const $nextSib = $picture.parentNode.nextElementSibling;
+  if ($nextSib) {
+    const $a = $nextSib.querySelector('a');
+    if ($a && $a.textContent.startsWith('https://')) {
+      $a.innerHTML = '';
+      $a.className = '';
+      $a.appendChild($picture);
     }
   }
-  return el;
+}
+
+export function linkImage($elem) {
+  const $a = $elem.querySelector('a');
+  if ($a) {
+    const $parent = $a.closest('div');
+    $a.remove();
+    $a.className = '';
+    $a.innerHTML = '';
+    $a.append(...$parent.childNodes);
+    $parent.append($a);
+  }
 }
 
 /**
- * Retrieves the content of a metadata tag.
- * @param {string} name The metadata name (or property)
- * @returns {string} The metadata value
+ * Wraps each section in an additional {@code div}.
+ * @param {[Element]} sections The sections
  */
-export function getMetadata(name) {
-  const attr = name && name.includes(':') ? 'property' : 'name';
-  const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((el) => el.content).join(', ');
-  return meta;
+function wrapSections(sections) {
+  sections.forEach((div) => {
+    if (!div.id) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'section-wrapper';
+      div.parentNode.appendChild(wrapper);
+      wrapper.appendChild(div);
+    }
+  });
+}
+
+export function isNodeName(node, name) {
+  if (!node || typeof node !== 'object') return false;
+  return node.nodeName.toLowerCase() === name.toLowerCase();
+}
+
+/**
+ * Decorates a block.
+ * @param {Element} block The block element
+ */
+export function decorateBlocks($main) {
+  $main.querySelectorAll('div.section-wrapper > div > div').forEach(($block) => {
+    // Add classes to container...
+    const classes = Array.from($block.classList.values());
+    let blockName = classes[0];
+    if (!blockName) return;
+    const section = $block.closest('.section-wrapper');
+    if (section) {
+      section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+    }
+
+    // Wrap text-nodes or <a>-nodes in a <p> if they are alone...
+    const divs = Array.from($block.querySelectorAll(':scope > div div'));
+    divs.forEach((div) => {
+      const blockChildren = Array.from(div.childNodes);
+      let textOnlyNoP = true;
+      blockChildren.forEach(($c) => {
+        const $n = $c.nodeName.toLowerCase();
+        if ($n === 'p' || $n === 'picture' || $n === 'img' || $n === 'h1' || $n === 'h2'
+            || $n === 'h3' || $n === 'h4' || $n === 'h5' || $n === 'h6' || $n === 'div') {
+          textOnlyNoP = false;
+        }
+      });
+      if (textOnlyNoP) {
+        const p = document.createElement('p');
+        div.appendChild(p);
+        blockChildren.forEach(($c) => {
+          p.appendChild($c);
+        });
+      }
+    });
+
+    // Allow for variants...
+    const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images'];
+    blocksWithVariants.forEach((b) => {
+      if (blockName.startsWith(`${b}-`)) {
+        const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
+        blockName = b;
+        $block.classList.add(b);
+        $block.classList.add(...options);
+      }
+    });
+    if (section) {
+      section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
+      const $sectionTitle = section.querySelector('h1') || section.querySelector('h2') || section.querySelector('h3') || section.querySelector('h4') || section.querySelector('h5');
+      if ($sectionTitle && typeof $sectionTitle !== 'undefined') {
+        section.id = `${$sectionTitle.id}`;
+      }
+    }
+    $block.classList.add('block');
+    $block.setAttribute('data-block-name', blockName);
+    $block.setAttribute('data-block-status', 'initialized');
+  });
 }
 
 /**
@@ -166,6 +323,20 @@ export function getHelixEnv() {
   return env;
 }
 
+function setHelixEnv(name, overrides) {
+  if (name) {
+    sessionStorage.setItem('helix-env', name);
+    if (overrides) {
+      sessionStorage.setItem('helix-env-overrides', JSON.stringify(overrides));
+    } else {
+      sessionStorage.removeItem('helix-env-overrides');
+    }
+  } else {
+    sessionStorage.removeItem('helix-env');
+    sessionStorage.removeItem('helix-env-overrides');
+  }
+}
+
 export function debug(message) {
   const { hostname } = window.location;
   const env = getHelixEnv();
@@ -175,315 +346,25 @@ export function debug(message) {
   }
 }
 
-/**
- * Adds one or more URLs to the dependencies for publishing.
- * @param {string|[string]} url The URL(s) to add as dependencies
- */
-export function addPublishDependencies(url) {
-  const urls = Array.isArray(url) ? url : [url];
-  window.hlx = window.hlx || {};
-  if (window.hlx.dependencies && Array.isArray(window.hlx.dependencies)) {
-    window.hlx.dependencies.concat(urls);
-  } else {
-    window.hlx.dependencies = urls;
-  }
-}
-
-/**
- * Sanitizes a name for use as class name.
- * @param {*} name The unsanitized name
- * @returns {string} The class name
- */
-export function toClassName(name) {
-  return name && typeof name === 'string'
-    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
-    : '';
-}
-
-/**
- * Wraps each section in an additional {@code div}.
- * @param {[Element]} sections The sections
- */
-function wrapSections(sections) {
-  sections.forEach((div) => {
-    if (!div.id) {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'section-wrapper';
-      div.parentNode.appendChild(wrapper);
-      wrapper.appendChild(div);
-    }
-  });
-}
-
-/**
- * Block Helpers
- */
-export function insertAfter(newNode, existingNode) {
-  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-}
-export function isNodeName(node, name) {
-  if (!node || typeof node !== 'object') return false;
-  return node.nodeName.toLowerCase() === name.toLowerCase();
-}
-export function isAttr(node, attr, val) {
-  if (!node || typeof node !== 'object') return false;
-  return node.getAttribute(attr) === val;
-}
-
-/**
- * Decorates a block.
- * @param {Element} block The block element
- */
-export function decorateBlock(block) {
-  // Add classes to container...
-  const classes = Array.from(block.classList.values());
-  let blockName = classes[0];
-  if (!blockName) return;
-  const section = block.closest('.section-wrapper');
-  if (section) {
-    section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
-  }
-
-  // Wrap text-nodes or <a>-nodes in a <p> if they are alone...
-  const divs = Array.from(block.querySelectorAll(':scope > div div'));
-  divs.forEach((div) => {
-    const blockChildren = Array.from(div.childNodes);
-    let textOnlyNoP = true;
-    blockChildren.forEach(($c) => {
-      const $n = $c.nodeName.toLowerCase();
-      if ($n === 'p' || $n === 'picture' || $n === 'img' || $n === 'h1' || $n === 'h2'
-          || $n === 'h3' || $n === 'h4' || $n === 'h5' || $n === 'h6' || $n === 'div') {
-        textOnlyNoP = false;
-      }
-    });
-    if (textOnlyNoP) {
-      const p = document.createElement('p');
-      div.appendChild(p);
-      blockChildren.forEach(($c) => {
-        p.appendChild($c);
-      });
-    }
-  });
-
-  // Allow for variants...
-  const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images'];
-  blocksWithVariants.forEach((b) => {
-    if (blockName.startsWith(`${b}-`)) {
-      const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
-      blockName = b;
-      block.classList.add(b);
-      block.classList.add(...options);
-    }
-  });
-  if (section) {
-    section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
-    const $sectionTitle = section.querySelector('h1') || section.querySelector('h2') || section.querySelector('h3') || section.querySelector('h4') || section.querySelector('h5');
-    if ($sectionTitle && typeof $sectionTitle !== 'undefined') {
-      section.id = `${$sectionTitle.id}`;
-    }
-  }
-
-  block.classList.add('block');
-  block.setAttribute('data-block-name', blockName);
-
-  // Delete empty section wrappers
-  const sections = Array.from(document.querySelectorAll('.section-wrapper'));
-  sections.forEach(($s) => {
-    const div = $s.querySelector(':scope > div');
-    if (!div.firstElementChild) {
-      $s.remove();
-    }
-  });
-}
-
-/**
- * Builds a block DOM Element from a two dimensional array
- * @param {string} blockName name of the block
- * @param {any} content two dimensional array or string or object of content
- */
-function buildBlock(blockName, content) {
-  const table = Array.isArray(content) ? content : [[content]];
-  const blockEl = document.createElement('div');
-  // build image block nested div structure
-  blockEl.classList.add(blockName);
-  table.forEach((row) => {
-    const rowEl = document.createElement('div');
-    row.forEach((col) => {
-      const colEl = document.createElement('div');
-      const vals = col.elems ? col.elems : [col];
-      vals.forEach((val) => {
-        if (val) {
-          if (typeof val === 'string') {
-            colEl.innerHTML += val;
-          } else {
-            colEl.appendChild(val);
-          }
-        }
-      });
-      rowEl.appendChild(colEl);
-    });
-    blockEl.appendChild(rowEl);
-  });
-  return (blockEl);
-}
-
-/**
- * removes formatting from images.
- * @param {Element} mainEl The container element
- */
-function removeStylingFromImages(mainEl) {
-  // remove styling from images, if any
-  const styledImgEls = [...mainEl.querySelectorAll('strong picture'), ...mainEl.querySelectorAll('em picture')];
-  styledImgEls.forEach((imgEl) => {
-    const parentEl = imgEl.closest('p');
-    parentEl.prepend(imgEl);
-    parentEl.lastChild.remove();
-  });
-}
-
-/**
- * returns an image caption of a picture elements
- * @param {Element} picture picture element
- */
-function getImageCaption(picture) {
-  const parentEl = picture.parentNode;
-  const parentSiblingEl = parentEl.nextElementSibling;
-  return (parentSiblingEl && parentSiblingEl.firstChild.nodeName === 'EM' ? parentSiblingEl : undefined);
-}
-
-/**
- * builds images blocks from default content.
- * @param {Element} mainEl The container element
- */
-function buildImageBlocks(mainEl) {
-  // select all non-featured, default (non-images block) images
-  const imgEls = [...mainEl.querySelectorAll(':scope > div > p > picture')];
-  imgEls.forEach((imgEl) => {
-    const parentEl = imgEl.parentNode;
-    const imagesBlockEl = buildBlock('images', {
-      elems: [parentEl.cloneNode(true), getImageCaption(imgEl)],
-    });
-    parentEl.parentNode.insertBefore(imagesBlockEl, parentEl);
-    parentEl.remove();
-  });
-}
-
-/**
- * Decorates all blocks in a container element.
- * @param {Element} main The container element
- */
-function decorateBlocks(main) {
-  main
-    .querySelectorAll('div.section-wrapper > div > div')
-    .forEach((block) => decorateBlock(block));
-}
-
-/**
- * Builds all synthetic blocks in a container element.
- * @param {Element} main The container element
- */
-function buildAutoBlocks(mainEl) {
-  removeStylingFromImages(mainEl);
+function displayEnv() {
   try {
-    buildImageBlocks(mainEl);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Auto Blocking failed', error);
-  }
-}
-
-function unwrapBlock(block) {
-  const section = block.parentNode;
-  const els = [...section.children];
-  const blockSection = document.createElement('div');
-  const postBlockSection = document.createElement('div');
-  const nextSection = section.nextSibling;
-  section.parentNode.insertBefore(blockSection, nextSection);
-  section.parentNode.insertBefore(postBlockSection, nextSection);
-
-  let appendTo;
-  els.forEach((el) => {
-    if (el === block) appendTo = blockSection;
-    if (appendTo) {
-      appendTo.appendChild(el);
-      appendTo = postBlockSection;
+    /* setup based on URL Params */
+    const usp = new URLSearchParams(window.location.search);
+    if (usp.has('helix-env')) {
+      const env = usp.get('helix-env');
+      setHelixEnv(env);
     }
-  });
-  if (!section.hasChildNodes()) {
-    section.remove();
-  }
-  if (!blockSection.hasChildNodes()) {
-    blockSection.remove();
-  }
-  if (!postBlockSection.hasChildNodes()) {
-    postBlockSection.remove();
-  }
-}
 
-function splitSections() {
-  document.querySelectorAll('main > div > div').forEach((block) => {
-    const blocksToSplit = ['article-header', 'recommended-articles'];
-    if (blocksToSplit.includes(block.className)) {
-      unwrapBlock(block);
+    /* setup based on referrer */
+    if (document.referrer) {
+      const url = new URL(document.referrer);
+      if (window.location.hostname !== url.hostname) {
+        debug(`external referrer detected: ${document.referrer}`);
+      }
     }
-  });
-}
-
-function removeEmptySections() {
-  document.querySelectorAll('main > div:empty').forEach((div) => {
-    div.remove();
-  });
-}
-
-/**
- * Build figcaption element
- * @param {Element} pEl The original element to be placed in figcaption.
- * @returns figCaptionEl Generated figcaption
- */
-export function buildCaption(pEl) {
-  const figCaptionEl = document.createElement('figcaption');
-  pEl.classList.add('caption');
-  figCaptionEl.append(pEl);
-  return figCaptionEl;
-}
-
-/**
- * Build figure element
- * @param {Element} blockEl The original element to be placed in figure.
- * @returns figEl Generated figure
- */
-export function buildFigure(blockEl) {
-  const figEl = document.createElement('figure');
-  figEl.classList.add('figure');
-  // content is picture only, no caption or link
-  if (blockEl.firstChild) {
-    if (blockEl.firstChild.nodeName === 'PICTURE' || blockEl.firstChild.nodeName === 'VIDEO') {
-      figEl.append(blockEl.firstChild);
-    } else if (blockEl.firstChild.nodeName === 'P') {
-      const pEls = Array.from(blockEl.children);
-      pEls.forEach((pEl) => {
-        if (pEl.firstChild) {
-          if (pEl.firstChild.nodeName === 'PICTURE' || pEl.firstChild.nodeName === 'VIDEO') {
-            figEl.append(pEl.firstChild);
-          } else if (pEl.firstChild.nodeName === 'EM') {
-            const figCapEl = buildCaption(pEl);
-            figEl.append(figCapEl);
-          } else if (pEl.firstChild.nodeName === 'A') {
-            const picEl = figEl.querySelector('picture');
-            if (picEl) {
-              pEl.firstChild.textContent = '';
-              pEl.firstChild.append(picEl);
-            }
-            figEl.prepend(pEl.firstChild);
-          }
-        }
-      });
-    // catch link-only figures (like embed blocks);
-    } else if (blockEl.firstChild.nodeName === 'A') {
-      figEl.append(blockEl.firstChild);
-    }
+  } catch (e) {
+    debug(`display env failed: ${e.message}`);
   }
-  return figEl;
 }
 
 /**
@@ -491,25 +372,34 @@ export function buildFigure(blockEl) {
  * @param {Element} block The block element
  */
 export async function loadBlock(block, eager = false) {
-  if (!block.getAttribute('data-block-loaded')) {
-    block.setAttribute('data-block-loaded', true);
+  if (!(block.getAttribute('data-block-status') === 'loading' || block.getAttribute('data-block-status') === 'loaded')) {
+    block.setAttribute('data-block-status', 'loading');
     const blockName = block.getAttribute('data-block-name');
     try {
-      loadCSS(`/templates/consonant/blocks/${blockName}/${blockName}.css`);
-      const mod = await import(`/templates/consonant/blocks/${blockName}/${blockName}.js`);
-      if (mod.default) {
-        await mod.default(block, blockName, document, eager);
-      }
+      const cssLoaded = new Promise((resolve) => {
+        loadCSS(`/templates/consonant/blocks/${blockName}/${blockName}.css`, resolve);
+      });
+      const decorationComplete = new Promise((resolve) => {
+        (async () => {
+          try {
+            const mod = await import(`/templates/consonant/blocks/${blockName}/${blockName}.js`);
+            if (mod.default) {
+              await mod.default(block, blockName, document, eager);
+            }
+          } catch (err) {
+            debug(`failed to load module for ${blockName}`, err);
+          }
+          resolve();
+        })();
+      });
+      await Promise.all([cssLoaded, decorationComplete]);
     } catch (err) {
-      debug(`failed to load module for ${blockName}`, err);
+      debug(`failed to load block ${blockName}`, err);
     }
+    block.setAttribute('data-block-status', 'loaded');
   }
 }
 
-/**
- * Loads JS and CSS for a block.
- * @param {String} block The block's name
- */
 export async function loadBlockManually(blockName, eager = false) {
   try {
     loadCSS(`/templates/consonant/blocks/${blockName}/${blockName}.css`);
@@ -522,123 +412,32 @@ export async function loadBlockManually(blockName, eager = false) {
   }
 }
 
-/**
- * Loads JS and CSS for all blocks in a container element.
- * @param {Element} main The container element
- */
-export async function loadBlocks(main) {
-  main
-    .querySelectorAll('div.section-wrapper > div > .block')
-    .forEach(async (block) => {
-      if (block.getAttribute('data-block-name') !== 'header') {
-        loadBlock(block);
-      }
-    });
+export function loadBlocks($main) {
+  const blockPromises = [...$main.querySelectorAll('div.section-wrapper > div > .block')]
+    .map(($block) => loadBlock($block));
+  return blockPromises;
 }
 
-/**
- * Extracts the config from a block.
- * @param {Element} block The block element
- * @returns {object} The block config
- */
-export function readBlockConfig(block) {
-  const config = {};
-  block.querySelectorAll(':scope>div').forEach((row) => {
-    if (row.children) {
-      const cols = [...row.children];
-      if (cols[1]) {
-        const valueEl = cols[1];
-        const name = toClassName(cols[0].textContent);
-        let value = '';
-        if (valueEl.querySelector('a')) {
-          const aArr = [...valueEl.querySelectorAll('a')];
-          if (aArr.length === 1) {
-            value = aArr[0].href;
-          } else {
-            value = aArr.map((a) => a.href);
-          }
-        } else if (valueEl.querySelector('p')) {
-          const pArr = [...valueEl.querySelectorAll('p')];
-          if (pArr.length === 1) {
-            value = pArr[0].textContent;
-          } else {
-            value = pArr.map((p) => p.textContent);
-          }
-        } else value = row.children[1].textContent;
-        config[name] = value;
-      }
-    }
-  });
-  return config;
+export function loadScript(url, callback, type) {
+  const $head = document.querySelector('head');
+  const $script = createTag('script', { src: url });
+  if (type) {
+    $script.setAttribute('type', type);
+  }
+  $head.append($script);
+  $script.onload = callback;
+  return $script;
 }
 
-/**
- * Normalizes all headings within a container element.
- * @param {Element} el The container element
- * @param {[string]]} allowedHeadings The list of allowed headings (h1 ... h6)
- */
-export function normalizeHeadings(el, allowedHeadings) {
-  const allowed = allowedHeadings.map((h) => h.toLowerCase());
-  el.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((tag) => {
-    const h = tag.tagName.toLowerCase();
-    if (allowed.indexOf(h) === -1) {
-      // current heading is not in the allowed list -> try first to "promote" the heading
-      let level = parseInt(h.charAt(1), 10) - 1;
-      while (allowed.indexOf(`h${level}`) === -1 && level > 0) {
-        level -= 1;
-      }
-      if (level === 0) {
-        // did not find a match -> try to "downgrade" the heading
-        while (allowed.indexOf(`h${level}`) === -1 && level < 7) {
-          level += 1;
-        }
-      }
-      if (level !== 7) {
-        tag.outerHTML = `<h${level}>${tag.textContent}</h${level}>`;
-      }
+// Delete empty section wrappers
+export function deleteEmptySections($main) {
+  const sections = Array.from($main.querySelectorAll('.section-wrapper'));
+  sections.forEach(($s) => {
+    const div = $s.querySelector(':scope > div');
+    if (!div.firstElementChild) {
+      $s.remove();
     }
   });
-}
-
-/**
- * Returns a picture element with webp and fallbacks
- * @param {string} src The image URL
- * @param {boolean} eager load image eager
- * @param {Array} breakpoints breakpoints and corresponding params (eg. width)
- */
-
-export function createOptimizedPicture(src, alt = '', eager = false, breakpoints = [{ media: '(min-width: 400px)', width: '2000' }, { width: '750' }]) {
-  const url = new URL(src, window.location.href);
-  const picture = document.createElement('picture');
-  const { pathname } = url;
-  const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
-
-  // webp
-  breakpoints.forEach((br) => {
-    const source = document.createElement('source');
-    if (br.media) source.setAttribute('media', br.media);
-    source.setAttribute('type', 'image/webp');
-    source.setAttribute('srcset', `${pathname}?width=${br.width}&format=webply&optimize=medium`);
-    picture.appendChild(source);
-  });
-
-  // fallback
-  breakpoints.forEach((br, i) => {
-    if (i < breakpoints.length - 1) {
-      const source = document.createElement('source');
-      if (br.media) source.setAttribute('media', br.media);
-      source.setAttribute('srcset', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
-      picture.appendChild(source);
-    } else {
-      const img = document.createElement('img');
-      img.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
-      img.setAttribute('loading', eager ? 'eager' : 'lazy');
-      img.setAttribute('alt', alt);
-      picture.appendChild(img);
-    }
-  });
-
-  return picture;
 }
 
 /**
@@ -719,22 +518,51 @@ export function updateH6toDetail(block = document) {
   });
 }
 
-/**
- * Decorates the main element.
- * @param {Element} main The main element
- */
-function decoratePictures(main) {
-  main.querySelectorAll('img[src*="/media_"').forEach((img, i) => {
-    const newPicture = createOptimizedPicture(img.src, img.alt, !i);
-    const picture = img.closest('picture');
-    if (picture) picture.parentElement.replaceChild(newPicture, picture);
+export function unwrapBlock($block) {
+  const $section = $block.parentNode;
+  const $elems = [...$section.children];
+  const $blockSection = createTag('div');
+  const $postBlockSection = createTag('div');
+  const $nextSection = $section.nextSibling;
+  $section.parentNode.insertBefore($blockSection, $nextSection);
+  $section.parentNode.insertBefore($postBlockSection, $nextSection);
+
+  let $appendTo;
+  $elems.forEach(($e) => {
+    if ($e === $block) $appendTo = $blockSection;
+    if ($appendTo) {
+      $appendTo.appendChild($e);
+      $appendTo = $postBlockSection;
+    }
+  });
+
+  if (!$postBlockSection.hasChildNodes()) {
+    $postBlockSection.remove();
+  }
+}
+
+function splitSections($main) {
+  $main.querySelectorAll(':scope > div > div').forEach(($block) => {
+    const blocksToSplit = ['marquee'];
+
+    if (blocksToSplit.includes($block.className)) {
+      unwrapBlock($block);
+    }
+  });
+}
+
+function decorateLinkedPictures($main) {
+  /* thanks to word online */
+  $main.querySelectorAll(':scope > picture').forEach(($picture) => {
+    if (!$picture.closest('div.block')) {
+      linkPicture($picture);
+    }
   });
 }
 
 /* link out to external links */
-export function externalLinks(selector) {
-  const element = document.querySelector(selector);
-  const links = element.querySelectorAll('a[href]');
+export function externalLinks() {
+  const links = document.querySelectorAll('a[href]');
 
   links.forEach((linkItem) => {
     const linkValue = linkItem.getAttribute('href');
@@ -767,106 +595,81 @@ export function makeLinksRelative() {
 }
 
 /**
+ * Returns a picture element with webp and fallbacks
+ * @param {string} src The image URL
+ * @param {string} alt The alt text of the image
+ * @param {boolean} eager load image eager
+ * @param {Array} breakpoints breakpoints and corresponding params (eg. width)
+ */
+
+export function createOptimizedPicture(src, alt = '', eager = false, breakpoints = [{ media: '(min-width: 400px)', width: '2000' }, { width: '750' }]) {
+  const url = new URL(src, window.location.href);
+  const picture = document.createElement('picture');
+  const { pathname } = url;
+  const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
+
+  // webp
+  breakpoints.forEach((br) => {
+    const source = document.createElement('source');
+    if (br.media) source.setAttribute('media', br.media);
+    source.setAttribute('type', 'image/webp');
+    source.setAttribute('srcset', `${pathname}?width=${br.width}&format=webply&optimize=medium`);
+    picture.appendChild(source);
+  });
+
+  // fallback
+  breakpoints.forEach((br, i) => {
+    if (i < breakpoints.length - 1) {
+      const source = document.createElement('source');
+      if (br.media) source.setAttribute('media', br.media);
+      source.setAttribute('srcset', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
+      picture.appendChild(source);
+    } else {
+      const img = document.createElement('img');
+      img.setAttribute('loading', eager ? 'eager' : 'lazy');
+      img.setAttribute('alt', alt);
+      picture.appendChild(img);
+      img.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
+    }
+  });
+
+  return picture;
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
-export function decorateMain(main) {
-  // forward compatible pictures redecoration
-  decoratePictures(main);
-  buildAutoBlocks(main);
-  splitSections();
-  removeEmptySections();
-  wrapSections(main.querySelectorAll(':scope > div'));
-  decorateBlocks(main);
-  makeLinksRelative();
-  externalLinks('main');
-  decorateButtons(main);
-  updateH6toDetail(main);
-}
-
-/**
- * Adds the favicon.
- * @param {string} href The favicon URL
- */
-export function addFavIcon(href) {
-  const link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/svg+xml';
-  link.href = href;
-  const existingLink = document.querySelector('head link[rel="icon"]');
-  if (existingLink) {
-    existingLink.parentElement.replaceChild(link, existingLink);
-  } else {
-    document.getElementsByTagName('head')[0].appendChild(link);
-  }
-}
-
-/**
- * forward looking *.metadata.json experiment
- * fetches metadata.json of page
- * @param {path} path to *.metadata.json
- * @returns {Object} containing sanitized meta data
- */
-
-async function getMetadataJson(path) {
-  const resp = await fetch(path.split('.')[0]);
-  const text = await resp.text();
-  const headStr = text.split('<head>')[1].split('</head>')[0];
-  const head = document.createElement('head');
-  head.innerHTML = headStr;
-  const metaTags = head.querySelectorAll(':scope > meta');
-  const meta = {};
-  metaTags.forEach((metaTag) => {
-    const name = metaTag.getAttribute('name') || metaTag.getAttribute('property');
-    const value = metaTag.getAttribute('content');
-    if (meta[name]) {
-      meta[name] += `, ${value}`;
-    } else {
-      meta[name] = value;
-    }
+function decoratePictures(main) {
+  main.querySelectorAll('img[src*="/media_"').forEach((img, i) => {
+    const newPicture = createOptimizedPicture(img.src, img.alt, !i);
+    const picture = img.closest('picture');
+    if (picture) picture.parentElement.replaceChild(newPicture, picture);
   });
-  return (JSON.stringify(meta));
 }
 
-/**
- * gets a blog article index information by path.
- * @param {string} path indentifies article
- * @returns {object} article object
- */
-
-export async function getBlogArticle(path) {
-  const json = await getMetadataJson(`${path}.metadata.json`);
-  const meta = JSON.parse(json);
-  const articleMeta = {
-    description: meta.description,
-    title: meta['og:title'],
-    image: meta['og:image'],
-    imageAlt: meta['og:image:alt'],
-    date: meta['publication-date'],
-    path,
-    category: meta.category,
-  };
-  return (articleMeta);
+export async function decorateMain($main) {
+  splitSections($main);
+  wrapSections($main.querySelectorAll(':scope > div'));
+  deleteEmptySections($main);
+  decorateButtons($main);
+  decorateBlocks($main);
+  decoratePictures($main);
+  decorateLinkedPictures($main);
+  makeLinksRelative();
+  externalLinks();
+  updateH6toDetail($main);
 }
 
-/**
- * loads a script by adding a script tag to the head.
- * @param {string} url URL of the js file
- * @param {Function} callback callback on load
- * @param {string} type type attribute of script tag
- * @returns {Element} script element
- */
-
-export function loadScript(url, callback, type) {
-  const head = document.querySelector('head');
-  const script = document.createElement('script');
-  script.setAttribute('src', url);
-  if (type) {
-    script.setAttribute('type', type);
-  }
-  head.append(script);
-  script.onload = callback;
-  return script;
+export function addAnimationToggle(target) {
+  target.addEventListener('click', () => {
+    const videos = target.querySelectorAll('video');
+    const paused = videos[0] ? videos[0].paused : false;
+    videos.forEach((video) => {
+      if (paused) video.play();
+      else video.pause();
+    });
+  }, true);
 }
 
 /**
@@ -875,110 +678,54 @@ export function loadScript(url, callback, type) {
 async function loadEager() {
   const main = document.querySelector('main');
   if (main) {
-    decorateMain(main);
-    document.querySelector('body').classList.add('appear');
-    const lcpBlocks = ['featured-article', 'article-header'];
+    await decorateMain(main);
+    await loadBlockManually('header', true);
+    displayEnv();
+
+    const lcpBlocks = ['columns', 'marquee', 'header', 'separator', 'sitemap', 'footer', 'cards'];
     const block = document.querySelector('.block');
     const hasLCPBlock = (block && lcpBlocks.includes(block.getAttribute('data-block-name')));
     if (hasLCPBlock) await loadBlock(block, true);
+
+    document.querySelector('body').classList.add('appear');
+
     const lcpCandidate = document.querySelector('main img');
-    const loaded = {
-      then: (resolve) => {
-        if (lcpCandidate && !lcpCandidate.complete) {
-          lcpCandidate.addEventListener('load', () => resolve());
-          lcpCandidate.addEventListener('error', () => resolve());
-        } else {
-          resolve();
-        }
-      },
-    };
-    await loaded;
+    await new Promise((resolve) => {
+      if (lcpCandidate && !lcpCandidate.complete) {
+        lcpCandidate.addEventListener('load', () => resolve());
+        lcpCandidate.addEventListener('error', () => resolve());
+      } else {
+        resolve();
+      }
+    });
   }
 }
 
-/**
- * loads everything that doesn't need to be delayed.
- */
 async function loadLazy() {
   const main = document.querySelector('main');
 
   // post LCP actions go here
   sampleRUM('lcp');
 
-  document.documentElement.lang = getLanguage();
   loadBlocks(main);
-
-  // Load Header
-  loadBlockManually('header', true);
-}
-
-/**
- * loads everything that happens a lot later, without impacting
- * the user experience.
- */
-function loadDelayed() {
-  /* trigger delayed.js load */
-  const delayedScript = '/templates/consonant/scripts/delayed.js';
-  const usp = new URLSearchParams(window.location.search);
-  const delayed = usp.get('delayed');
-
-  if (!(delayed === 'off' || document.querySelector(`head script[src="${delayedScript}"]`))) {
-    let ms = 3500;
-    const delay = usp.get('delay');
-    if (delay) ms = +delay;
-    setTimeout(() => {
-      loadScript(delayedScript, null, 'module');
-    }, ms);
-  }
 }
 
 /**
  * Decorates the page.
  */
 async function decoratePage() {
+  window.hlx = window.hlx || {};
+  window.hlx.lighthouse = new URLSearchParams(window.location.search).get('lighthouse') === 'on';
+  window.hlx.init = true;
+
   await loadEager();
-
   loadLazy();
-  loadDelayed();
 }
 
-decoratePage();
-
-function setHelixEnv(name, overrides) {
-  if (name) {
-    sessionStorage.setItem('helix-env', name);
-    if (overrides) {
-      sessionStorage.setItem('helix-env-overrides', JSON.stringify(overrides));
-    } else {
-      sessionStorage.removeItem('helix-env-overrides');
-    }
-  } else {
-    sessionStorage.removeItem('helix-env');
-    sessionStorage.removeItem('helix-env-overrides');
-  }
+if (!window.hlx.init && !window.isTestEnv) {
+  decoratePage();
 }
 
-function displayEnv() {
-  try {
-    /* setup based on URL Params */
-    const usp = new URLSearchParams(window.location.search);
-    if (usp.has('helix-env')) {
-      const env = usp.get('helix-env');
-      setHelixEnv(env);
-    }
-
-    /* setup based on referrer */
-    if (document.referrer) {
-      const url = new URL(document.referrer);
-      if (window.location.hostname !== url.hostname) {
-        debug(`external referrer detected: ${document.referrer}`);
-      }
-    }
-  } catch (e) {
-    debug(`display env failed: ${e.message}`);
-  }
-}
-displayEnv();
 /*
  * lighthouse performance instrumentation helper
  * (needs a refactor)
@@ -986,7 +733,8 @@ displayEnv();
 
 function stamp(message) {
   if (window.name.includes('performance')) {
-    debug(`${new Date() - performance.timing.navigationStart}:${message}`);
+    // eslint-disable-next-line no-console
+    console.log(`${new Date() - performance.timing.navigationStart}:${message}`);
   }
 }
 
@@ -997,14 +745,16 @@ function registerPerformanceLogger() {
     const polcp = new PerformanceObserver((entryList) => {
       const entries = entryList.getEntries();
       stamp(JSON.stringify(entries));
-      debug(entries[0].element);
+      // eslint-disable-next-line no-console
+      console.log(entries[0].element);
     });
     polcp.observe({ type: 'largest-contentful-paint', buffered: true });
 
     const pols = new PerformanceObserver((entryList) => {
       const entries = entryList.getEntries();
       stamp(JSON.stringify(entries));
-      debug(entries[0].sources[0].node);
+      // eslint-disable-next-line no-console
+      console.log(entries[0].sources[0].node);
     });
     pols.observe({ type: 'layout-shift', buffered: true });
 

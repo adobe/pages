@@ -170,6 +170,11 @@ main .columns .column-picture {
   line-height: 0;
 }
 
+main .columns .column-picture video {
+  width: 100%;
+  height: auto;
+}
+
 main .columns .column-picture img {
   width: 100%;
   height: auto;

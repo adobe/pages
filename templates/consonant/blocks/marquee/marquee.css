@@ -140,12 +140,28 @@ main .marquee .background {
     left: 0;
     top: 0;
     user-select: none;
+    overflow: hidden;
 }
 
 main .marquee .background img {
     object-fit: cover;
     height: 100%;
     width: 100%;
+}
+
+main .marquee .background p {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+main .marquee .background video {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    object-fit: fill;
 }
 
 main .marquee .container {
