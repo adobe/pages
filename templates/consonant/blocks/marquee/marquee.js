@@ -9,17 +9,25 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import {
+  transformLinkToAnimation,
+} from '../../consonant.js';
 
 export default function decorate($block) {
   const $sectionWrapper = $block.closest('.marquee-container');
   const bg = $block.querySelector(':scope > div:first-of-type > div');
   bg.classList.add('background');
-  const bgImg = bg.querySelector(':scope img');
+  let bgImg = bg.querySelector(':scope img');
   // Set background to text value if there is no image:
   if (!bgImg) {
-    bg.style.display = 'none';
-    const bgColor = bg.textContent;
-    $block.style.background = bgColor;
+    const $a = bg.querySelector('a');
+    if ($a && $a.href.endsWith('.mp4')) {
+      transformLinkToAnimation($a);
+      bgImg = $a;
+    } else {
+      bg.style.background = bg.textContent;
+      bg.innerHTML = '';
+    }
   }
   const content = $block.querySelector(':scope > div:nth-of-type(2)');
   content.classList.add('container');

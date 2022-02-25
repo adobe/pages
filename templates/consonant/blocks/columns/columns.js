@@ -33,7 +33,7 @@ export default function decorate($block) {
         $column.classList.add('column-picture');
       }
       const $a = $column.querySelector('a');
-      if ($a && $a.href.startsWith('https://') && $a.href.endsWith('.mp4')) {
+      if ($a && $a.href.endsWith('.mp4')) {
         $column.classList.add('column-picture');
         transformLinkToAnimation($a);
       }

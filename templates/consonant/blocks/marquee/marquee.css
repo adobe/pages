@@ -148,6 +148,11 @@ main .marquee .background img {
     width: 100%;
 }
 
+main .marquee .background p {
+    padding: 0;
+    margin: 0;
+}
+
 main .marquee .container {
     display: flex;
     justify-content: space-between;
