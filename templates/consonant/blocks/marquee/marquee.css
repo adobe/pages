@@ -152,10 +152,16 @@ main .marquee .background img {
 main .marquee .background p {
     padding: 0;
     margin: 0;
+    height: 100%;
+    width: 100%;
+    display: block;
 }
 
 main .marquee .background video {
     width: 100%;
+    height: auto;
+    min-height: 100%;
+    object-fit: fill;
 }
 
 main .marquee .container {
