@@ -140,6 +140,7 @@ main .marquee .background {
     left: 0;
     top: 0;
     user-select: none;
+    overflow: hidden;
 }
 
 main .marquee .background img {
@@ -151,6 +152,10 @@ main .marquee .background img {
 main .marquee .background p {
     padding: 0;
     margin: 0;
+}
+
+main .marquee .background video {
+    width: 100%;
 }
 
 main .marquee .container {
