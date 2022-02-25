@@ -28,11 +28,16 @@ main .share p.icon-container a {
     gap: 15px;
 }
 
+main .share.center p.icon-container,
+main .share.center p.icon-container a {
+    justify-content: center;
+}
+
 main .share p.icon-container svg {
     color: #adadad;
 }
 
-main .share > div:not(.contributors) {
+main .share > div:not(.contributors):not(:last-child) {
     border-bottom: 1px solid #707070;
     padding-bottom: var(--section-spacing-x-small);
 }
@@ -68,4 +73,21 @@ main .share .contributors p {
 
 main .share .contributors-pic picture {
     line-height: 0;
+}
+
+main .share.center {
+    text-align: center;
+}
+
+main .share.center .contributors {
+    text-align: left;
+    justify-content: center;
+}
+
+main .share.center + .tags > div > div {
+    justify-content: center;
+}
+
+main .title + .share {
+    margin-top: calc(var(--section-spacing) * -1);
 }
