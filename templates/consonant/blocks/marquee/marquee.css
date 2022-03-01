@@ -270,6 +270,13 @@ main .marquee .marquee-caption {
     text-shadow: 1px 2px 3px #000000B1;
     padding-bottom: 32px;
     overflow: hidden;
+    min-height: 100px;
+}
+
+main .marquee .marquee-caption > div {
+    min-height: 100px;
+    display: flex;
+    align-items: flex-end;
 }
 
 main .marquee .marquee-caption p {
