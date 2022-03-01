@@ -1,0 +1,28 @@
+main .video {
+  max-width: calc(var(--max-width-block-laptop) + (var(--gutter) * 2));
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  width: 100%;
+  padding: 0 var(--gutter);
+  box-sizing: border-box;
+}
+
+main .video-container > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: unset;
+  padding: 0;
+}
+
+main .video div {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main .video.full-width {
+  padding: 0;
+  max-width: unset;
+} 
