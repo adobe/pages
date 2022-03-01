@@ -269,6 +269,7 @@ main .marquee .marquee-caption {
     text-align: left;
     text-shadow: 1px 2px 3px #000000B1;
     padding-bottom: 32px;
+    overflow: hidden;
 }
 
 main .marquee .marquee-caption p {
