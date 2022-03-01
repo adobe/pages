@@ -23,7 +23,7 @@ main .video div {
 }
 
 main .video.full-width,
-main .video.full-width {
+main .video.fullwidth {
   padding: 0;
   max-width: unset;
 } 
