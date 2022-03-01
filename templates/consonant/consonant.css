@@ -362,8 +362,11 @@ p.button-container {
   display: flex;
   margin: 10px 0;
   flex-wrap: wrap;
-  gap: 14px;
   justify-content: flex-start;
+}
+
+p.button-container > *:not(:last-child) {
+  margin-right: 14px;
 }
 
 .center p.button-container,

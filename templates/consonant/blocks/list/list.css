@@ -20,7 +20,10 @@ main .list > div {
     align-items: center;
     border-bottom: 1px solid #707070;
     padding: 17px 0 15px 0;
-    gap: 16px;
+}
+
+main .list > div > *:not(:last-child) {
+    margin-right: 16px;
 }
 
 main .list > div > div:first-child :not(div) {
