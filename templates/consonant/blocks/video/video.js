@@ -14,7 +14,7 @@ import {
   createTag,
 } from '../../consonant.js';
 
-export default function decorate($block) {
+function decorateVideoBlock($block) {
   let autoplay = '';
   let loop = '';
 
@@ -58,5 +58,15 @@ export default function decorate($block) {
       $embed.innerHTML = embedHTML;
       $div.parentElement.replaceChild($embed, $div);
     }
+  }
+}
+
+export default function decorate($block) {
+  if (document.readyState === 'complete') {
+    decorateVideoBlock($block);
+  } else {
+    window.addEventListener('load', () => {
+      decorateVideoBlock($block);
+    });
   }
 }

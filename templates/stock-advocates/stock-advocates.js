@@ -767,7 +767,6 @@ export default async function decoratePage() {
   decorateOverlay();
   decorateInternalAdvocates();
   decorateColumns();
-  decorateVideos();
   decorateGrid();
   redecorateArtistGrid();
   decorateColors();
@@ -776,6 +775,14 @@ export default async function decoratePage() {
   window.pages.decorated = true;
   decorateContactUs();
   addAccessibility();
+
+  if (document.readyState === 'complete') {
+    decorateVideos();
+  } else {
+    window.addEventListener('load', () => {
+      decorateVideos();
+    });
+  }
 
   document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
 }
