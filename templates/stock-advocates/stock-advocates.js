@@ -221,11 +221,10 @@ export function decorateBlocks(
   });
 }
 
-function decorateVideo() {
-  let autoplay = '';
-  let loop = '';
-
+function decorateVideos() {
   document.querySelectorAll('main .video.block').forEach(($block) => {
+    let autoplay = '';
+    let loop = '';
     const $a = $block.querySelector('a');
 
     const $container = $block.closest('.section-wrapper');
@@ -602,17 +601,6 @@ function decorateContactUs() {
   }
 }
 
-function decorateVideoBlocks() {
-  document.querySelectorAll('main .video a[href]').forEach(($a) => {
-    const videoLink = $a.href;
-    let $video = $a;
-    if (videoLink.includes('tv.adobe.com')) {
-      $video = createTag('iframe', { src: videoLink, class: 'embed tv-adobe' });
-    }
-    $a.parentElement.replaceChild($video, $a);
-  });
-}
-
 function addAccessibility() {
   try {
     const url = window.location.pathname;
@@ -775,12 +763,11 @@ export default async function decoratePage() {
     decorateHeroSection();
   }
   decorateBlocks(document.querySelector('main'));
-  decorateVideoBlocks();
   decorateParallax();
   decorateOverlay();
   decorateInternalAdvocates();
   decorateColumns();
-  decorateVideo();
+  decorateVideos();
   decorateGrid();
   redecorateArtistGrid();
   decorateColors();
