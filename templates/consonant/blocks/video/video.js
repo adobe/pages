@@ -61,12 +61,33 @@ function decorateVideoBlock($block) {
   }
 }
 
-export default function decorate($block) {
+const intersectHandler = (entries) => {
+  const entry = entries[0];
+  if (entry.isIntersecting) {
+    if (entry.intersectionRatio >= 0.25) {
+      const $block = entry.target;
+      decorateVideoBlock($block);
+    }
+  }
+};
+
+export default function lazyDecorate(block) {
+  const runObserver = () => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: [0.0, 0.25],
+    };
+
+    const observer = new IntersectionObserver(intersectHandler, options);
+    observer.observe(block);
+  };
+
   if (document.readyState === 'complete') {
-    decorateVideoBlock($block);
+    runObserver();
   } else {
     window.addEventListener('load', () => {
-      decorateVideoBlock($block);
+      runObserver();
     });
   }
 }
