@@ -269,40 +269,40 @@ function decorateVideoBlock($block) {
   }
 }
 
-function lazyLoadVideo($block) {
-  const videoIntersectHandler = (entries) => {
-    const entry = entries[0];
-    if (entry.isIntersecting) {
-      if (entry.intersectionRatio >= 0.25) {
-        const block = entry.target;
-        decorateVideoBlock(block);
-      }
+function videoIntersectHandler(entries) {
+  const entry = entries[0];
+  if (entry.isIntersecting) {
+    if (entry.intersectionRatio >= 0.25) {
+      const $block = entry.target;
+      decorateVideoBlock($block);
     }
+  }
+}
+
+function runVideoObserver($block) {
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: [0.0, 0.25],
   };
 
-  const runObserver = () => {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: [0.0, 0.25],
-    };
+  const observer = new IntersectionObserver(videoIntersectHandler, options);
+  observer.observe($block);
+}
 
-    const observer = new IntersectionObserver(videoIntersectHandler, options);
-    observer.observe($block);
-  };
-
+function lazyDecorate($block) {
   if (document.readyState === 'complete') {
-    runObserver();
+    runVideoObserver($block);
   } else {
     window.addEventListener('load', () => {
-      runObserver();
+      runVideoObserver($block);
     });
   }
 }
 
 function decorateVideos() {
   document.querySelectorAll('main .video.block').forEach(($block) => {
-    lazyLoadVideo($block);
+    lazyDecorate($block);
   });
 }
 

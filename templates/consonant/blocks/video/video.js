@@ -14,7 +14,7 @@ import {
   createTag,
 } from '../../consonant.js';
 
-function decorateVideoBlock($block) {
+function decorateBlock($block) {
   let autoplay = '';
   let loop = '';
 
@@ -61,33 +61,33 @@ function decorateVideoBlock($block) {
   }
 }
 
-export default function lazyDecorate(block) {
-  const intersectHandler = (entries) => {
-    const entry = entries[0];
-    if (entry.isIntersecting) {
-      if (entry.intersectionRatio >= 0.25) {
-        const $block = entry.target;
-        decorateVideoBlock($block);
-      }
+function intersectHandler(entries) {
+  const entry = entries[0];
+  if (entry.isIntersecting) {
+    if (entry.intersectionRatio >= 0.25) {
+      const $block = entry.target;
+      decorateBlock($block);
     }
+  }
+}
+
+function runObserver($block) {
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: [0.0, 0.25],
   };
 
-  const runObserver = () => {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: [0.0, 0.25],
-    };
+  const observer = new IntersectionObserver(intersectHandler, options);
+  observer.observe($block);
+}
 
-    const observer = new IntersectionObserver(intersectHandler, options);
-    observer.observe(block);
-  };
-
+export default function lazyDecorate($block) {
   if (document.readyState === 'complete') {
-    runObserver();
+    runObserver($block);
   } else {
     window.addEventListener('load', () => {
-      runObserver();
+      runObserver($block);
     });
   }
 }
