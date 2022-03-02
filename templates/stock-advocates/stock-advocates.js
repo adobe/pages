@@ -233,7 +233,7 @@ function decorateVideoBlock($block) {
     $container.classList.add('full-width');
   }
 
-  if ($a.textContent.startsWith('https://')) {
+  if ($a && $a.textContent.startsWith('https://')) {
     const url = new URL($a.href);
     const usp = new URLSearchParams(url.search);
     let embedHTML = '';
@@ -290,7 +290,7 @@ function runVideoObserver($block) {
   observer.observe($block);
 }
 
-function lazyDecorate($block) {
+function lazyDecorateVideo($block) {
   if (document.readyState === 'complete') {
     runVideoObserver($block);
   } else {
@@ -302,7 +302,7 @@ function lazyDecorate($block) {
 
 function decorateVideos() {
   document.querySelectorAll('main .video.block').forEach(($block) => {
-    lazyDecorate($block);
+    lazyDecorateVideo($block);
   });
 }
 

@@ -25,7 +25,7 @@ function decorateBlock($block) {
 
   const $a = $block.querySelector('a');
 
-  if ($a.textContent.startsWith('https://')) {
+  if ($a && $a.textContent.startsWith('https://')) {
     const url = new URL($a.href);
     const usp = new URLSearchParams(url.search);
     let embedHTML = '';
