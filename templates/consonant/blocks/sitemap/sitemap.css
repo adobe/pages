@@ -34,7 +34,6 @@ main .sitemap-container .sitemap {
 main .sitemap-container .sitemap p > ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 40px;
 }
 
 main .sitemap-container .sitemap p > ul > li {
@@ -42,6 +41,11 @@ main .sitemap-container .sitemap p > ul > li {
     padding-bottom: 30px;
     flex: 1 1 0px;
     min-width: 160px;
+    margin-right: 40px;
+}
+
+main .sitemap-container .sitemap p > ul > li:last-child {
+    margin-right: 0;
 }
 
 main .sitemap-container .sitemap p > ul li {
@@ -81,6 +85,9 @@ main .sitemap-container .sitemap p > ul > li > a:hover {
 }
 
 @media screen and (max-width: 1240px) {
+    main .sitemap-container .sitemap p > ul {
+        gap: 40px;
+    }
     
     main .sitemap-container .sitemap {
         max-width: 800px;
@@ -88,14 +95,15 @@ main .sitemap-container .sitemap p > ul > li > a:hover {
     }
 
     main .sitemap-container .sitemap p > ul > li {
-        min-width: 240px;
-        max-width: 25%;
+        min-width: 200px;
+        max-width: 20%;
     }
 }
 
 @media screen and (max-width: 920px) {
     main .sitemap-container .sitemap p > ul > li {
         min-width: 27%;
+        margin: 0;
     }
     
     main .sitemap-container .sitemap {

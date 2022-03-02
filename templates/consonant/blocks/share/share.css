@@ -25,12 +25,15 @@ main .share p.icon-container a {
     justify-content: flex-start;
     align-items: center;
     padding-bottom: 0;
-    gap: 15px;
 }
 
 main .share.center p.icon-container,
 main .share.center p.icon-container a {
     justify-content: center;
+}
+
+main .share p.icon-container > *:not(:last-child) {
+    margin-right: 15px;
 }
 
 main .share p.icon-container svg {
@@ -50,8 +53,11 @@ main .share .contributors {
     display: flex;
     border-bottom: 1px solid #707070;
     padding: 16px 0;
-    gap: 16px;
     align-items: center;
+}
+
+main .share .contributors > *:not(:last-child) {
+    margin-right: 16px;
 }
 
 main .share .contributors h1,

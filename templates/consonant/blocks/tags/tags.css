@@ -11,8 +11,8 @@ main .section-wrapper .block.tags {
 
 main .tags > div > div {
     display: flex;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 16px;
 }
 
 main .tags > div p:not(:empty),
@@ -24,6 +24,9 @@ main .tags > div a:not(:empty) {
     border: 1px solid #959595;
     border-radius: 4px;
     cursor: default;
+    white-space: nowrap;
+    margin-right: 16px;
+    margin-bottom: 8px;
 }
 
 main .share + .tags {

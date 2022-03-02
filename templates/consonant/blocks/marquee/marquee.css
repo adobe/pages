@@ -269,6 +269,14 @@ main .marquee .marquee-caption {
     text-align: left;
     text-shadow: 1px 2px 3px #000000B1;
     padding-bottom: 32px;
+    overflow: hidden;
+    min-height: 100px;
+}
+
+main .marquee .marquee-caption > div {
+    min-height: 100px;
+    display: flex;
+    align-items: flex-end;
 }
 
 main .marquee .marquee-caption p {
@@ -278,6 +286,17 @@ main .marquee .marquee-caption p {
     padding: 0 var(--gutter);
     margin: 0 auto;
     box-sizing: content-box;
+}
+
+main .marquee .marquee-caption > div:nth-child(2) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 32px;
+    text-align: right;
+}
+main .marquee .marquee-caption > div:nth-child(2) p {
+    width: unset;
 }
 
 @media screen and (max-width: 799px) {

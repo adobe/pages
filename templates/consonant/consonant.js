@@ -259,7 +259,7 @@ export function decorateBlocks($main) {
     });
 
     // Allow for variants...
-    const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images', 'share'];
+    const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images', 'share', 'video'];
     blocksWithVariants.forEach((b) => {
       if (blockName.startsWith(`${b}-`)) {
         const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);

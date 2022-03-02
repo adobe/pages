@@ -1,5 +1,5 @@
 main .images {
-    max-width: 1200px;
+    max-width: var(--max-width-block-laptop);
     margin-left: auto;
     margin-right: auto;
     display: inline-block;
@@ -17,7 +17,10 @@ main .images > div {
 
 main .images > div > div {
     display: flex;
-    gap: 32px;
+}
+
+main .images > div > div > *:not(:last-child) {
+    margin-right: 32px;
 }
 
 main .images picture {
@@ -64,7 +67,7 @@ main .images p.icon-container a {
 }
 
 @media screen and (max-width: 900px) {
-    main .images > div > div {
-        gap: 8px;
+    main .images > div > div > *:not(:last-child) {
+        margin-right: 8px;
     }
 }
