@@ -221,53 +221,88 @@ export function decorateBlocks(
   });
 }
 
+function decorateVideoBlock($block) {
+  let autoplay = '';
+  let loop = '';
+  const $a = $block.querySelector('a');
+
+  const $container = $block.closest('.section-wrapper');
+
+  if ($container.classList.contains('full') && $container.classList.contains('width')) {
+    $container.classList.remove('full', 'width');
+    $container.classList.add('full-width');
+  }
+
+  if ($a.textContent.startsWith('https://')) {
+    const url = new URL($a.href);
+    const usp = new URLSearchParams(url.search);
+    let embedHTML = '';
+    let type = '';
+
+    if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
+      let vid = usp.get('v');
+      if (url.host === 'youtu.be') vid = url.pathname.substr(1);
+
+      if ($container.classList.contains('autoplay')) {
+        autoplay = '&amp;autoplay=1&amp;mute=1';
+        loop = `&amp;loop=1&amp;playlist=${vid}`;
+      }
+
+      type = 'youtube';
+      embedHTML = /* html */`
+        <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
+          <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;controls=1&amp;rel=0${autoplay}${loop}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+        </div>
+        `;
+    } else if ($a.href.includes('tv.adobe.com')) {
+      const $video = createTag('iframe', { src: $a.href, class: 'embed tv-adobe' });
+
+      $a.parentElement.replaceChild($video, $a);
+    }
+
+    if (type) {
+      const $embed = createTag('div', { class: `embed embed-oembed embed-${type}` });
+      const $div = $a.closest('div');
+      $embed.innerHTML = embedHTML;
+      $div.parentElement.replaceChild($embed, $div);
+    }
+  }
+}
+
+const videoIntersectHandler = (entries) => {
+  const entry = entries[0];
+  if (entry.isIntersecting) {
+    if (entry.intersectionRatio >= 0.25) {
+      const $block = entry.target;
+      decorateVideoBlock($block);
+    }
+  }
+};
+
+function lazyLoadVideo($block) {
+  const runObserver = () => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: [0.0, 0.25],
+    };
+
+    const observer = new IntersectionObserver(videoIntersectHandler, options);
+    observer.observe($block);
+  };
+
+  if (document.readyState === 'complete') {
+    runObserver();
+  } else {
+    window.addEventListener('load', () => {
+      runObserver();
+    });
+  }
+}
+
 function decorateVideos() {
   document.querySelectorAll('main .video.block').forEach(($block) => {
-    let autoplay = '';
-    let loop = '';
-    const $a = $block.querySelector('a');
-
-    const $container = $block.closest('.section-wrapper');
-
-    if ($container.classList.contains('full') && $container.classList.contains('width')) {
-      $container.classList.remove('full', 'width');
-      $container.classList.add('full-width');
-    }
-
-    if ($a.textContent.startsWith('https://')) {
-      const url = new URL($a.href);
-      const usp = new URLSearchParams(url.search);
-      let embedHTML = '';
-      let type = '';
-
-      if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
-        let vid = usp.get('v');
-        if (url.host === 'youtu.be') vid = url.pathname.substr(1);
-
-        if ($container.classList.contains('autoplay')) {
-          autoplay = '&amp;autoplay=1&amp;mute=1';
-          loop = `&amp;loop=1&amp;playlist=${vid}`;
-        }
-
-        type = 'youtube';
-        embedHTML = /* html */`
-          <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
-            <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;controls=1&amp;rel=0${autoplay}${loop}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
-          </div>
-          `;
-      } else if ($a.href.includes('tv.adobe.com')) {
-        const $video = createTag('iframe', { src: $a.href, class: 'embed tv-adobe' });
-
-        $a.parentElement.replaceChild($video, $a);
-      }
-
-      if (type) {
-        const $embed = createTag('div', { class: `embed embed-oembed embed-${type}` });
-        const $div = $a.closest('div');
-        $embed.innerHTML = embedHTML;
-        $div.parentElement.replaceChild($embed, $div);
-      }
-    }
+    lazyLoadVideo($block);
   });
 }
 
@@ -775,14 +810,7 @@ export default async function decoratePage() {
   window.pages.decorated = true;
   decorateContactUs();
   addAccessibility();
-
-  if (document.readyState === 'complete') {
-    decorateVideos();
-  } else {
-    window.addEventListener('load', () => {
-      decorateVideos();
-    });
-  }
+  decorateVideos();
 
   document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
 }
