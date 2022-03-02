@@ -18,7 +18,7 @@ export default function decorate(blockEl) {
     <h3>Tutorial: <span id="tutorial-name"></span></h3>
     <p>
      Step&nbsp;<span id="current-step"></span>&nbsp;of&nbsp;<span id="total-steps"></span>&nbsp;•&nbsp;
-      <a class="text-link" id="see-all-steps" href="./index.html">
+      <a class="text-link" id="see-all-steps" href="./">
         See all steps ›
       </a>
     </p>
