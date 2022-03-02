@@ -262,12 +262,12 @@ async function importHeader(doc) {
   return null;
 }
 
-export default function loadHeader($blockName) {
+export default async function loadHeader($blockName) {
   const $inlineHeader = document.querySelector(`main div.${$blockName}`);
   if ($inlineHeader) {
     decorateHeader($inlineHeader);
   } else {
-    importHeader('header').then((response) => {
+    await importHeader('header').then((response) => {
       if (response && response.nodeType) {
         const $importedHeader = response.querySelector(`main div.${$blockName}`);
         if ($importedHeader) {
