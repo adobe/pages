@@ -369,12 +369,12 @@ function displayEnv() {
 
 /**
  * Loads JS and CSS for a block.
- * @param {Element} block The block element
+ * @param {Element} $block The block element
  */
-export async function loadBlock(block, eager = false) {
-  if (!(block.getAttribute('data-block-status') === 'loading' || block.getAttribute('data-block-status') === 'loaded')) {
-    block.setAttribute('data-block-status', 'loading');
-    const blockName = block.getAttribute('data-block-name');
+export async function loadBlock($block, eager = false) {
+  if (!($block.getAttribute('data-block-status') === 'loading' || $block.getAttribute('data-block-status') === 'loaded')) {
+    $block.setAttribute('data-block-status', 'loading');
+    const blockName = $block.getAttribute('data-block-name');
     try {
       const cssLoaded = new Promise((resolve) => {
         loadCSS(`/templates/consonant/blocks/${blockName}/${blockName}.css`, resolve);
@@ -384,7 +384,7 @@ export async function loadBlock(block, eager = false) {
           try {
             const mod = await import(`/templates/consonant/blocks/${blockName}/${blockName}.js`);
             if (mod.default) {
-              await mod.default(block, blockName, document, eager);
+              await mod.default($block, blockName, document, eager);
             }
           } catch (err) {
             debug(`failed to load module for ${blockName}`, err);
@@ -396,7 +396,7 @@ export async function loadBlock(block, eager = false) {
     } catch (err) {
       debug(`failed to load block ${blockName}`, err);
     }
-    block.setAttribute('data-block-status', 'loaded');
+    $block.setAttribute('data-block-status', 'loaded');
   }
 }
 
@@ -682,7 +682,7 @@ async function loadEager() {
     await loadBlockManually('header', true);
     displayEnv();
 
-    const lcpBlocks = ['columns', 'marquee', 'header', 'separator', 'sitemap', 'footer', 'cards'];
+    const lcpBlocks = ['columns', 'marquee', 'header', 'separator', 'cards'];
     const block = document.querySelector('.block');
     const hasLCPBlock = (block && lcpBlocks.includes(block.getAttribute('data-block-name')));
     if (hasLCPBlock) await loadBlock(block, true);
