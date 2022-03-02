@@ -61,17 +61,17 @@ function decorateVideoBlock($block) {
   }
 }
 
-const intersectHandler = (entries) => {
-  const entry = entries[0];
-  if (entry.isIntersecting) {
-    if (entry.intersectionRatio >= 0.25) {
-      const $block = entry.target;
-      decorateVideoBlock($block);
-    }
-  }
-};
-
 export default function lazyDecorate(block) {
+  const intersectHandler = (entries) => {
+    const entry = entries[0];
+    if (entry.isIntersecting) {
+      if (entry.intersectionRatio >= 0.25) {
+        const $block = entry.target;
+        decorateVideoBlock($block);
+      }
+    }
+  };
+
   const runObserver = () => {
     const options = {
       root: null,

@@ -269,17 +269,17 @@ function decorateVideoBlock($block) {
   }
 }
 
-const videoIntersectHandler = (entries) => {
-  const entry = entries[0];
-  if (entry.isIntersecting) {
-    if (entry.intersectionRatio >= 0.25) {
-      const $block = entry.target;
-      decorateVideoBlock($block);
-    }
-  }
-};
-
 function lazyLoadVideo($block) {
+  const videoIntersectHandler = (entries) => {
+    const entry = entries[0];
+    if (entry.isIntersecting) {
+      if (entry.intersectionRatio >= 0.25) {
+        const block = entry.target;
+        decorateVideoBlock(block);
+      }
+    }
+  };
+
   const runObserver = () => {
     const options = {
       root: null,
