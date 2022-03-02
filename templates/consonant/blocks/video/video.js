@@ -61,7 +61,7 @@ function decorateBlock($block) {
   }
 }
 
-function intersectHandler(entries) {
+function lazyIntersectHandler(entries) {
   const entry = entries[0];
   if (entry.isIntersecting) {
     if (entry.intersectionRatio >= 0.25) {
@@ -71,23 +71,23 @@ function intersectHandler(entries) {
   }
 }
 
-function runObserver($block) {
+function runLazyObserver($block) {
   const options = {
     root: null,
     rootMargin: '0px',
     threshold: [0.0, 0.25],
   };
 
-  const observer = new IntersectionObserver(intersectHandler, options);
+  const observer = new IntersectionObserver(lazyIntersectHandler, options);
   observer.observe($block);
 }
 
 export default function lazyDecorate($block) {
   if (document.readyState === 'complete') {
-    runObserver($block);
+    runLazyObserver($block);
   } else {
     window.addEventListener('load', () => {
-      runObserver($block);
+      runLazyObserver($block);
     });
   }
 }
