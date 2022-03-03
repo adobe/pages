@@ -22,7 +22,7 @@ const setUpClasses = ($element) => {
 function runEvent(e) {
   const currentAccordion = e.target.closest('.accordion');
   if (!currentAccordion) return;
-  currentAccordion.classList.add('active');
+  currentAccordion.classList.toggle('active');
 }
 export default async function faq($block) {
   await setUpClasses($block.childNodes);
