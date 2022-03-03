@@ -11,7 +11,7 @@
  */
 
 function returnPreviewValues(doc) {
-  const videoUrl = doc.querySelector('.youtube-dark a').getAttribute('href').split('.be/')[1];
+  const videoUrl = doc.querySelectorAll('a[href*="youtu.be"]')[0].getAttribute('href').split('.be/')[1];
   return {
     title: doc.querySelector('h1:first-of-type').innerText,
     copy: doc.querySelector('p:first-of-type').innerText,
@@ -22,7 +22,7 @@ function returnPreviewValues(doc) {
 function fetchDocuments($links) {
   const promises = [];
   $links.forEach((link) => {
-    const linkCleanUp = link.getAttribute('href').split('.page')[1];
+    const linkCleanUp = `${link.getAttribute('href').split('.page')[1]}.plain.html`;
     promises.push(
       fetch(linkCleanUp)
         .then((res) => res.text())
