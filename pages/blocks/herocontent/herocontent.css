@@ -7,6 +7,14 @@ main div.block.herocontent {
   font-size: 18px;
 }
 
+.herocontent.noheadermargin h1,
+.herocontent.noheadermargin h2,
+.herocontent.noheadermargin h3,
+.herocontent.noheadermargin h4,
+.herocontent.noheadermargin h5 {
+  margin: 0;
+}
+
 .herocontent.sm {
   max-width: 550px;
   margin: auto;
