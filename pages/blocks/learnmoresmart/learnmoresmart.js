@@ -22,7 +22,8 @@ function returnPreviewValues(doc) {
 function fetchDocuments($links) {
   const promises = [];
   $links.forEach((link) => {
-    const linkCleanUp = `${link.getAttribute('href').split('.page')[1]}.plain.html`;
+    const destinationLink = new URL(`${link.getAttribute('href')}`);
+    const linkCleanUp = `${destinationLink.pathname}.plain.html`;
     promises.push(
       fetch(linkCleanUp)
         .then((res) => res.text())
