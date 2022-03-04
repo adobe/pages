@@ -11,35 +11,10 @@
  */
 
 /** @type {import("../../component").ComponentDecorator} */
-const lang = {
-  en: {
-    tutorial: 'Tutorial',
-    seeAllSteps: 'See all steps',
-    stepAt: 'Step',
-    stepOf: 'of',
-    start: 'Start intermediate tutorial (we have Launch Lightroom Classic already)',
-    next: 'Next',
-    back: 'Back',
-  },
-  es: {
-    tutorial: 'Tutorial',
-    seeAllSteps: 'Ver todos los pasos',
-    stepAt: 'Paso',
-    stepOf: 'de',
-    start: 'Iniciar el tutorial intermedio',
-    next: 'Siguiente',
-    back: 'Anterior',
-  },
-  pt: {
-    tutorial: 'Tutorial',
-    seeAllSteps: 'Ver todos',
-    stepAt: 'Passo',
-    stepOf: 'de',
-    start: 'Iniciar o tutorial intermediário',
-    next: 'Próximo',
-    back: 'Anterior',
-  },
-};
+
+import useTranslations from '../../internal/tutorial-context-langs.js';
+
+const lang = useTranslations();
 
 const { locale } = window.pages;
 
