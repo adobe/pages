@@ -11,15 +11,47 @@
  */
 
 /** @type {import("../../component").ComponentDecorator} */
+const lang = {
+  en: {
+    tutorial: 'Tutorial',
+    seeAllSteps: 'See all steps',
+    stepAt: 'Step',
+    stepOf: 'of',
+    start: 'Start intermediate tutorial (we have Launch Lightroom Classic already)',
+    next: 'Next',
+    back: 'Back',
+  },
+  es: {
+    tutorial: 'Tutorial',
+    seeAllSteps: 'Ver todos los pasos',
+    stepAt: 'Paso',
+    stepOf: 'de',
+    start: 'Iniciar el tutorial intermedio',
+    next: 'Siguiente',
+    back: 'Anterior',
+  },
+  pt: {
+    tutorial: 'Tutorial',
+    seeAllSteps: 'Ver todos',
+    stepAt: 'Passo',
+    stepOf: 'de',
+    start: 'Iniciar o tutorial intermediário',
+    next: 'Próximo',
+    back: 'Anterior',
+  },
+};
+
+const { locale } = window.pages;
+
 export default function decorate(blockEl) {
   blockEl.innerHTML = `
 <header>
   <nav>
     <h3>Tutorial: <span id="tutorial-name"></span></h3>
     <p>
-     Step&nbsp;<span id="current-step"></span>&nbsp;of&nbsp;<span id="total-steps"></span>&nbsp;•&nbsp;
+      ${lang[locale].stepAt}&nbsp;<span id="current-step"></span>&nbsp;${lang[locale].stepOf}&nbsp;<span id="total-steps"></span>&nbsp;•&nbsp;
       <a class="text-link" id="see-all-steps" href="./">
-        See all steps ›
+        ${lang[locale].seeAllSteps}
       </a>
     </p>
   </nav>
