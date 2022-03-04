@@ -12,6 +12,15 @@ main div.block.herocontent {
   margin: auto;
 }
 
+.herocontent.noheadermargin h1,
+.herocontent.noheadermargin h2,
+.herocontent.noheadermargin h3,
+.herocontent.noheadermargin h4,
+.herocontent.noheadermargin h5 {
+  margin: 0;
+}
+
+
 .herocontent.md {
   max-width: 700px;
   margin: auto;
