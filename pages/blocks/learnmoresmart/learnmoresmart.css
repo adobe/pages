@@ -11,6 +11,10 @@ main .section-wrapper.learnmoresmart-container > div {
   margin-bottom: 3em;
 }
 
+.dark .learnmoresmart .learn-smart-block {
+  color: #fff;
+}
+
 .learnmoresmart .learn-smart-block:last-of-type {
   margin-bottom: 0em;
 }
