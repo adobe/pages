@@ -362,6 +362,7 @@ a.button:any-link {
 p.button-container {
   display: flex;
   margin: 10px 0;
+  padding-bottom: 0;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
@@ -380,7 +381,7 @@ p.button-container > *:not(:last-child) {
 }
 
 p.button-container a.button {
-  margin: 0;
+  margin: 0 0 12px 0;
 }
 
 a.button.xlarge:any-link {
