@@ -211,6 +211,7 @@ span.detail {
   line-height: var(--detail-line-height);
   letter-spacing: 0.72px;
   text-transform: uppercase;
+  display: block;
 }
 
 img,
