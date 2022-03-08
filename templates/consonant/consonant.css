@@ -367,6 +367,10 @@ p.button-container {
   justify-content: flex-start;
 }
 
+p.button-container a.button {
+  margin: 0 0 12px 0;
+}
+
 p.button-container > *:not(:last-child) {
   margin-right: 14px;
 }
@@ -378,10 +382,6 @@ p.button-container > *:not(:last-child) {
 
 .right p.button-container {
   justify-content: flex-end;
-}
-
-p.button-container a.button {
-  margin: 0 0 12px 0;
 }
 
 a.button.xlarge:any-link {
