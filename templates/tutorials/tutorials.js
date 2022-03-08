@@ -342,7 +342,8 @@ export default async function decoratePage() {
 
   if (pageType === 'home') {
     await decorateHome();
-    if (window.pages.locale === 'es') {
+    const LangHacks = ['es', 'pt'];
+    if (LangHacks.includes(window.pages.locale)) {
       document.querySelector('header .section-wrapper').innerHTML = navLayout();
       navHandler();
     } else {
