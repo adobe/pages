@@ -11,15 +11,22 @@
  */
 
 /** @type {import("../../component").ComponentDecorator} */
+
+import useTranslations from '../../internal/tutorial-context-langs.js';
+
+const lang = useTranslations();
+
+const { locale } = window.pages;
+
 export default function decorate(blockEl) {
   blockEl.innerHTML = `
 <header>
   <nav>
     <h3>Tutorial: <span id="tutorial-name"></span></h3>
     <p>
-     Step&nbsp;<span id="current-step"></span>&nbsp;of&nbsp;<span id="total-steps"></span>&nbsp;•&nbsp;
-      <a class="text-link" id="see-all-steps" href="./index.html">
-        See all steps ›
+      ${lang[locale].stepAt}&nbsp;<span id="current-step"></span>&nbsp;${lang[locale].stepOf}&nbsp;<span id="total-steps"></span>&nbsp;•&nbsp;
+      <a class="text-link" id="see-all-steps" href="./">
+        ${lang[locale].seeAllSteps}
       </a>
     </p>
   </nav>
