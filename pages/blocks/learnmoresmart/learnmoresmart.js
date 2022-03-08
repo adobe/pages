@@ -10,9 +10,10 @@
  * governing permissions and limitations under the License.
  */
 
-function returnPreviewValues(doc) {
+function returnPreviewValues(doc, link) {
   const videoUrl = doc.querySelectorAll('a[href*="youtu.be"]')[0].getAttribute('href').split('.be/')[1];
   return {
+    url: link,
     title: doc.querySelector('h1:first-of-type').innerText,
     copy: doc.querySelector('p:first-of-type').innerText,
     youtubeThumbnail: `https://i.ytimg.com/vi/${videoUrl}/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDANlnxsYWMLAMswxoN8oCoIj3baQ`,
@@ -28,9 +29,10 @@ function fetchDocuments($links) {
       fetch(linkCleanUp)
         .then((res) => res.text())
         .then((resHtml) => {
+          console.log(link.getAttribute('href'));
           const parser = new DOMParser();
           const doc = parser.parseFromString(resHtml, 'text/html');
-          return returnPreviewValues(doc);
+          return returnPreviewValues(doc, link.getAttribute('href'));
         }),
     );
   });
@@ -44,12 +46,13 @@ async function learnmoresmart($block) {
   let markup = '';
   content.forEach((contentItem) => {
     const {
+      url,
       title,
       copy,
       youtubeThumbnail,
     } = contentItem;
     markup += `
-      <div class="learn-smart-block">
+      <a class="learn-smart-block" href="${url}">
         <div class="learn-image-parent">
           <div class="learn-image">
             <img src="${youtubeThumbnail}" alt="learning content around ${title}"/>
@@ -59,7 +62,7 @@ async function learnmoresmart($block) {
           <p class="learn-title">${title}</p>
           <p class="learn-copy">${copy}</p>
         </div>
-      </div>
+      </a>
     `;
   });
 
