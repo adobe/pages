@@ -16,7 +16,7 @@ export default function langs() {
       seeAllSteps: 'See all steps',
       stepAt: 'Step',
       stepOf: 'of',
-      start: 'Start intermediate tutorial (we have Launch Lightroom Classic already)',
+      start: 'Start intermediate tutorial',
       next: 'Next',
       back: 'Back',
     },
