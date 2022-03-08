@@ -172,6 +172,7 @@ main .columns .column-picture {
 
 main .columns .column-picture video {
   width: 100%;
+  min-width: 100.1%; /* Hack-fix for black line on the right of videos */
   height: auto;
 }
 
