@@ -4,7 +4,7 @@ main .video-container > div {
   padding-right: 0;
 }
 
-main .video {
+main .video-container > div > * {
   max-width: calc(var(--max-width-block-laptop) + (var(--gutter) * 2));
   margin-left: auto;
   margin-right: auto;
@@ -23,7 +23,7 @@ main .video div {
 
 main .video.full-width,
 main .video.full.width,
-  main .video.fullwidth {
+main .video.fullwidth {
   padding: 0;
   max-width: unset;
 }
