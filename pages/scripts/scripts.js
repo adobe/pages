@@ -886,7 +886,7 @@ export function getTemplateName() {
     return undefined;
   }
 
-  const template = toClassName($template.textContent);
+  const template = toClassName($template.textContent.trim());
   $template.remove();
   return template;
 }
