@@ -78,7 +78,7 @@ function lazyIntersectHandler(entries) {
   if (entry.isIntersecting) {
     if (entry.intersectionRatio >= 0.25) {
       const $block = entry.target;
-      decorateBlock($block);
+      decorateVideoBlock($block);
     }
   }
 }
