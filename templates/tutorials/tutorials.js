@@ -19,6 +19,8 @@ import {
   insertLocalResource,
 } from '../../pages/scripts/scripts.js';
 
+import navLayout, { navHandler } from './navLayout.js';
+
 function toClassName(name) {
   return (name.toLowerCase().replace(/[^0-9a-z]/gi, '-'));
 }
@@ -319,9 +321,8 @@ export default async function decoratePage() {
   externalLinks('footer');
   wrapSections('header>div, main>div');
   // nav style/dropdown
-  addNavCarrot();
   decorateTables();
-  //    wrapSections('main>div');
+  // wrapSections('main>div');
 
   decorateVideoBlocks();
 
@@ -341,6 +342,13 @@ export default async function decoratePage() {
 
   if (pageType === 'home') {
     await decorateHome();
+    const LangHacks = ['es', 'pt'];
+    if (LangHacks.includes(window.pages.locale)) {
+      document.querySelector('header .section-wrapper').innerHTML = navLayout();
+      navHandler();
+    } else {
+      addNavCarrot();
+    }
   }
 
   if (pageType === 'step') {

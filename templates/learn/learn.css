@@ -363,8 +363,14 @@ body.step.loaded {
 }
 
 /* hide lrc launch button on non-desktop devices */
-.content footer nav a.button:last-child {
-	display: none;
+.content footer nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.content footer nav a:last-of-type {
+	margin-top: 0;
 }
 
 

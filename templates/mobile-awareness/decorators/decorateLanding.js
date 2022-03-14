@@ -49,7 +49,7 @@ function decorateAppIntros() {
           imageRow.querySelectorAll('.row').forEach((image) => {
             const classes = image.querySelector('.class');
             if (classes && classes.innerHTML) {
-              image.classList.add(...classes.innerHTML.split(' '));
+              image.classList.add(...classes.innerHTML.split(' ').map((c) => c.trim()));
             }
             if (classes) image.removeChild(classes);
           });

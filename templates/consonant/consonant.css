@@ -211,6 +211,7 @@ span.detail {
   line-height: var(--detail-line-height);
   letter-spacing: 0.72px;
   text-transform: uppercase;
+  display: block;
 }
 
 img,
@@ -361,12 +362,9 @@ a.button:any-link {
 p.button-container {
   display: flex;
   margin: 10px 0;
+  padding-bottom: 0;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
-
-p.button-container > *:not(:last-child) {
-  margin-right: 14px;
 }
 
 .center p.button-container,
@@ -379,7 +377,35 @@ p.button-container > *:not(:last-child) {
 }
 
 p.button-container a.button {
-  margin: 0;
+  margin: 0 0 12px 0;
+}
+
+p.button-container > a.button:not(:last-child),
+p.button-container > strong:not(:last-child),
+p.button-container > em:not(:last-child) {
+  margin-right: 14px;
+}
+
+.center p.button-container > a.button,
+.center p.button-container > strong,
+.center p.button-container > em,
+.section-wrapper > div > p.button-container > a.button,
+.section-wrapper > div > p.button-container > strong,
+.section-wrapper > div > p.button-container > em {
+  margin-right: 7px;
+  margin-left: 7px;
+}
+
+.right p.button-container > a.button,
+.right p.button-container > strong,
+.right p.button-container > em {
+  margin-right: 0;
+}
+
+.right p.button-container > a.button:not(:first-child),
+.right p.button-container > strong:not(:first-child),
+.right p.button-container > em:not(:first-child) {
+  margin-left: 14px;
 }
 
 a.button.xlarge:any-link {

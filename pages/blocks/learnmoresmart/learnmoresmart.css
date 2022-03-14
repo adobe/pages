@@ -1,0 +1,75 @@
+main div.block.learnmoresmart {
+  visibility: unset;
+}
+
+main .section-wrapper.learnmoresmart-container > div {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.learnmoresmart .learn-smart-block {
+  margin-bottom: 3em;
+}
+
+.dark .learnmoresmart .learn-smart-block {
+  color: #fff;
+}
+
+.learnmoresmart .learn-smart-block:last-of-type {
+  margin-bottom: 0em;
+}
+
+.learnmoresmart .learn-image {
+  padding-bottom: 56.25%;
+  position: relative;
+}
+
+.learnmoresmart .learn-image img {
+  object-fit: cover;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+}
+
+.learnmoresmart .learn-title {
+  font-weight: 800;
+  font-size: 20px;
+  margin: 0;
+  margin-top: 0.5em;
+}
+
+.learnmoresmart .learn-copy {
+  font-size: 17px;
+  margin-top: 0.5em;
+}
+
+
+@media(min-width: 768px) {
+  .learnmoresmart {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .learnmoresmart .learn-smart-block {
+    width: 48%;
+  }
+}
+
+
+@media(min-width: 900px) {
+
+  .learn-smart-block {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .learn-smart-block > div {
+    width: 48%;
+  }
+
+  .learnmoresmart .learn-content {
+    text-align: left;
+  }
+}

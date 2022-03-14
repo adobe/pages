@@ -9,6 +9,10 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import useTranslations from '../../internal/tutorial-context-langs.js';
+
+const lang = useTranslations();
+
 async function fetchSteps() {
   const resp = await fetch('steps.json');
   const json = await resp.json();
@@ -33,16 +37,16 @@ async function setData() {
     nextLink.setAttribute('href', nextURL);
   } else if (currentIndex === steps.length && window.location.toString().indexOf('get-started') < 1) {
     backLink.setAttribute('href', backURL);
-    backLink.innerHTML = 'Back';
+    backLink.innerHTML = lang[window.pages.locale].back;
     nextLink.setAttribute('href', 'https://creativecloud.adobe.com/apps/download/lightroom-classic');
-    nextLink.innerHTML = 'Launch Lightroom Classic';
+    nextLink.innerHTML = lang[window.pages.locale].start;
   } else if (currentIndex === steps.length && window.location.toString().indexOf('get-started') > 0) {
     let advURL = window.location.toString().replace('get-started', 'dive-deep');
     advURL = advURL.replace(currentIndex, '1');
     backLink.setAttribute('href', advURL);
     backLink.innerHTML = 'Start intermediate tutorial';
     nextLink.setAttribute('href', 'https://creativecloud.adobe.com/apps/download/lightroom-classic');
-    nextLink.innerHTML = 'Launch Lightroom Classic';
+    nextLink.innerHTML = lang[window.pages.locale].start;
   }
 }
 
@@ -52,10 +56,10 @@ export default function decorate(blockEl) {
   <footer>
     <nav>
       <a class="button" id="back-step" href="./step?1">
-        Back
+        ${lang[window.pages.locale].back}
       </a>
       <a class="button action" id="next-step" href="./step?3">
-        Next
+        ${lang[window.pages.locale].next}
       </a>
     </nav>
   </footer>`;

@@ -14,13 +14,19 @@ import {
   createTag,
 } from '../../consonant.js';
 
-function decorateBlock($block) {
-  let autoplay = '';
-  let loop = '';
+function decorateVideoBlock($block) {
+  let settings = '';
+  let controls = '1';
 
   if ($block.classList.contains('full') && $block.classList.contains('width')) {
     $block.classList.remove('full', 'width');
     $block.classList.add('full-width');
+  }
+
+  if (($block.classList.contains('no') && $block.classList.contains('controls')) || $block.classList.contains('nocontrols')) {
+    $block.classList.remove('no', 'controls', 'nocontrols');
+    $block.classList.add('no-controls');
+    controls = '0';
   }
 
   const $a = $block.querySelector('a');
@@ -35,21 +41,27 @@ function decorateBlock($block) {
       let vid = usp.get('v');
       if (url.host === 'youtu.be') vid = url.pathname.substr(1);
 
-      if ($block.classList.contains('autoplay')) {
-        autoplay = '&amp;autoplay=1&amp;mute=1';
-        loop = `&amp;loop=1&amp;playlist=${vid}`;
+      if ($block.classList.contains('autoplay') || controls === '0') {
+        settings = `&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=${vid}`;
       }
 
       type = 'youtube';
       embedHTML = /* html */`
-        <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
-          <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;controls=1&amp;rel=0${autoplay}${loop}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+        <div class="vid-wrapper">
+          <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls=${controls}${settings}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
         </div>
         `;
-    } else if ($a.href.includes('tv.adobe.com')) {
-      const $video = createTag('iframe', { src: $a.href, class: 'embed tv-adobe' });
+    } else if ($a.href.endsWith('.mp4')) {
+      let attrs = 'playsinline controls';
+      if ($block.classList.contains('autoplay')) attrs = 'playsinline controls muted autoplay loop';
+      if (controls === '0') attrs = 'playsinline controls="0" muted autoplay loop';
 
-      $a.parentElement.replaceChild($video, $a);
+      type = 'mp4';
+      embedHTML = /* html */`
+        <div class="vid-wrapper">
+          <video ${attrs} name="media"><source src="${$a.href}" type="video/mp4"></video>
+        </div>
+        `;
     }
 
     if (type) {

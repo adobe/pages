@@ -1,19 +1,18 @@
-main .video {
+main .video-container > div {
+  max-width: unset;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+main .video-container > div > * {
   max-width: calc(var(--max-width-block-laptop) + (var(--gutter) * 2));
   margin-left: auto;
   margin-right: auto;
-  display: inline-block;
+  display: block;
   width: 100%;
-  padding: 0 var(--gutter);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
   box-sizing: border-box;
-}
-
-main .video-container > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: unset;
-  padding: 0;
 }
 
 main .video div {
@@ -23,7 +22,32 @@ main .video div {
 }
 
 main .video.full-width,
+main .video.full.width,
 main .video.fullwidth {
   padding: 0;
   max-width: unset;
-} 
+}
+
+main .video.no-controls,
+main .video.no.controls,
+main .video.nocontrols {
+  pointer-events: none;
+}
+
+main .video .vid-wrapper {
+  left: 0;
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+main .video iframe,
+main .video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  height: 100%;
+  width: 100%;
+}

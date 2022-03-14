@@ -706,7 +706,7 @@ export function decorateBlocks(
     'scrollto', 'sectiontitle', 'hr',
     'downloadcallouts', 'cardcallouttitle',
     'cardcallouts', 'videocontent', 'scrolltop',
-    'hero', 'tutorials', 'list', 'headerwithlockup', 'content', 'form', 'herowithimage', 'fullwidthimage', 'textoverbackground', 'button-group', 'herocontent', 'productcta', 'youtube', 'twocolumn',
+    'hero', 'tutorials', 'list', 'headerwithlockup', 'content', 'form', 'herowithimage', 'fullwidthimage', 'textoverbackground', 'button-group', 'herocontent', 'productcta', 'youtube', 'twocolumn', 'learnmoresmart',
   ];
   const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
 
@@ -886,7 +886,7 @@ export function getTemplateName() {
     return undefined;
   }
 
-  const template = toClassName($template.textContent);
+  const template = toClassName($template.textContent.trim());
   $template.remove();
   return template;
 }

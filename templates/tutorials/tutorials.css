@@ -267,3 +267,80 @@ main .card:hover h3 a {
 
 
 
+.tutorial-nav {
+	/* display: flex; */
+	/* align-items: center; */
+	flex-direction: column;
+	padding: 1em 1em;
+	width: 100%;
+	position: relative;
+}
+
+.tutorial-nav > div {
+	position: relative;
+	display: block;
+}
+
+.tutorial-nav > div:first-of-type {
+	display: flex;
+	align-items: center;
+}
+
+.tutorial-nav img {
+	margin-right: 10px;
+}
+
+.tutorial-nav ul {
+	display: none;
+}
+
+.tutorial-nav button {
+	height: 35px;
+	width: 35px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0;
+	background: #ddd;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tutorial-nav button span {
+	height: 2px;
+	background: black;
+	position: absolute;
+	top: 8px; left: 10%;
+	width: 80%;
+}
+
+.tutorial-nav a {
+	width: auto;
+}
+
+.tutorial-nav button span:nth-child(2) {
+	top: 16px;
+}
+
+.tutorial-nav button span:nth-child(3) {
+	top: 24px;
+}
+.nav-showing .tutorial-nav ul {
+	display: block;
+}
+
+@media(min-width: 700px) {
+	.tutorial-nav button {
+		display: none;
+	}
+	.tutorial-nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-width: 1200px;
+		margin: auto;
+		flex-direction: row;
+	}
+	
+}

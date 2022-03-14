@@ -1,0 +1,29 @@
+main div.block.faq {
+  visibility: unset;
+}
+
+
+.faq .accordion {
+  text-align: left;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 2em;
+}
+
+.faq .accordion .question {
+  font-size: 28px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.faq .accordion .question:hover {
+  text-decoration: underline;
+}
+
+.faq .accordion .answer {
+  display: none;
+}
+
+.faq .accordion.active .answer {
+  display: block;
+}
