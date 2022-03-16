@@ -31,7 +31,7 @@ function decorateVideoBlock($block) {
 
   const $a = $block.querySelector('a');
 
-  if ($a.textContent.startsWith('https://')) {
+  if ($a && $a.textContent.startsWith('https://')) {
     const url = new URL($a.href);
     const usp = new URLSearchParams(url.search);
     let embedHTML = '';
@@ -73,12 +73,33 @@ function decorateVideoBlock($block) {
   }
 }
 
-export default function decorate($block) {
+function lazyIntersectHandler(entries) {
+  const entry = entries[0];
+  if (entry.isIntersecting) {
+    if (entry.intersectionRatio >= 0.25) {
+      const $block = entry.target;
+      decorateVideoBlock($block);
+    }
+  }
+}
+
+function runLazyObserver($block) {
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: [0.0, 0.25],
+  };
+
+  const observer = new IntersectionObserver(lazyIntersectHandler, options);
+  observer.observe($block);
+}
+
+export default function lazyDecorate($block) {
   if (document.readyState === 'complete') {
-    decorateVideoBlock($block);
+    runLazyObserver($block);
   } else {
     window.addEventListener('load', () => {
-      decorateVideoBlock($block);
+      runLazyObserver($block);
     });
   }
 }

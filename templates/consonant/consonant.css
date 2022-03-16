@@ -653,3 +653,10 @@ footer li:after {
     margin-right: 16px;
   }
 }
+
+/* Default header */
+
+header {
+  height: 65px;
+  overflow: hidden;
+}
