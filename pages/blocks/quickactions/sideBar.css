@@ -1,0 +1,45 @@
+body {
+  background: #000;
+}
+.sidebar {
+  color: white;
+  width: 30%;
+  position: relative;
+  text-align: left;
+}
+
+.indicator {
+  position: absolute;
+  left: 0; top: 0;
+  width: 1px; height: 100%;
+  background: white;
+}
+
+.indicator__el {
+  position: absolute;
+  top: 0; left: 50%;
+  transform:translateX(-50%);
+  width: 4px;
+  height: 20%;
+  background: white;
+}
+
+.sidebar h4 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.sidebar__item p {
+  font-size: 15px !important;
+  display: none;
+  color: white !important;
+}
+
+.sidebar__item:first-of-type p {
+  display: block;
+}
+
+.sidebar__item {
+  padding: 0em 0em 0em 1.4em;
+  margin-bottom: 2em;
+}

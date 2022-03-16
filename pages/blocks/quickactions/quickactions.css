@@ -1,0 +1,48 @@
+@import url("./sideBar.css");
+
+main div.block.quickactions {
+  visibility: unset;
+}
+
+
+main > .section-wrapper.quickactions-container > div {
+  max-width: 1400px;
+  width: 90%;
+  display: block;
+}
+
+.quickactions-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+div .quickactions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+div .quickactions > div:first-of-type {
+  width: 30%;
+}
+
+div .quickactions > div:last-of-type {
+  width: 65%;
+  max-width: 700px;
+}
+
+div .quickactions img {
+  width: 100%;
+}
+
+div .quickactions .gif:first-of-type {
+  display: block;
+}
+
+
+div .quickactions .gif {
+  display: none;
+}
