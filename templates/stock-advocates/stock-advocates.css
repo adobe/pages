@@ -1596,10 +1596,6 @@ main div.block.video {
   visibility: unset;
 }
 
-main div.hero-carousel-container ~ div.video-container {
-  padding-bottom: 0;
-}
-
 @media (max-width: 699px) {
   main div.hero-carousel-container ~ div.video-container + .columns-container .image p {
     margin-top: 0;
