@@ -71,7 +71,8 @@ main div.white-text a.button.secondary:hover {
   color: #2c2c2c;
 }
 
-main p:not(.button-container) + p.button-container {
+main p:not(.button-container) + p.button-container,
+main h1 + p.button-container {
   margin-top: 32px;
 }
 
