@@ -426,9 +426,9 @@ function decorateColumns() {
         if ($img || ($a && $a.href.endsWith('.mp4'))) {
           $cell.classList.add('image');
           let $p;
-          if ($img && !$img.getAttribute('alt', '')) {
-            $img.setAttribute('alt', '');
+          if ($img) {
             $p = $img.closest('p');
+            if (!$img.getAttribute('alt', '')) $img.setAttribute('alt', '');
           } else if ($a && $a.href.endsWith('.mp4')) {
             $p = $a.closest('p');
             transformLinkToAnimation($a);
