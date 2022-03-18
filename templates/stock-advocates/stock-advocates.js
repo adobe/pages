@@ -242,10 +242,10 @@ function decorateVideoBlock($block) {
     if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
       let vid = usp.get('v');
       if (url.host === 'youtu.be') vid = url.pathname.substr(1);
+      loop = `&amp;loop=1&amp;playlist=${vid}`;
 
       if ($container.classList.contains('autoplay')) {
         autoplay = '&amp;autoplay=1&amp;mute=1';
-        loop = `&amp;loop=1&amp;playlist=${vid}`;
       }
 
       type = 'youtube';
