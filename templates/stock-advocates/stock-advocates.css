@@ -578,6 +578,13 @@ body.artist-development-fund .hero-section:not(.artist-bio-hero-section) > div.i
   }
 }
 
+@media (min-width:1421px) {  
+  body.artist-development-fund .hero-section:not(.artist-bio-hero-section) > div.image > p {
+    right: 62px;
+  }
+}
+
+
 .artist-development-fund main h2 {
   margin-top: 0;
 }
