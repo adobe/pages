@@ -223,7 +223,6 @@ export function decorateBlocks(
 
 function decorateVideoBlock($block) {
   let autoplay = '';
-  let loop = '';
   const $a = $block.querySelector('a');
 
   const $container = $block.closest('.section-wrapper');
@@ -242,8 +241,6 @@ function decorateVideoBlock($block) {
     if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
       let vid = usp.get('v');
       if (url.host === 'youtu.be') vid = url.pathname.substr(1);
-      loop = `&amp;loop=1&amp;playlist=${vid}`;
-
       if ($container.classList.contains('autoplay')) {
         autoplay = '&amp;autoplay=1&amp;mute=1';
       }
@@ -251,7 +248,7 @@ function decorateVideoBlock($block) {
       type = 'youtube';
       embedHTML = /* html */`
         <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
-          <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;controls=1&amp;rel=0${autoplay}${loop}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;controls=1&amp;rel=0&amp;loop=1&amp;playlist=${vid}${autoplay}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
         </div>
         `;
     } else if ($a.href.includes('tv.adobe.com')) {
