@@ -377,6 +377,39 @@ function decorateButtons() {
   });
 }
 
+export function transformLinkToAnimation($a) {
+  if (!$a || !$a.href.endsWith('.mp4')) {
+    return null;
+  }
+  const params = new URL($a.href).searchParams;
+  const attribs = {};
+  ['playsinline', 'autoplay', 'loop', 'muted'].forEach((p) => {
+    if (params.get(p) !== 'false') attribs[p] = '';
+  });
+  // use closest picture as poster
+  const $poster = $a.closest('div').querySelector('picture source');
+  if ($poster) {
+    attribs.poster = $poster.srcset;
+    $poster.parentNode.remove();
+  }
+  // replace anchor with video element
+  const videoUrl = new URL($a.href);
+  const helixId = videoUrl.hostname.includes('hlx.blob.core') ? videoUrl.pathname.split('/')[2] : videoUrl.pathname.split('media_')[1].split('.')[0];
+  const videoHref = `./media_${helixId}.mp4`;
+  const $video = createTag('video', attribs);
+  $video.innerHTML = `<source src="${videoHref}" type="video/mp4">`;
+  const $innerDiv = $a.closest('div');
+  $innerDiv.prepend($video);
+  $innerDiv.classList.add('hero-animation-overlay');
+  $a.replaceWith($video);
+  // autoplay animation
+  $video.addEventListener('canplay', () => {
+    $video.muted = true;
+    $video.play();
+  });
+  return $video;
+}
+
 function decorateColumns() {
   const isIndex = window.location.pathname.endsWith('/');
   document.querySelectorAll('main div>.columns').forEach(($columns) => {
@@ -389,12 +422,17 @@ function decorateColumns() {
       const cells = Array.from($row.children);
       cells.forEach(($cell, i, arr) => {
         const $img = $cell.querySelector('img');
-        if ($img) {
+        const $a = $cell.querySelector('a');
+        if ($img || ($a && $a.href.endsWith('.mp4'))) {
           $cell.classList.add('image');
-          if (!$img.getAttribute('alt', '')) {
+          let $p;
+          if ($img && !$img.getAttribute('alt', '')) {
             $img.setAttribute('alt', '');
+            $p = $img.closest('p');
+          } else if ($a && $a.href.endsWith('.mp4')) {
+            $p = $a.closest('p');
+            transformLinkToAnimation($a);
           }
-          const $p = $img.closest('p');
           if ($p) {
             $p.classList.add('image-bleed');
             const $nextP = $p.nextElementSibling;
