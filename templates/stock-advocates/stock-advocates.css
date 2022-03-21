@@ -14,6 +14,12 @@ main > .section-wrapper:not(.full-width) {
   padding: 7em 0;
 }
 
+@media (max-width: 599px) {
+  main > .section-wrapper:not(.full-width) {
+    padding: 3em 0;
+  }
+}
+
 main > .section-wrapper.full-width > div {
   max-width: unset;
 
@@ -37,8 +43,11 @@ main div.white-text {
 
 main div a.button {
   white-space: nowrap;
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  padding-right: 26px;
+  border-radius: 3em;
 }
 
 main div a.button.primary:hover {
@@ -62,7 +71,8 @@ main div.white-text a.button.secondary:hover {
   color: #2c2c2c;
 }
 
-main p:not(.button-container) + p.button-container {
+main p:not(.button-container) + p.button-container,
+main h1 + p.button-container {
   margin-top: 32px;
 }
 
@@ -230,10 +240,11 @@ header {
   color: white;
   position: absolute;
   width: 100%;
-  height: 56px;
+  height: 120px;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
+  background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.27) 50%, rgba(0,0,0,0.115) 75%, rgba(0,0,0,0) 100%);
 }
 
 header>div, header div.logo {
@@ -327,12 +338,13 @@ body.artist-bio main .video iframe {
 
 .hero-section:not(.artist-bio-hero-section) > div.image > p {
   line-height: 24px;
-  font-size: 19px;
+  font-size: 18px;
   position: absolute;
   text-align: right;
   right: 40px;
   bottom: 15px;
 }
+
 
 main > div.hero-section.section-wrapper > div > p {
 padding: 0;
@@ -383,7 +395,7 @@ main .artist-bio-hero-section {
     position: relative;
     height: 100%;
     display: block;
-    padding: 2rem 2rem 1rem 2rem;
+    padding-left: 1.5rem;
     width: 100%;
     z-index: 2;
     text-align: left;
@@ -403,15 +415,21 @@ main .artist-bio-hero-section {
 }
 
 @media (max-width: 599px) {
-  .hero-section:not(.artist-bio-hero-section) {
-    flex-direction: column-reverse;
-    justify-content: flex-end;
+  .hero-section {
+    flex-direction: column;
   }
-  .hero-section:not(.artist-bio-hero-section) .image {
-    height: 50%;
+
+  main .artist-bio-hero-section .text {
+    position: static;
+    top: auto;                         /* vertical alignment */
+    left: auto;
+    width: auto;                        /* horizontal alignment */;
+    transform: none;
+    z-index: 2;
   }
-  .hero-section:not(.artist-bio-hero-section) h1 {
-    margin-top: 0;
+  
+  main .artist-bio-hero-section .image {
+    position: static;
   }
 }
 
@@ -430,6 +448,7 @@ main .artist-bio-hero-section {
     font-size: 74px;
     line-height: 90px;
     font-weight: 800;
+    max-width: 520px;
   }
 }
 .artist-bio-hero-section .text a.button {
@@ -486,7 +505,7 @@ main .artist-bio-hero-section {
 }
 
 .hero-section .text {
-  padding: 2em;
+  padding: 3em 2em;
   text-align: left;
 }
 
@@ -517,27 +536,55 @@ body.artist-development-fund main>div.hero-section>div.text.image h1 {
 body.artist-development-fund main h1
 {
   font-size: 42px;
-  margin-top: 15vh;
-}
-
-body.artist-development-fund .hero-section {
-  height: 60vh;
-  min-height: 475px;
-}
-body.artist-development-fund .hero-section+div {
-  height: 40vh;
-  min-height: 440px;;
 }
 
 body.artist-development-fund h3 a:any-link {
   color: black;
 }
 
-@media (min-width:600px) {
-  body.artist-development-fund main>div.hero-section>div.text.image h1 {
-    bottom: 22vh;
+body.artist-development-fund .hero-section .text {
+  padding-bottom: 5em;
+}
+
+body.artist-development-fund .hero-section:not(.artist-bio-hero-section) > div.image > p {
+  right: 26px;
+}
+
+@media (min-width:600px) {  
+  body.artist-development-fund .hero-section {
+    height: 60vh;
+    min-height: 475px;
+  }
+
+  body.artist-development-fund .hero-section+div {
+    height: 40vh;
+    min-height: 440px;;
+  }
+
+  body.artist-development-fund .hero-section .text {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 3em;
   }
 }
+
+@media (max-width:1199px) {
+  body.artist-development-fund .hero-section:not(.artist-bio-hero-section) > div.image > p {
+    right: 36px;
+  }
+}
+
+@media (min-width:1421px) {  
+  body.artist-development-fund .hero-section:not(.artist-bio-hero-section) > div.image > p {
+    right: 62px;
+  }
+}
+
 
 .artist-development-fund main h2 {
   margin-top: 0;
@@ -654,6 +701,28 @@ main .embed-internal-accessibility a {
   }
 }
 
+.artist-development-fund main>div.hero-section {
+  position: relative;
+}
+
+.artist-development-fund main>div.hero-section>div {
+  width: 100%;
+}
+
+.artist-development-fund main>div.hero-section>div.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.artist-development-fund main>div.hero-section>div.text {
+  z-index: 2;
+  text-align: center;
+}
+
 
 /* fund section */
 
@@ -735,6 +804,16 @@ main .embed-internal-accessibility a {
   }
 }
 
+@media (min-width: 900px) {
+  .embed-internal-fundsection picture {
+    max-height: 600px;
+  }
+}
+
+.embed-internal-fundsection>div:nth-of-type(2) {
+  padding: 2.5em 0 6em 0;
+}
+
 
 
 /* getfunded embed */
@@ -757,7 +836,8 @@ main .embed-internal-accessibility a {
 }
 
 .embed-internal-submitandgetfunded {
-  margin-top: 8em;
+  margin-top: 7em;
+  padding: 1em;
   color: white;
   background-size: cover;
   background-position: center bottom;
@@ -812,6 +892,16 @@ main .embed-internal-accessibility a {
   background-color: #2D0A4D;
   color: white;
   padding-bottom: 3em;
+  padding-top: 3em;
+}
+
+.embed-internal-meettheartists .grid.meetgrid {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.embed-internal-partners {
+  padding-top: 2em;
 }
 
 .embed-internal-meettheartists .grid div:hover  {
@@ -820,6 +910,12 @@ main .embed-internal-accessibility a {
 
 .embed-internal-meettheartists h2, .embed-internal-partners h2 {
   padding-top: 2em; margin-top: 0;
+}
+
+.embed-internal-meettheartists h2,
+.embed-internal-meettheartists p {
+  padding-left: 18px;
+  padding-right: 18px;
 }
 
 .embed-internal-partners  {
@@ -966,10 +1062,6 @@ body.artist-bio h6 {
   font-size: 30px;
   color: #323232;
   font-weight: 300;
-}
-
-body.artist-development-fund div.columns div.selection-criteria a:any-link {
-  color: #90D8F7;
 }
 
 .grid:not(.meetgrid) img {
@@ -1244,6 +1336,7 @@ main a:any-link.artist-stock-link {
 
 .columns > div {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -1252,6 +1345,14 @@ main a:any-link.artist-stock-link {
   position: relative;
 }
 
+@media (min-width: 900px) {
+  .columns > div {
+    flex-wrap: nowrap;
+  }
+  .columns>div>div {
+    width: 50%;
+  }
+}
 .columns>div.white2>div {
   height: 540px;
 }
@@ -1269,11 +1370,6 @@ main a:any-link.artist-stock-link {
 .columns>div.white2>div:nth-of-type(2) a.button {
   color: black;
   border-color: black;
-
-}
-
-.columns>div.selection-criteria a {
-  color: #40B0E0;
 }
 
 main .columns ul {
@@ -1331,7 +1427,7 @@ main .columns ul {
 
 
 .columns .text {
-    padding: 2em;
+    padding: 3rem 2em;
     margin: auto;
 }
 
@@ -1409,17 +1505,9 @@ body.artist-bio .columns .text h5 {
   font-size: 1.1rem;
 }
 
-
-@media (min-width:600px) {
-    .columns>div>div {
-        width: 50%;
-    }
-
-}
-
 @media (min-width:900px) {
   .columns .text {
-    padding: 1rem;
+    padding: 3rem 1rem;
     margin: auto;
     max-width: 36rem;
   }
@@ -1442,6 +1530,25 @@ body.artist-bio .columns .text h5 {
 
   body.artist-bio .columns .text p {
     padding: 0;
+  }
+}
+
+.embed-internal-submitandgetfunded .columns > div{
+  flex-wrap: wrap;
+}
+
+.embed-internal-submitandgetfunded .columns>div>div {
+  width: 50%;
+}
+
+@media (max-width: 599px) {
+  .embed-internal-submitandgetfunded .columns>div>div {
+    width: 100%;
+  }
+  .embed-internal-submitandgetfunded .columns .text,
+  .embed-internal-submitandgetfunded .columns .text p {
+    margin: 0;
+    padding-top: 0;
   }
 }
 
@@ -1490,7 +1597,7 @@ main div.video-container {
   display: flex;
   justify-content: center;
   margin-top: 0;
-  padding: 1em 0 6em 0!important;
+  padding: 1em 0 6em 0;
 }
 
 main div.video-container div {
@@ -1505,6 +1612,18 @@ main div.video-container .video {
 
 main div.block.video {
   visibility: unset;
+}
+
+@media (max-width: 699px) {
+  main div.hero-carousel-container ~ div.video-container + .columns-container .image p {
+    margin-top: 0;
+  }
+}
+
+main .columns .image video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /*  Hero Carousel */
@@ -1737,7 +1856,7 @@ main div.block.video {
   .hero-carousel::before,
   .hero-carousel::after {
     content: '';
-    z-index: 1;
+    z-index: 3;
     background-color: transparent;
     background-size: 1.5rem 1.5rem;
     background-repeat: no-repeat;

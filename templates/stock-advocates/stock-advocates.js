@@ -223,7 +223,6 @@ export function decorateBlocks(
 
 function decorateVideoBlock($block) {
   let autoplay = '';
-  let loop = '';
   const $a = $block.querySelector('a');
 
   const $container = $block.closest('.section-wrapper');
@@ -242,16 +241,14 @@ function decorateVideoBlock($block) {
     if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
       let vid = usp.get('v');
       if (url.host === 'youtu.be') vid = url.pathname.substr(1);
-
       if ($container.classList.contains('autoplay')) {
         autoplay = '&amp;autoplay=1&amp;mute=1';
-        loop = `&amp;loop=1&amp;playlist=${vid}`;
       }
 
       type = 'youtube';
       embedHTML = /* html */`
         <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
-          <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;controls=1&amp;rel=0${autoplay}${loop}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;controls=1&amp;rel=0&amp;loop=1&amp;playlist=${vid}${autoplay}" frameBorder="0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
         </div>
         `;
     } else if ($a.href.includes('tv.adobe.com')) {
@@ -377,6 +374,39 @@ function decorateButtons() {
   });
 }
 
+export function transformLinkToAnimation($a) {
+  if (!$a || !$a.href.endsWith('.mp4')) {
+    return null;
+  }
+  const params = new URL($a.href).searchParams;
+  const attribs = {};
+  ['playsinline', 'autoplay', 'loop', 'muted'].forEach((p) => {
+    if (params.get(p) !== 'false') attribs[p] = '';
+  });
+  // use closest picture as poster
+  const $poster = $a.closest('div').querySelector('picture source');
+  if ($poster) {
+    attribs.poster = $poster.srcset;
+    $poster.parentNode.remove();
+  }
+  // replace anchor with video element
+  const videoUrl = new URL($a.href);
+  const helixId = videoUrl.hostname.includes('hlx.blob.core') ? videoUrl.pathname.split('/')[2] : videoUrl.pathname.split('media_')[1].split('.')[0];
+  const videoHref = `./media_${helixId}.mp4`;
+  const $video = createTag('video', attribs);
+  $video.innerHTML = `<source src="${videoHref}" type="video/mp4">`;
+  const $innerDiv = $a.closest('div');
+  $innerDiv.prepend($video);
+  $innerDiv.classList.add('hero-animation-overlay');
+  $a.replaceWith($video);
+  // autoplay animation
+  $video.addEventListener('canplay', () => {
+    $video.muted = true;
+    $video.play();
+  });
+  return $video;
+}
+
 function decorateColumns() {
   const isIndex = window.location.pathname.endsWith('/');
   document.querySelectorAll('main div>.columns').forEach(($columns) => {
@@ -389,12 +419,17 @@ function decorateColumns() {
       const cells = Array.from($row.children);
       cells.forEach(($cell, i, arr) => {
         const $img = $cell.querySelector('img');
-        if ($img) {
+        const $a = $cell.querySelector('a');
+        if ($img || ($a && $a.href.endsWith('.mp4'))) {
           $cell.classList.add('image');
-          if (!$img.getAttribute('alt', '')) {
-            $img.setAttribute('alt', '');
+          let $p;
+          if ($img) {
+            $p = $img.closest('p');
+            if (!$img.getAttribute('alt', '')) $img.setAttribute('alt', '');
+          } else if ($a && $a.href.endsWith('.mp4')) {
+            $p = $a.closest('p');
+            transformLinkToAnimation($a);
           }
-          const $p = $img.closest('p');
           if ($p) {
             $p.classList.add('image-bleed');
             const $nextP = $p.nextElementSibling;
