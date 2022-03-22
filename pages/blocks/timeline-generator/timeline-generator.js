@@ -12,7 +12,7 @@
 
 /* eslint-disable */
 
-import { loadCSS, loadJSModule } from '../../scripts/scripts.js';
+import { loadCSS, loadJSModule } from '../../../templates/default/default.js';
 
 /** @type {import("../block").BlockDecorator} */
 export default async function decorate(blockEl) {

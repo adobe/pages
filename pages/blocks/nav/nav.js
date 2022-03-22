@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { loadLocalHeader } from '../../scripts/scripts.js';
+import { loadLocalHeader } from '../../../templates/default/default.js';
 
 const productIcons = [
   'adobe',

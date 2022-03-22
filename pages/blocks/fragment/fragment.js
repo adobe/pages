@@ -14,7 +14,7 @@ import {
   createTag,
   loadBlocks,
   decorateBlocks,
-} from '../../scripts/scripts.js';
+} from '../../../templates/default/default.js';
 
 async function decorateFragment($block) {
   const ref = $block.textContent;

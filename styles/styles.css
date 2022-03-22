@@ -1,0 +1,14 @@
+/* FOUC protection on blocks */
+main .block {
+  visibility: hidden;
+}
+
+header, main, body>footer {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+header.appear, main.appear, main.appear+footer {
+  opacity: 1;
+}
+

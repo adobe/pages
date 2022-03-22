@@ -12,7 +12,7 @@
 
 import {
   debounce, isAttr, isNodeName, registerListener,
-} from '../../scripts/scripts.js';
+} from '../../../templates/default/default.js';
 
 let formContainer = document.querySelector('.slide-form-container');
 let slideBtns = document.querySelectorAll('.slide-btn');

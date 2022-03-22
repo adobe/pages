@@ -16,7 +16,7 @@ import {
   toClassName,
   makeLogger,
   loadCSS,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 const lgr = makeLogger('template:advocates');
 
