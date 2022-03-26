@@ -13,22 +13,79 @@
 import jsonSetUp from './jsonSetUp.js';
 import createSideBar from './createSideBar.js';
 
-const createGifArea = ($block, json) => {
-  const $gifWrapper = document.createElement('div');
-  $gifWrapper.className = 'gif-wrapper';
-  let gifs = '';
-  json.forEach((item) => {
-    gifs += `<div class="gif"><img src="${item.gif}"/></div>`;
-  });
-  $gifWrapper.innerHTML = gifs;
+const createHeader = () => {
+  const $header = document.querySelector('header');
+  const $logo = document.createElement('a');
+  $logo.className = 'logo';
+  $logo.href = 'https://www.adobe.com/';
+  const $icon = document.createElement('img');
+  $icon.className = 'icon';
+  $icon.src = '/icons/creativecloud.svg';
+  $logo.append($icon);
+  const $logoText = document.createElement('span');
+  $logoText.className = 'logo__text';
+  $logoText.innerHTML = 'Adobe Creative Cloud';
+  $logo.append($logoText);
+  $header.append($logo);
 
-  $block.append($gifWrapper);
+  const $link1 = document.createElement('a');
+  $link1.href = 'https://www.adobe.com/products/creativesuite.html';
+  $link1.target = '_blank';
+  $link1.className = 'header__link';
+  $link1.innerHTML = 'Photoshop Quick Actions';
+  $header.append($link1);
+};
+
+const createGifArea = ($block) => {
+  const $gif = document.createElement('div');
+  $gif.className = 'gif';
+  $block.append($gif);
+
+  return (uri) => {
+    $gif.style.backgroundImage = `url(${uri})`;
+  };
+};
+
+const createBackground = () => {
+  const $background = document.createElement('div');
+  $background.className = 'quickactions__background';
+  document.body.append($background);
+
+  return (uri) => {
+    $background.style.backgroundImage = `url(${uri})`;
+  };
+};
+
+const createMobileContentArea = ($block) => {
+  const $mobileContent = document.createElement('div');
+  $mobileContent.className = 'quickactions__mobile-content';
+  $block.append($mobileContent);
+
+  return (content) => {
+    $mobileContent.innerHTML = content;
+  };
+};
+
+const preloadImages = (images) => {
+  images.forEach((image) => {
+    const img = new Image();
+    img.src = image;
+  });
 };
 
 export default async function quickActions($block) {
   const $blockChild = $block.childNodes;
   const json = await jsonSetUp($blockChild);
+  // * json is in the format [{ gif: uri, text: html string, background: uri }]
+
+  createHeader();
+
   $block.innerHTML = '';
-  await createSideBar($block, json);
-  await createGifArea($block, json);
+  const updateContent = await createMobileContentArea($block);
+  const updateGifArea = await createGifArea($block);
+  const updateBackground = await createBackground($block);
+  await createSideBar($block, json, { updateGifArea, updateBackground, updateContent });
+
+  preloadImages(json.map((item) => item.gif));
+  preloadImages(json.map((item) => item.background));
 }

@@ -24,7 +24,7 @@ export default function jsonSetUp($node) {
       }
 
       if (index === 2) {
-        object.background = child.querySelector('img').getAttribute('src');
+        object.background = (child.querySelector('img') && child.querySelector('img').getAttribute('src')) || (allObjects[0] && allObjects[0].background);
       }
     });
     allObjects.push(object);

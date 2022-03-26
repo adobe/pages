@@ -3,7 +3,7 @@
     "javascript",
     "typescript"
   ],
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "search.exclude": {
     "**/node_modules": true,
     "package-lock.json": true

@@ -1,48 +1,214 @@
-@import url("./sideBar.css");
+@import url('./sideBar.css');
+
+body {
+  background: #000;
+}
+
+header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  font-size: 1.1em;
+  padding: 1.5em;
+  color: white;
+  font-weight: bold;
+}
+
+header a {
+  color: inherit;
+  text-decoration: none;
+}
+header a:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #fa0f00;
+}
+.logo .icon {
+  height: 1.5em;
+  margin-right: 0.5em;
+}
+.logo:hover {
+  text-decoration: none;
+}
+
+header > *:not(:last-child) {
+  margin-right: 2em;
+}
+
+@media (max-width: 1000px) {
+  header {
+    height: 60px;
+    padding: 1em;
+    position: relative;
+  }
+  header > *:not(:first-child) {
+    display: none;
+  }
+  header > * {
+    margin: 0;
+  }
+}
+
+footer {
+  opacity: 0.5 !important;
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
+}
+footer,
+footer * {
+  color: white !important;
+}
+@media (max-width: 1000px) {
+  footer {
+    position: relative;
+    flex-direction: column;
+  }
+}
 
 main div.block.quickactions {
   visibility: unset;
 }
 
-
-main > .section-wrapper.quickactions-container > div {
-  max-width: 1400px;
-  width: 90%;
-  display: block;
+main {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 80px;
 }
-
+@media (max-width: 1000px) {
+  main {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 60px);
+  }
+}
+main > *,
+.section-wrapper,
 .quickactions-container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
+main > .section-wrapper > div {
+  position: relative;
+  height: 100%;
+  max-width: 1400px;
+  width: 100%;
+  display: block;
+  padding: 0;
+}
+
+@media (max-width: 1000px) {
+  main > .section-wrapper > div {
+    width: 100%;
+  }
+}
 
 div .quickactions {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+  position: relative;
+  display: grid;
+  grid-gap: 6em;
+  gap: 6em;
+  align-items: center;
+  grid-template-columns: 40% 1fr;
+  height: 100%;
+  max-height: 100%;
+  padding: 2rem calc(min(9vw, 8rem));
 }
 
-div .quickactions > div:first-of-type {
-  width: 30%;
+@media (max-width: 1000px) {
+  div .quickactions {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+    height: 100%;
+    max-height: 100%;
+    padding: 0;
+    gap: 0;
+  }
 }
 
-div .quickactions > div:last-of-type {
-  width: 65%;
-  max-width: 700px;
+div .quickactions > * {
+  position: relative;
+  z-index: 2;
 }
-
-div .quickactions img {
-  width: 100%;
-}
-
-div .quickactions .gif:first-of-type {
-  display: block;
-}
-
 
 div .quickactions .gif {
+  flex-shrink: 0;
+  display: block;
+  width: 100%;
+  height: 90%;
+  max-width: 700px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease-in-out;
+}
+
+@media (max-width: 1000px) {
+  div .quickactions .gif {
+    height: 30vh;
+    width: 100%;
+    background-size: cover;
+  }
+}
+
+.quickactions__background {
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 120vw;
+  height: 120vh;
+  z-index: 1;
+  opacity: 0.5;
+  background-size: cover;
+  background-position: center;
+  filter: blur(15px) brightness(0.4) saturate(1.6);
+  transition: background-image 0.5s ease-in-out;
+}
+
+.quickactions__mobile-content {
   display: none;
+}
+@media (max-width: 1000px) {
+  .quickactions__mobile-content {
+    text-align: left;
+    flex-shrink: 1;
+    overflow-y: auto;
+    display: block;
+    font-size: 15px !important;
+    padding: 1em;
+    padding-bottom: 2em;
+  }
+  .quickactions__mobile-content h1,
+  .quickactions__mobile-content h2,
+  .quickactions__mobile-content h3,
+  .quickactions__mobile-content h4,
+  .quickactions__mobile-content h5,
+  .quickactions__mobile-content h6 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: white !important;
+  }
+  .quickactions__mobile-content p {
+    margin-top: 0;
+    font-size: 15px !important;
+    color: white !important;
+  }
+  .quickactions__mobile-content .button {
+    display: none;
+  }
 }
