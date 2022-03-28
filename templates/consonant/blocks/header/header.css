@@ -12,6 +12,15 @@ header {
     overflow: visible;
 }
 
+header:empty {
+    position: static;
+}
+
+body header:empty + main,
+body header:empty + main .section-wrapper:first-of-type {
+    margin-top: 0;
+}
+
 header nav {
     height: 100%;
     width: 100%;
