@@ -3,6 +3,11 @@
 body {
   background: #000;
 }
+@media (max-width: 1000px) {
+  body {
+    font-size: .95em;
+  }
+}
 
 header {
   width: 100%;
@@ -15,15 +20,28 @@ header {
   align-items: center;
   padding: 1.5em;
   height: 90px;
+  font-size: 1.3em;
 }
-header img {
-  height: 100%;
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+}
+.logo * {
+  filter: drop-shadow(0 0 2rem rgba(255, 255, 255, .4));
+}
+.logo img {
+  height: 2em;
+  margin-right: .5em;
 }
 
 @media (max-width: 1000px) {
   header {
-    height: 60px;
-    padding: 1em;
+    font-size: 1rem;
+    height: 50px;
+    padding: .8em;
     position: relative;
   }
 }
@@ -174,7 +192,7 @@ div .quickactions video {
     flex-shrink: 1;
     overflow-y: auto;
     display: block;
-    font-size: 15px !important;
+    font-size: 14.5px !important;
     padding: 1em;
     padding-bottom: 2em;
   }
@@ -184,13 +202,14 @@ div .quickactions video {
   .quickactions__mobile-content h4,
   .quickactions__mobile-content h5,
   .quickactions__mobile-content h6 {
+    font-size: 1.5em;
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: .6rem;
     color: white !important;
   }
   .quickactions__mobile-content p {
     margin-top: 0;
-    font-size: 15px !important;
+    font-size: 14.5px !important;
     color: white !important;
   }
   .quickactions__mobile-content .button {

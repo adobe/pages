@@ -15,10 +15,17 @@ import createSideBar from './createSideBar.js';
 
 const createHeader = () => {
   const $header = document.querySelector('header');
+  const $logo = document.createElement('div');
+  $logo.className = 'logo';
   const $icon = document.createElement('img');
   $icon.className = 'icon';
-  $icon.src = '/icons/creativecloud.svg';
-  $header.append($icon);
+  $icon.src = '/icons/photoshop.svg';
+  $logo.append($icon);
+  const $logoText = document.createElement('span');
+  $logoText.className = 'logo__text';
+  $logoText.innerHTML = 'Photoshop Quick Actions';
+  $logo.append($logoText);
+  $header.append($logo);
 };
 
 const createVideoArea = ($block) => {
