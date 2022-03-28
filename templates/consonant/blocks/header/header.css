@@ -246,6 +246,7 @@ header .dropdown-open svg {
 
     header .active-page {
         border-bottom: 2px solid #4B4B4B;
+        border-top: 2px solid transparent;
     }
 }
 
