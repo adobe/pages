@@ -311,6 +311,7 @@ header .dropdown-open svg {
         width: 100%;
         max-height: calc(100vh - 64px);
         overflow-y: auto;
+        align-items: flex-start;
     }
 
     header .header .header-left-nav > div > ul {
