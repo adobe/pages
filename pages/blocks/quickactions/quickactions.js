@@ -15,34 +15,33 @@ import createSideBar from './createSideBar.js';
 
 const createHeader = () => {
   const $header = document.querySelector('header');
-  const $logo = document.createElement('a');
-  $logo.className = 'logo';
-  $logo.href = 'https://www.adobe.com/';
   const $icon = document.createElement('img');
   $icon.className = 'icon';
   $icon.src = '/icons/creativecloud.svg';
-  $logo.append($icon);
-  const $logoText = document.createElement('span');
-  $logoText.className = 'logo__text';
-  $logoText.innerHTML = 'Adobe Creative Cloud';
-  $logo.append($logoText);
-  $header.append($logo);
-
-  const $link1 = document.createElement('a');
-  $link1.href = 'https://www.adobe.com/products/creativesuite.html';
-  $link1.target = '_blank';
-  $link1.className = 'header__link';
-  $link1.innerHTML = 'Photoshop Quick Actions';
-  $header.append($link1);
+  $header.append($icon);
 };
 
-const createGifArea = ($block) => {
-  const $gif = document.createElement('div');
-  $gif.className = 'gif';
-  $block.append($gif);
+const createVideoArea = ($block) => {
+  const $videoArea = document.createElement('div');
+  $videoArea.className = 'quickactions__video-area';
+  const $video = document.createElement('video');
+  $video.setAttribute('controls', 'false');
+  $video.setAttribute('muted', 'muted');
+  $video.setAttribute('playsinline', 'playsinline');
+  $video.setAttribute('autoplay', 'autoplay');
+  $video.setAttribute('loop', 'loop');
+
+  const $source = document.createElement('source');
+  $source.setAttribute('type', 'video/mp4');
+  $video.append($source);
+
+  $videoArea.append($video);
+  $block.append($videoArea);
 
   return (uri) => {
-    $gif.style.backgroundImage = `url(${uri})`;
+    $source.setAttribute('src', uri);
+    $video.muted = true;
+    $video.play();
   };
 };
 
@@ -76,16 +75,15 @@ const preloadImages = (images) => {
 export default async function quickActions($block) {
   const $blockChild = $block.childNodes;
   const json = await jsonSetUp($blockChild);
-  // * json is in the format [{ gif: uri, text: html string, background: uri }]
+  // * json is in the format [{ video: uri, text: html string, background: uri }]
 
   createHeader();
 
   $block.innerHTML = '';
   const updateContent = await createMobileContentArea($block);
-  const updateGifArea = await createGifArea($block);
+  const updateVideoArea = await createVideoArea($block);
   const updateBackground = await createBackground($block);
-  await createSideBar($block, json, { updateGifArea, updateBackground, updateContent });
+  await createSideBar($block, json, { updateVideoArea, updateBackground, updateContent });
 
-  preloadImages(json.map((item) => item.gif));
   preloadImages(json.map((item) => item.background));
 }

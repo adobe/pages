@@ -16,7 +16,7 @@ export default function jsonSetUp($node) {
     const $children = $bc.childNodes;
     $children.forEach((child, index) => {
       if (index === 0) {
-        object.gif = child.querySelector('img').getAttribute('src');
+        object.video = child.querySelector('a').getAttribute('href');
       }
 
       if (index === 1) {

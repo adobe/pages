@@ -9,7 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-const createSideBar = ($block, json, { updateGifArea, updateBackground, updateContent }) => {
+const createSideBar = ($block, json, { updateVideoArea, updateBackground, updateContent }) => {
   let activeIndex = 0;
   let heightResetTimeout;
 
@@ -87,8 +87,8 @@ const createSideBar = ($block, json, { updateGifArea, updateBackground, updateCo
     // * update indicator
     $indicator.style.height = `${$sidebarItems[index].firstChild.offsetHeight}px`;
 
-    // * update images
-    updateGifArea(json[index].gif);
+    // * update video and bg
+    updateVideoArea(json[index].video);
     updateBackground(json[index].background);
   };
 
