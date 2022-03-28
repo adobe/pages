@@ -24,22 +24,21 @@ const createHeader = () => {
 const createVideoArea = ($block) => {
   const $videoArea = document.createElement('div');
   $videoArea.className = 'quickactions__video-area';
-  const $video = document.createElement('video');
-  $video.setAttribute('controls', 'false');
-  $video.setAttribute('muted', 'muted');
-  $video.setAttribute('playsinline', 'playsinline');
-  $video.setAttribute('autoplay', 'autoplay');
-  $video.setAttribute('loop', 'loop');
-
-  const $source = document.createElement('source');
-  $source.setAttribute('type', 'video/mp4');
-  $video.append($source);
-
-  $videoArea.append($video);
   $block.append($videoArea);
 
   return (uri) => {
+    $videoArea.innerHTML = '';
+    const $video = document.createElement('video');
+    $video.setAttribute('controls', 'false');
+    $video.setAttribute('muted', 'muted');
+    $video.setAttribute('playsinline', 'playsinline');
+    $video.setAttribute('autoplay', 'autoplay');
+    $video.setAttribute('loop', 'loop');
+    const $source = document.createElement('source');
+    $source.setAttribute('type', 'video/mp4');
     $source.setAttribute('src', uri);
+    $video.append($source);
+    $videoArea.append($video);
     $video.muted = true;
     $video.play();
   };
