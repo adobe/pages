@@ -195,7 +195,6 @@ header .chevron {
     margin: 0;
     background: transparent;
     border: none;
-    cursor: pointer;
     z-index: 2;
 }
 
@@ -251,10 +250,11 @@ header .dropdown-open svg {
 }
 
 @media screen and (max-width: 900px) {
-    
     header .chevron {
         top: 13px;
+        cursor: pointer;
     }
+
     header {
         text-align: left;
     }

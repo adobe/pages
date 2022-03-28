@@ -237,6 +237,12 @@ export function decorateBlocks($main) {
       section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
     }
 
+    const invisibleBlocks = ['template', 'metadata'];
+    invisibleBlocks.forEach((invisBlockName) => {
+      if (blockName === invisBlockName) section.remove();
+    });
+    if (!section) return;
+
     // Wrap text-nodes or <a>-nodes in a <p> if they are alone...
     const divs = Array.from($block.querySelectorAll(':scope > div div'));
     divs.forEach((div) => {
@@ -413,7 +419,7 @@ export async function loadBlockManually(blockName, eager = false) {
 }
 
 export function loadBlocks($main) {
-  const blockPromises = [...$main.querySelectorAll('div.section-wrapper > div > .block')]
+  const blockPromises = [...$main.querySelectorAll('div.section-wrapper > div > .block:not(.template)')]
     .map(($block) => loadBlock($block));
   return blockPromises;
 }
@@ -543,7 +549,7 @@ export function unwrapBlock($block) {
 
 function splitSections($main) {
   $main.querySelectorAll(':scope > div > div').forEach(($block) => {
-    const blocksToSplit = ['marquee'];
+    const blocksToSplit = ['marquee', 'separator'];
 
     if (blocksToSplit.includes($block.className)) {
       unwrapBlock($block);

@@ -13,13 +13,13 @@ footer > div:first-child {
 }
 
 footer .footer-container .footer {
-    padding-left: var(--gutter);
-    padding-right: var(--gutter);
-    max-width: var(--max-width-block-laptop);
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: var(--section-spacing-large);
-    padding-bottom: var(--section-spacing-large);
+	padding-left: var(--gutter);
+	padding-right: var(--gutter);
+	max-width: var(--max-width-block-laptop);
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: var(--section-spacing-large);
+	padding-bottom: var(--section-spacing-large);
 }
 
 footer .footer-container .footer .icon {
@@ -114,7 +114,7 @@ footer > div.footer-copyright {
 	justify-content: center;
 	flex-direction: column;
 	padding: 32px 0px;
-    border-top: 1px solid #DEDEDE;
+	border-top: 1px solid #DEDEDE;
 }
 
 footer .footer-copyright > div:last-child {
