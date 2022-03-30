@@ -918,6 +918,10 @@ main .embed-internal-accessibility a {
   padding-right: 18px;
 }
 
+.embed-internal-meettheartists .grid.meetgrid p {
+  padding: 0;
+}
+
 .embed-internal-partners  {
   color: white;
   padding-bottom: 3em;

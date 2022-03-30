@@ -246,6 +246,7 @@ header .dropdown-open svg {
 
     header .active-page {
         border-bottom: 2px solid #4B4B4B;
+        border-top: 2px solid transparent;
     }
 }
 
@@ -310,6 +311,7 @@ header .dropdown-open svg {
         width: 100%;
         max-height: calc(100vh - 64px);
         overflow-y: auto;
+        align-items: flex-start;
     }
 
     header .header .header-left-nav > div > ul {
