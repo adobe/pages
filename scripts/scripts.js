@@ -91,6 +91,17 @@ export async function loadTemplate(template) {
   });
 }
 
+window.pages = window.pages || {};
+
+const pathSegments = window.location.pathname.match(/[\w-]+(?=\/)/g);
+if (pathSegments) {
+  const [product, locale, project] = pathSegments;
+  window.pages = { product, locale, project };
+}
+
+window.hlx = window.hlx || {};
+window.hlx.dependencies = window.hlx.dependencies || [];
+
 const template = getTemplateName() || 'default';
 await loadTemplate(template);
 /* load martech delayed */

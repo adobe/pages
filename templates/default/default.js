@@ -492,14 +492,16 @@ export async function appearMain() {
   if (aMD) return;
   aMD = true;
 
-  lgr.debug('appearMain');
+  console.log('appearMain');
 
   // wait for page to be decorated
   await decoratedProm;
+  console.log('decorateProm');
   // and all required css to load
   const req = Object.values(cssIncluded).filter((c) => c.req);
   lgr.debug('appearMain:wait', { req });
   await Promise.all(req);
+  console.log('decorateProm');
 
   const pathSplits = window.location.pathname.split('/');
   const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
@@ -649,6 +651,7 @@ export async function loadComponent($component, embedData) {
  * Load a block
  */
 export async function loadBlock($block) {
+  console.log($block);
   const reqCSSBlocks = ['form'];
   const ignoredBlocks = ['missionbg'];
   const blockName = $block.getAttribute('data-block-name');
@@ -664,6 +667,8 @@ export async function loadBlock($block) {
 }
 
 export function loadBlocks($main) {
+  console.log('loadBlocks');
+
   $main
     .querySelectorAll('div.section-wrapper > div > .block')
     .forEach(async ($block) => loadBlock($block));
@@ -845,17 +850,19 @@ export async function replaceEmbeds() {
   const pEls = document.querySelectorAll('p');
   const proms = ([...pEls])
     .filter(($p) => {
-      const txt = $p.innerText;
+      const txt = $p.textContent;
       return embedRE.test(txt);
     })
     .map(async ($p) => {
-      const ogPath = $p.innerText;
+      const ogPath = $p.textContent;
       const embedData = parseEmbedPath(ogPath);
       const { type } = embedData;
 
       lgr.debug('replaceEmbed', {
         ogPath, embedData,
       });
+
+      console.log(ogPath);
 
       if (type === 'content') {
         await insertContentEmbed($p, embedData);
@@ -1122,6 +1129,8 @@ async function decoratePage() {
     window.pages.on('mainVisible', () => scrollToId());
   }
 
+  await decorateDefault(document.querySelector('main'));
+
   setLCPTrigger(document, async () => {
     emit('postLCP');
 
@@ -1144,4 +1153,6 @@ async function decoratePage() {
   });
 }
 
-decoratePage();
+export default async function decorateMain() {
+  await decoratePage();
+}
