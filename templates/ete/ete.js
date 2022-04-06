@@ -18,7 +18,7 @@ import {
   decorateTables,
   externalLinks,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 import { hashPathOf } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {

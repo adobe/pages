@@ -17,7 +17,7 @@ import {
   createTag,
   externalLinks,
   insertLocalResource,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 import navLayout, { navHandler } from './navLayout.js';
 

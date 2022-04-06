@@ -13,7 +13,7 @@
 import {
   createTag,
   debounce,
-} from '../../../pages/scripts/scripts.js';
+} from '../../default/default.js';
 
 export default function decorateNav() {
   const plan = document.body.classList.contains('cpp')

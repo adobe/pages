@@ -10,11 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-// import {
-//   createTag,
-// } from '../../../pages/scripts/scripts.js';
-
-import { createTag } from '../../../pages/scripts/scripts.js';
+import { createTag } from '../../default/default.js';
 import {
   hoist, openModalLink, replaceTag, wrapContents,
 } from '../scripts/scripts.js';

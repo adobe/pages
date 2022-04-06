@@ -19,7 +19,7 @@ import {
   decorateTables,
   externalLinks,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {

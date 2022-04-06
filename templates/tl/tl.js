@@ -17,7 +17,8 @@ import {
   // externalizeImageSources,
   externalLinks,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+  appearMain,
+} from '../default/default.js';
 import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
@@ -403,6 +404,7 @@ export default async function decoratePage() {
   externalLinks('footer');
   wrapSections('header>div');
   addNavCarrot();
+  appearMain();
 
   if (document.querySelector('.nav-logo')) {
     document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);

@@ -17,7 +17,7 @@ import {
   createTag,
   externalLinks,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 function toClassName(name) {
