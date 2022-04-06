@@ -496,12 +496,10 @@ export async function appearMain() {
 
   // wait for page to be decorated
   await decoratedProm;
-  console.log('decorateProm');
   // and all required css to load
   const req = Object.values(cssIncluded).filter((c) => c.req);
   lgr.debug('appearMain:wait', { req });
   await Promise.all(req);
-  console.log('decorateProm');
 
   const pathSplits = window.location.pathname.split('/');
   const pageName = pathSplits[pathSplits.length - 1].split('.')[0];
