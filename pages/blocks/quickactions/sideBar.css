@@ -1,0 +1,131 @@
+.sidebar {
+  color: white;
+  width: 100%;
+  padding-left: 3em;
+  position: relative;
+  display: block;
+  text-align: left;
+  overflow: hidden;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar__leftline {
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  top: 0;
+  left: 2px;
+}
+.sidebar__indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 20%;
+  background: white;
+  transition: height 0.3s;
+}
+
+.sidebar__item {
+  opacity: 0.6;
+  transition: height 0.3s, opacity 0.3s;
+  margin-top: 1em;
+  margin-bottom: 2.5em;
+}
+.sidebar__item * {
+  margin: 0;
+}
+
+.sidebar__item > *:not(:first-child) {
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.sidebar__item.active,
+.sidebar__item:hover {
+  opacity: 1;
+}
+.sidebar__item.active > *:not(:first-child) {
+  opacity: 1;
+  transition: opacity 0.7s;
+  pointer-events: auto;
+}
+
+.sidebar__item .sidebar__item__body {
+  height: 0;
+}
+.sidebar__item.active .sidebar__item__body {
+  height: auto;
+}
+
+.sidebar__item__header {
+  cursor: pointer;
+}
+.sidebar__item__header * {
+  margin: 0;
+  font-size: 26px;
+}
+
+.sidebar__item p {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 16px !important;
+  margin: 0;
+  padding: 0.8em 0;
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    padding-left: 0em;
+    flex-shrink: 0;
+    overflow-y: hidden;
+  }
+  .sidebar__leftline,
+  .sidebar__indicator {
+    display: none;
+  }
+
+  .sidebar__elements {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 50% 50%;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .sidebar__item {
+    position: relative;
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.4rem 1.2rem;
+    margin: 0;
+    box-shadow: inset -1px -1px 0 rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .sidebar__item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.5rem;
+    height: 0;
+    transition: height 0.3s ease-in-out;
+    background-color: white;
+  }
+  .sidebar__item.active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .sidebar__item.active::after {
+    height: 100%;
+  }
+  .sidebar__item.active > *:not(:first-child) {
+    display: none;
+  }
+  .sidebar__item__header * {
+    font-size: 13.5px;
+    line-height: 1.2;
+  }
+}
