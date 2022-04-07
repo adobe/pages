@@ -236,12 +236,12 @@ export function decorateBlocks($main) {
     if (section) {
       section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
     }
+    if (!section) return;
 
-    const invisibleBlocks = ['template', 'metadata'];
+    const invisibleBlocks = ['template', 'metadata', 'section-metadata'];
     invisibleBlocks.forEach((invisBlockName) => {
       if (blockName === invisBlockName) section.remove();
     });
-    if (!section) return;
 
     // Wrap text-nodes or <a>-nodes in a <p> if they are alone...
     const divs = Array.from($block.querySelectorAll(':scope > div div'));
