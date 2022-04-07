@@ -18,7 +18,7 @@ import path from 'path';
  * Just logs a message and exits.
  */
 
-const allowed = ['.js', '.css', '.ts', '.json', '.md', '.html', '.txt', '.svg', '.yaml'];
+const allowed = ['.js', '.css', '.ts', '.json', '.md', '.html', '.txt', '.svg', '.yaml', '.ico'];
 const maxDetails = 10;
 
 function isHidden(p) {
