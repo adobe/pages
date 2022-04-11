@@ -11,6 +11,10 @@ main .section-wrapper:first-of-type.separator-container {
     padding-top: 0;
 }
 
+main .section-wrapper:not(.background-container):not(.marquee-container):not(.separator-container) + .section-wrapper.separator-container {
+    margin-top: var(--section-spacing-large);
+}
+
 main .section-wrapper:first-of-type.separator-container > div > :first-child:not(.separator) {
     margin-top: var(--header-height);
     padding-top: var(--section-spacing);

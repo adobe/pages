@@ -33,34 +33,27 @@ export default function decorate($block) {
   $cards.forEach(($card) => {
     $card.classList.add('card');
     const $cells = Array.from($card.children);
-    let hasPic;
-    let hasLink;
+    let hasLink = false;
     $cells.forEach(($e, cell) => {
       const $cardLink = $e.querySelector(':scope a:first-child:last-child');
       if (cell === 0) {
         const pic = $e.querySelector(':scope picture');
         if (pic) {
           $e.classList.add('card-picture');
-          hasPic = true;
         } else {
           $e.classList.add('card-text');
         }
       } else if (cell === 1) {
-        if (!hasPic && $cardLink) {
-          $e.classList.add('card-text');
-          $e.classList.add('card-link');
-          hasLink = true;
-        } else {
-          $e.classList.add('card-text');
-        }
+        $e.classList.add('card-text');
       } else if (cell === 2) {
-        if ($cardLink && !hasLink) {
-          $e.classList.add('card-text');
+        if ($cardLink) {
           $e.classList.add('card-link');
           hasLink = true;
-        } else {
-          $e.remove();
         }
+      } else if (cell === 3) {
+        $e.classList.add('card-banner');
+      } else {
+        $e.remove();
       }
     });
     if (hasLink) {
