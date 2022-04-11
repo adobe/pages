@@ -1150,6 +1150,7 @@ async function decoratePage() {
   linkInNewTabHelper();
   const template = getTemplateName();
   if (window.pages.product) {
+    document.getElementById('favicon-safari').href = `/icons/${window.pages.product.replaceAll('-', '')}.ico`;
     document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
   }
   await replaceEmbeds();

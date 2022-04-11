@@ -12,6 +12,15 @@ header {
     overflow: visible;
 }
 
+header:empty {
+    position: static;
+}
+
+body header:empty + main,
+body header:empty + main .section-wrapper:first-of-type {
+    margin-top: 0;
+}
+
 header nav {
     height: 100%;
     width: 100%;
@@ -195,7 +204,6 @@ header .chevron {
     margin: 0;
     background: transparent;
     border: none;
-    cursor: pointer;
     z-index: 2;
 }
 
@@ -251,10 +259,11 @@ header .dropdown-open svg {
 }
 
 @media screen and (max-width: 900px) {
-    
     header .chevron {
         top: 13px;
+        cursor: pointer;
     }
+
     header {
         text-align: left;
     }

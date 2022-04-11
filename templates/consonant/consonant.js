@@ -178,6 +178,23 @@ export function transformLinkToAnimation($a) {
   return $video;
 }
 
+export function transformLinkToYoutubeEmbed($a) {
+  if (!$a || !($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
+    return null;
+  }
+  const $video = createTag('div', { class: 'embed embed-youtube' });
+  const url = new URL($a.href);
+  const usp = new URLSearchParams(url.search);
+  let vid = usp.get('v');
+  if (url.host === 'youtu.be') vid = url.pathname.substr(1);
+  $video.innerHTML = /* html */`
+  <div class="youtube-container">
+    <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls=1&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=${vid}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+  </div>
+  `;
+  return $video;
+}
+
 export function linkPicture($picture) {
   const $nextSib = $picture.parentNode.nextElementSibling;
   if ($nextSib) {
@@ -236,6 +253,12 @@ export function decorateBlocks($main) {
     if (section) {
       section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
     }
+    if (!section) return;
+
+    const invisibleBlocks = ['template', 'metadata', 'section-metadata'];
+    invisibleBlocks.forEach((invisBlockName) => {
+      if (blockName === invisBlockName) section.remove();
+    });
 
     // Wrap text-nodes or <a>-nodes in a <p> if they are alone...
     const divs = Array.from($block.querySelectorAll(':scope > div div'));
@@ -413,7 +436,7 @@ export async function loadBlockManually(blockName, eager = false) {
 }
 
 export function loadBlocks($main) {
-  const blockPromises = [...$main.querySelectorAll('div.section-wrapper > div > .block')]
+  const blockPromises = [...$main.querySelectorAll('div.section-wrapper > div > .block:not(.template)')]
     .map(($block) => loadBlock($block));
   return blockPromises;
 }
@@ -478,7 +501,7 @@ export function decorateButtons(block = document) {
           }
         }
       });
-      if (!$a.querySelector('img') && buttonsOnly) {
+      if (!$a.querySelector('img') && buttonsOnly && isNodeName($c, 'p')) {
         $c.classList.add('button-container');
         const $up = $a.parentElement;
         const $twoUp = $a.parentElement.parentElement;
@@ -543,7 +566,7 @@ export function unwrapBlock($block) {
 
 function splitSections($main) {
   $main.querySelectorAll(':scope > div > div').forEach(($block) => {
-    const blocksToSplit = ['marquee'];
+    const blocksToSplit = ['marquee', 'separator'];
 
     if (blocksToSplit.includes($block.className)) {
       unwrapBlock($block);

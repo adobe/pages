@@ -7,6 +7,7 @@ main .section-wrapper.marquee-container + .section-wrapper.embed-container {
     width: 100%;
 }
 
+main .section-wrapper.embed-container + .section-wrapper.embed-container,
 main .section-wrapper.embed-container .section-wrapper:first-child {
     margin-top: 0;
 }
