@@ -91,7 +91,7 @@ main .marquee .background img {
 }
 
 main .marquee .background img {
-    min-height: 259px;
+    min-height: 260px;
 }
 
 main .marquee .background p {
@@ -264,6 +264,10 @@ main .marquee.large .background img {
     height: auto;
 }
 
+main .marquee.large .background img {
+    max-height: 260px;
+}
+
 main .marquee.large h1,
 main .marquee.large h2 {
     font-size: var(--heading-font-size-xxl);
@@ -335,15 +339,20 @@ main .marquee.right .marquee-column:not(.marquee-image) {
         margin-top: 0;
     }
 
+    main .marquee .marquee-column:not(.marquee-image):not(:empty) {
+        max-width: unset;
+    }
+
     /* large */
 
     main .marquee.large .marquee-column {
         max-width: unset;
     }
-    
-    main .marquee.large .background img {
-        max-height: var(--marquee-height-sm)
-    }
+
+    main .marquee.large .marquee-image {
+        margin-left: 0;
+        align-items: flex-start;
+    }    
 }
 
 /* desktop */

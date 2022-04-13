@@ -303,13 +303,7 @@ main .section-wrapper > div > p {
 }
 
 @media screen and (max-width: 799px) {
-  main .section-wrapper > div,
-  main .container {
-    max-width: var(--max-width-mobile);
-  }
-
   main .section-wrapper > div > :not(div) {
-    max-width: var(--max-width-mobile);
     text-align: left;
   }
 
