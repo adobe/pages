@@ -42,7 +42,7 @@ html {
   --body-color: var(--color-gray-800);
   --body-line-height: 1.5;
   --body-font-size-xxl: 28px;
-  --body-font-size-xl: 24px;
+  --body-font-size-xl: 22px;
   --body-font-size-l: 20px;
   --body-font-size-m: 18px;
   --body-font-size-s: 16px;
@@ -53,14 +53,14 @@ html {
   --heading-font-weight: 700;
   --heading-color: var(--color-gray-800);
   --heading-line-height: 1.25;
-  --heading-font-size-xxxl: 60px;
-  --heading-font-size-xxl: 45px;
-  --heading-font-size-xl: 36px;
-  --heading-font-size-l: 32px;
-  --heading-font-size-m: 28px;
-  --heading-font-size-s: 22px;
-  --heading-font-size-xs: 18px;
-  --heading-font-size-xxs: 14px;
+  --heading-font-size-xxxl: 45px;
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 22px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 14px;
+  --heading-font-size-xxs: 12px;
   
   /* details */
   --detail-font-weight: 700;
@@ -72,40 +72,60 @@ html {
   --detail-font-size-xs: 0.75rem;
 
   /* height/widths */
-  --max-width-block-laptop: 1180px;
-  --max-width-text-laptop: 600px;
-  --max-width-mobile: 500px;
-  --gutter: 2rem;
   --header-height: 64px;
+  --max-width-block: 500px;
+  --max-width-text: 500px;
+  --gutter: 1.5rem;
   --section-spacing: 64px;
-  --section-spacing-x-large: 128px;
+  --section-spacing-x-large: 90px;
   --section-spacing-large: 90px;
   --section-spacing-small: 50px;
   --section-spacing-x-small: 38px;
 }
 
-@media screen and (max-width: 1000px) {
+/* Tablet */
+@media screen and (min-width: 600px) {
   :root {
-    --gutter: 1.5rem;
+    /* height/widths */
+    --max-width-block: 700px;
+    --max-width-text: 700px;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1000px) {
+  :root {
+    /* body */
+    --body-font-size-xxl: 28px;
+    --body-font-size-xl: 24px;
+    --body-font-size-l: 20px;
+    --body-font-size-m: 18px;
+    --body-font-size-s: 16px;
+    --body-font-size-xs: 14px;
+    --body-font-size-xxs: 12px;
+  
+    /* headings */
+    --heading-font-size-xxxl: 60px;
+    --heading-font-size-xxl: 45px;
+    --heading-font-size-xl: 36px;
+    --heading-font-size-l: 32px;
+    --heading-font-size-m: 28px;
+    --heading-font-size-s: 22px;
+    --heading-font-size-xs: 18px;
+    --heading-font-size-xxs: 14px;
+    
+    /* height/widths */
+    --max-width-block: 1180px;
+    --max-width-text: 600px;
+    --gutter: 2rem;
     --section-spacing: 64px;
-    --section-spacing-x-large: 90px;
+    --section-spacing-x-large: 128px;
     --section-spacing-large: 90px;
     --section-spacing-small: 50px;
     --section-spacing-x-small: 38px;
   }
 }
 
-@media (min-width: 900px) {
-  :root {
-    --heading-font-size-xxxl: 60px;
-  }
-}
-
-@media (min-width: 1200px) {
-  :root {
-    --heading-font-size-xxxl: 45px;
-  }
-}
 
 /* body */
 
@@ -266,20 +286,20 @@ main .container {
 
 main .section-wrapper > div,
 main .container {
-  max-width: var(--max-width-block-laptop);
+  max-width: var(--max-width-block);
   margin-left: auto;
   margin-right: auto;
 }
 
 main .section-wrapper > div > :not(div) {
-  max-width: var(--max-width-text-laptop);
+  max-width: var(--max-width-text);
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
 
 main .section-wrapper > div > p {
-  max-width: var(--max-width-text-laptop);
+  max-width: var(--max-width-text);
 }
 
 @media screen and (max-width: 799px) {
@@ -340,10 +360,10 @@ main a.cta-link:focus {
 a.button:any-link {
   text-decoration: none;
   border-radius: 40px;
-  padding: 5px 1.2em 6px 1.2em;
+  padding: 4px 1.2em 5px 1.2em;
   /*outline: none; (keep outline for a11n) */
   text-align: center;
-  font-size: var(--body-font-size-s);
+  font-size: var(--body-font-size-xs);
   font-style: normal; 
   font-weight: 600;
   line-height: var(--body-line-height);
@@ -351,7 +371,7 @@ a.button:any-link {
   transition: background-color .3s, color .3s, border .3s;
   border-width: 2px;
   border-style: solid;
-  margin: 10px 7px;
+  margin: 10px 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -383,7 +403,7 @@ p.button-container a.button {
 p.button-container > a.button:not(:last-child),
 p.button-container > strong:not(:last-child),
 p.button-container > em:not(:last-child) {
-  margin-right: 14px;
+  margin-right: 16px;
 }
 
 .center p.button-container > a.button,
@@ -543,7 +563,7 @@ main .figure .caption {
 
 @media (min-width: 700px) {
   main .figure .caption {
-    max-width: var(--max-width-text-laptop);
+    max-width: var(--max-width-text);
     margin-left: auto;
     margin-right: auto;
   }
@@ -567,6 +587,10 @@ header, main, body>footer {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+main img {
+  display: block;
 }
 
 /* Default footer */

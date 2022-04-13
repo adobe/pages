@@ -5,7 +5,7 @@ main .video-container > div {
 }
 
 main .video-container > div > * {
-  max-width: calc(var(--max-width-block-laptop) + (var(--gutter) * 2));
+  max-width: calc(var(--max-width-block) + (var(--gutter) * 2));
   margin-left: auto;
   margin-right: auto;
   display: block;

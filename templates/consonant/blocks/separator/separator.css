@@ -40,7 +40,7 @@ main .section-wrapper.separator-container > div {
 main .section-wrapper.separator-container > div > :not(.separator) {
     padding-left: var(--gutter);
     padding-right: var(--gutter);
-    max-width: var(--max-width-block-laptop);
+    max-width: var(--max-width-block);
     margin-left: auto;
     margin-right: auto;
 }

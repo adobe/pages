@@ -1,24 +1,18 @@
-/*-- Marquee Variants --*/
+/*-- Marquee Options --*/
 /* [small(default), medium, large, center, right, light] */
-/* Small marquees are min 400 pixels tall */
-/* Medium marquees are min 560 pixels tall */
-/* Large marquees are min 700 pixels tall */
-/* Center aligns the text center */
-/* Right aligns the text right */
-/* Light changes the default dark theme to light theme */
 
-/* Remove any default padding from the marquee container */
+/* Removes any default padding from the marquee container */
 main .section-wrapper.marquee-container,
 main .section-wrapper.marquee-container > div {
     padding: 0;
 }
 
-/* Add spacing for header if the marquee is the first section of the page */
+/* Adds spacing for header if the marquee is the first section of the page */
 main .section-wrapper:first-of-type.marquee-container {
     margin-top: var(--header-height);
 }
 
-/* Add padding-top to marquee section if the previous section doesn't have a background */
+/* Adds padding-top to marquee section if the previous section doesn't have a background */
 main .section-wrapper:not(.background-container) + .section-wrapper.marquee-container {
     padding-top: var(--section-spacing-small);    
     margin-top: var(--section-spacing-x-small);
@@ -36,93 +30,34 @@ main .section-wrapper.marquee-container + .section-wrapper.separator-container {
     margin-top: 0;
 }
 
-/* Add padding-top if the first child in the section isn't a marquee block */
-main .section-wraper.background-container + .section-wrapper.marquee-container > div > :first-child:not(.marquee) {
-    padding-top: var(--section-spacing);
-}
-main .section-wraper:not(.marquee-container) + .section-wrapper.marquee-container > div > :first-child:not(.marquee) {
-    padding-top: var(--section-spacing);
-}
-
-/* Remove max-width from marquee to be a full width banner */
-main .section-wrapper.marquee-container > div {
-    max-width: none;
-}
-
-/* Remove spacing top if comes after breadcrumbs */
+/* Remove spacing-top if comes after breadcrumbs */
 main .section-wrapper.breadcrumbs-container + .section-wrapper.marquee-container {
     padding-top: 0;
     margin-top: 0;
 }
 
-/* Re-add max-width and default padding to elements inside the section that are not marquee block */
-main .section-wrapper.marquee-container > div > :not(.marquee) {
-    padding-left: var(--gutter);
-    padding-right: var(--gutter);
-    max-width: var(--max-width-block-laptop);
-    margin-left: auto;
-    margin-right: auto;
+/* Removes max-width from marquee container to be a full width banner */
+main .section-wrapper.marquee-container > div {
+    max-width: none;
 }
 
-@media screen and (max-width: 799px) {
-    main .section-wrapper.marquee-container > div > :not(.marquee) {
-        max-width: var(--max-width-mobile);
-    }
-}
-
-/* Style the marquee block */
+/* mobile */
 
 main .marquee {
     padding: 24px 0;
-    --marquee-height-sm: 400px;
+    --marquee-height-sm: 382px;
     --marquee-height-md: 560px;
     --marquee-height-lg: 700px;
     position: relative;
     box-sizing: border-box;
-    display: flex;
     align-items: center;
     justify-content: center;
-}
-
-main .marquee:not(.light) {
+    background: #F5F5F5;
+    display: flex;
+    flex-direction: column;
     color: var(--color-white);
 }
 
-main .marquee a.button.transparent:any-link {
-    color: var(--color-white);
-    border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg);
-}
-
-main .marquee a.button.transparent:any-link:hover {
-    color: var(--color-white);
-    border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg-hover);
-}
-
-main .marquee a.button.transparent:any-link:active {
-    color: var(--color-white);
-    border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg-down);
-}
-
-main .marquee.light a.button.transparent:any-link {
-    color: var(--color-info-transparent);
-    border-color: var(--color-info-transparent);
-    background-color: var(--color-info-transparent-bg);
-}
-
-main .marquee.light a.button.transparent:any-link:hover {
-    color: var(--color-info-transparent-hover);
-    border-color: var(--color-info-transparent-hover);
-    background-color: var(--color-info-transparent-bg-hover);
-}
-
-main .marquee.light a.button.transparent:any-link:active {
-    color: var(--color-info-transparent-down);
-    border-color: var(--color-info-transparent-down);
-    background-color: var(--color-info-transparent-bg-down);
-}
 
 main .marquee h1,
 main .marquee h2 {
@@ -143,10 +78,20 @@ main .marquee .background {
     overflow: hidden;
 }
 
+main .marquee .background > div {
+    position: relative;
+}
+
+main .marquee .background > div,
+main .marquee .background > picture,
 main .marquee .background img {
     object-fit: cover;
     height: 100%;
     width: 100%;
+}
+
+main .marquee .background img {
+    min-height: 259px;
 }
 
 main .marquee .background p {
@@ -164,197 +109,260 @@ main .marquee .background video {
     object-fit: cover;
 }
 
-main .marquee .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    z-index: 2;
-}
-
-main .marquee .container .marquee-column {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-}
-
-main .marquee .container .marquee-column > * {
+main .marquee .background picture ~ p:not(:empty) {
+    padding: 8px var(--gutter);
+    max-width: 360px;
+    margin: 0 auto;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.6);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    height: auto;
+    white-space: nowrap;
     width: 100%;
 }
 
-main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
-    padding: 32px 0;
+main .marquee .marquee-image p,
+main .marquee .background p {
+    font-size: var(--body-font-size-s);
 }
 
-@media screen and (min-width: 1081px) {
-    main .marquee .container .marquee-column:not(.marquee-image):not(:empty) {
-        min-width: 500px;
-    }
+main .marquee .marquee-image {
+    order: -1;
+    padding-top: 24px;
 }
 
-main .marquee.center .container .marquee-column:not(.marquee-image) {
-    text-align: center;
-}
-
-main .marquee.right .container .marquee-column:not(.marquee-image) {
-    text-align: right;
-}
-
-main .marquee .container .marquee-column:first-child h1,
-main .marquee .container .marquee-column:first-child h2,
-main .marquee .container .marquee-column:first-child h3,
-main .marquee .container .marquee-column:first-child h4,
-main .marquee .container .marquee-column:first-child h5,
-main .marquee .container .marquee-column:first-child span.detail {
-    max-width: var(--max-width-mobile);
-}
-
-main .marquee.center .container .marquee-column:first-child h1,
-main .marquee.center .container .marquee-column:first-child h2,
-main .marquee.center .container .marquee-column:first-child h3,
-main .marquee.center .container .marquee-column:first-child h4,
-main .marquee.center .container .marquee-column:first-child h5,
-main .marquee.center .container .marquee-column:first-child span.detail {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-main .marquee.right .container .marquee-column:first-child h1,
-main .marquee.right .container .marquee-column:first-child h2,
-main .marquee.right .container .marquee-column:first-child h3,
-main .marquee.right .container .marquee-column:first-child h4,
-main .marquee.right .container .marquee-column:first-child h5,
-main .marquee.right .container .marquee-column:first-child span.detail {
-    margin-left: auto;
-}
-
-main .marquee .container .marquee-image img {
-    width: auto;
-}
-
-main .marquee .container .marquee-column:first-child.marquee-image {
+main .marquee .marquee-image:first-child {
     text-align: left;
 }
 
-main .marquee .container .marquee-column:last-child.marquee-image {
+main .marquee .marquee-image:last-child {
     text-align: right;
+}
+
+main .marquee .marquee-image img {
+    max-height: 300px;
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+main .marquee .marquee-column:not(:empty) {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: auto;
+}
+
+main .marquee .marquee-column:not(.marquee-image):not(:empty) {
+    padding: 32px 0;
+    max-width: 360px;
+}
+
+main .marquee .marquee-column:last-child:not(:empty) {
+    padding-bottom: 32px;
+}
+
+main .marquee .container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
 }
 
 main .marquee .container > div {
     flex: 1 1 auto;
 }
 
-main .marquee .container img {
-    object-fit: contain;
-    height: 100%;
+main .marquee p.button-container {
+    flex-direction: column;
+}
+
+main .marquee p.button-container a,
+main .marquee p.button-container strong,
+main .marquee p.button-container em {
     width: 100%;
+    box-sizing: border-box;
 }
 
-main .marquee {
-    min-height: var(--marquee-height-sm);
+main .marquee p.button-container a {
+    margin-top: 8px;
 }
 
-main .marquee.medium {
-    min-height: var(--marquee-height-md);
+main .marquee a.button.transparent:any-link {
+    color: var(--color-white);
+    border-color: var(--color-white);
+    background-color: var(--color-info-transparent-bg);
 }
+
+main .marquee a.button.transparent:any-link:hover {
+    color: var(--color-white);
+    border-color: var(--color-white);
+    background-color: var(--color-info-transparent-bg-hover);
+}
+
+main .marquee a.button.transparent:any-link:active {
+    color: var(--color-white);
+    border-color: var(--color-white);
+    background-color: var(--color-info-transparent-bg-down);
+}
+
+
+/* light */
+
+main .marquee.light .background picture ~ p:not(:empty) {
+    text-shadow: 1px 2px 3px rgba(255, 255, 255, 0.3);
+}
+
+main .marquee.light {
+    color: var(--color-black);
+}
+
+main .marquee.light a.button.transparent:any-link {
+    color: var(--color-info-transparent);
+    border-color: var(--color-info-transparent);
+    background-color: var(--color-info-transparent-bg);
+}
+
+main .marquee.light a.button.transparent:any-link:hover {
+    color: var(--color-info-transparent-hover);
+    border-color: var(--color-info-transparent-hover);
+    background-color: var(--color-info-transparent-bg-hover);
+}
+
+main .marquee.light a.button.transparent:any-link:active {
+    color: var(--color-info-transparent-down);
+    border-color: var(--color-info-transparent-down);
+    background-color: var(--color-info-transparent-bg-down);
+}
+
+
+/* large */
 
 main .marquee.large {
-    min-height: var(--marquee-height-lg);
+    padding: 0;
+    display: block;
+    align-items: unset;
+    justify-content: unset;
 }
 
-main .marquee .marquee-caption {
-    width: 100%;
-    z-index: 2;
-    position: absolute;
-    bottom: 0;
-    text-align: left;
-    text-shadow: 1px 2px 3px #000000B1;
-    padding-bottom: 32px;
-    overflow: hidden;
-    min-height: 100px;
-}
-
-main .marquee .marquee-caption > div {
-    min-height: 100px;
-    display: flex;
-    align-items: flex-end;
-}
-
-main .marquee .marquee-caption p {
-    width: 100%;
-    max-width: var(--max-width-block-laptop);
-    font-size: var(--body-font-size-s);
-    padding: 0 var(--gutter);
+main .marquee.large .container {
+    padding-top: 24px;
+    padding-bottom: 24px;
     margin: 0 auto;
-    box-sizing: content-box;
 }
 
-main .marquee .marquee-caption > div:nth-child(2) {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding-bottom: 32px;
+main .marquee.large .marquee-column:not(.marquee-image):not(:empty):first-child {
+    padding-top: 0;
+}
+
+main .marquee.large .background,
+main .marquee.large .background img {
+    position: unset;
+    width: 100%;
+    height: auto;
+}
+
+main .marquee.large h1,
+main .marquee.large h2 {
+    font-size: var(--heading-font-size-xxl);
+    order: -3
+}
+
+main .marquee.large p {
+    font-size: var(--body-font-size-xl);
+}
+
+main .marquee.large .marquee-image p,
+main .marquee.large .background p {
+    font-size: var(--body-font-size-s);
+}
+
+main .marquee.large .marquee-column:last-child {
+    padding-bottom: 0;
+}
+
+main .marquee.large p.button-container {
+    order: -2;
+}
+
+main .marquee.large p.button-container + p {
+    order: -1;
+}
+
+main .marquee.large .marquee-image {
+    order: unset;
+    padding-top: 0;
+}
+
+
+/* small */
+
+main .marquee.small .marquee-image {
+    order: unset;
+    padding-top: 0;
+}
+
+
+/* center */
+
+main .marquee.center .marquee-column:not(.marquee-image) {
+    text-align: center;
+}
+
+/* right */
+
+main .marquee.right .marquee-column:not(.marquee-image) {
     text-align: right;
 }
-main .marquee .marquee-caption > div:nth-child(2) p {
-    width: unset;
-}
 
-@media screen and (max-width: 799px) {
-    main .marquee .marquee-caption p {
-        max-width: var(--max-width-mobile);
-    }
-}
 
-main .marquee.light .marquee-caption {
-    text-shadow: none;
-}
-
-@media screen and (min-width: 800px) {
-    main .marquee .container .marquee-column,
-    main .marquee .container .marquee-image {
-        flex: 0 1 auto;
+/* tablet */
+@media screen and (min-width: 600px) {
+    main .marquee p.button-container {
+        flex-direction: row;
     }
 
-    main .marquee .container .marquee-column {
-        width: 40%;
+    main .marquee p.button-container a,
+    main .marquee p.button-container strong,
+    main .marquee p.button-container em {
+        width: auto;
+        box-sizing: border-box;
     }
 
-    main .marquee .container .marquee-image {
-        width: 50%;
+    main .marquee p.button-container a {
+        margin-top: 0;
     }
 
-    main .marquee .container .marquee-column:first-child:last-child {
-        width: 100%;
-        max-width: 700px;
-    }
-}
+    /* large */
 
-@media screen and (min-width: 800px) and (max-width: 1000px) {
-    main .marquee .container .marquee-image {
-        width: 40%;
-    }
-    main .marquee .container .marquee-column:not(.marquee-image) {
-        width: 50%;
-    }
-}
-
-@media screen and (max-width: 799px) {
-    main .marquee .container {
-        flex-direction: column;
-    }
-    main .marquee .container .marquee-image {
-        order: -1;
-        padding-top: 32px;
-    }   
-    
-    main .marquee .container .marquee-column:first-child.marquee-image,
-    main .marquee .container .marquee-column:last-child.marquee-image {
-        text-align: center;
+    main .marquee.large .marquee-column {
+        max-width: unset;
     }
     
+    main .marquee.large .background img {
+        max-height: var(--marquee-height-sm)
+    }
+}
+
+/* desktop */
+
+@media screen and (min-width: 1000px) {
     main .marquee {
-        --marquee-height-sm: 300px;
-        --marquee-height-md: 350px;
-        --marquee-height-lg: 400px;
+        min-height: var(--marquee-height-sm);
     }
+
+    /* large */
+
+    main .marquee.large {
+        min-height: var(--marquee-height-lg);
+    }
+
+    /* small */
+
+    main .marquee.small {
+        min-height: var(--marquee-height-md);
+    }
+
 }

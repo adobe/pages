@@ -1,5 +1,5 @@
 main .images {
-    max-width: var(--max-width-block-laptop);
+    max-width: var(--max-width-block);
     margin-left: auto;
     margin-right: auto;
     display: inline-block;
