@@ -255,7 +255,7 @@ export function decorateBlocks($main) {
     }
     if (!section) return;
 
-    const invisibleBlocks = ['template', 'metadata', 'section-metadata'];
+    const invisibleBlocks = ['template', 'metadata'];
     invisibleBlocks.forEach((invisBlockName) => {
       if (blockName === invisBlockName) section.remove();
     });
