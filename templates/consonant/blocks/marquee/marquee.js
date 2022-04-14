@@ -41,22 +41,20 @@ export default function decorate($block) {
     bgImg.parentElement.parentElement.appendChild(bgImg);
   }
   const content = $block.querySelector(':scope > div:nth-of-type(2)');
-  content.classList.add('container');
-  const $cells = Array.from(content.children);
-  $cells.forEach(($cell) => {
-    $cell.classList.add('marquee-column');
-    const picElement = $cell.querySelector('picture');
-    if (picElement) {
-      $cell.classList.add('marquee-image');
-    }
+  if (content) {
+    content.classList.add('container');
+    const $cells = Array.from(content.children);
+    $cells.forEach(($cell) => {
+      $cell.classList.add('marquee-column');
+      const picElement = $cell.querySelector('picture');
+      if (picElement) {
+        $cell.classList.add('marquee-image');
+      }
 
-    // remove empty p from empty columns
-    const $emptyP = $cell.querySelector(':scope > p:first-child:last-child');
-    if ($emptyP && $emptyP.childNodes.length === 0) $emptyP.remove();
-  });
-  const caption = $block.querySelector(':scope > div:nth-of-type(3)');
-  if (caption) {
-    caption.classList.add('marquee-caption');
+      // remove empty p from empty columns
+      const $emptyP = $cell.querySelector(':scope > p:first-child:last-child');
+      if ($emptyP && $emptyP.childNodes.length === 0) $emptyP.remove();
+    });
   }
   // Remove white space between section with background and marquee:
   const $previousSection = $sectionWrapper.previousElementSibling;
