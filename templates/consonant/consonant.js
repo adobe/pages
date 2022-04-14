@@ -257,7 +257,7 @@ export function decorateBlocks($main) {
 
     const invisBlocks = ['template', 'metadata', 'section-metadata'];
     invisBlocks.forEach((invisBlockName) => {
-      if (blockName === invisBlockName) $block.remove();
+      if (blockName === invisBlockName) $block.classList.add('hidden');
     });
 
     // Wrap text-nodes or <a>-nodes in a <p> if they are alone...

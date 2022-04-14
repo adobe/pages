@@ -156,6 +156,10 @@ main .block {
   visibility: unset;
 }
 
+.hidden {
+  display: none;
+}
+
 main .block[data-block-status='loading'], main .block[data-block-status='initialized'] {
   visibility: hidden;
 }
