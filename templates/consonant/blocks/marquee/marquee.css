@@ -167,6 +167,7 @@ main .marquee .container {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 main .marquee .container > div {
@@ -344,7 +345,7 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     }    
 }
 
-/* desktop */
+/* laptop */
 
 @media screen and (min-width: 1000px) {
     main .marquee {
@@ -353,27 +354,41 @@ main .marquee.center .marquee-column:not(.marquee-image) {
 
     main .marquee .container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: auto auto;
+        justify-items: start;
         align-items: center;
     }
     
-    main .marquee .marquee-column:nth-child(even) {
-        order: unset;
-        grid-column: 3;
-    }
-
-    main .marquee .marquee-column:not(:empty).marquee-image {
-        width: 600px;
+    main .marquee .container .marquee-column {
+        display: block;
     }
     
+    main .marquee .container .marquee-column:nth-child(odd) {
+        margin-right: auto;
+        margin-left: 0;
+    }
+    
+    main .marquee .container .marquee-column:nth-child(even) {
+        order: unset;
+        grid-column: 2;
+        margin-left: auto;
+        margin-right: 0;
+    }
+
     main .marquee .marquee-column:last-child {
         margin-left: auto;
     }
     
-    main .marquee .marquee-column:not(.marquee-image):not(:empty) {
+    main .marquee .marquee-column:not(:empty) {
         width: 500px;
     }
-    
+
+    main .marquee .marquee-image:not(:empty) {
+        width: 100%;
+        max-width: 600px;
+        box-sizing: border-box;
+    }
+
     main .marquee .marquee-column h1,
     main .marquee .marquee-column h2 {
         max-width: 400px;
@@ -385,6 +400,14 @@ main .marquee.center .marquee-column:not(.marquee-image) {
 
     main .marquee .marquee-column:not(.marquee-image):not(:empty) {
         padding: 32px 0;
+    }
+
+    main .marquee .marquee-image:not(:empty):nth-child(even) {
+        padding-left: 3rem;
+    }
+
+    main .marquee .marquee-image:not(:empty):nth-child(odd) {
+        padding-right: 3rem;
     }
 
     /* center */
@@ -431,5 +454,4 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     main .marquee.small {
         min-height: var(--marquee-height-sm);
     }
-
 }
