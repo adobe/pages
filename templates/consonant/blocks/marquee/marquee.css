@@ -84,13 +84,15 @@ main .marquee .background > div {
 
 main .marquee .background > div,
 main .marquee .background > picture,
-main .marquee .background img {
+main .marquee .background img,
+main .marquee .background video {
     object-fit: cover;
     height: 100%;
     width: 100%;
 }
 
-main .marquee .background img {
+main .marquee .background img,
+main .marquee .background video {
     min-height: 260px;
 }
 
@@ -147,7 +149,8 @@ main .marquee .marquee-image {
     padding-top: 24px;
 }
 
-main .marquee .marquee-image img {
+main .marquee .marquee-image img,
+main .marquee .marquee-image video {
     max-height: 300px;
     object-fit: contain;
     height: 100%;
@@ -250,6 +253,7 @@ main .marquee.light a.button.transparent:any-link:active {
 main .marquee.large {
     padding: 0;
     display: block;
+    color: var(--black);
 }
 
 main .marquee.large .container {
@@ -263,13 +267,15 @@ main .marquee.large .marquee-column:not(.marquee-image):not(:empty):first-child 
 }
 
 main .marquee.large .background,
-main .marquee.large .background img {
+main .marquee.large .background img,
+main .marquee.large .background video {
     position: unset;
     width: 100%;
     height: auto;
 }
 
-main .marquee.large .background img {
+main .marquee.large .background img,
+main .marquee.large .background video {
     max-height: 260px;
 }
 
@@ -358,6 +364,7 @@ main .marquee.center .marquee-column:not(.marquee-image) {
 @media screen and (min-width: 1000px) {
     main .marquee {
         min-height: var(--marquee-height-md);
+        color: var(--white);
     }
 
     main .marquee .container {
@@ -451,7 +458,8 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     }
 
     main .marquee.large .background,
-    main .marquee.large .background img {
+    main .marquee.large .background img,
+    main .marquee.large .background video {
         max-height: unset;
         width: 100%;
         height: 100%;
