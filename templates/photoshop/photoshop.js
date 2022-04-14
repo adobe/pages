@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
+import decorateDefaultTemplate from '../default/default-template.js';
 
 export default async function decorate() {
   await decorateDefaultTemplate();

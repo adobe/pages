@@ -12,6 +12,7 @@
 
 /** @type {import("../../component").ComponentDecorator} */
 export default function decorate($block, name, doc) {
+  document.querySelector('main').classList.add('appear');
   $block.innerHTML = `<div id="container" class="flexy">
     <svg id="icon" class="flexy"xmlns="http://www.w3.org/2000/svg" class="icon icon-notfound"><use href="/icons.svg#not-found"></use></svg>
     <div id="heading" class="flexy">welcome to pages.adobe.com</div>
@@ -23,7 +24,7 @@ export default function decorate($block, name, doc) {
 
   function countdown() {
     const fun = emojis[Math.floor(Math.random() * emojis.length)];
-    const $links = doc.querySelectorAll('main > div > div > * > a[href]');
+    const $links = doc.querySelectorAll('main a[href]');
 
     $description.innerHTML += fun;
     console.log($description.textContent);

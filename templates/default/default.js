@@ -860,8 +860,6 @@ export async function replaceEmbeds() {
         ogPath, embedData,
       });
 
-      console.log(ogPath);
-
       if (type === 'content') {
         await insertContentEmbed($p, embedData);
       } else {
