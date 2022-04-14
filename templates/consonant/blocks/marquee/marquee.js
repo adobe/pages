@@ -26,6 +26,8 @@ export default function decorate($block) {
   const $sectionWrapper = $block.closest('.marquee-container');
   const bg = $block.querySelector(':scope > div:first-of-type');
   bg.classList.add('background');
+  Array.from(bg.querySelectorAll('p')).forEach(p => p.classList.remove('button-container'));
+  Array.from(bg.querySelectorAll('a')).forEach(a => a.classList.remove('button'));
   let bgImg = bg.querySelector('picture');
   // Set background to text value if there is no image:
   if (!bgImg) {
