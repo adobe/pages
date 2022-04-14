@@ -364,6 +364,9 @@ main .marquee.center .marquee-column:not(.marquee-image) {
 @media screen and (min-width: 1000px) {
     main .marquee {
         min-height: var(--marquee-height-md);
+    }
+    
+    main .marquee.large:not(.light) {
         color: var(--white);
     }
 
