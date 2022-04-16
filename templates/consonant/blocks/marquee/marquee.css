@@ -105,11 +105,11 @@ main .marquee .background p {
 }
 
 main .marquee .background a {
-    color: var(--white);
+    color: var(--color-white);
 }
 
 main .marquee.light .background a {
-    color: var(--black);
+    color: var(--color-black);
 }
 
 main .marquee .background video {
@@ -253,7 +253,25 @@ main .marquee.light a.button.transparent:any-link:active {
 main .marquee.large {
     padding: 0;
     display: block;
-    color: var(--black);
+    color: var(--color-black);
+}
+
+main .marquee.large a.button.transparent:any-link {
+    color: var(--color-info-transparent);
+    border-color: var(--color-info-transparent);
+    background-color: var(--color-info-transparent-bg);
+}
+
+main .marquee.large a.button.transparent:any-link:hover {
+    color: var(--color-info-transparent-hover);
+    border-color: var(--color-info-transparent-hover);
+    background-color: var(--color-info-transparent-bg-hover);
+}
+
+main .marquee.large a.button.transparent:any-link:active {
+    color: var(--color-info-transparent-down);
+    border-color: var(--color-info-transparent-down);
+    background-color: var(--color-info-transparent-bg-down);
 }
 
 main .marquee.large .container {
@@ -367,7 +385,25 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     }
     
     main .marquee.large:not(.light) {
-        color: var(--white);
+        color: var(--color-white);
+    }
+    
+    main .marquee.large:not(.light) a.button.transparent:any-link {
+        color: var(--color-white);
+        border-color: var(--color-white);
+        background-color: var(--color-info-transparent-bg);
+    }
+
+    main .marquee.large:not(.light) a.button.transparent:any-link:hover {
+        color: var(--color-white);
+        border-color: var(--color-white);
+        background-color: var(--color-info-transparent-bg-hover);
+    }
+
+    main .marquee.large:not(.light) a.button.transparent:any-link:active {
+        color: var(--color-white);
+        border-color: var(--color-white);
+        background-color: var(--color-info-transparent-bg-down);
     }
 
     main .marquee .container {
