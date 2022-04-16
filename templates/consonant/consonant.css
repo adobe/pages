@@ -243,10 +243,6 @@ video {
   max-width: 100%;
 }
 
-.hero-animation-overlay {
-  pointer-events: none;
-}
-
 /* section wrapper */
 
 main .section-wrapper {
