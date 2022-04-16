@@ -78,8 +78,16 @@ main .marquee .background {
     overflow: hidden;
 }
 
-main .marquee .background > div {
+main .marquee .background > div:first-child {
     position: relative;
+}
+
+main .marquee .background > div:not(:first-child) {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: auto;
+    text-align: right;
 }
 
 main .marquee .background > div,
@@ -119,7 +127,8 @@ main .marquee .background video {
     object-fit: cover;
 }
 
-main .marquee .background picture ~ p:not(:empty) {
+main .marquee .background picture ~ p:not(:empty),
+main .marquee .background > div > p:not(:first-child):not(:empty) {
     padding: 8px var(--gutter);
     max-width: 360px;
     margin: 0 auto;
@@ -131,6 +140,7 @@ main .marquee .background picture ~ p:not(:empty) {
     height: auto;
     white-space: nowrap;
     width: 100%;
+    color: var(--color-white)
 }
 
 main .marquee .marquee-image p,
@@ -221,10 +231,6 @@ main .marquee a.button.transparent:any-link:active {
 
 /* light */
 
-main .marquee.light .background picture ~ p:not(:empty) {
-    text-shadow: 1px 2px 3px rgba(255, 255, 255, 0.3);
-}
-
 main .marquee.light {
     color: var(--color-black);
 }
@@ -246,6 +252,13 @@ main .marquee.light a.button.transparent:any-link:active {
     border-color: var(--color-info-transparent-down);
     background-color: var(--color-info-transparent-bg-down);
 }
+
+main .marquee.light .background picture ~ p:not(:empty),
+main .marquee.light .background > div > p:not(:first-child):not(:empty) {
+    color: var(--color-black);
+    text-shadow: 1px 2px 3px rgba(255, 255, 255, 0.3);
+}
+
 
 
 /* large */
