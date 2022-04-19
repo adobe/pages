@@ -9,7 +9,7 @@ indices:
       - '/.helix/**'
       - '/components/**'
       - '/testing/**'
-    target: '/query-index.gsheet'
+    target: '/query-index'
     properties:
       title:
         select: head > meta[property="og:title"]
