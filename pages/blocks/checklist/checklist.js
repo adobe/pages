@@ -100,7 +100,7 @@ function layoutSetUp() {
     </div>
   `;
   videoEl.innerHTML = video;
-  document.querySelector('.clvideo > div > div:last-of-type').innerHTML = transcript.outerHTML;
+  document.querySelector('.clvideo').append(transcript);
   document.querySelector('.transcript-container').remove();
 
   function runVideo() {
