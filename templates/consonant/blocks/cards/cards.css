@@ -391,6 +391,12 @@ main .cards.horizontal .card {
     main .section-wrapper > div > .cards + p.button-container {
         justify-content: center;
     }
+    
+    main .cards.col-1-cards .card-banner .icon,
+    main .cards.col-2-cards .card-banner .icon,
+    main .cards.col-3-cards .card-banner .icon {
+        top: 132px;
+    }
 }
 
 @media screen and (max-width: 1200px) {
