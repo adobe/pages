@@ -44,7 +44,7 @@ main .section-wrapper.marquee-container > div {
 /* mobile */
 
 main .marquee {
-    padding: 24px 0;
+    padding: 0;
     --marquee-height-sm: 360px;
     --marquee-height-md: 560px;
     --marquee-height-lg: 700px;
@@ -57,7 +57,6 @@ main .marquee {
     flex-direction: column;
     color: var(--color-white);
 }
-
 
 main .marquee h1,
 main .marquee h2 {
@@ -101,7 +100,11 @@ main .marquee .background video {
 
 main .marquee .background img,
 main .marquee .background video {
-    min-height: 260px;
+    min-height: 180px;
+}
+
+main .marquee > .background:last-child {
+    position: unset;
 }
 
 main .marquee .background p {
@@ -121,10 +124,15 @@ main .marquee.light .background a {
 }
 
 main .marquee .background video {
-    width: 100%;
+    width: 101%;
+    transform: translateX(-0.5%);
     height: auto;
     min-height: 100%;
     object-fit: cover;
+}
+
+main .marquee .background .hero-animation-overlay p:first-child {
+    line-height: 0;
 }
 
 main .marquee .background picture ~ p:not(:empty),
@@ -189,6 +197,8 @@ main .marquee .container {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding-top: 24px;
+    padding-bottom: 24px;
 }
 
 main .marquee .container > div {
@@ -260,11 +270,9 @@ main .marquee.light .background > div > p:not(:first-child):not(:empty) {
 }
 
 
-
 /* large */
 
 main .marquee.large {
-    padding: 0;
     display: block;
     color: var(--color-black);
 }
@@ -288,8 +296,6 @@ main .marquee.large a.button.transparent:any-link:active {
 }
 
 main .marquee.large .container {
-    padding-top: 24px;
-    padding-bottom: 24px;
     margin: 0 auto;
 }
 
@@ -521,5 +527,27 @@ main .marquee.center .marquee-column:not(.marquee-image) {
 
     main .marquee.small {
         min-height: var(--marquee-height-sm);
+    }
+
+    /* no text content */
+
+    main .marquee.empty-content,
+    main .marquee.empty-content .background img,
+    main .marquee.empty-content .background video {
+        min-height: unset;
+        max-height: var(--marquee-height-md);
+    }
+
+    
+    main .marquee.small.empty-content,
+    main .marquee.small.empty-content .background img,
+    main .marquee.small.empty-content .background video {
+        max-height: var(--marquee-height-sm);
+    }
+
+    main .marquee.large.empty-content,
+    main .marquee.large.empty-content .background img,
+    main .marquee.large.empty-content .background video {
+        max-height: var(--marquee-height-lg);
     }
 }

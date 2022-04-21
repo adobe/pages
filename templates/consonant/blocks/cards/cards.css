@@ -56,10 +56,6 @@ main .cards .card {
     position: relative;
 }
 
-main .cards.col-2-cards .card {
-    max-width: unset;
-}
-
 main .cards .card-text {
     padding: 16px;
     padding-bottom: 20px;
@@ -202,27 +198,42 @@ main .cards.overlay .card-banner .icon {
     bottom: 28px;
 }
 
-main .cards .card-picture img {
+main .cards .card-picture img,
+main .cards .card-picture video {
     width: 100%;
     height: 200px;
     object-fit: cover;
     display: block;
 }
 
-main .cards.col-5-cards .card-picture img {
+
+main .cards .card-picture video {
+    min-width: 101%;
+    transform: translateX(-0.5%);
+}
+
+main .cards.col-5-cards .card-picture img,
+main .cards.col-5-cards .card-picture video {
     height: 150px;
 }
 
 main .cards.col-1-cards .card-picture img,
 main .cards.col-2-cards .card-picture img,
-main .cards.col-3-cards .card-picture img {
+main .cards.col-3-cards .card-picture img,
+main .cards.col-1-cards .card-picture video,
+main .cards.col-2-cards .card-picture video,
+main .cards.col-3-cards .card-picture video {
     height: 300px;
 }
 
 main .cards.overlay.cards.col-1-cards .card-picture img,
 main .cards.overlay.cards.col-2-cards .card-picture img,
 main .cards.overlay.cards.col-3-cards .card-picture img,
-main .cards.overlay .card-picture img {
+main .cards.overlay .card-picture img,
+main .cards.overlay.cards.col-1-cards .card-picture video,
+main .cards.overlay.cards.col-2-cards .card-picture video,
+main .cards.overlay.cards.col-3-cards .card-picture video,
+main .cards.overlay .card-picture video {
     height: 100%;
 }
 
@@ -327,11 +338,16 @@ main .cards.horizontal .card-picture {
 main .cards.horizontal.cards.col-1-cards .card-picture img,
 main .cards.horizontal.cards.col-2-cards .card-picture img,
 main .cards.horizontal.cards.col-3-cards .card-picture img,
-main .cards.horizontal .card-picture img {
+main .cards.horizontal .card-picture img,
+main .cards.horizontal.cards.col-1-cards .card-picture video,
+main .cards.horizontal.cards.col-2-cards .card-picture video,
+main .cards.horizontal.cards.col-3-cards .card-picture video,
+main .cards.horizontal .card-picture video {
     height: 100%;
 }
 
-main .cards.horizontal .card-picture img {
+main .cards.horizontal .card-picture img,
+main .cards.horizontal .card-picture video {
     position: absolute;
     top: 0;
     left: 0;
@@ -357,7 +373,10 @@ main .cards.horizontal .card {
 
     main .cards.col-1-cards .card-picture img,
     main .cards.col-2-cards .card-picture img,
-    main .cards.col-3-cards .card-picture img {
+    main .cards.col-3-cards .card-picture img,
+    main .cards.col-1-cards .card-picture video,
+    main .cards.col-2-cards .card-picture video,
+    main .cards.col-3-cards .card-picture video {
         height: 200px;
     }
 
@@ -371,6 +390,12 @@ main .cards.horizontal .card {
 
     main .section-wrapper > div > .cards + p.button-container {
         justify-content: center;
+    }
+    
+    main .cards.col-1-cards .card-banner .icon,
+    main .cards.col-2-cards .card-banner .icon,
+    main .cards.col-3-cards .card-banner .icon {
+        top: 132px;
     }
 }
 
@@ -427,6 +452,10 @@ main .cards.horizontal .card {
         flex-wrap: wrap;
         max-width: var(--max-width-mobile);
     }
+
+    main .cards .card {
+        max-width: 500px;
+    }
 }
 
 main .cards + p,
@@ -435,7 +464,8 @@ main .cards + a {
     padding-top: 0;
 }
 
-main .cards.nocrop:not(.horizontal):not(.overlay) .card-picture img {
+main .cards.nocrop:not(.horizontal):not(.overlay) .card-picture img,
+main .cards.nocrop:not(.horizontal):not(.overlay) .card-picture video {
     height: auto;
     object-fit: contain;
 }
@@ -446,12 +476,15 @@ main .cards:not(.horizontal) .card-container-link .card-picture {
     overflow: hidden;
 }
 
-main .cards:not(.horizontal) .card-container-link .card-picture img {
+main .cards:not(.horizontal) .card-container-link .card-picture img,
+main .cards:not(.horizontal) .card-container-link .card-picture video {
     transition: filter 0.3s, transform 0.3s;
 }
 
 main .cards:not(.horizontal) .card-container-link:hover .card-picture img,
-main .cards:not(.horizontal) .card-container-link:focus .card-picture img {
+main .cards:not(.horizontal) .card-container-link:focus .card-picture img,
+main .cards:not(.horizontal) .card-container-link:hover .card-picture video,
+main .cards:not(.horizontal) .card-container-link:focus .card-picture video {
     filter: brightness(1.1);
     transform: scale(1.05);
 }
