@@ -57,6 +57,8 @@ export default function decorate($block) {
       const $emptyP = $cell.querySelector(':scope > p:first-child:last-child');
       if ($emptyP && $emptyP.childNodes.length === 0) $emptyP.remove();
     });
+  } else {
+    $block.classList.add('empty-content');
   }
   // Remove white space between section with background and marquee:
   const $previousSection = $sectionWrapper.previousElementSibling;
