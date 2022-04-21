@@ -531,7 +531,23 @@ main .marquee.center .marquee-column:not(.marquee-image) {
 
     /* no text content */
 
-    main .marquee.empty-content {
+    main .marquee.empty-content,
+    main .marquee.empty-content .background img,
+    main .marquee.empty-content .background video {
         min-height: unset;
+        max-height: var(--marquee-height-md);
+    }
+
+    
+    main .marquee.small.empty-content,
+    main .marquee.small.empty-content .background img,
+    main .marquee.small.empty-content .background video {
+        max-height: var(--marquee-height-sm);
+    }
+
+    main .marquee.large.empty-content,
+    main .marquee.large.empty-content .background img,
+    main .marquee.large.empty-content .background video {
+        max-height: var(--marquee-height-lg);
     }
 }
