@@ -519,7 +519,7 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     main .marquee.large .background img,
     main .marquee.large .background video {
         max-height: unset;
-        width: 100%;
+        width: 101%;
         height: 100%;
     }
 
@@ -532,22 +532,28 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     /* no text content */
 
     main .marquee.empty-content,
+    main .marquee.empty-content .background,
     main .marquee.empty-content .background img,
     main .marquee.empty-content .background video {
+        position: unset;
         min-height: unset;
         max-height: var(--marquee-height-md);
     }
 
     
     main .marquee.small.empty-content,
+    main .marquee.small.empty-content .background,
     main .marquee.small.empty-content .background img,
     main .marquee.small.empty-content .background video {
+        position: unset;
         max-height: var(--marquee-height-sm);
     }
 
     main .marquee.large.empty-content,
+    main .marquee.large.empty-content .background,
     main .marquee.large.empty-content .background img,
     main .marquee.large.empty-content .background video {
+        position: unset;
         max-height: var(--marquee-height-lg);
     }
 }
