@@ -15,7 +15,7 @@ footer > div:first-child {
 footer .footer-container .footer {
     padding-left: var(--gutter);
     padding-right: var(--gutter);
-    max-width: var(--max-width-block-laptop);
+    max-width: var(--max-width-block);
     margin-left: auto;
     margin-right: auto;
     padding-top: var(--section-spacing-large);
@@ -27,7 +27,7 @@ footer .footer-container .footer .icon {
     transition: filter 0.3s;
 }
 
-footer .footer-container .footer a .icon:hover {
+footer .footer-container .footer a .icon:not(.icon-stock-logo-dark):hover {
     filter: brightness(0.7);
 }
 
@@ -112,6 +112,7 @@ footer > div.footer-copyright {
     font-size: 14px;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     padding: 32px 0px;
     border-top: 1px solid #DEDEDE;
