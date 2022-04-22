@@ -413,7 +413,7 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     main .marquee.small .background img,
     main .marquee.small .background video {
         max-height: unset;
-        width: 101%;
+        width: 100%;
         height: 100%;
     }
 }
