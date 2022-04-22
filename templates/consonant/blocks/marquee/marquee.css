@@ -515,7 +515,6 @@ main .marquee.center .marquee-column:not(.marquee-image) {
         top: 0;
     }
 
-    main .marquee.large .background,
     main .marquee.large .background img,
     main .marquee.large .background video {
         max-height: unset;
