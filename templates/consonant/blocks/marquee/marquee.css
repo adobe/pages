@@ -417,7 +417,8 @@ main .marquee.center .marquee-column:not(.marquee-image) {
 /* laptop */
 
 @media screen and (min-width: 1000px) {
-    main .marquee {
+    main .marquee,
+    main .marquee:not(.large):not(.small):not(.empty-content) {
         min-height: var(--marquee-height-md);
     }
     
