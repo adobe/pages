@@ -100,7 +100,7 @@ main .marquee .background video {
 
 main .marquee .background img,
 main .marquee .background video {
-    min-height: 180px;
+    min-height: 200px;
 }
 
 main .marquee > .background:last-child {
@@ -127,7 +127,6 @@ main .marquee .background video {
     width: 101%;
     transform: translateX(-0.5%);
     height: 100%;
-    min-height: 100%;
     object-fit: cover;
 }
 
@@ -154,6 +153,11 @@ main .marquee .background > div > p:not(:first-child):not(:empty) {
 main .marquee .marquee-image p,
 main .marquee .background p {
     font-size: var(--body-font-size-s);
+}
+
+main .marquee.large .background img,
+main .marquee.large .background video {
+    min-height: 200px;
 }
 
 main .marquee .marquee-image p {
