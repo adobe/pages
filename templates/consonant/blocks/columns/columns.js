@@ -19,16 +19,28 @@ function lazyDecorteVideoForColumn($column, $a) {
   if (!$a || (!$a.href.endsWith('.mp4') && !$a.href.startsWith('https://www.youtube.com/watch') && !$a.href.startsWith('https://youtu.be/'))) return;
   const decorateVideo = () => {
     if ($column.classList.contains('column-picture')) return;
-    let video = null;
+    let youtube = null;
+    let mp4 = null;
     if ($a.href.endsWith('.mp4')) {
-      video = transformLinkToAnimation($a);
+      mp4 = transformLinkToAnimation($a);
     } else if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
-      video = transformLinkToYoutubeEmbed($a);
+      youtube = transformLinkToYoutubeEmbed($a);
     }
     $column.innerHTML = '';
-    if (video) {
-      $column.appendChild(video);
+    if (youtube) {
       $column.classList.add('column-picture');
+      $column.appendChild(youtube);
+    } else if (mp4) {
+      $column.classList.add('column-picture');
+      const $row = $column.closest('.columns-row');
+      const $cta = $row.querySelector('.button');
+      if ($cta) {
+        const a = createTag('a', { href: $cta.href, title: $cta.title });
+        $column.appendChild(a);
+        a.appendChild(mp4);
+      } else {
+        $column.appendChild(mp4);
+      }
     }
   };
   const addIntersectionObserver = (block) => {
