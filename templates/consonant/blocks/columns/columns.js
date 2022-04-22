@@ -35,7 +35,7 @@ function lazyDecorteVideoForColumn($column, $a) {
       const $row = $column.closest('.columns-row');
       const $cta = $row.querySelector('.button');
       if ($cta) {
-        const a = createTag('a', { href: $cta.href, title: $cta.title });
+        const a = createTag('a', { href: $cta.href, title: $cta.title, target: $cta.target });
         $column.appendChild(a);
         a.appendChild(mp4);
       } else {
@@ -97,7 +97,7 @@ export default function decorate($block) {
             $column.appendChild($picParent);
             $picParent.appendChild($pic);
           } else if ($cta) {
-            const a = createTag('a', { href: $cta.href, title: $cta.title });
+            const a = createTag('a', { href: $cta.href, title: $cta.title, target: $cta.target });
             $column.appendChild(a);
             a.appendChild($pic);
           } else {
