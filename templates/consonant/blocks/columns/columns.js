@@ -33,7 +33,7 @@ function lazyDecorteVideoForColumn($column, $a) {
     } else if (mp4) {
       $column.classList.add('column-picture');
       const $row = $column.closest('.columns-row');
-      const $cta = $row.querySelector('.button');
+      const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
       if ($cta) {
         const a = createTag('a', {
           href: $cta.href, title: $cta.title, target: $cta.target, rel: $cta.rel,
@@ -92,7 +92,7 @@ export default function decorate($block) {
         const $pic = $column.querySelector('picture:first-child:last-child');
         if ($pic) {
           $column.classList.add('column-picture');
-          const $cta = $row.querySelector('.button');
+          const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
           const $picParent = $pic.parentElement;
           $column.innerHTML = '';
           if ($picParent.tagName.toLowerCase() === 'a') {
