@@ -124,7 +124,7 @@ main .marquee.light .background a {
 }
 
 main .marquee .background video {
-    width: 101%;
+    min-width: 101%;
     transform: translateX(-0.5%);
     height: 100%;
     object-fit: cover;
