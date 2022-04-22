@@ -394,6 +394,22 @@ main .marquee.center .marquee-column:not(.marquee-image) {
         margin-left: 0;
         align-items: flex-start;
     }    
+
+    main .marquee.large .background > div,
+    main .marquee.large .background img,
+    main .marquee.large .background video {
+        max-height: unset;
+        width: 101%;
+        height: 100%;
+    }    
+
+    main .marquee.small .background > div,
+    main .marquee.small .background img,
+    main .marquee.small .background video {
+        max-height: unset;
+        width: 101%;
+        height: 100%;
+    }
 }
 
 /* laptop */
