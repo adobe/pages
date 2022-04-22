@@ -535,11 +535,6 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     /* small */
 
     main .marquee.small {
-        min-height: var(--marquee-height-lg);
-        display: flex;
-    }
-
-    main .marquee.small {
         min-height: var(--marquee-height-sm);
     }
 
