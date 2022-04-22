@@ -255,10 +255,17 @@ export function decorateBlocks($main) {
     }
     if (!section) return;
 
+    // Hide invisible blocks
     const invisBlocks = ['template', 'metadata', 'section-metadata'];
     invisBlocks.forEach((invisBlockName) => {
       if (blockName === invisBlockName) $block.classList.add('hidden');
     });
+    const children = Array.from(section.querySelectorAll(':scope > div > *'));
+    let hideSection = true;
+    children.forEach((child) => {
+      if (!child.classList.contains('hidden')) hideSection = false;
+    });
+    if (hideSection) section.remove();
 
     // Wrap text-nodes or <a>-nodes in a <p> if they are alone...
     const divs = Array.from($block.querySelectorAll(':scope > div div'));
