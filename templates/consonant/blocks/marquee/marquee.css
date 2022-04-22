@@ -393,16 +393,14 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     main .marquee.large .marquee-image {
         margin-left: 0;
         align-items: flex-start;
-    }    
+    }
 
+    main .marquee .background > div,
+    main .marquee .background img,
+    main .marquee .background video,
     main .marquee.large .background > div,
     main .marquee.large .background img,
-    main .marquee.large .background video {
-        max-height: unset;
-        width: 101%;
-        height: 100%;
-    }    
-
+    main .marquee.large .background video,
     main .marquee.small .background > div,
     main .marquee.small .background img,
     main .marquee.small .background video {
@@ -534,36 +532,11 @@ main .marquee.center .marquee-column:not(.marquee-image) {
         max-height: unset;
     }
 
-    main .marquee.large .background > div,
-    main .marquee.large .background img,
-    main .marquee.large .background video {
-        max-height: unset;
-        width: 101%;
-        height: 100%;
-    }
-
     /* small */
 
     main .marquee.small {
         min-height: var(--marquee-height-lg);
         display: flex;
-    }
-
-    main .marquee.small .background {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        max-height: unset;
-    }
-
-    main .marquee.small .background > div,
-    main .marquee.small .background img,
-    main .marquee.small .background video {
-        max-height: unset;
-        width: 101%;
-        height: 100%;
     }
 
     main .marquee.small {
