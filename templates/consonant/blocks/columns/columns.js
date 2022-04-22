@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 import {
-  isNodeName,
+  createTag,
   transformLinkToAnimation,
   transformLinkToYoutubeEmbed,
 } from '../../consonant.js';
@@ -71,12 +71,27 @@ export default function decorate($block) {
     const $columns = Array.from($row.children);
     $columns.forEach(($column) => {
       $column.classList.add('column');
-      if (isNodeName($column.firstElementChild, 'picture') || isNodeName($column.firstElementChild.firstElementChild, 'picture')) {
-        $column.classList.add('column-picture');
-      }
       const $a = $column.querySelector('a');
-      if ($a && $a.href.startsWith('https://') && $a.closest('.column').childNodes.length === 1) {
+      if ($a && $a.closest('.column').childNodes.length === 1 && ($a.href.endsWith('.mp4') || $a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
         lazyDecorteVideoForColumn($column, $a);
+      } else {
+        const $pic = $column.querySelector('picture:first-child:last-child');
+        if ($pic) {
+          $column.classList.add('column-picture');
+          const $cta = $row.querySelector('.button');
+          const $picParent = $pic.parentElement;
+          $column.innerHTML = '';
+          if ($picParent.tagName.toLowerCase() === 'a') {
+            $column.appendChild($picParent);
+            $picParent.appendChild($pic);
+          } else if ($cta) {
+            const a = createTag('a', { href: $cta.href, title: $cta.title });
+            $column.appendChild(a);
+            a.appendChild($pic);
+          } else {
+            $column.appendChild($pic);
+          }
+        }
       }
     });
   });

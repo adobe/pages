@@ -188,12 +188,6 @@ main .columns .column-picture a {
   line-height: 0;
 }
 
-main .columns .column-picture a:hover img,
-main .columns .column-picture a:focus img {
-  filter: brightness(1.1);
-  transform: scale(1.05);
-}
-
 main .dark-theme .columns p {
   color: var(--color-white);
 }
