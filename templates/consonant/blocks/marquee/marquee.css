@@ -384,6 +384,10 @@ main .marquee.center .marquee-column:not(.marquee-image) {
         max-width: unset;
     }
 
+    main .marquee:not(.large):not(.small):not(.empty-content) {
+        min-height: var(--marquee-height-sm);
+    }
+
     /* large */
 
     main .marquee.large .marquee-column {
