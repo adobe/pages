@@ -100,7 +100,7 @@ main .marquee .background video {
 
 main .marquee .background img,
 main .marquee .background video {
-    min-height: 180px;
+    min-height: 200px;
 }
 
 main .marquee > .background:last-child {
@@ -124,10 +124,9 @@ main .marquee.light .background a {
 }
 
 main .marquee .background video {
-    width: 101%;
+    min-width: 101%;
     transform: translateX(-0.5%);
-    height: auto;
-    min-height: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -154,6 +153,11 @@ main .marquee .background > div > p:not(:first-child):not(:empty) {
 main .marquee .marquee-image p,
 main .marquee .background p {
     font-size: var(--body-font-size-s);
+}
+
+main .marquee.large .background img,
+main .marquee.large .background video {
+    min-height: 200px;
 }
 
 main .marquee .marquee-image p {
@@ -384,6 +388,10 @@ main .marquee.center .marquee-column:not(.marquee-image) {
         max-width: unset;
     }
 
+    main .marquee:not(.large):not(.small):not(.empty-content) {
+        min-height: var(--marquee-height-sm);
+    }
+
     /* large */
 
     main .marquee.large .marquee-column {
@@ -393,13 +401,28 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     main .marquee.large .marquee-image {
         margin-left: 0;
         align-items: flex-start;
-    }    
+    }
+
+    main .marquee .background > div,
+    main .marquee .background img,
+    main .marquee .background video,
+    main .marquee.large .background > div,
+    main .marquee.large .background img,
+    main .marquee.large .background video,
+    main .marquee.small .background > div,
+    main .marquee.small .background img,
+    main .marquee.small .background video {
+        max-height: unset;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 /* laptop */
 
 @media screen and (min-width: 1000px) {
-    main .marquee {
+    main .marquee,
+    main .marquee:not(.large):not(.small):not(.empty-content) {
         min-height: var(--marquee-height-md);
     }
     
@@ -513,14 +536,9 @@ main .marquee.center .marquee-column:not(.marquee-image) {
         position: absolute;
         left: 0;
         top: 0;
-    }
-
-    main .marquee.large .background,
-    main .marquee.large .background img,
-    main .marquee.large .background video {
-        max-height: unset;
-        width: 101%;
+        width: 100%;
         height: 100%;
+        max-height: unset;
     }
 
     /* small */

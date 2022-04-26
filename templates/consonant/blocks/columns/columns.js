@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 import {
-  isNodeName,
+  createTag,
   transformLinkToAnimation,
   transformLinkToYoutubeEmbed,
 } from '../../consonant.js';
@@ -19,16 +19,30 @@ function lazyDecorteVideoForColumn($column, $a) {
   if (!$a || (!$a.href.endsWith('.mp4') && !$a.href.startsWith('https://www.youtube.com/watch') && !$a.href.startsWith('https://youtu.be/'))) return;
   const decorateVideo = () => {
     if ($column.classList.contains('column-picture')) return;
-    let video = null;
+    let youtube = null;
+    let mp4 = null;
     if ($a.href.endsWith('.mp4')) {
-      video = transformLinkToAnimation($a);
+      mp4 = transformLinkToAnimation($a);
     } else if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
-      video = transformLinkToYoutubeEmbed($a);
+      youtube = transformLinkToYoutubeEmbed($a);
     }
     $column.innerHTML = '';
-    if (video) {
-      $column.appendChild(video);
+    if (youtube) {
       $column.classList.add('column-picture');
+      $column.appendChild(youtube);
+    } else if (mp4) {
+      $column.classList.add('column-picture');
+      const $row = $column.closest('.columns-row');
+      const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
+      if ($cta) {
+        const a = createTag('a', {
+          href: $cta.href, title: $cta.title, target: $cta.target, rel: $cta.rel,
+        });
+        $column.appendChild(a);
+        a.appendChild(mp4);
+      } else {
+        $column.appendChild(mp4);
+      }
     }
   };
   const addIntersectionObserver = (block) => {
@@ -71,12 +85,29 @@ export default function decorate($block) {
     const $columns = Array.from($row.children);
     $columns.forEach(($column) => {
       $column.classList.add('column');
-      if (isNodeName($column.firstElementChild, 'picture') || isNodeName($column.firstElementChild.firstElementChild, 'picture')) {
-        $column.classList.add('column-picture');
-      }
       const $a = $column.querySelector('a');
-      if ($a && $a.href.startsWith('https://') && $a.closest('.column').childNodes.length === 1) {
+      if ($a && $a.closest('.column').childNodes.length === 1 && ($a.href.endsWith('.mp4') || $a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
         lazyDecorteVideoForColumn($column, $a);
+      } else {
+        const $pic = $column.querySelector('picture:first-child:last-child');
+        if ($pic) {
+          $column.classList.add('column-picture');
+          const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
+          const $picParent = $pic.parentElement;
+          $column.innerHTML = '';
+          if ($picParent.tagName.toLowerCase() === 'a') {
+            $column.appendChild($picParent);
+            $picParent.appendChild($pic);
+          } else if ($cta) {
+            const a = createTag('a', {
+              href: $cta.href, title: $cta.title, target: $cta.target, rel: $cta.rel,
+            });
+            $column.appendChild(a);
+            a.appendChild($pic);
+          } else {
+            $column.appendChild($pic);
+          }
+        }
       }
     });
   });
