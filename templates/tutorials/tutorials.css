@@ -200,7 +200,50 @@ main .card:hover h3 a {
 }
 
 
+/* cards */
 
+main .cards > div {
+	width: 100%;
+	margin: 0 0 40px 0;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #EAEAEA;
+	font-size: 16px;
+	line-height: 20px;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+main .cards > div,
+main .cards > div p a,
+main .cards > div p a:hover {
+	color: #707070;
+}
+
+main .cards > div img {
+	display: block;
+	width: 100%;
+}
+
+main .cards > div > div:last-child {
+	padding: 40px;
+}
+
+main .cards > div h3 {
+	font-size: 20px;
+	line-height: 27px;
+	margin: 0 0 10px 0;
+}
+
+main .cards > div h3,
+main .cards > div h3 a,
+main .cards > div h3 a:hover {
+	color: #2C2C2C;	
+}
+
+main .cards > div a:hover {
+	text-decoration: none;
+}
 
 
 /* desktop specific styles */
@@ -231,7 +274,7 @@ main .card:hover h3 a {
 	  display: flex;
 	  flex-wrap: nowrap;
 	  margin: auto;
-	  justify-content: center;
+	  justify-content: flex-start;
 	  max-width: 1416px;
 	}
 	
@@ -247,22 +290,27 @@ main .card:hover h3 a {
 	}
 
 	main .card h3 {
-  		font-size: 26px;
-  		line-height: 32px;
-  	}
-  	
-  	main .default > p:last-child {
-	  	margin-bottom: 0;
-  	}
-  	
-  	header p:first-of-type {
-	  	margin-left: 12px;
-  	}
-  	
-  	main .card-section h2,
-  	main .card-section > p {
-	  	text-align: center;
-  	}
+		font-size: 26px;
+		line-height: 32px;
+	}
+
+	.home main .cards > div {
+		max-width: 338px;
+		margin: 0 8px 16px 8px;
+	}
+
+	main .default > p:last-child {
+		margin-bottom: 0;
+	}
+	
+	header p:first-of-type {
+		margin-left: 12px;
+	}
+	
+	main .card-section h2,
+	main .card-section > p {
+		text-align: center;
+	}
 }
 
 
