@@ -104,7 +104,7 @@ main .marquee .background video {
 }
 
 main .marquee > .background:last-child {
-    position: unset;
+    position: relative;
 }
 
 main .marquee .background p {
@@ -147,7 +147,8 @@ main .marquee .background > div > p:not(:first-child):not(:empty) {
     height: auto;
     white-space: nowrap;
     width: 100%;
-    color: var(--color-white)
+    color: var(--color-white);
+    z-index: 1;
 }
 
 main .marquee .marquee-image p,
@@ -310,7 +311,7 @@ main .marquee.large .marquee-column:not(.marquee-image):not(:empty):first-child 
 main .marquee.large .background,
 main .marquee.large .background img,
 main .marquee.large .background video {
-    position: unset;
+    position: relative;
     width: 100%;
     height: auto;
 }
@@ -553,7 +554,7 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     main .marquee.empty-content .background,
     main .marquee.empty-content .background img,
     main .marquee.empty-content .background video {
-        position: unset;
+        position: relative;
         min-height: unset;
         max-height: var(--marquee-height-md);
     }
@@ -563,7 +564,7 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     main .marquee.small.empty-content .background,
     main .marquee.small.empty-content .background img,
     main .marquee.small.empty-content .background video {
-        position: unset;
+        position: relative;
         max-height: var(--marquee-height-sm);
     }
 
@@ -571,7 +572,7 @@ main .marquee.center .marquee-column:not(.marquee-image) {
     main .marquee.large.empty-content .background,
     main .marquee.large.empty-content .background img,
     main .marquee.large.empty-content .background video {
-        position: unset;
+        position: relative;
         max-height: var(--marquee-height-lg);
     }
 }
