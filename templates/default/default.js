@@ -1112,6 +1112,7 @@ async function decoratePage() {
   insertFooter();
   linkInNewTabHelper();
   if (window.pages.product) {
+    document.getElementById('favicon-safari').href = `/icons/${window.pages.product.replaceAll('-', '')}.ico`;
     document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
   }
   await replaceEmbeds();

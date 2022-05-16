@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { debounce } from '../../scripts/scripts.js';
+import { debounce } from '../../../templates/default/default.js';
 
 const videoParent = document.querySelector('.clvideo > div');
 let hasPlayed = false;
@@ -100,7 +100,7 @@ function layoutSetUp() {
     </div>
   `;
   videoEl.innerHTML = video;
-  document.querySelector('.clvideo > div > div:last-of-type').innerHTML = transcript.outerHTML;
+  document.querySelector('.clvideo').append(transcript);
   document.querySelector('.transcript-container').remove();
 
   function runVideo() {

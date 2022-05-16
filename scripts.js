@@ -380,6 +380,7 @@ function run() {
   window.hlx.dependencies = [];
 
   if (window.pages.product) {
+    document.getElementById('favicon-safari').href = `/icons/${window.pages.product}.ico`;
     document.getElementById('favicon').href = `/icons/${window.pages.product}.svg`;
   }
 

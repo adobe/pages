@@ -11,6 +11,10 @@ main .section-wrapper:first-of-type.separator-container {
     padding-top: 0;
 }
 
+main .section-wrapper:not(.background-container):not(.marquee-container):not(.separator-container) + .section-wrapper.separator-container {
+    margin-top: var(--section-spacing-large);
+}
+
 main .section-wrapper:first-of-type.separator-container > div > :first-child:not(.separator) {
     margin-top: var(--header-height);
     padding-top: var(--section-spacing);
@@ -36,7 +40,7 @@ main .section-wrapper.separator-container > div {
 main .section-wrapper.separator-container > div > :not(.separator) {
     padding-left: var(--gutter);
     padding-right: var(--gutter);
-    max-width: var(--max-width-block-laptop);
+    max-width: var(--max-width-block);
     margin-left: auto;
     margin-right: auto;
 }

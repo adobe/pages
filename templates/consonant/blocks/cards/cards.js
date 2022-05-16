@@ -9,6 +9,9 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import {
+  transformLinkToAnimation,
+} from '../../consonant.js';
 
 export default function decorate($block) {
   const $cards = Array.from($block.children);
@@ -19,8 +22,8 @@ export default function decorate($block) {
   if (numberOfCards > 0) {
     $block.classList.add(`col-${numberOfCards}-cards`);
   }
-  const $pics = $block.querySelectorAll(':scope picture');
-  $block.querySelectorAll(':scope p:empty').forEach(($p) => $p.remove());
+  const $pics = $block.querySelectorAll('picture');
+  $block.querySelectorAll('p:empty').forEach(($p) => $p.remove());
   if ($pics.length === 1 && $pics[0].parentElement.tagName === 'P') {
     const $parentDiv = $pics[0].closest('div');
     const $parentParagraph = $pics[0].parentNode;
@@ -33,38 +36,42 @@ export default function decorate($block) {
   $cards.forEach(($card) => {
     $card.classList.add('card');
     const $cells = Array.from($card.children);
-    let hasPic;
-    let hasLink;
-    $cells.forEach(($e, cell) => {
-      const $cardLink = $e.querySelector(':scope a:first-child:last-child');
-      if (cell === 0) {
-        const pic = $e.querySelector(':scope picture');
+    let hasLink = false;
+    $cells.forEach(($cell, index) => {
+      if (index === 0) {
+        const pic = $cell.querySelector('picture');
         if (pic) {
-          $e.classList.add('card-picture');
-          hasPic = true;
+          $cell.classList.add('card-picture');
         } else {
-          $e.classList.add('card-text');
+          const $a = $cell.querySelector('a');
+          if ($a && $a.href.startsWith('https://') && $a.href.endsWith('.mp4')) {
+            let video = null;
+            video = transformLinkToAnimation($a);
+            $cell.innerHTML = '';
+            if (video) {
+              $cell.appendChild(video);
+              $cell.classList.add('card-picture');
+            }
+          } else {
+            $cell.classList.add('card-text');
+          }
         }
-      } else if (cell === 1) {
-        if (!hasPic && $cardLink) {
-          $e.classList.add('card-text');
-          $e.classList.add('card-link');
+      } else if (index === 1) {
+        $cell.classList.add('card-text');
+      } else if (index === 2) {
+        const $cardLink = $cell.querySelector('a');
+        if ($cardLink) {
+          $cell.classList.add('card-link');
           hasLink = true;
-        } else {
-          $e.classList.add('card-text');
         }
-      } else if (cell === 2) {
-        if ($cardLink && !hasLink) {
-          $e.classList.add('card-text');
-          $e.classList.add('card-link');
-          hasLink = true;
-        } else {
-          $e.remove();
-        }
+      } else if (index === 3) {
+        $cell.classList.add('card-banner');
+      } else {
+        $cell.remove();
       }
     });
     if (hasLink) {
-      const $cardLink = $card.querySelector(':scope .card-link a');
+      const $cardLink = $card.querySelector('.card-link a');
       if ($cardLink) {
         $cardLink.classList.remove('button');
         $cardLink.classList.add('card-container-link');
@@ -73,7 +80,7 @@ export default function decorate($block) {
         $cells.forEach((div) => {
           $cardLink.append(div);
         });
-        $card.querySelector(':scope .card-link').remove();
+        $card.querySelector('.card-link').remove();
       }
     }
     if (overlay) {

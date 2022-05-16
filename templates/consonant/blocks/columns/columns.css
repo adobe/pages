@@ -172,7 +172,8 @@ main .columns .column-picture {
 
 main .columns .column-picture video {
   width: 100%;
-  min-width: 100.1%; /* Hack-fix for black line on the right of videos */
+  transform: translateX(-0.1%);
+  min-width: 100.3%; /* ^ Fix for black line on the edges of videos */
   height: auto;
 }
 
@@ -185,12 +186,6 @@ main .columns .column-picture img {
 main .columns .column-picture a {
   display: block;
   line-height: 0;
-}
-
-main .columns .column-picture a:hover img,
-main .columns .column-picture a:focus img {
-  filter: brightness(1.1);
-  transform: scale(1.05);
 }
 
 main .dark-theme .columns p {

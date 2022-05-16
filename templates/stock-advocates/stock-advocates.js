@@ -851,5 +851,5 @@ export default async function decoratePage() {
   addAccessibility();
   decorateVideos();
 
-  document.getElementById('favicon').href = 'https://stock.adobe.com/favicon.ico';
+  document.getElementById('favicon').href = '/icons/stock.ico';
 }

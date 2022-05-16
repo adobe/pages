@@ -31,7 +31,7 @@ function decorateVideoBlock($block) {
 
   const $a = $block.querySelector('a');
 
-  if ($a && $a.textContent.startsWith('https://')) {
+  if ($a && $a.href.startsWith('https://')) {
     const url = new URL($a.href);
     const usp = new URLSearchParams(url.search);
     let embedHTML = '';
