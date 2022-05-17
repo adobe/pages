@@ -489,43 +489,44 @@ export function decorateButtons(block = document) {
       });
     }
     if (!blockNames.some((e) => $blocksWithoutButton.includes(e))) {
-      let buttonsOnly = true;
-      let $c = $a.parentElement;
-      if (!isNodeName($c, 'p') && (isNodeName($c, 'em') || isNodeName($c, 'strong'))) {
-        $c = $c.parentElement;
-        if (!isNodeName($c, 'p') && (isNodeName($c, 'em') || isNodeName($c, 'strong'))) {
-          $c = $c.parentElement;
-        }
-      }
-      const $elementsAround$a = Array.from($c.childNodes);
-      $elementsAround$a.forEach((e) => {
-        if (!isNodeName(e, 'a') && !isNodeName(e, 'em') && !isNodeName(e, 'strong') && !isNodeName(e, '#text')) {
-          buttonsOnly = false;
-        } else if (isNodeName(e, '#text')) {
-          const re = new RegExp('^\\s*$');
-          if (!re.test(e.textContent)) {
-            buttonsOnly = false;
+      const $p = $a.closest('p');
+      if ($p) {
+        const childNodes = Array.from($p.childNodes);
+        const whitespace = new RegExp('^\\s*$');
+        // Check that the 'button-container' contains buttons only
+        const buttonsOnly = childNodes.every(($c) => {
+          if (isNodeName($c, 'a') || (isNodeName($c, '#text') && whitespace.test($c.textContent))) {
+            return true;
+          } else if ($c.childNodes.length > 0) {
+            return Array.from($c.childNodes).every(($cc) => {
+              if (isNodeName($cc, 'a') || (isNodeName($cc, '#text') && whitespace.test($cc.textContent))) {
+                return true;
+              } else if ($cc.childNodes.length > 0) {
+                // Could be nested twice for 'em' and 'strong' tags.
+                return Array.from($cc.childNodes).every(($ccc) => isNodeName($ccc, 'a') || (isNodeName($ccc, '#text') && whitespace.test($ccc.textContent)));
+              } else return false;
+            });
+          } else return false;
+        });
+        if (buttonsOnly) {
+          $p.classList.add('button-container');
+          const $up = $a.parentElement;
+          const $twoUp = $a.parentElement.parentElement;
+          const $threeUp = $a.parentElement.parentElement.parentElement;
+          if (isNodeName($up, 'p')) {
+            $a.className = 'button transparent'; // default
           }
-        }
-      });
-      if (!$a.querySelector('img') && buttonsOnly && isNodeName($c, 'p')) {
-        $c.classList.add('button-container');
-        const $up = $a.parentElement;
-        const $twoUp = $a.parentElement.parentElement;
-        const $threeUp = $a.parentElement.parentElement.parentElement;
-        if (isNodeName($up, 'p')) {
-          $a.className = 'button transparent'; // default
-        }
-        if (isNodeName($up, 'strong') && isNodeName($twoUp, 'p')) {
-          $a.className = 'button primary';
-        }
-        if (isNodeName($up, 'em') && isNodeName($twoUp, 'p')) {
-          $a.className = 'button secondary';
-        }
-        if (((isNodeName($up, 'em') && isNodeName($twoUp, 'strong'))
+          if (isNodeName($up, 'strong') && isNodeName($twoUp, 'p')) {
+            $a.className = 'button primary';
+          }
+          if (isNodeName($up, 'em') && isNodeName($twoUp, 'p')) {
+            $a.className = 'button secondary';
+          }
+          if (((isNodeName($up, 'em') && isNodeName($twoUp, 'strong'))
             || (isNodeName($up, 'strong') && isNodeName($twoUp, 'em')))
             && isNodeName($threeUp, 'p')) {
-          $a.className = 'button accent';
+            $a.className = 'button accent';
+          }
         }
       }
     }
