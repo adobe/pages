@@ -582,7 +582,7 @@ export function unwrapBlock($block) {
 
 function splitSections($main) {
   $main.querySelectorAll(':scope > div > div').forEach(($block) => {
-    const blocksToSplit = ['marquee', 'separator'];
+    const blocksToSplit = ['marquee', 'separator', 'carousel'];
 
     if (blocksToSplit.includes($block.className)) {
       unwrapBlock($block);
