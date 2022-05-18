@@ -182,6 +182,7 @@ function buildCarousel($imgSlides, $block, aspectRatio = '50%') {
     const $slide = createTag('div', { class: 'carousel-slide' });
     $slide.appendChild($imgSlide.img);
     $imgSlide.img.tabIndex = 0;
+    $imgSlide.ariaLabel = `Slide ${index + 1}`;
     const $expandButton = createTag('button', { class: 'carousel-expand', 'aria-label': 'Open in full screen' });
     $expandButton.appendChild(createSVG('expand'));
     $slide.appendChild($expandButton);
