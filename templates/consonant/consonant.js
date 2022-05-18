@@ -68,6 +68,14 @@ export function createTag(name, attrs) {
   return el;
 }
 
+export function createSVG(id) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `/icons.svg#${id}`);
+  svg.appendChild(use);
+  return svg;
+}
+
 /**
  * Loads a CSS file.
  * @param {string} href The path to the CSS file
