@@ -36,7 +36,6 @@ const createVideoArea = ($block) => {
   return (uri) => {
     $videoArea.innerHTML = '';
     const $video = document.createElement('video');
-    $video.setAttribute('controls', 'false');
     $video.setAttribute('muted', 'muted');
     $video.setAttribute('playsinline', 'playsinline');
     $video.setAttribute('autoplay', 'autoplay');
