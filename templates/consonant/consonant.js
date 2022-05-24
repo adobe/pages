@@ -9,54 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-
-export function sampleRUM(checkpoint, data = {}) {
-  try {
-    window.hlx = window.hlx || {};
-    if (!window.hlx.rum) {
-      const usp = new URLSearchParams(window.location.search);
-      const weight = (usp.get('rum') === 'on') ? 1 : 100; // with parameter, weight is 1. Defaults to 100.
-      // eslint-disable-next-line no-bitwise
-      const hashCode = (s) => s.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0)) | 0, 0);
-      const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${Math.random().toString(16).substr(2, 14)}`;
-      const random = Math.random();
-      const isSelected = (random * weight < 1);
-      // eslint-disable-next-line object-curly-newline
-      window.hlx.rum = { weight, id, random, isSelected };
-    }
-    const { random, weight, id } = window.hlx.rum;
-    if (random && (random * weight < 1)) {
-      const sendPing = () => {
-        // eslint-disable-next-line object-curly-newline
-        const body = JSON.stringify({ weight, id, referer: window.location.href, generation: 'ccx-gen2', checkpoint, ...data });
-        const url = `https://rum.hlx3.page/.rum/${weight}`;
-        // eslint-disable-next-line no-unused-expressions
-        navigator.sendBeacon(url, body);
-      };
-      sendPing();
-      // special case CWV
-      if (checkpoint === 'cwv') {
-        // eslint-disable-next-line import/no-unresolved
-        import('https://unpkg.com/web-vitals?module').then((mod) => {
-          const storeCWV = (measurement) => {
-            data.cwv = {};
-            data.cwv[measurement.name] = measurement.value;
-            sendPing();
-          };
-          mod.getCLS(storeCWV);
-          mod.getFID(storeCWV);
-          mod.getLCP(storeCWV);
-        });
-      }
-    }
-  } catch (e) {
-    // something went wrong
-  }
-}
-
-sampleRUM('top');
-window.addEventListener('load', () => sampleRUM('load'));
-document.addEventListener('click', () => sampleRUM('click'));
+import { sampleRUM } from '../../pages/scripts/scripts.js';
 
 export function createTag(name, attrs) {
   const el = document.createElement(name);
