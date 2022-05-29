@@ -17,6 +17,7 @@ import {
   createTag,
   externalLinks,
   loadLocalHeader,
+  replaceEmbeds,
 } from '../default/default.js';
 import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
@@ -289,6 +290,7 @@ async function decorateHome() {
 }
 
 export default async function decoratePage() {
+  replaceEmbeds();
   addDefaultClass('main>div');
   setBackgroundImage('body.step', '/static/lightroom-classic/progress-circle.gif');
 
