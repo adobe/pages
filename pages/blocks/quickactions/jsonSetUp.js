@@ -20,7 +20,7 @@ export default function jsonSetUp($node) {
       }
 
       if (index === 1) {
-        object.text = child.innerHTML;
+        object.text = child.innerHTML.replace(/<a /g, '<a target="_blank" ');
       }
 
       if (index === 2) {
