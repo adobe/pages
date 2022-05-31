@@ -16,7 +16,9 @@ import {
   toClassName,
   makeLogger,
   loadCSS,
-} from '../../pages/scripts/scripts.js';
+  appearMain,
+  replaceEmbeds,
+} from '../default/default.js';
 
 const lgr = makeLogger('template:advocates');
 
@@ -815,6 +817,7 @@ function generalHacks() {
 }
 
 export default async function decoratePage() {
+  await replaceEmbeds();
   makeLinksRelative();
   generalHacks();
   decorateTables();
@@ -833,6 +836,7 @@ export default async function decoratePage() {
     decorateHeroSection();
   }
   decorateBlocks(document.querySelector('main'));
+  appearMain();
   decorateParallax();
   decorateOverlay();
   decorateInternalAdvocates();

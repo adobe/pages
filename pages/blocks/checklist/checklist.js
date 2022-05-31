@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { debounce } from '../../scripts/scripts.js';
+import { debounce } from '../../../templates/default/default.js';
 
 const videoParent = document.querySelector('.clvideo > div');
 let hasPlayed = false;

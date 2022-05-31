@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { createTag } from '../../scripts/scripts.js';
+import { createTag } from '../../../templates/default/default.js';
 
 function decorateLinkTexting($linktexting) {
   // const $linktexting = document.querySelector('main div.linktexting');

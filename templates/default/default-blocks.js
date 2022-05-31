@@ -15,7 +15,7 @@
 import {
   createTag,
   toClassName,
-} from './scripts.js';
+} from './default.js';
 
 export function setExternalLinks() {
   if (!document.querySelectorAll('main a')) return;

@@ -12,7 +12,7 @@
 
 import {
   createTag,
-} from '../../../pages/scripts/scripts.js';
+} from '../../default/default.js';
 import { sendSMS } from './branch.js';
 
 export function openModalLink(el, app) {

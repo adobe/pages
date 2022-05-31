@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { parseEmbedPath } from '../../../pages/scripts/scripts.js';
+import { parseEmbedPath } from '../../../templates/default/default.js';
 import cases from './cases/parseEmbedPath.js';
 
 /* global expect */

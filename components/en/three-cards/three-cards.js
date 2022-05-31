@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { isNodeName } from '../../../pages/scripts/scripts.js';
+import { isNodeName } from '../../../templates/default/default.js';
 
 /** @type {import("../../component").ComponentDecorator} */
 export default function decorate(blockEl) {

@@ -13,7 +13,7 @@
 import {
   createTag,
   externalizeImageSources,
-} from '../../../pages/scripts/scripts.js';
+} from '../../default/default.js';
 import { hoist, openModalLink, wrapContents } from '../scripts/scripts.js';
 
 function parseClassName(s) {

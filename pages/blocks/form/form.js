@@ -20,7 +20,7 @@ import {
   makeLogger,
   createTag,
   insertContentEmbed,
-} from '../../scripts/scripts.js';
+} from '../../../templates/default/default.js';
 
 const lgr = makeLogger('blocks:form');
 /**

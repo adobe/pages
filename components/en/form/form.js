@@ -13,7 +13,7 @@
 import { decorateForm } from '../../../pages/blocks/form/form.js';
 import {
   hideElements, makeLogger, showElements, toClassName,
-} from '../../../pages/scripts/scripts.js';
+} from '../../../templates/default/default.js';
 
 const lgr = makeLogger('components:en:form');
 

@@ -23,7 +23,7 @@ import {
   loadLocalHeader,
   classify,
   appearMain,
-} from '../pages/scripts/scripts.js';
+} from '../templates/default/default.js';
 
 export function playVideo() {
   document.getElementById('placeholder').classList.add('hidden');

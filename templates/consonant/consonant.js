@@ -687,7 +687,48 @@ function decoratePictures(main) {
   });
 }
 
+/**
+ * Builds a block DOM Element from a two dimensional array
+ * @param {string} blockName name of the block
+ * @param {any} content two dimensional array or string or object of content
+ */
+export function buildBlock(blockName, content) {
+  const table = Array.isArray(content) ? content : [[content]];
+  const blockEl = document.createElement('div');
+  // build image block nested div structure
+  blockEl.classList.add(blockName);
+  table.forEach((row) => {
+    const rowEl = document.createElement('div');
+    row.forEach((col) => {
+      const colEl = document.createElement('div');
+      const vals = col.elems ? col.elems : [col];
+      vals.forEach((val) => {
+        if (val) {
+          if (typeof val === 'string') {
+            colEl.innerHTML += val;
+          } else {
+            colEl.appendChild(val);
+          }
+        }
+      });
+      rowEl.appendChild(colEl);
+    });
+    blockEl.appendChild(rowEl);
+  });
+  return (blockEl);
+}
+
+function createFragmentBlocks(main) {
+  const ps = [...main.querySelectorAll('p')];
+  const filteredPs = ps.filter((p) => p.textContent.startsWith('/'));
+  filteredPs.forEach((p) => {
+    const path = p.textContent.split('.')[0];
+    p.replaceWith(buildBlock('fragment', `${new URL(path, window.location.href)}`));
+  });
+}
+
 export async function decorateMain($main) {
+  createFragmentBlocks($main);
   splitSections($main);
   wrapSections($main.querySelectorAll(':scope > div'));
   deleteEmptySections($main);
@@ -747,6 +788,11 @@ async function loadLazy() {
   sampleRUM('lcp');
 
   loadBlocks(main);
+
+  if (window.pages.product) {
+    document.getElementById('favicon-safari').href = `/icons/${window.pages.product.replaceAll('-', '')}.ico`;
+    document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
+  }
 }
 
 /**
