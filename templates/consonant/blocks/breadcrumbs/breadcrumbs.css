@@ -16,7 +16,7 @@ main .section-wrapper:last-of-type.breadcrumbs-container .breadcrumbs:last-child
 }
 
 main .section-wrapper.breadcrumbs-container {
-    padding: 0 0 0 var(--gutter);
+    padding: 0 var(--gutter);
     overflow: hidden;
 }
 
