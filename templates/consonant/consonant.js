@@ -787,6 +787,7 @@ async function loadLazy() {
   // post LCP actions go here
   sampleRUM('lcp');
 
+  loadCSS('/pages/styles/lazy-styles.css');
   loadBlocks(main);
 
   if (window.pages.product) {
