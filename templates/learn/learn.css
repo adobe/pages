@@ -436,17 +436,12 @@ body.step.loaded {
 	}
 	
 	main .card.index-steps .img {
-	    height: 100%;
 	    background-size: cover;
 	}
 	
-	main .card.index-steps .text {
-		width: 66%;
+	main .default > p:last-child {
+		margin-bottom: 0;
 	}
-  	
-  	main .default > p:last-child {
-	  	margin-bottom: 0;
-  	}
   	
 }
 
