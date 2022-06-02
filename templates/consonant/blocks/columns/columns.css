@@ -65,6 +65,7 @@ main .columns .column {
   min-width: 50%;
   max-width: 50%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 main .columns .column:not(.column-picture) {
@@ -172,8 +173,8 @@ main .columns .column-picture {
 
 main .columns .column-picture video {
   width: 100%;
-  transform: translateX(-0.1%);
-  min-width: 100.3%; /* ^ Fix for black line on the edges of videos */
+  transform: translateX(-0.2%);
+  min-width: 100.4%; /* ^ Fix for black line on the edges of videos */
   height: auto;
 }
 

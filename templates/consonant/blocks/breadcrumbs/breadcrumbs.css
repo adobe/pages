@@ -17,6 +17,7 @@ main .section-wrapper:last-of-type.breadcrumbs-container .breadcrumbs:last-child
 
 main .section-wrapper.breadcrumbs-container {
     padding: 0 var(--gutter);
+    overflow: hidden;
 }
 
 main .section-wrapper.breadcrumbs-container > div {
@@ -33,6 +34,9 @@ main .section-wrapper.breadcrumbs-container > div > :not(.breadcrumbs) {
 @media screen and (max-width: 799px) {
     main .section-wrapper.breadcrumbs-container > div > :not(.breadcrumbs) {
         max-width: var(--max-width-mobile);
+    }
+    main .section-wrapper.breadcrumbs-container {
+        padding: 0 0 0 18px;
     }
 }
 
@@ -53,7 +57,12 @@ main .breadcrumbs div {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex-wrap: wrap;
+    white-space: nowrap;
+}
+
+main .breadcrumbs div:last-child {
+    min-width: 0;
+    text-overflow: ellipsis;
 }
 
 main .breadcrumbs .icon {
@@ -61,8 +70,13 @@ main .breadcrumbs .icon {
 }
 
 main .breadcrumbs p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-left: 10px;
     margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     cursor: default;
 }
 

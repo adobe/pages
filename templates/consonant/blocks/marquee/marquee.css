@@ -29,6 +29,10 @@ main .section-wrapper.marquee-container + .section-wrapper.separator-container {
     padding-top: 0;
     margin-top: 0;
 }
+main .section-wrapper.marquee-container + .section-wrapper.sitemap-container,
+main .section-wrapper.marquee-container + .section-wrapper.footer-container {
+    margin-top: 0;
+}
 
 /* Remove spacing-top if comes after breadcrumbs */
 main .section-wrapper.breadcrumbs-container + .section-wrapper.marquee-container {
@@ -153,7 +157,7 @@ main .marquee .background > div > p:not(:first-child):not(:empty) {
 
 main .marquee .marquee-image p,
 main .marquee .background p {
-    font-size: var(--body-font-size-s);
+    font-size: var(--body-font-size-xs);
 }
 
 main .marquee.large .background img,
@@ -333,7 +337,7 @@ main .marquee.large p {
 
 main .marquee.large .marquee-image p,
 main .marquee.large .background p {
-    font-size: var(--body-font-size-s);
+    font-size: var(--body-font-size-xs);
 }
 
 main .marquee.large .marquee-column:last-child {
@@ -370,6 +374,16 @@ main .marquee.center .marquee-column:not(.marquee-image) {
 
 /* tablet */
 @media screen and (min-width: 600px) {
+    main .marquee .marquee-image p,
+    main .marquee .background p {
+        font-size: var(--body-font-size-s);
+    }
+
+    main .marquee.large .marquee-image p,
+    main .marquee.large .background p {
+        font-size: var(--body-font-size-s);
+    }
+    
     main .marquee p.button-container {
         flex-direction: row;
     }

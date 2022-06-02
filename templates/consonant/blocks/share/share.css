@@ -53,7 +53,6 @@ main .share .contributors {
     display: flex;
     border-bottom: 1px solid #707070;
     padding: 16px 0;
-    align-items: center;
 }
 
 main .share .contributors > *:not(:last-child) {
