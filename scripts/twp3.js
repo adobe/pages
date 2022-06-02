@@ -17,7 +17,7 @@ import {
   createTag,
   externalLinks,
   loadLocalHeader,
-} from '../pages/scripts/scripts.js';
+} from '../templates/default/default.js';
 
 /* eslint-disable import/prefer-default-export */
 

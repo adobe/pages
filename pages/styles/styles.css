@@ -1,4 +1,0 @@
-/* FOUC protection on blocks */
-main .block {
-  visibility: hidden;
-}

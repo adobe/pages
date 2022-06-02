@@ -10,8 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import decorateDefaultTemplate from '../../pages/scripts/default-template.js';
-import { createTag } from '../../pages/scripts/scripts.js';
+import decorateDefaultTemplate from '../default/default-template.js';
+import { createTag } from '../default/default.js';
 
 function helpxInNewWindow() {
   document.querySelectorAll('main a[href]').forEach(($a) => {

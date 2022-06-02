@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { injectCSSText } from './scripts.js';
+import { injectCSSText } from '../../templates/default/default.js';
 
 let pathmap;
 let pending;

@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { debounce } from '../../../pages/scripts/scripts.js';
+import { debounce } from '../../../templates/default/default.js';
 
 export default function decorate(blockEl) {
   blockEl.innerHTML = `<div class="form-container">

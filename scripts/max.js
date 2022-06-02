@@ -16,7 +16,7 @@ import {
   createTag,
   debounce,
   loadLocalHeader,
-} from '../pages/scripts/scripts.js';
+} from '../templates/default/default.js';
 
 // NOTE: lots of this looks repeated from default.js, could probably dry it up a bit
 

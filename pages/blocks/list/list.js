@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { isNodeName } from '../../scripts/scripts.js';
+import { isNodeName } from '../../../templates/default/default.js';
 
 function imageTypeChecker($block) {
   const rows = $block.querySelectorAll(':scope > div');

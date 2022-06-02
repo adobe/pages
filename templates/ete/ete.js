@@ -12,13 +12,18 @@
 
 import {
   addDefaultClass,
+  appearMain,
   classify,
   createTag,
   debounce,
   decorateTables,
   externalLinks,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+  replaceEmbeds,
+  initializeNamespaces,
+  insertFooter,
+
+} from '../default/default.js';
 import { hashPathOf } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
@@ -377,6 +382,15 @@ function cleanUpBio() {
 }
 
 export default async function decoratePage() {
+  initializeNamespaces();
+  insertFooter();
+  if (window.pages.product) {
+    document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
+  }
+  await replaceEmbeds();
+
+  document.title = document.title.split('<br>').join(' ');
+
   addDefaultClass('main>div');
   decorateTables();
   await loadLocalHeader();
@@ -416,4 +430,5 @@ export default async function decoratePage() {
   // appearMain();
   externalLinks('main .section-wrapper:last-of-type');
   cardHeightEqualizer('.card-content');
+  appearMain();
 }

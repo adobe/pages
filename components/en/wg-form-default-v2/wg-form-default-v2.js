@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { toClassName } from '../../../pages/scripts/scripts.js';
+import { toClassName } from '../../../templates/default/default.js';
 import { setupForm } from '../../../pages/blocks/form/form.js';
 
 /** @type {import('../../component').ComponentDecorator} */
