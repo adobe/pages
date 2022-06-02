@@ -23,7 +23,7 @@ import {
 } from './default-blocks.js';
 
 // eslint-disable-next-line import/prefer-default-export
-function sampleRUM(checkpoint, data = {}) {
+export function sampleRUM(checkpoint, data = {}) {
   try {
     window.hlx = window.hlx || {};
     if (!window.hlx.rum) {
