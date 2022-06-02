@@ -9,7 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import { sampleRUM } from '../../pages/scripts/scripts.js';
+import { sampleRUM } from '../default/default.js';
 
 export function createTag(name, attrs) {
   const el = document.createElement(name);
