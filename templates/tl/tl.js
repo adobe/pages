@@ -17,7 +17,9 @@ import {
   // externalizeImageSources,
   externalLinks,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+  appearMain,
+  replaceEmbeds,
+} from '../default/default.js';
 import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
 async function fetchSteps() {
@@ -393,6 +395,7 @@ async function decorateHome() {
 }
 
 export default async function decoratePage() {
+  replaceEmbeds();
   setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-bg.png');
   setBackgroundImage('.step main .upnext .window', '/static/twp3/window.jpg');
   setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-desktop-bg-ai.jpg', 'min-width:900px');
@@ -403,6 +406,7 @@ export default async function decoratePage() {
   externalLinks('footer');
   wrapSections('header>div');
   addNavCarrot();
+  appearMain();
 
   if (document.querySelector('.nav-logo')) {
     document.querySelector('.nav-logo').addEventListener('click', dropDownMenu);

@@ -15,7 +15,7 @@ import {
   addDefaultClass,
   loadLocalHeader,
   appearMain,
-} from '../pages/scripts/scripts.js';
+} from '../templates/default/default.js';
 
 function wrapSections(element) {
   document.querySelectorAll(element).forEach(($div) => {

@@ -16,7 +16,7 @@ import {
   externalLinks,
   loadCSS,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 async function fetchSheet() {
   const resp = await fetch('content.json');

@@ -16,7 +16,7 @@ import {
   createTag,
   externalLinks,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 async function fetchSteps() {
   window.hlx.dependencies.push('steps.json');

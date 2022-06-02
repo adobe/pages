@@ -16,7 +16,7 @@ import {
   createTag,
   externalLinks,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 // NOTE: lots of this looks reused from scripts/twp...js
 

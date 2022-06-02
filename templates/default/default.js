@@ -40,8 +40,8 @@ export function sampleRUM(checkpoint, data = {}) {
     const { random, weight, id } = window.hlx.rum;
     if (random && (random * weight < 1)) {
       // eslint-disable-next-line object-curly-newline
-      const body = JSON.stringify({ weight, id, referer: window.location.href, generation: 'pages-gen1', checkpoint, ...data });
-      const url = `https://rum.hlx3.page/.rum/${weight}`;
+      const body = JSON.stringify({ weight, id, referer: window.location.href, generation: 'pages-gen2', checkpoint, ...data });
+      const url = `https://rum.hlx.page/.rum/${weight}`;
       // eslint-disable-next-line no-unused-expressions
       navigator.sendBeacon(url, body); // we should probably use XHR instead of fetch
     }
@@ -492,7 +492,7 @@ export async function appearMain() {
   if (aMD) return;
   aMD = true;
 
-  lgr.debug('appearMain');
+  console.log('appearMain');
 
   // wait for page to be decorated
   await decoratedProm;
@@ -649,6 +649,7 @@ export async function loadComponent($component, embedData) {
  * Load a block
  */
 export async function loadBlock($block) {
+  console.log($block);
   const reqCSSBlocks = ['form'];
   const ignoredBlocks = ['missionbg'];
   const blockName = $block.getAttribute('data-block-name');
@@ -664,6 +665,8 @@ export async function loadBlock($block) {
 }
 
 export function loadBlocks($main) {
+  console.log('loadBlocks');
+
   $main
     .querySelectorAll('div.section-wrapper > div > .block')
     .forEach(async ($block) => loadBlock($block));
@@ -845,11 +848,11 @@ export async function replaceEmbeds() {
   const pEls = document.querySelectorAll('p');
   const proms = ([...pEls])
     .filter(($p) => {
-      const txt = $p.innerText;
+      const txt = $p.textContent;
       return embedRE.test(txt);
     })
     .map(async ($p) => {
-      const ogPath = $p.innerText;
+      const ogPath = $p.textContent;
       const embedData = parseEmbedPath(ogPath);
       const { type } = embedData;
 
@@ -864,46 +867,6 @@ export async function replaceEmbeds() {
       }
     });
   await Promise.all(proms);
-}
-
-/**
- * Get the template name, or undefined if none.
- * @returns {string|undefined}
- */
-export function getTemplateName() {
-  document.querySelectorAll('table th').forEach(($th) => {
-    if ($th.textContent.toLowerCase().trim() === 'template') {
-      const $table = $th.closest('table');
-      const template = $table.querySelector('td').textContent;
-      const $div = createTag('div', { class: 'template' });
-      $div.innerHTML = template;
-      $table.parentElement.replaceChild($div, $table);
-    }
-  });
-
-  const $template = document.querySelector('.template');
-  if (!$template) {
-    return undefined;
-  }
-
-  const template = toClassName($template.textContent.trim());
-  $template.remove();
-  return template;
-}
-
-/**
- * Load the template
- */
-export async function loadTemplate(template) {
-  const basePath = `/templates/${template}/${template}`;
-  lgr.debug('loadTemplate', { basePath });
-
-  loadCSS(`${basePath}.css`, true);
-  return import(`${basePath}.js`).then(({ default: run }) => {
-    if (run) run();
-  }).catch((e) => {
-    console.error(`Error loading template module: ${e}`);
-  });
 }
 
 /**
@@ -1148,20 +1111,11 @@ async function decoratePage() {
   setupTestMode();
   insertFooter();
   linkInNewTabHelper();
-  const template = getTemplateName();
   if (window.pages.product) {
     document.getElementById('favicon-safari').href = `/icons/${window.pages.product.replaceAll('-', '')}.ico`;
     document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
   }
   await replaceEmbeds();
-
-  if (template) {
-    lgr.debug('use:template', { template });
-    await loadTemplate(template);
-  } else {
-    lgr.debug('use:default');
-    decorateDefault(mainEl);
-  }
 
   document.title = document.title.split('<br>').join(' ');
   fixImages();
@@ -1172,28 +1126,30 @@ async function decoratePage() {
     window.pages.on('mainVisible', () => scrollToId());
   }
 
+  await decorateDefault(document.querySelector('main'));
+
   setLCPTrigger(document, async () => {
     emit('postLCP');
 
-    if (!template) {
-      loadBlocks(mainEl);
+    loadBlocks(mainEl);
 
-      const headerContents = document.querySelectorAll('header > *');
-      if (!blocksIncluded.includes('nav') && headerContents.length === 0) {
-      // try to load from header.plain.html
-        loadLocalHeader().then(() => {
-          const div = document.querySelector('header > div');
-          if (div) {
-            div.classList.add('nav');
-            div.setAttribute('data-block-name', 'nav');
-            loadBlock(div);
-          }
-        });
-      }
+    const headerContents = document.querySelectorAll('header > *');
+    if (!blocksIncluded.includes('nav') && headerContents.length === 0) {
+    // try to load from header.plain.html
+      loadLocalHeader().then(() => {
+        const div = document.querySelector('header > div');
+        if (div) {
+          div.classList.add('nav');
+          div.setAttribute('data-block-name', 'nav');
+          loadBlock(div);
+        }
+      });
     }
 
     loadCSS('/pages/styles/lazy-styles.css');
   });
 }
 
-decoratePage();
+export default async function decorateMain() {
+  await decoratePage();
+}

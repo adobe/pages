@@ -14,11 +14,11 @@ import {
   loadCSS,
   appearMain,
   insertFooter,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 import {
   wrapSections,
-} from '../../pages/scripts/default-blocks.js';
+} from '../default/default-blocks.js';
 
 import decorateNav from './decorators/decorateNav.js';
 import decorateGeneral, {

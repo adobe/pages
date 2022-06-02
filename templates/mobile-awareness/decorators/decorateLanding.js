@@ -12,7 +12,7 @@
 
 import {
   createTag,
-} from '../../../pages/scripts/scripts.js';
+} from '../../default/default.js';
 
 import { hoist, openModalLink, wrapContents } from '../scripts/scripts.js';
 

@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { createTag } from '../../scripts/scripts.js';
+import { createTag } from '../../../templates/default/default.js';
 
 /** @type {import("../block").BlockDecorator} */
 export default async function decorate($block) {

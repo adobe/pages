@@ -20,7 +20,7 @@ import {
   debounce,
   loadJSModule,
   loadLocalHeader,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 async function submitSheetForm($form, sheetid, thankyou) {
   const formsink = 'https://script.google.com/macros/s/AKfycbxWFwI-qExw0Tg_LJvdisSYODFw35m3L8M5HdumPOufmArmRIEh/exec';

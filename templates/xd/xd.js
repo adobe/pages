@@ -18,7 +18,7 @@ import {
   loadJSModule,
   loadLocalHeader,
   toClassName,
-} from '../../pages/scripts/scripts.js';
+} from '../default/default.js';
 
 function styleNav() {
   const parent = document.querySelector('header');

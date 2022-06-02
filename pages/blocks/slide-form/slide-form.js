@@ -19,7 +19,7 @@
  * Max - 09/15/21
  */
 
-import { debounce } from '../../scripts/scripts.js';
+import { debounce } from '../../../templates/default/default.js';
 
 export default function decorate(blockEl) {
   blockEl.innerHTML = `<div class="form-container">
