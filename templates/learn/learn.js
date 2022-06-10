@@ -212,6 +212,12 @@ async function decorateStep() {
   // $content.appendChild($video);
 
   const stepIndex = (+window.location.search.substring(1).split('&')[0]) - 1;
+
+  // redirect to step 1, if no step index specified.
+  if(stepIndex < 0) {
+    window.location = window.location.origin + window.location.pathname + '?1';
+  }
+
   const steps = await fetchSteps();
   const currentStep = steps[stepIndex];
 
