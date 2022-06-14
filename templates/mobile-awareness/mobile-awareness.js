@@ -29,6 +29,7 @@ import decorateAppPage from './decorators/decorateAppPage.js';
 import setUpBranch from './scripts/branch.js';
 
 export default async function decoratePage() {
+  loadCSS('/templates/default/default.css', true, true);
   loadURLParams();
   decorateNav();
   decorateGeneral();
