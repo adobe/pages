@@ -1061,6 +1061,7 @@ function setLCPTrigger(doc, postLCP) {
 }
 
 export async function decorateDefault($main) {
+  loadCSS('/templates/default/default.css', true, true);
   decorateTables();
   wrapSections('main>div');
   decorateBlocks($main);
