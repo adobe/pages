@@ -120,7 +120,7 @@ main {
   .premiere .cards .card {
     max-width: 90%;
     width: 90%;
-    margin: auto;
+    margin: 0 auto;
     font-size: 17px;
     margin-bottom: 2em;
   }
