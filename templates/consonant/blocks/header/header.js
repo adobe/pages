@@ -242,11 +242,14 @@ async function importHeader(doc) {
   }
 
   let url = '';
-  if (window.pages.product && window.pages.locale) {
+  if (window.pages && window.pages.product && window.pages.locale) {
     url = `/${window.pages.product}/${window.pages.locale}/${path}.plain.html`;
   }
-  if (window.pages.product && window.pages.project) {
+  if (window.pages && window.pages.product && window.pages.project) {
     url = `/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${path}.plain.html`;
+  }
+  if (!window.pages && window.location.href.includes('artisthub')) {
+    url = `/stock/en/artisthub/${path}.plain.html`;
   }
   if (url) {
     const resp = await fetch(url);
@@ -255,7 +258,7 @@ async function importHeader(doc) {
       const inner = document.createElement('div');
       inner.innerHTML = html;
       document.querySelector('main').appendChild(inner);
-      window.hlx.dependencies.push(url);
+      if (window.hlx && window.hlx.dependencies) window.hlx.dependencies.push(url);
       return inner;
     }
   }

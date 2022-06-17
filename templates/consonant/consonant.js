@@ -107,7 +107,7 @@ export function isAttr(node, attr, val) {
 }
 
 export function transformLinkToAnimation($a) {
-  if (!$a || !$a.href.endsWith('.mp4')) {
+  if (!$a || !$a.href.includes('.mp4')) {
     return null;
   }
   const params = new URL($a.href).searchParams;
@@ -250,7 +250,7 @@ export function decorateBlocks($main) {
     });
 
     // Allow for variants...
-    const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images', 'share', 'video'];
+    const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images', 'share', 'video', 'fullscreen'];
     blocksWithVariants.forEach((b) => {
       if (blockName.startsWith(`${b}-`)) {
         const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -328,12 +328,12 @@ function setHelixEnv(name, overrides) {
   }
 }
 
-export function debug(message) {
+export function debug(message, err) {
   const { hostname } = window.location;
   const env = getHelixEnv();
   if (env.name !== 'prod' || hostname === 'localhost') {
     // eslint-disable-next-line no-console
-    console.log(message);
+    console.log(message, err);
   }
 }
 
@@ -562,9 +562,9 @@ export function externalLinks() {
       if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
         linkItem.setAttribute('target', '_blank');
         linkItem.setAttribute('rel', 'noopener');
-      } else if (window.pages.product && !linkValue.includes(window.pages.product)) {
+      } else if (window.pages && window.pages.product && !linkValue.includes(window.pages.product)) {
         linkItem.setAttribute('target', '_blank');
-      } else if (window.pages.project && !linkValue.includes(window.pages.project)) {
+      } else if (window.pages && window.pages.project && !linkValue.includes(window.pages.project)) {
         linkItem.setAttribute('target', '_blank');
       }
     }
@@ -743,7 +743,7 @@ async function loadLazy() {
   loadCSS('/pages/styles/lazy-styles.css');
   loadBlocks(main);
 
-  if (window.pages.product) {
+  if (window.pages && window.pages.product) {
     document.getElementById('favicon-safari').href = `/icons/${window.pages.product.replaceAll('-', '')}.ico`;
     document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
   }

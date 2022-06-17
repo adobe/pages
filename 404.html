@@ -1,167 +1,101 @@
-<html><head>
+<html>
+
+<head>
   <title>Not Found</title>
   <meta name="description" content="Not Found (404) Error">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        :root {
-    --alert-color: 234,65,19;
-    --link-color: 3,95,230;
-    --background-color: 255,255,255;
-    --text-color: 0,0,0;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --link-color: 21,190,236;
-        --background-color: 0,0,0;
-        --text-color: 255,255,255;
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link id="favicon-safari" rel="icon" type="image/x-icon" href="/icons/adobe.ico" sizes="any">
+  <link id="favicon" rel="icon" type="image/svg+xml" href="/icons/adobe.svg">
+  <style>
+    body {
+      visibility: hidden;
     }
-}
-
-* {
-    box-sizing: border-box;
-  }
-  
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont,
-    'avenir next', avenir,
-    'helvetica neue', helvetica,
-    ubuntu,
-    roboto, noto,
-    'segoe ui', arial,
-    sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    color: rgba(var(--text-color),.9);
-    background-color: rgba(var(--background-color),.92);
-}
-
-main {
-    font-size: 1.6rem;
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-main.ready {
-    opacity: 1;
-}
-
-h1, h2, h3,
-h4, h5, h6 {
-  font-weight: 600;
-  line-height: 1.25;
-  margin-top: 1em;
-  margin-bottom: .5em;
-}
-
-h1 { font-size: 3rem; }
-h2 { font-size: 2.25rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
-h5 { font-size: 1rem; }
-h6 { font-size: .875rem; }
-
-p, dl, ol, ul, pre, blockquote {
-    margin-top: 1em;
-    margin-bottom: 1em;
-  }
-    
-a:any-link {
-    color: rgb(var(--link-color));
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
-
-main>.section-wrapper {
-    padding: 0 2rem; 
-}
-
-main>.section-wrapper.hero {
-    padding: 2rem;
-    color: white;
-    background-size: cover;
-    background-position: center center;
-    height: 60vh;
-    text-shadow: 0 0 5px black;
-}
-
-main pre {
-    background-color: rgb(var(--text-color),0.05);;
-    padding: 1em;
-    border-radius: .25em;
-    overflow-x: auto;
-    white-space: pre;
-}
-
-code,
-pre,
-samp {
-  font-family:
-    'Roboto Mono',
-    Menlo,
-    Consolas,
-    'Liberation Mono',
-    monospace;
-
-}
-
-code, samp {
-  font-size: 87.5%;
-  padding: .125em;
-}
-
-pre {
-  font-size: 75%;
-  overflow: scroll;
-}
-
-hr {
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    border: 0;
-    border-bottom: 1px solid rgba(var(--text-color),0.2);
-}
-
-main img {
-    max-width: 100%;
-    height: auto;
-}
-
-main .table-wrapper { 
-    overflow-x: scroll;
-}
-
-html {
-    font-size: 62.5%;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-}
-
-@media (min-width: 600px) {
-    html {
-        font-size: 85%;
+    body.appear {
+      visibility: unset;
     }
-}
-@media (min-width: 900px) {
-    html {
-        font-size: 100%;
+    body main {
+      margin: 0;
     }
-    main>.section-wrapper>div {
-        max-width: 30em;
-        margin: auto;
-    }    
-}
-    </style>
-
+    body header,
+    body .sitemap-container,
+    body footer,
+    body main .artisthub-404-item {
+      display: none;
+    }
+    body main .section-wrapper:first-of-type,
+    body main .section-wrapper:first-of-type.marquee-container {
+      margin-top: 0;
+    }
+    body.artisthub-404 header,
+    body.artisthub-404 .sitemap-container,
+    body.artisthub-404 footer,
+    body.artisthub-404 main .artisthub-404-item {
+      display: block;
+    }
+    body.artisthub-404 header:empty,
+    body.artisthub-404 footer:empty {
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
-  <main class="ready"><div class="section-wrapper"><div>
-<h1 id="not-found">Not Found</h1>
-<p>
-    Sorry, that page can't be found.
-</p>
-</div></div></main>
-</body></html>
+  <script>
+    (async function loadConsonant404() {
+      const { href } = window.location;
+      const isArtistHub = href.includes('stock/en/artisthub');
+      Array.from(document.querySelectorAll('.artisthub-404-item')).forEach((el) => {
+        if (isArtistHub) {
+          el.classList.remove('artisthub-404-item');
+        } else {
+          el.remove()
+        }
+      });
+      const script = document.createElement("script");
+      script.setAttribute('type', 'text/javascript');
+      script.setAttribute('src', '/templates/consonant/consonant-404.js');
+      document.body.appendChild(script);
+      if (isArtistHub) document.body.classList.add('artisthub-404');
+    })();
+  </script>
+
+  <header></header>
+
+  <main>
+
+    <div>
+      <div class="fullscreen">
+        <div>
+          <div>
+            <p><a href="https://main--pages--adobe.hlx.page/media_1e91b7c2094344a63771b5165f6a9be1e5c1e3e21.mp4" target="_blank" rel="noopener"></a></p>
+            <p>Adobe Artist: Aanbetta</p>
+            <p><a href="https://main--pages--adobe.hlx.page/media_136c4677a1a0f1fa513017f2681218af04d3d13b4.mp4" target="_blank" rel="noopener"></a></p>
+            <p>Adobe Artist: Akurra</p>
+            <p><a href="https://main--pages--adobe.hlx.page/media_187b97a9f654f38a74fd187d450441516c85d390e.mp4" target="_blank" rel="noopener"></a></p>
+            <p>Adobe Artist: Wacomka</p>
+          </div>
+        </div>
+        <div>
+          <div>
+            <h1 id="not-found">Page not found</h1>
+            <hr />
+            <p>The page that you are looking for might have been removed, had its name changed or is temporarily unavailable.</p>
+            <p class="artisthub-404-item"><a href="https://pages.adobe.com/stock/en/artisthub/">Go to the Home page</a></p>
+          </div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="artisthub-404-item">
+      <div class="fragment">
+        <a href="https://pages.adobe.com/stock/en/artisthub/footer">https://pages.adobe.com/stock/en/artisthub/footer</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer></footer>
+</body>
+
+</html>
