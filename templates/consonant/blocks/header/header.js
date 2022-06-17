@@ -248,7 +248,7 @@ async function importHeader(doc) {
   if (window.pages && window.pages.product && window.pages.project) {
     url = `/${window.pages.product}/${window.pages.locale}/${window.pages.project}/${path}.plain.html`;
   }
-  if (!window.pages && window.location.href.includes('artisthub')) {
+  if (!window.pages && window.location.href.includes('stock/en/artisthub')) {
     url = `/stock/en/artisthub/${path}.plain.html`;
   }
   if (url) {
