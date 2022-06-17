@@ -33,11 +33,6 @@ export default function decorate($block) {
   Array.from(bg.querySelectorAll('a')).forEach((a) => a.classList.remove('button'));
   const backgroundOptions = []
   const children = Array.from(bg.querySelector(':scope > div').childNodes);
-  
-  const isNotAbackground = (el) => {
-    return (el && !el.tagName.toLowerCase() === 'picture' && !el.querySelector('picture')
-    && !(el.querySelector('a') && el.querySelector('a').href.includes('.mp4')))
-  }
   children.forEach((el) => {
     if (el.nodeType === 1) {
       if (el.tagName.toLowerCase() === 'picture' || el.querySelector('picture')) {
@@ -72,5 +67,5 @@ export default function decorate($block) {
   `;
   const content = $block.querySelector(':scope > div:nth-of-type(2)');
   if (content) { content.classList.add('container'); }
-  bg.classList.add('fullscreen-background-appear');
+  $block.classList.add('fullscreen--appear');
 }

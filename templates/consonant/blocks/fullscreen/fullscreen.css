@@ -226,7 +226,7 @@ main .fullscreen .background {
   pointer-events: none;
 }
 
-main .fullscreen .background.fullscreen-background-appear {
+main .fullscreen.fullscreen--appear {
   opacity: 1;
 }
 
