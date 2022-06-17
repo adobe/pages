@@ -33,7 +33,11 @@ main .fullscreen {
   min-height: 600px;
   height: 100.1vh;
   text-align: center;
-  transition: height 0.5s ease-in-out;
+  transition: opacity 0.2s ease-in-out, height 0.5s ease-in-out;
+}
+
+main .fullscreen.fullscreen--appear {
+  opacity: 1;
 }
 
 main .fullscreen h1,
@@ -153,28 +157,8 @@ main .fullscreen .background p {
   pointer-events: auto;
 }
 
-main .fullscreen .fullscreen-image p,
 main .fullscreen .background p {
-    font-size: var(--body-font-size-xs);
-}
-
-main .fullscreen .fullscreen-image p {
-    text-align: left;
-    padding-bottom: 0;
-    padding-top: 2px;
-}
-
-main .fullscreen .fullscreen-image {
-    order: -1;
-    padding-top: 24px;
-}
-
-main .fullscreen .fullscreen-image img,
-main .fullscreen .fullscreen-image video {
-    max-height: 300px;
-    object-fit: contain;
-    height: 100%;
-    width: 100%;
+  font-size: var(--body-font-size-xs);
 }
 
 main .fullscreen .container {
@@ -183,24 +167,24 @@ main .fullscreen .container {
 }
 
 main .fullscreen p.button-container {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 main .fullscreen p.button-container a,
 main .fullscreen p.button-container strong,
 main .fullscreen p.button-container em {
-    width: 100%;
-    box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 main .fullscreen p.button-container a {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 main .fullscreen a.button.transparent:any-link {
-    color: var(--color-white);
-    border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg);
+  color: var(--color-white);
+  border-color: var(--color-white);
+  background-color: var(--color-info-transparent-bg);
 }
 
 main .fullscreen hr {
@@ -210,19 +194,15 @@ main .fullscreen hr {
 }
 
 main .fullscreen a.button.transparent:any-link:hover {
-    color: var(--color-white);
-    border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg-hover);
+  color: var(--color-white);
+  border-color: var(--color-white);
+  background-color: var(--color-info-transparent-bg-hover);
 }
 
 main .fullscreen a.button.transparent:any-link:active {
-    color: var(--color-white);
-    border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg-down);
-}
-
-main .fullscreen.fullscreen--appear {
-  opacity: 1;
+  color: var(--color-white);
+  border-color: var(--color-white);
+  background-color: var(--color-info-transparent-bg-down);
 }
 
 @media (min-width: 600px) { 
