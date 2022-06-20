@@ -118,6 +118,10 @@ footer > div.footer-copyright {
     border-top: 1px solid #DEDEDE;
 }
 
+footer > div.footer-copyright:empty {
+    display: none;
+}
+
 footer .footer-copyright > div:last-child {
     margin-left: 16px;
 }

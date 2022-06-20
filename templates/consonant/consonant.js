@@ -107,7 +107,7 @@ export function isAttr(node, attr, val) {
 }
 
 export function transformLinkToAnimation($a) {
-  if (!$a || !$a.href.endsWith('.mp4')) {
+  if (!$a || !$a.href.includes('.mp4')) {
     return null;
   }
   const params = new URL($a.href).searchParams;
@@ -250,7 +250,7 @@ export function decorateBlocks($main) {
     });
 
     // Allow for variants...
-    const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images', 'share', 'video'];
+    const blocksWithVariants = ['columns', 'cards', 'marquee', 'separator', 'quote', 'images', 'share', 'video' ];
     blocksWithVariants.forEach((b) => {
       if (blockName.startsWith(`${b}-`)) {
         const options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -328,12 +328,12 @@ function setHelixEnv(name, overrides) {
   }
 }
 
-export function debug(message) {
+export function debug(message, err) {
   const { hostname } = window.location;
   const env = getHelixEnv();
   if (env.name !== 'prod' || hostname === 'localhost') {
     // eslint-disable-next-line no-console
-    console.log(message);
+    console.log(message, err);
   }
 }
 
@@ -356,6 +356,66 @@ function displayEnv() {
   } catch (e) {
     debug(`display env failed: ${e.message}`);
   }
+}
+
+/**
+ * Get localized footer
+ *
+ * @param {string} locale
+ */
+ export function getLocalizedFooter(locale) {
+  const currentYear = new Date().getFullYear();
+  const template = ({
+    links,
+    cookies,
+  }) => `
+  <div>
+    <p>Copyright © ${currentYear} Adobe. All rights reserved.</p>
+    <ul>
+      ${links}
+    </ul>
+  </div>
+  <div>
+    <div class="privacy" style="display: block;">
+      <a href="#" class="openPrivacyModal ot-sdk-show-settings">${cookies}</a>
+      <div id="feds-footer"></div>
+    </div>
+  </div>`;
+
+  const footers = {
+    default: {
+      links: `<li><a href="https://www.adobe.com/privacy.html" target="_blank">Privacy</a></li>
+      <li><a href="https://www.adobe.com/legal/terms.html" target="_blank">Terms of Use</a></li>
+      <li><a href="https://www.adobe.com/privacy/ca-rights.html" target="_blank">Do not sell my personal information</a></li>
+      <li><a href="https://www.adobe.com/privacy/opt-out.html#interest-based-ads" target="_blank"><svg class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdChoices</a></li>`,
+      cookies: 'Cookie preferences',
+    },
+    de: {
+      links: `
+    <li><a href="https://www.adobe.com/de/privacy.html">Richtlinien f&uuml;r den Datenschutz</a></li>
+    <li><a href="https://www.adobe.com/de/legal/terms.html">Nutzungsbedingungen</a></li>
+    <li><a href="https://www.adobe.com/de/privacy/ca-rights.html">Daten zu meiner Person nicht verkaufen</a></li>
+    <li><a href="https://www.adobe.com/de/privacy/opt-out.html#interest-based-ads"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdAuswahl</a></li>`,
+      cookies: 'Einstellungen',
+    },
+
+  };
+
+  return template({
+    ...footers.default,
+    ...(footers[locale] || {}),
+  });
+}
+
+export function insertFooter() {
+  const footer = document.querySelector('footer');
+  if (!footer) {
+    footer = createTag('footer');
+    document.body.appendChild('footer');
+  }
+  const locale = (window.pages && window.pages.locale) ? window.pages.locale : 'default';
+  const html = getLocalizedFooter(locale);
+  footer.innerHTML = html;
 }
 
 /**
@@ -562,9 +622,9 @@ export function externalLinks() {
       if (linkValue.includes('//') && !linkValue.includes('pages.adobe')) {
         linkItem.setAttribute('target', '_blank');
         linkItem.setAttribute('rel', 'noopener');
-      } else if (window.pages.product && !linkValue.includes(window.pages.product)) {
+      } else if (window.pages && window.pages.product && !linkValue.includes(window.pages.product)) {
         linkItem.setAttribute('target', '_blank');
-      } else if (window.pages.project && !linkValue.includes(window.pages.project)) {
+      } else if (window.pages && window.pages.project && !linkValue.includes(window.pages.project)) {
         linkItem.setAttribute('target', '_blank');
       }
     }
@@ -709,6 +769,7 @@ export function addAnimationToggle(target) {
  * loads everything needed to get to LCP.
  */
 async function loadEager() {
+  insertFooter()
   const main = document.querySelector('main');
   if (main) {
     await decorateMain(main);
@@ -743,7 +804,7 @@ async function loadLazy() {
   loadCSS('/pages/styles/lazy-styles.css');
   loadBlocks(main);
 
-  if (window.pages.product) {
+  if (window.pages && window.pages.product) {
     document.getElementById('favicon-safari').href = `/icons/${window.pages.product.replaceAll('-', '')}.ico`;
     document.getElementById('favicon').href = `/icons/${window.pages.product.replaceAll('-', '')}.svg`;
   }
