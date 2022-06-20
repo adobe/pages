@@ -359,6 +359,66 @@ function displayEnv() {
 }
 
 /**
+ * Get localized footer
+ *
+ * @param {string} locale
+ */
+ export function getLocalizedFooter(locale) {
+  const currentYear = new Date().getFullYear();
+  const template = ({
+    links,
+    cookies,
+  }) => `
+  <div>
+    <p>Copyright © ${currentYear} Adobe. All rights reserved.</p>
+    <ul>
+      ${links}
+    </ul>
+  </div>
+  <div>
+    <div class="privacy" style="display: block;">
+      <a href="#" class="openPrivacyModal ot-sdk-show-settings">${cookies}</a>
+      <div id="feds-footer"></div>
+    </div>
+  </div>`;
+
+  const footers = {
+    default: {
+      links: `<li><a href="https://www.adobe.com/privacy.html" target="_blank">Privacy</a></li>
+      <li><a href="https://www.adobe.com/legal/terms.html" target="_blank">Terms of Use</a></li>
+      <li><a href="https://www.adobe.com/privacy/ca-rights.html" target="_blank">Do not sell my personal information</a></li>
+      <li><a href="https://www.adobe.com/privacy/opt-out.html#interest-based-ads" target="_blank"><svg class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdChoices</a></li>`,
+      cookies: 'Cookie preferences',
+    },
+    de: {
+      links: `
+    <li><a href="https://www.adobe.com/de/privacy.html">Richtlinien f&uuml;r den Datenschutz</a></li>
+    <li><a href="https://www.adobe.com/de/legal/terms.html">Nutzungsbedingungen</a></li>
+    <li><a href="https://www.adobe.com/de/privacy/ca-rights.html">Daten zu meiner Person nicht verkaufen</a></li>
+    <li><a href="https://www.adobe.com/de/privacy/opt-out.html#interest-based-ads"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-adchoices"><use href="/icons.svg#adchoices"></use></svg> AdAuswahl</a></li>`,
+      cookies: 'Einstellungen',
+    },
+
+  };
+
+  return template({
+    ...footers.default,
+    ...(footers[locale] || {}),
+  });
+}
+
+export function insertFooter() {
+  const footer = document.querySelector('footer');
+  if (!footer) {
+    footer = createTag('footer');
+    document.body.appendChild('footer');
+  }
+  const locale = (window.pages && window.pages.locale) ? window.pages.locale : 'default';
+  const html = getLocalizedFooter(locale);
+  footer.innerHTML = html;
+}
+
+/**
  * Loads JS and CSS for a block.
  * @param {Element} $block The block element
  */
@@ -709,6 +769,7 @@ export function addAnimationToggle(target) {
  * loads everything needed to get to LCP.
  */
 async function loadEager() {
+  insertFooter()
   const main = document.querySelector('main');
   if (main) {
     await decorateMain(main);
