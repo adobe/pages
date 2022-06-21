@@ -1,0 +1,67 @@
+{
+  "name": "@adobe/pages",
+  "version": "1.0.0",
+  "description": "pages.adobe.com landing pages",
+  "scripts": {
+    "test": "karma start",
+    "lint": "eslint .",
+    "compare": "node ./.tools/run-compare.js",
+    "sync": "node ./.tools/run-sync.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adobe/pages.git"
+  },
+  "keywords": [
+    "helix"
+  ],
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || ^15.14.0 || >=16.0.0"
+  },
+  "author": "Adobe",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/adobe/pages/issues"
+  },
+  "homepage": "https://github.com/adobe/pages#readme",
+  "devDependencies": {
+    "@adobe/eslint-config-helix": "1.1.5",
+    "@adobe/helix-fetch": "2.4.0",
+    "@babel/core": "7.13.10",
+    "@babel/eslint-parser": "7.13.10",
+    "@typescript-eslint/eslint-plugin": "4.28.4",
+    "@typescript-eslint/parser": "4.28.4",
+    "capture-website": "2.0.2",
+    "chrome-launcher": "0.14.0",
+    "eslint": "7.30.0",
+    "eslint-import-resolver-typescript": "2.4.0",
+    "eslint-plugin-header": "3.1.1",
+    "eslint-plugin-import": "2.23.4",
+    "ghooks": "2.0.4",
+    "glob-promise": "4.2.0",
+    "jsdom": "16.6.0",
+    "lighthouse": "8.1.0",
+    "lint-staged": "11.0.1",
+    "puppeteer": "9.1.1",
+    "typescript": "4.3.5",
+    "yargs": "17.0.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint",
+    "**.!(js|css)": "node ./.tools/prevent-media-push.js"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "dependencies": {
+    "chai": "^4.3.4",
+    "karma": "6.3.4",
+    "karma-chai": "0.1.0",
+    "karma-chrome-launcher": "3.1.0",
+    "karma-mocha": "2.0.1",
+    "karma-mocha-reporter": "2.2.5",
+    "mocha": "^9.1.0"
+  }
+}

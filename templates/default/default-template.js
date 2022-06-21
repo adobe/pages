@@ -19,6 +19,7 @@ import {
   debounce,
   isNodeName,
   initializeNamespaces,
+  replaceEmbeds,
 } from './default.js';
 
 async function submitSheetForm($form, sheetid, thankyou) {
@@ -290,6 +291,7 @@ export default async function decorateDefaultTemplate() {
   }, 250));
 
   initializeNamespaces();
+  await replaceEmbeds();
   addDefaultClass('main>div');
   turnListSectionIntoCards();
   decorateTables();
