@@ -16,6 +16,7 @@ import {
   createTag,
   externalLinks,
   loadLocalHeader,
+  appearMain,
 } from '../default/default.js';
 
 async function fetchSteps() {
@@ -301,5 +302,5 @@ export default async function decoratePage() {
   }
 
   window.pages.decorated = true;
-  // appearMain();
+  appearMain();
 }
