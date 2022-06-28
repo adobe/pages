@@ -23,6 +23,8 @@ import {
 } from '../../../templates/default/default.js';
 
 const lgr = makeLogger('blocks:form');
+const DEFAULT_BASE_URL = 'https://main--pages-forms--adobe.hlx.live';
+
 /**
  * Setup form elements and actions
  *
@@ -88,11 +90,6 @@ export function setupForm({
   //   }
   // });
 
-  // default form urls
-  const postURL = 'https://ccgrowth.servicebus.windows.net/formsink/messages';
-  const postAuth = 'SharedAccessSignature sr=https%3A%2F%2Fccgrowth.servicebus.windows.net%2Fformsink%2Fmessages&sig=m2yyuNdKMB07L7UdTp2ntOMyUBvdXJJSA5Kozr3kZ9s%3D&se=1697792387&skn=send';
-  const testURL = 'https://adobeioruntime.net/api/v1/web/helix-clients/ccgrowth/forms-handler@v1';
-
   // we validate the form ourselves. otherwise it would already validate on submit and we cannot
   // run the custom logic for the checkboxes.
   $form.setAttribute('novalidate', true);
@@ -140,15 +137,42 @@ export function setupForm({
     });
   }
 
-  async function submit(uri = postURL, counter) {
+  async function submit(baseURL = DEFAULT_BASE_URL, counter) {
     preValidation({ formEl: $form });
     if (!$form.reportValidity()) {
       return false;
     }
     if (!sheet) {
-      console.error('No sheet url configured.');
+      console.error('No sheet path/url configured.');
       return false;
     }
+
+    /** @type {string} */
+    let path;
+    if (sheet.startsWith('http://') || sheet.startsWith('https://')) {
+      const url = new URL(sheet);
+      path = url.searchParams.get('file');
+      if (!path) {
+        path = url.pathname;
+        const spl = path.split('CCGrowthHelixContent/Shared%20Documents');
+        path = spl[1] || spl[0];
+      }
+    } else {
+      path = sheet;
+    }
+
+    if (path.endsWith('.json') || path.endsWith('.xlsx')) {
+      path = path.substring(0, path.length - 5);
+    }
+
+    if (!path.startsWith('/')) {
+      path = `/${path}`;
+    }
+    if (!path.startsWith('/formsink/')) {
+      path = `/formsink${path}`;
+    }
+
+    lgr.debug('form submission path: ', path);
 
     const values = [{
       name: 'timestamp',
@@ -180,18 +204,19 @@ export function setupForm({
       }
     });
 
-    const body = { sheet, data: values };
-    const resp = await fetch(uri, {
+    const url = `${baseURL}${path}`;
+    lgr.debug('form submission url: ', url);
+
+    const resp = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: postAuth,
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(values),
     });
     const text = await resp.text();
 
-    console.debug(values[0].value, `${counter}`, resp.status, text, body);
+    console.debug(values[0].value, `${counter}`, resp.status, text, values);
     return resp.status;
   }
 
@@ -208,7 +233,7 @@ export function setupForm({
     for (let i = 1; i <= NUM_POSTS; i += 1) {
       randomize();
       // eslint-disable-next-line no-await-in-loop
-      const status = await submit(postURL, i + OFFSET);
+      const status = await submit(DEFAULT_BASE_URL, i + OFFSET);
       if (status === 429) {
         console.debug('sleeping for 5 seconds');
         // eslint-disable-next-line no-await-in-loop
@@ -219,8 +244,9 @@ export function setupForm({
   }
 
   async function setup() {
-    if (testURL) {
-      await submit(testURL, 0);
+    const testUrl = new URL(window.location.href).searchParams.get('testUrl');
+    if (testUrl) {
+      await submit(testUrl, 0);
     } else {
       console.error('no test url configured');
     }
