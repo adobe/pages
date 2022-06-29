@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { setupForm } from '../../../pages/blocks/form/form.js';
+import { readFormConfig, setupForm } from '../../../pages/blocks/form/form.js';
 
 const template = `<div class="form-container">
 <form id="beta-form">
@@ -718,7 +718,7 @@ const template = `<div class="form-container">
 </div>`;
 
 /** @type {($form: HTMLDivElement) => void} */
-function initForm($form) {
+function initForm($form, config) {
   const purposerad = $form.purpose;
   for (let i = 0; i < purposerad.length; i += 1) {
     purposerad[i].addEventListener('change', () => {
@@ -791,14 +791,16 @@ function initForm($form) {
 
   setupForm({
     formId: 'beta-form',
+    config,
     preValidation: validateCheckboxes,
   });
 }
 
 /** @type {import("../../component").ComponentDecorator} */
 export default function decorate(blockEl) {
+  const config = readFormConfig(blockEl);
   blockEl.innerHtml = template;
   document.getElementsByTagName('body')[0].classList.add('has-beta-form');
   const $form = document.getElementById('beta-form');
-  initForm($form);
+  initForm($form, config);
 }

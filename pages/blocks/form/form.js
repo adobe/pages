@@ -36,7 +36,13 @@ export function setupForm({
   config,
   containerClass = 'form-container',
   preValidation = () => true,
+  element,
 }) {
+  if (!config) {
+    // eslint-disable-next-line no-use-before-define, no-param-reassign
+    config = readFormConfig(element ?? document);
+  }
+
   const { sheet, redirect } = config;
   const $formContainer = doc.querySelector(`.${containerClass}`);
   const $form = doc.getElementById(formId);
@@ -207,16 +213,18 @@ export function setupForm({
     const url = `${baseURL}${path}`;
     lgr.debug('form submission url: ', url);
 
+    const body = { data: values };
+
     const resp = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify(body),
     });
     const text = await resp.text();
 
-    console.debug(values[0].value, `${counter}`, resp.status, text, values);
+    console.debug(values[0].value, `${counter}`, resp.status, text, body);
     return resp.status;
   }
 
@@ -668,19 +676,75 @@ async function fetchFormData(definition) {
 }
 
 /**
- * Reads a form config from a block table.
+ * Reads a form config from a component.
  *
  * @param {HTMLElement} $block
  * @returns {import('./index').FormConfig}
  */
-function readFormConfig($block) {
-  let config = readBlockConfig($block);
+export function readFormComponentConfig($component) {
+  let config = {};
+  const $commonRoot = $component.parentNode;
+  $commonRoot.querySelectorAll(':scope p').forEach(($p) => {
+    let name;
+    let value;
+    const text = $p.textContent.toLowerCase();
+    if (text.includes('<form:')) {
+      // <form: TYPE>
+      name = 'form-definition';
+      value = text.split('<form: ')[1].split('>')[0].trim();
+    } else {
+      // <a href=URL>Sheet OR Thank You</a>
+      const $a = $p.querySelector(':scope>a');
+      if ($a) {
+        name = toClassName(text);
+        value = $a.href;
+      }
+    }
+    config[name] = value;
+    $p.remove();
+  });
 
   config = {
     sheet: config['form-data-submission'] || config.sheet,
     redirect: config['form-redirect'] || config['thank-you'] || 'thank-you',
     definition: config['form-definition'] || 'default',
   };
+
+  lgr.debug('readConfig:component', config);
+
+  return config;
+}
+
+/**
+ * Reads a form config from a block table.
+ *
+ * @param {HTMLElement} $block
+ * @returns {import('./index').FormConfig}
+ */
+export function readFormBlockConfig($block) {
+  let config = readBlockConfig($block);
+
+  config = {
+    sheet: config['form-data-submission'] || config.sheet,
+    redirect: config['form-redirect'] || config.redirect || config['thank-you'] || 'thank-you',
+    definition: config['form-definition'] || config.redirect || 'default',
+  };
+
+  lgr.debug('readConfig:block', config);
+  return config;
+}
+
+/**
+ * Reads a form config.
+ *
+ * @param {HTMLElement} $block
+ * @returns {import('./index').FormConfig}
+ */
+export function readFormConfig($block) {
+  let config = readFormBlockConfig($block);
+  if (!config.sheet) {
+    config = readFormComponentConfig($block);
+  }
 
   lgr.debug('readConfig', config);
   return config;
