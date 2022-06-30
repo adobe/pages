@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+import decorateFormBlock from '../../../pages/blocks/form/form.js';
+
 /** @type {import("../../component").ComponentDecorator} */
 export default function decorate(blockEl) {
   blockEl.innerHTML = `<div class="wg-form-container">
@@ -79,55 +81,7 @@ export default function decorate(blockEl) {
   </form>
 </div>`;
 
-  function setupForm() {
-    const $formContainer = document.querySelector('.wg-form-container');
-    const $form = document.getElementById('wg-form');
-
-    const formsink = 'https://prod-16.westus.logic.azure.com:443/workflows/4d317f2c976642d3b88f72824f2226a2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=1xfyAxzHXKLgOPNXWP_8JRIvdnaMwkOxQrv_OIze9KE';
-
-    let sheet;
-    let thankyou;
-    $formContainer.parentElement.querySelectorAll('a').forEach(($a) => {
-      if ($a.textContent.toLowerCase() === 'sheet') {
-        sheet = $a.href;
-        $a.parentElement.remove();
-      }
-
-      if ($a.textContent.toLowerCase() === 'thank you') {
-        thankyou = $a.href;
-        $a.parentElement.remove();
-      }
-    });
-
-    const values = [{ name: 'timestamp', value: new Date().toISOString().replace(/[TZ]/g, ' ').split('.')[0].trim() }];
-
-    $form.addEventListener('submit', async (evt) => {
-      evt.preventDefault();
-      if ($form.reportValidity()) {
-        $form.querySelectorAll('input, textarea').forEach(($f) => {
-          if (($f.getAttribute('type') !== 'radio') || $f.checked) {
-            values.push({ name: $f.name, value: $f.value });
-          }
-        });
-
-        const body = { sheet, data: values };
-        const resp = await fetch(formsink, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body), // body data type must match "Content-Type" header
-        });
-        // eslint-disable-next-line no-unused-vars
-        const text = await resp.text();
-        window.location = thankyou;
-      }
-
-      return false;
-    });
-  }
-
   document.getElementsByTagName('body')[0].classList.add('has-wg-form');
 
-  setupForm();
+  decorateFormBlock(blockEl);
 }

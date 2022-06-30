@@ -10,10 +10,11 @@
  * governing permissions and limitations under the License.
  */
 
-import { setupForm } from '../../../pages/blocks/form/form.js';
+import { setupForm, readFormConfig } from '../../../pages/blocks/form/form.js';
 
 /** @type {import("../../component").ComponentDecorator} */
 export default function decorate(blockEl) {
+  const config = readFormConfig(blockEl);
   blockEl.innerHtml = `<div class="form-container">
   <form id="name-email-form">
     <div class="input-el">
@@ -46,5 +47,6 @@ export default function decorate(blockEl) {
   document.getElementsByTagName('body')[0].classList.add('has-name-email-form');
   setupForm({
     formId: 'name-email-form',
+    config,
   });
 }

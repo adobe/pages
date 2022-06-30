@@ -10,50 +10,14 @@
  * governing permissions and limitations under the License.
  */
 
-import { decorateForm } from '../../../pages/blocks/form/form.js';
+import { decorateForm, readFormComponentConfig } from '../../../pages/blocks/form/form.js';
 import {
-  hideElements, makeLogger, showElements, toClassName,
+  hideElements,
+  makeLogger,
+  showElements,
 } from '../../../templates/default/default.js';
 
 const lgr = makeLogger('components:en:form');
-
-/**
- * Reads a form config, returns config & a promise.
- *
- * @param {HTMLElement} $block
- * @returns {import('../../../pages/blocks/form/index').FormConfig}
- */
-function readFormConfig($component) {
-  let config = {};
-  const $commonRoot = $component.parentNode;
-  $commonRoot.querySelectorAll(':scope p').forEach(($p) => {
-    let name;
-    let value;
-    const text = $p.textContent.toLowerCase();
-    if (text.includes('<form:')) {
-      // <form: TYPE>
-      name = 'form-definition';
-      value = text.split('<form: ')[1].split('>')[0].trim();
-    } else {
-      // <a href=URL>Sheet OR Thank You</a>
-      const $a = $p.querySelector(':scope>a');
-      if ($a) {
-        name = toClassName(text);
-        value = $a.href;
-      }
-    }
-    config[name] = value;
-    $p.remove();
-  });
-
-  config = {
-    sheet: config['form-data-submission'] || config.sheet,
-    redirect: config['form-redirect'] || config['thank-you'] || 'thank-you',
-    definition: config['form-definition'] || 'default',
-  };
-
-  return config;
-}
 
 /** @type {import('../../component').ComponentDecorator} */
 export default async function decorate($component) {
@@ -61,7 +25,7 @@ export default async function decorate($component) {
   // Hide sheet, thank you, footer while loading
   hideElements('.form-container');
 
-  const config = readFormConfig($component);
+  const config = readFormComponentConfig($component);
   lgr.debug('config', config);
   await decorateForm($component, formId, config);
 
