@@ -105,9 +105,9 @@ window.hlx.dependencies = window.hlx.dependencies || [];
 const template = getTemplateName() || 'default';
 await loadTemplate(template);
 
-if (window.location.hostname.endsWith('hlx.page') || window.location.hostname === ('localhost')) {
-  import('../tools/preview/preview.js');
-}
+document.addEventListener('helix-sidekick-ready', () => {
+  import('../tools/sidekick/plugins.js');
+});
 
 /* load martech delayed */
 setTimeout(() => {

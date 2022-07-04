@@ -31,3 +31,7 @@ export async function purgeProd({ detail = {}}) {
     console.error(`failed to purge ${purgeUrl}: ${e.message}`);
   }
 };
+
+const sk = document.querySelector('helix-sidekick');
+sk.addEventListener('custom:parent-folder', getParentFolder);
+sk.addEventListener('published', purgeProd);
