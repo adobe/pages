@@ -105,9 +105,13 @@ window.hlx.dependencies = window.hlx.dependencies || [];
 const template = getTemplateName() || 'default';
 await loadTemplate(template);
 
-document.addEventListener('helix-sidekick-ready', () => {
+if (document.querySelector('helix-sidekick')) {
   import('../tools/sidekick/plugins.js');
-});
+} else {
+  document.addEventListener('helix-sidekick-ready', () => {
+    import('../tools/sidekick/plugins.js');
+  }, { once: true });
+}
 
 /* load martech delayed */
 setTimeout(() => {
