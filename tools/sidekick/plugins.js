@@ -8,30 +8,5 @@ export async function getParentFolder({ detail }) {
   }
 }
 
-export async function purgeProd({ detail = {}}) {
-  // purge url from production cdn cache
-  let { data: path } = detail;
-  if (!path) {
-    return;
-  }
-  if (!path.startsWith('/')) {
-    // get absolute path
-    path = new URL(path, location.href).pathname;
-  }
-  const purgeUrl = `https://pages.adobe.com${path}`;
-  console.log(`purging ${purgeUrl}`);
-  try {
-    const resp = await fetch(purgeUrl, { method: 'PURGE' });
-    if (!resp.ok) {
-      throw new Error(`non-ok status ${resp.status}`);
-    }
-    // refresh browser cache
-    await fetch(purgeUrl, { cache: 'reload' });
-  } catch (e) {
-    console.error(`failed to purge ${purgeUrl}: ${e.message}`);
-  }
-};
-
 const sk = document.querySelector('helix-sidekick');
 sk.addEventListener('custom:parent-folder', getParentFolder);
-sk.addEventListener('published', purgeProd);
