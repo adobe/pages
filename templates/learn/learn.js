@@ -258,6 +258,10 @@ async function decorateStep() {
     trimmedDesc = description;
   }
 
+  if (currentStep['Sub Title']) {
+    metadata = `<h3>${currentStep['Sub Title']}</h3>`;
+  }
+
   // const image = currentStep.thumbnail;
   if (currentStep.Heading) title = currentStep.Heading;
   // title=title.split(`\n`).join('<br>');
