@@ -17,6 +17,7 @@ import {
   debounce,
   externalLinks,
   loadLocalHeader,
+  appearMain,
 } from '../default/default.js';
 import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
@@ -541,6 +542,6 @@ export default async function decoratePage() {
   }
 
   window.pages.decorated = true;
-  // appearMain();
+  appearMain();
   cardHeightEqualizer('.card-content');
 }
