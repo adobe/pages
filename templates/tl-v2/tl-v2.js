@@ -18,6 +18,7 @@ import {
   externalLinks,
   loadLocalHeader,
   appearMain,
+  replaceEmbeds,
 } from '../default/default.js';
 import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
@@ -505,6 +506,7 @@ window.addEventListener('resize', debounce(() => {
 }, 250));
 
 export default async function decoratePage() {
+  replaceEmbeds();
   setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-bg.png');
   setBackgroundImage('.step main .upnext .window', '/static/twp3/window.jpg');
   setBackgroundImage('.step main .video-wrapper', '/static/twp3/step-desktop-bg-ai.jpg', 'min-width:900px');
