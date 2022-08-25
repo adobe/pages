@@ -749,7 +749,7 @@ main .embed-internal-accessibility a {
 }
 
 .embed-internal-fundsection>div:first-of-type picture,img {
-  object-fit: fill;
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }
