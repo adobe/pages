@@ -1389,6 +1389,7 @@ main .columns ul {
 .columns>div.padded>div.image img {
   padding: 40px 40px 100px 40px;
 }
+
 .columns>div.padded>div.image p.caption {
   color: black;
   text-align: left;
