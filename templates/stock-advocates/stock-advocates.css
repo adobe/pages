@@ -748,7 +748,8 @@ main .embed-internal-accessibility a {
     margin-block-end: 0px;
 }
 
-.embed-internal-fundsection>div:first-of-type picture,img {
+.embed-internal-fundsection>div:first-of-type picture,
+.embed-internal-fundsection>div:first-of-type picture img {
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -1404,9 +1405,20 @@ main .columns ul {
 }
 
 .columns>div>div.image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.columns>div.padded>div.image img {
+  object-fit: contain;
+  height: auto;
+  object-position: top; 
+}
+
+.columns>div.padded>div.image .image-bleed {
+  height: auto;
 }
 
 .columns>div>div.image p:empty {
