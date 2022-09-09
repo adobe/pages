@@ -12,3 +12,8 @@ header.appear, main.appear, main.appear+footer {
   opacity: 1;
 }
 
+img {
+  height: auto;
+  width: auto;
+}
+
