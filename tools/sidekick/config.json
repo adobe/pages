@@ -1,0 +1,12 @@
+{
+  "project": "Adobe Landing Pages",
+  "host": "pages.adobe.com",
+  "plugins": [
+    {
+      "id": "parent-folder",
+      "title": "Parent Folder",
+      "environments": [ "dev", "preview" ],
+      "event": "parent-folder"
+    }
+  ]
+}
