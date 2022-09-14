@@ -122,7 +122,7 @@ setTimeout(() => {
       experience: 'privacy',
     },
     privacy: {
-      otDomainId: '179df195-99c9-4e20-b856-3f6620810f1a-test',
+      otDomainId: '179df195-99c9-4e20-b856-3f6620810f1a',
       footerLinkSelector: '.openPrivacyModal',
     },
   };
