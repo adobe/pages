@@ -126,6 +126,7 @@ function openDropdown($dropdown) {
 
 function dropdownEvents($dropdown) {
   const $chevron = $dropdown.querySelector('.chevron');
+  const $link = $dropdown.querySelector(':scope > a:any-link');
 
   // Toggle dropdown if they click on chevron
   $chevron.addEventListener('click', () => {
@@ -133,24 +134,24 @@ function dropdownEvents($dropdown) {
       openDropdown($dropdown);
     } else {
       closeDropdown($dropdown);
+      $link.addEventListener('click', ensureAccessibility);
     }
   });
   // Ensure accessibility
-  const $link = $dropdown.querySelector(':scope > a:any-link');
-  if ($link) {
-    $link.addEventListener('click', (event) => {
-      if (document.body.classList.contains('menu-open') && !$dropdown.classList.contains('dropdown-open')) {
-        event.preventDefault();
-        $chevron.click();
-      }
-    });
-  }
+  const ensureAccessibility = (event) => {
+    if (document.body.classList.contains('menu-open') && !$dropdown.classList.contains('dropdown-open')) {
+      event.preventDefault();
+      $chevron.click();
+    }
+  };
+  if ($link) $link.addEventListener('click', ensureAccessibility);
 
   // Close dropdown if they focus out
   $dropdown.addEventListener('focusout', (e) => {
     if (!$dropdown.contains(e.relatedTarget) && !$chevron.contains(e.relatedTarget)
     && $dropdown !== e.relatedTarget && $chevron !== e.relatedTarget && e.relatedTarget !== null) {
       closeDropdown($dropdown);
+      $link.addEventListener('click', ensureAccessibility);
     }
   });
 
@@ -163,6 +164,7 @@ function dropdownEvents($dropdown) {
   $dropdown.addEventListener('mouseleave', () => {
     if (window.innerWidth > 900) {
       closeDropdown($dropdown);
+      $link.addEventListener('click', ensureAccessibility);
     }
   }, false);
 }
