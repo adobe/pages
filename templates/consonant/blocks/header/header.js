@@ -135,6 +135,16 @@ function dropdownEvents($dropdown) {
       closeDropdown($dropdown);
     }
   });
+  // Ensure accessibility
+  const $link = $dropdown.querySelector(':scope > a:any-link');
+  if ($link) {
+    $link.addEventListener('click', (event) => {
+      if (document.body.classList.contains('menu-open') && !$dropdown.classList.contains('dropdown-open')) {
+        event.preventDefault();
+        $chevron.click();
+      }
+    });
+  }
 
   // Close dropdown if they focus out
   $dropdown.addEventListener('focusout', (e) => {
