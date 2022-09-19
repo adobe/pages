@@ -134,7 +134,6 @@ function dropdownEvents($dropdown) {
       openDropdown($dropdown);
     } else {
       closeDropdown($dropdown);
-      $link.addEventListener('click', ensureAccessibility);
     }
   });
   // Ensure accessibility
@@ -151,7 +150,6 @@ function dropdownEvents($dropdown) {
     if (!$dropdown.contains(e.relatedTarget) && !$chevron.contains(e.relatedTarget)
     && $dropdown !== e.relatedTarget && $chevron !== e.relatedTarget && e.relatedTarget !== null) {
       closeDropdown($dropdown);
-      $link.addEventListener('click', ensureAccessibility);
     }
   });
 
@@ -164,7 +162,6 @@ function dropdownEvents($dropdown) {
   $dropdown.addEventListener('mouseleave', () => {
     if (window.innerWidth > 900) {
       closeDropdown($dropdown);
-      $link.addEventListener('click', ensureAccessibility);
     }
   }, false);
 }
