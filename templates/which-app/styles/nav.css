@@ -1,0 +1,62 @@
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+
+:root {
+  --menu-height: 3rem;
+}
+.nav {
+  width: 100%;
+  white-space: nowrap;
+  line-height: 1;
+  font-size: 16px;
+}
+.nav > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+.nav p {
+  margin: 0;
+  margin-right: 0.75rem;
+  font-weight: bold;
+}
+.nav a {
+  color: inherit !important;
+}
+.nav ul {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end;
+}
+.nav li {
+  cursor: pointer;
+  padding: 0 1.5rem !important;
+  /* no bullets */
+  list-style-type: none;
+}
+.nav li:hover {
+  text-decoration: underline;
+}
+.nav li:last-child {
+  padding-right: 0 !important;
+}
+
+.nav .app-icon {
+  width: 36px !important;
+  height: 36px !important;
+}

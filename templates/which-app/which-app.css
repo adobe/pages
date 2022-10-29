@@ -1,0 +1,76 @@
+/*
+ * Copyright 2021 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+
+@import url('./styles/nav.css');
+@import url('./styles/landing.css');
+@import url('./styles/category.css');
+
+:root {
+  --superlight-gray: #f8f8f8;
+  --light-gray: #e1e1e1;
+  --medium-gray: #747474;
+  --dark-gray: #2c2c2c;
+  --text: #000000;
+}
+
+html,
+body {
+  color: var(--text);
+  font-size: 19px;
+  line-height: 1.45;
+  /* font-size: calc(min(18px, max(1.2vw, 16px))); */
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+/* @media (max-width: 1024px) {
+  body {
+    padding-top: var(--menu-height);
+  }
+} */
+
+@media (max-width: 767px) {
+  html,
+  body {
+    font-size: 17px;
+  }
+}
+
+.columns {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5vw calc(min(90vw, 1100px)) 5vw 1fr;
+}
+.columns > * {
+  grid-column: 3 / 4;
+}
+
+.interiorcolumns {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 60px 100px 1fr 100px 60px;
+}
+.interiorcolumns > * {
+  grid-column: 1 / 6;
+}
+
+h5 {
+  font-weight: 100;
+  font-size: 24px;
+  color: var(--dark-gray);
+}
+
+a {
+  color: var(--dark-gray) !important;
+}
