@@ -43,4 +43,31 @@ export default function decorateCategory() {
   categorySections.forEach((categorySection) => {
     categorySection.classList.add('columns');
   });
+
+  // decorate bottom areas of category sections
+  const categorySectionBottoms = document.querySelectorAll('.categorysection tr td:nth-of-type(3)');
+  categorySectionBottoms.forEach((categorySectionBottom) => {
+    categorySectionBottom.classList.add('categorysectionbottom');
+
+    const children = [...categorySectionBottom.children];
+    if (children.length === 0) return;
+    if (children.length === 1) {
+      const links = categorySectionBottom.querySelectorAll('a');
+      links.forEach((link) => {
+        link.classList.add('button');
+      });
+      return;
+    }
+
+    children.slice(1).forEach((child) => {
+      const firstLink = child.querySelector('a');
+      const path = firstLink?.getAttribute('href');
+      if (!path) return;
+
+      const firstTr = child.querySelector('tr');
+      firstTr?.addEventListener('click', () => {
+        window.location.href = path;
+      });
+    });
+  });
 }
