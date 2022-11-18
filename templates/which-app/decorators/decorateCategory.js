@@ -30,12 +30,17 @@ export default function decorateCategory() {
     .slice(1)
     .forEach((child) => {
       taskSelectorChildrenWrapper.appendChild(child);
+      child.addEventListener('click', () => {
+        const header = child.querySelector('div:last-child')?.innerHTML;
+        const headerElement = document.getElementById(header?.toLowerCase().replace(/ /g, '-'));
+        headerElement?.scrollIntoView({ behavior: 'smooth' });
+      });
     });
   taskSelector?.appendChild(taskSelectorChildrenWrapper);
-  const allButton = document.createElement('div');
-  allButton.innerHTML = 'All';
-  allButton.classList.add('taskall');
-  taskSelectorChildrenWrapper.prepend(allButton);
+  // const allButton = document.createElement('div');
+  // allButton.innerHTML = 'All';
+  // allButton.classList.add('taskall');
+  // taskSelectorChildrenWrapper.prepend(allButton);
 
   const categorySections = document.querySelectorAll(
     '.categorysection',
@@ -45,18 +50,25 @@ export default function decorateCategory() {
   });
 
   // decorate bottom areas of category sections
-  const categorySectionBottoms = document.querySelectorAll('.categorysection tr td:nth-of-type(3)');
+  const categorySectionBottoms = document.querySelectorAll('.categorysection > div > div > table > tbody > tr > td:nth-of-type(3)');
   categorySectionBottoms.forEach((categorySectionBottom) => {
     categorySectionBottom.classList.add('categorysectionbottom');
 
     const children = [...categorySectionBottom.children];
-    if (children.length === 0) return;
-    if (children.length === 1) {
+    if (children.length < 2) return;
+    if (children.length === 2) {
+      categorySectionBottom.classList.add('buttononly');
       const links = categorySectionBottom.querySelectorAll('a');
       links.forEach((link) => {
         link.classList.add('button');
       });
       return;
+    } else {
+      categorySectionBottom.classList.add('subcard');
+      const links = categorySectionBottom.querySelectorAll('tbody > tr > td:nth-of-type(3) > a');
+      links.forEach((link) => {
+        link.classList.add('button');
+      });
     }
 
     children.slice(1).forEach((child) => {
@@ -64,8 +76,7 @@ export default function decorateCategory() {
       const path = firstLink?.getAttribute('href');
       if (!path) return;
 
-      const firstTr = child.querySelector('tr');
-      firstTr?.addEventListener('click', () => {
+      child.addEventListener('click', () => {
         window.location.href = path;
       });
     });
