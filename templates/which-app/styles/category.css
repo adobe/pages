@@ -233,10 +233,10 @@
   margin-right: 0.8rem;
 }
 .categorysection > div > div > table > tbody > tr > td:nth-child(2) > h5 {
- font-size: 1.25em;
+ font-size: 26px;
 }
 .categorysection > div > div > table > tbody > tr > td:nth-child(2) > *:last-child {
-  font-size: 1.1em;
+  font-size: 18px;
   text-align: left;
 }
 
@@ -249,6 +249,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 .categorysectionbottom > p a {
   font-size: .8rem;
@@ -270,7 +272,7 @@
   letter-spacing: .05em;
 }
 .categorysectionbottom p {
-  font-size: .7rem;
+  font-size: .8rem;
   text-align: left;
   padding: 0 !important;
   margin: 0;
@@ -300,6 +302,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-grow: 1;
   flex-direction: row;
   max-width: 100%;
@@ -310,9 +313,9 @@
   overflow: hidden;
   border-collapse: collapse;
 }
-.categorysectionbottom table {
+/* .categorysectionbottom table {
   cursor: pointer;
-}
+} */
 .categorysectionbottom tr td:first-child img {
   display: block;
   border-radius: 4px;
@@ -323,7 +326,13 @@
 .categorysectionbottom td {
  padding: 0 !important;
 }
-
+.categorysectionbottom tr{
+  flex-grow: 0;
+}
+.categorysectionbottom td:not(:last-child):not(:first-child) {
+  flex-grow: 1;
+}
+/* 
 .categorysectionbottom.subcard td:nth-child(3) {
   position: absolute;
   right: 0rem;
@@ -334,14 +343,13 @@
 }
 .categorysectionbottom.buttononly {
   display: block;
-}
-.categorysectionbottom.buttononly a{
+} */
+.categorysectionbottom td a.button{
   background: var(--dark-gray);
+  border: none;
   color: white !important;
   text-decoration: none;
 }
-.categorysectionbottom.buttononly h5{
-  padding-bottom: 1rem !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  margin-bottom: 1.5rem;
+.categorysection h5 {
+  margin: .4rem 0;
 }
