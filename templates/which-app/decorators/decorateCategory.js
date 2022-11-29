@@ -49,6 +49,27 @@ export default function decorateCategory() {
     categorySection.classList.add('columns');
   });
 
+  // decorate 2-image overlap revealers
+
+  document.querySelectorAll('.categorysection > div > div > table > tbody > tr > td:nth-of-type(1) > picture:nth-of-type(2)').forEach((picture) => {
+    const underlyingPicture = picture.previousElementSibling;
+    picture.classList.add('overlaidpicture');
+    const img = picture.querySelector('img');
+    picture.style.setProperty('--offset', '.5');
+
+    const setOffset = (e) => {
+      const { offsetX } = e;
+      const width = img.offsetWidth;
+      let offsetPercent = offsetX / width;
+      if (offsetPercent > 0.98) offsetPercent = 1;
+      if (offsetPercent < 0.02) offsetPercent = 0;
+      picture.style.setProperty('--offset', `${offsetPercent}`);
+    };
+
+    underlyingPicture.addEventListener('mousemove', setOffset);
+    underlyingPicture.addEventListener('click', setOffset);
+  });
+
   // decorate bottom areas of category sections
   const categorySectionBottoms = document.querySelectorAll('.categorysection > div > div > table > tbody > tr > td:nth-of-type(3)');
   categorySectionBottoms.forEach((categorySectionBottom) => {

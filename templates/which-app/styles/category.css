@@ -55,9 +55,8 @@
   padding: 0;
 }
 .doublevideo > div > div {
-  display: grid;
+  display: flex;
   gap: 30px;
-  grid-template-columns: 1fr 1fr;
   line-height: 1;
 }
 @media (max-width: 767px) {
@@ -65,8 +64,8 @@
     gap: 1rem;
   }
 }
-.doublevideo > div > div img {
-  width: 100%;
+.doublevideo > div > div > * {
+  flex-grow:1;
 }
 
 .taskselector {
@@ -142,7 +141,9 @@
 .categorysection h4 {
   margin: 0;
   margin-bottom: 0.4em;
-  font-size: 28px;
+  font-size: 26px;
+  position: relative;
+  top: 2px
 }
 .categorysection h4 + p {
   margin: 0;
@@ -207,14 +208,42 @@
   }
 }
 
+.categorysection tr td:first-child {
+  position: relative;
+}
 .categorysection tr td:first-child img {
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
   width: 100%;
-  height: 100%;
+  height: 275px;
   object-fit: cover;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  display: block;
 }
+.overlaidpicture img{
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  clip-path: polygon(0 0, calc(var(--offset, .5) * 100%) 0, calc(var(--offset, .5) * 100%) 100%, 0 100%);
+}
+.overlaidpicture:after{
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc((var(--offset, .5) * 100%));
+  height: 100%;
+  transform: translateX(-50%);
+  background: url('doubleImageDivider.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 35px;
+  z-index: 3;
+}
+
 .categorysection tr td:not(:first-child) {
   padding: 0 24px;
 }
