@@ -447,7 +447,7 @@ export async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
   if ($inlineHeader) {
     const $header = document.querySelector('header');
-    $inlineHeader.childNodes.forEach((e, i) => {
+    [...$inlineHeader.children].forEach((e, i) => {
       if (isNodeName(e, 'DIV') && !i) {
         const $p = createTag('div');
         const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;

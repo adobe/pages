@@ -70,7 +70,7 @@ function getImageName(pAppName) {
 
 async function styleNav($header) {
   await decorateIcons($header);
-  const $appIcon = $header.querySelector(':scope span.icon');
+  const $appIcon = $header.querySelector(':scope span.icon') || $header.querySelector(':scope img.icon');
   if (!$appIcon) return;
   const appName = $header.querySelector(':scope a').innerHTML;
   $appIcon.setAttribute('alt', appName);
