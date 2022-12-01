@@ -37,8 +37,8 @@ function setUpTimeline() {
 
   timelineItems.forEach((item, index) => {
     if (index < timelineItems.length - 1) {
-      item.firstChild.parentElement.className = `checklist-item ${item.firstChild.innerText.toLowerCase()}`;
-      item.firstChild.remove();
+      item.firstElementChild.parentElement.className = `checklist-item ${item.firstElementChild.innerText.toLowerCase()}`;
+      item.firstElementChild.remove();
       timelineGroup += item.outerHTML;
       // timelineCount = index + 1;
       item.remove();

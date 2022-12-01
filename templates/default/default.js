@@ -993,7 +993,7 @@ export function styleButtons() {
     if (
       isNodeName(link.parentElement.parentNode, 'P')
       && link.parentElement.parentNode.childElementCount === 1
-      && isNodeName(link.parentElement.parentNode.firstChild, 'STRONG')
+      && isNodeName(link.parentElement.parentNode.firstElementChild, 'STRONG')
     ) {
       link.className = 'button primary';
     }

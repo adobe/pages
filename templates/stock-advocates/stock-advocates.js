@@ -624,8 +624,8 @@ async function decorateHeader() {
   const $menu = $header.children[1];
   const $hamburger = $header.children[2];
   const $hamburgerButton = document.createElement('button');
-  while ($hamburger.firstChild) {
-    $hamburgerButton.appendChild($hamburger.firstChild);
+  while ($hamburger.firstElementChild) {
+    $hamburgerButton.appendChild($hamburger.firstElementChild);
   }
   $hamburger.parentNode.replaceChild($hamburgerButton, $hamburger);
   $logo.classList.add('logo');

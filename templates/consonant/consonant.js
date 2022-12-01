@@ -98,7 +98,7 @@ export function toClassName(name) {
 }
 
 export function insertAfter(newNode, existingNode) {
-  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextElementSibling);
 }
 
 export function isAttr(node, attr, val) {
@@ -575,7 +575,7 @@ export function unwrapBlock($block) {
   const $elems = [...$section.children];
   const $blockSection = createTag('div');
   const $postBlockSection = createTag('div');
-  const $nextSection = $section.nextSibling;
+  const $nextSection = $section.nextElementSibling;
   $section.parentNode.insertBefore($blockSection, $nextSection);
   $section.parentNode.insertBefore($postBlockSection, $nextSection);
 

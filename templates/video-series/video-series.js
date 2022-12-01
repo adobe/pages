@@ -103,7 +103,7 @@ function decorateForm() {
       const $placeholder = $f.querySelector('em');
 
       if (!$anchor) {
-        const formfield = $f.firstChild.textContent;
+        const formfield = $f.firstElementChild.textContent;
         const attributes = {};
         if (formfield.indexOf('*')) attributes.mandatory = true;
         let type = 'text';
