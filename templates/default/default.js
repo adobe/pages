@@ -726,6 +726,22 @@ export function decorateBlocks(
     }
 
     let options = [];
+
+    // begin custom block option class handling
+    // split and add options with a dash
+    // (fullscreen-center -> fullscreen-center + fullscreen + center)
+    $block.classList.forEach((className, index) => {
+      if (index === 0) return; // block name, no split
+      const split = className.split('-');
+      if (split.length > 1) {
+        split.forEach((part) => {
+          options.push(part);
+        });
+      }
+    });
+    $block.classList.add(...options);
+    // end custom block option class handling
+
     blocksWithOptions.forEach((b) => {
       if (blockName.startsWith(`${b}-`)) {
         options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -1147,6 +1163,32 @@ async function decoratePage() {
     }
 
     loadCSS('/pages/styles/lazy-styles.css');
+  });
+}
+
+/**
+ * Replace icons with inline SVG and prefix with codeBasePath.
+ * @param {Element} element
+ */
+ export function decorateIcons(element = document) {
+  element.querySelectorAll('span.icon').forEach(async (span) => {
+    console.log('decorateIcons', span);
+    if (span.classList.length < 2 || !span.classList[1].startsWith('icon-')) {
+      return;
+    }
+    const icon = span.classList[1].substring(5);
+    // eslint-disable-next-line no-use-before-define
+    const resp = await fetch(`/icons/${icon}.svg`);
+    if (resp.ok) {
+      const iconHTML = await resp.text();
+      if (iconHTML.match(/<style/i)) {
+        const img = document.createElement('img');
+        img.src = `data:image/svg+xml,${encodeURIComponent(iconHTML)}`;
+        span.appendChild(img);
+      } else {
+        span.innerHTML = iconHTML;
+      }
+    }
   });
 }
 

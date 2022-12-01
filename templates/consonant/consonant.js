@@ -9,7 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import { sampleRUM } from '../default/default.js';
+import { sampleRUM ,decorateIcons } from '../default/default.js';
 
 export function createTag(name, attrs) {
   const el = document.createElement(name);
@@ -259,6 +259,23 @@ export function decorateBlocks($main) {
         $block.classList.add(...options);
       }
     });
+
+    // begin custom block option class handling
+    // split and add options with a dash
+    // (fullscreen-center -> fullscreen-center + fullscreen + center)
+    const options = [];
+    $block.classList.forEach((className, index) => {
+      if (index === 0) return; // block name, no split
+      const split = className.split('-');
+      if (split.length > 1) {
+        split.forEach((part) => {
+          options.push(part);
+        });
+      }
+    });
+    $block.classList.add(...options);
+    // end custom block option class handling
+
     if (section) {
       section.classList.add(`${blockName}-container`.replace(/--/g, '-'));
       const $sectionTitle = section.querySelector('h1') || section.querySelector('h2') || section.querySelector('h3') || section.querySelector('h4') || section.querySelector('h5');
@@ -820,6 +837,7 @@ async function decoratePage() {
 
   await loadEager();
   loadLazy();
+  decorateIcons();
 }
 
 if (!window.hlx.init && !window.isTestEnv) {
