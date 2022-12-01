@@ -531,7 +531,8 @@ footer p:after {
     cursor: pointer;
   }
   
-  header .icon {
+  header .icon,
+  header .icon img {
     position: relative;
     /* top: 2px; */
     width: 40px;
