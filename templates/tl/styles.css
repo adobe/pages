@@ -531,12 +531,14 @@ footer p:after {
     cursor: pointer;
   }
   
-  header .icon,
+  header span.icon {
+    line-height: 0;
+  }
+
   header .icon img {
     position: relative;
     /* top: 2px; */
     width: 40px;
-    margin-left: 4px;
   }
   
   header ul {
