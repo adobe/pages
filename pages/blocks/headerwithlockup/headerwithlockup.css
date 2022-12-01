@@ -64,7 +64,8 @@ main .section-wrapper.headerwithlockup-container > div {
 	transform: translateY(-50%);
 }
 
-.block.headerwithlockup .has-text img {
+.block.headerwithlockup .has-text img,
+.block.headerwithlockup .has-text span.icon svg {
 	width: 36px; height: 36px;
 }
 

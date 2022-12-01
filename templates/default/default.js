@@ -1204,4 +1204,5 @@ async function decoratePage() {
 
 export default async function decorateMain() {
   await decoratePage();
+  decorateIcons();
 }
