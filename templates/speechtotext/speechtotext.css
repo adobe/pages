@@ -126,7 +126,10 @@ header {
 	border-bottom: 1px solid #eee;
 }
 
-header .icon {
+header img.icon,
+header span.icon > img,
+header span.icon > svg,
+header .product-icon > img {
 	width: 25px;
 }
 
@@ -204,6 +207,7 @@ main .cards > div {
 main .cards > div img {
 	display: block;
 	width: 100%;
+	height: 100%;
 }
 
 main .cards > div div:last-child {
