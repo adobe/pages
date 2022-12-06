@@ -179,12 +179,12 @@ export function decorateBlocks(
   const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
 
   $main.querySelectorAll(query).forEach(($block) => {
-    const classes = Array.from($block.classList.values());
+    let classes = Array.from($block.classList.values());
     lgr.debug('decorateBlock', { classes });
     let blockName = classes[0];
     if (!blockName) return;
 
-    if (classes.length > 1) {
+    if ('embed' === blockName) {
       const cls = $block.classList.item(0);
       loadCSS(`/pages/blocks/${cls}/${cls}.css`);
       return;
@@ -206,6 +206,7 @@ export function decorateBlocks(
     });
     $block.classList.add(...options);
     // end custom block option class handling
+
 
     blocksWithOptions.forEach((b) => {
       if (blockName.startsWith(`${b}-`)) {
