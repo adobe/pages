@@ -1166,6 +1166,8 @@ async function decoratePage() {
   });
 }
 
+const ICONS_IN_FILES = ['adobe', 'adobe-red', 'facebook', 'instagram', 'pinterest', 'linkedin', 'twitter', 'youtube', 'discord', 'behance', 'behance-icon', 'creative-cloud', 'hamburger', 'role-designer', 'role-engineer', 'role-illustrator', 'role-marketer', 'role-architect', 'role-scientist', 'adchoices', 'play', 'not-found', 'chevron', 'expand', 'close'];
+
 /**
  * Replace icons with inline SVG and prefix with codeBasePath.
  * @param {Element} element
@@ -1175,27 +1177,37 @@ async function decoratePage() {
   element.querySelectorAll('span.icon').forEach((span) => {
     if (span.classList.length < 2 || !span.classList[1].startsWith('icon-')) {
       return;
-    }
+    }   
     promises.push(new Promise((resolve) => {
       const icon = span.classList[1].substring(5);
-      fetch(`/icons/${icon}.svg`).then((resp) => {
-        if (resp.ok) {
-          resp.text().then((iconHTML) => {
-            if (iconHTML.match(/<style/i)) {
-              const img = document.createElement('img');
-              img.src = `data:image/svg+xml,${encodeURIComponent(iconHTML)}`;
-              span.appendChild(img);
-            } else {
-              span.innerHTML = iconHTML;
-            }
+      if (ICONS_IN_FILES.includes(icon)) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.classList.add('icon', `icon-${icon}`);
+        const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        use.setAttribute('href', `/icons.svg#${icon}`);
+        svg.appendChild(use);
+        span.replaceWith(svg);
+        resolve();
+      } else {
+        fetch(`/icons/${icon}.svg`).then((resp) => {
+          if (resp.ok) {
+            resp.text().then((iconHTML) => {
+              if (iconHTML.match(/<style/i)) {
+                const img = document.createElement('img');
+                img.src = `data:image/svg+xml,${encodeURIComponent(iconHTML)}`;
+                span.appendChild(img);
+              } else {
+                span.innerHTML = iconHTML;
+              }
+              resolve();
+            });
+          } else {
+            // eslint-disable-next-line no-console
+            console.warn('Icon not found:', icon);
             resolve();
-          });
-        } else {
-          // eslint-disable-next-line no-console
-          console.warn('Icon not found:', icon);
-          resolve();
-        }
-      });
+          }
+        });
+      }
     }));
   });
 
