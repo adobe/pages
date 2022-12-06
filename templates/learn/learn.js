@@ -18,6 +18,7 @@ import {
   externalLinks,
   loadLocalHeader,
   replaceEmbeds,
+  decorateIcons,
 } from '../default/default.js';
 import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
@@ -309,9 +310,11 @@ export default async function decoratePage() {
   externalLinks('header');
   externalLinks('footer');
   wrapSections('header>div, main>div');
+  await decorateIcons();
   // nav style/dropdown
   addNavCarrot();
   decorateTables();
+  
   //    wrapSections('main>div');
 
   if (document.querySelector('.nav-logo')) {
