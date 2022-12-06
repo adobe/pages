@@ -185,7 +185,8 @@ main .button.secondary:hover {
 	color: #fff;
 }
 
-main .icon {
+main .icon,
+main .icon > img {
 	height: 48px;
 }
 

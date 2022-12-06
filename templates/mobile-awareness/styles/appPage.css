@@ -80,13 +80,15 @@
   }
 }
 
-.app-hero-overlay .icon {
+.app-hero-overlay .icon, 
+.app-hero-overlay span.icon > img {
   width: 5.3rem;
   height: 5.3rem;
   margin-bottom: 2.5rem;
 }
 @media (max-width: 767px) {
-  .app-hero-overlay .icon {
+  .app-hero-overlay .icon,
+  .app-hero-overlay span.icon > img {
     width: 2.8rem;
     height: 2.8rem;
     margin-bottom: 1.875rem;
@@ -167,7 +169,7 @@
   }
 }
 
-.mobile-awareness-app-sign-in-reminder .icon {
+.mobile-awareness-app-sign-in-reminder span.icon > img {
   opacity: 0.5;
   max-height: 1.875rem;
   margin-right: 0.625rem;
@@ -424,7 +426,8 @@
   }
 }
 
-.app-cta-overlay .icon {
+.app-cta-overlay .icon, 
+.app-cta-overlay span.icon > img {
   width: 5.3rem;
   height: 5.3rem;
   margin-bottom: 2.5rem;
@@ -557,7 +560,8 @@
   z-index: 2;
 }
 
-.learn-card img.icon {
+.learn-card img.icon,
+.learn-card span.icon > img {
   width: 2.75rem;
   height: 2.75rem;
 }

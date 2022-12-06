@@ -14,6 +14,7 @@ import {
   loadCSS,
   appearMain,
   insertFooter,
+  decorateIcons,
 } from '../default/default.js';
 
 import {
@@ -43,6 +44,7 @@ export default async function decoratePage() {
   externalLinks();
   setUpBranch();
   fixLinksWithAmpersands();
+  decorateIcons();
 
   window.pages.decorated = true;
   appearMain();

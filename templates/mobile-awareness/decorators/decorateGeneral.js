@@ -191,13 +191,15 @@ function decorateGetLinks() {
 
 function replaceIcons() {
   const replaces = [
-    { from: '/icons/tablet.svg', to: '/icons/spectrum-icons-dark/DeviceTablet_18_N.svg' },
-    { from: '/icons/phone.svg', to: '/icons/spectrum-icons-dark/DevicePhone_18_N.svg' },
+    { from: 'icon-tablet', to: '/icons/spectrum-icons-dark/DeviceTablet_18_N.svg' },
+    { from: 'icon-phone', to: '/icons/spectrum-icons-dark/DevicePhone_18_N.svg' },
   ];
   for (const type of replaces) {
-    const els = document.querySelectorAll(`img[src="${type.from}"]`);
+    const els = document.querySelectorAll(`span.${type.from}`);
     for (const el of els) {
-      el.src = type.to;
+      const img = document.createElement('img');
+      img.src = type.to;
+      el.append(img);
     }
   }
 }
