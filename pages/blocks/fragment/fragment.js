@@ -14,6 +14,7 @@ import {
   createTag,
   loadBlocks,
   decorateBlocks,
+  decorateIcons,
 } from '../../../templates/default/default.js';
 
 async function decorateFragment($block) {
@@ -23,6 +24,7 @@ async function decorateFragment($block) {
   const html = await resp.text();
   const $main = createTag('main');
   $main.innerHTML = html;
+  decorateIcons($main);
   decorateBlocks($main);
   loadBlocks($main);
   const $section = $block.closest('.section-wrapper');

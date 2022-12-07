@@ -18,6 +18,7 @@ import {
   loadCSS,
   appearMain,
   replaceEmbeds,
+  decorateIcons,
 } from '../default/default.js';
 
 const lgr = makeLogger('template:advocates');
@@ -178,18 +179,35 @@ export function decorateBlocks(
   const blocksWithSpecialCases = ['checklist', 'nav', 'missiontimeline', 'missionbg'];
 
   $main.querySelectorAll(query).forEach(($block) => {
-    const classes = Array.from($block.classList.values());
+    let classes = Array.from($block.classList.values());
     lgr.debug('decorateBlock', { classes });
     let blockName = classes[0];
     if (!blockName) return;
 
-    if (classes.length > 1) {
+    if ('embed' === blockName) {
       const cls = $block.classList.item(0);
       loadCSS(`/pages/blocks/${cls}/${cls}.css`);
       return;
     }
 
     let options = [];
+
+    // begin custom block option class handling
+    // split and add options with a dash
+    // (fullscreen-center -> fullscreen-center + fullscreen + center)
+    $block.classList.forEach((className, index) => {
+      if (index === 0) return; // block name, no split
+      const split = className.split('-');
+      if (split.length > 1) {
+        split.forEach((part) => {
+          options.push(part);
+        });
+      }
+    });
+    $block.classList.add(...options);
+    // end custom block option class handling
+
+
     blocksWithOptions.forEach((b) => {
       if (blockName.startsWith(`${b}-`)) {
         options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -620,12 +638,13 @@ function decorateLogo() {
 async function decorateHeader() {
   await loadLocalHeader();
   const $header = document.querySelector('header>div');
+  await decorateIcons($header);
   const $logo = $header.children[0];
   const $menu = $header.children[1];
   const $hamburger = $header.children[2];
   const $hamburgerButton = document.createElement('button');
-  while ($hamburger.firstChild) {
-    $hamburgerButton.appendChild($hamburger.firstChild);
+  while ($hamburger.firstElementChild) {
+    $hamburgerButton.appendChild($hamburger.firstElementChild);
   }
   $hamburger.parentNode.replaceChild($hamburgerButton, $hamburger);
   $logo.classList.add('logo');
@@ -850,6 +869,7 @@ export default async function decoratePage() {
   decorateContactUs();
   addAccessibility();
   decorateVideos();
+  decorateIcons();
 
   document.getElementById('favicon').href = '/icons/stock.ico';
 }

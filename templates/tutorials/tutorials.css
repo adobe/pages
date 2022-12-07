@@ -106,7 +106,8 @@ p img {
 
 /* white nav */
 
-header .icon {
+header .icon,
+header .icon img {
 	width: 25px;
 }
 
@@ -223,6 +224,7 @@ main .cards > div p a:hover {
 main .cards > div img {
 	display: block;
 	width: 100%;
+	height: unset;
 }
 
 main .cards > div > div:last-child {
@@ -334,7 +336,8 @@ main .cards > div a:hover {
 	align-items: center;
 }
 
-.tutorial-nav img {
+.tutorial-nav img,
+.tutorial-nav span.icon {
 	margin-right: 10px;
 }
 

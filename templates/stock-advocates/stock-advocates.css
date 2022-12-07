@@ -272,14 +272,16 @@ header>div li {
   padding: 8px 16px;
 }
 
-header .icon {
+header .icon img,
+header svg.icon {
   width: 32px;
   height: 32px;
   margin: 10px;
   fill: currentColor;
 }
 
-header .icon.icon-stock-logo {
+header .icon.icon-stock-logo,
+header .icon.icon-stock-logo img {
   width: 180px;
 }
 

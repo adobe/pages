@@ -15,6 +15,8 @@ import {
   loadBlocks,
 } from '../../consonant.js';
 
+import { decorateIcons } from '../../../default/default.js';
+
 export default async function decorate(block) {
   const ref = block.textContent.trim();
   const path = new URL(ref, window.location.href).pathname.split('.')[0];
@@ -22,12 +24,13 @@ export default async function decorate(block) {
   if (resp.ok) {
     const main = document.createElement('main');
     main.innerHTML = await resp.text();
+    decorateIcons(main);
     decorateMain(main);
     await loadBlocks(main);
     const blockSection = block.closest('.section-wrapper');
     const fragmentSection = main.querySelector(':scope .section-wrapper');
-    while (fragmentSection && fragmentSection.firstChild) {
-      blockSection.insertBefore(fragmentSection.firstChild, block.closest('.fragment-wrapper'));
+    while (fragmentSection && fragmentSection.firstElementChild) {
+      blockSection.insertBefore(fragmentSection.firstElementChild, block.closest('.fragment-wrapper'));
     }
     blockSection.classList.add(...[...blockSection.querySelectorAll('.block')].map((bl) => `${bl.dataset.blockName}-container`));
   }

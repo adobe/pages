@@ -16,7 +16,7 @@ const imageTypeChecker = () => {
   const rows = document.querySelectorAll('.list > div');
   rows.forEach(($row) => {
     const imageColumn = $row.querySelector('div:first-of-type');
-    if (isNodeName(imageColumn.firstChild, 'PICTURE')) {
+    if (isNodeName(imageColumn.firstElementChild, 'PICTURE')) {
       const iconType = imageColumn.innerText;
       imageColumn.innerHTML = `
         <img src="/icons/${iconType}.svg">

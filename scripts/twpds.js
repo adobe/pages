@@ -54,8 +54,8 @@ function decorateVideoSections() {
           </video></div>`;
     $videoDiv.append($videoText);
 
-    $videoDiv.firstChild.firstChild.style.backgroundImage = `url(${imgSrc})`;
-    $videoDiv.firstChild.addEventListener('click', () => playVideo());
+    $videoDiv.firstElementChild.firstElementChild.style.backgroundImage = `url(${imgSrc})`;
+    $videoDiv.firstElementChild.addEventListener('click', () => playVideo());
   });
 }
 

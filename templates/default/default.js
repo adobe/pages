@@ -447,7 +447,7 @@ export async function loadLocalHeader() {
   const $inlineHeader = document.querySelector('main div.header-block');
   if ($inlineHeader) {
     const $header = document.querySelector('header');
-    $inlineHeader.childNodes.forEach((e, i) => {
+    [...$inlineHeader.children].forEach((e, i) => {
       if (isNodeName(e, 'DIV') && !i) {
         const $p = createTag('div');
         const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
@@ -726,6 +726,22 @@ export function decorateBlocks(
     }
 
     let options = [];
+
+    // begin custom block option class handling
+    // split and add options with a dash
+    // (fullscreen-center -> fullscreen-center + fullscreen + center)
+    $block.classList.forEach((className, index) => {
+      if (index === 0) return; // block name, no split
+      const split = className.split('-');
+      if (split.length > 1) {
+        split.forEach((part) => {
+          options.push(part);
+        });
+      }
+    });
+    $block.classList.add(...options);
+    // end custom block option class handling
+
     blocksWithOptions.forEach((b) => {
       if (blockName.startsWith(`${b}-`)) {
         options = blockName.substring(b.length + 1).split('-').filter((opt) => !!opt);
@@ -993,7 +1009,7 @@ export function styleButtons() {
     if (
       isNodeName(link.parentElement.parentNode, 'P')
       && link.parentElement.parentNode.childElementCount === 1
-      && isNodeName(link.parentElement.parentNode.firstChild, 'STRONG')
+      && isNodeName(link.parentElement.parentNode.firstElementChild, 'STRONG')
     ) {
       link.className = 'button primary';
     }
@@ -1150,6 +1166,55 @@ async function decoratePage() {
   });
 }
 
+const ICONS_IN_FILES = ['adobe', 'adobe-red', 'facebook', 'instagram', 'pinterest', 'linkedin', 'twitter', 'youtube', 'discord', 'behance', 'behance-icon', 'creative-cloud', 'hamburger', 'role-designer', 'role-engineer', 'role-illustrator', 'role-marketer', 'role-architect', 'role-scientist', 'adchoices', 'play', 'not-found', 'chevron', 'expand', 'close'];
+
+/**
+ * Replace icons with inline SVG and prefix with codeBasePath.
+ * @param {Element} element
+ */
+ export async function decorateIcons(element = document) {
+  const promises = [];
+  element.querySelectorAll('span.icon').forEach((span) => {
+    if (span.classList.length < 2 || !span.classList[1].startsWith('icon-')) {
+      return;
+    }   
+    promises.push(new Promise((resolve) => {
+      const icon = span.classList[1].substring(5);
+      if (ICONS_IN_FILES.includes(icon)) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.classList.add('icon', `icon-${icon}`);
+        const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        use.setAttribute('href', `/icons.svg#${icon}`);
+        svg.appendChild(use);
+        span.replaceWith(svg);
+        resolve();
+      } else {
+        fetch(`/icons/${icon}.svg`).then((resp) => {
+          if (resp.ok) {
+            resp.text().then((iconHTML) => {
+              if (iconHTML.match(/<style/i)) {
+                const img = document.createElement('img');
+                img.src = `data:image/svg+xml,${encodeURIComponent(iconHTML)}`;
+                span.appendChild(img);
+              } else {
+                span.innerHTML = iconHTML;
+              }
+              resolve();
+            });
+          } else {
+            // eslint-disable-next-line no-console
+            console.warn('Icon not found:', icon);
+            resolve();
+          }
+        });
+      }
+    }));
+  });
+
+  return Promise.all(promises);
+}
+
 export default async function decorateMain() {
   await decoratePage();
+  decorateIcons();
 }

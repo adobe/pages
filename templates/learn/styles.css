@@ -104,7 +104,8 @@ main.appear {
     opacity: 1;
 }
 
-main svg.icon {
+main svg.icon,
+main span.icon img {
     height: 2em;
     width: 2em;
     fill: currentColor;
@@ -497,6 +498,10 @@ footer p:after {
     color: black;
   }
 
+  header .product-icon img {
+    width: 25px;
+  }
+
   .premiere header .product-icon p {
     color: white;
   }
@@ -531,7 +536,8 @@ footer p:after {
     cursor: pointer;
   }
   
-  header .icon {
+  header img.icon,
+  header span.icon > img {
     position: relative;
     /* top: 2px; */
     width: 40px;

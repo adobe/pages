@@ -20,6 +20,7 @@ import {
   isNodeName,
   initializeNamespaces,
   replaceEmbeds,
+  decorateIcons,
 } from './default.js';
 
 async function submitSheetForm($form, sheetid, thankyou) {
@@ -107,7 +108,7 @@ function decorateForm() {
       const $placeholder = $f.querySelector('em');
 
       if (!$anchor) {
-        const formfield = $f.firstChild.textContent;
+        const formfield = $f.firstElementChild.textContent;
         const attributes = {};
         if (formfield.indexOf('*')) attributes.mandatory = true;
         let type = 'text';
@@ -300,6 +301,7 @@ export default async function decorateDefaultTemplate() {
   await loadLocalHeader();
   wrapSections('header>div');
   wrapSections('footer>div');
+  await decorateIcons()
   window.pages.decorated = true;
   paramHelper();
   appearMain();
