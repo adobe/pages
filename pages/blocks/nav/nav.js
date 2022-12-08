@@ -72,9 +72,11 @@ async function styleNav($header) {
   await decorateIcons($header);
   const $appIcon = $header.querySelector(':scope span.icon') || $header.querySelector(':scope img.icon');
   if (!$appIcon) return;
-  const appName = $header.querySelector(':scope a').innerHTML;
+  const link = $header.querySelector(':scope a');
+  if (!link) return;
+  const appName = link.innerHTML;
   $appIcon.setAttribute('alt', appName);
-  const appNameLink = $header.querySelector(':scope a').getAttribute('href');
+  const appNameLink = link.getAttribute('href');
   const listItems = $header.querySelectorAll(':scope ul li');
   const $favicon = document.getElementById('favicon');
   const iconPath = getImageName(appName);

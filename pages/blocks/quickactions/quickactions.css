@@ -27,17 +27,17 @@ header {
   height: 90px;
   font-size: 1.3em;
 }
-.logo {
-  display: flex;
+.quick-actions .logo {
+  display: flex !important;
   justify-content: center;
   align-items: center;
   color: white;
   font-weight: 700;
 }
-.logo * {
+.quick-actions .logo * {
   filter: drop-shadow(0 0 2rem rgba(255, 255, 255, .4));
 }
-.logo img {
+.quick-actions .logo img {
   height: 2em;
   margin-right: .5em;
 }

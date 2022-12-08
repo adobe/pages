@@ -33,7 +33,7 @@ const createSideBar = ($block, json, { updateVideoArea, updateBackground, update
     // * 1-time calc would be done, and it could "beat" an element to its
     // * final position, causing it to end up stuck in the wrong place.
     // * hence, it's always watching.
-    const target = $sidebarElements.childNodes[activeIndex].firstElementChild.offsetTop;
+    const target = [...$sidebarElements.children][activeIndex].firstElementChild.offsetTop;
     const current = $indicator.offsetTop;
     const difference = target - current;
     if (Math.abs(difference) > 1) {
@@ -52,7 +52,7 @@ const createSideBar = ($block, json, { updateVideoArea, updateBackground, update
   const select = (index) => {
     clearTimeout(heightResetTimeout);
 
-    const $sidebarItems = $sidebarElements.childNodes;
+    const $sidebarItems = [...$sidebarElements.children];
 
     // * set previous active height back to a number so it can animate
     const targetHeight = $sidebarItems[activeIndex].offsetHeight;
@@ -73,7 +73,7 @@ const createSideBar = ($block, json, { updateVideoArea, updateBackground, update
     // * set active element to full height
     $sidebarItems[index].classList.add('active');
     let newTargetHeight = 0;
-    $sidebarItems[index].childNodes.forEach((node) => {
+    [...$sidebarItems[index].children].forEach((node) => {
       newTargetHeight += node.offsetHeight || 0;
     });
     newTargetHeight -= 1; // somehow this fixes a slight jump on reset to 'auto'
