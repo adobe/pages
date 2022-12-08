@@ -13,14 +13,14 @@ export default function jsonSetUp($node) {
   const allObjects = [];
   $node.forEach(($bc) => {
     const object = {};
-    const $children = $bc.childNodes;
+    const $children = [...$bc.children];
     $children.forEach((child, index) => {
       if (index === 0) {
         object.video = child.querySelector('a').getAttribute('href');
       }
 
       if (index === 1) {
-        object.text = child.innerHTML.replace(/<a /g, '<a target="_blank" ');
+        object.text = child.innerHTML.replace(/<a /g, '<a target="_blank" ').replace(/\s*\n\s*/gm,'');
       }
 
       if (index === 2) {
