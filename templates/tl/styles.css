@@ -535,7 +535,8 @@ footer p:after {
     line-height: 0;
   }
 
-  header .icon img {
+  header .icon img,
+  header img.icon {
     position: relative;
     /* top: 2px; */
     width: 40px;
