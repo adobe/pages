@@ -417,7 +417,7 @@ function createForm({
       formField += `
           <fieldset class="radio-el question is-${required}">
             <legend class="title-el">
-              <span class="label-title" tabindex="0">${item.label}</span>
+              <span class="label-title">${item.label}</span>
               ${description}
             </legend>
             <div class="radio-options-parent">
@@ -444,7 +444,7 @@ function createForm({
       formField += `
           <div class="info-el" name="${name}">
             <div class="title-el">
-              <span class="label-title" tabindex="0">${item.description}</span>
+              <span class="label-title">${item.description}</span>
             </div>
           </div>
         `;
@@ -475,7 +475,7 @@ function createForm({
       formField += `
           <fieldset class="input-el checkboxes ${required} question is-${required}">
             <legend class="title-el">
-              <span class="label-title" tabindex="0">${item.label}</span>
+              <span class="label-title">${item.label}</span>
               ${description}
             </legend>
             ${options}
