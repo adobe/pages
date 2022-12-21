@@ -4,6 +4,9 @@ main div.block.form {
 	visibility: unset;
 }
 
+form fieldset {
+	border: 0;
+}
 
 .has-progressed .content-container{
 	display: none;
@@ -132,7 +135,7 @@ main div.block.form {
 	border: 1px solid #EAEAEA;
 }
 
-.title-el {
+.title-el:not(legend) {
 	margin-bottom: 16px;
 }
 

@@ -693,16 +693,6 @@ function decorateContactUs() {
 }
 
 function addAccessibility() {
-  try {
-    const url = window.location.pathname;
-    const lang = url.split('/')[2];
-    const htmlTag = document.querySelector('html');
-    htmlTag.setAttribute('lang', lang);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.debug('could not add lang to html tag');
-  }
-
   function iconAria($icons) {
     $icons.forEach(($icon) => {
       try {

@@ -238,11 +238,10 @@ main div.form-container input[type=radio] {
 
 main div.form-container input[type=checkbox]:focus,
 main div.form-container input[type=radio]:focus {
-	outline: none;
+	outline: 2px auto blue;
 }
 
 main div.form-container input[type=checkbox]:checked {
-	outline: none;
 	border-color: transparent;
 	background: #1473E6;
 }
@@ -260,7 +259,6 @@ main div.form-container input[type=checkbox]:checked:before {
 }
 
 main div.form-container input[type=radio]:checked {
-	outline: none;
 	border: 5px solid #1473E6;
 }
 
