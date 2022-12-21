@@ -517,6 +517,7 @@ function createForm({
               ${description}
             </div>
             <textarea
+              id="${name}"
               name="${name}"
               cols="30"
               rows="5"
