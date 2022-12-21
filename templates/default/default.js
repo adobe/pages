@@ -1118,6 +1118,13 @@ export async function decorateDefault($main) {
   document.body.classList.add('loaded');
 }
 
+export const setHtmlLanguage = (lang) => {
+  if (!lang) {
+    lang = window.location.pathname.split('/')[2];
+    lang = !lang || lang.length > 5 ? 'en' : lang;
+  }
+  document.documentElement.setAttribute('lang', lang);
+}
 async function decoratePage() {
   lgr.debug('decorate');
 
@@ -1126,6 +1133,7 @@ async function decoratePage() {
   initializeNamespaces();
   setupTestMode();
   insertFooter();
+  setHtmlLanguage();
   linkInNewTabHelper();
   if (window.pages.product) {
     document.getElementById('favicon-safari').href = `/icons/${window.pages.product.replaceAll('-', '')}.ico`;
