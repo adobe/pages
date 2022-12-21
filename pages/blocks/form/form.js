@@ -388,7 +388,7 @@ function createForm({
       formField += `
         <div class="input-el question ${required ? 'is-required' : ''}">
           <div class="title-el">
-            <label class="label-title" for="${name}">${setup.label}</label>
+            <label class="label-title" tabindex="0" for="${name}">${setup.label}</label>
             ${description}
           </div>
           <input type="${item.type}" name="${name}" placeholder="${placeholder}" ${required}/>
@@ -417,7 +417,7 @@ function createForm({
       formField += `
           <div class="radio-el question is-${required}">
             <div class="title-el">
-              <span class="label-title">${item.label}</span>
+              <span class="label-title" tabindex="0">${item.label}</span>
               ${description}
             </div>
             <div class="radio-options-parent">
@@ -444,7 +444,7 @@ function createForm({
       formField += `
           <div class="info-el" name="${name}">
             <div class="title-el">
-              <span class="label-title">${item.description}</span>
+              <span class="label-title" tabindex="0">${item.description}</span>
             </div>
           </div>
         `;
@@ -475,7 +475,7 @@ function createForm({
       formField += `
           <div class="input-el checkboxes ${required} question is-${required}">
             <div class="title-el">
-              <span class="label-title">${item.label}</span>
+              <span class="label-title" tabindex="0">${item.label}</span>
               ${description}
             </div>
             ${options}
@@ -497,7 +497,7 @@ function createForm({
       formField += `
           <div class="select-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}">${item.label}</label>
+              <label class="label-title" tabindex="0" for="${name}">${item.label}</label>
               ${description}  
             </div>
             <select name="${name}" id="${name}">
@@ -513,7 +513,7 @@ function createForm({
       formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}">${item.label}</label>
+              <label class="label-title" tabindex="0" for="${name}">${item.label}</label>
               ${description}
             </div>
             <textarea
@@ -534,7 +534,7 @@ function createForm({
       formField += `
           <div class="text-el question is-${required}">
             <div class="title-el">
-              <label class="label-title" for="${name}">${item.label}</label>
+              <label class="label-title" tabindex="0" for="${name}">${item.label}</label>
               ${description}
             </div>
             <hr>
