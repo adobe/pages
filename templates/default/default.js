@@ -450,12 +450,12 @@ export async function loadLocalHeader() {
     [...$inlineHeader.children].forEach((e, i) => {
       if (isNodeName(e, 'DIV') && !i) {
         const $p = createTag('div');
-        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.outerHTML}`;
+        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg" area-label="${window.pages.product} Icon">${e.outerHTML}`;
         $p.innerHTML = inner;
         e.parentNode.replaceChild($p, e);
       }
       if (isNodeName(e, 'P') && !i) {
-        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg">${e.innerHTML}`;
+        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg" area-label="${window.pages.product} Icon">${e.innerHTML}`;
         e.innerHTML = inner;
       }
     });
@@ -1124,7 +1124,8 @@ export const setHtmlLanguage = (lang) => {
     lang = !lang || lang.length > 5 ? 'en' : lang;
   }
   document.documentElement.setAttribute('lang', lang);
-}
+};
+
 async function decoratePage() {
   lgr.debug('decorate');
 
@@ -1191,6 +1192,7 @@ const ICONS_IN_FILES = ['adobe', 'adobe-red', 'facebook', 'instagram', 'pinteres
       if (ICONS_IN_FILES.includes(icon)) {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.classList.add('icon', `icon-${icon}`);
+        svg.setAttribute('aria-label', `${icon} icon`);
         const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
         use.setAttribute('href', `/icons.svg#${icon}`);
         svg.appendChild(use);
