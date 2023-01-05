@@ -19,6 +19,21 @@ export default function decorateCategory() {
 
   const doubleVideo = document.querySelector('.doublevideo');
   doubleVideo.classList.add('columns');
+  const videoLinks = doubleVideo.querySelectorAll('a');
+  videoLinks.forEach((link) => {
+    const imgElement = link.querySelector('img');
+    imgElement?.removeAttribute('width');
+    imgElement?.removeAttribute('height');
+
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const videoElement = document.createElement('video');
+      videoElement.setAttribute('controls', true);
+      videoElement.setAttribute('autoplay', true);
+      videoElement.setAttribute('src', link.getAttribute('href'));
+      link.parentElement.replaceChild(videoElement, link);
+    });
+  });
 
   const taskSelector = document.querySelector('.taskselector');
   taskSelector.classList.add('columns');
@@ -82,6 +97,20 @@ export default function decorateCategory() {
     const links = categorySectionBottom.querySelectorAll('td > a');
     links.forEach((link) => {
       link.classList.add('button');
+    });
+
+    categorySectionBottom.querySelectorAll('.categorysectionbottom td:nth-child(2)').forEach((td) => {
+      const tr = td.parentElement;
+      if (!tr.querySelector('td:nth-child(1) picture')) {
+        tr.classList.add('photoless');
+        tr.querySelectorAll('td').forEach((subTd) => {
+          const picture = subTd.querySelector('picture');
+          if (!picture) return;
+          const link = subTd.querySelector('a');
+          // put picture inside link
+          link.prepend(picture);
+        });
+      }
     });
     //   return;
     // } else {

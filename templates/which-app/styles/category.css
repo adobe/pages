@@ -59,13 +59,38 @@
   gap: 30px;
   line-height: 1;
 }
+.doublevideo > div > div > * {
+  flex-grow:1;
+  width: calc(50% - 15px);
+  position: relative;
+}
+.doublevideo > div > div video {
+  width: 100%;
+}
 @media (max-width: 767px) {
   .doublevideo > div > div {
     gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .doublevideo > div > div > * {
+    width: 100%;
   }
 }
-.doublevideo > div > div > * {
-  flex-grow:1;
+
+.doublevideo > div > div > * *{
+  display: inline-block;
+}
+.doublevideo > div > div > * a{
+  transition: box-shadow .25s;
+  display: inline-block;
+  border-radius: .5em;
+  overflow: hidden;
+}
+.doublevideo > div > div > * a:hover {
+  box-shadow: 0 .3em 1em rgba(0, 0, 0, 0.1);
+}
+.doublevideo > div > div > * picture{
+  display: flex;
 }
 
 .taskselector {
@@ -80,6 +105,7 @@
   display: flex;
   gap: 22px;
   justify-content: center;
+  align-items: stretch;
   line-height: 1;
 }
 .taskselector .tasks > * {
@@ -92,6 +118,11 @@
   text-align: center;
   overflow: hidden;
   border-radius: 0.5rem;
+  cursor: pointer;
+  transition: box-shadow .25s;
+}
+.taskselector .tasks > *:hover {
+  box-shadow: 0 .3em 1em rgba(0, 0, 0, 0.1);
 }
 @media (max-width: 767px) {
   .taskselector .tasks {
@@ -115,6 +146,10 @@
 .taskselector .tasks > * > *:nth-child(2) {
   padding: 0.8rem;
   background: white;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
 }
 /* .taskall {
   padding: 0.5rem;
@@ -181,6 +216,9 @@
   border-collapse: collapse;
 }
 @media (max-width: 767px) {
+  .categorysection tbody {
+    flex-wrap: wrap;
+  }
   .categorysection tr {
     max-width: 100%;
     width: 100%;
@@ -274,6 +312,10 @@
   padding-bottom: 40px;
 }
 
+.categorysection .button {
+  white-space: nowrap;
+}
+
 .categorysectionbottom {
   display: flex;
   flex-wrap: wrap;
@@ -294,9 +336,10 @@
   text-align: left;
   padding: 0 !important;
   margin: 0;
-  margin-bottom: 2em;
   font-size: 12px;
   font-weight: bold;
+}
+.categorysectionbottom > h5 {
   text-transform: uppercase;
   letter-spacing: .05em;
 }
@@ -323,8 +366,11 @@
   background: white;
   border-radius: 8px;
   overflow: hidden;
-  /* box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2); */
   padding: 1.5em;
+  transition: all .25s;
+}
+.categorysectionbottom > table > tbody:hover {
+  box-shadow: 0 .3em 1em rgba(0, 0, 0, 0.1);
 }
 
 .categorysectionbottom tr {
@@ -357,9 +403,39 @@
 }
 .categorysectionbottom tr{
   flex-grow: 0;
+  flex-wrap: wrap;
 }
 .categorysectionbottom td:not(:last-child):not(:first-child) {
   flex-grow: 1;
+}
+
+.categorysectionbottom .photoless {
+  justify-content: flex-end;
+  gap: .5rem;
+}
+.categorysectionbottom .photoless img {
+  height: 15px !important;
+  width: auto !important;
+  margin-right: .5em;
+  position: relative;
+  top: 2px;
+}
+.categorysectionbottom .photoless picture {
+  flex-shrink: 0;
+}
+.categorysectionbottom .photoless a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.categorysectionbottom .photoless td:nth-of-type(1){
+  flex-grow: 1;
+}
+.categorysectionbottom .photoless h5{
+  font-size: .8rem;
+}
+.categorysectionbottom .photoless td:not(:nth-of-type(1)){
+  flex-grow: 0;
 }
 /* 
 .categorysectionbottom.subcard td:nth-child(3) {
@@ -381,4 +457,13 @@
 }
 .categorysection h5 {
   margin: .4rem 0;
+}
+
+@media (max-width: 767px) {
+  .categorysectionbottom tr {
+    gap: .5rem;
+  }
+  .categorysectionbottom td {
+    min-height: 2em;
+  }
 }
