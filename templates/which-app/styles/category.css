@@ -60,13 +60,14 @@
   line-height: 1;
 }
 .doublevideo > div > div > * {
-  flex-grow:1;
+  flex-grow: 1;
+  flex-shrink: 0;
   width: calc(50% - 15px);
   position: relative;
 }
-.doublevideo > div > div video {
+/* .doublevideo > div > div video {
   width: 100%;
-}
+} */
 @media (max-width: 767px) {
   .doublevideo > div > div {
     gap: 1rem;
