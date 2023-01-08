@@ -17,6 +17,22 @@ export default function decorateLanding() {
   if (!introSection) return;
   introSection.classList.add('columns');
 
+  const videoLinks = introSection.querySelectorAll('a');
+  videoLinks.forEach((link) => {
+    const imgElement = link.querySelector('img');
+    imgElement?.removeAttribute('width');
+    imgElement?.removeAttribute('height');
+
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const videoElement = document.createElement('video');
+      videoElement.setAttribute('controls', true);
+      videoElement.setAttribute('autoplay', true);
+      videoElement.setAttribute('src', link.getAttribute('href'));
+      link.parentElement.replaceChild(videoElement, link);
+    });
+  });
+
   const categoryHeader = document.querySelector(
     '.landingcategoryheader',
   );

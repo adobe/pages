@@ -12,7 +12,7 @@
 
 .landingintrosection {
   width: 100%;
-  padding: 1rem 0;
+  padding: 0 0;
   background-color: var(--superlight-gray);
 }
 
@@ -21,6 +21,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.landingintrosection > div > div:first-child {
+  padding: 1rem 0 .5rem 0;
 }
 
 .landingintrosection h1 {
@@ -30,9 +35,26 @@
 .landingintrosection > div > div {
   flex: 1;
   text-align: left;
+  display: block;
 }
 .landingintrosection > div > div:last-child {
   text-align: right;
+}
+
+.landingintrosection a, .landingintrosection video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .landingintrosection {
+    padding-top: 0.5rem;
+  }
+  .landingintrosection > div {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .landingcategoryheader {
@@ -42,6 +64,7 @@
 @media (max-width: 767px) {
   .landingcategoryheader {
     text-align: left;
+    padding: 30px 0;
   }
 }
 .landingcategoryheader h3 {
