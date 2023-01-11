@@ -47,7 +47,7 @@ export default function decorateCategory() {
       taskSelectorChildrenWrapper.appendChild(child);
       child.addEventListener('click', () => {
         const header = child.querySelector('div:last-child')?.innerHTML;
-        const headerElement = document.getElementById(header?.toLowerCase().replace(/ /g, '-'));
+        const headerElement = document.getElementById(header?.toLowerCase().replace(/ /g, '-').replace(/,/g, ''));
         headerElement?.scrollIntoView({ behavior: 'smooth' });
       });
     });
