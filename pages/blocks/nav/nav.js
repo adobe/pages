@@ -39,6 +39,7 @@ const productIcons = [
   'character',
   'general',
   'photoshop',
+  'sunrise',
 ];
 
 /**
@@ -74,8 +75,9 @@ async function styleNav($header) {
   if (!$appIcon) return;
   const link = $header.querySelector(':scope a');
   if (!link) return;
-  const appName = link.innerHTML;
-  $appIcon.setAttribute('alt', appName);
+  const appName = link.innerHTML; 
+  const appNameText = link.textContent || 'icon';
+  $appIcon.setAttribute('alt', appNameText);
   const appNameLink = link.getAttribute('href');
   const listItems = $header.querySelectorAll(':scope ul li');
   const $favicon = document.getElementById('favicon');
@@ -107,7 +109,7 @@ async function styleNav($header) {
             <div class="app-icon mobile">${$appIcon.outerHTML}</div>
             <div class="app-icon desktop">
               <a href="${appNameLink}" target="_blank">
-                <img src="${iconPath}" alt="${appName}">
+                <img src="${iconPath}" alt="${appNameText}">
               </a>
             </div>
             <div class="app-name mobile">
