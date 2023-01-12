@@ -39,6 +39,7 @@ const productIcons = [
   'character',
   'general',
   'photoshop',
+  'sunrise',
 ];
 
 /**
