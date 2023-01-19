@@ -18,10 +18,17 @@
   white-space: nowrap;
   line-height: 1;
   font-size: 16px;
+  background: white;
+  z-index: 100;
 }
 @media (max-width: 767px) {
   .nav {
     border-bottom: 1px solid var(--light-gray);
+    position: sticky;
+    top: 0;
+  }
+  .nav.nav-scrolled > div {
+    padding: .5rem 0;
   }
 }
 .nav > div {
@@ -29,7 +36,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+  padding: 1.2rem 0;
+  transition: padding .2s;
 }
 .nav p {
   margin: 0;

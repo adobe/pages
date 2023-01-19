@@ -16,12 +16,11 @@ import {
   insertFooter,
 } from '../default/default.js';
 
-import { wrapSections } from '../default/default-blocks.js';
-
 import decorateNav from './decorators/decorateNav.js';
 import decorateGeneral from './decorators/decorateGeneral.js'; //   loadURLParams, applyURLParams, externalLinks, fixLinksWithAmpersands,
 import decorateLanding from './decorators/decorateLanding.js';
 import decorateCategory from './decorators/decorateCategory.js';
+import decorateFooter from './decorators/decorateFooter.js';
 // import setUpBranch from './scripts/branch.js';
 
 export default async function decoratePage() {
@@ -32,12 +31,7 @@ export default async function decoratePage() {
   decorateCategory();
 
   insertFooter();
-  wrapSections('footer>div');
-
-  // applyURLParams();
-  // externalLinks();
-  // setUpBranch();
-  // fixLinksWithAmpersands();
+  decorateFooter();
 
   window.pages.decorated = true;
   appearMain();

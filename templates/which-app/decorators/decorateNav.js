@@ -30,4 +30,12 @@ export default function decorateNav() {
         .replace(/ /g, '')}`;
     });
   });
+
+  document.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+      nav.classList.add('nav-scrolled');
+    } else {
+      nav.classList.remove('nav-scrolled');
+    }
+  });
 }

@@ -80,3 +80,18 @@ h5 {
 a {
   color: var(--dark-gray) !important;
 }
+
+
+footer {
+  padding: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  background-color: #464646;
+  font-size: 16px;
+}
+footer a {
+  color: white !important;
+}

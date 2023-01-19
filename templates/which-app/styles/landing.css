@@ -13,7 +13,8 @@
 .landingintrosection {
   width: 100%;
   padding: 0 0;
-  background-color: var(--superlight-gray);
+  background-color: black;
+  color: #f8f8f8;
 }
 
 .landingintrosection > div {
@@ -30,6 +31,7 @@
 
 .landingintrosection h1 {
   line-height: 1.2;
+  font-weight: 900;
 }
 
 .landingintrosection > div > div {
@@ -81,6 +83,7 @@
   grid-template-rows: repeat(15, 40px);
   max-width: 760px;
   margin: 0 auto;
+  margin-bottom: 4rem;
 }
 @media (max-width: 767px) {
   .landingcategories {
