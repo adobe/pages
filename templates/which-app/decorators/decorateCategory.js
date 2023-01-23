@@ -103,6 +103,11 @@ export default function decorateCategory() {
       const tr = td.parentElement;
       if (!tr.querySelector('td:nth-child(1) picture')) {
         tr.classList.add('photoless');
+        const firstTd = tr.querySelector('td:nth-child(1)');
+        const p = document.createElement('p');
+        p.innerHTML = firstTd.innerHTML;
+        firstTd.innerHTML = '';
+        firstTd.appendChild(p);
         tr.querySelectorAll('td').forEach((subTd) => {
           const picture = subTd.querySelector('picture');
           if (!picture) return;
