@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { loadLocalHeader } from '../../../templates/default/default.js';
+import { loadLocalHeader, decorateIcons } from '../../../templates/default/default.js';
 
 const productIcons = [
   'adobe',
@@ -39,6 +39,7 @@ const productIcons = [
   'character',
   'general',
   'photoshop',
+  'sunrise',
 ];
 
 /**
@@ -68,12 +69,16 @@ function getImageName(pAppName) {
   return `/icons/${iconName.split(' ').join('')}.svg`;
 }
 
-function styleNav($header) {
-  const $appIcon = $header.querySelector(':scope img');
+async function styleNav($header) {
+  await decorateIcons($header);
+  const $appIcon = $header.querySelector(':scope span.icon') || $header.querySelector(':scope img.icon');
   if (!$appIcon) return;
-  const appIcon = $appIcon.src;
-  const appName = $header.querySelector(':scope a').innerHTML;
-  const appNameLink = $header.querySelector(':scope a').getAttribute('href');
+  const link = $header.querySelector(':scope a');
+  if (!link) return;
+  const appName = link.innerHTML; 
+  const appNameText = link.textContent || 'icon';
+  $appIcon.setAttribute('alt', appNameText);
+  const appNameLink = link.getAttribute('href');
   const listItems = $header.querySelectorAll(':scope ul li');
   const $favicon = document.getElementById('favicon');
   const iconPath = getImageName(appName);
@@ -101,10 +106,10 @@ function styleNav($header) {
       <div class="nav">
         <div class="nav__section">
           <div class="app-name-and-icon">
-            <div class="app-icon mobile"><img src="${appIcon}" alt="${appName}"></div>
+            <div class="app-icon mobile">${$appIcon.outerHTML}</div>
             <div class="app-icon desktop">
               <a href="${appNameLink}" target="_blank">
-                <img src="${iconPath}" alt="${appName}">
+                <img src="${iconPath}" alt="${appNameText}">
               </a>
             </div>
             <div class="app-name mobile">
@@ -146,7 +151,7 @@ export default async function decorate($block, _, doc) {
   await loadLocalHeader();
 
   const $header = doc.querySelector('header');
-  styleNav($header);
+  await styleNav($header);
 
   const iconEl = doc.querySelector('.app-name-and-icon');
   if (iconEl) {

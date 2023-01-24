@@ -17,6 +17,7 @@ import {
   createTag,
   externalLinks,
   insertLocalResource,
+  decorateIcons,
 } from '../default/default.js';
 
 import navLayout, { navHandler } from './navLayout.js';
@@ -354,6 +355,8 @@ export default async function decoratePage() {
   if (pageType === 'step') {
     await decorateStep();
   }
+
+  decorateIcons();
 
   window.pages.decorated = true;
   document.body.classList.add('loaded');

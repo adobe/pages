@@ -355,7 +355,7 @@ function styleButtons() {
     if (
       link.parentElement.parentNode.nodeName === 'P'
       && link.parentElement.parentNode.childElementCount === 1
-      && link.parentElement.parentNode.firstChild.nodeName === 'STRONG'
+      && link.parentElement.parentNode.firstElementChild.nodeName === 'STRONG'
     ) {
       link.className = 'button primary';
     }

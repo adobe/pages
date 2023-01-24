@@ -33,7 +33,7 @@ const createSideBar = ($block, json, { updateVideoArea, updateBackground, update
     // * 1-time calc would be done, and it could "beat" an element to its
     // * final position, causing it to end up stuck in the wrong place.
     // * hence, it's always watching.
-    const target = $sidebarElements.childNodes[activeIndex].firstChild.offsetTop;
+    const target = [...$sidebarElements.children][activeIndex].firstElementChild.offsetTop;
     const current = $indicator.offsetTop;
     const difference = target - current;
     if (Math.abs(difference) > 1) {
@@ -52,7 +52,7 @@ const createSideBar = ($block, json, { updateVideoArea, updateBackground, update
   const select = (index) => {
     clearTimeout(heightResetTimeout);
 
-    const $sidebarItems = $sidebarElements.childNodes;
+    const $sidebarItems = [...$sidebarElements.children];
 
     // * set previous active height back to a number so it can animate
     const targetHeight = $sidebarItems[activeIndex].offsetHeight;
@@ -67,13 +67,13 @@ const createSideBar = ($block, json, { updateVideoArea, updateBackground, update
     // * set all non-active elements to just the height of their first child
     $sidebarItems.forEach((item) => {
       item.classList.remove('active');
-      item.style.height = `${item.firstChild.offsetHeight}px`;
+      item.style.height = `${item.firstElementChild.offsetHeight}px`;
     });
 
     // * set active element to full height
     $sidebarItems[index].classList.add('active');
     let newTargetHeight = 0;
-    $sidebarItems[index].childNodes.forEach((node) => {
+    [...$sidebarItems[index].children].forEach((node) => {
       newTargetHeight += node.offsetHeight || 0;
     });
     newTargetHeight -= 1; // somehow this fixes a slight jump on reset to 'auto'
@@ -85,7 +85,7 @@ const createSideBar = ($block, json, { updateVideoArea, updateBackground, update
     }, 1000);
 
     // * update indicator
-    $indicator.style.height = `${$sidebarItems[index].firstChild.offsetHeight}px`;
+    $indicator.style.height = `${$sidebarItems[index].firstElementChild.offsetHeight}px`;
 
     // * update video and bg
     updateVideoArea(json[index].video);
@@ -123,7 +123,7 @@ const createSideBar = ($block, json, { updateVideoArea, updateBackground, update
     $sidebarElements.appendChild($sidebarElement);
   });
 
-  $block.insertBefore($sideBar, $block.firstChild);
+  $block.insertBefore($sideBar, $block.firstElementChild);
 
   select(activeIndex);
   moveIndicator();

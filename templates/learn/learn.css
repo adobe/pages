@@ -138,8 +138,10 @@ main a.button:hover {
 
 /* white nav */
 
-header .icon,
-.default-nav .icon {
+header img.icon,
+header span.icon > img,
+.default-nav img.icon,
+.default-nav span.icon > img {
 	width: 25px;
 }
 

@@ -298,10 +298,10 @@ async function decorateStep() {
         <source src="${currentStep.Video}" type="video/mpeg4">
         </video></div>`;
     // hashPathOf(`/static/lr-ps/hero-posters/${currentStep.Thumbnail}`).then((href) => {
-    //   $video.firstChild.style.backgroundImage = `url(${href})`;
+    //   $video.firstElementChild.style.backgroundImage = `url(${href})`;
     // });
     document.querySelector('.video').style.backgroundImage = `url(${await imageUrlFetcher(currentStep.Thumbnail)})`;
-    $video.firstChild.addEventListener('click', () => playVideo());
+    $video.firstElementChild.addEventListener('click', () => playVideo());
   }
 
   if (currentStep.Video.startsWith('https://www.youtube.com/')) {

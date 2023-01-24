@@ -78,7 +78,7 @@ const preloadImages = (images) => {
 };
 
 export default async function quickActions($block) {
-  const $blockChild = $block.childNodes;
+  const $blockChild = [...$block.children];
   const json = await jsonSetUp($blockChild);
   // * json is in the format [{ video: uri, text: html string, background: uri }]
 

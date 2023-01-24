@@ -19,6 +19,7 @@ import {
   loadLocalHeader,
   appearMain,
   replaceEmbeds,
+  decorateIcons,
 } from '../default/default.js';
 import { hashPathOf, setBackgroundImage } from '../../pages/scripts/static-media.js';
 
@@ -42,8 +43,8 @@ function getThumbnail(step) {
 }
 
 function addNavCarrot() {
-  if (document.querySelector('header svg') || document.querySelector('header img')) {
-    const svg = document.querySelector('header svg') || document.querySelector('header img');
+  if (document.querySelector('header span.icon') || document.querySelector('header img')) {
+    const svg = document.querySelector('header span.icon') || document.querySelector('header img');
     const svgWithCarrot = document.createElement('div');
     svgWithCarrot.classList.add('nav-logo');
 
@@ -405,6 +406,7 @@ export default async function decoratePage() {
   externalLinks('header');
   externalLinks('footer');
   wrapSections('header>div');
+  await decorateIcons();
   addNavCarrot();
   appearMain();
 

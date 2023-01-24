@@ -415,15 +415,15 @@ function createForm({
       });
       /* html */
       formField += `
-          <div class="radio-el question is-${required}">
-            <div class="title-el">
+          <fieldset class="radio-el question is-${required}">
+            <legend class="title-el">
               <span class="label-title">${item.label}</span>
               ${description}
-            </div>
+            </legend>
             <div class="radio-options-parent">
               ${radioOption}
             </div>
-          </div>
+          </fieldset>
         `;
     }
 
@@ -473,13 +473,13 @@ function createForm({
       });
       /* html */
       formField += `
-          <div class="input-el checkboxes ${required} question is-${required}">
-            <div class="title-el">
+          <fieldset class="input-el checkboxes ${required} question is-${required}">
+            <legend class="title-el">
               <span class="label-title">${item.label}</span>
               ${description}
-            </div>
+            </legend>
             ${options}
-          </div>
+          </fieldset>
         `;
     }
 
@@ -517,6 +517,7 @@ function createForm({
               ${description}
             </div>
             <textarea
+              id="${name}"
               name="${name}"
               cols="30"
               rows="5"

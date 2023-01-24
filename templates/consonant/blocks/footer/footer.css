@@ -31,7 +31,8 @@ footer .footer-container .footer a .icon:not(.icon-stock-logo-dark):hover {
     filter: brightness(0.7);
 }
 
-footer .footer-container .footer .icon.icon-adobe-logo-vertical {
+footer .footer-container .footer .icon.icon-adobe-logo-vertical,
+footer .footer-container .footer .icon.icon-adobe-logo-vertical svg {
     max-height: 60px;
 }
 

@@ -18,14 +18,16 @@ import {
   loadJSModule,
   loadLocalHeader,
   toClassName,
+  decorateIcons,
 } from '../default/default.js';
 
-function styleNav() {
+async function styleNav() {
   const parent = document.querySelector('header');
-  const $appIcon = parent.querySelector('img');
+  await decorateIcons($header);
+  const $appIcon = $header.querySelector(':scope span.icon');
   if (!$appIcon) return;
-  const appIcon = $appIcon.src;
   const appName = parent.querySelector('a').innerHTML;
+  $appIcon.setAttribute('alt', appName);
   const listItems = parent.querySelectorAll('ul li');
   let nav = '';
   let carrot = '';
@@ -45,7 +47,7 @@ function styleNav() {
     <div class="nav">
       <div class="nav__section">
         <div class="app-name-and-icon">
-          <div class="app-icon"><img src="${appIcon}" alt="${appName}"></div>
+          <div class="app-icon">${$appIcon.outerHTML}</div>
           <div class="app-name">${appName}</div>
           ${carrot}
         </div>
@@ -293,7 +295,7 @@ function decorateBackgroundImageBlocks() {
 
 async function decorateNav() {
   await loadLocalHeader();
-  styleNav();
+  await styleNav();
   if (document.querySelector('.nav')) {
     document.querySelector('.app-name-and-icon').addEventListener('click', mobileDropDown);
   }
