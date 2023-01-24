@@ -12,4 +12,13 @@
 
 export default function decorateGeneral() {
   document.title = 'Which App Should I Use? | Adobe Creative Cloud';
+
+  const icons = document.querySelectorAll('.icon');
+  icons.forEach((icon) => {
+    icon.innerHTML = `<img class="${
+      icon.classList[0]
+    } ${
+      icon.classList[1]
+    }" src="/icons/${icon.classList[1].replace('icon-', '')}.svg" />`;
+  });
 }
