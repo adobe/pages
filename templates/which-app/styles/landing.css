@@ -31,7 +31,8 @@
 
 .landingintrosection h1 {
   line-height: 1.2;
-  font-weight: 900;
+  font-weight: 1000;
+  font-family: 'Adobe Clean Black', 'Adobe Clean', 'adobe-clean', sans-serif;
 }
 
 .landingintrosection > div > div {

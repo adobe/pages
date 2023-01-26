@@ -13,7 +13,9 @@
 export default function decorateFooter() {
   const footer = document.querySelector('footer');
   // clear existing
-  footer.innerHTML = '';
+  // footer.innerHTML = '';
+  const customFooter = document.createElement('div');
+  customFooter.classList.add('custom-footer');
 
   const footerLinks = [
     { path: '/creativecloud/en/which-app/', label: 'Home' },
@@ -27,6 +29,9 @@ export default function decorateFooter() {
     const link = document.createElement('a');
     link.href = el.path;
     link.innerHTML = el.label;
-    footer.appendChild(link);
+    customFooter.appendChild(link);
   }
+
+  // insert before 'footer' element
+  footer.parentElement.insertBefore(customFooter, footer);
 }

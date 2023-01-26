@@ -82,7 +82,8 @@ a {
 }
 
 
-footer {
+.custom-footer {
+  width: 100%;
   padding: 34px;
   display: flex;
   align-items: center;
@@ -92,6 +93,10 @@ footer {
   background-color: #464646;
   font-size: 16px;
 }
-footer a {
+.custom-footer a {
   color: white !important;
+  text-decoration: none;
+}
+footer {
+  opacity: 1 !important;
 }

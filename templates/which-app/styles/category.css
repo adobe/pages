@@ -36,7 +36,8 @@
   align-items: center;
 }
 .centeredintro h2 {
-  font-weight: 900;
+  font-weight: 1000;
+  font-family: 'Adobe Clean Black', 'Adobe Clean', 'adobe-clean', sans-serif;
   font-size: 40px;
   margin: 0;
   margin-bottom: 0.5em;
@@ -182,6 +183,9 @@
   font-size: 26px;
   position: relative;
   top: 2px
+}
+.categorysection p + h4 {
+  margin-left: 1rem;
 }
 .categorysection h4 + p {
   margin: 0;
@@ -417,6 +421,7 @@
 }
 .categorysectionbottom td {
  padding: 0 !important;
+ flex-grow: 0;
 }
 .categorysectionbottom tr{
   flex-grow: 0;
@@ -475,6 +480,11 @@
   height: 25px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.categorysectionbottom td a.button > *{
+  flex-grow: 0;
 }
 .categorysection h5 {
   margin: .4rem 0;
