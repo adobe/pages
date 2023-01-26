@@ -78,6 +78,7 @@
   }
   .doublevideo > div > div > * {
     width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -130,12 +131,19 @@
 }
 @media (max-width: 767px) {
   .taskselector .tasks {
-    display: flex;
+    display: block;
+    white-space: nowrap;
     overflow-x: auto;
+    position: relative;
   }
   .taskselector .tasks > * {
+    display: inline-block;
     flex-shrink: 0;
+    min-height: 100%;
     width: 150px;
+    margin-right: 22px;
+    white-space: initial;
+    background-color: white;
   }
 }
 /* .taskselector .tasks > * > *:nth-child(1) {
@@ -180,12 +188,9 @@
 .categorysection h4 {
   margin: 0;
   margin-bottom: 0.4em;
-  font-size: 26px;
+  font-size: 22px;
   position: relative;
-  top: 2px
-}
-.categorysection p + h4 {
-  margin-left: 1rem;
+  /* top: 2px; */
 }
 .categorysection h4 + p {
   margin: 0;
@@ -256,9 +261,9 @@
     display: inline-block;
     font-size: 1.3rem;
     margin: 0;
-    margin-left: 0.8rem;
+    /* margin-left: 0.8rem; */
     position: relative;
-    top: -.45em;
+    top: -.27em;
   }
 }
 
@@ -311,12 +316,15 @@
 .categorysection > div > div > table > tbody > tr > td:nth-child(2) > p {
   margin: 0;
 }
-.categorysection > div > div > table > tbody > tr > td:nth-child(2) > p > img {
-  width: 32px;
-  margin-right: 0.8rem;
+.categorysection > div > div > table > tbody > tr > td:nth-child(2) > p img {
+  width: 32px !important;
+  margin-right: 0.8rem !important;
+}
+.categorysection > div > div > table > tbody > tr > td:nth-child(2) > h4 {
+ font-size: 22px;
 }
 .categorysection > div > div > table > tbody > tr > td:nth-child(2) > h5 {
- font-size: 26px;
+ font-size: 22px;
 }
 .categorysection > div > div > table > tbody > tr > td:nth-child(2) > *:last-child {
   font-size: 18px;
@@ -328,6 +336,12 @@
 .categorysection tr td:last-child {
   padding-top: 50px;
   padding-bottom: 40px;
+}
+@media (max-width: 767px) {
+  .categorysection tr td:last-child {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 }
 
 .categorysection .button {
