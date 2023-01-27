@@ -27,7 +27,6 @@ body {
   color: var(--text);
   font-size: 19px;
   line-height: 1.45;
-  /* font-size: calc(min(18px, max(1.2vw, 16px))); */
 }
 @media (max-width: 767px) {
   html,
@@ -40,11 +39,6 @@ body {
 *:after {
   box-sizing: border-box;
 }
-/* @media (max-width: 1024px) {
-  body {
-    padding-top: var(--menu-height);
-  }
-} */
 
 @media (max-width: 767px) {
   html,

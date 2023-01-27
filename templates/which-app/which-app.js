@@ -17,12 +17,11 @@ import {
 } from '../default/default.js';
 
 import decorateNav from './decorators/decorateNav.js';
-import decorateGeneral from './decorators/decorateGeneral.js'; //   loadURLParams, applyURLParams, externalLinks, fixLinksWithAmpersands,
+import decorateGeneral from './decorators/decorateGeneral.js';
 import decorateLanding from './decorators/decorateLanding.js';
 import decorateCategory from './decorators/decorateCategory.js';
 import decorateFooter from './decorators/decorateFooter.js';
 import { wrapSections } from '../default/default-blocks.js';
-// import setUpBranch from './scripts/branch.js';
 
 export default async function decoratePage() {
   loadCSS('/templates/default/default.css', true, true);

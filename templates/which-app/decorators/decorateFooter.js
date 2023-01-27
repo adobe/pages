@@ -32,6 +32,5 @@ export default function decorateFooter() {
     customFooter.appendChild(link);
   }
 
-  // insert before 'footer' element
   footer.parentElement.insertBefore(customFooter, footer);
 }

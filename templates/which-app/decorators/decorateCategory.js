@@ -52,10 +52,6 @@ export default function decorateCategory() {
       });
     });
   taskSelector?.appendChild(taskSelectorChildrenWrapper);
-  // const allButton = document.createElement('div');
-  // allButton.innerHTML = 'All';
-  // allButton.classList.add('taskall');
-  // taskSelectorChildrenWrapper.prepend(allButton);
 
   const categorySections = document.querySelectorAll(
     '.categorysection',
@@ -65,7 +61,6 @@ export default function decorateCategory() {
   });
 
   // decorate 2-image overlap revealers
-
   document.querySelectorAll('.categorysection > div > div > table > tbody > tr > td:nth-of-type(1) > picture:nth-of-type(2)').forEach((picture) => {
     const underlyingPicture = picture.previousElementSibling;
     picture.classList.add('overlaidpicture');
@@ -90,10 +85,6 @@ export default function decorateCategory() {
   categorySectionBottoms.forEach((categorySectionBottom) => {
     categorySectionBottom.classList.add('categorysectionbottom');
 
-    // const children = [...categorySectionBottom.children];
-    // if (children.length < 2) return;
-    // if (children.length === 2) {
-    //   categorySectionBottom.classList.add('buttononly');
     const links = categorySectionBottom.querySelectorAll('td > a');
     links.forEach((link) => {
       link.classList.add('button');
@@ -117,23 +108,5 @@ export default function decorateCategory() {
         });
       }
     });
-    //   return;
-    // } else {
-    //   categorySectionBottom.classList.add('subcard');
-    //   const links = categorySectionBottom.querySelectorAll('tbody > tr > td:nth-of-type(3) > a');
-    //   links.forEach((link) => {
-    //     link.classList.add('button');
-    //   });
-    // }
-
-    // children.slice(1).forEach((child) => {
-    //   const firstLink = child.querySelector('a');
-    //   const path = firstLink?.getAttribute('href');
-    //   if (!path) return;
-
-    //   child.addEventListener('click', () => {
-    //     window.location.href = path;
-    //   });
-    // });
   });
 }

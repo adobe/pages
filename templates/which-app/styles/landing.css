@@ -170,9 +170,6 @@
   z-index: 1;
   transition: all .2s;
 }
-/* .landingcategories > div:hover img{
-  filter: brightness(.6);
-} */
 
 @media (max-width: 767px) {
   .landingcategories > div {
