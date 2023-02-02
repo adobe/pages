@@ -76,18 +76,20 @@ a {
 }
 
 
-.custom-footer {
+.whichappfooter {
   width: 100%;
   padding: 34px;
+  background-color: #464646;
+  font-size: 16px;
+}
+.whichappfooter > div {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 40px;
   flex-wrap: wrap;
-  background-color: #464646;
-  font-size: 16px;
 }
-.custom-footer a {
+.whichappfooter a {
   color: white !important;
   text-decoration: none;
 }

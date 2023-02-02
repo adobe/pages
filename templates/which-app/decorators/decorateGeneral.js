@@ -11,7 +11,9 @@
  */
 
 export default function decorateGeneral() {
-  document.title = 'Which App Should I Use? | Adobe Creative Cloud';
+  const pageTitle = document.querySelector('.pagetitle');
+  document.title = pageTitle.textContent || 'Which App Should I Use? | Adobe Creative Cloud';
+  pageTitle.remove();
 
   const icons = document.querySelectorAll('.icon');
   icons.forEach((icon) => {
