@@ -13,13 +13,13 @@ main div.block.cardcallouts {
   margin-bottom: 2em;
 }
 
-.cardcallouts-container > div > p a {
-  color: #1473E6 !important;
+.cardcallouts-container  > div > p a {
+  color:  #1473E6 !important;
   border: none;
   background: transparent !important;
-  font-size: 17px;
+  font-size: 15px;
+  
 }
-
 .cardcallouts > div img {
   width: 100%;
 }
