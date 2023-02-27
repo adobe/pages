@@ -315,7 +315,11 @@
 }
 
 .categorysection tr td:last-child {
+<<<<<<< HEAD
   padding-top: 20px;
+=======
+  padding-top: 50px;
+>>>>>>> upstream/main
   padding-bottom: 40px;
 }
 @media (max-width: 767px) {
