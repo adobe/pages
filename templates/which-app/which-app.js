@@ -32,6 +32,8 @@ export default async function decoratePage() {
   insertFooter();
   wrapSections('footer>div');
 
+  loadCSS('/pages/styles/lazy-styles.css');
+
   window.pages.decorated = true;
   appearMain();
   document.body.classList.add('loaded');

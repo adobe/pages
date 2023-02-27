@@ -31,8 +31,8 @@
 
 .landingintrosection h1 {
   line-height: 1.2;
-  font-weight: 1000;
-  font-family: 'Adobe Clean Black', 'Adobe Clean', 'adobe-clean', sans-serif;
+  font-weight: 900;
+  font-family: adobe-clean, 'Adobe Clean', sans-serif;
 }
 
 .landingintrosection > div > div {
@@ -136,7 +136,7 @@
   padding-bottom: .3em;
   border-bottom: 1.5px solid white;
   margin-bottom: 1rem;
-  font-family: 'Adobe Clean Black', 'Adobe Clean', 'adobe-clean', sans-serif;
+  font-family: adobe-clean, 'Adobe Clean', sans-serif;
 }
 .landingcategories h3 {
   font-size: 16px;
