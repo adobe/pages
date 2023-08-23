@@ -450,12 +450,12 @@ export async function loadLocalHeader() {
     [...$inlineHeader.children].forEach((e, i) => {
       if (isNodeName(e, 'DIV') && !i) {
         const $p = createTag('div');
-        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg" area-label="${window.pages.product} Icon">${e.outerHTML}`;
+        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg" aria-label="${window.pages.product} Icon">${e.outerHTML}`;
         $p.innerHTML = inner;
         e.parentNode.replaceChild($p, e);
       }
       if (isNodeName(e, 'P') && !i) {
-        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg" area-label="${window.pages.product} Icon">${e.innerHTML}`;
+        const inner = /* html */`<img class="icon icon-${window.pages.product}" src="/icons/${window.pages.product}.svg" aria-label="${window.pages.product} Icon">${e.innerHTML}`;
         e.innerHTML = inner;
       }
     });
